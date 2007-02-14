@@ -1,0 +1,82 @@
+/* ---- Eventlist ---- */
+div#eventlist * /* reset all */
+{ margin: 0; padding: 0; }
+
+/* clearing >> do not edit if you don't know what you do <<
+**********************************************************************************/
+.clear
+{clear: both; line-height: 1px;}
+
+.floattext:after /* ie fix in coditional comments  (html source) */
+{content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+
+/* buttons
+**********************************************************************************/
+.buttons
+{ float: right; }
+
+.buttons a
+{ padding: 0 3px; height: 16px; line-height: 16px; }
+
+/* headlines
+**************************************************************************/
+div#eventlist h2
+{ font-size: 1.0em; font-weight: bold; border-bottom:2px solid #ddd; color:#000; padding:0.2em 0.3em; margin: 0.8em 0; }
+
+/* definition list
+**************************************************************************/
+div#eventlist dl /* definition list */
+{ margin: 0 5px; }
+
+div#eventlist dt /* definition title */
+{ float:left; font-size: 11px; font-weight: bold; width: 11em;}
+
+div#eventlist dd /* definition desription */
+{ position:relative; display: block; margin: 0 0 5px 12em; font-size: 0.9em; }
+
+* html .floattext dd /* ie fix against the 3px jog bug */ 
+{ height: 1%; }
+
+div#eventlist div.description
+{ margin: 5px 0; padding: 0 5px; } 
+
+.copyright
+{ font-size: 0.85em; text-align: center; margin: 1em 0; color: #aaa; }
+
+/* flyer and location pictures
+*************************************************************************************/
+.flyer
+{ position: relative; z-index: 100; float:right; clear: right; margin:5px 5px 10px 5px; }
+
+a.flyer img, img.flyer, .cat_img img
+{ border: 1px solid #ddd; padding:2px; }
+
+/* registered user list
+*************************************************************************************/
+ul.user
+{ margin:5px; padding:0; list-style:none; font-size:11px;}
+
+ul.user li
+{ float:left; margin:5px; list-style:none; }
+
+ul.user li img
+{ border: #ddd 1px solid; padding:3px; }
+
+ul.user li span.username
+{ display:block; text-align:center; font-weight:bold; }
+
+/* pagination
+**************************************************************************/
+.pageslinks, .pagescounter
+{ text-align: center; }
+
+/* Categoryview
+**************************************************************************/
+.catimg
+{ float:left; width: 20%; text-align: center; }
+
+.catimg p
+{ font-size: 0.9em; }
+
+.catdescription
+{ width: 78%; float: right; }

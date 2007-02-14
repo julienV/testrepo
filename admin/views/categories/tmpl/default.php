@@ -1,0 +1,106 @@
+<form action="<?php echo $this->request_url; ?>" method="post" name="adminForm">
+		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
+			<tr>
+		  		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>
+		  		<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">::<?php echo JText::_( 'CATEGORIES' ); ?>::</font></td>
+			</tr>
+		</table>
+
+		<table class="adminform">
+			<tr>
+			 <td width="100%">
+			  	<?php echo JText::_( 'SEARCH' ); ?>
+				<input type="text" name="search" id="search" value="<?php echo $this->search;?>" class="text_area" onChange="document.adminForm.submit();" />
+				<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
+				<button onclick="this.form.getElementById('search').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
+			</td>
+			<td nowrap="nowrap">
+			  <?php
+			  echo $this->lists['state'];
+				?>
+				</td>
+			</tr>
+			</table>
+
+			<table class="adminlist" cellspacing="1">
+			<thead>
+			<tr>
+				<th width="5"><?php echo JText::_( 'Num' ); ?></th>
+				<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
+				<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CATEGORY' ), 'catname', $this->lists ); ?></th>
+				<th width="1%" nowrap="nowrap"><?php echo JText::_( 'PUBLISHED' ); ?></th>
+				<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'ACCESS' ),'c.access', $this->lists ); ?></th>
+			    <th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'GROUP' ),'gr.name', $this->lists ); ?></th>
+				<th width="80"><?php JCommonHTML :: tableOrdering( JText::_( 'REORDER' ), 'c.ordering', $this->lists ); ?></th>
+			    <th width="1%"><?php JCommonHTML::saveorderButton( $this->rows, 'filesave.png', 'saveordercat' ); ?></th>
+			</tr>
+			</thead>
+
+			<tbody>
+			<?php
+			$k = 0;
+			for ($i=0, $n=count($this->rows); $i < $n; $i++) {
+				$row = $this->rows[$i];
+
+				$link 		= ampReplace( 'index.php?option=com_eventlist&controller=categories&task=categoryedit&cid[]='. $row->id );
+				$published 	= JCommonHTML::PublishedProcessing( $row, $i );
+				$access 	= JCommonHTML::AccessProcessing( $row, $i );
+				$checked 	= JCommonHTML::CheckedOutProcessing( $row, $i );
+   			?>
+			<tr class="<?php echo "row$k"; ?>">
+				<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
+				<td width="7"><?php echo $checked; ?></td>
+				<td align="left">
+				<?php
+				if ( $row->checked_out && ( $row->checked_out != $this->user->get('id') ) ) {
+					echo htmlspecialchars($row->catname, ENT_QUOTES);
+				} else {
+				?>
+					<a href="<?php echo $link; ?>" title="Edit Category">
+					<?php echo htmlspecialchars($row->catname, ENT_QUOTES); ?>
+					</a>
+				<?php
+				}
+				?>
+				</td>
+				<td align="center">
+					<?php echo $published;?>
+				</td>
+				<td align="center">
+				<?php
+				echo $access;
+				?>
+				</td>
+				<td align="center">
+				<?php
+				echo $row->catgroup ? htmlspecialchars($row->catgroup, ENT_QUOTES) : '-';
+				?>
+				</td>
+				<td class="order" colspan="2">
+					<span><?php echo $this->pageNav->orderUpIcon( $i, true, 'orderup', 'Move Up', $this->ordering ); ?></span>
+
+					<span><?php echo $this->pageNav->orderDownIcon( $i, $n, true, 'orderdown', 'Move Down', $this->ordering );?></span>
+
+					<?php $disabled = $this->ordering ?  '' : '"disabled=disabled"'; ?>
+
+					<input type="text" name="order[]" size="5" value="<?php echo $row->ordering; ?>" <?php echo $disabled; ?> class="text_area" style="text-align: center" />
+				</td>
+			</tr>
+				<?php $k = 1 - $k; } ?>
+			<tbody>
+			<tfoot>
+				<td colspan="8">
+					<?php echo $this->pageNav->getListFooter(); ?>
+				</td>
+			</tfoot>
+		</table>
+		<?php
+		echo ELAdmin::footer( );
+		?>
+			<input type="hidden" name="boxchecked" value="0" />
+			<input type="hidden" name="option" value="<?php echo $option; ?>" />
+			<input type="hidden" name="controller" value="categories" />
+			<input type="hidden" name="task" value="" />
+			<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
+			<input type="hidden" name="filter_order_Dir" value="" />
+		</form>

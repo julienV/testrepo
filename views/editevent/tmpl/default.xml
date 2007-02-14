@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="Event submission">
+		<message>
+			<![CDATA[ADD EVENT VIEW DESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>Event submission</name>
+		<description>ADD EVENT VIEW DESC</description>
+	</state>
+</metadata>

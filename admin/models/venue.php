@@ -1,0 +1,279 @@
+<?php
+/**
+ * @version 0.9 $Id$
+ * @package Joomla
+ * @subpackage EventList
+ * @copyright (C) 2005 - 2007 Christoph Lukes
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ */
+
+// no direct access
+defined('_JEXEC') or die('Restricted access');
+
+jimport('joomla.application.component.model');
+
+/**
+ * EventList Component Venue Model
+ *
+ * @package Joomla
+ * @subpackage EventList
+ * @since		0.9
+ */
+class EventListModelVenue extends JModel
+{
+	/**
+	 * venue id
+	 *
+	 * @var int
+	 */
+	var $_id = null;
+
+	/**
+	 * venue data array
+	 *
+	 * @var array
+	 */
+	var $_data = null;
+
+	/**
+	 * Constructor
+	 *
+	 * @since 0.9
+	 */
+	function __construct()
+	{
+		parent::__construct();
+
+		$array = JRequest::getVar('cid',  0, '', 'array');
+		$this->setId((int)$array[0]);
+	}
+
+	/**
+	 * Method to set the identifier
+	 *
+	 * @access	public
+	 * @param	int event identifier
+	 */
+	function setId($id)
+	{
+		// Set venue id and wipe data
+		$this->_id	    = $id;
+		$this->_data	= null;
+	}
+
+	/**
+	 * Logic for the event edit screen
+	 *
+	 * @access public
+	 * @return array
+	 * @since 0.9
+	 */
+	function &getData()
+	{
+		if ($this->_loadData())
+		{
+
+		}
+		else  $this->_initData();
+
+		return $this->_data;
+	}
+
+	/**
+	 * Method to load content event data
+	 *
+	 * @access	private
+	 * @return	boolean	True on success
+	 * @since	0.9
+	 */
+	function _loadData()
+	{
+		// Lets load the content if it doesn't already exist
+		if (empty($this->_data))
+		{
+			$query = 'SELECT *'
+					. ' FROM #__eventlist_venues'
+					. ' WHERE id = '.$this->_id
+					;
+
+			$this->_db->setQuery($query);
+
+			$this->_data = $this->_db->loadObject();
+
+			return (boolean) $this->_data;
+		}
+		return true;
+	}
+
+	/**
+	 * Method to initialise the venue data
+	 *
+	 * @access	private
+	 * @return	boolean	True on success
+	 * @since	0.9
+	 */
+	function _initData()
+	{
+		// Lets load the content if it doesn't already exist
+		if (empty($this->_data))
+		{
+			$venue = new stdClass();
+			$venue->id					= 0;
+			$venue->club				= null;
+			$venue->url					= null;
+			$venue->street				= null;
+			$venue->city				= null;
+			$venue->plz					= null;
+			$venue->state				= null;
+			$venue->country				= null;
+			$venue->locimage			= JText::_('SELECTIMAGE');
+			$venue->published			= 1;
+			$venue->locdescription		= null;
+			$venue->meta_keywords		= null;
+			$venue->meta_description	= null;
+			$this->_data				= $venue;
+			return (boolean) $this->_data;
+		}
+		return true;
+	}
+
+	/**
+	 * Method to checkin/unlock the item
+	 *
+	 * @access	public
+	 * @return	boolean	True on success
+	 * @since	0.9
+	 */
+	function checkin()
+	{
+		if ($this->_id)
+		{
+			$item = & $this->getTable('eventlist_venues', '');
+			if(! $item->checkin($this->_id)) {
+				$this->setError($this->_db->getErrorMsg());
+				return false;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Method to checkout/lock the item
+	 *
+	 * @access	public
+	 * @param	int	$uid	User ID of the user checking the item out
+	 * @return	boolean	True on success
+	 * @since	0.9
+	 */
+	function checkout($uid = null)
+	{
+		if ($this->_id)
+		{
+			// Make sure we have a user id to checkout the article with
+			if (is_null($uid)) {
+				$user	=& JFactory::getUser();
+				$uid	= $user->get('id');
+			}
+			// Lets get to it and checkout the thing...
+			$item = & $this->getTable('eventlist_venues', '');
+			if(!$item->checkout($uid, $this->_id)) {
+				$this->setError($this->_db->getErrorMsg());
+				return false;
+			}
+
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Tests if the venue is checked out
+	 *
+	 * @access	public
+	 * @param	int	A user id
+	 * @return	boolean	True if checked out
+	 * @since	0.9
+	 */
+	function isCheckedOut( $uid=0 )
+	{
+		if ($this->_loadData())
+		{
+			if ($uid) {
+				return ($this->_data->checked_out && $this->_data->checked_out != $uid);
+			} else {
+				return $this->_data->checked_out;
+			}
+		}
+	}
+
+	/**
+	 * Method to store the venue
+	 *
+	 * @access	public
+	 * @return	boolean	True on success
+	 * @since	1.5
+	 */
+	function store($data)
+	{
+		global $mainframe, $option;
+
+		$elsettings = ELAdmin::config();
+
+		$row  =& $this->getTable('eventlist_venues', '');
+
+		// bind it to the table
+		if (!$row->bind($data)) {
+				JError::raiseError( 500, $this->_db->stderr() );
+				return false;
+		}
+
+		// Fields empty?
+		if(empty($row->club)) {
+			$row->checkin();
+	        $mainframe->redirect('index.php?option='.$option.'&view=venues', JText::_( 'ADD VENUE') );
+		}
+
+		if ( $elsettings->showcity == 1 ) {
+			if(empty($row->city)) {
+				$row->checkin();
+        		$mainframe->redirect('index.php?option='.$option.'&view=venues', JText::_( 'ADD CITY') );
+			}
+		}
+		if (($elsettings->showmap24 == 1 ) && ($elsettings->showdetailsadress == 1 )){
+			if ((empty($row->street)) || (empty($row->plz)) || (empty($row->city)) || (empty($row->country))) {
+				$row->checkin();
+				$mainframe->redirect('index.php?option='.$option.'&view=venues', JText::_( 'ADD ADDRESS') );
+			}
+		}
+
+		// Check if image was selected
+		jimport('joomla.filesystem.file');
+		$format 	= JFile::getExt('JPATH_SITE/images/eventlist/venues/'.$row->locimage);
+
+		$allowable 	= array ('gif', 'jpg', 'png');
+		if (in_array($format, $allowable)) {
+			$row->locimage = $row->locimage;
+		} else {
+			$row->locimage = '';
+		}
+
+		// Make sure the data is valid
+		if (!$row->check()) {
+			JError::raiseError( 500, $this->_db->stderr() );
+			return false;
+		}
+
+		// Store it in the db
+		if (!$row->store()) {
+				JError::raiseError( 500, $this->_db->stderr() );
+				return false;
+		}
+
+		// Check the venue item in and update item order
+		$row->checkin();
+		$row->reorder();
+
+		return true;
+	}
+}
+?>

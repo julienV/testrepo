@@ -1,0 +1,177 @@
+	<table class="noshow">
+      <tr>
+        <td width="50%">
+			<fieldset class="adminform">
+			<legend><?php echo JText::_( 'VENUES' ); ?></legend>
+				<table class="admintable" cellspacing="1">
+				<tbody>
+					<tr valign="top">
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'DISPLAY VENUE DESCRIPT' ); ?>::<?php echo JText::_('DISPLAY VENUE DESCRIPT TIP'); ?>">
+								<?php echo JText::_( 'DISPLAY VENUE DESCRIPT' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+		 					<?php
+          						echo JHTMLSelect::yesnoList( 'showlocdescription', 'class="inputbox"', $this->elsettings->showlocdescription );
+       						?>
+       	 				</td>
+      				</tr>
+					<tr valign="top">
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'DISPLAY ADDRESS' ); ?>::<?php echo JText::_('DISPLAY ADDRESS TIP'); ?>">
+								<?php echo JText::_( 'DISPLAY ADDRESS' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+		 					<?php
+          						echo JHTMLSelect::yesnoList( 'showdetailsadress', 'class="inputbox"', $this->elsettings->showdetailsadress );
+       						?>
+       	 				</td>
+      				</tr>
+					<tr>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'DISPLAY LINK TO VENUE' ); ?>::<?php echo JText::_('DISPLAY LINK TO VENUE TIP'); ?>">
+								<?php echo JText::_( 'DISPLAY LINK TO VENUE' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+		 					<?php       						
+          					$showlink = array();
+							$showlink[] = JHTMLSelect::option( '0', JText::_( 'NO LINK' ) );
+							$showlink[] = JHTMLSelect::option( '1', JText::_( 'LINK TO URL' ) );
+							$showlink[] = JHTMLSelect::option( '2', JText::_( 'LINK TO VENUEVIEW' ) );
+							$show = JHTMLSelect::genericList( $showlink, 'showdetlinkclub', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->showdetlinkclub );
+							echo $show;	
+          					?>
+       	 				</td>
+      				</tr>
+					<tr>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'DISPLAY LINK TO MAP' ); ?>::<?php echo JText::_('DISPLAY LINK TO MAP TIP'); ?>">
+								<?php echo JText::_( 'DISPLAY LINK TO MAP' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+							<?php
+							$mode = 0;
+							if ($this->elsettings->showmapserv == 1) {
+								$mode = 1;
+							} // if
+							?>
+							<select name="showmapserv" size="1" class="inputbox" onChange="changemapMode()">
+  								<option value="0"<?php if ($this->elsettings->showmapserv == 0) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'NO MAP SERVICE' ); ?></option>
+  								<option value="1"<?php if ($this->elsettings->showmapserv == 1) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'MAP24' ); ?></option>
+  								<option value="2"<?php if ($this->elsettings->showmapserv == 2) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'GOOGLEMAP' ); ?></option>
+							</select>
+       	 				</td>
+      				</tr>
+					<tr id="map24"<?php if (!$mode) echo ' style="display:none"'; ?>>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'REGISTER MAP24' ); ?>::<?php echo JText::_('REGISTER MAP24 TIP'); ?>">
+								<?php echo JText::_( 'REGISTER MAP24' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+          					<input type="text" name="map24id" value="<?php echo $this->elsettings->map24id; ?>" size="15" maxlength="10" />
+       	 					<a href="http://www.map24.com/" target="_blank">map24.com</a>
+						</td>
+      				</tr>
+				</tbody>
+			</table>
+		</fieldset>
+		
+		</td>
+        <td width="50%">
+        
+		<fieldset class="adminform">
+			<legend><?php echo JText::_( 'EVENTS' ); ?></legend>
+				<table class="admintable" cellspacing="1">
+				<tbody>
+	  				<tr>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'DISPLAY TIME' ); ?>::<?php echo JText::_('DISPLAY TIME TIP'); ?>">
+								<?php echo JText::_( 'DISPLAY TIME' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+							<?php
+          						echo JHTMLSelect::yesnoList( 'showtimedetails', 'class="inputbox"', $this->elsettings->showtimedetails );
+       						?>
+       	 				</td>
+      				</tr>
+					<tr>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'DISPLAY EVENT DESCRIPT' ); ?>::<?php echo JText::_('DISPLAY EVENT DESCRIPT TIP'); ?>">
+								<?php echo JText::_( 'DISPLAY EVENT DESCRIPT' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+		 					<?php
+          						echo JHTMLSelect::yesnoList( 'showevdescription', 'class="inputbox"', $this->elsettings->showevdescription );
+       						?>
+       	 				</td>
+      				</tr>
+					<tr>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'DISPLAY EVENT TITLE' ); ?>::<?php echo JText::_('DISPLAY EVENT TITLE TIP'); ?>">
+								<?php echo JText::_( 'DISPLAY EVENT TITLE' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+		 					<?php
+          						echo JHTMLSelect::yesnoList( 'showdetailstitle', 'class="inputbox"', $this->elsettings->showdetailstitle );
+       						?>
+       	 				</td>
+      				</tr>
+				</tbody>
+			</table>
+			</fieldset>
+			
+			<fieldset class="adminform">
+			<legend><?php echo JText::_( 'INTEGRATE' ); ?></legend>
+				<table class="admintable" cellspacing="1">
+				<tbody>
+	  				<tr>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM SOL' ); ?>::<?php echo JText::_('COM SOL TIP'); ?>">
+								<?php echo JText::_( 'COM SOL' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+       		 				<?php
+							$mode = 0;
+							if ($this->elsettings->comunsolution == 1) {
+								$mode = 1;
+							} // if
+							?>
+       		 				<select name="comunsolution" size="1" class="inputbox" onChange="changeintegrateMode()">
+  								<option value="0"<?php if ($this->elsettings->comunsolution == 0) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'DONT USE COM SOL' ); ?></option>
+  								<option value="1"<?php if ($this->elsettings->comunsolution == 1) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'COMBUILDER' ); ?></option>
+							</select>
+       	 				</td>
+      				</tr>
+	  				<tr id="integrate"<?php if (!$mode) echo ' style="display:none"'; ?>>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'TYPE COM INTEGRATION' ); ?>::<?php echo JText::_('TYPE COM INTEGRATION TIP'); ?>">
+								<?php echo JText::_( 'TYPE COM INTEGRATION' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+       						<?php
+		   					$comoption = array();
+							$comoption[] = JHTMLSelect::option( '0', JText::_( 'DISABLED' ) );
+							$comoption[] = JHTMLSelect::option( '1', JText::_( 'LINK PROFILE' ) );
+							$comoption[] = JHTMLSelect::option( '2', JText::_( 'LINK AVATAR' ) );
+							$comoptions = JHTMLSelect::genericList( $comoption, 'comunoption', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->comunoption );
+							echo $comoptions;
+        					?>
+       	 				</td>
+      				</tr>
+				</tbody>
+			</table>
+		</fieldset>
+			
+	</td>
+  </tr>
+</table>

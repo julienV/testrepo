@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="Venue submission">
+		<message>
+			<![CDATA[ADD VENUE VIEW DESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>Venue submission</name>
+		<description>ADD VENUE VIEW DESC</description>
+	</state>
+</metadata>

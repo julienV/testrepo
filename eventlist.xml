@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="component" version="1.5.0">
+<name>EventList</name>
+<creationDate>xx/xx/2007</creationDate>
+<author>Christoph Lukes</author>
+<copyright>This component is released under the GNU/GPL License</copyright>
+<authorEmail>schlu@schlu.net</authorEmail>
+<authorUrl>http://www.schlu.net</authorUrl>
+<version>0.9</version>
+<description>With EventList you can do Event listings.</description>
+<files>
+	<filename>index.html</filename>
+	<filename>eventlist.php</filename>
+	<filename>controller.php</filename>
+	<filename>eventlist.helper.php</filename>
+	<filename>route.php</filename>
+
+	<filename>classes/index.html</filename>
+	<filename>classes/user.class.php</filename>
+	<filename>classes/image.class.php</filename>
+	<filename>classes/output.class.php</filename>
+
+	<filename>assets/index.html</filename>
+	<filename>assets/images/index.html</filename>
+	<filename>assets/images/information.png</filename>
+	<filename>assets/images/information_no.png</filename>
+	<filename>assets/images/noimage.png</filename>
+	<filename>assets/images/icon-16-hint.png</filename>
+	<filename>assets/images/submitevent.png</filename>
+	<filename>assets/images/archive_front.png</filename>
+	<filename>assets/images/calendar_edit.png</filename>
+	<filename>assets/images/closelabel.gif</filename>
+	<filename>assets/images/prevlabel.gif</filename>
+	<filename>assets/images/nextlabel.gif</filename>
+	<filename>assets/images/loading.gif</filename>
+	<filename>assets/css/index.html</filename>
+	<filename>assets/css/slimbox.css</filename>
+	<filename>assets/css/eventlist.css</filename>
+	<filename>assets/js/index.html</filename>
+	<filename>assets/js/slimbox.js</filename>
+
+	<filename>models/index.html</filename>
+	<filename>models/categoriesdetailed.php</filename>
+	<filename>models/categoriesview.php</filename>
+	<filename>models/categoryevents.php</filename>
+	<filename>models/details.php</filename>
+	<filename>models/editevent.php</filename>
+	<filename>models/editvenue.php</filename>
+	<filename>models/simplelist.php</filename>
+	<filename>models/venueevents.php</filename>
+	<filename>models/venuesview.php</filename>
+
+	<filename>views/index.html</filename>
+	<filename>views/categoriesdetailed/view.html.php</filename>
+	<filename>views/categoriesdetailed/index.html</filename>
+	<filename>views/categoriesdetailed/metadata.xml</filename>
+	<filename>views/categoriesdetailed/tmpl/index.html</filename>
+	<filename>views/categoriesdetailed/tmpl/default.php</filename>
+	<filename>views/categoriesdetailed/tmpl/default_table.php</filename>
+	<filename>views/categoriesdetailed/tmpl/default.xml</filename>
+	<filename>views/categoriesview/view.html.php</filename>
+	<filename>views/categoriesview/index.html</filename>
+	<filename>views/categoriesview/metadata.xml</filename>
+	<filename>views/categoriesview/tmpl/default.php</filename>
+	<filename>views/categoriesview/tmpl/index.html</filename>
+	<filename>views/categoriesview/tmpl/default.xml</filename>
+	<filename>views/categoryevents/view.html.php</filename>
+	<filename>views/categoryevents/view.feed.php</filename>
+	<filename>views/categoryevents/index.html</filename>
+	<filename>views/categoryevents/metadata.xml</filename>
+	<filename>views/categoryevents/tmpl/default_table.php</filename>
+	<filename>views/categoryevents/tmpl/default.php</filename>
+	<filename>views/categoryevents/tmpl/default.xml</filename>
+	<filename>views/categoryevents/tmpl/index.html</filename>
+	<filename>views/details/view.html.php</filename>
+	<filename>views/details/metadata.xml</filename>
+	<filename>views/details/index.html</filename>
+	<filename>views/details/tmpl/default.php</filename>
+	<filename>views/details/tmpl/default_attendees.php</filename>
+	<filename>views/details/tmpl/default.xml</filename>
+	<filename>views/details/tmpl/index.html</filename>
+	<filename>views/editevent/view.html.php</filename>
+	<filename>views/editevent/metadata.xml</filename>
+	<filename>views/editevent/index.html</filename>
+	<filename>views/editevent/tmpl/default.php</filename>
+	<filename>views/editevent/tmpl/index.html</filename>
+	<filename>views/editevent/tmpl/default.xml</filename>
+	<filename>views/editvenue/view.html.php</filename>
+	<filename>views/editvenue/metadata.xml</filename>
+	<filename>views/editvenue/index.html</filename>
+	<filename>views/editvenue/tmpl/default.php</filename>
+	<filename>views/editvenue/tmpl/default.xml</filename>
+	<filename>views/editvenue/tmpl/index.html</filename>
+	<filename>views/simplelist/view.html.php</filename>
+	<filename>views/simplelist/view.feed.php</filename>
+	<filename>views/simplelist/index.html</filename>
+	<filename>views/simplelist/metadata.xml</filename>
+	<filename>views/simplelist/tmpl/default.php</filename>
+	<filename>views/simplelist/tmpl/default_table.php</filename>
+	<filename>views/simplelist/tmpl/default.xml</filename>
+	<filename>views/simplelist/tmpl/index.html</filename>
+	<filename>views/venueevents/view.html.php</filename>
+	<filename>views/venueevents/view.feed.php</filename>
+	<filename>views/venueevents/metadata.xml</filename>
+	<filename>views/venueevents/index.html</filename>
+	<filename>views/venueevents/tmpl/default.php</filename>
+	<filename>views/venueevents/tmpl/default_table.php</filename>
+	<filename>views/venueevents/tmpl/default.xml</filename>
+	<filename>views/venueevents/tmpl/index.html</filename>
+	<filename>views/venuesview/view.html.php</filename>
+	<filename>views/venuesview/view.feed.php</filename>
+	<filename>views/venuesview/metadata.xml</filename>
+	<filename>views/venuesview/index.html</filename>
+	<filename>views/venuesview/tmpl/default.php</filename>
+	<filename>views/venuesview/tmpl/default.xml</filename>
+	<filename>views/venuesview/tmpl/index.html</filename>
+
+</files>
+
+<languages>
+	<language tag="en-GB">languages/site/en-GB.com_eventlist.ini</language>
+	<language tag="de-DE">languages/site/de-DE.com_eventlist.ini</language>
+	<language tag="nl-NL">languages/site/nl-NL.com_eventlist.ini</language>
+</languages>
+
+<install>
+	<sql>
+		<file driver="mysql" charset="utf8">install.mysql.utf8.sql</file>
+		<file driver="mysql">install.mysql.nonutf8.sql</file>
+	</sql>
+</install>
+
+<uninstall>
+	<sql>
+		<file driver="mysql" charset="utf8">uninstall.mysql.utf8.sql</file>
+		<file driver="mysql">uninstall.mysql.nonutf8.sql</file>
+	</sql>
+</uninstall>
+
+<installfile>install.eventlist.php</installfile>
+
+<uninstallfile>uninstall.eventlist.php</uninstallfile>
+
+<administration>
+	<menu img="../administrator/components/com_eventlist/assets/images/eventlist.png">EventList</menu>
+	<files folder="admin">
+		<filename>index.html</filename>
+		<filename>admin.eventlist.php</filename>
+		<filename>controller.php</filename>
+		<filename>install.mysql.utf8.sql</filename>
+		<filename>install.mysql.nonutf8.sql</filename>
+		<filename>uninstall.mysql.utf8.sql</filename>
+		<filename>uninstall.mysql.nonutf8.sql</filename>
+
+		<filename>classes/index.html</filename>
+		<filename>classes/admin.class.php</filename>
+
+		<filename>assets/index.html</filename>
+		<filename>assets/gpl.txt</filename>
+		<filename>assets/css/index.html</filename>
+		<filename>assets/css/eventlistbackend.css</filename>
+		<filename>assets/images/index.html</filename>
+		<filename>assets/images/evlogo.png</filename>
+		<filename>assets/images/eventlist.png</filename>
+		<filename>assets/images/icon-48-archive.png</filename>
+		<filename>assets/images/icon-48-categoriesedit.png</filename>
+		<filename>assets/images/icon-48-categories.png</filename>
+		<filename>assets/images/icon-48-cssedit.png</filename>
+		<filename>assets/images/icon-48-eventedit.png</filename>
+		<filename>assets/images/icon-48-events.png</filename>
+		<filename>assets/images/icon-48-groupedit.png</filename>
+		<filename>assets/images/icon-48-groups.png</filename>
+		<filename>assets/images/icon-48-settings.png</filename>
+		<filename>assets/images/icon-48-update.png</filename>
+		<filename>assets/images/icon-48-venuesedit.png</filename>
+		<filename>assets/images/icon-48-venues.png</filename>
+		<filename>assets/images/icon-48-help.png</filename>
+		<filename>assets/images/icon-48-home.png</filename>
+		<filename>assets/images/icon-48-users.png</filename>
+		<filename>assets/js/index.html</filename>
+		<filename>assets/js/seo.js</filename>
+		<filename>assets/js/settings.js</filename>
+
+		<filename>help/index.html</filename>
+		<filename>help/images/index.html</filename>
+		<filename>help/images/administrator.gif</filename>
+		<filename>help/images/checked_out.png</filename>
+		<filename>help/images/icon-16-attention.png</filename>
+		<filename>help/images/icon-16-hint.png</filename>
+		<filename>help/images/publish_x.png</filename>
+		<filename>help/images/super_administrator.gif</filename>
+		<filename>help/images/tick.png</filename>
+		<filename>help/css/index.html</filename>
+		<filename>help/css/help.css</filename>
+
+		<filename>help/de-DE/helpsite/index.html</filename>
+		<filename>help/de-DE/helpsite/el.changelog.html</filename>
+		<filename>help/de-DE/helpsite/el.gethelp.html</filename>
+		<filename>help/de-DE/helpsite/el.givehelp.html</filename>
+		<filename>help/de-DE/helpsite/el.credits.html</filename>
+		<filename>help/de-DE/toolbars/index.html</filename>
+		<filename>help/de-DE/toolbars/toolbar_archive.png</filename>
+		<filename>help/de-DE/toolbars/toolbar_categories.png</filename>
+		<filename>help/de-DE/toolbars/toolbar_editcategory.png</filename>
+		<filename>help/de-DE/toolbars/toolbar_editcss.png</filename>
+		<filename>help/de-DE/toolbars/toolbar_editevent.png</filename>
+		<filename>help/de-DE/toolbars/toolbar_editgroups.png</filename>
+		<filename>help/de-DE/toolbars/toolbar_editvenue.png</filename>
+		<filename>help/de-DE/toolbars/toolbar_eventlist.png</filename>
+		<filename>help/de-DE/toolbars/toolbar_events.png</filename>
+		<filename>help/de-DE/toolbars/toolbar_groups.png</filename>
+		<filename>help/de-DE/toolbars/toolbar_regusers.png</filename>
+		<filename>help/de-DE/toolbars/toolbar_settings.png</filename>
+		<filename>help/de-DE/toolbars/toolbar_venues.png</filename>
+		<filename>help/de-DE/index.html</filename>
+		<filename>help/de-DE/el.archive.html</filename>
+		<filename>help/de-DE/el.editcategories.html</filename>
+		<filename>help/de-DE/el.editcss.html</filename>
+		<filename>help/de-DE/el.editevents.html</filename>
+		<filename>help/de-DE/el.editgroup.html</filename>
+		<filename>help/de-DE/el.editvenues.html</filename>
+		<filename>help/de-DE/el.listcategories.html</filename>
+		<filename>help/de-DE/el.listevents.html</filename>
+		<filename>help/de-DE/el.listgroups.html</filename>
+		<filename>help/de-DE/el.listvenues.html</filename>
+		<filename>help/de-DE/el.registereduser.html</filename>
+		<filename>help/de-DE/el.settings.html</filename>
+		<filename>help/de-DE/el.intro.html</filename>
+		<filename>help/de-DE/el.update.html</filename>
+
+		<filename>help/en-GB/helpsite/index.html</filename>
+		<filename>help/en-GB/helpsite/el.changelog.html</filename>
+		<filename>help/en-GB/helpsite/el.gethelp.html</filename>
+		<filename>help/en-GB/helpsite/el.givehelp.html</filename>
+		<filename>help/en-GB/helpsite/el.credits.html</filename>
+		<filename>help/en-GB/toolbars/index.html</filename>
+		<filename>help/en-GB/toolbars/toolbar_archive.png</filename>
+		<filename>help/en-GB/toolbars/toolbar_categories.png</filename>
+		<filename>help/en-GB/toolbars/toolbar_editcategory.png</filename>
+		<filename>help/en-GB/toolbars/toolbar_editcss.png</filename>
+		<filename>help/en-GB/toolbars/toolbar_editevent.png</filename>
+		<filename>help/en-GB/toolbars/toolbar_editgroups.png</filename>
+		<filename>help/en-GB/toolbars/toolbar_editvenue.png</filename>
+		<filename>help/en-GB/toolbars/toolbar_eventlist.png</filename>
+		<filename>help/en-GB/toolbars/toolbar_events.png</filename>
+		<filename>help/en-GB/toolbars/toolbar_groups.png</filename>
+		<filename>help/en-GB/toolbars/toolbar_regusers.png</filename>
+		<filename>help/en-GB/toolbars/toolbar_settings.png</filename>
+		<filename>help/en-GB/toolbars/toolbar_venues.png</filename>
+		<filename>help/en-GB/index.html</filename>
+		<filename>help/en-GB/el.archive.html</filename>
+		<filename>help/en-GB/el.editcategories.html</filename>
+		<filename>help/en-GB/el.editcss.html</filename>
+		<filename>help/en-GB/el.editevents.html</filename>
+		<filename>help/en-GB/el.editgroup.html</filename>
+		<filename>help/en-GB/el.editvenues.html</filename>
+		<filename>help/en-GB/el.listcategories.html</filename>
+		<filename>help/en-GB/el.listevents.html</filename>
+		<filename>help/en-GB/el.listgroups.html</filename>
+		<filename>help/en-GB/el.listvenues.html</filename>
+		<filename>help/en-GB/el.registereduser.html</filename>
+		<filename>help/en-GB/el.settings.html</filename>
+		<filename>help/en-GB/el.intro.html</filename>
+		<filename>help/en-GB/el.update.html</filename>
+
+		<filename>views/index.html</filename>
+		<filename>views/archive/view.html.php</filename>
+		<filename>views/archive/index.html</filename>
+		<filename>views/archive/tmpl/default.php</filename>
+		<filename>views/archive/tmpl/index.html</filename>
+		<filename>views/attendees/view.html.php</filename>
+		<filename>views/attendees/index.html</filename>
+		<filename>views/attendees/tmpl/default.php</filename>
+		<filename>views/attendees/tmpl/index.html</filename>
+		<filename>views/categories/view.html.php</filename>
+		<filename>views/categories/index.html</filename>
+		<filename>views/categories/tmpl/default.php</filename>
+		<filename>views/categories/tmpl/index.html</filename>
+		<filename>views/category/view.html.php</filename>
+		<filename>views/category/index.html</filename>
+		<filename>views/category/tmpl/default.php</filename>
+		<filename>views/category/tmpl/index.html</filename>
+		<filename>views/categoryelement/view.html.php</filename>
+		<filename>views/categoryelement/index.html</filename>
+		<filename>views/categoryelement/tmpl/default.php</filename>
+		<filename>views/categoryelement/tmpl/index.html</filename>
+		<filename>views/editcss/view.html.php</filename>
+		<filename>views/editcss/index.html</filename>
+		<filename>views/editcss/tmpl/default.php</filename>
+		<filename>views/editcss/tmpl/index.html</filename>
+		<filename>views/event/view.html.php</filename>
+		<filename>views/event/index.html</filename>
+		<filename>views/event/tmpl/default.php</filename>
+		<filename>views/event/tmpl/index.html</filename>
+		<filename>views/eventelement/view.html.php</filename>
+		<filename>views/eventelement/index.html</filename>
+		<filename>views/eventelement/tmpl/default.php</filename>
+		<filename>views/eventelement/tmpl/index.html</filename>
+		<filename>views/eventlist/view.html.php</filename>
+		<filename>views/eventlist/index.html</filename>
+		<filename>views/eventlist/tmpl/default.php</filename>
+		<filename>views/eventlist/tmpl/index.html</filename>
+		<filename>views/events/view.html.php</filename>
+		<filename>views/events/index.html</filename>
+		<filename>views/events/tmpl/default.php</filename>
+		<filename>views/events/tmpl/index.html</filename>
+		<filename>views/groups/view.html.php</filename>
+		<filename>views/groups/index.html</filename>
+		<filename>views/groups/tmpl/default.php</filename>
+		<filename>views/groups/tmpl/index.html</filename>
+		<filename>views/group/view.html.php</filename>
+		<filename>views/group/index.html</filename>
+		<filename>views/group/tmpl/default.php</filename>
+		<filename>views/group/tmpl/index.html</filename>
+		<filename>views/help/view.html.php</filename>
+		<filename>views/help/index.html</filename>
+		<filename>views/help/tmpl/default.php</filename>
+		<filename>views/help/tmpl/index.html</filename>
+		<filename>views/imageselect/view.html.php</filename>
+		<filename>views/imageselect/index.html</filename>
+		<filename>views/imageupload/view.html.php</filename>
+		<filename>views/imageupload/index.html</filename>
+		<filename>views/imageupload/tmpl/default.php</filename>
+		<filename>views/imageupload/tmpl/index.html</filename>
+		<filename>views/settings/view.html.php</filename>
+		<filename>views/settings/index.html</filename>
+		<filename>views/settings/tmpl/default.php</filename>
+		<filename>views/settings/tmpl/index.html</filename>
+		<filename>views/settings/tmpl/el.settings_basic.html</filename>
+		<filename>views/settings/tmpl/el.settings_detailspage.html</filename>
+		<filename>views/settings/tmpl/el.settings_layout.html</filename>
+		<filename>views/settings/tmpl/el.settings_usercontrol.html</filename>
+		<filename>views/settings/tmpl/navigation.php</filename>
+		<filename>views/updatecheck/view.html.php</filename>
+		<filename>views/updatecheck/index.html</filename>
+		<filename>views/updatecheck/tmpl/default.php</filename>
+		<filename>views/updatecheck/tmpl/index.html</filename>
+		<filename>views/venue/view.html.php</filename>
+		<filename>views/venue/index.html</filename>
+		<filename>views/venue/tmpl/default.php</filename>
+		<filename>views/venue/tmpl/index.html</filename>
+		<filename>views/venueadd/view.html.php</filename>
+		<filename>views/venueadd/index.html</filename>
+		<filename>views/venueadd/tmpl/default.php</filename>
+		<filename>views/venueadd/tmpl/index.html</filename>
+		<filename>views/venueelement/view.html.php</filename>
+		<filename>views/venueelement/index.html</filename>
+		<filename>views/venueelement/tmpl/default.php</filename>
+		<filename>views/venueelement/tmpl/index.html</filename>
+		<filename>views/venues/view.html.php</filename>
+		<filename>views/venues/index.html</filename>
+		<filename>views/venues/tmpl/default.php</filename>
+		<filename>views/venues/tmpl/index.html</filename>
+
+		<filename>models/index.html</filename>
+		<filename>models/archive.php</filename>
+		<filename>models/categories.php</filename>
+		<filename>models/category.php</filename>
+		<filename>models/categoryelement.php</filename>
+		<filename>models/editcss.php</filename>
+		<filename>models/event.php</filename>
+		<filename>models/eventelement.php</filename>
+		<filename>models/eventlist.php</filename>
+		<filename>models/events.php</filename>
+		<filename>models/groups.php</filename>
+		<filename>models/group.php</filename>
+		<filename>models/help.php</filename>
+		<filename>models/imageselect.php</filename>
+		<filename>models/imageupload.php</filename>
+		<filename>models/attendees.php</filename>
+		<filename>models/settings.php</filename>
+		<filename>models/updatecheck.php</filename>
+		<filename>models/venue.php</filename>
+		<filename>models/venueadd.php</filename>
+		<filename>models/venueelement.php</filename>
+		<filename>models/venues.php</filename>
+
+		<filename>controllers/index.html</filename>
+		<filename>controllers/archive.php</filename>
+		<filename>controllers/attendees.php</filename>
+		<filename>controllers/categories.php</filename>
+		<filename>controllers/events.php</filename>
+		<filename>controllers/groups.php</filename>
+		<filename>controllers/imageupload.php</filename>
+		<filename>controllers/venues.php</filename>
+
+		<filename>elements/index.html</filename>
+		<filename>elements/venue.php</filename>
+		<filename>elements/category.php</filename>
+		<filename>elements/event.php</filename>
+
+		<filename>tables/index.html</filename>
+		<filename>tables/eventlist_categories.php</filename>
+		<filename>tables/eventlist_events.php</filename>
+		<filename>tables/eventlist_register.php</filename>
+		<filename>tables/eventlist_venues.php</filename>
+		<filename>tables/eventlist_groups.php</filename>
+		<filename>tables/eventlist_groupmembers.php</filename>
+		<filename>tables/eventlist_settings.php</filename>
+
+	</files>
+
+	<languages>
+		<language tag="en-GB">languages/admin/en-GB.com_eventlist.ini</language>
+		<language tag="de-DE">languages/admin/de-DE.com_eventlist.ini</language>
+		<language tag="nl-NL">languages/admin/nl-NL.com_eventlist.ini</language>
+	</languages>
+
+</administration>
+</install>
