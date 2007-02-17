@@ -80,7 +80,7 @@ class ELOutput {
 	* @param array $params needed params
 	* @param string $task The current task
 	*/
-	function archivebutton( $Itemid, $oldevent, &$params, $task = NULL, $categid = NULL )
+	function archivebutton( $oldevent, &$params, $task = NULL, $categid = NULL )
 	{
 		if ( $oldevent == 2 ) {
 
@@ -96,7 +96,7 @@ class ELOutput {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
 					$overlib = JText::_( 'SHOW EVENTS TIP' );
-					$link = sefRelToAbs( 'index.php?option=com_eventlist&amp;Itemid='.$Itemid );
+					$link = JRoute::_( 'index.php?option=com_eventlist' );
 					?>
 					<a href="<?php echo $link ?>" class="editlinktip hasTip" title="<?php echo JText::_( 'SHOW EVENTS' ); ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
 					<?php
@@ -110,7 +110,7 @@ class ELOutput {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
 					$overlib = JText::_( 'SHOW EVENTS TIP' );
-					$link = sefRelToAbs( 'index.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=categoryevents&amp;categid='.$categid );
+					$link = JRoute::_( 'index.php?option=com_eventlist&amp;view=categoryevents&amp;categid='.$categid );
 					?>
 					<a href="<?php echo $link ?>" class="editlinktip hasTip" title="<?php echo JText::_( 'SHOW EVENTS' ); ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
 					<?php
@@ -125,7 +125,7 @@ class ELOutput {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW ARCHIVE' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
 					$overlib = JText::_( 'SHOW ARCHIVE TIP' );
-					$link = sefRelToAbs('index.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=categoriesview&amp;task=archive');
+					$link = JRoute::_('index.php?option=com_eventlist&amp;view=categoriesview&amp;task=archive');
 						?>
 						<a href="<?php echo $link ?>" class="editlinktip hasTip" title="<?php echo JText::_( 'SHOW ARCHIVE' ); ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
 						<?php

@@ -75,7 +75,7 @@
 				</td>
 				<?php
 				//Link to details
-				$detaillink = sefRelToAbs( 'index.php?option=com_eventlist&amp;Itemid='. $Itemid .'&amp;view=details&amp;did='. $row->id );
+				$detaillink = JRoute::_( 'index.php?option=com_eventlist&amp;view=details&amp;did='. $row->id );
 				//title
 				if (($this->elsettings->showtitle == 1 ) && (($this->elsettings->showdetails == 1) || ($this->elsettings->showdetails == 3)) ) :
 				?>
@@ -111,7 +111,7 @@
 					<td width="<?php echo $this->elsettings->locationwidth; ?>" align="left" valign="top">
 				<?php
 					if ($this->elsettings->showlinkclub == 1 ) :
-							echo $row->locid != 0 ? "<a href='".sefRelToAbs("index.php?option=com_eventlist&amp;Itemid=$Itemid&amp;view=venueevents&amp;locatid=$row->locid")."'>".$row->club."</a>" : '-';
+							echo $row->locid != 0 ? "<a href='".JRoute::_("index.php?option=com_eventlist&amp;view=venueevents&amp;locatid=$row->locid")."'>".$row->club."</a>" : '-';
 						else :
 							echo $row->locid ? $row->club : '-';
 						endif;
@@ -135,7 +135,7 @@
 					if ($this->elsettings->catlinklist == 1) :
 					?>
 						<td width="<?php echo $this->elsettings->catfrowidth; ?>" align="left" valign="top">
-							<a href="<?php echo sefRelToAbs('index.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=categoryevents&amp;categid='.$row->catid) ; ?>">
+							<a href="<?php echo JRoute::_('index.php?option=com_eventlist&amp;view=categoryevents&amp;categid='.$row->catid) ; ?>">
 								<?php echo $row->catname ? $row->catname : '-' ; ?>
 							</a>
 						</td>

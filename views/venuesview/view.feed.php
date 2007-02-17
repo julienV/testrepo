@@ -28,7 +28,7 @@ class EventListViewVenueevents extends JView
 	 */
 	function display( )
 	{
-		global $mainframe, $Itemid;
+		global $mainframe;
 
 		$doc 	= & JFactory::getDocument();
 
@@ -46,8 +46,8 @@ class EventListViewVenueevents extends JView
 
 			// url link to article
 			// & used instead of &amp; as this is converted by feed creator
-			$link = 'index.php?option=com_eventlist&Itemid='. $Itemid .'view=venueevents&locid='. $row->id;
-			$link = sefRelToAbs( $link );
+			$link = 'index.php?option=com_eventlist&view=venueevents&locid='. $row->id;
+			$link = JRoute::_( $link );
 
 			// strip html from feed item description text
 			$description = $row->locdescription;

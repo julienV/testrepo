@@ -93,7 +93,7 @@ class EventListViewDetails extends JView
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();
 		$pathway->setItemName(1, $item->name);
-		$pathway->addItem( JText::_( 'DETAILS' ). ' - '.$row->title, sefRelToAbs('index.php?option='.$option.'&view=details&did='.$row->did));
+		$pathway->addItem( JText::_( 'DETAILS' ). ' - '.$row->title, JRoute::_('index.php?option='.$option.'&view=details&did='.$row->did));
 
 		//Get images
 		$dimage = ELImage::eventimage($live_site, $row->datimage, $elsettings->imagewidth, $elsettings->imagehight, $elsettings->imageprob, $elsettings->gddisabled);

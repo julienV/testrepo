@@ -15,7 +15,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<?php
 		if ( !$this->pop ) : //don't show in printpopup
 			echo ELOutput::submitbutton( $Itemid, $this->dellink, $this->params, 'categoriesdetailed' );
-			echo ELOutput::archivebutton( $Itemid, $this->elsettings->oldevent, $this->params );
+			echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params );
 		endif;
 		echo ELOutput::printbutton( $this->print_link, $this->params );
 	?>
@@ -40,7 +40,7 @@ foreach($this->categories as $category) :
 	<div class="catimg">
 	  	<?php 
 		if ($category->image != '') :
-				echo "<a href='".sefRelToAbs('index.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=categoryevents&amp;categid='.$category->id)."'><img src='".$this->live_site."/images/stories/".$category->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$category->catname."' /></a>";
+				echo "<a href='".JRoute::_('index.php?option=com_eventlist&amp;view=categoryevents&amp;categid='.$category->id)."'><img src='".$this->live_site."/images/stories/".$category->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$category->catname."' /></a>";
 		else :
 			echo JAdminMenus::ImageCheck( 'noimage.png', '/components/com_eventlist/assets/images/', NULL, NULL, $category->catname );
 		endif;
@@ -48,7 +48,7 @@ foreach($this->categories as $category) :
 		<p>
 			<?php
 			echo JText::_( 'EVENTS' ).': ';
-				echo "<a href='".sefRelToAbs('index.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=categoryevents&amp;categid='.$category->id)."'>". $category->assignedevents."</a>";
+				echo "<a href='".JRoute::_('index.php?option=com_eventlist&amp;view=categoryevents&amp;categid='.$category->id)."'>". $category->assignedevents."</a>";
 			?>
 		</p>
 	</div>
@@ -56,7 +56,7 @@ foreach($this->categories as $category) :
 	<div class="catdescription"><?php echo $category->catdescription ; ?>
 		<p>
 			<?php
-				echo "<a href='".sefRelToAbs('index.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=categoryevents&amp;categid='.$category->id)."'>".JText::_( 'SHOW EVENTS' )."</a>";
+				echo "<a href='".JRoute::_('index.php?option=com_eventlist&amp;view=categoryevents&amp;categid='.$category->id)."'>".JText::_( 'SHOW EVENTS' )."</a>";
 			?>
 		</p>
 	</div>

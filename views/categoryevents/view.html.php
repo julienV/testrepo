@@ -96,11 +96,11 @@ class EventListViewCategoryevents extends JView
 		if ($task == 'catarchive') {
 			$pathway 	= & $mainframe->getPathWay();
 			$pathway->setItemName(1, $item->name);
-			$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$category->catname, sefRelToAbs('index.php?option='.$option.'&Itemid='.$Itemid.'&task=shcatev1&categid'.$categid));
+			$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$category->catname, JRoute::_('index.php?option='.$option.'&task=shcatev1&categid'.$categid));
 		} else {
 			$pathway 	= & $mainframe->getPathWay();
 			$pathway->setItemName(1, $item->name);
-			$pathway->addItem( $category->catname, sefRelToAbs('index.php?option='.$option.'&Itemid='.$Itemid.'&task=shcatev1&categid'.$categid));
+			$pathway->addItem( $category->catname, JRoute::_('index.php?option='.$option.'&task=shcatev1&categid'.$categid));
 		}
 
 		//Check if the user has access to the form

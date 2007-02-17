@@ -29,7 +29,7 @@ class EventListViewSimplelist extends JView
 	function display( $tpl = null )
 	{
 
-		global $Itemid, $mainframe, $option;
+		global $mainframe;
 
 		$document 	= & JFactory::getDocument();
 		$elsettings = & ELHelper::config();
@@ -75,7 +75,7 @@ class EventListViewSimplelist extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = $live_site. '/index.php?option=com_eventlist&amp;Itemid='. $Itemid .'&amp;tmpl=component&amp;pop=1';
+		$print_link = $live_site. '/index.php?option=com_eventlist&amp;tmpl=component&amp;pop=1';
 
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();
@@ -106,7 +106,7 @@ class EventListViewSimplelist extends JView
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
-		$link = 'index.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=simplelist';
+		$link = 'index.php?view=simplelist';
 
 		//create select lists
 		$lists	= $this->_buildSortLists($elsettings);

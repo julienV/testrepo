@@ -91,7 +91,7 @@ class EventListViewVenueevents extends JView
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();
 		$pathway->setItemName(1, $item->name);
-		$pathway->addItem( $venue->club, sefRelToAbs('index.php?option='.$option.'&Itemid='.$Itemid.'&view=venueevents&locatid='.$locatid));
+		$pathway->addItem( $venue->club, JRoute::_('index.php?option='.$option.'&view=venueevents&locatid='.$locatid));
 
 		//Printfunction
 		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );

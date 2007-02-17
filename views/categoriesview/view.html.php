@@ -55,7 +55,7 @@ class EventListViewCategoriesview extends JView
 		$pathway->setItemName(1, $item->name);
 		
 		if ( $task == 'archive' ) {
-			$pathway->addItem(JText::_( 'ARCHIVE' ), sefRelToAbs('index.php?option='.$option.'&amp;Itemid='. $Itemid .'&amp;view=categoriesview&amp;task=archive') );
+			$pathway->addItem(JText::_( 'ARCHIVE' ), JRoute::_('index.php?option='.$option.'&amp;view=categoriesview&amp;task=archive') );
 		}
 		
 		//Set Page title

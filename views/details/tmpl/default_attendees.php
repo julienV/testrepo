@@ -24,11 +24,11 @@ foreach ($this->registers as $register) :
 								
 				//User has avatar
 				if(($pic->avatar!='') && ($register->uid!='0')) :
-					echo "<li><a href='".sefRelToAbs('index.php?option=com_comprofiler&amp;task=userProfile&amp;user='.$register->uid )."'><img src=".$thumb_path.$pic->avatar.$no_photo." alt='no photo' /><span class='username'>".$register->urname."</span></a></li>";
+					echo "<li><a href='".JRoute::_('index.php?option=com_comprofiler&amp;task=userProfile&amp;user='.$register->uid )."'><img src=".$thumb_path.$pic->avatar.$no_photo." alt='no photo' /><span class='username'>".$register->urname."</span></a></li>";
 								
 				//User has no avatar
 				else :
-					echo "<li><a href='".sefRelToAbs( 'index.php?option=com_comprofiler&amp;task=userProfile&amp;user='.$register->uid )."'><img src=\"components/com_comprofiler/images/english/tnnophoto.jpg\" border=0 alt=\"no photo\" /><span class='username'>".$register->urname."</span></a></li>";
+					echo "<li><a href='".JRoute::_( 'index.php?option=com_comprofiler&amp;task=userProfile&amp;user='.$register->uid )."'><img src=\"components/com_comprofiler/images/english/tnnophoto.jpg\" border=0 alt=\"no photo\" /><span class='username'>".$register->urname."</span></a></li>";
 				endif;
 							
 			endforeach;
@@ -37,7 +37,7 @@ foreach ($this->registers as $register) :
 
 	//only show the username with link to profile
 	if ($this->elsettings->comunoption == 1) :
-		echo "<li><span class='username'><a href='".sefRelToAbs( 'index.php?option=com_comprofiler&amp;task=userProfile&amp;user='.$register->uid )."'>".$register->urname." </a></span></li>";
+		echo "<li><span class='username'><a href='".JRoute::_( 'index.php?option=com_comprofiler&amp;task=userProfile&amp;user='.$register->uid )."'>".$register->urname." </a></span></li>";
 	endif;
 						
 						
