@@ -82,7 +82,7 @@ class EventListViewEvent extends JView {
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
 		//add the seo javascript
-		$document->addScript($url.'administrator/components/js/com_eventlist/assets/seo.js');
+		$document->addScript($url.'administrator/components/com_eventlist/assets/js/seo.js');
 
 		/*
 		* Create category list

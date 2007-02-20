@@ -312,6 +312,8 @@
 						<?php
 						if (!empty($this->row->meta_keywords)) {
 							$meta_keywords = $this->row->meta_keywords;
+						} else {
+							$meta_keywords = $this->elsettings->meta_keywords;
 						}
 						?>
 			
@@ -327,6 +329,8 @@
 					<?php 
 					if (!empty($this->row->meta_description)) {
 						$meta_description = $this->row->meta_description;
+					} else {
+						$meta_description = $this->elsettings->meta_description;
 					}
 					?>
 				
