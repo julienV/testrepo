@@ -7,6 +7,9 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
+// Check to ensure this file is included in Joomla!
+defined('_JEXEC') or die();
+
 /**
  * Renders an Category element
  *
@@ -15,7 +18,7 @@
  * @since 0.9
  */
 
-class JElement_Category extends JElement
+class JElementCategory extends JElement
 {
    /**
 	* Element name

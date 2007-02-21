@@ -7,6 +7,9 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
+// Check to ensure this file is included in Joomla!
+defined('_JEXEC') or die();
+
 /**
  * Renders an venue element
  *
@@ -15,7 +18,7 @@
  * @since 1.5
  */
 
-class JElement_Venue extends JElement
+class JElementVenue extends JElement
 {
    /**
 	* Element name
