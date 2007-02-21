@@ -25,7 +25,7 @@ class EventListController extends JController
 	 */
 	function display()
 	{
-		$viewName 		= JRequest::getVar( 'view', 'simplelist' );
+		$viewName 		= JRequest::getVar( 'view' );
 
 		parent::display();
 	}
@@ -555,9 +555,8 @@ class EventListController extends JController
 				$row->published = 0 ;
 		}
 
-		/*
-		* Image upload
-		*/
+
+		//Image upload
 		if ( ( $elsettings->imageenabled == 2 || $elsettings->imageenabled == 1 ) && ( !empty($file['name'])  ) )  {
 			$imagesize 	= $file['size'];
 
@@ -597,9 +596,20 @@ class EventListController extends JController
 			$row->datimage = $row->curimage;
 		}//end image if
 
-		/*
-		* Check fields
-		*/
+
+		// Check fields
+		if (empty($row->enddates)) {
+			$row->enddates = NULL;
+		}
+		
+		if (empty($row->times)) {
+			$row->times = NULL;
+		}
+		
+		if (empty($row->endtimes)) {
+			$row->endtimes = NULL;
+		}
+		
 		if (isset($row->dates)) {
 			$datum = $row->dates;
 			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $datum)) {
@@ -700,7 +710,7 @@ class EventListController extends JController
 		/*
 		 * store it in the db
 		 */
-		if (!$row->store()) {
+		if (!$row->store(true)) {
 			JError::raiseError( 500, $db->stderr() );
 			return false;
 		}

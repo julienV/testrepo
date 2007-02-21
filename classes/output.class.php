@@ -39,7 +39,7 @@ class ELOutput {
 	* @param array $params needed params
 	* @param string $view the view the user will redirected to
 	**/
-	function submitbutton( $Itemid, $dellink, &$params, $view )
+	function submitbutton( $dellink, &$params, $view )
 	{
 		$document =& JFactory::getDocument();
 
@@ -57,7 +57,7 @@ class ELOutput {
 				$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'DELIVER NEW EVENT' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 			}
 
-			$link = 'index.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;Returnid='.$Itemid.'&amp;view=editevent&amp;returnview='.$view;
+			$link = 'index.php?option=com_eventlist&amp;view=editevent&amp;returnview='.$view;
 
 			$overlib = JText::_( 'SUBMIT EVENT TIP' );
 			?>

@@ -69,7 +69,7 @@ function EventListParseURL($ARRAY, &$params)
 		case 'venuesview':
 		case 'categoriesdetailed':
 		case 'categoriesview':
-		case 'simplelist':
+		case 'eventlist':
 		{
 			if (count($ARRAY))
 			{

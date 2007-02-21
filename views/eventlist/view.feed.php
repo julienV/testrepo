@@ -13,13 +13,13 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.application.component.view');
 
 /**
- * HTML View class for the Simplelist View
+ * HTML View class for the EventList View
  *
  * @package Joomla 
  * @subpackage EventList
  * @since 0.9
  */
-class EventListViewSimplelist extends JView 
+class EventListViewEventList extends JView 
 {
 	/**
 	 * Creates the Event Feed

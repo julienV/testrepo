@@ -47,21 +47,22 @@
 			for($i=0, $n=count( $this->rows ); $i < $n; $i++) {
 				$row = &$this->rows[$i];
 
-				$date		= strftime( $this->elsettings->formatdate, strtotime( $row->dates ));
-
-				if ($row->enddates == '0000-00-00') {
+				//Prepare date
+				$date = strftime( $this->elsettings->formatdate, strtotime( $row->dates ));
+				
+				if (!$row->enddates) {
 					$displaydate = $date;
 				} else {
 					$enddate 	= strftime( $this->elsettings->formatdate, strtotime( $row->enddates ));
 					$displaydate = $date.' - <br />'.$enddate;
 				}
 
-				//Don't display 0 time
-				if ($row->times == '00:00:00') {
-					$time = '';
-				} else {
+				//Prepare time
+				if (!$row->times) {
+					$displaytime = '-';
+				} else {	
 					$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
-					$time = $time.' '.$this->elsettings->timename;
+					$displaytime = $time.' '.$this->elsettings->timename;
 				}
 				$link 		= ampReplace( 'index.php?option=com_eventlist&controller=events&task=editevent&cid[]='.$row->id );
 				$checked 	= JCommonHTML::CheckedOutProcessing( $row, $i );
@@ -83,7 +84,7 @@
 					}
 					?>
 				</td>
-				<td><?php echo $time ? $time : '-'; ?></td>
+				<td><?php echo $displaytime; ?></td>
 				<td><?php echo htmlspecialchars($row->title, ENT_QUOTES) ? htmlspecialchars($row->title, ENT_QUOTES) : '-'; ?></td>
 				<td><?php echo htmlspecialchars($row->club, ENT_QUOTES) ? htmlspecialchars($row->club, ENT_QUOTES) : '-'; ?></td>
 				<td><?php echo htmlspecialchars($row->city, ENT_QUOTES) ? htmlspecialchars($row->city, ENT_QUOTES) : '-'; ?></td>

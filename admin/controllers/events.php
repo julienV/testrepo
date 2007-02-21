@@ -174,7 +174,6 @@ class EventListControllerEvents extends EventListController
 		
 		*/
 		
-
 		$task 	= JRequest::getVar( 'task' );
 
 		if ($task == 'copy') {
@@ -211,11 +210,11 @@ class EventListControllerEvents extends EventListController
 				//$link = $_SERVER['HTTP_REFERER'];
 				$link = 'index.php?option='.$option.'&controller=events&task=editevent&hidemainmenu=1&cid[]='.$post['id'];
 				break;
-/* FIXME: fetch new id out of model
+			/* FIXME: fetch new id out of model
 			case 'apply_new' :
 				$link = 'index.php?option='.$option.'&controller=events&task=editevent&hidemainmenu=1&cid[]='.$post['id'];
 				break;
-*/
+			*/
 			default :
 				$link = 'index.php?option='.$option.'&view=events';
 				break;

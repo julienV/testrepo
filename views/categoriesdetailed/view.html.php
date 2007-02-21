@@ -85,7 +85,7 @@ class EventListViewCategoriesdetailed extends JView
 		if ($maintainer || $genaccess ) $dellink = 1;
 
 		//add alternate feed link
-		$link    = 'feed.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=simplelist';
+		$link    = 'feed.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=eventlist';
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
 		$document->addHeadLink($link.'&amp;format=rss', 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
@@ -137,7 +137,7 @@ class EventListViewCategoriesdetailed extends JView
 
 			//Format date
 			$date = strftime( $this->elsettings->formatdate, strtotime( $row->dates ));
-			if ($row->enddates == '0000-00-00') {
+			if (!$row->enddates) {
 				$displaydate = $date;
 			} else {
 				$enddate 	= strftime( $this->elsettings->formatdate, strtotime( $row->enddates ));
@@ -145,19 +145,26 @@ class EventListViewCategoriesdetailed extends JView
 			}
 
 			//Format time
-			$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
-			$time = $time.' '.$this->elsettings->timename;
-			$endtime = strftime( $this->elsettings->formattime, strtotime( $row->endtimes ));
-			$endtime = $endtime.' '.$this->elsettings->timename;
-
+			unset($displaytime);
 			if ($this->elsettings->showtime == 1) {
-				if ($row->times != '00:00:00') {
+				if ($row->times) {
+					$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
+					$time = $time.' '.$this->elsettings->timename;
 					$displaytime = '<br />'.$time;
+				
 				}
-				if ($row->endtimes != '00:00:00') {
+				if ($row->endtimes) {
+					$endtime = strftime( $this->elsettings->formattime, strtotime( $row->endtimes ));
+					$endtime = $endtime.' '.$this->elsettings->timename;
 					$displaytime = '<br />'.$time.' - '.$endtime;
+					
 				}
+			}
+			
+			if (isset($displaytime)) {
 				$row->displaytime = $displaytime;
+			} else {
+				$row->displaytime = '<br />-';
 			}
 
 			$row->displaydate = $displaydate;

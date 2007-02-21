@@ -69,7 +69,7 @@
     			<b><?php echo $row->displaydate; ?></b>
 				<?php
 				if ($this->elsettings->showtime == 1) :
-					echo $row->displaytime ? $row->displaytime : '-';
+					echo $row->displaytime;
 				endif;
 				?>
 				</td>

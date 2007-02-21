@@ -146,10 +146,10 @@ class EventListModelEvent extends JModel
 			$event->id					= 0;
 			$event->locid				= 0;
 			$event->catsid				= 0;
-			$event->dates				= '0000-00-00';
-			$event->enddates			= '0000-00-00';
-			$event->times				= '00:00:00';
-			$event->endtimes			= '00:00:00';
+			$event->dates				= null;
+			$event->enddates			= null;
+			$event->times				= null;
+			$event->endtimes			= null;
 			$event->title				= null;
 			$event->published			= 1;
 			$event->registra			= 0;
@@ -254,10 +254,18 @@ class EventListModelEvent extends JModel
 			return false;
 		}
 
-		/*
-		* Check date format
-		* TODO: move to table
-		*/
+		
+		//var_dump($row);
+		//$mainframe->close();
+		
+		
+		//Check date format
+		//TODO: move to table		
+		
+		if (empty($row->enddates)) {
+			$row->enddates = NULL;
+		}
+		
 		if (isset($row->dates)) {
 			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $row->dates)) {
 				$row->checkin();
@@ -272,7 +280,6 @@ class EventListModelEvent extends JModel
 			}
 		}
 
-
 		// Check/sanitize the metatags
 		$row->meta_description = htmlspecialchars(trim(addslashes($row->meta_description)));
 		if (JString::strlen($row->meta_description) > 255) {
@@ -284,9 +291,16 @@ class EventListModelEvent extends JModel
 			$row->meta_keywords = JString::substr($row->meta_keywords, 0, 199);
 		}
 
-		/*
-		* Check time format
-		*/
+		//Check time format
+		if (empty($row->times)) {
+			$row->times = NULL;
+		}
+		
+		if (empty($row->endtimes)) {
+			$row->endtimes = NULL;
+		}
+		
+		
 		if ( $elsettings->showtime == 1 ) {
 			if (isset($row->times)) {
    				if (!preg_match("/^[0-2][0-9]:[0-5][0-9]$/", $row->times)) {
@@ -329,7 +343,7 @@ class EventListModelEvent extends JModel
 		}
 
 		// Store the table to the database
-		if (!$row->store()) {
+		if (!$row->store(true)) {
 			$this->setError($this->_db->getErrorMsg());
 			return false;
 		}

@@ -70,7 +70,7 @@ class EventListViewCategoriesview extends JView
 		}
 		
 		//add alternate feed link
-		$link    = 'feed.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=simplelist';
+		$link    = 'feed.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=eventlist';
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
 		$document->addHeadLink($link.'&amp;format=rss', 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');

@@ -13,13 +13,13 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.model');
 
 /**
- * EventList Component Simplelist Model
+ * EventList Component EventList Model
  *
  * @package Joomla
  * @subpackage EventList
  * @since		0.9
  */
-class EventListModelSimplelist extends JModel
+class EventListModelEventList extends JModel
 {
 	/**
 	 * Events data array

@@ -28,13 +28,13 @@ class eventlist_events extends JTable
 	/** @var int */
 	var $catsid 			= null;
 	/** @var date */
-	var $dates 				= 0;
+	var $dates 				= null;
 	/** @var date */
-	var $enddates 			= 0;
+	var $enddates 			= null;
 	/** @var date */
-	var $times 				= 0;
+	var $times 				= null;
 	/** @var date */
-	var $endtimes 			= 0;
+	var $endtimes 			= null;
 	/** @var string */
 	var $title 				= '';
 	/** @var int */

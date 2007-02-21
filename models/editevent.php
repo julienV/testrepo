@@ -151,10 +151,10 @@ class EventListModelEditevent extends JModel
 			$this->_event->locid			= '';
 			$this->_event->catsid			= 0;
 			$this->_event->dates			= '';
-			$this->_event->enddates			= '';
+			$this->_event->enddates			= null;
 			$this->_event->title			= '';
-			$this->_event->times			= '';
-			$this->_event->endtimes			= '';
+			$this->_event->times			= null;
+			$this->_event->endtimes			= null;
 			$this->_event->datdescription	= '';
 			$this->_event->registra			= 0;
 			$this->_event->unregistra		= 0;

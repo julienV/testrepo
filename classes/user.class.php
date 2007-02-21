@@ -36,7 +36,7 @@ class ELUser {
 		if ($user->get('id')) {
 		
 		$acl		= & JFactory::getACL();
-		$superuser 	= & ELUser::superuser();
+		$superuser 	= ELUser::superuser();
 		
 		$groupid	= $user->get('gid');
 		

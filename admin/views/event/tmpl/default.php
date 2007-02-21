@@ -138,10 +138,6 @@
 						</label>
 					</td>
 					<td>
-						<?php if ($this->row->dates == '0000-00-00') {
-						$this->row->dates ='';
-						}
-						?>
 						<input class="inputbox" type="text" name="dates" id="dates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" /> 
             			<input type="reset" class="button" value="..." onclick="return showCalendar('dates', 'Y-m-d');" onblur="seo_switch()" />
            			</td>
@@ -158,10 +154,6 @@
 						</label>
 					</td>
 					<td>
-						<?php if ($this->row->enddates == '0000-00-00') {
-							$this->row->enddates ='';
-						}
-						?>
 						<input class="inputbox" type="text" name="enddates" id="enddates" size="15" maxlength="10" value="<?php echo $this->row->enddates; ?>" /> 
             			<input type="reset" class="button" value="..." onclick="return showCalendar('enddates', 'Y-m-d');" onblur="seo_switch()" />
            			</td>
@@ -179,9 +171,7 @@
 					</td>
 					<td>
 						<?php
-						if ($this->row->times == '00:00:00') {
-							$this->row->times = '';
-						} else {
+						if ($this->row->times) {
 							$this->row->times = substr($this->row->times, 0, 5);
 						}
 						?>
@@ -207,9 +197,7 @@
 					</td>
 					<td>
 						<?php
-						if ($this->row->endtimes == '00:00:00') {
-							$this->row->endtimes = '';
-						} else {
+						if ($this->row->endtimes) {
 							$this->row->endtimes = substr($this->row->endtimes, 0, 5);
 						}
 						?>

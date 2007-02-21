@@ -107,7 +107,7 @@ class EventListViewDetails extends JView
 		$date 	= strftime( $elsettings->formatdate ,strtotime( $row->dates ));
 		$time 	= strftime( $elsettings->formattime ,strtotime( $row->times ));
 
-		if ($row->enddates == '0000-00-00') {
+		if (!$row->enddates) {
 			$displaydate = $date.'<br />';
 		} else {
 			$enddate 	= strftime( $elsettings->formatdate, strtotime( $row->enddates ));
@@ -115,10 +115,10 @@ class EventListViewDetails extends JView
 		}
 
 		//Generate Time
-		if (( $elsettings->showtimedetails == 1 ) && ($row->times != '00:00:00')) {
+		if (( $elsettings->showtimedetails == 1 ) && ($row->times)) {
 			$starttime = $time.' '.$elsettings->timename;
 
-			if ($row->endtimes != '00:00:00') {
+			if ($row->endtimes) {
 				$endtime = strftime( $elsettings->formattime ,strtotime( $row->endtimes ));
 				$endtime = ' - '.$endtime.' '.$elsettings->timename;
 				$displaytime = $starttime.$endtime;

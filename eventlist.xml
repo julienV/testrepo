@@ -46,7 +46,7 @@
 	<filename>models/details.php</filename>
 	<filename>models/editevent.php</filename>
 	<filename>models/editvenue.php</filename>
-	<filename>models/simplelist.php</filename>
+	<filename>models/eventlist.php</filename>
 	<filename>models/venueevents.php</filename>
 	<filename>models/venuesview.php</filename>
 
@@ -91,14 +91,14 @@
 	<filename>views/editvenue/tmpl/default.php</filename>
 	<filename>views/editvenue/tmpl/default.xml</filename>
 	<filename>views/editvenue/tmpl/index.html</filename>
-	<filename>views/simplelist/view.html.php</filename>
-	<filename>views/simplelist/view.feed.php</filename>
-	<filename>views/simplelist/index.html</filename>
-	<filename>views/simplelist/metadata.xml</filename>
-	<filename>views/simplelist/tmpl/default.php</filename>
-	<filename>views/simplelist/tmpl/default_table.php</filename>
-	<filename>views/simplelist/tmpl/default.xml</filename>
-	<filename>views/simplelist/tmpl/index.html</filename>
+	<filename>views/eventlist/view.html.php</filename>
+	<filename>views/eventlist/view.feed.php</filename>
+	<filename>views/eventlist/index.html</filename>
+	<filename>views/eventlist/metadata.xml</filename>
+	<filename>views/eventlist/tmpl/default.php</filename>
+	<filename>views/eventlist/tmpl/default_table.php</filename>
+	<filename>views/eventlist/tmpl/default.xml</filename>
+	<filename>views/eventlist/tmpl/index.html</filename>
 	<filename>views/venueevents/view.html.php</filename>
 	<filename>views/venueevents/view.feed.php</filename>
 	<filename>views/venueevents/metadata.xml</filename>

@@ -13,13 +13,13 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.application.component.view');
 
 /**
- * HTML View class for the Simplelist View
+ * HTML View class for the EventList View
  *
  * @package Joomla
  * @subpackage EventList
  * @since 0.9
  */
-class EventListViewSimplelist extends JView
+class EventListViewEventList extends JView
 {
 	/**
 	 * Creates the Simple List View
@@ -32,7 +32,7 @@ class EventListViewSimplelist extends JView
 		global $mainframe;
 
 		$document 	= & JFactory::getDocument();
-		$elsettings = & ELHelper::config();
+		$elsettings = ELHelper::config();
 
 		// Get the menu object of the active menu item
 		$menu		=& JMenu::getInstance();
@@ -94,7 +94,7 @@ class EventListViewSimplelist extends JView
 		if ($maintainer || $genaccess ) $dellink = 1;
 
 		//add alternate feed link
-		$link    = 'feed.php?option=com_eventlist&amp;view=simplelist&amp;Itemid='.$Itemid;
+		$link    = 'feed.php?option=com_eventlist&amp;view=eventlist';
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
 		$document->addHeadLink($link.'&amp;format=rss', 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
@@ -106,7 +106,7 @@ class EventListViewSimplelist extends JView
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
-		$link = 'index.php?view=simplelist';
+		$link = 'index.php?view=eventlist';
 
 		//create select lists
 		$lists	= $this->_buildSortLists($elsettings);
@@ -149,7 +149,7 @@ class EventListViewSimplelist extends JView
 
 			//Format date
 			$date = strftime( $this->elsettings->formatdate, strtotime( $row->dates ));
-			if ($row->enddates == '0000-00-00') {
+			if (!$row->enddates) {
 				$displaydate = $date;
 			} else {
 				$enddate 	= strftime( $this->elsettings->formatdate, strtotime( $row->enddates ));
@@ -157,21 +157,28 @@ class EventListViewSimplelist extends JView
 			}
 
 			//Format time
-			$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
-			$time = $time.' '.$this->elsettings->timename;
-			$endtime = strftime( $this->elsettings->formattime, strtotime( $row->endtimes ));
-			$endtime = $endtime.' '.$this->elsettings->timename;
-
+			unset($displaytime);
 			if ($this->elsettings->showtime == 1) {
-				if ($row->times != '00:00:00') {
+				if ($row->times) {
+					$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
+					$time = $time.' '.$this->elsettings->timename;
 					$displaytime = '<br />'.$time;
+				
 				}
-				if ($row->endtimes != '00:00:00') {
+				if ($row->endtimes) {
+					$endtime = strftime( $this->elsettings->formattime, strtotime( $row->endtimes ));
+					$endtime = $endtime.' '.$this->elsettings->timename;
 					$displaytime = '<br />'.$time.' - '.$endtime;
+					
 				}
-				$row->displaytime = $displaytime;
 			}
-
+			
+			if (isset($displaytime)) {
+				$row->displaytime = $displaytime;
+			} else {
+				$row->displaytime = '<br />-';
+			}
+			
 			$row->displaydate = $displaydate;
 			$row->odd   = $k;
 			$k = 1 - $k;
