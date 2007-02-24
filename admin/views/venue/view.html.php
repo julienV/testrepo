@@ -42,13 +42,10 @@ class EventListViewVenue extends JView {
 
 		// Get data from the model
 		$row      	= & $this->get( 'Data');
-		$image =& JTable::getInstance('eventlist_venues', '');
+		$image 		=& JTable::getInstance('eventlist_venues', '');
 
 		if ( $cid ) {
 			JMenuBar::title( JText::_( 'EDIT VENUE' ), 'venuesedit' );
-			JMenuBar::apply('apply');
-			JMenuBar::spacer();
-
 			jimport('joomla.filter.output');
 			JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'locdescription' );
 
@@ -56,14 +53,14 @@ class EventListViewVenue extends JView {
 
 		} else {
 			JMenuBar::title( JText::_( 'ADD VENUE' ), 'venuesedit' );
-			JMenuBar::apply('apply_new');
-			JMenuBar::spacer();
 
 			//set the submenu
 			$submenu = ELAdmin::submenu();
 			$document->setBuffer($submenu, 'module', 'submenu');
 
 		}
+		JMenuBar::apply('apply');
+		JMenuBar::spacer();
 		JMenuBar::save('savevenue');
 		JMenuBar::spacer();
 		JMenuBar::cancel('cancel');

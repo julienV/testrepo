@@ -254,12 +254,13 @@ class EventListModelCategory extends JModel
 			$mainframe->redirect('index.php?option='.$option.'&view=categories', JText::_( 'ADD NAME CATEGORY' ) );
 		}
 
+		/*
 		// Make sure the data is valid
 		if (!$row->check()) {
 			JError::raiseError( 500, $db->stderr() );
 			return false;
 		}
-
+*/
 		// Store it in the db
 		if (!$row->store()) {
 			JError::raiseError( 500, $db->stderr() );
@@ -269,7 +270,7 @@ class EventListModelCategory extends JModel
 		$row->checkin();
 		$row->reorder();
 
-		return true;
+		return $row->id;
 	}
 
 	/**

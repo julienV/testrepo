@@ -273,7 +273,7 @@ class EventListModelVenue extends JModel
 		$row->checkin();
 		$row->reorder();
 
-		return true;
+		return $row->id;
 	}
 }
 ?>

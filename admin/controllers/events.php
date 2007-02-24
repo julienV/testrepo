@@ -31,7 +31,6 @@ class EventListControllerEvents extends EventListController
 
 		// Register Extra task
 		$this->registerTask( 'apply', 		'saveevent' );
-		$this->registerTask( 'apply_new', 	'saveevent' );
 		$this->registerTask( 'copy',	 	'editevent' );
 	}
 
@@ -202,19 +201,14 @@ class EventListControllerEvents extends EventListController
 
 		$model = $this->getModel('event');
 
-		$model->store($post);
+		$returnid = $model->store($post);
 
 		switch ($task)
 		{
 			case 'apply' :
-				//$link = $_SERVER['HTTP_REFERER'];
-				$link = 'index.php?option='.$option.'&controller=events&task=editevent&hidemainmenu=1&cid[]='.$post['id'];
+				$link = 'index.php?option='.$option.'&controller=events&view=event&hidemainmenu=1&cid[]='.$returnid;
 				break;
-			/* FIXME: fetch new id out of model
-			case 'apply_new' :
-				$link = 'index.php?option='.$option.'&controller=events&task=editevent&hidemainmenu=1&cid[]='.$post['id'];
-				break;
-			*/
+				
 			default :
 				$link = 'index.php?option='.$option.'&view=events';
 				break;

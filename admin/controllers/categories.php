@@ -31,8 +31,7 @@ class EventListControllerCategories extends EventListController
 
 		// Register Extra task
 		$this->registerTask( 'categorynew'  , 	'categoryedit' );
-		$this->registerTask( 'applycat', 		'savecategory' );
-		$this->registerTask( 'applycat_new', 	'savecategory' );
+		$this->registerTask( 'apply', 			'savecategory' );
 		$this->registerTask( 'accesspublic', 	'access' );
 		$this->registerTask( 'accessregistered','access' );
 		$this->registerTask( 'accessspecial', 	'access' );
@@ -57,12 +56,12 @@ class EventListControllerCategories extends EventListController
 
 		$model = $this->getModel('category');
 
-		$model->store($post);
+		$returnid = $model->store($post);
 
 		switch ($task)
 		{
-			case 'applycat' :
-				$link = $_SERVER['HTTP_REFERER'];
+			case 'apply' :
+				$link = 'index.php?option='.$option.'&view=category&hidemainmenu=1&cid[]='.$returnid;
 				break;
 
 			default :
@@ -70,7 +69,7 @@ class EventListControllerCategories extends EventListController
 				break;
 		}
 
-		$this->setredirect($link, JText::_( 'CATEGORY SAVED' ) );
+		$this->setRedirect($link, JText::_( 'CATEGORY SAVED' ) );
 	}
 
 	/**

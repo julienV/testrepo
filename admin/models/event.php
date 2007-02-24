@@ -252,15 +252,7 @@ class EventListModelEvent extends JModel
 		if (!$row->bind($data)) {
 			$this->setError($this->_db->getErrorMsg());
 			return false;
-		}
-
-		
-		//var_dump($row);
-		//$mainframe->close();
-		
-		
-		//Check date format
-		//TODO: move to table		
+		}	
 		
 		if (empty($row->enddates)) {
 			$row->enddates = NULL;
@@ -350,7 +342,7 @@ class EventListModelEvent extends JModel
 
 		$row->checkin();
 
-		return true;
+		return $row->id;
 	}
 }
 ?>

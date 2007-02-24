@@ -39,18 +39,17 @@ class EventListViewCategory extends JView {
 
 		if ( $cid ) {
 			JMenuBar::title( JText::_( 'EDIT CATEGORY' ), 'categoriesedit' );
-			JMenuBar::apply('applycat');
-			JMenuBar::spacer();
+
 		} else {
 			JMenuBar::title( JText::_( 'ADD CATEGORY' ), 'categoriesedit' );
-			JMenuBar::apply('applycat_new');
-			JMenuBar::spacer();
 
 			//set the submenu
 			$submenu = ELAdmin::submenu();
 			$document->setBuffer($submenu, 'module', 'submenu');
 
 		}
+		JMenuBar::apply();
+		JMenuBar::spacer();
 		JMenuBar::save('savecategory');
 		JMenuBar::spacer();
 		JMenuBar::media_manager();

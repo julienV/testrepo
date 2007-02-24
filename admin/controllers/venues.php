@@ -34,7 +34,6 @@ class EventListControllerVenues extends EventListController
 		// Register Extra task
 		$this->registerTask( 'newvenue', 	'editvenue' );
 		$this->registerTask( 'apply', 		'savevenue' );
-		$this->registerTask( 'apply_new', 	'savevenue' );
 	}
 
 	/**
@@ -203,19 +202,15 @@ class EventListControllerVenues extends EventListController
 
 		$model = $this->getModel('venue');
 
-		$model->store($post);
+		$returnid = $model->store($post);
 
 		switch ($task)
 		{
-			case 'applyvenue' :
-				$link = $_SERVER['HTTP_REFERER'];
+			case 'apply':
+				$link = 'index.php?option='.$option.'&view=venue&hidemainmenu=1&cid[]='.$returnid;
 				break;
 
-			case 'applyvenue_new' :
-				$link = 'index.php?option='.$option.'&&view=venue&hidemainmenu=1&cid='.$row->id;
-				break;
-
-			default :
+			default:
 				$link = 'index.php?option='.$option.'&view=venues';
 				break;
 		}

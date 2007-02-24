@@ -57,7 +57,7 @@ class EventListViewEvent extends JView {
 			$document->setBuffer($submenu, 'module', 'submenu');
 
 		}
-		JMenuBar::apply('apply');
+		JMenuBar::apply();
 		JMenuBar::spacer();
 		JMenuBar::save('saveevent');
 		JMenuBar::spacer();
