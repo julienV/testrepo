@@ -353,9 +353,9 @@ defined('_JEXEC') or die('Restricted access');
 
 		</fieldset>
 
-		<input type="hidden" name="option" value="<?php echo $option ; ?>" />
-		<input type="hidden" name="Itemid" value="<?php echo $Itemid ; ?>" />
-		<input type="hidden" name="id" value="<?php echo $this->row->id ; ?>" />
+		<input type="hidden" name="option" value="<?php echo $option; ?>" />
+		<input type="hidden" name="Itemid" value="<?php echo $this->item->id; ?>" />
+		<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
 		<input type="hidden" name="returnview" value="<?php echo $this->returnview; ?>" />
 		<input type="hidden" name="deliverdate" value="<?php echo $this->row->deliverdate; ?>" />
 		<input type="hidden" name="curimage" value="<?php echo $this->row->datimage; ?>" />

@@ -61,7 +61,7 @@ class ELOutput {
 
 			$overlib = JText::_( 'SUBMIT EVENT TIP' );
 			?>
-			<a href="<?php echo $link ?>" class="editlinktip hasTip" title="<?php echo JText::_( 'DELIVER NEW EVENT' ); ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
+			<a href="<?php echo JRoute::_($link); ?>" class="editlinktip hasTip" title="<?php echo JText::_( 'DELIVER NEW EVENT' ); ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
 			<?php
 
 		} else {
@@ -185,7 +185,7 @@ class ELOutput {
 			$link = 'index.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;Returnid='.$Itemid.'&amp;view='.$view.'&amp;id='.$id;
 
 				?>
-				<a href="<?php echo $link ?>" class="editlinktip hasTip" title="<?php echo $text; ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
+				<a href="<?php echo JRoute::_($link); ?>" class="editlinktip hasTip" title="<?php echo $text; ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
 			<?php
 		} else {
 			echo '&nbsp;';

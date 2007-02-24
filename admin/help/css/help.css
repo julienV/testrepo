@@ -1,9 +1,17 @@
-body {
+body
+{
 	font-family: verdana, arial, sans-serif;
 	font-size: 9pt;
 }
 
-h1 { 
+a:link    { color: #0B55C4; text-decoration: none; }
+
+a:visited { color: #0B55C4; text-decoration: none; }
+
+a:hover   { text-decoration: underline; }
+
+h1
+{ 
 	color: #1B57B1;
 	font-size: 1.5em;
     border-left: 25px solid #1B57B1;
@@ -11,7 +19,8 @@ h1 {
 	padding: 0 0 2px 5px;
 }
 
-h2 { 
+h2
+{ 
 	padding-top: 0pt;
 	padding-right: 0pt;
 	padding-bottom: 0pt;
@@ -28,7 +37,8 @@ h2 {
 	width: 100%;
 }
 
-h3 {
+h3
+{
 	margin-top: 0pt;
 	margin-right: 0pt;
 	margin-left: 0pt;
@@ -44,14 +54,16 @@ h3 {
 	text-align: left;
 }
 
-pre {
+pre
+{
 	text-align: left;
 	background-color: #fff;
 	border-left: 1px solid #aaa;
 	padding: 5px;
 }
 
-.hintheader {
+.hintheader
+{
 	border-left-width: 6px;
 	border-left-style: solid;
 	border-left-color: #FFFFCF;
@@ -104,7 +116,8 @@ pre {
 	width: 80%;
 }
 
-.attentionheader {
+.attentionheader
+{
 	border-left-width: 6px;
 	border-left-style: solid;
 	border-left-color: #FE8282;
@@ -155,4 +168,41 @@ pre {
 	background-color: #ffffff;
 	font-size: 12px;
 	width: 80%;
+}
+
+table.help
+{
+	background-color: #ffffff;
+	border: solid 1px #d5d5d5;
+	width: 100%;
+	border-collapse: collapse;
+	margin: 8px 0 10px 0;
+	margin-bottom: 15px;
+	width: 100%;
+}
+
+table.help tr.row0
+{
+	background-color: #f9f9f9;
+}
+
+table.help tr.row1
+{
+	background-color: #f6f6f6;
+}
+
+table.help th
+{
+	font-size: 11px;
+	padding: 6px 2px 4px 4px;
+	text-align: left;
+	height: 25px;
+	color: #000;
+	background-color: #eeeeee;
+}
+
+table.help td
+{
+	padding: 3px;
+	text-align: left;
 }

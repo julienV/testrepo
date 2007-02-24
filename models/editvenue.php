@@ -52,25 +52,6 @@ class EventListModelEditvenue extends JModel
 		// Set new venue ID
 		$this->_id			= $id;
 	}
-
-	/**
-	 * Overridden get method to get properties from the edit
-	 *
-	 * @access	public
-	 * @param	string	$property	The name of the property
-	 * @param	mixed	$value		The value of the property to set
-	 * @return 	mixed 				The value of the property
-	 * @since	0.9
-	 */
-	function get($property, $default=null)
-	{
-		if ($this->_loadVenue()) {
-			if(isset($this->_venue->$property)) {
-				return $this->_venue->$property;
-			}
-		}
-		return $default;
-	}
 	
 	/**
 	 * Logic to get the venue

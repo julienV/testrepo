@@ -29,7 +29,7 @@ class EventListViewEditevent extends JView
 	 */
 	function display( $tpl=null )
 	{
-		global $Itemid, $mainframe, $option;
+		global $mainframe, $option;
 
 		if($this->getLayout() == 'selectvenue') {
 			$this->_displayselectvenue($tpl);
@@ -127,6 +127,7 @@ class EventListViewEditevent extends JView
 		$this->assignRef('venueselect' , 			$venueselect);
 		$this->assignRef('returnview' , 			$returnview);
 		$this->assignRef('elsettings' , 			$elsettings);
+		$this->assignRef('item' , 					$item);
 
 		parent::display($tpl);
 

@@ -119,7 +119,8 @@ class EventListModelDetails extends JModel
 			$query = 'SELECT a.id AS did, a.dates, a.enddates, a.title, a.times, a.endtimes, a.datdescription, a.meta_keywords, a.meta_description, a.datimage, a.registra, a.unregistra, a.locid, a.catsid, a.uid,'
 					. ' l.id AS locid, l.club, l.city, l.state, l.url, l.locdescription, l.locimage, l.city, l.plz, l.street, l.country, l.uid AS venueowner,' 
 					. ' c.catname, c.published, c.access'
-					. ' FROM #__eventlist_events AS a' 
+			//		. ' CASE WHEN CHAR_LENGTH(a.titel) THEN CONCAT_WS(":", did, a.titel) ELSE did END as slug'
+					. ' FROM #__eventlist_events AS a'
 					. ' LEFT JOIN #__eventlist_venues AS l ON a.locid = l.id'
 					. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
 					. $where

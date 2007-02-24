@@ -13,7 +13,7 @@
 	<filename>eventlist.php</filename>
 	<filename>controller.php</filename>
 	<filename>eventlist.helper.php</filename>
-	<filename>route.php</filename>
+	<filename>router.php</filename>
 
 	<filename>classes/index.html</filename>
 	<filename>classes/user.class.php</filename>

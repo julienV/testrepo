@@ -13,13 +13,13 @@ defined('_JEXEC') or die('Restricted access');
 
 <form action="index.php" method="post" name="adminForm">
 
-<table class="adminform">
+<table width="80%" class="adminform">
 	<tr>
 		<td width="100%">
-			<?php echo JText::_( 'SEARCH' );
+			<?php echo JText::_( 'SEARCH' ).': ';
 			echo $this->searchfilter;
 			?>
-			<input type="text" name="search" id="search" value="<?php echo $this->search;?>" class="text_area" onChange="document.adminForm.submit();" />
+			<input type="text" name="search" id="search" class="inputbox" value="<?php echo $this->search;?>" onChange="this.form.submit();" />
 			<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
 			<button onclick="this.form.getElementById('search').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
 		</td>
@@ -29,7 +29,7 @@ defined('_JEXEC') or die('Restricted access');
 	</tr>
 </table>
 
-<table class="adminlist" cellspacing="1">
+<table width="80%"class="adminlist" cellspacing="1">
 	<thead>
 		<tr>
 			<th width="7"><?php echo JText::_( 'Num' ); ?></th>
@@ -46,7 +46,7 @@ defined('_JEXEC') or die('Restricted access');
 			$row = &$this->rows[$i];
 		?>
 		<tr class="<?php echo "row$k"; ?>">
-			<td><?php echo  $i+1; ?></td>
+			<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
 			<td align="left">
 
 				<a style="cursor:pointer" onclick="window.parent.elSelectVenue('<?php echo $row->id; ?>', '<?php echo $row->club; ?>');">

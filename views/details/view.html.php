@@ -47,8 +47,7 @@ class EventListViewDetails extends JView
 		} else {
 			$pics = '';
 		}
-
-
+		
 		//Check if the id exists
 		if ($row->did == 0)
 		{

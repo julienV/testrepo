@@ -60,25 +60,6 @@ class EventListModelEditevent extends JModel
 	}
 
 	/**
-	 * Overridden get method to get properties from the edit
-	 *
-	 * @access	public
-	 * @param	string	$property	The name of the property
-	 * @param	mixed	$value		The value of the property to set
-	 * @return 	mixed 				The value of the property
-	 * @since	0.9
-	 */
-	function get($property, $default=null)
-	{
-		if ($this->_loadEvent()) {
-			if(isset($this->_event->$property)) {
-				return $this->_event->$property;
-			}
-		}
-		return $default;
-	}
-
-	/**
 	 * logic to get the event
 	 *
 	 * @access public

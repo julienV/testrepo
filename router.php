@@ -6,7 +6,7 @@
 * @copyright (C) 2005 - 2007 Christoph Lukes
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
 */
-
+/*
 function EventListBuildURL(&$ARRAY, &$params)
 {
 	$resolveNames = $params->get('realnames',0);
@@ -131,5 +131,65 @@ function EventListParseURL($ARRAY, &$params)
 	
 		default: break;
 	}
+}
+*/
+
+function EventListBuildRoute(&$query)
+{
+	$segments = array();
+
+	if(isset($query['did']))
+	{
+		$segments[] = $query['did'];
+		unset($query['did']);
+	};
+
+	if(isset($query['locatid']))
+	{
+		$segments[] = $query['locatid'];
+		unset($query['locatid']);
+	};
+
+	unset($query['view']);
+
+	return $segments;
+}
+
+function EventListParseRoute($segments)
+{
+	//Get the active menu item
+	$menu =& JMenu::getInstance();
+	$item =& $menu->getActive();
+
+	// Count route segments
+	$count = count($segments);
+
+	//Handle View and Identifier
+	switch($item->query['view'])
+	{
+		case 'categories' :
+		{
+			if($count == 1) {
+				$view = 'category';
+			}
+
+			if($count == 2) {
+				$view = 'weblink';
+			}
+
+			$id = $segments[$count-1];
+
+		} break;
+
+		case 'details'   :
+		{
+			$did   = $segments[$count-1];
+			$view = 'details';
+
+		} break;
+	}
+
+	JRequest::setVar('view', $view, 'get');
+	JRequest::setVar('did'  , $did, 'get');
 }
 ?>
