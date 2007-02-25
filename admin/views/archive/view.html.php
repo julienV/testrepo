@@ -24,12 +24,12 @@ class EventListViewArchive extends JView {
 	{
 		global $mainframe, $option;
 
+		//initialise variables
 		$document	= & JFactory::getDocument();
 		$db			= & JFactory::getDBO();
 		$uri 		= & JFactory::getURI();
 		$elsettings = ELAdmin::config();
-
-		$live_site = $mainframe->getCfg('live_site');
+		$submenu 	= ELAdmin::submenu();
 
 		//get vars
 		$filter_order		= $mainframe->getUserStateFromRequest( "$option.archive.filter_order", 		'filter_order', 	'a.dates' );
@@ -37,10 +37,15 @@ class EventListViewArchive extends JView {
 		$filter 			= $mainframe->getUserStateFromRequest( "$option.archive.filter", 'filter', '' );
 		$filter 			= intval( $filter );
 		$search 			= $mainframe->getUserStateFromRequest( "$option.archive.search", 'search', '' );
-		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
-
+		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );	
+		$live_site 			= $mainframe->getCfg('live_site');
+		$TimeOffset			= $mainframe->getCfg('offset');
+		
+		//add css and submenu to document
+		$document->setBuffer($submenu, 'module', 'submenu');
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
+		//create the toolbar
 		JMenuBar::title( JText::_( 'ARCHIVE' ), 'archive' );
 		JMenuBar::unarchiveList('unarchive');
 		JMenuBar::spacer();
@@ -48,20 +53,12 @@ class EventListViewArchive extends JView {
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.archive', true );
 
-		$submenu = ELAdmin::submenu();
-		$document->setBuffer($submenu, 'module', 'submenu');
-
 		// Get data from the model
 		$rows      	= & $this->get( 'Data');
 		$total      = & $this->get( 'Total');
 		$pageNav 	= & $this->get( 'Pagination' );
 
-		// Get offset time
-		$TimeOffset	= $mainframe->getCfg('offset');
-
-		/*
-		* search filter
-		*/
+		//search filter
 		$filters = array();
 		$filters[] = JHTMLSelect::option( '1', JText::_( 'EVENT TITLE' ) );
 		$filters[] = JHTMLSelect::option( '2', JText::_( 'VENUE' ) );
@@ -69,9 +66,7 @@ class EventListViewArchive extends JView {
 		$filters[] = JHTMLSelect::option( '4', JText::_( 'CATEGORY' ) );
 		$lists['filter'] = JHTMLSelect::genericList( $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
 
-		/*
-		* table ordering
-		*/
+		//table ordering
 		if ( $filter_order_Dir == 'DESC' ) {
 			$lists['order_Dir'] = 'ASC';
 		} else {
@@ -80,6 +75,7 @@ class EventListViewArchive extends JView {
 
 		$lists['order'] = $filter_order;
 
+		//assign data to template
 		$this->assignRef('lists'      	, $lists);
 		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('rows'      	, $rows);
@@ -87,6 +83,7 @@ class EventListViewArchive extends JView {
 		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('search'		, $search);
 		$this->assignRef('elsettings'	, $elsettings);
+		$this->assignRef('TimeOffset'	, $TimeOffset);
 
 		parent::display($tpl);
 	}

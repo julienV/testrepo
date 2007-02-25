@@ -24,17 +24,18 @@ class EventListViewImageupload extends JView {
 	{
 		global $mainframe;
 
-		$live_site 	= $mainframe->getCfg('live_site');
-		$template	= $mainframe->getTemplate();
+		//initialise variables
 		$document	= & JFactory::getDocument();
 		$uri 		= & JFactory::getURI();
-		$elsettings = & ELAdmin::config();
+		$elsettings = ELAdmin::config();
 		
-		$request_url = $uri->toString();
-		
-	//	$task = substr($task, 0, 7);	
+		//get vars
+		$live_site 	= $mainframe->getCfg('live_site');
+		$template	= $mainframe->getTemplate();
+		$request_url = $uri->toString();	
 		$task 		= JRequest::getVar( 'task' );
 	
+		//add css
 		//TODO rtl css
 		$document->addStyleSheet('templates/'.$template.'/css/template.css');
 		?>

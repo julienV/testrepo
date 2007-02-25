@@ -23,27 +23,37 @@ class EventListViewVenue extends JView {
 	function display($tpl = null)
 	{
 		global $mainframe, $option;
-
+		
+		// Load tooltips and pane behavior
 		jimport('joomla.html.pane');
-		// Load tooltips behavior
 		jimport('joomla.html.tooltips');
 
-		$live_site	= $mainframe->getCfg('live_site');
+		//initialise variables
 		$editor 	= & JFactory::getEditor();
 		$document	= & JFactory::getDocument();
 		$db		 	= & JFactory::getDBO();
 		$uri 		= & JFactory::getURI();
-
 		$pane		= & JPane::getInstance('sliders');
 
-		$request_url =  $uri->toString();
+		//get vars
+		$request_url 	= $uri->toString();
+		$live_site		= $mainframe->getCfg('live_site');
+		$cid 			= JRequest::getVar( 'cid' );
+		$url 			= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
+		
+		//add css and js to document
+		$document->addScript('../includes/js/joomla/popup.js');
+		$document->addStyleSheet('../includes/js/joomla/popup.css');
+		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
-		$cid = JRequest::getVar( 'cid' );
-
+		//image
+		//JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
+		
 		// Get data from the model
 		$row      	= & $this->get( 'Data');
-		$image 		=& JTable::getInstance('eventlist_venues', '');
+		$image 		= & JTable::getInstance('eventlist_venues', '');
 
+		//create the toolbar
 		if ( $cid ) {
 			JMenuBar::title( JText::_( 'EDIT VENUE' ), 'venuesedit' );
 			jimport('joomla.filter.output');
@@ -67,19 +77,7 @@ class EventListViewVenue extends JView {
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.editvenues', true );
 
-		$submenu = ELAdmin::submenu();
-		$document->setBuffer($submenu, 'module', 'submenu');
-		$document->addScript('../includes/js/joomla/popup.js');
-		$document->addStyleSheet('../includes/js/joomla/popup.css');
-		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
-
-		/*
-		* image
-		*/
-		$url 		= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
-		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-
-
+		//Build the image select functionality
 		$js = "
 		function elSelectImage(image, imagename) {
 			document.getElementById('a_image').value = image;
@@ -97,6 +95,7 @@ class EventListViewVenue extends JView {
 		$imageselect .= "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link2', 650, 400, null);\" value=\"".JText::_('SELECTIMAGE')."\" />";
 		$imageselect .= "\n<input type=\"hidden\" id=\"a_image\" name=\"locimage\" value=\"$image->locimage\" />";
 
+		//assign data to template
 		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('row'      	, $row);
 		$this->assignRef('image'      	, $image);

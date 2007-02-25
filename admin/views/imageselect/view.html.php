@@ -25,16 +25,20 @@ class EventListViewImageselect extends JView  {
 	{
 		global $mainframe;
 		
-		$live_site 	= $mainframe->getCfg('live_site');
-		
-		$task = JRequest::getVar( 'task' );
-		
-		$document   =& JFactory::getDocument();
-		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
-		
+		//Load filesystem folder
 		jimport('joomla.filesystem.folder');
 		
-		// Initialize variables
+		//initialise variables
+		$document   =& JFactory::getDocument();
+		
+		//get vars
+		$live_site 	= $mainframe->getCfg('live_site');	
+		$task = JRequest::getVar( 'task' );
+		
+		//add css
+		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
+		
+		//set variables
 		if ($task == 'selecteventimg') {
 			$Path 	= '/images/eventlist/events/';
 		} else {
@@ -64,8 +68,7 @@ class EventListViewImageselect extends JView  {
 			}
 		}
 		
-		//prepare images
-		
+		//prepare images	
 		if (count($images) > 0 )
 		{
 			//now sort the images by name.

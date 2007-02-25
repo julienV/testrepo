@@ -73,7 +73,7 @@
 				<?php echo $row->sendermail; ?><br />
 				<?php echo $row->deliverip; ?><br />
 				<?php
-				$delivertime = strftime( '%c',$row->deliverdate + ( $TimeOffset*60*60 ) );
+				$delivertime = strftime( '%c',$row->deliverdate + ( $this->TimeOffset*60*60 ) );
 				echo $delivertime;
 				}
 				?>

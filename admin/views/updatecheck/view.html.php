@@ -24,13 +24,19 @@ class EventListViewUpdatecheck extends JView {
 		
 		global $mainframe;
 		
-		$template	= $mainframe->getTemplate();
+		//initialise variables
 		$document	= & JFactory::getDocument();
 		
+		//get vars
+		$template	= $mainframe->getTemplate();
+		
+		//add css
 		$document->addStyleSheet("templates/$template/css/general.css");
 		
+		//Get data from the model
 		$updatedata      = & $this->get( 'Updatedata');
 		
+		//assign data to template
 		$this->assignRef('template'		, $template);
 		$this->assignRef('updatedata'	, $updatedata);
 		

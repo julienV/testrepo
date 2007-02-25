@@ -24,11 +24,32 @@ class EventListViewVenues extends JView {
 	{
 		global $mainframe, $option;
 		
+		// Load tooltips behavior
+		jimport('joomla.html.tooltips');
+		
+		//initialise variables
 		$user 		= & JFactory::getUser();
 		$db 		= & JFactory::getDBO();
 		$uri 		= & JFactory::getURI();
-		$template	= $mainframe->getTemplate();
+		$document	= & JFactory::getDocument();
+		$submenu 	= ELAdmin::submenu();
 		
+		//get vars
+		$filter_order		= $mainframe->getUserStateFromRequest( "$option.venues.filter_order", 		'filter_order', 	'l.ordering' );
+		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.venues.filter_order_Dir",	'filter_order_Dir',	'' );
+		$filter_state 		= $mainframe->getUserStateFromRequest( "$option.venues.filter_state", 		'filter_state', 	'*' );
+		$filter 			= $mainframe->getUserStateFromRequest( "$option.venues.filter", 			'filter', '' );
+		$filter 			= intval( $filter );
+		$search 			= $mainframe->getUserStateFromRequest( "$option.search", 			'search', '' );
+		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
+		$template			= $mainframe->getTemplate();
+		$live_site 			= $mainframe->getCfg('live_site');
+				
+		//add css and submenu to document
+		$document->setBuffer($submenu, 'module', 'submenu');
+		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
+
+		//create the toolbar
 		JMenuBar::title( JText::_( 'VENUES' ), 'venues' );
 		JMenuBar::publishList('publish');
 		JMenuBar::spacer();
@@ -42,34 +63,12 @@ class EventListViewVenues extends JView {
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.listvenues', true );
 		
-		// Load tooltips behavior
-		jimport('joomla.html.tooltips');
-
-		$live_site = $mainframe->getCfg('live_site');
-		$document	= & JFactory::getDocument();
-		
-		$filter_order		= $mainframe->getUserStateFromRequest( "$option.venues.filter_order", 		'filter_order', 	'l.ordering' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.venues.filter_order_Dir",	'filter_order_Dir',	'' );
-		$filter_state 		= $mainframe->getUserStateFromRequest( "$option.venues.filter_state", 		'filter_state', 	'*' );
-		$filter 			= $mainframe->getUserStateFromRequest( "$option.venues.filter", 			'filter', '' );
-		$filter 			= intval( $filter );
-		$search 			= $mainframe->getUserStateFromRequest( "$option.search", 			'search', '' );
-		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
-				
-		$submenu = ELAdmin::submenu();
-		$document->setBuffer($submenu, 'module', 'submenu');
-		
-		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
-
-		
 		// Get data from the model
 		$rows      	= & $this->get( 'Data');
 		$total      = & $this->get( 'Total');
 		$pageNav 	= & $this->get( 'Pagination' );
 		
-		/*
-		* publish unpublished filter 
-		*/
+		//publish unpublished filter
 		$lists['state']	= JCommonHTML::selectState( $filter_state );
 		
 		$filters = array();
@@ -77,9 +76,7 @@ class EventListViewVenues extends JView {
 		$filters[] = JHTMLSelect::option( '2', JText::_( 'CITY' ) );
 		$lists['filter'] = JHTMLSelect::genericList( $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
 		
-		/*
-		* table ordering
-		*/
+		//table ordering
 		if ( $filter_order_Dir == 'DESC' ) {
 			$lists['order_Dir'] = 'ASC';
 		} else {
@@ -90,6 +87,7 @@ class EventListViewVenues extends JView {
 
 		$ordering = ($lists['order'] == 'l.ordering');
 		
+		//assign data to template
 		$this->assignRef('lists'      	, $lists);
 		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('rows'      	, $rows);

@@ -24,19 +24,23 @@ class EventListViewCategory extends JView {
 	{
 		global $mainframe, $option;
 
+		//Load pane behavior
 		jimport('joomla.html.pane');
 
-		$live_site	= $mainframe->getCfg('live_site');
+		//initialise variables
 		$editor 	= & JFactory::getEditor();
 		$document	= & JFactory::getDocument();
 		$uri 		= & JFactory::getURI();
 		$pane 		= & JPane::getInstance('sliders');
 
-		// Get data from the model
-		$row     	= & $this->get( 'Data');
+		//get vars
+		$cid 		= JRequest::getVar( 'cid' );
+		$live_site	= $mainframe->getCfg('live_site');
+		
+		//add css to document
+		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
-		$cid = JRequest::getVar( 'cid' );
-
+		//create the toolbar
 		if ( $cid ) {
 			JMenuBar::title( JText::_( 'EDIT CATEGORY' ), 'categoriesedit' );
 
@@ -58,24 +62,29 @@ class EventListViewCategory extends JView {
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.editcategories', true );
 
-		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
-
+		//Get data from the model
+		$row     	= & $this->get( 'Data' );
+		$groups = & $this->get( 'Groups' );
+		
+		//clean data
 		jimport('joomla.filter.output');
 		JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'catdescription' );
 
+		//build selectlists
 		$Lists = array();
 		$javascript = "onchange=\"javascript:if (document.forms[0].image.options[selectedIndex].value!='') {document.imagelib.src='../images/stories/' + document.forms[0].image.options[selectedIndex].value} else {document.imagelib.src='../images/blank.png'}\"";
 		$Lists['imagelist'] 		= JAdminMenus::Images( 'image', $row->image, $javascript, '/images/stories/' );
 		$Lists['access'] 			= JAdminMenus::Access( $row );
 
-		$groups = & $this->get( 'Groups');
-
+		
+		//build grouplist
 		$grouplist		= array();
 		$grouplist[] 	= JHTMLSelect::option( '0', JText::_( 'NO GROUP' ) );
 		$grouplist 		= array_merge( $grouplist, $groups );
 
 		$Lists['groups']	= JHTMLSelect::genericList( $grouplist, 'groupid', 'size="1" class="inputbox"', 'value', 'text', $row->groupid );
 
+		//assign data to template
 		$this->assignRef('Lists'      	, $Lists);
 		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('row'      	, $row);

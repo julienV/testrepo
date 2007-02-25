@@ -24,10 +24,17 @@ class EventListViewEditcss extends JView {
 		
 		global $mainframe;
 		
+		//initialise variables
 		$document	= & JFactory::getDocument();
 		
-		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
+		//get vars
+		$option		= JRequest::getVar('option');
+		$filename	= 'eventlist.css';
+		$path		= JPATH_SITE.'/components/com_eventlist/assets/css/';
+		$css_path	= $path . $filename;
+		$live_site	= $mainframe->getCfg('live_site');
 		
+		//create the toolbar
 		JMenuBar::title( JText::_( 'EDITCSS' ), 'cssedit' );
 		JMenuBar::apply( 'applycss' );
 		JMenuBar::spacer();
@@ -37,15 +44,10 @@ class EventListViewEditcss extends JView {
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.editcss', true );
 		
-		/*
-		 * Initialize some variables
-		 */
-		$option		= JRequest::getVar('option');
-		$filename	= 'eventlist.css';
-		$path		= JPATH_SITE.'/components/com_eventlist/assets/css/';
-		$css_path 	= $path . $filename;
-		$live_site	 = $mainframe->getCfg('live_site');
+		//add css to document
+		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 		
+		//read the the stylesheet
 		jimport('joomla.filesystem.file');
 		$content = JFile::read($path.$filename);
 		
@@ -59,6 +61,7 @@ class EventListViewEditcss extends JView {
 			$mainframe->redirect('index.php?option='.$option, $msg);
 		}
 		
+		//assign data to template
 		$this->assignRef('css_path'		, $css_path);
 		$this->assignRef('live_site'	, $live_site);
 		$this->assignRef('content'		, $content);

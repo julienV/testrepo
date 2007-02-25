@@ -24,37 +24,34 @@ class EventListViewCategoryelement extends JView {
 	{
 		global $mainframe, $option;
 
+		//initialise variables
 		$document	= & JFactory::getDocument();
 		$db			= & JFactory::getDBO();
 
-		$document->setTitle(JText::_( 'SELECTCATEGORY'));
-		$document->addScript(JPATH_SITE.'includes/js/joomla/modal.js');
-		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');
-
-		$template = $mainframe->getTemplate();
-		$document->addStyleSheet("templates/$template/css/general.css");
-
+		//get vars
 		$filter_order		= $mainframe->getUserStateFromRequest( "$option.categoryelement.filter_order", 		'filter_order', 	'c.ordering' );
 		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.categoryelement.filter_order_Dir",	'filter_order_Dir',	'' );
 		$filter_state 		= $mainframe->getUserStateFromRequest( "$option.categoryelement.filter_state", 		'filter_state', 	'*' );
 		$search 			= $mainframe->getUserStateFromRequest( "$option.categoryelement.search", 			'search', 			'' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
-
+		$template 			= $mainframe->getTemplate();
+		$live_site 			= $mainframe->getCfg('live_site');
+		
+		//prepare document
+		$document->setTitle(JText::_( 'SELECTCATEGORY'));
+		$document->addScript(JPATH_SITE.'includes/js/joomla/modal.js');
+		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');	
+		$document->addStyleSheet("templates/$template/css/general.css");
+		
 		// Get data from the model
 		$rows      	= & $this->get( 'Data');
 		$total      = & $this->get( 'Total');
 		$pageNav 	= & $this->get( 'Pagination' );
 
-		$live_site = $mainframe->getCfg('live_site');
-
-		/*
-		* publish unpublished filter
-		*/
+		//publish unpublished filter
 		$lists['state']	= JCommonHTML::selectState( $filter_state );
 
-		/*
-		* table ordering
-		*/
+		//table ordering
 		if ( $filter_order_Dir == 'DESC' ) {
 			$lists['order_Dir'] = 'ASC';
 		} else {
@@ -63,6 +60,7 @@ class EventListViewCategoryelement extends JView {
 
 		$lists['order'] = $filter_order;
 
+		//assign data to template
 		$this->assignRef('lists'      	, $lists);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);

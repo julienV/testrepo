@@ -24,10 +24,20 @@ class EventListViewVenueelement extends JView {
 	{
 		global $mainframe, $option;
 
+		//initialise variables
 		$db			= & JFactory::getDBO();
 		$document	= & JFactory::getDocument();
-		$template 	= $mainframe->getTemplate();
-
+		
+		//get vars
+		$filter_order		= $mainframe->getUserStateFromRequest( "$option.venueelement.filter_order", 		'filter_order', 	'l.ordering' );
+		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.venueelement.filter_order_Dir",	'filter_order_Dir',	'' );
+		$filter 			= $mainframe->getUserStateFromRequest( "$option.venueelement.filter", 			'filter', '' );
+		$filter_state 		= $mainframe->getUserStateFromRequest( "$option.venueelement.filter_state", 		'filter_state', 	'*' );
+		$search 			= $mainframe->getUserStateFromRequest( "$option.venueelement.search", 			'search', '' );
+		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
+		$template 			= $mainframe->getTemplate();
+		
+		//prepare document
 		$document->setTitle(JText::_( 'SELECTVENUE' ));
 		$document->addScript(JPATH_SITE.'includes/js/joomla/modal.js');
 		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');
@@ -37,22 +47,11 @@ class EventListViewVenueelement extends JView {
 		$rows      	= & $this->get( 'Data');
 		$total      = & $this->get( 'Total');
 		$pageNav 	= & $this->get( 'Pagination' );
-
-		$filter_order		= $mainframe->getUserStateFromRequest( "$option.venueelement.filter_order", 		'filter_order', 	'l.ordering' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.venueelement.filter_order_Dir",	'filter_order_Dir',	'' );
-		$filter 			= $mainframe->getUserStateFromRequest( "$option.venueelement.filter", 			'filter', '' );
-		$filter_state 		= $mainframe->getUserStateFromRequest( "$option.venueelement.filter_state", 		'filter_state', 	'*' );
-		$search 			= $mainframe->getUserStateFromRequest( "$option.venueelement.search", 			'search', '' );
-		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
-
-		/*
-		* publish unpublished filter
-		*/
+		
+		//publish unpublished filter
 		$lists['state']	= JCommonHTML::selectState( $filter_state );
 
-		/*
-		* table ordering
-		*/
+		//table ordering
 		if ( $filter_order_Dir == 'DESC' ) {
 			$lists['order_Dir'] = 'ASC';
 		} else {
@@ -61,11 +60,13 @@ class EventListViewVenueelement extends JView {
 
 		$lists['order'] = $filter_order;
 
+		//Build search filter
 		$filters = array();
 		$filters[] = JHTMLSelect::option( '1', JText::_( 'VENUE' ) );
 		$filters[] = JHTMLSelect::option( '2', JText::_( 'CITY' ) );
 		$lists['filter'] = JHTMLSelect::genericList( $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
 
+		//assign data to template
 		$this->assignRef('lists'      	, $lists);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);

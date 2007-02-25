@@ -23,38 +23,42 @@ class EventListViewHelp extends JView {
 	function display($tpl = null) {
 
 		global $mainframe;
-
+		
+		//Load filesystem folder and pane behavior
+		jimport('joomla.html.pane');
+		jimport( 'joomla.filesystem.folder' );
+		
+		//initialise variables
 		$document		= & JFactory::getDocument();
 		$lang 			= & JFactory::getLanguage();
 		$uri 			= & JFactory::getURI();
-
+		$pane 			= & JPane::getInstance('sliders');
+		$submenu 		= ELAdmin::submenu();
+		
+		//get vars
+		$live_site	 	= $mainframe->getCfg('live_site');
+		$request_url 	= $uri->toString();
+		$helpsearch 	= JRequest::getVar( 'search' );
+		
+		//add css and submenu to document
+		$document->setBuffer($submenu, 'module', 'submenu');
+		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
+		
+		//create the toolbar
 		JMenuBar::title( JText::_( 'HELP' ), 'help' );
 		JMenuBar::back();
-
-		$live_site	 	= $mainframe->getCfg('live_site');
-
-		jimport('joomla.html.pane');
-		$pane 			= & JPane::getInstance('sliders');
-
-		$submenu = ELAdmin::submenu();
-		$document->setBuffer($submenu, 'module', 'submenu');
-
-		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
-
+		
 		// Check for files in the actual language
 		$langTag = $lang->getTag();
-
-		jimport( 'joomla.filesystem.folder' );
-
+		
 		if( !JFolder::exists( JPATH_SITE . DS.'administrator'.DS.'components'.DS.'com_eventlist/help'.DS .$langTag ) ) {
 			$langTag = 'en-GB';		// use english as fallback
 		}
 
-		$request_url = $uri->toString();
-
-		$helpsearch = JRequest::getVar( 'search' );
+		//search the keyword in the files
 		$toc 		= EventListViewHelp::getHelpToc( $helpsearch );
 
+		//assign data to template
 		$this->assignRef('pane'			, $pane);
 		$this->assignRef('langTag'		, $langTag);
 		$this->assignRef('live_site'	, $live_site);

@@ -24,9 +24,18 @@ class EventListViewEventList extends JView {
 	{
 		global $mainframe, $option;
 		
-	//	$lang 		= & JFactory::getLanguage();
-		$document	= & JFactory::getDocument();
+		//Load pane behavior
+		jimport('joomla.html.pane');
 		
+		//initialise variables
+		$document	= & JFactory::getDocument();
+		$pane   	= & JPane::getInstance('sliders');
+		$submenu 	= ELAdmin::submenu();
+		
+		//get vars
+		$live_site 	= $mainframe->getCfg('live_site');
+		
+		//build toolbar
 		JMenuBar::title( JText::_( 'EVENTLIST' ), 'home' );
 		JMenuBar::help( 'el.intro', true );
 		
@@ -35,17 +44,11 @@ class EventListViewEventList extends JView {
 		$venue       = & $this->get( 'Venuesdata');
 		$category	 = & $this->get( 'Categoriesdata' );
 		
-		$submenu 	= ELAdmin::submenu();
+		//add css and submenu to document
 		$document->setBuffer($submenu, 'module', 'submenu');
-		
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 		
-		jimport('joomla.html.pane');
-		
-		$live_site 	= $mainframe->getCfg('live_site');
-		$pane   	= & JPane::getInstance('sliders');
-		
-				
+		//assign vars to the template		
 		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('pane'			, $pane);
 		$this->assignRef('events'		, $events);
@@ -67,9 +70,10 @@ class EventListViewEventList extends JView {
 	function quickiconButton( $link, $image, $text, $modal = 0 )
 	{
 		global $mainframe;
+		
+		//initialise variables
 		$lang 		= & JFactory::getLanguage();
 		$document	= & JFactory::getDocument();
-		
   		?>
 
 		<div style="float:<?php echo ($lang->isRTL()) ? 'right' : 'left'; ?>;">

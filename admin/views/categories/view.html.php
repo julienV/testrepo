@@ -24,17 +24,26 @@ class EventListViewCategories extends JView {
 	{
 		global $mainframe, $option;
 
+		//initialise variables
 		$user 		= & JFactory::getUser();
 		$db  		= & JFactory::getDBO();
 		$document	= & JFactory::getDocument();
 		$uri 		= & JFactory::getURI();
+		$submenu 	= ELAdmin::submenu();
 
+		//get vars
 		$filter_order		= $mainframe->getUserStateFromRequest( "$option.categories.filter_order", 		'filter_order', 	'c.ordering' );
 		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.categories.filter_order_Dir",	'filter_order_Dir',	'' );
 		$filter_state 		= $mainframe->getUserStateFromRequest( "$option.categories.filter_state", 		'filter_state', 	'*' );
 		$search 			= $mainframe->getUserStateFromRequest( "$option.categories.search", 			'search', 			'' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
-
+		$live_site 			= $mainframe->getCfg('live_site');
+		
+		//add css and submenu to document
+		$document->setBuffer($submenu, 'module', 'submenu');
+		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
+		
+		//create the toolbar
 		JMenuBar::title( JText::_( 'CATEGORIES' ), 'elcategories' );
 		JMenuBar::publishList('publish');
 		JMenuBar::spacer();
@@ -48,26 +57,15 @@ class EventListViewCategories extends JView {
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.listcategories', true );
 
-		// Get data from the model
+		//Get data from the model
 		$rows      	= & $this->get( 'Data');
 		$total      = & $this->get( 'Total');
-		$pageNav 	= & $this->get( 'Pagination' );
+		$pageNav 	= & $this->get( 'Pagination' );		
 
-		$live_site = $mainframe->getCfg('live_site');
-
-		$submenu = ELAdmin::submenu();
-		$document->setBuffer($submenu, 'module', 'submenu');
-
-		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
-
-		/*
-		* publish unpublished filter
-		*/
+		//publish unpublished filter
 		$lists['state']	= JCommonHTML::selectState( $filter_state );
 
-		/*
-		* table ordering
-		*/
+		//table ordering
 		if ( $filter_order_Dir == 'DESC' ) {
 			$lists['order_Dir'] = 'ASC';
 		} else {
@@ -78,6 +76,7 @@ class EventListViewCategories extends JView {
 
 		$ordering = ($lists['order'] == 'c.ordering');
 
+		//assign data to template
 		$this->assignRef('lists'      	, $lists);
 		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('rows'      	, $rows);

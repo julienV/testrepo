@@ -24,26 +24,31 @@ class EventListViewEvent extends JView {
 	{
 		global $mainframe;
 
+		//Load tooltips and pane behavior
 		jimport('joomla.html.pane');
-		// Load tooltips behavior
 		jimport('joomla.html.tooltips');
 
 		//initialise variables
-		$live_site 	= $mainframe->getCfg('live_site');
 		$editor 	= & JFactory::getEditor();
 		$document	= & JFactory::getDocument();
 		$db		 	= & JFactory::getDBO();
 		$pane 		= & JPane::getInstance('sliders');
 		$uri 		= & JFactory::getURI();
 		$elsettings = ELAdmin::config();
+		
+		//load calendar library
+		JCommonHTML::loadCalendar();
 
-		//get data from model
-		$row     	= & $this->get( 'Data');
-
-		//get requests
+		//get vars
 		$cid		= JRequest::getVar( 'cid' );
 		$task		= JRequest::getVar('task');
-
+		$live_site 	= $mainframe->getCfg('live_site');
+		$url 		= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
+		
+		//add the custom stylesheet and the seo javascript
+		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
+		$document->addScript($url.'administrator/components/com_eventlist/assets/js/seo.js');
+		
 		//build toolbar
 		if ( $cid ) {
 			JMenuBar::title( JText::_( 'EDIT EVENT' ), 'eventedit' );
@@ -64,29 +69,15 @@ class EventListViewEvent extends JView {
 		JMenuBar::cancel('cancel');
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.editevents', true );
+		
+		//get data from model
+		$row     	= & $this->get( 'Data');
 
-		//make safe
+		//make data safe
 		jimport('joomla.filter.output');
 		JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'datdescription' );
 
-		//load calendar library
-		JCommonHTML::loadCalendar();
-
-		//set the submenu
-		$submenu = ELAdmin::submenu();
-		$document->setBuffer($submenu, 'module', 'submenu');
-
-		$url 		= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
-
-		//add the custom stylesheet
-		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
-
-		//add the seo javascript
-		$document->addScript($url.'administrator/components/com_eventlist/assets/js/seo.js');
-
-		/*
-		* Create category list
-		*/
+		//Create category list
 		$categories = & $this->get( 'Categories');
 
 		$catlist 	= array();
@@ -122,12 +113,10 @@ class EventListViewEvent extends JView {
 		$venueselect .= "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 375, null);\" value=\"".JText::_('SELECT')."\" />";
 		$venueselect .= "\n<input type=\"hidden\" id=\"a_id\" name=\"locid\" value=\"$row->locid\" />";
 
-
 		//venueadd start
 		$link = 'index.php?option=com_eventlist&amp;view=venueadd&amp;tmpl=component';
 		$venueadd = "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"window.open('$link', 'popup', 'width=750,height=400,scrollbars=yes,toolbar=no,status=no,resizable=yes,menubar=no,location=no,directories=no,top=10,left=10')\" value=\"".JText::_('ADD')."\" />";
 		//venueadd end
-
 
 		/*
 		* image

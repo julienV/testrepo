@@ -24,37 +24,33 @@ class EventListViewEvents extends JView {
 	{
 		global $mainframe, $option;
 		
+		//Load tooltips behavior
+		jimport('joomla.html.tooltips');
+		
+		//initialise variables
 		$user 		= & JFactory::getUser();
 		$document	= & JFactory::getDocument();
 		$db  		= & JFactory::getDBO();
 		$uri 		= & JFactory::getURI();
-		$elsettings = ELAdmin::config();		
+		$elsettings = ELAdmin::config();
+		$submenu 	= ELAdmin::submenu();	
 		
+		//get vars
 		$filter_order		= $mainframe->getUserStateFromRequest( "$option.events.filter_order", 		'filter_order', 	'a.dates' );
 		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.events.filter_order_Dir",	'filter_order_Dir',	'' );
 		$filter_state 		= $mainframe->getUserStateFromRequest( "$option.events.filter_state", 		'filter_state', 	'*' );
 		$filter 			= $mainframe->getUserStateFromRequest( "$option.events.filter", 			'filter', '' );
 		$search 			= $mainframe->getUserStateFromRequest( "$option.events.search", 			'search', 			'' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
+		$live_site 			= $mainframe->getCfg('live_site');
+		$template			= $mainframe->getTemplate();
+		$request_url 		= $uri->toString();
 		
-		$live_site 		= $mainframe->getCfg('live_site');
-		$template		= $mainframe->getTemplate();
-		$request_url 	= $uri->toString();
-		
-		// Load tooltips behavior
-		jimport('joomla.html.tooltips');
-
-		$submenu = ELAdmin::submenu();
-		
+		//add css and submenu to document
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
-
 		$document->setBuffer($submenu, 'module', 'submenu');
 		
-		// Get data from the model
-		$rows      	= & $this->get( 'Data');
-		$total      = & $this->get( 'Total');
-		$pageNav 	= & $this->get( 'Pagination' );
-		
+		//create the toolbar
 		JMenuBar::title( JText::_( 'EVENTS' ), 'events' );
 		JMenuBar::archiveList();
 		JMenuBar::spacer();
@@ -72,10 +68,15 @@ class EventListViewEvents extends JView {
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.listevents', true );
 		
-		// publish unpublished filter 
+		// Get data from the model
+		$rows      	= & $this->get( 'Data');
+		$total      = & $this->get( 'Total');
+		$pageNav 	= & $this->get( 'Pagination' );
+		
+		//publish unpublished filter 
 		$lists['state']	= JCommonHTML::selectState( $filter_state );
 	
-		// table ordering
+		//table ordering
 		if ( $filter_order_Dir == 'DESC' ) {
 			$lists['order_Dir'] = 'ASC';
 		} else {
@@ -83,7 +84,7 @@ class EventListViewEvents extends JView {
 		}
 		$lists['order'] = $filter_order;
 		
-		// search filter 
+		//search filter 
 		$filters = array();
 		$filters[] = JHTMLSelect::option( '1', JText::_( 'EVENT TITLE' ) );
 		$filters[] = JHTMLSelect::option( '2', JText::_( 'VENUE' ) );
@@ -91,6 +92,7 @@ class EventListViewEvents extends JView {
 		$filters[] = JHTMLSelect::option( '4', JText::_( 'CATEGORY' ) );
 		$lists['filter'] = JHTMLSelect::genericList( $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
 
+		//assign data to template
 		$this->assignRef('lists'      	, $lists);
 		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('rows'      	, $rows);

@@ -24,26 +24,25 @@ class EventListViewVenueadd extends JView {
 	{
 		global $mainframe, $option;
 
-		$live_site	= $mainframe->getCfg('live_site');
+		//initialise variables
 		$editor 	= & JFactory::getEditor();
 		$document	= & JFactory::getDocument();
 		$db		 	= & JFactory::getDBO();
 		$uri 		= & JFactory::getURI();
 
-		$request_url =  $uri->toString();
+		//get vars
+		$request_url	=  $uri->toString();
+		$url 			= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
+		$live_site		= $mainframe->getCfg('live_site');
 
+		//add css and js to document
+		$document->addScript('../includes/js/joomla/popup.js');
+		$document->addStyleSheet('../includes/js/joomla/popup.css');
+			
 		// Get data from the model
 		$row      	= & $this->get( 'Data');
 
-		$document->addScript('../includes/js/joomla/popup.js');
-		$document->addStyleSheet('../includes/js/joomla/popup.css');
-
-		/*
-		* image
-		*/
-		$url 		= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
-
-
+		//Build the image select functionality
 		$js = "
 		function elSelectImage(image, imagename) {
 			document.getElementById('a_image').value = image;
@@ -61,6 +60,7 @@ class EventListViewVenueadd extends JView {
 		$imageselect .= "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link2', 650, 400, null);\" value=\"".JText::_('SELECTIMAGE')."\" />";
 		$imageselect .= "\n<input type=\"hidden\" id=\"a_image\" name=\"locimage\" value=\"".JText::_('SELECTIMAGE')."\" />";
 
+		//create the toolbar
 		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('row'      	, $row);
 		$this->assignRef('editor'      	, $editor);
