@@ -11,7 +11,7 @@
 <table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 	<tr>
 		<td align="left">
-			<strong><?php echo JText::_( 'Search' ); ?>:</strong>
+			<strong><?php echo JText::_( 'Search' ); ?></strong>
 			<input class="text_area" type="hidden" name="option" value="com_eventlist" />
 			<input type="text" name="search" id="search" value="<?php echo $this->helpsearch;?>" class="inputbox" />
 			<input type="submit" value="<?php echo JText::_( 'Go' ); ?>" class="button" />
