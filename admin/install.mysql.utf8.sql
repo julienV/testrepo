@@ -142,7 +142,6 @@ CREATE TABLE `#__eventlist_settings` (
   `showcat` tinyint(4) NOT NULL,
   `catfrowidth` varchar(20) NOT NULL,
   `catfroname` varchar(100) NOT NULL,
-  `evfrontview` tinyint(4) NOT NULL,
   `evdelrec` tinyint(4) NOT NULL,
   `evpubrec` tinyint(4) NOT NULL,
   `locdelrec` tinyint(4) NOT NULL,
