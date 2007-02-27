@@ -167,9 +167,12 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 					case 2:
 					?>
-						<dt class="anfahrt">XXXXAnfahrtXXXX</dt>
+					
+						<dt class="anfahrt"><?php echo JText::_( 'MAP' ); ?></dt>
 						<dd class="map">
-						<a href="http://maps.google.com/maps?q=<?php echo $this->row->street; ?>+<?php echo $this->row->city ?>+<?php echo $this->row->plz ?>+<?php echo $this->row->country ?>" title="<?php echo JText::_( 'MAP' ); ?>" target="_blank"><?php echo JText::_( 'MAP' ); ?></a>
+						<a href="http://maps.google.com/maps?q=<?php echo $this->row->street; ?>+<?php echo $this->row->city ?>+<?php echo $this->row->plz ?>+<?php echo $this->row->country ?>" title="<?php echo JText::_( 'MAP' ); ?>" target="_blank">
+							<?php echo JText::_( 'MAP' ); ?>
+						</a>
 						</dd>
 				<?php
 					break;
