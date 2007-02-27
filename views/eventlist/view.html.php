@@ -28,16 +28,18 @@ class EventListViewEventList extends JView
 	 */
 	function display( $tpl = null )
 	{
-
 		global $mainframe;
 
+		//initialize variables
 		$document 	= & JFactory::getDocument();
 		$elsettings = ELHelper::config();
+		$uri 		= & JFactory::getURI();
+		$menu		= & JMenu::getInstance();
 
 		// Get the menu object of the active menu item
-		$menu		=& JMenu::getInstance();
 		$item    	= $menu->getActive();
-		$params		=& $menu->getParams($item->id);
+		$state		= & $this->get('state');
+		$params		=  $state->get('parameters.menu');
 
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );
@@ -46,15 +48,18 @@ class EventListViewEventList extends JView
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
 
-		// Request variables
+		// get variables
 		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
 		$limit			= JRequest::getVar('limit', $params->get('display_num'), '', 'int');
-
+		$live_site 		= $mainframe->getCfg('live_site');
+		$pop			= JRequest::getVar('pop', 0, '', 'int');
+		$pathway 		= & $mainframe->getPathWay();
+		
+		//get data from model
 		$rows = & $this->get('Data');
 		$total = & $this->get('Total');
 
-		$live_site 	= $mainframe->getCfg('live_site');
-
+		//are events available?
 		if (!$rows) {
 			$noevents = 1;
 		} else {
@@ -62,8 +67,6 @@ class EventListViewEventList extends JView
 		}
 
 		//Print function
-		$pop		= JRequest::getVar('pop', 0, '', 'int');
-
 		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
 		$params->def( 'icons', $mainframe->getCfg( 'icons' ) );
 
@@ -75,10 +78,9 @@ class EventListViewEventList extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = $live_site. '/index.php?option=com_eventlist&amp;tmpl=component&amp;pop=1';
+		$print_link = $live_site. '/index.php?option=com_eventlist&amp;view=eventlist&amp;tmpl=component&amp;pop=1';
 
 		//pathway
-		$pathway 	= & $mainframe->getPathWay();
 		$pathway->setItemName(1, $item->name);
 
 		//Set Page title
@@ -110,8 +112,8 @@ class EventListViewEventList extends JView
 
 		//create select lists
 		$lists	= $this->_buildSortLists($elsettings);
-		$this->assign('lists'     , $lists);
-
+		
+		$this->assign('lists' , 					$lists);
 		$this->assignRef('rows' , 					$rows);
 		$this->assignRef('noevents' , 				$noevents);
 		$this->assignRef('print_link' , 			$print_link);
@@ -122,6 +124,7 @@ class EventListViewEventList extends JView
 		$this->assignRef('page' , 					$page);
 		$this->assignRef('link' , 					$link);
 		$this->assignRef('elsettings' , 			$elsettings);
+		$this->assignRef('request_url',				$uri->toString());
 
 		parent::display($tpl);
 
@@ -196,9 +199,8 @@ class EventListViewEventList extends JView
 	 */
 	function _buildSortLists($elsettings)
 	{
-		// Table ordering values
-		$filter_order		= JRequest::getVar('filter_order');
-		$filter_order_Dir	= JRequest::getVar('filter_order_Dir');
+		
+		$state		=& $this->get('state');
 
 		$filter				= JRequest::getVar('filter');
 		$filter_type		= JRequest::getVar('filter_type');
@@ -209,13 +211,13 @@ class EventListViewEventList extends JView
 		$sortselects[] 	= JHTMLSelect::option( 'city', $elsettings->cityname );
 		$sortselect 	= JHTMLSelect::genericList( $sortselects, 'filter_type', 'size="1" class="inputbox"', 'value', 'text', $filter_type );
 
-		if ($filter_order_Dir == 'DESC') {
+		if ($state->get('filter_order_dir') == 'DESC') {
 			$lists['order_Dir'] = 'ASC';
 		} else {
 			$lists['order_Dir'] = 'DESC';
 		}
 
-		$lists['order'] 		= $filter_order;
+		$lists['order'] 		= $state->get('filter_order');
 		$lists['filter'] 		= $filter;
 		$lists['filter_type'] 	= $sortselect;
 

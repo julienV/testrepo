@@ -18,7 +18,7 @@
 		document.adminForm.submit( view );
 	}
 </script>
-<form action="index.php" method="post" name="adminForm">
+<form action="<?php echo $this->request_url; ?>" method="post" name="adminForm">
 <?php if ($this->params->get('filter') || $this->params->get('display')) : ?>
 <table width="<?php echo $this->tablewidth; ?>" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
 	<tr>
@@ -105,7 +105,7 @@
     			<b><?php echo $row->displaydate; ?></b>
 				<?php
 				if ($this->elsettings->showtime == 1) :
-					echo $row->displaytime ? $row->displaytime : '<br />-';
+					echo $row->displaytime;
 				endif;
 				?>
 				</td>

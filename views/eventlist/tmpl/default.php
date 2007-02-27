@@ -45,10 +45,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <?php echo $this->loadTemplate('table'); ?>
 
-<input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
 <input type="hidden" name="filter_order_Dir" value="" />
-<input type="hidden" name="Itemid" value="<?php echo $Itemid;?>" />
 </form>
 
 <!--footer-->

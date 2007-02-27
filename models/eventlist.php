@@ -64,6 +64,10 @@ class EventListModelEventList extends JModel
 
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
+
+		// Get the filter request variables
+		$this->setState('filter_order', JRequest::getVar('filter_order', 'a.dates'));
+		$this->setState('filter_order_dir', JRequest::getVar('filter_order_Dir', 'ASC'));
 	}
 
 	/**
@@ -161,8 +165,8 @@ class EventListModelEventList extends JModel
 	{
 		global $mainframe, $option;
 
-		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.events.filter_order', 		'filter_order', 	'a.dates' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.events.filter_order_Dir',	'filter_order_Dir',	'' );
+		$filter_order		= $this->getState('filter_order');
+		$filter_order_dir	= $this->getState('filter_order_dir');
 
 		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', a.dates, a.times';
 

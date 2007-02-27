@@ -32,6 +32,7 @@ class EventListViewVenueevents extends JView
 
 		$document 	= & JFactory::getDocument();
 		$elsettings = & ELHelper::config();
+		$uri 		= & JFactory::getURI();
 
 		//get menu information
 		$menu		=& JMenu::getInstance();
@@ -156,6 +157,7 @@ class EventListViewVenueevents extends JView
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('page' , 					$page);
 		$this->assignRef('elsettings' , 			$elsettings);
+		$this->assignRef('request_url',				$uri->toString());
 
 
 		parent::display($tpl);

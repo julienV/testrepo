@@ -32,6 +32,7 @@ class EventListViewCategoryevents extends JView
 
 		$document 	= & JFactory::getDocument();
 		$elsettings = & ELHelper::config();
+		$uri 		= & JFactory::getURI();
 		$live_site 	= $mainframe->getCfg('live_site');
 
 		//get menu information
@@ -153,6 +154,7 @@ class EventListViewCategoryevents extends JView
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('page' , 					$page);
 		$this->assignRef('elsettings' , 			$elsettings);
+		$this->assignRef('request_url',				$uri->toString());
 
 		parent::display($tpl);
 	}
