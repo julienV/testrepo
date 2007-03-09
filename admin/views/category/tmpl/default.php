@@ -62,7 +62,7 @@
 					<td>
 						<?php
 						// parameters : areaname, content, hidden field, width, height, rows, cols
-						echo $this->editor->display( 'catdescription',  $this->row->catdescription, '100%;', '350', '75', '20' ) ;
+						echo $this->editor->display( 'catdescription',  $this->row->catdescription, '100%;', '350', '75', '20', false ) ;
 						?>
 					</td>
 				</tr>

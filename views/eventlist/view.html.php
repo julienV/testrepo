@@ -35,10 +35,10 @@ class EventListViewEventList extends JView
 		$elsettings = ELHelper::config();
 		$uri 		= & JFactory::getURI();
 		$menu		= & JMenu::getInstance();
+		$state		= & $this->get('state');
 
 		// Get the menu object of the active menu item
-		$item    	= $menu->getActive();
-		$state		= & $this->get('state');
+		$item    	= $menu->getActive();	
 		$params		=  $state->get('parameters.menu');
 
 		//cleanup events

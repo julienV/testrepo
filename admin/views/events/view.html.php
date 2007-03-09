@@ -44,7 +44,6 @@ class EventListViewEvents extends JView {
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 		$live_site 			= $mainframe->getCfg('live_site');
 		$template			= $mainframe->getTemplate();
-		$request_url 		= $uri->toString();
 		
 		//add css and submenu to document
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');

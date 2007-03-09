@@ -19,6 +19,7 @@
 	<filename>classes/user.class.php</filename>
 	<filename>classes/image.class.php</filename>
 	<filename>classes/output.class.php</filename>
+	<filename>classes/vcal.class.php</filename>
 
 	<filename>assets/index.html</filename>
 	<filename>assets/images/index.html</filename>

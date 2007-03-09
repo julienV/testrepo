@@ -31,6 +31,7 @@ class EventListViewSettings extends JView {
 		$elsettings = ELAdmin::config();
 		$document 	= & JFactory::getDocument();
 		$acl		= & JFactory::getACL();
+		$uri 		= & JFactory::getURI();
 		
 		//get vars
 		$live_site 	= $mainframe->getCfg('live_site');
@@ -78,6 +79,7 @@ class EventListViewSettings extends JView {
 		$this->assignRef('accessLists'	, $accessLists);
 		$this->assignRef('elsettings'	, $elsettings);
 		$this->assignRef('WarningIcon'	, $this->WarningIcon());
+		$this->assignRef('request_url'	, $uri->toString());
 		
 		parent::display();
 

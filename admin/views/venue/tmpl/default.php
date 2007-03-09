@@ -62,7 +62,7 @@
 				<tr>
 					<td>
 						<?php
-						echo $this->editor->display( 'locdescription',  $this->row->locdescription, '100%;', '550', '75', '20' ) ;
+						echo $this->editor->display( 'locdescription',  $this->row->locdescription, '100%;', '550', '75', '20', false ) ;
 						?>
 					</td>
 				</tr>

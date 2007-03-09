@@ -21,6 +21,19 @@ jimport('joomla.application.component.controller');
 class EventListController extends JController
 {
 	/**
+	 * Constructor
+	 * 
+	 * @since 0.9
+	 */
+	function __construct()
+	{
+		parent::__construct();
+		
+		//register extratasks
+		$this->registerTask( 'ical', 		'vcal' );
+	}
+	
+	/**
 	 * Display the view
 	 */
 	function display()
@@ -841,6 +854,59 @@ class EventListController extends JController
 		JRequest::setVar( 'layout', 'selectvenue'  );
 
 		parent::display();
+	}
+	
+	/**
+	 * offers the vcal/ical functonality
+	 *
+	 * @author Lybegard Karl-Olof
+	 * @since 0.9
+	 */
+	function vcal()
+	{
+		global $mainframe;
+		
+		$task 			= JRequest::getVar( 'task' );
+		$did 			= (int) JRequest::getVar( 'did', 0, 'request', 'int' );
+		$user_offset 	= $mainframe->getCfg( 'offset_user' );
+		
+		//get Data from model
+		$model = & $this->getModel('Details', 'EventListModel');
+		$model->setId($did);
+		$row = $model->getDetails();
+
+		$Start = mktime(strftime('%H', strtotime($row->times)),
+				strftime('%M', strtotime($row->times)),
+				strftime('%S', strtotime($row->times)),
+				strftime('%m', strtotime($row->dates)),
+				strftime('%d', strtotime($row->dates)),
+				strftime('%Y', strtotime($row->dates)),0);
+				
+		$End   = mktime(strftime('%H', strtotime($row->endtimes)),
+				strftime('%M', strtotime($row->endtimes)),
+				strftime('%S', strtotime($row->endtimes)),
+				strftime('%m', strtotime($row->enddates)),
+				strftime('%d', strtotime($row->enddates)),
+				strftime('%Y', strtotime($row->enddates)),0);
+
+		require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'vCal.class.php');
+
+		$v = new vCal();
+
+		$v->setTimeZone($user_offset);
+		$v->setSummary($row->club.'-'.$row->catname.'-'.$row->title);
+		$v->setDescription($row->datdescription);
+		$v->setStartDate($Start);
+		$v->setEndDate($End);
+		$v->setLocation($row->street.', '.$row->plz.', '.$row->city.', '.$row->country);
+		$v->setFilename($row->did);
+
+		if ($task == 'vcal') {
+			$v->generateHTMLvCal();
+		} else {
+			$v->generateHTMLiCal();
+		}
+
 	}
 }
 ?>

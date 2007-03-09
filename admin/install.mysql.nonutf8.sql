@@ -172,4 +172,4 @@ CREATE TABLE `#__eventlist_settings` (
   UNIQUE KEY `id` (`id`)
 ) TYPE = MYISAM;
 
-INSERT INTO `#__eventlist_settings` VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '100%', '15%', '35%', '', '25%', '25%', 'Date', 'Title', '', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 1, 1, 1, 1, 1, 1, 1, -2, 0, 'example@example.com', '', '1000', -2, -2, -2, 0, '', 'Type', 0, 1, 1, 1, 1, '100', '100', '100', 1, 0, 1, 0, 0, 0, 0, 0, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [catsid], [times]', '', 0, 'State', '', '');
+INSERT INTO `#__eventlist_settings` VALUES (1, 0, 1, 0, 1, 1, 1, 0, 'dfhzdfh', '100%', '15%', '35%', '', '25%', '25%', 'Date', 'Title', '', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 1, 1, 1, 1, 1, 1, 1, -1, 0, 'example@example.com', '', '1000', -1, -1, -1, 0, '', 'Type', 1, 1, 1, 1, '100', '100', '100', 1, 1, 1, 0, 0, 0, 2, 2, -1, 1, 0, -1, 1, 0, 1, '[title], [a_name], [catsid], [times]', '', 0, 'State', '', '');

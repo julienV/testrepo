@@ -213,7 +213,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 		//wenn usertyp min editor wird editor ausgegeben ansonsten textfeld
 		if ( $this->editoruser ) {
-			echo $this->editor->display('locdescription', $this->row->locdescription, '655', '400', '70', '15');
+			echo $this->editor->display('locdescription', $this->row->locdescription, '655', '400', '70', '15', false );
 		} else {
 		?>
 			<textarea style="width:100%;" rows="10" name="locdescription" class="inputbox" wrap="VIRTUAL" onkeyup="berechne(this.form)"></textarea><br />
