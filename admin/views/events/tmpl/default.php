@@ -64,7 +64,7 @@
 					$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
 					$displaytime = $time.' '.$this->elsettings->timename;
 				}
-				$link 		= ampReplace( 'index.php?option=com_eventlist&controller=events&task=editevent&cid[]='.$row->id );
+				$link 		= 'index.php?option=com_eventlist&controller=events&task=editevent&cid[]='.$row->id;
 				$checked 	= JCommonHTML::CheckedOutProcessing( $row, $i );
 				$published 	= JCommonHTML::PublishedProcessing( $row, $i );
    			?>

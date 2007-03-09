@@ -34,7 +34,7 @@
 		for($i=0, $n=count( $this->rows ); $i < $n; $i++) {
 			$row = &$this->rows[$i];
 
-			$link 		= ampReplace( 'index.php?option=com_eventlist&controller=groups&task=editgroup&cid[]='.$row->id );
+			$link 		= 'index.php?option=com_eventlist&controller=groups&task=editgroup&cid[]='.$row->id;
 			$checked 	= JCommonHTML::CheckedOutProcessing( $row, $i );
    		?>
 		<tr class="<?php echo "row$k"; ?>">

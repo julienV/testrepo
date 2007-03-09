@@ -37,7 +37,7 @@
 		$k = 0;
 		for ($i=0, $n=count( $this->rows ); $i < $n; $i++) {
 			$row = &$this->rows[$i];
-			$link 		= ampReplace( 'index.php?option=com_eventlist&controller=venues&task=editvenue&cid[]='. $row->id );
+			$link 		= 'index.php?option=com_eventlist&controller=venues&task=editvenue&cid[]='. $row->id;
 			$checked 	= JCommonHTML::CheckedOutProcessing( $row, $i );
 			$published 	= JCommonHTML::PublishedProcessing( $row, $i );
    		?>

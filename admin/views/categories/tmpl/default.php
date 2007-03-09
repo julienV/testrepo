@@ -42,7 +42,7 @@
 			for ($i=0, $n=count($this->rows); $i < $n; $i++) {
 				$row = $this->rows[$i];
 
-				$link 		= ampReplace( 'index.php?option=com_eventlist&controller=categories&task=categoryedit&cid[]='. $row->id );
+				$link 		= 'index.php?option=com_eventlist&controller=categories&task=categoryedit&cid[]='. $row->id;
 				$published 	= JCommonHTML::PublishedProcessing( $row, $i );
 				$access 	= JCommonHTML::AccessProcessing( $row, $i );
 				$checked 	= JCommonHTML::CheckedOutProcessing( $row, $i );
