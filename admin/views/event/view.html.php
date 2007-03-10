@@ -132,6 +132,7 @@ class EventListViewEvent extends JView {
 		function elSelectImage(image, imagename) {
 			document.getElementById('a_image').value = image;
 			document.getElementById('a_imagename').value = imagename;
+			document.getElementById('imagelib').src = '../images/eventlist/events/' + image;
 			document.popup.hide();
 		}";
 

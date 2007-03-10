@@ -176,14 +176,13 @@
 			<td>
 			</td>
 			<td>
+				<img src="../images/M_images/blank.png" name="imagelib" id="imagelib" width="80" height="80" border="2" alt="Preview" />
 				<script language="javascript" type="text/javascript">
 				if (document.forms[0].a_imagename.value!=''){
 					var imname = document.forms[0].a_imagename.value;
 					jsimg='../images/eventlist/venues/' + imname;
-				} else {
-					jsimg='../images/M_images/blank.png';
+					document.getElementById('imagelib').src= jsimg;
 				}
-				document.write('<img src=' + jsimg + ' name="imagelib" width="80" height="80" border="2" alt="Preview" />');
 				</script>
 				<br />
 				<br />
