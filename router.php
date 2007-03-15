@@ -167,29 +167,59 @@ function EventListParseRoute($segments)
 	//Handle View and Identifier
 	switch($item->query['view'])
 	{
-		case 'categories' :
+		case 'categoryevents':
 		{
-			if($count == 1) {
-				$view = 'category';
-			}
-
-			if($count == 2) {
-				$view = 'weblink';
-			}
-
-			$id = $segments[$count-1];
+			JRequest::setVar('categid'  , $segments[1], 'get');
+			$view = 'categoryevents';
 
 		} break;
 
-		case 'details'   :
+		case 'details':
 		{
-			$did   = $segments[$count-1];
+			JRequest::setVar('did'  	, $segments[1], 'get');
 			$view = 'details';
+
+		} break;
+		
+		case 'eventlist':
+		{
+			$view = 'eventlist';
+
+		} break;
+		
+		case 'categoriesdetailed':
+		{
+			$view = 'categoriesdetailed';
+
+		} break;
+		
+		case 'categoriesview':
+		{
+			$view = 'categoriesview';
+
+		} break;
+		
+		case 'venuesview':
+		{
+			$view = 'venuesview';
+
+		} break;
+		
+		case 'editevent':
+		{
+			JRequest::setVar('id'  		, $segments[1], 'get');
+			$view = 'editevent';
+
+		} break;
+		
+		case 'editvenue':
+		{
+			JRequest::setVar('id'  		, $segments[1], 'get');
+			$view = 'editvenue';
 
 		} break;
 	}
 
-	JRequest::setVar('view', $view, 'get');
-	JRequest::setVar('did'  , $did, 'get');
+	JRequest::setVar('view'		, $view, 'get');
 }
 ?>
