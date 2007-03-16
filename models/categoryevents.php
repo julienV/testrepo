@@ -164,7 +164,7 @@ class EventListModelCategoryevents extends JModel
 
 		//Get Events from Database
 		$query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, l.club, l.city, l.state, l.url, c.catname, c.id AS catid, '
-				. ' CASE WHEN CHAR_LENGTH(a.title) THEN CONCAT_WS(":", a.id, a.title) ELSE a.id END as slug'
+				. ' CASE WHEN CHAR_LENGTH(a.title) THEN CONCAT_WS(\':\', a.id, a.title) ELSE a.id END as slug'
 				. ' FROM #__eventlist_events AS a'
 				. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
 				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
