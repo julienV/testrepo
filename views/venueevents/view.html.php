@@ -31,7 +31,7 @@ class EventListViewVenueevents extends JView
 		global $Itemid, $mainframe, $option;
 
 		$document 	= & JFactory::getDocument();
-		$elsettings = & ELHelper::config();
+		$elsettings = ELHelper::config();
 		$uri 		= & JFactory::getURI();
 
 		//get menu information
@@ -78,11 +78,11 @@ class EventListViewVenueevents extends JView
 		$limage = ELImage::venueimage($live_site, $venue->locimage, $elsettings->imagewidth, $elsettings->imagehight, $elsettings->imageprob, $elsettings->gddisabled);
 
 		//add alternate feed link
-		$link    = 'feed.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=venueevents&amp;locatid='.$venue->id;
+		$link    = 'feed.php?option=com_eventlist&view=venueevents&locatid='.$venue->id;
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
-		$document->addHeadLink($link.'&amp;format=rss', 'alternate', 'rel', $attribs);
+		$document->addHeadLink($link.'&format=rss', 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
-		$document->addHeadLink($link.'&amp;format=atom', 'alternate', 'rel', $attribs);
+		$document->addHeadLink($link.'&format=atom', 'alternate', 'rel', $attribs);
 
 		//set Page title
 		$document->setTitle( $item->name.' - '.$venue->club );
@@ -106,7 +106,7 @@ class EventListViewVenueevents extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = $live_site. '/index2.php?option=com_eventlist&amp;Itemid='. $Itemid .'&amp;view=venueevents&amp;locatid='. $venue->id .'&amp;pop=1';
+		$print_link = $live_site. '/index2.php?option=com_eventlist&amp;Itemid='. $item->id .'&amp;view=venueevents&amp;locatid='. $venue->id .'&amp;pop=1';
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
@@ -158,6 +158,7 @@ class EventListViewVenueevents extends JView
 		$this->assignRef('page' , 					$page);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('request_url',				$uri->toString());
+		$this->assignRef('item' , 					$item);
 
 
 		parent::display($tpl);
@@ -170,7 +171,7 @@ class EventListViewVenueevents extends JView
 	 */
 	function &getRows()
 	{
-		global $mainframe, $Itemid;
+		global $mainframe;
 
 		if (!count( $this->rows ) ) {
 			return;

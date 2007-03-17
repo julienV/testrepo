@@ -28,10 +28,10 @@ class EventListViewCategoryevents extends JView
 	 */
 	function display( $tpl=null )
 	{
-		global $Itemid, $mainframe, $option;
+		global $mainframe, $option;
 
 		$document 	= & JFactory::getDocument();
-		$elsettings = & ELHelper::config();
+		$elsettings = ELHelper::config();
 		$uri 		= & JFactory::getURI();
 		$live_site 	= $mainframe->getCfg('live_site');
 
@@ -82,17 +82,17 @@ class EventListViewCategoryevents extends JView
 		}
 
 		//add alternate feed link
-		$link    = 'feed.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=categoryevents&amp;categid='.$category->id;
+		$link    = 'feed.php?option=com_eventlist&view=categoryevents&categid='.$category->id;
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
-		$document->addHeadLink($link.'&amp;format=rss', 'alternate', 'rel', $attribs);
+		$document->addHeadLink($link.'&format=rss', 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
-		$document->addHeadLink($link.'&amp;format=atom', 'alternate', 'rel', $attribs);
+		$document->addHeadLink($link.'&format=atom', 'alternate', 'rel', $attribs);
 
 		if ( $pop ) {
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = $live_site. '/index2.php?option=com_eventlist&amp;Itemid='. $Itemid .'&amp;view=categoryevents&amp;categid='. $category->id .'&amp;pop=1';
+		$print_link = $live_site. '/index2.php?option=com_eventlist&amp;Itemid='. $item->id .'&amp;view=categoryevents&amp;categid='. $category->id .'&amp;pop=1';
 
 		if ($task == 'catarchive') {
 			$pathway 	= & $mainframe->getPathWay();
@@ -117,9 +117,9 @@ class EventListViewCategoryevents extends JView
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
 			if ($task == 'catarchive') {
-				$link = 'index.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=categoryevents&amp;task=catarchive&amp;categid='.$category->id;
+				$link = 'index.php?option=com_eventlist&view=categoryevents&task=catarchive&categid='.$category->id;
 			} else {
-				$link = 'index.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=categoryevents&amp;categid='.$category->id;
+				$link = 'index.php?option=com_eventlist&view=categoryevents&categid='.$category->id;
 			}
 
 
@@ -155,6 +155,7 @@ class EventListViewCategoryevents extends JView
 		$this->assignRef('page' , 					$page);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('request_url',				$uri->toString());
+		$this->assignRef('item' , 					$item);
 
 		parent::display($tpl);
 	}
@@ -166,7 +167,7 @@ class EventListViewCategoryevents extends JView
 	 */
 	function &getRows()
 	{
-		global $mainframe, $Itemid;
+		global $mainframe;
 
 		if (!count( $this->rows ) ) {
 			return;

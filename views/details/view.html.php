@@ -28,12 +28,12 @@ class EventListViewDetails extends JView
 	 */
 	function display($tpl = null)
 	{
-		global $mainframe, $Itemid, $option;
+		global $mainframe, $option;
 
 		$live_site 	= $mainframe->getCfg('live_site');
 		$document 	= & JFactory::getDocument();
 		$user		= & JFactory::getUser();
-		$elsettings = & ELHelper::config();
+		$elsettings = ELHelper::config();
 
 		$row		= & $this->get('Details');
 		$registers	= & $this->get('Registers');
@@ -87,7 +87,7 @@ class EventListViewDetails extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = $live_site. '/index2.php?option=com_eventlist&amp;Itemid='. $Itemid .'&amp;view=details&amp;did='. $row->did .'&amp;pop=1';
+		$print_link = $live_site. '/index2.php?option=com_eventlist&amp;Itemid='. $item->id .'&amp;view=details&amp;did='. $row->did .'&amp;pop=1';
 
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();
@@ -99,7 +99,7 @@ class EventListViewDetails extends JView
 		$limage = ELImage::venueimage($live_site, $row->locimage, $elsettings->imagewidth, $elsettings->imagehight, $elsettings->imageprob, $elsettings->gddisabled);
 
 		//Check user if he can edit
-		$allowedtoeditevent = & ELUser::editaccess($elsettings->eventowner, $row->uid, $elsettings->eventeditrec, $elsettings->eventedit);
+		$allowedtoeditevent = ELUser::editaccess($elsettings->eventowner, $row->uid, $elsettings->eventeditrec, $elsettings->eventedit);
 		$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $row->venueowner, $elsettings->venueeditrec, $elsettings->venueedit);
 
 		//Generate Date
@@ -245,6 +245,7 @@ class EventListViewDetails extends JView
 		$this->assignRef('pics' , 					$pics);
 		$this->assignRef('formhandler',				$formhandler);
 		$this->assignRef('elsettings' , 			$elsettings);
+		$this->assignRef('item' , 					$item);
 
 		parent::display($tpl);
 	}

@@ -40,7 +40,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<h2 class="eventlist">
 		    <?php
     		echo JText::_( 'EVENT' ) ;
-    		echo ELOutput::editbutton($Itemid, $this->row->did, $this->params, $this->allowedtoeditevent, 'editevent' );
+    		echo ELOutput::editbutton($this->item->id, $this->row->did, $this->params, $this->allowedtoeditevent, 'editevent' );
     		?>
 		</h2>
 			<?php //cell for flyer
@@ -124,7 +124,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<?php if ($this->row->locid != 0) : ?>
 	<h2 class="location">
 		<?php echo JText::_( 'VENUE' ) ; ?>
-  		<?php echo ELOutput::editbutton($Itemid, $this->row->locid, $this->params, $this->allowedtoeditvenue, 'editvenue' ); ?>
+  		<?php echo ELOutput::editbutton($this->item->id, $this->row->locid, $this->params, $this->allowedtoeditvenue, 'editvenue' ); ?>
 	</h2>
 			<?php //cell for flyer
 				if (!empty($this->row->locimage)) :

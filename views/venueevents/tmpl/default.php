@@ -13,7 +13,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <span class="buttons">
 	<?php
 		if ( !$this->pop ) : //don't show in printpopup
-			echo ELOutput::submitbutton( $Itemid, $this->dellink, $this->params, 'venueevents' );
+			echo ELOutput::submitbutton( $this->item->id, $this->dellink, $this->params, 'venueevents' );
 		endif;
 		echo ELOutput::printbutton( $this->print_link, $this->params );
 	?>
@@ -154,7 +154,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <input type="hidden" name="filter_order_Dir" value="" />
 <input type="hidden" name="view" value="venueevents" />
 <input type="hidden" name="locatid" value="<?php echo $this->locatid; ?>" />
-<input type="hidden" name="Itemid" value="<?php echo $Itemid;?>" />
+<input type="hidden" name="Itemid" value="<?php echo $this->item->id;?>" />
 </form>
 
 </div>
