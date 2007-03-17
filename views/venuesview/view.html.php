@@ -28,7 +28,7 @@ class EventListViewVenuesview extends JView
 	 */
 	function display( $tpl = null )
 	{
-		global $Itemid, $mainframe, $option;
+		global $mainframe, $option;
 
 		$document 	= & JFactory::getDocument();
 		$elsettings = ELHelper::config();
@@ -65,11 +65,11 @@ class EventListViewVenuesview extends JView
 		}
 
 		//add alternate feed link
-		$link    = 'feed.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=venuesview';
+		$link    = 'feed.php?option=com_eventlist&view=venuesview';
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
-		$document->addHeadLink($link.'&amp;format=rss', 'alternate', 'rel', $attribs);
+		$document->addHeadLink($link.'&format=rss', 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
-		$document->addHeadLink($link.'&amp;format=atom', 'alternate', 'rel', $attribs);
+		$document->addHeadLink($link.'&format=atom', 'alternate', 'rel', $attribs);
 
 		//set Page title
 		$document->setTitle( $item->name );
@@ -93,7 +93,7 @@ class EventListViewVenuesview extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = $live_site. '/index2.php?option=com_eventlist&amp;Itemid='. $Itemid .'&amp;view=venuesview&amp;pop=1';
+		$print_link = $live_site. '/index2.php?option=com_eventlist&amp;Itemid='. $item->id .'&amp;view=venuesview&amp;pop=1';
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
@@ -105,7 +105,7 @@ class EventListViewVenuesview extends JView
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
-		$link = 'index.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=venuesview';
+		$link = 'index.php?option=com_eventlist&view=venuesview';
 		$page = $total - $limit;
 
 		$this->assignRef('rows' , 					$rows);
@@ -119,6 +119,7 @@ class EventListViewVenuesview extends JView
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('limit' , 					$limit);
 		$this->assignRef('total' , 					$total);
+		$this->assignRef('item' , 					$item);
 		$this->assignRef('elsettings' , 			$elsettings);
 
 		parent::display($tpl);

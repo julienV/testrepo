@@ -187,7 +187,8 @@ class EventListModelVenuesview extends JModel
 	function _buildQuery()
 	{
 		//get categories
-		$query = 'SELECT *'
+		$query = 'SELECT *,'
+				. ' CASE WHEN CHAR_LENGTH(club) THEN CONCAT_WS(\':\', id, club) ELSE id END as slug'
 				. ' FROM #__eventlist_venues'
 				. ' WHERE published = 1'
 				. ' ORDER BY club'

@@ -93,7 +93,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				
 			<?php elseif ($this->elsettings->showdetlinkclub == 2) : ?>
 			
-				<a href="<?php echo JRoute::_( 'index.php?option=com_eventlist&view=venueevents&locatid='.$this->row->locid ); ?>"><?php echo $this->row->club; ?></a>
+				<a href="<?php echo JRoute::_( 'index.php?option=com_eventlist&view=venueevents&locatid='.$this->row->venueslug ); ?>"><?php echo $this->row->club; ?></a>
 			<?php
 				elseif ($this->elsettings->showdetlinkclub == 0) :
 					echo $this->row->club;
@@ -104,7 +104,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 			<dt class="category"><?php echo JText::_( 'CATEGORY' ).':' ;?></dt>
     			<dd class="category">
-					<?php echo "<a href='".JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&categid='.$this->row->catsid )."'>".$this->row->catname."</a>";?>
+					<?php echo "<a href='".JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&categid='.$this->row->categoryslug )."'>".$this->row->catname."</a>";?>
 				</dd>
 		</dl>
 
@@ -181,7 +181,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
             <dl class="location floattext">
 			 <dt class="club"><?php echo $this->elsettings->locationname.':'; ?></dt>
 				<dd class="club">
-				<?php echo "<a href='".JRoute::_( 'index.php?option=com_eventlist&view=venueevents&locatid='.$this->row->locid )."'>".$this->row->club."</a>"; ?>
+				<?php echo "<a href='".JRoute::_( 'index.php?option=com_eventlist&view=venueevents&locatid='.$this->row->venueslug )."'>".$this->row->club."</a>"; ?>
 					
 				<?php if (!empty($this->row->url)) : ?>
 					&nbsp; - &nbsp;

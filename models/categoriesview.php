@@ -161,7 +161,8 @@ class EventListModelCategoriesview extends JModel
 		}
 				
 		//get categories
-		$query = 'SELECT c.*, c.id AS catid'
+		$query = 'SELECT c.*, c.id AS catid,'
+				. ' CASE WHEN CHAR_LENGTH(c.catname) THEN CONCAT_WS(\':\', c.id, c.catname) ELSE c.id END as slug'
 				. ' FROM #__eventlist_categories AS c'
 				. ' LEFT JOIN #__eventlist_events AS a ON a.catsid = c.id'
 				. ' WHERE c.published = 1'

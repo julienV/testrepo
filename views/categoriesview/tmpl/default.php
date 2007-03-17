@@ -12,7 +12,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <div id="eventlist" class="el_catview">
 <span class="buttons">
 	<?php
-		echo ELOutput::submitbutton( $Itemid, $this->dellink, $this->params, 'categoriesview' );
+		echo ELOutput::submitbutton( $this->item->id, $this->dellink, $this->params, 'categoriesview' );
 		echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params ); 
 	?>
 </span>
@@ -40,9 +40,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	  	<?php 
 		if ($row->image != '') :
 			if ($this->task == 'archive') :
-				echo "<a href='".JRoute::_('index.php?option=com_eventlist&view=categoryevents&task=catarchive&categid='.$row->catid)."'><img src='".$this->live_site."/images/stories/".$row->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$row->catname."' /></a>";
+				echo "<a href='".JRoute::_('index.php?option=com_eventlist&view=categoryevents&task=catarchive&categid='.$row->slug)."'><img src='".$this->live_site."/images/stories/".$row->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$row->catname."' /></a>";
 			else :
-				echo "<a href='".JRoute::_('index.php?option=com_eventlist&view=categoryevents&categid='.$row->catid)."'><img src='".$this->live_site."/images/stories/".$row->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$row->catname."' /></a>";
+				echo "<a href='".JRoute::_('index.php?option=com_eventlist&view=categoryevents&categid='.$row->slug)."'><img src='".$this->live_site."/images/stories/".$row->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$row->catname."' /></a>";
 			endif;
 		else :
 			echo JAdminMenus::ImageCheck( 'noimage.png', '/components/com_eventlist/assets/images/', NULL, NULL, $row->catname );
@@ -52,9 +52,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			<?php
 			echo JText::_( 'EVENTS' ).': ';
 			if ($this->task == 'archive') :
-				echo "<a href='".JRoute::_('index.php?option=com_eventlist&view=categoryevents&task=catarchive&categid='.$row->catid)."'>". $row->assignedevents."</a>";
+				echo "<a href='".JRoute::_('index.php?option=com_eventlist&view=categoryevents&task=catarchive&categid='.$row->slug)."'>". $row->assignedevents."</a>";
 			else :
-				echo "<a href='".JRoute::_('index.php?option=com_eventlist&view=categoryevents&categid='.$row->catid)."'>". $row->assignedevents."</a>";
+				echo "<a href='".JRoute::_('index.php?option=com_eventlist&view=categoryevents&categid='.$row->slug)."'>". $row->assignedevents."</a>";
 			endif;
 			?>
 		</p>
@@ -64,9 +64,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<p>
 		<?php 
 		if ($this->task == 'archive') :
-			echo "<a href='".JRoute::_('index.php?option=com_eventlist&view=categoryevents&task=catarchive&categid='.$row->catid)."'>".JText::_( 'SHOW ARCHIVE' )."</a>";
+			echo "<a href='".JRoute::_('index.php?option=com_eventlist&view=categoryevents&task=catarchive&categid='.$row->slug)."'>".JText::_( 'SHOW ARCHIVE' )."</a>";
 		else :
-			echo "<a href='".JRoute::_('index.php?option=com_eventlist&view=categoryevents&categid='.$row->catid)."'>".JText::_( 'SHOW EVENTS' )."</a>";
+			echo "<a href='".JRoute::_('index.php?option=com_eventlist&view=categoryevents&categid='.$row->slug)."'>".JText::_( 'SHOW EVENTS' )."</a>";
 		endif;
 		?>
 	</p>

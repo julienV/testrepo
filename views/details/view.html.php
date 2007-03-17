@@ -104,7 +104,10 @@ class EventListViewDetails extends JView
 
 		//Generate Date
 		$date 	= strftime( $elsettings->formatdate ,strtotime( $row->dates ));
+		
+		if ($row->times) {
 		$time 	= strftime( $elsettings->formattime ,strtotime( $row->times ));
+		}
 
 		if (!$row->enddates) {
 			$displaydate = $date.'<br />';

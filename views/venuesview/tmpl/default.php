@@ -13,7 +13,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <span class="buttons">
 	<?php
 		if ( !$this->pop ) : //don't show in printpopup
-			echo ELOutput::submitbutton( $Itemid, $this->dellink, $this->params, 'venueevents' );
+			echo ELOutput::submitbutton( $this->item->id, $this->dellink, $this->params, 'venueevents' );
 		endif;
 		
 		echo ELOutput::printbutton( $this->print_link, $this->params );
@@ -35,7 +35,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 
 	<h2 class="eventlist">
-		<a href="<?php echo JRoute::_('index.php?option=com_eventlist&view=venueevents&locatid='.$row->id); ?>"><?php echo $row->club; ?></a>
+		<a href="<?php echo JRoute::_('index.php?option=com_eventlist&view=venueevents&locatid='.$row->slug); ?>"><?php echo $row->club; ?></a>
 	</h2>
 	
 			<?php			
