@@ -169,7 +169,7 @@ class EventListModelEventList extends JModel
 		$filter_order		= $this->getState('filter_order');
 		$filter_order_dir	= $this->getState('filter_order_dir');
 
-		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', a.dates, a.times';
+		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_dir.', a.dates, a.times';
 
 		return $orderby;
 	}
