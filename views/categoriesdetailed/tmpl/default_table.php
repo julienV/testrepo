@@ -51,7 +51,7 @@
 	//	$k = 0;
 	//	for ($i=0, $n=count($this->rows); $i < $n; $i++) {
 	//	$row = $this->rows[$i];
-	$this->rows =& $this->getRows();
+	$this->rows = $this->getRows();
 	if (!$this->rows) :
 		?>
 		<tr align="center"><td><?php echo JText::_( 'NO EVENTS' ); ?></td></tr>

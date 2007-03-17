@@ -28,10 +28,10 @@ class EventListViewCategoriesdetailed extends JView
 	 */
 	function display( $tpl = null )
 	{
-		global $Itemid, $mainframe, $option;
+		global $mainframe, $option;
 
 		$document 	= & JFactory::getDocument();
-		$elsettings = & ELHelper::config();
+		$elsettings = ELHelper::config();
 		$model 		= $this->getModel();
 
 		$categories	= & $this->get('Data');
@@ -76,7 +76,7 @@ class EventListViewCategoriesdetailed extends JView
 			$params->def('header', $item->name);
 		}
 
-		$print_link = $live_site. '/index2.php?option=com_eventlist&amp;Itemid='. $Itemid .'&amp;pop=1';
+		$print_link = $live_site. '/index2.php?option=com_eventlist&amp;Itemid='. $item->id .'&amp;pop=1';
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
@@ -85,11 +85,11 @@ class EventListViewCategoriesdetailed extends JView
 		if ($maintainer || $genaccess ) $dellink = 1;
 
 		//add alternate feed link
-		$link    = 'feed.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=eventlist';
+		$link    = 'feed.php?option=com_eventlist&view=eventlist';
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
-		$document->addHeadLink($link.'&amp;format=rss', 'alternate', 'rel', $attribs);
+		$document->addHeadLink($link.'&format=rss', 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
-		$document->addHeadLink($link.'&amp;format=atom', 'alternate', 'rel', $attribs);
+		$document->addHeadLink($link.'&format=atom', 'alternate', 'rel', $attribs);
 
 		$page = $total - $limit;
 
@@ -97,14 +97,13 @@ class EventListViewCategoriesdetailed extends JView
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
-		$link = 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view=categoriesdetailed';
+		$link = 'index.php?option=com_eventlist&Itemid='.$item->id.'&view=categoriesdetailed';
 
-	//	$this->assignRef('rows' , 					$rows);
 		$this->assignRef('categories' , 			$categories);
 		$this->assignRef('print_link' , 			$print_link);
 		$this->assignRef('params' , 				$params);
 		$this->assignRef('dellink' , 				$dellink);
-	//	$this->assignRef('menu' , 					$menu);
+		$this->assignRef('item' , 					$item);
 		$this->assignRef('pop' , 					$pop);
 		$this->assignRef('live_site' , 				$live_site);
 		$this->assignRef('model' , 					$model);
