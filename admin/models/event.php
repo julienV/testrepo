@@ -309,7 +309,6 @@ class EventListModelEvent extends JModel
 		}
 		
 		$row->title = strip_tags($row->title);
-		$row->title = ampReplace($row->title);
 		$titlelength = JString::strlen($row->title);
 
 		if ($titlelength > 60 || $row->title =='') {
