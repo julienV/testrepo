@@ -49,7 +49,7 @@ class EventListModelUpdatecheck extends JModel
 	{
 		jimport('joomla.utilities.simplexml');
 
-		$elsettings = & ELAdmin::config();
+		$elsettings = ELAdmin::config();
 
 		//set the source file
 		$file = 'http://www.schlu.net/updatecheck.xml';
