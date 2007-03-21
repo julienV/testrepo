@@ -653,7 +653,7 @@ class EventListController extends JController
 		$row->title = ampReplace($row->title);
 		$titlelength = JString::strlen($row->title);
 
-		if ($titlelength > 60) {
+		if ($titlelength > 60 || $row->title =='') {
 			$row->checkin();
       		$mainframe->redirect('index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$returnview, JText::_( 'ERROR TITLE LONG' ) );
 		}

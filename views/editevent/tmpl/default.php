@@ -25,6 +25,11 @@ defined('_JEXEC') or die('Restricted access');
     				form.dates.focus();
     				return false;
   				}
+  				if (form.title.value == "") {
+    				alert("<?php echo JText::_( 'ADD TITLE' ); ?>");
+    				form.title.focus();
+    				return false;
+  				}
 				var s = form.dates.value;
 				var erg = s.match(/20[0-9]{2}-[0-1][0-9]-[0-3][0-9]/gi);
 				if(!erg) {

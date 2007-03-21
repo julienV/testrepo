@@ -17,6 +17,9 @@
 		else if (form.dates.value == ""){
 			alert( "<?php echo JText::_( 'ADD DATE'); ?>" );
 		}
+		else if (form.title.value == ""){
+			alert( "<?php echo JText::_( 'ADD TITLE'); ?>" );
+		}
 		else if (!form.dates.value.match(/20[0-9]{2}-[0-1][0-9]-[0-3][0-9]/gi)) {
 			alert("<?php echo JText::_( 'DATE WRONG'); ?>");
 			
