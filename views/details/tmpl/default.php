@@ -20,8 +20,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
  			 }
 		}
 	</script>
-	<form action="index2.php" name="mailToFriend" method="post" target="MailToFriend" style="display:inline">
+	<form action="index.php" name="mailToFriend" method="post" target="MailToFriend" style="display:inline">
 		<input type="hidden" name="option" value="com_mailto" />
+		<input type="hidden" name="tmpl" value="component" />
 		<input type="hidden" name="link" value="<?php echo urlencode( JRequest::getURI() );?>" />
 	</form>
 
@@ -151,6 +152,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 
 				//Link to map
+				
+				$mapimage = JAdminMenus::ImageCheck( 'mapsicon.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'MAP' ), JText::_( 'MAP' ) );
+				
 				switch ($this->elsettings->showmapserv) :
 					case 0:
 					break;
@@ -159,7 +163,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   						if ($this->elsettings->map24id != '') :
 						?>
 							<a class="flyer" href="http://link2.map24.com/?lid=<?php echo $this->elsettings->map24id ?>&maptype=JAVA&width0=2000&street0=<?php echo $this->row->street ?>&zip0=<?php echo $this->row->plz ?>&city0=<?php echo $this->row->city ?>&country0=<?php echo $this->row->country ?>&sym0=10280&description0=<?php echo $this->row->club ?>" target="_blank">
-							<img src="http://img.map24.com/map24/link2map24/de/show_address_7.gif" border=0 alt="Map24" />
+								<?php echo $mapimage; ?>
 							</a>
 						<?php
 						endif;
@@ -167,17 +171,14 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 					case 2:
 					?>
-					
-						<dt class="anfahrt"><?php echo JText::_( 'MAP' ); ?></dt>
-						<dd class="map">
-						<a href="http://maps.google.com/maps?q=<?php echo $this->row->street; ?>+<?php echo $this->row->city ?>+<?php echo $this->row->plz ?>+<?php echo $this->row->country ?>" title="<?php echo JText::_( 'MAP' ); ?>" target="_blank">
-							<?php echo JText::_( 'MAP' ); ?>
+						<a class="flyer" href="http://maps.google.com/maps?q=<?php echo $this->row->street; ?>+<?php echo $this->row->city ?>+<?php echo $this->row->plz ?>+<?php echo $this->row->country ?>" title="<?php echo JText::_( 'MAP' ); ?>" target="_blank">
+							<?php echo $mapimage; ?>
 						</a>
-						</dd>
 				<?php
 					break;
 				endswitch; //switch ende
 				?>
+				
             <dl class="location floattext">
 			 <dt class="club"><?php echo $this->elsettings->locationname.':'; ?></dt>
 				<dd class="club">

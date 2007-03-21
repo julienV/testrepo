@@ -91,7 +91,7 @@ class ELOutput {
 				case 'archive':
 
 					if ( $params->get('icons') ) {
-						$image = JAdminMenus::ImageCheck( 'eventlist.png', '/components/com_eventlist/assets/', NULL, NULL, JText::_( 'SHOW EVENTS' ), JText::_( 'SHOW EVENTS' ) );
+						$image = JAdminMenus::ImageCheck( 'eventlist.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW EVENTS' ), JText::_( 'SHOW EVENTS' ) );
 					} else {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
@@ -105,7 +105,7 @@ class ELOutput {
 				case 'catarchive':
 
 					if ( $params->get('icons') ) {
-						$image = JAdminMenus::ImageCheck( 'eventlist.png', '/components/com_eventlist/assets/', NULL, NULL, JText::_( 'SHOW EVENTS' ), JText::_( 'SHOW EVENTS' ) );
+						$image = JAdminMenus::ImageCheck( 'eventlist.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW EVENTS' ), JText::_( 'SHOW EVENTS' ) );
 					} else {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
