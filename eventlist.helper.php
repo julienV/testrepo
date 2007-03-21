@@ -35,14 +35,15 @@ class ELHelper {
 	 * @since 0.9
 	 */
 	function cleanevents($lastupdate)
-	{
+	{	
 		$now = time();
 
 		//last update later then 24h?
 		$difference = $now - $lastupdate;
 
 		if ( $difference > 86400 ) {
-			$db = & JFactory::getDBO();
+			$db			= & JFactory::getDBO();
+			$elsettings = ELHelper::config();
 
 			$nulldate = '0000-00-00';
 

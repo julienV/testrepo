@@ -111,12 +111,10 @@ CREATE TABLE `#__eventlist_settings` (
   `tablewidth` varchar(60) NOT NULL,
   `datewidth` varchar(60) NOT NULL,
   `titlewidth` varchar(60) NOT NULL,
-  `infobuttonwidth` varchar(60) NOT NULL,
   `locationwidth` varchar(60) NOT NULL,
   `citywidth` varchar(60) NOT NULL,
   `datename` varchar(200) NOT NULL,
   `titlename` varchar(200) NOT NULL,
-  `infobuttonname` varchar(200) NOT NULL,
   `locationname` varchar(200) NOT NULL,
   `cityname` varchar(200) NOT NULL,
   `formatdate` varchar(200) NOT NULL,
@@ -172,4 +170,4 @@ CREATE TABLE `#__eventlist_settings` (
   UNIQUE KEY `id` (`id`)
 ) TYPE = MYISAM;
 
-INSERT INTO `#__eventlist_settings` VALUES (1, 0, 1, 0, 1, 1, 1, 0, 'dfhzdfh', '100%', '15%', '35%', '', '25%', '25%', 'Date', 'Title', '', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 1, 1, 1, 1, 1, 1, 1, -1, 0, 'example@example.com', '', '1000', -1, -1, -1, 0, '', 'Type', 1, 1, 1, 1, '100', '100', '100', 1, 1, 1, 0, 0, 0, 2, 2, -1, 1, 0, -1, 1, 0, 1, '[title], [a_name], [catsid], [times]', '', 0, 'State', '', '');
+INSERT INTO `jos_eventlist_settings` VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '100%', '15%', '25%', '20%', '20%', 'Date', 'Title', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 0, 1, 1, 1, 1, 1, 1, -2, 0, 'example@example.com', '', '1000', -2, -2, -2, 1, '20%', 'Type', 1, 1, 1, 1, '100', '100', '100', 1, 0, 1, 0, 0, 1, 2, 2, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [catsid], [times]', '', 0, 'State', '', '1174491851');

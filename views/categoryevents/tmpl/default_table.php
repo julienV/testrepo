@@ -55,11 +55,6 @@
 				<td width="<?php echo $this->elsettings->titlewidth; ?>" class="sectiontableheader" align="left"><?php JCommonHTML::tableOrdering( $this->elsettings->titlename, 'a.title', $this->lists ); ?></td>
 				<?php
 				endif;
-				if ($this->elsettings->infobuttonwidth != '') :
-				?>
-				<td width="<?php echo $this->elsettings->infobuttonwidth; ?>" class="sectiontableheader" align="left"><?php echo $this->elsettings->infobuttonname; ?></td>
-				<?php
-				endif;
 				if ($this->elsettings->showlocate == 1) :
 				?>
 				<td width="<?php echo $this->elsettings->locationwidth; ?>" class="sectiontableheader" align="left"><?php JCommonHTML::tableOrdering( $this->elsettings->locationname, 'l.club', $this->lists ); ?></td>
@@ -114,36 +109,16 @@
 				//$detaillink = JRoute::_( 'index.php?option=com_eventlist&view=details&did='. $row->id );
 				$detaillink = JRoute::_( 'index.php?option=com_eventlist&view=details&did='. $row->slug );
 				//title
-				if (($this->elsettings->showtitle == 1 ) && (($this->elsettings->showdetails == 1) || ($this->elsettings->showdetails == 3)) ) :
+				if (($this->elsettings->showtitle == 1 ) && ($this->elsettings->showdetails == 1) ) :
 				?>
 				<td width="<?php echo $this->elsettings->titlewidth; ?>" align="left" valign="top"><a href="<?php echo $detaillink ; ?>"> <?php echo $row->title ? $row->title : '-'; ?></a></td>
 				<?php
 				endif;
-				if (( $this->elsettings->showtitle == 1 ) && (($this->elsettings->showdetails == 2) || ($this->elsettings->showdetails == 0)) ) :
+				if (( $this->elsettings->showtitle == 1 ) && ($this->elsettings->showdetails == 0) ) :
 				?>
 				<td width="<?php echo $this->elsettings->titlewidth; ?>" align="left" valign="top"><?php echo $row->title ? $row->title : '-'; ?></td>
 				<?php
 				endif;
-
-				//Infomation icon
-				if ($this->elsettings->infobuttonwidth != '') :
-					if (($this->elsettings->showdetails == 2) || ($this->elsettings->showdetails == 3)) :
-						if (empty ($row->datdescription) && empty($row->locdescription)) :
-				?>
-							<td width="<?php echo $this->elsettings->infobuttonwidth; ?>" align="center" valign="top">
-							<img src="<?php echo $live_site."/components/com_eventlist/assets/images/information_no.png"; ?>" width="16" height="16"  name="image" alt="<?php JText::_( 'SHOW DETAILS' ); ?>" />
-							</td>
-				<?php
-						else :
-				?>
-							<td width="<?php echo $this->elsettings->infobuttonwidth; ?>" align="center" valign="top">
-							<a href="<?php echo $detaillink ; ?>"><img src="<?php echo $live_site."/components/com_eventlist/assets/images/information.png"; ?>" width="16" height="16"  name="image" alt="<?php JText::_( 'SHOW DETAILS' ); ?>" /></a>
-							</td>
-				<?php
-						endif;
-					endif;
-				endif;
-
 				if ($this->elsettings->showlocate == 1) :
 				?>
 					<td width="<?php echo $this->elsettings->locationwidth; ?>" align="left" valign="top">

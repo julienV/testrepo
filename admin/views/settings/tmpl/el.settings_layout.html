@@ -59,38 +59,6 @@
 			</fieldset>
 			  
 			<fieldset class="adminform">
-			<legend><?php echo JText::_( 'INFO COLUMN'); ?></legend>
-				<table class="admintable" cellspacing="1">
-				<tbody>
-					<tr>
-	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'WIDTH INFO COLUMN' ); ?>::<?php echo JText::_('WIDTH INFO COLUMN TIP'); ?>">
-								<?php echo JText::_( 'WIDTH INFO COLUMN' ); ?>
-							</span>
-						</td>
-       					<td valign="top">
-          					<input type="text" name="infobuttonwidth" value="<?php echo $this->elsettings->infobuttonwidth; ?>" size="5" maxlength="4" />
-       						
-       						<span class="error hasTip" title="<?php echo JText::_( 'Warning' );?>::<?php echo JText::_( 'WIDTH INFO COLUMN WARN' ); ?>">
-								<?php echo $this->WarningIcon(); ?>
-							</span>
-       	 				</td>
-      				</tr>
-					<tr>
-	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COLUMN NAME' ); ?>::<?php echo JText::_('COLUMN NAME TIP'); ?>">
-								<?php echo JText::_( 'COLUMN NAME' ); ?>
-							</span>
-						</td>
-       					<td valign="top">
-							<input type="text" name="infobuttonname" value="<?php echo $this->elsettings->infobuttonname; ?>" size="30" maxlength="25" />
-       	 				</td>
-      				</tr>
-				</tbody>
-				</table>
-			</fieldset>
-			  
-			<fieldset class="adminform">
 			<legend><?php echo JText::_( 'CITY COLUMN' ); ?></legend>
 				<table class="admintable" cellspacing="1">
 				<tbody>
@@ -133,11 +101,8 @@
       				</tr>
 				</tbody>
 				</table>
-			  </fieldset>
-		</td>
-		
-		
-        <td width="50%">
+			</fieldset>
+			  
 			<fieldset class="adminform">
 			<legend><?php echo JText::_( 'TITLE COLUMN' ); ?></legend>
 				<table class="admintable" cellspacing="1">
@@ -181,8 +146,12 @@
       				</tr>
 				</tbody>
 				</table>
-			  </fieldset>
-			  			<fieldset class="adminform">
+			</fieldset>
+		</td>
+		
+		
+        <td width="50%">			  
+			<fieldset class="adminform">
 			<legend><?php echo JText::_( 'VENUE COLUMN' ); ?></legend>
 				<table class="admintable" cellspacing="1">
 				<tbody>

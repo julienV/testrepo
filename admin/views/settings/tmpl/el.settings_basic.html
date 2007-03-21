@@ -16,8 +16,6 @@
 		  						$showdets = array();
 								$showdets[] = JHTMLSelect::option( '0', JText::_( 'DETAILS OFF' ) );
 								$showdets[] = JHTMLSelect::option( '1', JText::_( 'LINK ON TITLE' ) );
-								$showdets[] = JHTMLSelect::option( '2', JText::_( 'LINK ON ICON' ) );
-								$showdets[] = JHTMLSelect::option( '3', JText::_( 'BOTH' ) );
 								$showdet = JHTMLSelect::genericList( $showdets, 'showdetails', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->showdetails );
 								echo $showdet;
         					?>
