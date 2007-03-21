@@ -49,6 +49,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 
 				//Link to map
+				$mapimage = JAdminMenus::ImageCheck( 'mapsicon.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'MAP' ), JText::_( 'MAP' ) );
+				
 				switch ($this->elsettings->showmapserv) :
 					case 0:
 					break;
@@ -57,7 +59,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   						if ($this->elsettings->map24id != '') :
 						?>
 							<a class="flyer" href="http://link2.map24.com/?lid=<?php echo $this->elsettings->map24id ?>&maptype=JAVA&width0=2000&street0=<?php echo $this->venue->street ?>&zip0=<?php echo $this->venue->plz ?>&city0=<?php echo $this->venue->city ?>&country0=<?php echo $this->venue->country ?>&sym0=10280&description0=<?php echo $this->venue->club ?>" target="_blank">
-							<img src="http://img.map24.com/map24/link2map24/de/show_address_7.gif" border=0 alt="Map24" />
+								<?php echo $mapimage; ?>
 							</a>
 						<?php
 						endif;
@@ -65,12 +67,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 					case 2:
 					?>
-					<dl class="location floattext">
-						<dt class="anfahrt">XXXXAnfahrtXXXX</dt>
-							<dd class="map">
-								<a href="http://maps.google.com/maps?q=<?php echo $this->venue->street; ?>+<?php echo $this->venue->city ?>+<?php echo $this->venue->plz ?>+<?php echo $this->venue->country ?>" title="<?php echo JText::_( 'MAP' ); ?>" target="_blank"><?php echo JText::_( 'MAP' ); ?></a>
-							</dd>
-					</dl>
+						<a class="flyer" href="http://maps.google.com/maps?q=<?php echo $this->venue->street; ?>+<?php echo $this->venue->city ?>+<?php echo $this->venue->plz ?>+<?php echo $this->venue->country ?>" title="<?php echo JText::_( 'MAP' ); ?>" target="_blank">
+							<?php echo $mapimage; ?>
+						</a>
 				<?php
 					break;
 				endswitch; //switch ende

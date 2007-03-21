@@ -63,7 +63,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				endif;
 
 
-				//Link to map
+				//Link to map		
+				$mapimage = JAdminMenus::ImageCheck( 'mapsicon.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'MAP' ), JText::_( 'MAP' ) );
+				
 				switch ($this->elsettings->showmapserv) :
 					case 0:
 					break;
@@ -72,7 +74,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   						if ($this->elsettings->map24id != '') :
 						?>
 							<a class="flyer" href="http://link2.map24.com/?lid=<?php echo $this->elsettings->map24id ?>&maptype=JAVA&width0=2000&street0=<?php echo $row->street ?>&zip0=<?php echo $row->plz ?>&city0=<?php echo $row->city ?>&country0=<?php echo $row->country ?>&sym0=10280&description0=<?php echo $row->club ?>" target="_blank">
-							<img src="http://img.map24.com/map24/link2map24/de/show_address_7.gif" border=0 alt="Map24" />
+								<?php echo $mapimage; ?>
 							</a>
 						<?php
 						endif;
@@ -80,10 +82,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 					case 2:
 					?>
-						<h3 class="anfahrt">XXXXAnfahrtXXXX</h3>
-						<p class="map">
-						<a href="http://maps.google.com/maps?q=<?php echo $row->street; ?>+<?php echo $row->city ?>+<?php echo $row->plz ?>" title="<?php echo JText::_( 'MAP' ); ?>" target="_blank"><?php echo JText::_( 'MAP' ); ?></a>
-						</p>
+						<a class="flyer" href="http://maps.google.com/maps?q=<?php echo $row->street; ?>+<?php echo $row->city ?>+<?php echo $row->plz ?>" title="<?php echo JText::_( 'MAP' ); ?>" target="_blank">
+							<?php echo $mapimage; ?>
+						</a>
 				<?php
 					break;
 				endswitch; //switch ende

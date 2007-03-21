@@ -151,8 +151,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				endif;
 
 
-				//Link to map
-				
+				//Link to map		
 				$mapimage = JAdminMenus::ImageCheck( 'mapsicon.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'MAP' ), JText::_( 'MAP' ) );
 				
 				switch ($this->elsettings->showmapserv) :
