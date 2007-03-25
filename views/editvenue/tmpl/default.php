@@ -76,7 +76,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   		}
 	</script>
 
-	<form enctype="multipart/form-data" name="adminForm" action="index.php" method="post" onsubmit="javascript:setgood();">
+	<form enctype="multipart/form-data" name="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" onsubmit="javascript:setgood();">
 
 		<table class="adminform" width="100%">
 		<tr>

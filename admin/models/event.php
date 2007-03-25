@@ -316,9 +316,7 @@ class EventListModelEvent extends JModel
       		$mainframe->redirect('index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$returnview, JText::_( 'ERROR TITLE LONG' ) );
 		}
 
-		/*
-		* No venue or category choosen?
-		*/
+		//No venue or category choosen?
 		if($row->locid == '') {
   	      	$row->checkin();
 			$mainframe->redirect( 'index.php?option='.$option.'&view=venue', JText::_( 'VENUE EMPTY') );

@@ -40,7 +40,7 @@ class EventListViewEditevent extends JView
 		$editor 	= & JFactory::getEditor();
 		$doc 		= & JFactory::getDocument();
 		$db			= & JFactory::getDBO();
-		$elsettings = & ELHelper::config();
+		$elsettings = ELHelper::config();
 
 		//Get Data from the model
 		$row 		= $this->Get('Event');
@@ -77,7 +77,7 @@ class EventListViewEditevent extends JView
 		$pathway->addItem($title, '');
 
 		//Has the user access to the editor and the add venue screen
-		$editoruser = & ELUser::editoruser();
+		$editoruser = ELUser::editoruser();
 		$delloclink = ELUser::validate_user( $elsettings->locdelrec, $elsettings->deliverlocsyes );
 
 		//Get image information
@@ -179,7 +179,7 @@ class EventListViewEditevent extends JView
 		// TODO change to own css sheet
 		$document->addStyleSheet("administrator/templates/khepri/css/general.css");
 
-		$link = 'index.php?option=com_eventlist&amp;task=selectvenue&amp;tmpl=component';
+		$link = JRoute::_('index.php?option=com_eventlist&amp;task=selectvenue&amp;tmpl=component');
 
 		$filters = array();
 		$filters[] = JHTMLSelect::option( '1', JText::_( 'VENUE' ) );
@@ -192,6 +192,7 @@ class EventListViewEditevent extends JView
 		$this->assignRef('link' , 				$link);
 		$this->assignRef('lists' , 				$lists);
 		$this->assignRef('search' , 			$search);
+		
 
 		parent::display($tpl);
 	}

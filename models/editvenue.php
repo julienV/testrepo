@@ -64,7 +64,7 @@ class EventListModelEditvenue extends JModel
 
 		// Initialize variables
 		$user		= & JFactory::getUser();
-		$elsettings = & ELHelper::config();
+		$elsettings = ELHelper::config();
 		
 		$view		= JRequest::getVar('view', '', '', 'string');
 

@@ -72,7 +72,7 @@ class EventListModelEditevent extends JModel
 
 		// Initialize variables
 		$user		= & JFactory::getUser();
-		$elsettings = & ELHelper::config();
+		$elsettings = ELHelper::config();
 
 		$view		= JRequest::getVar('view', '', '', 'string');
 
@@ -182,7 +182,7 @@ class EventListModelEditevent extends JModel
 	function getCategories( )
 	{
 		$user		= & JFactory::getUser();
-		$elsettings = & ELHelper::config();
+		$elsettings = ELHelper::config();
 		$userid		= (int) $user->get('id');
 
 		//get the ids of the categories the user maintaines

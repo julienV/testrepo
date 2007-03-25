@@ -122,7 +122,7 @@ defined('_JEXEC') or die('Restricted access');
    		}
 	</script>
 
-	<form enctype="multipart/form-data" name="adminForm" action="index.php" method="post" onsubmit="javascript:setgood();">
+	<form enctype="multipart/form-data" name="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" onsubmit="javascript:setgood();">
 
 		<table class="adminform" width="100%">
 		<tr>
@@ -154,16 +154,13 @@ defined('_JEXEC') or die('Restricted access');
 			<td><?php echo JText::_( 'VENUE' ).':'; ?>
 			</td>
 			<td>
-			<?php
-				//$html = JHTMLSelect::genericList( $this->locations, 'locid','size="1" class="inputbox"', 'value', 'text', $this->row->locid );
-				//echo $html;
-				echo $this->venueselect;
-			?>
-			&nbsp;<input class="inputbox" type="button" onclick="elSelectVenue(0, '<?php echo JText::_('NO VENUE'); ?>' );" value="<?php  echo JText::_('NO VENUE'); ?>" />
+			<?php echo $this->venueselect; ?>
+			&nbsp;
+			<input class="inputbox" type="button" onclick="elSelectVenue(0, '<?php echo JText::_('NO VENUE'); ?>' );" value="<?php  echo JText::_('NO VENUE'); ?>" />
 			<?php
 				//show location submission link
 				if ( $this->delloclink == 1 && !$this->row->id ) :
-						$link = 'index.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;Returnid='.$Itemid.'&amp;view=editvenue&amp;returnview='.$this->returnview;
+						$link = JRoute::_('index.php?option=com_eventlist&amp;Returnid='.$this->item->id.'&amp;view=editvenue&amp;returnview='.$this->returnview);
 						?>
 						<a href="<?php echo $link ?>" target="_self">
 						<?php echo JText::_( 'DELIVER NEW VENUE' ); ?></a>

@@ -33,7 +33,7 @@ class EventListViewEditvenue extends JView
 
 		$editor 	= & JFactory::getEditor();
 		$doc 		= & JFactory::getDocument();
-		$elsettings = & ELHelper::config();
+		$elsettings = ELHelper::config();
 
 		$live_site 	= $mainframe->getCfg('live_site');
 		
@@ -66,7 +66,7 @@ class EventListViewEditvenue extends JView
 		$doc->setTitle($title);
 		
 		//editor user
-		$editoruser = & ELUser::editoruser();
+		$editoruser = ELUser::editoruser();
 				
 		//Get image
 		$limage = ELImage::venueimage($live_site, $row->locimage, $elsettings->imagewidth, $elsettings->imagehight, $elsettings->imageprob, $elsettings->gddisabled);
