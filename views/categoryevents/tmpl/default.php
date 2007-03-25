@@ -13,7 +13,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <p class="buttons">
 	<?php
 		if ( !$this->pop ) : //don't show in printpopup
-			echo ELOutput::submitbutton( $this->item->id, $this->dellink, $this->params, 'categoryevents');
+			echo ELOutput::submitbutton( $this->dellink, $this->params, 'categoryevents');
 			echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params, $this->task, $this->category->id );
 		endif;
 		
