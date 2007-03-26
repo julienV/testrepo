@@ -28,7 +28,7 @@ class EventListViewVenueevents extends JView
 	 */
 	function display( $tpl = null )
 	{
-		global $Itemid, $mainframe, $option;
+		global $mainframe, $option;
 
 		$document 	= & JFactory::getDocument();
 		$elsettings = ELHelper::config();
@@ -148,7 +148,6 @@ class EventListViewVenueevents extends JView
 		$this->assignRef('print_link' , 			$print_link);
 		$this->assignRef('params' , 				$params);
 		$this->assignRef('dellink' , 				$dellink);
-		$this->assignRef('pop' , 					$pop);
 		$this->assignRef('limage' , 				$limage);
 		$this->assignRef('venuedescription' , 		$venuedescription);
 		$this->assignRef('live_site' , 				$live_site);

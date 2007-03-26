@@ -35,11 +35,8 @@ class EventListViewEventList extends JView
 		$elsettings = ELHelper::config();
 		$uri 		= & JFactory::getURI();
 		$menu		= & JMenu::getInstance();
-		$state		= & $this->get('state');
-
-		// Get the menu object of the active menu item
-		$item    	= $menu->getActive();	
-		$params		=  $state->get('parameters.menu');
+		$item    	= $menu->getActive();
+		$params		= & $menu->getParams($item->id);
 
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );
@@ -81,7 +78,7 @@ class EventListViewEventList extends JView
 		$print_link = $live_site. '/index.php?option=com_eventlist&amp;view=eventlist&amp;tmpl=component&amp;pop=1';
 
 		//pathway
-		$pathway->setItemName(1, $item->name);
+		$pathway->setItemName( 1, $item->name );
 
 		//Set Page title
 		if (!$item->name) {
@@ -96,11 +93,11 @@ class EventListViewEventList extends JView
 		if ($maintainer || $genaccess ) $dellink = 1;
 
 		//add alternate feed link
-		$link    = 'feed.php?option=com_eventlist&amp;view=eventlist';
+		$link    = 'feed.php?option=com_eventlist&view=eventlist';
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
-		$document->addHeadLink($link.'&amp;format=rss', 'alternate', 'rel', $attribs);
+		$document->addHeadLink($link.'&format=rss', 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
-		$document->addHeadLink($link.'&amp;format=atom', 'alternate', 'rel', $attribs);
+		$document->addHeadLink($link.'&format=atom', 'alternate', 'rel', $attribs);
 
 		// Create the pagination object
 		$page = $total - $limit;
@@ -119,7 +116,6 @@ class EventListViewEventList extends JView
 		$this->assignRef('print_link' , 			$print_link);
 		$this->assignRef('params' , 				$params);
 		$this->assignRef('dellink' , 				$dellink);
-		$this->assignRef('pop' , 					$pop);
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('page' , 					$page);
 		$this->assignRef('link' , 					$link);
@@ -199,9 +195,9 @@ class EventListViewEventList extends JView
 	 */
 	function _buildSortLists($elsettings)
 	{
+		$filter_order		= JRequest::getVar('filter_order');
+		$filter_order_Dir	= JRequest::getVar('filter_order_Dir');
 		
-		$state		=& $this->get('state');
-
 		$filter				= JRequest::getVar('filter');
 		$filter_type		= JRequest::getVar('filter_type');
 
@@ -211,13 +207,13 @@ class EventListViewEventList extends JView
 		$sortselects[] 	= JHTMLSelect::option( 'city', $elsettings->cityname );
 		$sortselect 	= JHTMLSelect::genericList( $sortselects, 'filter_type', 'size="1" class="inputbox"', 'value', 'text', $filter_type );
 
-		if ($state->get('filter_order_dir') == 'DESC') {
+		if ($filter_order_Dir == 'DESC') {
 			$lists['order_Dir'] = 'ASC';
 		} else {
 			$lists['order_Dir'] = 'DESC';
 		}
 
-		$lists['order'] 		= $state->get('filter_order');
+		$lists['order'] 		= $filter_order;
 		$lists['filter'] 		= $filter;
 		$lists['filter_type'] 	= $sortselect;
 

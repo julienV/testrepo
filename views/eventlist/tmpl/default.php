@@ -12,7 +12,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <p class="buttons">
 	<?php
-		if ( !$this->pop ) : //don't show in printpopup
+		if ( !$this->params->get( 'popup' ) ) : //don't show in printpopup
 			echo ELOutput::submitbutton( $this->dellink, $this->params, 'eventlist' );
 			echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params );
 		endif;
@@ -51,7 +51,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <!--footer-->
 
-<?php if (( $this->page > 0 ) && ( !$this->pop )) : ?>
+<?php if (( $this->page > 0 ) && ( !$this->params->get( 'popup' ) )) : ?>
 <p class="pageslinks">
 	<?php echo $this->pageNav->getPagesLinks($this->link); ?>
 </p>

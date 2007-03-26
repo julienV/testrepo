@@ -51,8 +51,9 @@ class EventListViewEventList extends JView
 
 			// strip html from feed item description text
 			$description = $row->datdescription;
+			
 			@$date = ( $row->dates ? date( 'r', strtotime($row->dates.''.$row->times) ) : '' );
-
+			
 			// load individual item creator class
 			$item = new JFeedItem();
 			$item->title 		= $title;

@@ -197,6 +197,7 @@ class ELOutput {
 	 *
 	 * @param string $print_link
 	 * @param array $params
+	 * @param int $pop
 	 * @since 0.9
 	 */
 	function printbutton( $print_link, &$params )
@@ -210,10 +211,21 @@ class ELOutput {
 			$text = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'Print' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 		}
 
-		$attribs['title']   = '"'.JText::_( 'Print' ).'"';
-		$attribs['onclick'] = "\"window.open('".$print_link."','win2','".$status."'); return false;\"";
-
-		return JHTML::Link($print_link, $text, $attribs);
+		if ($params->get( 'popup' )) {
+			//button in popup
+			$attribs['title']   = '"'.JText::_( 'Print' ).'"';
+			$attribs['onclick'] = "\"javascript:window.print(); return false;\"";
+		
+			$link = JHTML::Link('#', $text, $attribs);
+		} else {
+			//button in view
+			$attribs['title']   = '"'.JText::_( 'Print' ).'"';
+			$attribs['onclick'] = "\"window.open('".$print_link."','win2','".$status."'); return false;\"";
+		
+			$link = JHTML::Link($print_link, $text, $attribs);
+		}
+		
+		return $link;
 	}
 }
 ?>

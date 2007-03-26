@@ -236,3 +236,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
 		<input type="hidden" name="task" value="savevenue" />
 	</form>
+
+<p class="copyright">
+	<?php echo ELOutput::footer( ); ?>
+</p>

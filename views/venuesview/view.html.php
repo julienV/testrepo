@@ -112,7 +112,6 @@ class EventListViewVenuesview extends JView
 		$this->assignRef('print_link' , 			$print_link);
 		$this->assignRef('params' , 				$params);
 		$this->assignRef('dellink' , 				$dellink);
-		$this->assignRef('pop' , 					$pop);
 		$this->assignRef('live_site' , 				$live_site);
 		$this->assignRef('link' , 					$link);
 		$this->assignRef('page' , 					$page);

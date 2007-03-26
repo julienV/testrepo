@@ -145,7 +145,6 @@ class EventListViewCategoryevents extends JView
 		$this->assignRef('print_link' , 			$print_link);
 		$this->assignRef('params' , 				$params);
 		$this->assignRef('dellink' , 				$dellink);
-		$this->assignRef('pop' , 					$pop);
 		$this->assignRef('task' , 					$task);
 		$this->assignRef('catdescription' , 		$catdescription);
 		$this->assignRef('live_site' , 				$live_site);

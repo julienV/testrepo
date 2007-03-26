@@ -30,10 +30,22 @@ class EventListViewCategoriesdetailed extends JView
 	{
 		global $mainframe, $option;
 
+		//initialise variables
 		$document 	= & JFactory::getDocument();
 		$elsettings = ELHelper::config();
 		$model 		= $this->getModel();
+		$menu		= & JMenu::getInstance();
+		$item    	= $menu->getActive();
+		$params		= & $menu->getParams($item->id);
 
+		//get vars
+		$live_site		= $mainframe->getCfg('live_site');
+		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
+		$limit			= JRequest::getVar('limit', $params->get('cat_num'), '', 'int');
+		$pathway 		= & $mainframe->getPathWay();
+		$pop			= JRequest::getVar('pop', 0, '', 'int');
+		
+		//Get data from the model
 		$categories	= & $this->get('Data');
 		$total 		= & $this->get('Total');
 
@@ -44,27 +56,14 @@ class EventListViewCategoriesdetailed extends JView
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
 
-		//get menu information
-		$menu		=& JMenu::getInstance();
-		$item    	= $menu->getActive();
-		$params		=& $menu->getParams($item->id);
-
-		$live_site	= $mainframe->getCfg('live_site');
-
-		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
-		$limit			= JRequest::getVar('limit', $params->get('cat_num'), '', 'int');
-
 		//pathway
-		$pathway 	= & $mainframe->getPathWay();
 		$pathway->setItemName(1, $item->name);
 
 		//set Page title
 		$mainframe->setPageTitle( $item->name );
 		$mainframe->addMetaTag( 'title' , $item->name );
 
-		//Druckfunktion
-		$pop	= JRequest::getVar('pop', 0, '', 'int');
-
+		//Print
 		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
 		$params->def( 'icons', $mainframe->getCfg( 'icons' ) );
 
@@ -76,7 +75,7 @@ class EventListViewCategoriesdetailed extends JView
 			$params->def('header', $item->name);
 		}
 
-		$print_link = $live_site. '/index2.php?option=com_eventlist&amp;Itemid='. $item->id .'&amp;pop=1';
+		$print_link = $live_site. '/index.php?option=com_eventlist&amp;Itemid='. $item->id .'&amp;pop=1&amp;tmpl=component';
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
@@ -91,10 +90,11 @@ class EventListViewCategoriesdetailed extends JView
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
 		$document->addHeadLink($link.'&format=atom', 'alternate', 'rel', $attribs);
 
-		$page = $total - $limit;
 
 		// Create the pagination object
 		jimport('joomla.html.pagination');
+		
+		$page = $total - $limit;
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
 		$link = 'index.php?option=com_eventlist&Itemid='.$item->id.'&view=categoriesdetailed';
@@ -104,7 +104,6 @@ class EventListViewCategoriesdetailed extends JView
 		$this->assignRef('params' , 				$params);
 		$this->assignRef('dellink' , 				$dellink);
 		$this->assignRef('item' , 					$item);
-		$this->assignRef('pop' , 					$pop);
 		$this->assignRef('live_site' , 				$live_site);
 		$this->assignRef('model' , 					$model);
 		$this->assignRef('pageNav' , 				$pageNav);

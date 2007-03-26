@@ -13,7 +13,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <div id="eventlist" class="el_catdetails">
 <span class="buttons">
 	<?php
-		if ( !$this->pop ) : //don't show in printpopup
+		if ( !$this->params->get( 'popup' ) ) : //don't show in printpopup
 			echo ELOutput::submitbutton( $this->dellink, $this->params, 'categoriesdetailed' );
 			echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params );
 		endif;
