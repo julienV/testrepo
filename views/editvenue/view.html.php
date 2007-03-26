@@ -50,6 +50,10 @@ class EventListViewEditvenue extends JView
 		jimport('joomla.filter.output');
 		JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'locdescription' );
 		
+		//add css file
+		$doc->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
+		$doc->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
+		
 		// Get the menu object of the active menu item
 		$menu		=& JMenu::getInstance();
 		$item    	= $menu->getActive();

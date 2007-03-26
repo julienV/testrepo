@@ -58,6 +58,10 @@ class EventListViewEditevent extends JView
 
 		jimport('joomla.filter.output');
 		JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'datdescription' );
+		
+		//add css file
+		$doc->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
+		$doc->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
 
 		/*
 		* Set page title

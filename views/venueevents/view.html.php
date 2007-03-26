@@ -106,7 +106,7 @@ class EventListViewVenueevents extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = $live_site. '/index2.php?option=com_eventlist&amp;Itemid='. $item->id .'&amp;view=venueevents&amp;locatid='. $venue->id .'&amp;pop=1';
+		$print_link = $live_site. '/index.php?option=com_eventlist&amp;Itemid='. $item->id .'&amp;view=venueevents&amp;locatid='. $venue->id .'&amp;pop=1&amp;tmpl=component';
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
@@ -135,7 +135,7 @@ class EventListViewVenueevents extends JView
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
-		$link = 'index.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;view=venueevents&amp;locatid='.$venue->id;
+		$link = JRoute::_('index.php?option=com_eventlist&view=venueevents&locatid='.$venue->id );
 		$page = $total - $limit;
 
 		//create select lists
