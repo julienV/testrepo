@@ -13,7 +13,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <span class="buttons">
 	<?php
 		echo ELOutput::submitbutton( $this->dellink, $this->params, 'categoriesview' );
-		echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params ); 
+		echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params, $this->task ); 
 	?>
 </span>
 

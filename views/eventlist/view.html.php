@@ -105,7 +105,7 @@ class EventListViewEventList extends JView
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
-		$link = 'index.php?view=eventlist';
+		$link = JRoute::_('index.php?option=com_eventlist&view=eventlist');
 
 		//create select lists
 		$lists	= $this->_buildSortLists($elsettings);
