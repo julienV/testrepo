@@ -49,13 +49,12 @@ class EventListController extends JController
 	 */
 	function cancelevent()
 	{
-		global $Itemid, $mainframe;
-
 		$db 	= & JFactory::getDBO();
 		$user	= & JFactory::getUser();
 
 		$view	= JRequest::getVar('returnview', '', 'post', 'string');
 		$id		= JRequest::getVar( 'id', 0, 'post', 'int' );
+		$Itemid = JRequest::getVar( 'Itemid', 0, 'post', 'int' );
 
 		// Must be logged in
 		if ($user->get('id') < 1) {
@@ -70,10 +69,10 @@ class EventListController extends JController
 			$row->load($id);
 			$row->checkin();
 
-			$mainframe->redirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view=details&did='.$id );
+			$this->setRedirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view=details&did='.$id );
 
 		} else {
-			$mainframe->redirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$view );
+			$this->setRedirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$view );
 		}
 	}
 
@@ -84,13 +83,12 @@ class EventListController extends JController
 	 */
 	function cancelvenue()
 	{
-		global $Itemid, $mainframe;
-
 		$db 	= & JFactory::getDBO();
 		$user	= & JFactory::getUser();
 
 		$view	= JRequest::getVar('returnview', '', 'post', 'string');
 		$id		= JRequest::getVar( 'id', 0, 'post', 'int' );
+		$Itemid = JRequest::getVar( 'Itemid', 0, 'post', 'int' );
 
 		// Must be logged in
 		if ($user->get('id') < 1) {
@@ -105,10 +103,10 @@ class EventListController extends JController
 			$row->load($id);
 			$row->checkin();
 
-			$mainframe->redirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view=venueevents&locatid='.$id);
+			$this->setRedirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view=venueevents&locatid='.$id);
 
 		} else {
-			$mainframe->redirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$view );
+			$this->setRedirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$view );
 		}
 	}
 
@@ -122,7 +120,7 @@ class EventListController extends JController
 	 */
 	function savevenue()
 	{
-		global $mainframe, $option, $Itemid;
+		global $mainframe, $option;
 
 		//check the token before we do anything else
 		$token	= JUtility::getToken();
@@ -141,11 +139,11 @@ class EventListController extends JController
 		$MailFrom	 	= $mainframe->getCfg('mailfrom');
 		$FromName 		= $mainframe->getCfg('fromname');
 		
-
-
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
 		$sizelimit 	= $elsettings->sizelimit*1024; //size limit in kb
 		$base_Dir = JPATH_SITE.'/images/eventlist/venues/';
+		
+		$Itemid = JRequest::getVar( 'Itemid', 0, 'post', 'int' );
 
 		//Sanitize
 		$post = JRequest::get( 'post' );
@@ -448,7 +446,7 @@ class EventListController extends JController
 	 */
 	function saveevent()
 	{
-		global $mainframe, $option, $Itemid;
+		global $mainframe, $option;
 
 		//check the token before we do anything else
 		$token	= JUtility::getToken();
@@ -472,6 +470,8 @@ class EventListController extends JController
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
 		$sizelimit 	= $elsettings->sizelimit*1024; //size limit in kb
 		$base_Dir 	= JPATH_SITE.'/images/eventlist/events/';
+		
+		$Itemid = JRequest::getVar( 'Itemid', 0, 'post', 'int' );
 
 		//Sanitize
 		$post = JRequest::get( 'post' );

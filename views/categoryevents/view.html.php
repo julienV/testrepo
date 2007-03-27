@@ -89,11 +89,11 @@ class EventListViewCategoryevents extends JView
 		$print_link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&categid='. $category->id .'&pop=1&tmpl=component');
 
 		//add alternate feed link
-		$link    = 'feed.php?option=com_eventlist&view=categoryevents&categid='.$category->id;
+		$link    = 'index.php?option=com_eventlist&view=categoryevents&format=feed&categid='.$category->id;
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
-		$document->addHeadLink($link.'&format=rss', 'alternate', 'rel', $attribs);
+		$document->addHeadLink($link.'&type=rss', 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
-		$document->addHeadLink($link.'&format=atom', 'alternate', 'rel', $attribs);
+		$document->addHeadLink($link.'&type=atom', 'alternate', 'rel', $attribs);
 
 		//create the pathway
 		if ($task == 'catarchive') {

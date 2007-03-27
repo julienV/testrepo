@@ -39,7 +39,7 @@ class EventListViewEditvenue extends JView
 		
 		// Get requests
 		$id				= JRequest::getVar('id', 0, '', 'int');
-		$returnview		= JRequest::getVar('returnview', '', '', 'string');
+		$returnview		= JRequest::getVar('view', '', '', 'string');
 		
 		//Get Data from the model
 		$row 		= $this->Get('Venue');
@@ -86,6 +86,7 @@ class EventListViewEditvenue extends JView
 		$this->assignRef('infoimage' , 				$infoimage);
 		$this->assignRef('returnview' ,				$returnview);
 		$this->assignRef('elsettings' , 			$elsettings);
+		$this->assignRef('item' , 					$item);
 		
 		parent::display($tpl);
 
