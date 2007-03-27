@@ -99,7 +99,7 @@ class EventListModelEditevent extends JModel
 			* access check
 			*/
 			$owner = $this->getOwner();
-			$editaccess	= & ELUser::editaccess($elsettings->eventowner, $owner->uid, $user->get('id'), $elsettings->eventeditrec);
+			$editaccess	= ELUser::editaccess($elsettings->eventowner, $owner->uid, $user->get('id'), $elsettings->eventeditrec);
 			$maintainer = ELUser::ismaintainer();
 
 			if ($maintainer || $editaccess ) $allowedtoeditevent = 1;
@@ -136,6 +136,9 @@ class EventListModelEditevent extends JModel
 			$this->_event->title			= '';
 			$this->_event->times			= null;
 			$this->_event->endtimes			= null;
+			$this->_event->deliverdate		= null;
+			$this->_event->deliverip		= null;
+			$this->_event->uid				= null;
 			$this->_event->datdescription	= '';
 			$this->_event->registra			= 0;
 			$this->_event->unregistra		= 0;

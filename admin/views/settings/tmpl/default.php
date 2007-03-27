@@ -31,3 +31,7 @@
 		<input type="hidden" name="lastupdate" value="<?php echo $this->elsettings->lastupdate; ?>">
 		<input type="hidden" name="option" value="com_eventlist">
 		</form>
+		
+		<p class="copyright">
+			<?php echo ELAdmin::footer( ); ?>
+		</p>

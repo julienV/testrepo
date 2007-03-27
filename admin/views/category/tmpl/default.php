@@ -176,7 +176,9 @@
 	</tr>
 </table>
 
-<?php echo ELAdmin::footer( ); ?>
+<p class="copyright">
+	<?php echo ELAdmin::footer( ); ?>
+</p>
 		
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />

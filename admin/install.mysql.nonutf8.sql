@@ -19,7 +19,7 @@ CREATE TABLE `#__eventlist_events` (
 `modified` datetime NOT NULL,
 `modified_by` int(11) unsigned NOT NULL default '0',
 `deliverip` varchar(45) NOT NULL default '',
-`deliverdate` varchar(60) NOT NULL default '',
+`deliverdate` datetime NOT NULL,
 `datdescription` text NOT NULL,
 `meta_keywords` varchar(200) NOT NULL default '',
 `meta_description` varchar(255) NOT NULL default '',

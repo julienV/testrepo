@@ -177,7 +177,9 @@ $infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', '../components/com_eve
 	</table>
 </fieldset>
 
-<?php echo ELAdmin::footer(); ?>
+<p class="copyright">
+	<?php echo ELAdmin::footer( ); ?>
+</p>
 
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="controller" value="venues" />

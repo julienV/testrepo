@@ -64,3 +64,7 @@
 <input type="hidden" name="option" value="<?php echo $option; ?>" />
 <input type="hidden" name="task" value="" />
 </form> 
+
+<p class="copyright">
+	<?php echo ELAdmin::footer( ); ?>
+</p>

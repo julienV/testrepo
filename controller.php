@@ -457,7 +457,7 @@ class EventListController extends JController
 		$db			= & JFactory::getDBO();
 		$user 		= & JFactory::getUser();
 		$acl		= & JFactory::getACL();
-		$elsettings = & ELHelper::config();
+		$elsettings = ELHelper::config();
 
 		/*
 		* Get mailinformation

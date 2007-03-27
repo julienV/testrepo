@@ -341,14 +341,22 @@
 	</tr>
 </table>
 
-<?php echo ELAdmin::footer( ); ?>
+<p class="copyright">
+	<?php echo ELAdmin::footer( ); ?>
+</p>
 
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="controller" value="events" />
 <?php if ($this->task == 'copy') { ?>
 	<input type="hidden" name="id" value="" />
+	<input type="hidden" name="deliverdate" value="" />
+	<input type="hidden" name="deliverip" value="" />
+	<input type="hidden" name="uid" value="" />
 <?php } else { ?>
 	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
+	<input type="hidden" name="deliverdate" value="<?php echo $this->row->deliverdate; ?>" />
+	<input type="hidden" name="deliverip" value="<?php echo $this->row->deliverip; ?>" />
+	<input type="hidden" name="uid" value="<?php echo $this->row->uid; ?>" />
 <?php } ?>
 <input type="hidden" name="task" value="" />
 </form>

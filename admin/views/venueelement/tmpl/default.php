@@ -58,7 +58,9 @@
 
 </table>
 
-<?php echo ELAdmin::footer( ); ?>
+<p class="copyright">
+	<?php echo ELAdmin::footer( ); ?>
+</p>
 
 <input type="hidden" name="task" value="" />
 <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />

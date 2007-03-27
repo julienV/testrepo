@@ -101,9 +101,9 @@
 				</td>
 			</tfoot>
 		</table>
-		<?php
-		echo ELAdmin::footer( );
-		?>
+		<p class="copyright">
+			<?php echo ELAdmin::footer( ); ?>
+		</p>
 
 			<input type="hidden" name="boxchecked" value="0" />
 			<input type="hidden" name="option" value="<?php echo $option; ?>" />

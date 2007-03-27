@@ -145,6 +145,10 @@ class EventListViewImageupload extends JView {
 		<input type="hidden" name="controller" value="imageupload" />
 		<input type="hidden" name="task" value="<?php echo $task;?>" />
 		</form>
+		
+		<p class="copyright">
+			<?php echo ELAdmin::footer( ); ?>
+		</p>
 
 		<?php
 	}

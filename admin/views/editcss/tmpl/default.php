@@ -55,6 +55,10 @@
 			</td>
 		</tr>
 		</table>
+		
+		<p class="copyright">
+			<?php echo ELAdmin::footer( ); ?>
+		</p>
 	
 		<input type="hidden" name="filename" value="<?php echo $this->filename; ?>" />
 		<input type="hidden" name="path" value="<?php echo $this->path; ?>" />

@@ -151,6 +151,9 @@ class EventListModelEvent extends JModel
 			$event->times				= null;
 			$event->endtimes			= null;
 			$event->title				= null;
+			$event->deliverdate			= null;
+			$event->deliverip			= null;
+			$event->uid					= null;
 			$event->published			= 1;
 			$event->registra			= 0;
 			$event->unregistra			= 0;
@@ -244,7 +247,10 @@ class EventListModelEvent extends JModel
 	{
 		global $mainframe, $option;
 
+		jimport('joomla.utilities.date');
+		
 		$elsettings = ELAdmin::config();
+		$user		=& JFactory::getUser();
 
 		$row =& JTable::getInstance('eventlist_events', '');
 
@@ -339,7 +345,26 @@ class EventListModelEvent extends JModel
 		} else {
 			$row->datimage = '';
 		}
+		
+		// sanitise id field
+		$row->id = (int) $row->id;
 
+		$datenow 	= new JDate();
+		$nullDate	= $this->_db->getNullDate();
+		
+		// Are we saving from an item edit?
+		if ($row->id) {
+			$row->modified 		= $datenow->toMySQL();
+			$row->modified_by 	= $user->get('id');
+		} else {
+			$row->modified 		= $nullDate;
+			$row->modified_by 	= '';
+		}
+
+		$row->uid 			= $row->uid ? $row->uid : $user->get('id');
+		$row->deliverip 	= $row->deliverip ? $row->deliverip : getenv('REMOTE_ADDR');
+		$row->deliverdate 	= $row->deliverdate ? $row->deliverdate : $datenow->toMySQL();
+		
 		// Store the table to the database
 		if (!$row->store(true)) {
 			$this->setError($this->_db->getErrorMsg());

@@ -173,4 +173,9 @@
 			</td>
 		</tr>
 		</table>
+		
+	<p class="copyright">
+		<?php echo ELAdmin::footer( ); ?>
+	</p>
+	
 	</form>

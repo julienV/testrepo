@@ -33,7 +33,6 @@ class EventListViewEventList extends JView
 		//initialize variables
 		$document 	= & JFactory::getDocument();
 		$elsettings = ELHelper::config();
-		$uri 		= & JFactory::getURI();
 		$menu		= & JMenu::getInstance();
 		$item    	= $menu->getActive();
 		$params		= & $menu->getParams($item->id);
@@ -47,14 +46,13 @@ class EventListViewEventList extends JView
 
 		// get variables
 		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
-		$limit			= JRequest::getVar('limit', $params->get('display_num'), '', 'int');
-		$live_site 		= $mainframe->getCfg('live_site');
+		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.limit', 'limit', $params->def('display_num', 0));
 		$pop			= JRequest::getVar('pop', 0, '', 'int');
 		$pathway 		= & $mainframe->getPathWay();
 		
 		//get data from model
-		$rows = & $this->get('Data');
-		$total = & $this->get('Total');
+		$rows 	= & $this->get('Data');
+		$total 	= & $this->get('Total');
 
 		//are events available?
 		if (!$rows) {
@@ -75,8 +73,8 @@ class EventListViewEventList extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = $live_site. '/index.php?option=com_eventlist&amp;view=eventlist&amp;tmpl=component&amp;pop=1';
-
+		$print_link = JRoute::_('index.php?option=com_eventlist&view=eventlist&tmpl=component&pop=1');
+		
 		//pathway
 		$pathway->setItemName( 1, $item->name );
 
@@ -105,12 +103,11 @@ class EventListViewEventList extends JView
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
-		$link = JRoute::_('index.php?option=com_eventlist&view=eventlist');
-
 		//create select lists
 		$lists	= $this->_buildSortLists($elsettings);
 		
 		$this->assign('lists' , 					$lists);
+		
 		$this->assignRef('rows' , 					$rows);
 		$this->assignRef('noevents' , 				$noevents);
 		$this->assignRef('print_link' , 			$print_link);
@@ -118,9 +115,7 @@ class EventListViewEventList extends JView
 		$this->assignRef('dellink' , 				$dellink);
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('page' , 					$page);
-		$this->assignRef('link' , 					$link);
 		$this->assignRef('elsettings' , 			$elsettings);
-		$this->assignRef('request_url',				$uri->toString());
 
 		parent::display($tpl);
 

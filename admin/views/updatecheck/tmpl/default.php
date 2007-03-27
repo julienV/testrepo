@@ -105,3 +105,7 @@ if ($this->updatedata->failed == 0) {
 	<?php echo JText::_( 'Close' );?>
 	</button>
 </div>
+
+<p class="copyright">
+	<?php echo ELAdmin::footer( ); ?>
+</p>
