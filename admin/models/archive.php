@@ -97,6 +97,7 @@ class EventListModelArchive extends JModel
 		{
 			$query = $this->_buildQuery();
 			$this->_data = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit'));
+			$this->_data = $this->_additionals($this->_data);
 		}
 
 		return $this->_data;
@@ -150,10 +151,11 @@ class EventListModelArchive extends JModel
 		$where		= $this->_buildContentWhere();
 		$orderby	= $this->_buildContentOrderBy();
 
-		$query = 'SELECT a.*, loc.club, loc.city, cat.catname'
+		$query = 'SELECT a.*, loc.club, loc.city, cat.catname, u.email, u.name AS author'
 					. ' FROM #__eventlist_events AS a'
 					. ' LEFT JOIN #__eventlist_venues AS loc ON loc.id = a.locid'
 					. ' LEFT JOIN #__eventlist_categories AS cat ON cat.id = a.catsid'
+					. ' LEFT JOIN #__users AS u ON u.id = a.created_by'
 					. $where
 					. $orderby
 					;
@@ -215,6 +217,30 @@ class EventListModelArchive extends JModel
 		$where 		= ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '' );
 
 		return $where;
+	}
+	
+	/**
+	 * Get the editor name
+	 *
+	 * @access private
+	 * @param array $rows
+	 * @return array
+	 */
+	function _additionals($rows)
+	{
+		for ($i=0, $n=count($rows); $i < $n; $i++) {
+
+			// Get editor name
+			$query = 'SELECT name'
+					. ' FROM #__users'
+					. ' WHERE id = '.$rows[$i]->modified_by
+					;
+			$this->_db->SetQuery( $query );
+
+			$rows[$i]->editor = $this->_db->loadResult();
+		}
+
+		return $rows;
 	}
 
 	/**

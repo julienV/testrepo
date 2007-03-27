@@ -116,8 +116,8 @@ class EventListModelDetails extends JModel
 			// Get the WHERE clause
 			$where	= $this->_buildDetailsWhere();
 		
-			$query = 'SELECT a.id AS did, a.dates, a.enddates, a.title, a.times, a.endtimes, a.datdescription, a.meta_keywords, a.meta_description, a.datimage, a.registra, a.unregistra, a.locid, a.catsid, a.uid,'
-					. ' l.id AS locid, l.club, l.city, l.state, l.url, l.locdescription, l.locimage, l.city, l.plz, l.street, l.country, l.uid AS venueowner,' 
+			$query = 'SELECT a.id AS did, a.dates, a.enddates, a.title, a.times, a.endtimes, a.datdescription, a.meta_keywords, a.meta_description, a.datimage, a.registra, a.unregistra, a.locid, a.catsid, a.created_by,'
+					. ' l.id AS locid, l.club, l.city, l.state, l.url, l.locdescription, l.locimage, l.city, l.plz, l.street, l.country, l.created_by AS venueowner,' 
 					. ' c.catname, c.published, c.access,'
 					. ' CASE WHEN CHAR_LENGTH(l.club) THEN CONCAT_WS(\':\', a.locid, l.club) ELSE a.locid END as venueslug,'
 					. ' CASE WHEN CHAR_LENGTH(c.catname) THEN CONCAT_WS(\':\', c.id, c.catname) ELSE c.id END as categoryslug'

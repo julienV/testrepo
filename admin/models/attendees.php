@@ -73,7 +73,7 @@ class EventListModelAttendees extends JModel
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
 
-		$array = JRequest::getVar('rcid',  0, '', 'array');
+		$array = JRequest::getVar('cid',  0, '', 'array');
 		$this->setId((int)$array[0]);
 
 	}
@@ -238,7 +238,7 @@ class EventListModelAttendees extends JModel
 	{
 		$query = 'SELECT id, title, dates FROM #__eventlist_events WHERE id = '.$this->_id;
 
-		$this->_db->SetQuery( );
+		$this->_db->SetQuery( $query );
 
   		$_event = $this->_db->loadObject();
 		echo $this->_db->getErrorMsg();

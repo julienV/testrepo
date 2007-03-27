@@ -88,7 +88,7 @@ class EventListModelEditvenue extends JModel
 			*/
 			$owner = $this->getOwner();
 			
-			$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $owner->uid, $user->get('id'), $elsettings->venueeditrec, $elsettings->venueedit);
+			$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $owner->created_by, $user->get('id'), $elsettings->venueeditrec, $elsettings->venueedit);
 			
 			if ($allowedtoeditvenue == 0) {
 				
@@ -161,7 +161,7 @@ class EventListModelEditvenue extends JModel
 	 */
 	function getOwner( )
 	{		
-		$query = 'SELECT l.uid'
+		$query = 'SELECT l.created_by'
 				. ' FROM #__eventlist_venues AS l' 
 				. ' WHERE l.id = '.$this->_id
 				;

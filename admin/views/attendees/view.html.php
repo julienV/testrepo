@@ -27,7 +27,7 @@ class EventListViewAttendees extends JView {
 		//initialise variables
 		$db			= & JFactory::getDBO();
 		$uri 		= & JFactory::getURI();
-		$elsettings = & ELAdmin::config();
+		$elsettings = ELAdmin::config();
 		$submenu 	= ELAdmin::submenu();
 		$document	= & JFactory::getDocument();
 		

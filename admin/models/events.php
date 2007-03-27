@@ -43,13 +43,6 @@ class EventListModelEvents extends JModel
 	var $_pagination = null;
 
 	/**
-	 * Events id
-	 *
-	 * @var int
-	 */
-	var $_id = null;
-
-	/**
 	 * Constructor
 	 *
 	 * @since 0.9
@@ -66,22 +59,6 @@ class EventListModelEvents extends JModel
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
 
-		$array = JRequest::getVar('cid',  0, '', 'array');
-		$this->setId((int)$array[0]);
-
-	}
-
-	/**
-	 * Method to set the category identifier
-	 *
-	 * @access	public
-	 * @param	int Category identifier
-	 */
-	function setId($id)
-	{
-		// Set id and wipe data
-		$this->_id	    = $id;
-		$this->_data 	= null;
 	}
 
 	/**
@@ -155,7 +132,7 @@ class EventListModelEvents extends JModel
 					. ' FROM #__eventlist_events AS a'
 					. ' LEFT JOIN #__eventlist_venues AS loc ON loc.id = a.locid'
 					. ' LEFT JOIN #__eventlist_categories AS cat ON cat.id = a.catsid'
-					. ' LEFT JOIN #__users AS u ON u.id = a.uid'
+					. ' LEFT JOIN #__users AS u ON u.id = a.created_by'
 					. $where
 					. $orderby
 					;

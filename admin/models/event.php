@@ -151,9 +151,9 @@ class EventListModelEvent extends JModel
 			$event->times				= null;
 			$event->endtimes			= null;
 			$event->title				= null;
-			$event->deliverdate			= null;
-			$event->deliverip			= null;
-			$event->uid					= null;
+			$event->created				= null;
+			$event->author_ip			= null;
+			$event->created_by			= null;
 			$event->published			= 1;
 			$event->registra			= 0;
 			$event->unregistra			= 0;
@@ -361,9 +361,9 @@ class EventListModelEvent extends JModel
 			$row->modified_by 	= '';
 		}
 
-		$row->uid 			= $row->uid ? $row->uid : $user->get('id');
-		$row->deliverip 	= $row->deliverip ? $row->deliverip : getenv('REMOTE_ADDR');
-		$row->deliverdate 	= $row->deliverdate ? $row->deliverdate : $datenow->toFormat();
+		$row->created_by	= $row->created_by ? $row->created_by : $user->get('id');
+		$row->author_ip 	= $row->author_ip ? $row->author_ip : getenv('REMOTE_ADDR');
+		$row->created	 	= $row->created ? $row->created : $datenow->toFormat();
 		
 		// Store the table to the database
 		if (!$row->store(true)) {

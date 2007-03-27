@@ -155,7 +155,7 @@ class EventListModelVenues extends JModel
 
 		$query = 'SELECT l.*, u.email, u.name AS author'
 				. ' FROM #__eventlist_venues AS l'
-				. ' LEFT JOIN #__users AS u ON u.id = l.uid'
+				. ' LEFT JOIN #__users AS u ON u.id = l.created_by'
 				. $where
 				. $orderby
 				;

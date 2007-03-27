@@ -150,7 +150,7 @@ class ELUser {
 		
 		$eventid = (int) $id;
 		//Check if user can edit events
-		$db->SetQuery("SELECT uid"
+		$db->SetQuery("SELECT created_by"
 					. "\n FROM #__eventlist_".$table 
 					. "\n WHERE id = ".$eventid
 					);

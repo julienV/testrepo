@@ -131,9 +131,9 @@ class EventListModelVenue extends JModel
 			$venue->locdescription		= null;
 			$venue->meta_keywords		= null;
 			$venue->meta_description	= null;
-			$event->deliverdateloc		= null;
-			$event->deliveriploc		= null;
-			$event->uid					= null;
+			$event->created				= null;
+			$event->author_ip			= null;
+			$event->created_by			= null;
 			$this->_data				= $venue;
 			return (boolean) $this->_data;
 		}
@@ -278,9 +278,9 @@ class EventListModelVenue extends JModel
 			$row->modified_by 	= '';
 		}
 
-		$row->uid 				= $row->uid ? $row->uid : $user->get('id');
-		$row->deliveriploc 		= $row->deliveriploc ? $row->deliveriploc : getenv('REMOTE_ADDR');
-		$row->deliverdateloc	= $row->deliverdateloc ? $row->deliverdateloc : $datenow->toFormat();
+		$row->created_by		= $row->created_by ? $row->created_by : $user->get('id');
+		$row->author_ip 		= $row->author_ip ? $row->author_ip : getenv('REMOTE_ADDR');
+		$row->created			= $row->created ? $row->created : $datenow->toFormat();
 
 		// Make sure the data is valid
 		if (!$row->check()) {

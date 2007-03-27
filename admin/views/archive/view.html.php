@@ -39,7 +39,7 @@ class EventListViewArchive extends JView {
 		$search 			= $mainframe->getUserStateFromRequest( "$option.archive.search", 'search', '' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );	
 		$live_site 			= $mainframe->getCfg('live_site');
-		$TimeOffset			= $mainframe->getCfg('offset');
+		$template			= $mainframe->getTemplate();
 		
 		//add css and submenu to document
 		$document->setBuffer($submenu, 'module', 'submenu');
@@ -83,7 +83,7 @@ class EventListViewArchive extends JView {
 		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('search'		, $search);
 		$this->assignRef('elsettings'	, $elsettings);
-		$this->assignRef('TimeOffset'	, $TimeOffset);
+		$this->assignRef('template'		, $template);
 
 		parent::display($tpl);
 	}

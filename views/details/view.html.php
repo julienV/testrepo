@@ -99,7 +99,7 @@ class EventListViewDetails extends JView
 		$limage = ELImage::venueimage($live_site, $row->locimage, $elsettings->imagewidth, $elsettings->imagehight, $elsettings->imageprob, $elsettings->gddisabled);
 
 		//Check user if he can edit
-		$allowedtoeditevent = ELUser::editaccess($elsettings->eventowner, $row->uid, $elsettings->eventeditrec, $elsettings->eventedit);
+		$allowedtoeditevent = ELUser::editaccess($elsettings->eventowner, $row->created_by, $elsettings->eventeditrec, $elsettings->eventedit);
 		$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $row->venueowner, $elsettings->venueeditrec, $elsettings->venueedit);
 
 		//Generate Date

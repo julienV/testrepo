@@ -231,7 +231,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<input type="hidden" name="Itemid" value="<?php echo $Itemid ; ?>" />
 		<input type="hidden" name="id" value="<?php echo $this->row->id ; ?>" />
 		<input type="hidden" name="returnview" value="<?php echo $this->returnview; ?>" />
-		<input type="hidden" name="deliverdate" value="<?php echo $this->row->deliverdateloc; ?>" />
+		<input type="hidden" name="created" value="<?php echo $this->row->created; ?>" />
 		<input type="hidden" name="curimage" value="<?php echo $this->row->locimage; ?>" />
 		<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
 		<input type="hidden" name="task" value="savevenue" />

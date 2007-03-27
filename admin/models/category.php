@@ -192,7 +192,7 @@ class EventListModelCategory extends JModel
 	{
 		if ($this->_id)
 		{
-			// Make sure we have a user id to checkout the article with
+			// Make sure we have a user id to checkout the category with
 			if (is_null($uid)) {
 				$user	=& JFactory::getUser();
 				$uid	= $user->get('id');

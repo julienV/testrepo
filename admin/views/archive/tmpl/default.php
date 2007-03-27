@@ -30,7 +30,7 @@
 				<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'loc.club', $this->lists ); ?></th>
 				<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CATEGORY' ), 'cat.catname', $this->lists ); ?></th>
 				<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CITY' ), 'loc.city', $this->lists ); ?></th>
-				<th class="title"><?php echo JText::_( 'FRONTEND' ); ?></th>
+				<th class="title"><?php echo JText::_( 'CREATION' ); ?></th>
 			</tr>
 		</thead>
 
@@ -41,7 +41,7 @@
 				$row = &$this->rows[$i];
 				$date		= strftime( $this->elsettings->formatdate, strtotime( $row->dates ));
 
-				if ($row->enddates == '0000-00-00') {
+				if (!$row->enddates) {
 					$displaydate = $date;
 				} else {
 					$enddate 	= strftime( $this->elsettings->formatdate, strtotime( $row->enddates ));
@@ -49,7 +49,7 @@
 				}
 
 				//Don't display 0 time
-				if ($row->times == '00:00:00') {
+				if (!$row->times) {
 					$time = '';
 				} else {
 					$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
@@ -68,15 +68,19 @@
 				<td><?php echo htmlspecialchars($row->catname, ENT_QUOTES); ?></td>
 				<td><?php echo htmlspecialchars($row->city, ENT_QUOTES) ? htmlspecialchars($row->city, ENT_QUOTES) : '-'; ?></td>
 				<td>
-				<?php if (!empty($row->sendername)) { ?>
-				<?php echo $row->sendername; ?><br />
-				<?php echo $row->sendermail; ?><br />
-				<?php echo $row->deliverip; ?><br />
-				<?php
-				$delivertime = strftime( '%c',$row->deliverdate + ( $this->TimeOffset*60*60 ) );
-				echo $delivertime;
-				}
-				?>
+					<?php echo JText::_( 'AUTHOR' ).': '; ?><a href="<?php echo 'index.php?option=com_users&task=edit&hidemainmenu=1&cid[]='.$row->created_by; ?>"><?php echo $row->author; ?></a><br />
+					<?php echo JText::_( 'EMAIL' ).': '; ?><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a><br />
+					<?php
+					$delivertime = JHTML::Date( $row->created, DATE_FORMAT_LC2 );
+					$edittime = JHTML::Date( $row->modified, DATE_FORMAT_LC2 );
+					$image 		= JAdminMenus::ImageCheck( 'icon-16-info.png', '/templates/'. $this->template .'/images/menu/', NULL, NULL, 'info' );
+					$overlib 	= JText::_( 'CREATED AT' ).': '.$delivertime.'<br />';
+					$overlib	.= JText::_( 'WITH IP' ).': '.$row->author_ip.'<br />';
+					if ($row->modified != '0000-00-00 00:00:00') {
+						$overlib 	.= JText::_( 'EDITED AT' ).': '.$edittime.'<br />';
+						$overlib 	.= JText::_( 'EDITED FROM' ).': '.$row->editor.'<br />';
+					}
+					?>
 				</td>
 			</tr>
 			<?php $k = 1 - $k;  } ?>

@@ -38,7 +38,7 @@ class eventlist_events extends JTable
 	/** @var string */
 	var $title 				= '';
 	/** @var int */
-	var $uid 				= null;
+	var $created_by			= null;
 	/** @var int */
 	var $modified 			= 0;
 	/** @var int */
@@ -52,9 +52,9 @@ class eventlist_events extends JTable
 	/** @var string */
 	var $datimage 			= '';
 	/** @var string */
-	var $deliverip 			= null;
+	var $author_ip 			= null;
 	/** @var date */
-	var $deliverdate 		= 0;
+	var $created	 		= null;
 	/** @var int */
 	var $published 			= null;
 	/** @var int */

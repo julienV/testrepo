@@ -208,9 +208,9 @@ class EventListController extends JController
 
 
 			//get IP, time and userid
-			$row->deliveriploc 		= getenv('REMOTE_ADDR');
-			$row->deliverdateloc 	= $datenow->toFormat();
-			$row->uid 				= $user->get('id');
+			$row->author_ip 		= getenv('REMOTE_ADDR');
+			$row->created			= $datenow->toFormat();
+			$row->created_by		= $user->get('id');
 
 			//set owneredit to false
 			$owneredit = 0;
@@ -403,14 +403,14 @@ class EventListController extends JController
 				$mailbody = JText::_( 'GOT EDITING' ).' '.$rowuser->username.' \n';
 				$mailbody .= ' \n';
 				$mailbody .= JText::_( 'USERMAILADDRESS' ).' '.$rowuser->email.' \n';
-				//$mailbody .= JText::_( 'USER IP' ).' '.$row->deliveriploc.' \n';
+				//$mailbody .= JText::_( 'USER IP' ).' '.$row->author_ip.' \n';
 				$mailbody .= JText::_( 'SUBMISSION TIME' ).' '.strftime( '%c', $row->modified ).' \n';
 			} else {
 				$mailbody = JText::_( 'GOT SUBMISSION' ).' '.$rowuser->username.' \n';
 				$mailbody .= ' \n';
 				$mailbody .= JText::_( 'USERMAILADDRESS' ).' '.$rowuser->email.' \n';
-				$mailbody .= JText::_( 'USER IP' ).' '.$row->deliveriploc.' \n';
-				$mailbody .= JText::_( 'SUBMISSION TIME' ).' '.strftime( '%c', $row->deliverdateloc ).' \n';
+				$mailbody .= JText::_( 'USER IP' ).' '.$row->author_ip.' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).' '.strftime( '%c', $row->created ).' \n';
 			}
 			$mailbody .= ' \n';
 			$mailbody .= JText::_( 'VENUE' ).': '.$row->club.' \n';
@@ -546,9 +546,9 @@ class EventListController extends JController
 			}
 
 			//get IP, time and userid
-			$row->deliverip = getenv('REMOTE_ADDR');
-			$row->deliverdate = $datenow->toFormat();
-			$row->uid = $user->get('id');
+			$row->author_ip 	= getenv('REMOTE_ADDR');
+			$row->created 		= $datenow->toFormat();
+			$row->created_by 	= $user->get('id');
 
 			//Set owneredit to false
 			$owneredit = 0;
@@ -750,14 +750,14 @@ class EventListController extends JController
 				$mailbody = JText::_( 'GOT EDITING' ).': '.$rowuser->username.' \n';
 				$mailbody .= ' \n';
 				$mailbody .= JText::_( 'USERMAILADDRESS' ).': '.$rowuser->email.' \n';
-				//$mailbody .= JText::_( 'USER IP' ).': '.$row->deliverip.' \n';
+				//$mailbody .= JText::_( 'USER IP' ).': '.$row->author_ip.' \n';
 				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.strftime( '%c', $row->modified ).' \n';
 			} else {
 				$mailbody = JText::_( 'GOT SUBMISSION' ).': '.$rowuser->username.' \n';
 				$mailbody .= ' \n';
 				$mailbody .= JText::_( 'USERMAILADDRESS' ).': '.$rowuser->email.' \n';
-				$mailbody .= JText::_( 'USER IP' ).': '.$row->deliverip.' \n';
-				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.strftime( '%c', $row->deliverdate ).' \n';
+				$mailbody .= JText::_( 'USER IP' ).': '.$row->author_ip.' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.strftime( '%c', $row->created ).' \n';
 			}
 			$mailbody .= ' \n';
 			$mailbody .= JText::_( 'TITLE' ).': '.$row->title.' \n';
