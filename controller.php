@@ -442,7 +442,6 @@ class EventListController extends JController
 	/**
 	 * Cleanes and saves the submitted event to the database
 	 *
-	 * TODO Change the fields to more clear names, editor ip field?
 	 * TODO: Check if the user is allowed to post events assigned to this category/venue
 	 *
 	 * @since 0.4
@@ -792,15 +791,14 @@ class EventListController extends JController
 	 */
 	function userregister()
 	{
-		global $Itemid;
-
 		//check the token before we do anything else
 		$token	= JUtility::getToken();
 		if(!JRequest::getVar( $token, 0, 'post' )) {
 			JError::raiseError(403, 'Request Forbidden');
 		}
 
-		$id = JRequest::getVar( 'rdid', 0, 'post', 'int' );
+		$id 	= JRequest::getVar( 'rdid', 0, 'post', 'int' );
+		$Itemid = JRequest::getVar( 'Itemid', 0, 'post', 'int' );
 
 		// Get the model
 		$model = & $this->getModel('Details', 'EventListModel');
@@ -818,15 +816,14 @@ class EventListController extends JController
 	 */
 	function delreguser()
 	{
-		global $Itemid;
-
 		//check the token before we do anything else
 		$token	= JUtility::getToken();
 		if(!JRequest::getVar( $token, 0, 'post' )) {
 			JError::raiseError(403, 'Request Forbidden');
 		}
 
-		$id = JRequest::getVar( 'rdid', 0, 'post', 'int' );
+		$id 	= JRequest::getVar( 'rdid', 0, 'post', 'int' );
+		$Itemid = JRequest::getVar( 'Itemid', 0, 'post', 'int' );
 
 		// Get/Create the model
 		$model = & $this->getModel('Details', 'EventListModel');

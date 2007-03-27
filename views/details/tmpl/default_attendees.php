@@ -82,10 +82,10 @@ switch ($this->formhandler) {
 		
 			//he is allowed to unregister -> display form
 			?>
-			<form name="Eventlist" action="index.php" method="post">
-			<input type="hidden" name="option" value="<?php echo $option ; ?>">
-			<input type="hidden" name="Itemid" value="<?php echo $Itemid ; ?>">
-			<input type="hidden" name="rdid" value="<?php echo $this->row->did ; ?>">
+			<form name="Eventlist" action="<?php echo JRoute::_('index.php?option=com_eventlist&view=details&did='. $this->row->did); ?>" method="post">
+			<input type="hidden" name="option" value="<?php echo $option; ?>">
+			<input type="hidden" name="Itemid" value="<?php echo $this->item->id; ?>">
+			<input type="hidden" name="rdid" value="<?php echo $this->row->did; ?>">
 			<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
 			<input type="hidden" name="task" value="delreguser">
 
@@ -114,10 +114,10 @@ switch ($this->formhandler) {
 		
 		//the user is not registered allready -> display registration form
 		?>
-		<form name="Eventlist" action="index.php" method="post">
-		<input type="hidden" name="option" value="<?php echo $option ; ?>">
-		<input type="hidden" name="Itemid" value="<?php echo $Itemid ; ?>">
-		<input type="hidden" name="rdid" value="<?php echo $this->row->did ; ?>">		
+		<form name="Eventlist" action="<?php echo JRoute::_('index.php?option=com_eventlist&view=details&did='. $this->row->did); ?>" method="post">
+		<input type="hidden" name="option" value="<?php echo $option; ?>">
+		<input type="hidden" name="Itemid" value="<?php echo $this->item->id; ?>">
+		<input type="hidden" name="rdid" value="<?php echo $this->row->did; ?>">		
 		<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />		
 		<input type="hidden" name="task" value="userregister">
 
