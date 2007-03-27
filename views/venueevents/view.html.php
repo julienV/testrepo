@@ -30,12 +30,10 @@ class EventListViewVenueevents extends JView
 	{
 		global $mainframe, $option;
 
+		//initialize variables
 		$document 	= & JFactory::getDocument();
+		$menu		= & JMenu::getInstance();
 		$elsettings = ELHelper::config();
-		$uri 		= & JFactory::getURI();
-
-		//get menu information
-		$menu		=& JMenu::getInstance();
 		$item    	= $menu->getActive();
 		$params		=& $menu->getParams($item->id);
 
@@ -48,20 +46,23 @@ class EventListViewVenueevents extends JView
 
 		// Request variables
 		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
-		$limit			= JRequest::getVar('limit', $params->get('display_num'), '', 'int');
+		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.venueevents.limit', 'limit', $params->def('display_num', 0));
 		$live_site 		= $mainframe->getCfg('live_site');
 		$locatid		= JRequest::getVar('locatid', 0, '', 'int');
 		$pop			= JRequest::getVar('pop', 0, '', 'int');
 
+		//get data from model
 		$rows 		= & $this->get('Data');
 		$venue	 	= & $this->get('Venue');
 		$total 		= & $this->get('Total');
 
+		//does the venue exist?
 		if ($venue->id == 0)
 		{
 			return JError::raiseError( 404, JText::sprintf( 'Venue #%d not found', $locatid ) );
 		}
 
+		//are events available?
 		if (!$rows) {
 			$noevents = 1;
 		} else {
@@ -106,7 +107,7 @@ class EventListViewVenueevents extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = $live_site. '/index.php?option=com_eventlist&amp;Itemid='. $item->id .'&amp;view=venueevents&amp;locatid='. $venue->id .'&amp;pop=1&amp;tmpl=component';
+		$print_link = JRoute::_('index.php?option=com_eventlist&view=venueevents&locatid='. $venue->id .'&pop=1&tmpl=component');
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
@@ -135,7 +136,6 @@ class EventListViewVenueevents extends JView
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
-		$link = JRoute::_('index.php?option=com_eventlist&view=venueevents&locatid='.$venue->id );
 		$page = $total - $limit;
 
 		//create select lists
@@ -150,13 +150,10 @@ class EventListViewVenueevents extends JView
 		$this->assignRef('dellink' , 				$dellink);
 		$this->assignRef('limage' , 				$limage);
 		$this->assignRef('venuedescription' , 		$venuedescription);
-		$this->assignRef('live_site' , 				$live_site);
-		$this->assignRef('link' , 					$link);
 		$this->assignRef('locatid' , 				$locatid);
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('page' , 					$page);
 		$this->assignRef('elsettings' , 			$elsettings);
-		$this->assignRef('request_url',				$uri->toString());
 		$this->assignRef('item' , 					$item);
 
 

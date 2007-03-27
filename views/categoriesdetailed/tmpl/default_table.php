@@ -42,23 +42,16 @@
 	</table>
 
 	<table width="<?php echo $this->elsettings->tablewidth; ?>"  border="0" cellspacing="0" cellpadding="0" summary="eventlist">
-		<?php
-	//	$k = 0;
-	//	for ($i=0, $n=count($this->rows); $i < $n; $i++) {
-	//	$row = $this->rows[$i];
+	<?php
 	$this->rows = $this->getRows();
 	if (!$this->rows) :
-		?>
+	?>
 		<tr align="center"><td><?php echo JText::_( 'NO EVENTS' ); ?></td></tr>
 		<?php
 	else :
 
 	foreach ($this->rows as $row) :
-		//alternating colors
-		//$tabclass = array( 'sectiontableentry1', 'sectiontableentry2' );
-
 		?>
-  			<!--<tr class="<?php // echo $tabclass[$k]; ?>">-->
   			<tr class="sectiontableentry<?php echo ($row->odd +1 ) . $this->params->get( 'pageclass_sfx' ); ?>" >
     			<td width="<?php echo $this->elsettings->datewidth; ?>" align="left">
     			<b><?php echo $row->displaydate; ?></b>
@@ -125,7 +118,7 @@
 				endif;
 				?>
 			</tr>
-  		<?php // $k = 1 - $k; }
+  		<?php
 		endforeach;
 		endif;
 		?>

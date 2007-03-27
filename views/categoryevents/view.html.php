@@ -30,13 +30,11 @@ class EventListViewCategoryevents extends JView
 	{
 		global $mainframe, $option;
 
+		//initialize variables
 		$document 	= & JFactory::getDocument();
+		$menu		= & JMenu::getInstance();
 		$elsettings = ELHelper::config();
-		$uri 		= & JFactory::getURI();
 		$live_site 	= $mainframe->getCfg('live_site');
-
-		//get menu information
-		$menu		=& JMenu::getInstance();
 		$item    	= $menu->getActive();
 		$params		=& $menu->getParams($item->id);
 
@@ -49,21 +47,24 @@ class EventListViewCategoryevents extends JView
 
 		// Request variables
 		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
-		$limit			= JRequest::getVar('limit', $params->get('display_num'), '', 'int');
+		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0));
 		$task 			= JRequest::getVar('task', '', '', 'string');
 		$pop			= JRequest::getVar('pop', 0, '', 'int');
 		$categid		= JRequest::getVar('categid', 0, '', 'int');
 
+		//get data from model
 		$rows 		= & $this->get('Data');
 		$category 	= & $this->get('Category');
 		$total 		= & $this->get('Total');
 
+		//are events available?
 		if (!$rows) {
 			$noevents = 1;
 		} else {
 			$noevents = 0;
 		}
 
+		//does the category exist
 		if ($category->id == 0)
 		{
 			return JError::raiseError( 404, JText::sprintf( 'Category #%d not found', $categid ) );
@@ -74,12 +75,18 @@ class EventListViewCategoryevents extends JView
     	$document->setMetadata( 'keywords', $category->meta_keywords );
     	$document->setDescription( strip_tags($category->meta_description) );
 
+    	//Print function
 		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
 		$params->def( 'icons', $mainframe->getCfg( 'icons' ) );
 
 		if ($params->def('page_title', 1)) {
 			$params->def('header', $item->name);
 		}
+				if ( $pop ) {
+			$params->set( 'popup', 1 );
+		}
+
+		$print_link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&categid='. $category->id .'&pop=1&tmpl=component');
 
 		//add alternate feed link
 		$link    = 'feed.php?option=com_eventlist&view=categoryevents&categid='.$category->id;
@@ -88,12 +95,7 @@ class EventListViewCategoryevents extends JView
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
 		$document->addHeadLink($link.'&format=atom', 'alternate', 'rel', $attribs);
 
-		if ( $pop ) {
-			$params->set( 'popup', 1 );
-		}
-
-		$print_link = $live_site. '/index2.php?option=com_eventlist&amp;Itemid='. $item->id .'&amp;view=categoryevents&amp;categid='. $category->id .'&amp;pop=1';
-
+		//create the pathway
 		if ($task == 'catarchive') {
 			$pathway 	= & $mainframe->getPathWay();
 			$pathway->setItemName(1, $item->name);
@@ -116,11 +118,12 @@ class EventListViewCategoryevents extends JView
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
-			if ($task == 'catarchive') {
-				$link = 'index.php?option=com_eventlist&view=categoryevents&task=catarchive&categid='.$category->id;
-			} else {
-				$link = 'index.php?option=com_eventlist&view=categoryevents&categid='.$category->id;
-			}
+		//create the form links
+		if ($task == 'catarchive') {
+			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&task=catarchive&categid='.$category->id );
+		} else {
+			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&categid='.$category->id );
+		}
 
 
 		//Generate Categorydescription
@@ -153,7 +156,6 @@ class EventListViewCategoryevents extends JView
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('page' , 					$page);
 		$this->assignRef('elsettings' , 			$elsettings);
-		$this->assignRef('request_url',				$uri->toString());
 		$this->assignRef('item' , 					$item);
 
 		parent::display($tpl);

@@ -18,9 +18,11 @@
 		document.adminForm.submit( view );
 	}
 </script>
-<form action="<?php echo $this->request_url; ?>" method="post" name="adminForm">
+
+<form action="<?php echo JRoute::_('index.php?option=com_eventlist&view=venueevents&locatid='. $this->venue->id ); ?>" method="post" name="adminForm">
+
 <?php if ($this->params->get('filter') || $this->params->get('display')) : ?>
-<table width="<?php echo $this->tablewidth; ?>" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
+<table width="<?php echo $this->elsettings->tablewidth; ?>" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
 	<tr>
 		<?php if ($this->params->get('filter')) : ?>
 		<td align="left" width="100%" nowrap="nowrap">
@@ -38,7 +40,7 @@
 		<td align="right" width="100%" nowrap="nowrap">
 			<?php
 				echo '&nbsp;&nbsp;&nbsp;'.JText::_('Display Num').'&nbsp;';
-				echo $this->pageNav->getLimitBox( $this->link );
+				echo $this->pageNav->getLimitBox();
 			?>
 		</td>
 		<?php endif; ?>
@@ -46,6 +48,7 @@
 </table>
 <br />
 <?php endif; ?>
+
 <table width="<?php echo $this->elsettings->tablewidth; ?>" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
 			<tr>
 				<td width="<?php echo $this->elsettings->datewidth; ?>" class="sectiontableheader" align="left"><?php JCommonHTML::tableOrdering( $this->elsettings->datename, 'a.dates', $this->lists ); ?></td>
@@ -77,9 +80,9 @@
 				endif;
 				?>
 			</tr>
-	</table>
+</table>
 
-	<table width="<?php echo $this->elsettings->tablewidth; ?>"  border="0" cellspacing="0" cellpadding="0" summary="eventlist">
+<table width="<?php echo $this->elsettings->tablewidth; ?>"  border="0" cellspacing="0" cellpadding="0" summary="eventlist">
 	<?php
 	if ($this->noevents == 1) :
 		?>
@@ -90,11 +93,7 @@
 	$this->rows =& $this->getRows();
 
 	foreach ($this->rows as $row) :
-		//alternating colors
-		//$tabclass = array( 'sectiontableentry1', 'sectiontableentry2' );
-
 		?>
-  			<!--<tr class="<?php // echo $tabclass[$k]; ?>">-->
   			<tr class="sectiontableentry<?php echo ($row->odd +1 ) . $this->params->get( 'pageclass_sfx' ); ?>" >
     			<td width="<?php echo $this->elsettings->datewidth; ?>" align="left">
     			<b><?php echo $row->displaydate; ?></b>
@@ -106,7 +105,6 @@
 				</td>
 				<?php
 				//Link to details
-				//$detaillink = JRoute::_( 'index.php?option=com_eventlist&view=details&did='. $row->id );
 				$detaillink = JRoute::_( 'index.php?option=com_eventlist&view=details&did='. $row->slug );
 				//title
 				if (($this->elsettings->showtitle == 1 ) && ($this->elsettings->showdetails == 1) ) :

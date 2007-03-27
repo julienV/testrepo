@@ -46,7 +46,7 @@ class EventListViewEventList extends JView
 
 		// get variables
 		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
-		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.limit', 'limit', $params->def('display_num', 0));
+		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0));
 		$pop			= JRequest::getVar('pop', 0, '', 'int');
 		$pathway 		= & $mainframe->getPathWay();
 		

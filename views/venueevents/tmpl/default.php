@@ -162,7 +162,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <?php if (( $this->page > 0 ) && ( !$this->params->get( 'popup' ) )) : ?>
 <p class="pageslinks">
-	<?php echo $this->pageNav->getPagesLinks($this->link); ?>
+	<?php echo $this->pageNav->getPagesLinks(); ?>
 </p>
 
 <p class="pagescounter">
