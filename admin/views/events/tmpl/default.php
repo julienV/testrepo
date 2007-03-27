@@ -91,7 +91,7 @@
 				<td><?php echo htmlspecialchars($row->catname, ENT_QUOTES) ? htmlspecialchars($row->catname, ENT_QUOTES) : '-'; ?></td>
 				<td align="center"><?php echo $published; ?></td>
 				<td>
-					<?php echo JText::_( 'AUTHOR' ).': '; ?><a href="<?php echo 'index.php?option=com_users&task=edit&hidemainmenu=1&cid[]='.$row->uid; ?>"><?php echo $row->editor; ?></a><br />
+					<?php echo JText::_( 'AUTHOR' ).': '; ?><a href="<?php echo 'index.php?option=com_users&task=edit&hidemainmenu=1&cid[]='.$row->uid; ?>"><?php echo $row->author; ?></a><br />
 					<?php echo JText::_( 'EMAIL' ).': '; ?><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a><br />
 					<?php
 					$delivertime = JHTML::Date( $row->deliverdate, DATE_FORMAT_LC2 );
@@ -101,7 +101,7 @@
 					$overlib	.= JText::_( 'WITH IP' ).': '.$row->deliverip.'<br />';
 					if ($row->modified != '0000-00-00 00:00:00') {
 						$overlib 	.= JText::_( 'EDITED AT' ).': '.$edittime.'<br />';
-						$overlib 	.= JText::_( 'EDITED FROM' ).': '.$row->modifier.'<br />';
+						$overlib 	.= JText::_( 'EDITED FROM' ).': '.$row->editor.'<br />';
 					}
 					?>
 					<span class="editlinktip hasTip" title="<?php echo JText::_('EVENT STATS'); ?>::<?php echo $overlib; ?>">

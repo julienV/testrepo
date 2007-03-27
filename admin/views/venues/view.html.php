@@ -96,6 +96,7 @@ class EventListViewVenues extends JView {
 		$this->assignRef('ordering'		, $ordering);
 		$this->assignRef('user'			, $user);
 		$this->assignRef('search'		, $search);
+		$this->assignRef('template'		, $template);
 
 		parent::display($tpl);
 	}

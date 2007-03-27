@@ -354,7 +354,7 @@ class EventListModelEvent extends JModel
 		
 		// Are we saving from an item edit?
 		if ($row->id) {
-			$row->modified 		= $datenow->toMySQL();
+			$row->modified 		= $datenow->toFormat();
 			$row->modified_by 	= $user->get('id');
 		} else {
 			$row->modified 		= $nullDate;
@@ -363,7 +363,7 @@ class EventListModelEvent extends JModel
 
 		$row->uid 			= $row->uid ? $row->uid : $user->get('id');
 		$row->deliverip 	= $row->deliverip ? $row->deliverip : getenv('REMOTE_ADDR');
-		$row->deliverdate 	= $row->deliverdate ? $row->deliverdate : $datenow->toMySQL();
+		$row->deliverdate 	= $row->deliverdate ? $row->deliverdate : $datenow->toFormat();
 		
 		// Store the table to the database
 		if (!$row->store(true)) {

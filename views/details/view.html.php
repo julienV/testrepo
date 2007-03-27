@@ -87,7 +87,7 @@ class EventListViewDetails extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = $live_site. '/index2.php?option=com_eventlist&amp;Itemid='. $item->id .'&amp;view=details&amp;did='. $row->did .'&amp;pop=1';
+		$print_link = JRoute::_('index.php?option=com_eventlist&view=details&did='. $row->did .'&pop=1&tmpl=component');
 
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();
@@ -253,6 +253,11 @@ class EventListViewDetails extends JView
 		parent::display($tpl);
 	}
 
+	/**
+	 * structures the keywords
+	 *
+ 	 * @since 0.9
+	 */
 	function keyword_switcher($keyword, &$row, $formattime, $formatdate) {
 		switch ($keyword) {
 			case "catsid":

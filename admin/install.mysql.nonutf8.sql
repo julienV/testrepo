@@ -47,7 +47,7 @@ CREATE TABLE `#__eventlist_venues` (
 `locimage` text NOT NULL default '',
 `uid` int(11) unsigned NOT NULL default '0',
 `deliveriploc` varchar(45) NOT NULL default '',
-`deliverdateloc` varchar(60) NOT NULL default '',
+`deliverdateloc` datetime NOT NULL,
 `modified` datetime NOT NULL,
 `modified_by` int(11) unsigned NOT NULL default '0',
 `published` tinyint(1) NOT NULL default '0',

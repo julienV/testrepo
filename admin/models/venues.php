@@ -153,7 +153,7 @@ class EventListModelVenues extends JModel
 		$where		= $this->_buildContentWhere();
 		$orderby	= $this->_buildContentOrderBy();
 
-		$query = 'SELECT l.*, u.email, u.name AS editor'
+		$query = 'SELECT l.*, u.email, u.name AS author'
 				. ' FROM #__eventlist_venues AS l'
 				. ' LEFT JOIN #__users AS u ON u.id = l.uid'
 				. $where
@@ -254,7 +254,7 @@ class EventListModelVenues extends JModel
 
 		$editor = $this->_db->loadResult();
 
-		$rows[$i]->modifier = $editor;
+		$rows[$i]->editor = $editor;
 
 		}
 

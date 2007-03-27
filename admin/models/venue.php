@@ -131,6 +131,9 @@ class EventListModelVenue extends JModel
 			$venue->locdescription		= null;
 			$venue->meta_keywords		= null;
 			$venue->meta_description	= null;
+			$event->deliverdateloc		= null;
+			$event->deliveriploc		= null;
+			$event->uid					= null;
 			$this->_data				= $venue;
 			return (boolean) $this->_data;
 		}
@@ -218,6 +221,9 @@ class EventListModelVenue extends JModel
 		global $mainframe, $option;
 
 		$elsettings = ELAdmin::config();
+		$user		=& JFactory::getUser();
+		
+		jimport('joomla.utilities.date');
 
 		$row  =& $this->getTable('eventlist_venues', '');
 
@@ -239,7 +245,7 @@ class EventListModelVenue extends JModel
         		$mainframe->redirect('index.php?option='.$option.'&view=venues', JText::_( 'ADD CITY') );
 			}
 		}
-		if (($elsettings->showmap24 == 1 ) && ($elsettings->showdetailsadress == 1 )){
+		if (($elsettings->showmapserv == 1 ) && ($elsettings->showdetailsadress == 1 )){
 			if ((empty($row->street)) || (empty($row->plz)) || (empty($row->city)) || (empty($row->country))) {
 				$row->checkin();
 				$mainframe->redirect('index.php?option='.$option.'&view=venues', JText::_( 'ADD ADDRESS') );
@@ -256,6 +262,25 @@ class EventListModelVenue extends JModel
 		} else {
 			$row->locimage = '';
 		}
+		
+		// sanitise id field
+		$row->id = (int) $row->id;
+
+		$datenow 	= new JDate();
+		$nullDate	= $this->_db->getNullDate();
+		
+		// Are we saving from an item edit?
+		if ($row->id) {
+			$row->modified 		= $datenow->toFormat();
+			$row->modified_by 	= $user->get('id');
+		} else {
+			$row->modified 		= $nullDate;
+			$row->modified_by 	= '';
+		}
+
+		$row->uid 				= $row->uid ? $row->uid : $user->get('id');
+		$row->deliveriploc 		= $row->deliveriploc ? $row->deliveriploc : getenv('REMOTE_ADDR');
+		$row->deliverdateloc	= $row->deliverdateloc ? $row->deliverdateloc : $datenow->toFormat();
 
 		// Make sure the data is valid
 		if (!$row->check()) {

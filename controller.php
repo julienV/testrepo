@@ -129,18 +129,19 @@ class EventListController extends JController
 		if(!JRequest::getVar( $token, 0, 'post' )) {
 			JError::raiseError(403, 'Request Forbidden');
 		}
+		
+		jimport('joomla.utilities.date');
 
-		$db 	= & JFactory::getDBO();
-		$user 	= & JFactory::getUser();
+		$db 		= & JFactory::getDBO();
+		$user 		= & JFactory::getUser();
+		$elsettings = ELHelper::config();
 
 		//Get mailinformation
 		$SiteName 		= $mainframe->getCfg('sitename');
 		$MailFrom	 	= $mainframe->getCfg('mailfrom');
 		$FromName 		= $mainframe->getCfg('fromname');
-		$elsettings 	= & ELHelper::config();
+		
 
-		//Get offset time
-	 	$TimeOffset	= $mainframe->getCfg('offset');
 
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
 		$sizelimit 	= $elsettings->sizelimit*1024; //size limit in kb
@@ -159,6 +160,7 @@ class EventListController extends JController
 			return false;
 		}
 
+		
 
 		//Get view the user come from
 		if ($row->id) {
@@ -167,6 +169,7 @@ class EventListController extends JController
 			$returnview	= JRequest::getVar('returnview', '', '', 'string');
 		}
 
+		$datenow = new JDate();
 
 		//Are we saving from an item edit?
 		if ($row->id) {
@@ -181,7 +184,7 @@ class EventListController extends JController
 				$mainframe->redirect('index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$returnview, JText::_( 'NO ACCESS' ));
 			}
 
-			$row->modified 		= date( 'Y-m-d H:i:s' );
+			$row->modified 		= $datenow->toFormat();
 			$row->modified_by 	= $user->get('id');
 
 
@@ -205,9 +208,9 @@ class EventListController extends JController
 
 
 			//get IP, time and userid
-			$row->deliveriploc = getenv('REMOTE_ADDR');
-			$row->deliverdateloc = date( 'Y-m-d H:i:s' );
-			$row->uid = $user->get('id');
+			$row->deliveriploc 		= getenv('REMOTE_ADDR');
+			$row->deliverdateloc 	= $datenow->toFormat();
+			$row->uid 				= $user->get('id');
 
 			//set owneredit to false
 			$owneredit = 0;
@@ -401,13 +404,13 @@ class EventListController extends JController
 				$mailbody .= ' \n';
 				$mailbody .= JText::_( 'USERMAILADDRESS' ).' '.$rowuser->email.' \n';
 				//$mailbody .= JText::_( 'USER IP' ).' '.$row->deliveriploc.' \n';
-				$mailbody .= JText::_( 'SUBMISSION TIME' ).' '.strftime( '%c', $row->modified + ( $TimeOffset*60*60 ) ).' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).' '.strftime( '%c', $row->modified ).' \n';
 			} else {
 				$mailbody = JText::_( 'GOT SUBMISSION' ).' '.$rowuser->username.' \n';
 				$mailbody .= ' \n';
 				$mailbody .= JText::_( 'USERMAILADDRESS' ).' '.$rowuser->email.' \n';
 				$mailbody .= JText::_( 'USER IP' ).' '.$row->deliveriploc.' \n';
-				$mailbody .= JText::_( 'SUBMISSION TIME' ).' '.strftime( '%c', $row->deliverdateloc + ( $TimeOffset*60*60 ) ).' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).' '.strftime( '%c', $row->deliverdateloc ).' \n';
 			}
 			$mailbody .= ' \n';
 			$mailbody .= JText::_( 'VENUE' ).': '.$row->club.' \n';
@@ -453,37 +456,29 @@ class EventListController extends JController
 		if(!JRequest::getVar( $token, 0, 'post' )) {
 			JError::raiseError(403, 'Request Forbidden');
 		}
+		
+		jimport('joomla.utilities.date');
 
 		$db			= & JFactory::getDBO();
 		$user 		= & JFactory::getUser();
 		$acl		= & JFactory::getACL();
 		$elsettings = ELHelper::config();
 
-		/*
-		* Get mailinformation
-		*/
+		//Get mailinformation
 		$SiteName 		= $mainframe->getCfg('sitename');
 		$MailFrom	 	= $mainframe->getCfg('mailfrom');
 		$FromName 		= $mainframe->getCfg('fromname');
 
-		/*
-		* Get offset time
-		*/
-		$TimeOffset	= $mainframe->getCfg('offset');
-
+		//get image
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
 		$sizelimit 	= $elsettings->sizelimit*1024; //size limit in kb
 		$base_Dir 	= JPATH_SITE.'/images/eventlist/events/';
 
-		/*
-		* Sanitize
-		*/
+		//Sanitize
 		$post = JRequest::get( 'post' );
 		$post['datdescription'] = JRequest::getVar( 'datdescription', '', 'post','string', JREQUEST_ALLOWRAW );
 
-		/*
-		* include the metatags
-		*/
+		//include the metatags
 		$post['meta_description'] = addslashes(htmlspecialchars(trim($elsettings->meta_description)));
 		if (strlen($post['meta_description']) > 255) {
 			$post['meta_description'] = substr($post['meta_description'],0,254);
@@ -503,6 +498,8 @@ class EventListController extends JController
 			return false;
 		}
 
+		$datenow = new JDate();
+		
 		//Are we saving from an item edit?
 		if ($row->id) {
 
@@ -520,7 +517,7 @@ class EventListController extends JController
 				$mainframe->redirect('index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$returnview, JText::_( 'NO ACCESS' ));
 			}
 
-			$row->modified 		= date( 'Y-m-d H:i:s' );
+			$row->modified 		= $datenow->toFormat();
 			$row->modified_by 	= $user->get('id');
 
 			/*
@@ -550,7 +547,7 @@ class EventListController extends JController
 
 			//get IP, time and userid
 			$row->deliverip = getenv('REMOTE_ADDR');
-			$row->deliverdate = date( 'Y-m-d H:i:s' );
+			$row->deliverdate = $datenow->toFormat();
 			$row->uid = $user->get('id');
 
 			//Set owneredit to false
@@ -754,13 +751,13 @@ class EventListController extends JController
 				$mailbody .= ' \n';
 				$mailbody .= JText::_( 'USERMAILADDRESS' ).': '.$rowuser->email.' \n';
 				//$mailbody .= JText::_( 'USER IP' ).': '.$row->deliverip.' \n';
-				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.strftime( '%c', $row->modified + ($TimeOffset*60*60)).' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.strftime( '%c', $row->modified ).' \n';
 			} else {
 				$mailbody = JText::_( 'GOT SUBMISSION' ).': '.$rowuser->username.' \n';
 				$mailbody .= ' \n';
 				$mailbody .= JText::_( 'USERMAILADDRESS' ).': '.$rowuser->email.' \n';
 				$mailbody .= JText::_( 'USER IP' ).': '.$row->deliverip.' \n';
-				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.strftime( '%c', $row->deliverdate + ($TimeOffset*60*60)).' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.strftime( '%c', $row->deliverdate ).' \n';
 			}
 			$mailbody .= ' \n';
 			$mailbody .= JText::_( 'TITLE' ).': '.$row->title.' \n';

@@ -61,24 +61,22 @@
 				<td align="left"><?php echo htmlspecialchars($row->city, ENT_QUOTES) ? htmlspecialchars($row->city, ENT_QUOTES) : '-'; ?></td>
 				<td align="center"><?php echo $published;?></td>
 				<td>
-				<?php if (!empty($row->deliveriploc)) { ?>
-				<?php echo JText::_( 'AUTHOR' ).': '; ?><a href="<?php echo 'index.php?option=com_users&task=edit&hidemainmenu=1&cid[]='.$row->uid; ?>"><?php echo $row->name; ?></a><br />
+				<?php echo JText::_( 'AUTHOR' ).': '; ?><a href="<?php echo 'index.php?option=com_users&task=edit&hidemainmenu=1&cid[]='.$row->uid; ?>"><?php echo $row->author; ?></a><br />
 				<?php echo JText::_( 'EMAIL' ).': '; ?><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a><br />
 				<?php
 				$delivertime 	= JHTML::Date( $row->deliverdateloc, DATE_FORMAT_LC2 );
 				$edittime 		= JHTML::Date( $row->modified, DATE_FORMAT_LC2 );
-				$image 			= JAdminMenus::imageCheckAdmin( 'icon-16-info.png', '/templates/'. $template .'/images/menu/', NULL, NULL, 'info' );
+				$image 			= JAdminMenus::imageCheckAdmin( 'icon-16-info.png', '/templates/'. $this->template .'/images/menu/', NULL, NULL, 'info' );
 				$overlib 		= JText::_( 'CREATED AT' ).': '.$delivertime.'<br />';
 				$overlib		.= JText::_( 'WITH IP' ).': '.$row->deliveriploc.'<br />';
 				if ($row->modified != '0000-00-00 00:00:00') {
 					$overlib 	.= JText::_( 'EDITED AT' ).': '.$edittime.'<br />';
-					$overlib 	.= JText::_( 'EDITED FROM' ).': '.$row->modifier.'<br />';
+					$overlib 	.= JText::_( 'EDITED FROM' ).': '.$row->editor.'<br />';
 				}
 				?>
 				<span class="editlinktip hasTip" title="<?php echo JText::_('VENUE STATS'); ?>::<?php echo $overlib; ?>">
 					<?php echo $image; ?>
 				</span>
-				<?php } ?>
 				</td>
 				<td align="right">
 					<?php

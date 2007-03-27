@@ -236,5 +236,8 @@
 			<input type="hidden" name="option" value="com_eventlist" />
 			<input type="hidden" name="controller" value="venues" />
 			<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
+			<input type="hidden" name="deliverdateloc" value="<?php echo $this->row->deliverdateloc; ?>" />
+			<input type="hidden" name="deliveriploc" value="<?php echo $this->row->deliveriploc; ?>" />
+			<input type="hidden" name="uid" value="<?php echo $this->row->uid; ?>" />
 			<input type="hidden" name="task" value="" />
 		</form>
