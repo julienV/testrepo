@@ -35,7 +35,7 @@ PRIMARY KEY  (`id`)
 
 CREATE TABLE `#__eventlist_venues` (
 `id` int(11) unsigned NOT NULL auto_increment,
-`club` varchar(50) NOT NULL default '',
+`venue` varchar(50) NOT NULL default '',
 `url` varchar(200)  NOT NULL default '',
 `street` varchar(50) default NULL,
 `plz` varchar(20) default NULL,
@@ -127,8 +127,8 @@ CREATE TABLE `#__eventlist_settings` (
   `showdetailstitle` tinyint(4) NOT NULL,
   `showdetailsadress` tinyint(4) NOT NULL,
   `showlocdescription` tinyint(4) NOT NULL,
-  `showlinkclub` tinyint(4) NOT NULL,
-  `showdetlinkclub` tinyint(4) NOT NULL,
+  `showlinkvenue` tinyint(4) NOT NULL,
+  `showdetlinkvenue` tinyint(4) NOT NULL,
   `delivereventsyes` tinyint(4) NOT NULL,
   `mailinform` tinyint(4) NOT NULL,
   `mailinformrec` varchar(150) NOT NULL,

@@ -86,14 +86,14 @@ class EventListViewVenueevents extends JView
 		$document->addHeadLink($link.'&type=atom', 'alternate', 'rel', $attribs);
 
 		//set Page title
-		$document->setTitle( $item->name.' - '.$venue->club );
+		$document->setTitle( $item->name.' - '.$venue->venue );
 		$document->setMetadata('keywords', $venue->meta_keywords );
 		$document->setDescription( strip_tags($venue->meta_description) );
 
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();
 		$pathway->setItemName(1, $item->name);
-		$pathway->addItem( $venue->club, JRoute::_('index.php?option='.$option.'&view=venueevents&locatid='.$locatid));
+		$pathway->addItem( $venue->venue, JRoute::_('index.php?option='.$option.'&view=venueevents&locatid='.$locatid));
 
 		//Printfunction
 		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
@@ -121,7 +121,7 @@ class EventListViewVenueevents extends JView
 		} else {
 			//execute plugins
 			$venue->text	= $venue->locdescription;
-			$venue->title 	= $venue->club;
+			$venue->title 	= $venue->venue;
 			JPluginHelper::importPlugin('content');
 			$results = $mainframe->triggerEvent( 'onPrepareContent', array( &$venue, &$params, 0 ));
 			$venuedescription = $venue->text;

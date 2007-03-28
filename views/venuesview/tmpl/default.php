@@ -35,7 +35,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 
 	<h2 class="eventlist">
-		<a href="<?php echo JRoute::_('index.php?option=com_eventlist&view=venueevents&locatid='.$row->slug); ?>"><?php echo $row->club; ?></a>
+		<a href="<?php echo JRoute::_('index.php?option=com_eventlist&view=venueevents&locatid='.$row->slug); ?>"><?php echo $row->venue; ?></a>
 	</h2>
 	
 			<?php			
@@ -49,7 +49,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 						<?php
 						 else :
 						?>
-						<a class="flyer" href="<?php echo $row->limage['originalloc']; ?>" class="flyer" rel="lightbox" title="<?php echo $row->club; ?>">
+						<a class="flyer" href="<?php echo $row->limage['originalloc']; ?>" class="flyer" rel="lightbox" title="<?php echo $row->venue; ?>">
 						<?php  endif; ?>
 
 						<img src="<?php echo $row->limage['thumbloc']; ?>" width="<?php echo $row->limage['thumbwidthloc']; ?>" height="<?php echo $row->limage['thumbheightloc']; ?>" alt="location image" />
@@ -73,7 +73,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 					case 1:
   						if ($this->elsettings->map24id != '') :
 						?>
-							<a class="flyer" href="http://link2.map24.com/?lid=<?php echo $this->elsettings->map24id ?>&maptype=JAVA&width0=2000&street0=<?php echo $row->street ?>&zip0=<?php echo $row->plz ?>&city0=<?php echo $row->city ?>&country0=<?php echo $row->country ?>&sym0=10280&description0=<?php echo $row->club ?>" target="_blank">
+							<a class="flyer" href="http://link2.map24.com/?lid=<?php echo $this->elsettings->map24id ?>&maptype=JAVA&width0=2000&street0=<?php echo $row->street ?>&zip0=<?php echo $row->plz ?>&city0=<?php echo $row->city ?>&country0=<?php echo $row->country ?>&sym0=10280&description0=<?php echo $row->venue ?>" target="_blank">
 								<?php echo $mapimage; ?>
 							</a>
 						<?php
@@ -90,10 +90,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				endswitch; //switch ende
 				?>
             <dl class="location floattext">
-				<dt class="club_website"><?php echo JText::_( 'WEBSITE' ).':'; ?></dt>
-   				<dd class="club_website">
+				<dt class="venue_website"><?php echo JText::_( 'WEBSITE' ).':'; ?></dt>
+   				<dd class="venue_website">
 				<?php
-				if (($this->elsettings->showdetlinkclub == 1) && (!empty($row->url))) :
+				if (($this->elsettings->showdetlinkvenue == 1) && (!empty($row->url))) :
 					if(strtolower(substr($row->url, 0, 7)) == "http://") :
           				// Wenn der Teilstring gleich "http://" ist,
            				// dann  Link ohne "http://" erzeugen
@@ -117,42 +117,42 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   			?>
 			
   			<?php if ( $row->street ) : ?>
-  			<dt class="club_street"><?php echo JText::_( 'STREET' ).':'; ?></dt>
-			<dd class="club_street">
+  			<dt class="venue_street"><?php echo JText::_( 'STREET' ).':'; ?></dt>
+			<dd class="venue_street">
     			<?php echo $row->street; ?>
 			</dd>
 			<?php endif; ?>
 
 			<?php if ( $row->plz ) : ?>
-  			<dt class="club_plz"><?php echo JText::_( 'ZIP' ).':'; ?></dt>
-			<dd class="club_plz">
+  			<dt class="venue_plz"><?php echo JText::_( 'ZIP' ).':'; ?></dt>
+			<dd class="venue_plz">
     			<?php echo $row->plz; ?>
 			</dd>
 			<?php endif; ?>
  
 			<?php if ( $row->city ) : ?>
-    		<dt class="club_city"><?php echo JText::_( 'CITY' ).':'; ?></dt>
-    		<dd class="club_city">
+    		<dt class="venue_city"><?php echo JText::_( 'CITY' ).':'; ?></dt>
+    		<dd class="venue_city">
     			<?php echo $row->city; ?>
     		</dd>
     		<?php endif; ?>
 
     		<?php if ( $row->state ) : ?>
-			<dt class="club_state"><?php echo JText::_( 'STATE' ).':'; ?></dt>
-			<dd class="club_state">
+			<dt class="venue_state"><?php echo JText::_( 'STATE' ).':'; ?></dt>
+			<dd class="venue_state">
     			<?php echo $row->state; ?>
 			</dd>
 			<?php endif; ?>
  
 			<?php if ( $row->country ) : ?>
-			<dt class="club_country"><?php echo JText::_( 'COUNTRY' ).':'; ?></dt>
-    		<dd class="club_country">
+			<dt class="venue_country"><?php echo JText::_( 'COUNTRY' ).':'; ?></dt>
+    		<dd class="venue_country">
     			<?php echo $row->country; ?>
     		</dd>
     		<?php endif; ?>
     		
-    		<dt class="club_assignedevents"><?php echo JText::_( 'EVENTS' ).':'; ?></dt>
-    		<dd class="club_assignedevents">
+    		<dt class="venue_assignedevents"><?php echo JText::_( 'EVENTS' ).':'; ?></dt>
+    		<dd class="venue_assignedevents">
     			<?php echo $row->assignedevents; ?>
     		</dd>
 		<?php

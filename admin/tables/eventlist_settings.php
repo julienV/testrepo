@@ -80,9 +80,9 @@ class eventlist_settings extends JTable
 	/** @var int */
 	var $showlocdescription = "1";
 	/** @var int */
-	var $showlinkclub 		= "1";
+	var $showlinkvenue 		= "1";
 	/** @var int */
-	var $showdetlinkclub 	= "1";
+	var $showdetlinkvenue 	= "1";
 	/** @var int */
 	var $delivereventsyes 	= "-2";
 	/** @var int */

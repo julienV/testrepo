@@ -88,16 +88,16 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   			?>
 		    <dt class="where"><?php echo JText::_( 'WHERE' ).':' ; ?></dt>
     		<dd class="where">
-    		<?php if (($this->elsettings->showdetlinkclub == 1) && (!empty($this->row->url))) :	?>
+    		<?php if (($this->elsettings->showdetlinkvenue == 1) && (!empty($this->row->url))) :	?>
     		
-				<a href="<?php echo $this->row->url; ?>" target="_blank"> <?php echo $this->row->club; ?></a>
+				<a href="<?php echo $this->row->url; ?>" target="_blank"> <?php echo $this->row->venue; ?></a>
 				
-			<?php elseif ($this->elsettings->showdetlinkclub == 2) : ?>
+			<?php elseif ($this->elsettings->showdetlinkvenue == 2) : ?>
 			
-				<a href="<?php echo JRoute::_( 'index.php?option=com_eventlist&view=venueevents&locatid='.$this->row->venueslug ); ?>"><?php echo $this->row->club; ?></a>
+				<a href="<?php echo JRoute::_( 'index.php?option=com_eventlist&view=venueevents&locatid='.$this->row->venueslug ); ?>"><?php echo $this->row->venue; ?></a>
 			<?php
-				elseif ($this->elsettings->showdetlinkclub == 0) :
-					echo $this->row->club;
+				elseif ($this->elsettings->showdetlinkvenue == 0) :
+					echo $this->row->venue;
 				endif;
 				?> - <?php echo $this->row->city; ?>
 			</dd>
@@ -137,7 +137,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 						<?php
 						 else :
 						?>
-						<a href="<?php echo $this->limage['originalloc']; ?>" class="flyer" rel="lightbox" title="<?php echo $this->row->club; ?>" title="<?php echo JText::_( 'CLICK TO ENLARGE' ); ?>">
+						<a href="<?php echo $this->limage['originalloc']; ?>" class="flyer" rel="lightbox" title="<?php echo $this->row->venue; ?>" title="<?php echo JText::_( 'CLICK TO ENLARGE' ); ?>">
 						<?php endif; ?>
 
 						<img src="<?php echo $this->limage['thumbloc']; ?>" width="<?php echo $this->limage['thumbwidthloc']; ?>" height="<?php echo $this->limage['thumbheightloc']; ?>" alt="venue image" title="<?php echo JText::_( 'CLICK TO ENLARGE' ); ?>" />
@@ -161,7 +161,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 					case 1:
   						if ($this->elsettings->map24id != '') :
 						?>
-							<a class="flyer" href="http://link2.map24.com/?lid=<?php echo $this->elsettings->map24id ?>&maptype=JAVA&width0=2000&street0=<?php echo $this->row->street ?>&zip0=<?php echo $this->row->plz ?>&city0=<?php echo $this->row->city ?>&country0=<?php echo $this->row->country ?>&sym0=10280&description0=<?php echo $this->row->club ?>" target="_blank">
+							<a class="flyer" href="http://link2.map24.com/?lid=<?php echo $this->elsettings->map24id ?>&maptype=JAVA&width0=2000&street0=<?php echo $this->row->street ?>&zip0=<?php echo $this->row->plz ?>&city0=<?php echo $this->row->city ?>&country0=<?php echo $this->row->country ?>&sym0=10280&description0=<?php echo $this->row->venue ?>" target="_blank">
 								<?php echo $mapimage; ?>
 							</a>
 						<?php
@@ -179,9 +179,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				?>
 				
             <dl class="location floattext">
-			 <dt class="club"><?php echo $this->elsettings->locationname.':'; ?></dt>
-				<dd class="club">
-				<?php echo "<a href='".JRoute::_( 'index.php?option=com_eventlist&view=venueevents&locatid='.$this->row->venueslug )."'>".$this->row->club."</a>"; ?>
+			 <dt class="venue"><?php echo $this->elsettings->locationname.':'; ?></dt>
+				<dd class="venue">
+				<?php echo "<a href='".JRoute::_( 'index.php?option=com_eventlist&view=venueevents&locatid='.$this->row->venueslug )."'>".$this->row->venue."</a>"; ?>
 					
 				<?php if (!empty($this->row->url)) : ?>
 					&nbsp; - &nbsp;
@@ -196,36 +196,36 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   			?>
 
   			<?php if ( $this->row->street ) : ?>
-  			<dt class="club_street"><?php echo JText::_( 'STREET' ).':'; ?></dt>
-			<dd class="club_street">
+  			<dt class="venue_street"><?php echo JText::_( 'STREET' ).':'; ?></dt>
+			<dd class="venue_street">
     			<?php echo $this->row->street; ?>
 			</dd>
 			<?php endif; ?>
 			
 			<?php if ( $this->row->plz ) : ?>
-  			<dt class="club_plz"><?php echo JText::_( 'ZIP' ).':'; ?></dt>
-			<dd class="club_plz">
+  			<dt class="venue_plz"><?php echo JText::_( 'ZIP' ).':'; ?></dt>
+			<dd class="venue_plz">
     			<?php echo $this->row->plz; ?>
 			</dd>
 			<?php endif; ?>
 			
 			<?php if ( $this->row->city ) : ?>
-    		<dt class="club_city"><?php echo JText::_( 'CITY' ).':'; ?></dt>
-    		<dd class="club_city">
+    		<dt class="venue_city"><?php echo JText::_( 'CITY' ).':'; ?></dt>
+    		<dd class="venue_city">
     			<?php echo $this->row->city; ?>
     		</dd>
     		<?php endif; ?>
     		
     		<?php if ( $this->row->state ) : ?>
-    		<dt class="club_state"><?php echo JText::_( 'STATE' ).':'; ?></dt>
-    		<dd class="club_state">
+    		<dt class="venue_state"><?php echo JText::_( 'STATE' ).':'; ?></dt>
+    		<dd class="venue_state">
     			<?php echo $this->row->state; ?>
     		</dd>
 			<?php endif; ?>
 			
 			<?php if ( $this->row->country ) : ?>
-			<dt class="club_country"><?php echo JText::_( 'COUNTRY' ).':'; ?></dt>
-    		<dd class="club_country">
+			<dt class="venue_country"><?php echo JText::_( 'COUNTRY' ).':'; ?></dt>
+    		<dd class="venue_country">
     			<?php echo $this->row->country; ?>
     		</dd>
     		<?php endif; ?>

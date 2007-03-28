@@ -10,7 +10,7 @@
 		} else if (task == 'cancel') {
 			submitform( task );
 			return;
-		} else if (form.club.value == ""){
+		} else if (form.venue.value == ""){
 			alert( "<?php echo JText::_( 'ADD VENUE' ); ?>" );
 		} else if (form.city.value == ""){
 			alert( "<?php echo JText::_( 'ADD CITY' ); ?>" );
@@ -38,12 +38,12 @@
 		<table  class="adminform">
 		<tr>
 			<td>
-				<label for="club">
+				<label for="venue">
 					<?php echo JText::_( 'VENUE' ).':'; ?>
 				</label>
 			</td>
 			<td>
-				<input name="club" id= "club" value="<?php echo $this->row->club; ?>" size="40" maxlength="50">
+				<input name="venue" id= "venue" value="<?php echo $this->row->venue; ?>" size="40" maxlength="50">
 			</td>
 			<td>
 				<label for="publish">
@@ -216,7 +216,7 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="button" class="button" value="<?php echo JText::_( 'ADD VENUE CITY' ); ?>" onclick="f=document.adminForm;f.metakey.value=f.club.value+', '+f.city.value+f.metakey.value;" />
+				<input type="button" class="button" value="<?php echo JText::_( 'ADD VENUE CITY' ); ?>" onclick="f=document.adminForm;f.metakey.value=f.venue.value+', '+f.city.value+f.metakey.value;" />
 			</td>
 		</tr>
 		</table>

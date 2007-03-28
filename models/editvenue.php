@@ -78,7 +78,7 @@ class EventListModelEditvenue extends JModel
 			* Error if allready checked out
 			*/
 			if ($this->_venue->isCheckedOut( $user->get('id') )) {
-				$mainframe->redirect( 'index.php?option='.$option.'&Itemid='.$Itemid.'&view='.$view, JText::_( 'THE VENUE' ).' '.$this->_venue->club.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ) );
+				$mainframe->redirect( 'index.php?option='.$option.'&Itemid='.$Itemid.'&view='.$view, JText::_( 'THE VENUE' ).' '.$this->_venue->venue.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ) );
 			} else {
 				$this->_venue->checkout( $user->get('id') );
 			}
@@ -112,7 +112,7 @@ class EventListModelEditvenue extends JModel
 
 			//prepare output
 			$this->_venue->id				= '';
-			$this->_venue->club				= '';
+			$this->_venue->venue			= '';
 			$this->_venue->url				= '';
 			$this->_venue->street			= '';
 			$this->_venue->plz				= '';

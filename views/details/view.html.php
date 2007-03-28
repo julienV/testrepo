@@ -174,7 +174,7 @@ class EventListViewDetails extends JView
 		} else {
 			//execute plugins
 			$row->text	=	$row->locdescription;
-			//$row->title = $row->club;
+			//$row->title = $row->venue;
 			JPluginHelper::importPlugin('content');
 			$results = $mainframe->triggerEvent( 'onPrepareContent', array( &$row, &$params, 0 ));
 			$venuedescription = $row->text;
@@ -264,7 +264,7 @@ class EventListViewDetails extends JView
 				$content = $row->catname;
 				break;
 			case "a_name":
-				$content = $row->club;
+				$content = $row->venue;
 				break;
 			case "times":
 			case "endtimes":

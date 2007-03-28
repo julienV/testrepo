@@ -101,7 +101,7 @@ class EventListViewEditevent extends JView
 		if ($row->id) {
 			$venue->load($row->locid);
 		} else {
-			$venue->club = JText::_('SELECTVENUE');
+			$venue->venue = JText::_('SELECTVENUE');
 		}
 
 		$js = "
@@ -115,7 +115,7 @@ class EventListViewEditevent extends JView
 		$doc->addScriptDeclaration($js);
 		$doc->addScript($url.'includes/js/joomla/modal.js');
 		$doc->addStyleSheet($url.'includes/js/joomla/modal.css');
-		$venueselect = "\n<div style=\"float: left;\"><input style=\"background: #ffffff;\" type=\"text\" id=\"a_name\" value=\"$venue->club\" disabled=\"disabled\" /></div>";
+		$venueselect = "\n<div style=\"float: left;\"><input style=\"background: #ffffff;\" type=\"text\" id=\"a_name\" value=\"$venue->venue\" disabled=\"disabled\" /></div>";
 		$venueselect .= "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 375, null);\" value=\"".JText::_('Select')."\" />";
 		$venueselect .= "\n<input type=\"hidden\" id=\"a_id\" name=\"locid\" value=\"$row->locid\" />";
 

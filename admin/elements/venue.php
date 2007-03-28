@@ -44,7 +44,7 @@ class JElementVenue extends JElement
 		if ($value) {
 			$venue->load($value);
 		} else {
-			$venue->club = JText::_('SELECTVENUE');
+			$venue->venue = JText::_('SELECTVENUE');
 		}
 
 		$js = "
@@ -58,7 +58,7 @@ class JElementVenue extends JElement
 		$doc->addScriptDeclaration($js);
 		$doc->addScript($url.'includes/js/joomla/modal.js');
 		$doc->addStyleSheet($url.'includes/js/joomla/modal.css');
-		$html = "\n<div style=\"float: left;\"><input style=\"background: #ffffff;\" type=\"text\" id=\"a_name\" value=\"$venue->club\" disabled=\"disabled\" /></div>";
+		$html = "\n<div style=\"float: left;\"><input style=\"background: #ffffff;\" type=\"text\" id=\"a_name\" value=\"$venue->venue\" disabled=\"disabled\" /></div>";
 		$html .= "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 375, null);\" value=\"".JText::_('Select')."\" />";
 		$html .= "\n<input type=\"hidden\" id=\"a_id\" name=\"$fieldName\" value=\"$value\" />";
 

@@ -24,7 +24,7 @@ class eventlist_venues extends JTable
 	 */
 	var $id 				= null;
 	/** @var string */
-	var $club 				= null;
+	var $venue 				= null;
 	/** @var string */
 	var $url 				= null;
 	/** @var string */

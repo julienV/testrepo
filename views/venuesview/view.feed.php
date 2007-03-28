@@ -41,7 +41,7 @@ class EventListViewVenueevents extends JView
 		foreach ( $rows as $row )
 		{
 			// strip html from feed item title
-			$title = htmlspecialchars( $row->club );
+			$title = htmlspecialchars( $row->venue );
 			$title = html_entity_decode( $title );
 
 			// url link to article

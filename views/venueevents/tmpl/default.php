@@ -19,7 +19,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	?>
 </span>
 <?php if ($this->params->get('page_title')) : ?>
-	<h1 class='componentheading'><?php echo $this->params->get('header').' - '.$this->venue->club; ?></h1>
+	<h1 class='componentheading'><?php echo $this->params->get('header').' - '.$this->venue->venue; ?></h1>
 <?php endif; ?>
 
 <!--Venue-->
@@ -34,7 +34,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 						<?php
 						 else :
 						?>
-						<a href="<?php echo $this->limage['originalloc']; ?>" class="flyer" rel="lightbox" title="<?php echo $this->venue->club; ?>">
+						<a href="<?php echo $this->limage['originalloc']; ?>" class="flyer" rel="lightbox" title="<?php echo $this->venue->venue; ?>">
 						<?php endif; ?>
 
 						<img src="<?php echo $this->limage['thumbloc']; ?>" width="<?php echo $this->limage['thumbwidthloc']; ?>" height="<?php echo $this->limage['thumbheightloc']; ?>" alt="location image" title="<?php echo JText::_( 'CLICK TO ENLARGE' ); ?>" />
@@ -58,7 +58,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 					case 1:
   						if ($this->elsettings->map24id != '') :
 						?>
-							<a class="flyer" href="http://link2.map24.com/?lid=<?php echo $this->elsettings->map24id ?>&maptype=JAVA&width0=2000&street0=<?php echo $this->venue->street ?>&zip0=<?php echo $this->venue->plz ?>&city0=<?php echo $this->venue->city ?>&country0=<?php echo $this->venue->country ?>&sym0=10280&description0=<?php echo $this->venue->club ?>" target="_blank">
+							<a class="flyer" href="http://link2.map24.com/?lid=<?php echo $this->elsettings->map24id ?>&maptype=JAVA&width0=2000&street0=<?php echo $this->venue->street ?>&zip0=<?php echo $this->venue->plz ?>&city0=<?php echo $this->venue->city ?>&country0=<?php echo $this->venue->country ?>&sym0=10280&description0=<?php echo $this->venue->venue ?>" target="_blank">
 								<?php echo $mapimage; ?>
 							</a>
 						<?php
@@ -75,9 +75,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				endswitch; //switch ende
 				?>
             <dl class="location floattext">
-			 <dt class="club"><?php echo $this->elsettings->locationname.':'; ?></dt>
-				<dd class="club">
-					<?php echo $this->venue->club; ?>
+			 <dt class="venue"><?php echo $this->elsettings->locationname.':'; ?></dt>
+				<dd class="venue">
+					<?php echo $this->venue->venue; ?>
 					
 				<?php
 				if (!empty($this->venue->url)) :
@@ -94,36 +94,36 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   			?>
 
   			<?php if ( $this->venue->street ) : ?>
-  			<dt class="club_street"><?php echo JText::_( 'STREET' ).':'; ?></dt>
-			<dd class="club_street">
+  			<dt class="venue_street"><?php echo JText::_( 'STREET' ).':'; ?></dt>
+			<dd class="venue_street">
     			<?php echo $this->venue->street; ?>
 			</dd>
 			<?php endif; ?>
 			
 			<?php if ( $this->venue->plz ) : ?>
-  			<dt class="club_plz"><?php echo JText::_( 'ZIP' ).':'; ?></dt>
-			<dd class="club_plz">
+  			<dt class="venue_plz"><?php echo JText::_( 'ZIP' ).':'; ?></dt>
+			<dd class="venue_plz">
     			<?php echo $this->venue->plz; ?>
 			</dd>
 			<?php endif; ?>
  
 			<?php if ( $this->venue->city ) : ?>
-    		<dt class="club_city"><?php echo JText::_( 'CITY' ).':'; ?></dt>
-    		<dd class="club_city">
+    		<dt class="venue_city"><?php echo JText::_( 'CITY' ).':'; ?></dt>
+    		<dd class="venue_city">
     			<?php echo $this->venue->city; ?>
     		</dd>
     		<?php endif; ?>
 
     		<?php if ( $this->venue->state ) : ?>
-			<dt class="club_state"><?php echo JText::_( 'STATE' ).':'; ?></dt>
-			<dd class="club_state">
+			<dt class="venue_state"><?php echo JText::_( 'STATE' ).':'; ?></dt>
+			<dd class="venue_state">
     			<?php echo $this->venue->state; ?>
 			</dd>
 			<?php endif; ?>
 			
 			<?php if ( $this->venue->country ) : ?>
-			<dt class="club_country"><?php echo JText::_( 'COUNTRY' ).':'; ?></dt>
-    		<dd class="club_country">
+			<dt class="venue_country"><?php echo JText::_( 'COUNTRY' ).':'; ?></dt>
+    		<dd class="venue_country">
     			<?php echo $this->venue->country; ?>
     		</dd>
     		<?php endif; ?>

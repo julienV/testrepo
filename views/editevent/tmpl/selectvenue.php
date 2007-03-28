@@ -45,7 +45,7 @@ defined('_JEXEC') or die('Restricted access');
 <table width="100%" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
 		<tr>
 			<td width="7" class="sectiontableheader" align="left"><?php echo JText::_( 'Num' ); ?></td>
-			<td align="left" class="sectiontableheader" align="left"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'club', $this->lists, 'selectvenue' ); ?></td>
+			<td align="left" class="sectiontableheader" align="left"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'l.venue', $this->lists, 'selectvenue' ); ?></td>
 			<td align="left" class="sectiontableheader" align="left"><?php JCommonHTML :: tableOrdering( JText::_( 'CITY' ), 'l.city', $this->lists, 'selectvenue' ); ?></td>
 			<td align="left" class="sectiontableheader" align="left"><?php echo JText::_( 'COUNTRY' ); ?></td>
 		</tr>
@@ -60,8 +60,8 @@ defined('_JEXEC') or die('Restricted access');
 	<tr class="<?php echo "row$k"; ?>">
 			<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
 			<td align="left">
-				<a style="cursor:pointer" onclick="window.parent.elSelectVenue('<?php echo $row->id; ?>', '<?php echo $row->club; ?>');">
-						<?php echo htmlspecialchars($row->club, ENT_QUOTES); ?>
+				<a style="cursor:pointer" onclick="window.parent.elSelectVenue('<?php echo $row->id; ?>', '<?php echo $row->venue; ?>');">
+						<?php echo htmlspecialchars($row->venue, ENT_QUOTES); ?>
 				</a>
 			</td>
 			<td align="left"><?php echo $row->city; ?></td>

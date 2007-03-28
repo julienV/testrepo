@@ -27,7 +27,7 @@
 				<th class="title"><?php JCommonHTML :: tableOrdering(JText::_( 'DATE' ), 'a.dates', $this->lists ); ?></th>
 				<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'Start' ), 'a.times', $this->lists ); ?></th>
 				<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'EVENT TITLE' ) , 'a.title', $this->lists ); ?></th>
-				<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'loc.club', $this->lists ); ?></th>
+				<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'loc.venue', $this->lists ); ?></th>
 				<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CATEGORY' ), 'cat.catname', $this->lists ); ?></th>
 				<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CITY' ), 'loc.city', $this->lists ); ?></th>
 				<th class="title"><?php echo JText::_( 'CREATION' ); ?></th>
@@ -64,7 +64,7 @@
 				</td>
 				<td><?php echo $time; ?></td>
 				<td><?php echo htmlspecialchars($row->title, ENT_QUOTES) ? htmlspecialchars($row->title, ENT_QUOTES) : '-'; ?></td>
-				<td><?php echo htmlspecialchars($row->club, ENT_QUOTES) ? htmlspecialchars($row->club, ENT_QUOTES) : '-'; ?></td>
+				<td><?php echo htmlspecialchars($row->venue, ENT_QUOTES) ? htmlspecialchars($row->venue, ENT_QUOTES) : '-'; ?></td>
 				<td><?php echo htmlspecialchars($row->catname, ENT_QUOTES); ?></td>
 				<td><?php echo htmlspecialchars($row->city, ENT_QUOTES) ? htmlspecialchars($row->city, ENT_QUOTES) : '-'; ?></td>
 				<td>

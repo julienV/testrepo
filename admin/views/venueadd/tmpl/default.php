@@ -10,7 +10,7 @@
 		} else if (task == 'cancel') {
 			submitform( task );
 			return;
-		} else if (form.club.value == ""){
+		} else if (form.venue.value == ""){
 			alert( "<?php echo JText::_( 'ADD VENUE' ); ?>" );
 		} else if (form.city.value == ""){
 			alert( "<?php echo JText::_( 'ADD CITY' ); ?>" );
@@ -40,10 +40,10 @@ $infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', '../components/com_eve
 	<tr>
 		<td>
 			<div style="float: left;">
-				<label for="club">
+				<label for="venue">
 					<?php echo JText::_( 'VENUE' ).':'; ?>
 				</label>
-				<input name="club" value="<?php echo $this->row->club; ?>" size="55" maxlength="50" />
+				<input name="venue" value="<?php echo $this->row->venue; ?>" size="55" maxlength="50" />
 					&nbsp;&nbsp;&nbsp;
 			</div>
 
@@ -171,7 +171,7 @@ $infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', '../components/com_eve
 				<br />
 				<textarea class="inputbox" cols="40" rows="5" name="meta_keywords" id="metakey" style="width:300px;"><?php echo str_replace('&','&amp;',$this->row->meta_keywords); ?></textarea>
 				<br />
-				<input type="button" class="button" value="<?php echo JText::_( 'ADD VENUE CITY' ); ?>" onclick="f=document.adminForm;f.metakey.value=f.club.value+', '+f.city.value+f.metakey.value;" />
+				<input type="button" class="button" value="<?php echo JText::_( 'ADD VENUE CITY' ); ?>" onclick="f=document.adminForm;f.metakey.value=f.venue.value+', '+f.city.value+f.metakey.value;" />
 			</td>
 		</tr>
 	</table>

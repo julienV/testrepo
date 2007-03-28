@@ -20,9 +20,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				return;
 			}
 
-  			if (form.club.value == "") {
+  			if (form.venue.value == "") {
     			alert("<?php echo JText::_( 'ERROR ADD VENUE' ); ?>");
-   	 			form.club.focus();
+   	 			form.venue.focus();
     			return false;
   			}
 			if (form.street.value == "") {
@@ -82,10 +82,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<tr>
 			<td>
 				<div style="float: left;">
-					<label for="club">
+					<label for="venue">
 						<?php echo JText::_( 'VENUE' ).':'; ?>
 					</label>
-					<input name="club" value="<?php echo $this->row->club; ?>" size="55" maxlength="50" />
+					<input name="venue" value="<?php echo $this->row->venue; ?>" size="55" maxlength="50" />
 					&nbsp;&nbsp;&nbsp;
 				</div>
 
@@ -161,7 +161,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 						if (file_exists(JPATH_SITE.'/images/eventlist/venues/small/'.$this->row->locimage)) :
 						?>
 						<a href="javascript:void window.open('<?php echo $this->limage['originalloc']; ?>','Popup','width=<?php echo $this->limage['widthloc']; ?>,height=<?php echo $this->limage['heightloc']; ?>,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no');">
-							<img src="<?php echo $this->limage['thumbloc']; ?>" width="<?php echo $this->limage['thumbwidthloc']; ?>" height="<?php echo $this->dimage['thumbheightloc']; ?>" alt="<?php echo $this->row->club; ?>" />
+							<img src="<?php echo $this->limage['thumbloc']; ?>" width="<?php echo $this->limage['thumbwidthloc']; ?>" height="<?php echo $this->dimage['thumbheightloc']; ?>" alt="<?php echo $this->row->venue; ?>" />
 						</a>
 					<?php
 					//No thumbnail? Then take the in the settings specified values for the original

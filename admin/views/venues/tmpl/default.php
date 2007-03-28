@@ -23,7 +23,7 @@
 			<tr>
 				<th width="5"><?php echo JText::_( 'Num' ); ?></th>
 				<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
-				<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'l.club', $this->lists ); ?></th>
+				<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'l.venue', $this->lists ); ?></th>
 				<th align="left" class="title"><?php echo JText::_( 'WEBSITE' ); ?></th>
 				<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CITY' ), 'l.city', $this->lists ); ?></th>
 				<th width="1%" nowrap="nowrap"><?php echo JText::_( 'PUBLISHED' ); ?></th>
@@ -47,11 +47,11 @@
 				<td align="left">
 				<?php
 				if ( $row->checked_out && ( $row->checked_out != $this->user->get('id') ) ) {
-					echo htmlspecialchars($row->club, ENT_QUOTES);
+					echo htmlspecialchars($row->venue, ENT_QUOTES);
 				} else {
 					?>
 					<a href="<?php echo $link; ?>" title="Edit Location">
-					<?php echo htmlspecialchars($row->club, ENT_QUOTES); ?>
+					<?php echo htmlspecialchars($row->venue, ENT_QUOTES); ?>
 					</a>
 				<?php
 				}

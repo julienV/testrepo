@@ -128,7 +128,7 @@ class EventListModelEvents extends JModel
 		$where		= $this->_buildContentWhere();
 		$orderby	= $this->_buildContentOrderBy();
 
-		$query = 'SELECT a.*, loc.club, loc.city, cat.catname, u.email, u.name AS author'
+		$query = 'SELECT a.*, loc.venue, loc.city, cat.catname, u.email, u.name AS author'
 					. ' FROM #__eventlist_events AS a'
 					. ' LEFT JOIN #__eventlist_venues AS loc ON loc.id = a.locid'
 					. ' LEFT JOIN #__eventlist_categories AS cat ON cat.id = a.catsid'
@@ -190,7 +190,7 @@ class EventListModelEvents extends JModel
 		}
 
 		if ($search && $filter == 2) {
-			$where[] = ' LOWER(loc.club) LIKE "%'.$search.'%"';
+			$where[] = ' LOWER(loc.venue) LIKE "%'.$search.'%"';
 		}
 
 		if ($search && $filter == 3) {

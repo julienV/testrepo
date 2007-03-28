@@ -21,7 +21,7 @@
 			<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'EVENT TITLE' ), 'a.title', $this->lists, 'eventelement' ); ?></th>
 			<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'DATE' ), 'dates', $this->lists, 'eventelement' ); ?></th>
 			<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'Start' ), 'a.times', $this->lists, 'eventelement' ); ?></th>
-			<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'loc.club', $this->lists, 'eventelement' ); ?></th>
+			<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'loc.venue', $this->lists, 'eventelement' ); ?></th>
 			<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CITY' ), 'cat.catname', $this->lists, 'eventelement' ); ?></th>
 			<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CATEGORY' ), 'loc.city', $this->lists, 'eventelement' ); ?></th>
 		    <th width="1%" nowrap="nowrap"><?php echo JText::_( 'PUBLISHED' ); ?></th>
@@ -74,7 +74,7 @@
 					echo $displaytime ? $displaytime : '-';
 				?>
 			</td>
-			<td><?php echo $row->club ? $row->club : '-'; ?></td>
+			<td><?php echo $row->venue ? $row->venue : '-'; ?></td>
 			<td><?php echo $row->city ? $row->city : '-'; ?></td>
 			<td><?php echo $row->catname ? $row->catname : '-'; ?></td>
 			<td align="center">

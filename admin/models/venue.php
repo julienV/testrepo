@@ -119,7 +119,7 @@ class EventListModelVenue extends JModel
 		{
 			$venue = new stdClass();
 			$venue->id					= 0;
-			$venue->club				= null;
+			$venue->venue				= null;
 			$venue->url					= null;
 			$venue->street				= null;
 			$venue->city				= null;
@@ -234,7 +234,7 @@ class EventListModelVenue extends JModel
 		}
 
 		// Fields empty?
-		if(empty($row->club)) {
+		if(empty($row->venue)) {
 			$row->checkin();
 	        $mainframe->redirect('index.php?option='.$option.'&view=venues', JText::_( 'ADD VENUE') );
 		}

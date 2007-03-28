@@ -197,7 +197,7 @@ class EventListModelVenueelement extends JModel
 		* Search venues
 		*/
 		if ($search && $filter == 1) {
-			$where[] = ' LOWER(l.club) LIKE "%'.$search.'%"';
+			$where[] = ' LOWER(l.venue) LIKE "%'.$search.'%"';
 		}
 
 		/*

@@ -18,7 +18,7 @@
 	<thead>
 		<tr>
 			<th width="7"><?php echo JText::_( 'Num' ); ?></th>
-			<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'l.club', $this->lists, 'venueelement' ); ?></th>
+			<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'l.venue', $this->lists, 'venueelement' ); ?></th>
 			<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CITY' ), 'l.city', $this->lists, 'venueelement' ); ?></th>
 			<th align="left" class="title"><?php echo JText::_( 'COUNTRY' ); ?></th>
 			<th class="title"><?php echo JText::_( 'PUBLISHED' ); ?></th>
@@ -34,8 +34,8 @@
 		<tr class="<?php echo "row$k"; ?>">
 			<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
 			<td align="left">
-				<a style="cursor:pointer" onclick="window.parent.elSelectVenue('<?php echo $row->id; ?>', '<?php echo $row->club; ?>');">
-				<?php echo htmlspecialchars($row->club, ENT_QUOTES); ?>
+				<a style="cursor:pointer" onclick="window.parent.elSelectVenue('<?php echo $row->id; ?>', '<?php echo $row->venue; ?>');">
+				<?php echo htmlspecialchars($row->venue, ENT_QUOTES); ?>
 				</a>
 			</td>
 			<td align="left"><?php echo $row->city; ?></td>

@@ -90,7 +90,7 @@
 				</tr>
 				<tr>
 					<td>
-						<label for="clubid">
+						<label for="venueid">
 							<?php echo JText::_( 'VENUE' ).':'; ?>
 						</label>
 					</td>

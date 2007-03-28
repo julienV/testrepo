@@ -100,7 +100,7 @@ class EventListModelVenuesview extends JModel
 				} else {
 					//execute plugins
 					$venue->text	= $venue->locdescription;
-					$venue->title 	= $venue->club;
+					$venue->title 	= $venue->venue;
 					JPluginHelper::importPlugin('content');
 					$results = $mainframe->triggerEvent( 'onPrepareContent', array( &$venue, &$params, 0 ));
 					$venue->locdescription = $venue->text;
@@ -125,7 +125,7 @@ class EventListModelVenuesview extends JModel
 				} else {
 					//execute plugins
 					$venue->text	= $venue->locdescription;
-					$venue->title 	= $venue->club;
+					$venue->title 	= $venue->venue;
 					JPluginHelper::importPlugin('content');
 					$results = $mainframe->triggerEvent( 'onPrepareContent', array( &$venue, &$params, 0 ));
 					$venue->locdescription = $venue->text;
@@ -188,10 +188,10 @@ class EventListModelVenuesview extends JModel
 	{
 		//get categories
 		$query = 'SELECT *,'
-				. ' CASE WHEN CHAR_LENGTH(club) THEN CONCAT_WS(\':\', id, club) ELSE id END as slug'
+				. ' CASE WHEN CHAR_LENGTH(venue) THEN CONCAT_WS(\':\', id, venue) ELSE id END as slug'
 				. ' FROM #__eventlist_venues'
 				. ' WHERE published = 1'
-				. ' ORDER BY club'
+				. ' ORDER BY venue'
 				;
 
 		return $query;

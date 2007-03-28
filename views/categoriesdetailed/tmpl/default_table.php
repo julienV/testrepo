@@ -80,10 +80,10 @@
 				?>
 					<td width="<?php echo $this->elsettings->locationwidth; ?>" align="left" valign="top">
 				<?php
-					if ($this->elsettings->showlinkclub == 1 ) :
-							echo $row->locid != 0 ? "<a href='".JRoute::_("index.php?option=com_eventlist&view=venueevents&locatid=$row->venueslug")."'>".$row->club."</a>" : '-';
+					if ($this->elsettings->showlinkvenue == 1 ) :
+							echo $row->locid != 0 ? "<a href='".JRoute::_("index.php?option=com_eventlist&view=venueevents&locatid=$row->venueslug")."'>".$row->venue."</a>" : '-';
 						else :
-							echo $row->locid ? $row->club : '-';
+							echo $row->locid ? $row->venue : '-';
 						endif;
 				?>
 					</td>

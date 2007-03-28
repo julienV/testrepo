@@ -261,10 +261,10 @@ class EventListController extends JController
 		}//end image if
 
 		//cleanup fields
-		$row->club = strip_tags($row->club);
-		$row->club = ampReplace($row->club);
+		$row->venue = strip_tags($row->venue);
+		$row->venue = ampReplace($row->venue);
 
-		if(empty($row->club)) {
+		if(empty($row->venue)) {
 			$row->checkin();
 			$mainframe->redirect('index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$returnview, JText::_( 'ERROR ADD VENUE' ) );
 		}
@@ -411,7 +411,7 @@ class EventListController extends JController
 				$mailbody .= JText::_( 'SUBMISSION TIME' ).' '.strftime( '%c', $row->created ).' \n';
 			}
 			$mailbody .= ' \n';
-			$mailbody .= JText::_( 'VENUE' ).': '.$row->club.' \n';
+			$mailbody .= JText::_( 'VENUE' ).': '.$row->venue.' \n';
 			$mailbody .= JText::_( 'WEBSITE' ).': '.$row->url.' \n';
 			$mailbody .= JText::_( 'STREET' ).': '.$row->street.' \n';
 			$mailbody .= JText::_( 'ZIP' ).': '.$row->plz.' \n';
@@ -762,7 +762,7 @@ class EventListController extends JController
 			$mailbody .= JText::_( 'TITLE' ).': '.$row->title.' \n';
 			$mailbody .= JText::_( 'DATE' ).': '.$row->dates.' \n';
 			$mailbody .= JText::_( 'TIME' ).': '.$row->times.' \n';
-			$mailbody .= JText::_( 'VENUE' ).': '.$rowloc->club.' / '.$rowloc->city.' \n';
+			$mailbody .= JText::_( 'VENUE' ).': '.$rowloc->venue.' / '.$rowloc->city.' \n';
 			$mailbody .= JText::_( 'DESCRIPTION' ).': '.$row->datdescription.' \n';
 
 			jimport('joomla.utilities.mail');
@@ -887,7 +887,7 @@ class EventListController extends JController
 		$v = new vCal();
 
 		$v->setTimeZone($user_offset);
-		$v->setSummary($row->club.'-'.$row->catname.'-'.$row->title);
+		$v->setSummary($row->venue.'-'.$row->catname.'-'.$row->title);
 		$v->setDescription($row->datdescription);
 		$v->setStartDate($Start);
 		$v->setEndDate($End);

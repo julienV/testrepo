@@ -216,7 +216,7 @@ class EventListModelVenues extends JModel
 		* Search venues
 		*/
 		if ($search && $filter == 1) {
-			$where[] = ' LOWER(l.club) LIKE "%'.$search.'%"';
+			$where[] = ' LOWER(l.venue) LIKE "%'.$search.'%"';
 		}
 
 		/*
@@ -327,7 +327,7 @@ class EventListModelVenues extends JModel
 	{
 		$cids = implode( ',', $cid );
 
-		$query = 'SELECT v.id, v.club, COUNT( e.locid ) AS numcat'
+		$query = 'SELECT v.id, v.venue, COUNT( e.locid ) AS numcat'
 				. ' FROM #__eventlist_venues AS v'
 				. ' LEFT JOIN #__eventlist_events AS e ON e.locid = v.id'
 				. ' WHERE v.id IN ('. $cids .')'
@@ -346,7 +346,7 @@ class EventListModelVenues extends JModel
 			if ($row->numcat == 0) {
 				$cid[] = $row->id;
 			} else {
-				$err[] = $row->club;
+				$err[] = $row->venue;
 			}
 		}
 

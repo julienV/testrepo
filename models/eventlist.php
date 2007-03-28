@@ -144,9 +144,9 @@ class EventListModelEventList extends JModel
 		$orderby	= $this->_buildContentOrderBy();
 
 		//Get Events from Database
-		$query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, l.club, l.city, l.state, l.url, c.catname, c.id AS catid,'
+		$query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, l.venue, l.city, l.state, l.url, c.catname, c.id AS catid,'
 				. ' CASE WHEN CHAR_LENGTH(a.title) THEN CONCAT_WS(\':\', a.id, a.title) ELSE a.id END as slug,'
-				. ' CASE WHEN CHAR_LENGTH(l.club) THEN CONCAT_WS(\':\', a.locid, l.club) ELSE a.locid END as venueslug,'
+				. ' CASE WHEN CHAR_LENGTH(l.venue) THEN CONCAT_WS(\':\', a.locid, l.venue) ELSE a.locid END as venueslug,'
 				. ' CASE WHEN CHAR_LENGTH(c.catname) THEN CONCAT_WS(\':\', c.id, c.catname) ELSE c.id END as categoryslug'
 				. ' FROM #__eventlist_events AS a'
 				. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
@@ -220,7 +220,7 @@ class EventListModelEventList extends JModel
 						break;
 
 					case 'venue' :
-						$where .= ' AND LOWER( l.club ) LIKE "%'.$filter.'%"';
+						$where .= ' AND LOWER( l.venue ) LIKE "%'.$filter.'%"';
 						break;
 
 					case 'city' :

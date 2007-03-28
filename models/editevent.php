@@ -256,7 +256,7 @@ class EventListModelEditevent extends JModel
 		$limit			= JRequest::getVar('limit', 0, '', 'int');
 		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
 
-		$query = 'SELECT l.id, l.club, l.city, l.country, l.published'
+		$query = 'SELECT l.id, l.venue, l.city, l.country, l.published'
 				.' FROM #__eventlist_venues AS l'
 				. $where
 				. $orderby
@@ -308,7 +308,7 @@ class EventListModelEditevent extends JModel
 		$where = array();
 
 		if ($filter && $filter_type == 1) {
-			$where[] = 'LOWER(l.club) LIKE "%'.$filter.'%"';
+			$where[] = 'LOWER(l.venue) LIKE "%'.$filter.'%"';
 		}
 
 		if ($filter && $filter_type == 2) {
