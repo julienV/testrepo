@@ -882,7 +882,7 @@ class EventListController extends JController
 				strftime('%d', strtotime($row->enddates)),
 				strftime('%Y', strtotime($row->enddates)),0);
 
-		require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'vCal.class.php');
+		require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'vcal.class.php');
 
 		$v = new vCal();
 
