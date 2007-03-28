@@ -124,7 +124,7 @@ defined('_JEXEC') or die('Restricted access');
 
 	<form enctype="multipart/form-data" name="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" onsubmit="javascript:setgood();">
 
-		<table class="adminform" width="100%">
+	<table class="adminform" width="100%">
 		<tr>
 			<td>
 				<div style="float: left;">
@@ -144,7 +144,7 @@ defined('_JEXEC') or die('Restricted access');
 				</div>
 			</td>
 		</tr>
-		</table>
+	</table>
 
 		<fieldset>
 		<legend><?php echo JText::_('NORMAL INFO'); ?></legend>

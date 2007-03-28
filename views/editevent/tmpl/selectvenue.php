@@ -11,63 +11,76 @@
 defined('_JEXEC') or die('Restricted access');
 ?>
 
-<form action="index.php" method="post" name="adminForm">
+<h1 class='componentheading'>
+	<?php
+		echo JText::_('SELECTVENUE');
+	?>
+</h1>
 
-<table width="80%" class="adminform">
+<div class="clear"></div>
+
+<form action="<?php echo JRoute::_('index.php?option=com_eventlist&task=selectvenue&tmpl=component') ?>" method="post" name="adminForm">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
 	<tr>
-		<td width="100%">
+		<td align="left" width="100%" nowrap="nowrap">
 			<?php echo JText::_( 'SEARCH' ).': ';
 			echo $this->searchfilter;
 			?>
-			<input type="text" name="search" id="search" class="inputbox" value="<?php echo $this->search;?>" onChange="this.form.submit();" />
-			<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
-			<button onclick="this.form.getElementById('search').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
+				<input type="text" name="filter" id="filter" value="<?php echo $this->filter;?>" class="text_area" onchange="document.adminForm.submit();" />
+				<button onclick="document.adminForm.submit();"><?php echo JText::_( 'Go' ); ?></button>
+				<button onclick="document.getElementById('filter').value='';document.adminForm.submit();"><?php echo JText::_( 'Reset' ); ?></button>
 		</td>
-		<td>
-			<?php echo $this->pageNav->getLimitBox( $this->link ); ?>
+		<td align="right" width="100%" nowrap="nowrap">
+			<?php
+				echo '&nbsp;&nbsp;&nbsp;'.JText::_('Display Num').'&nbsp;';
+				echo $this->pageNav->getLimitBox();
+			?>
 		</td>
 	</tr>
 </table>
 
-<table width="80%"class="adminlist" cellspacing="1">
-	<thead>
-		<tr>
-			<th width="7"><?php echo JText::_( 'Num' ); ?></th>
-			<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'club', $this->lists, 'selectvenue' ); ?></th>
-			<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CITY' ), 'l.city', $this->lists, 'selectvenue' ); ?></th>
-			<th align="left" class="title"><?php echo JText::_( 'COUNTRY' ); ?></th>
-		</tr>
-	</thead>
+<br />
 
-	<tbody>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
+		<tr>
+			<td width="7" class="sectiontableheader" align="left"><?php echo JText::_( 'Num' ); ?></td>
+			<td align="left" class="sectiontableheader" align="left"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'club', $this->lists, 'selectvenue' ); ?></td>
+			<td align="left" class="sectiontableheader" align="left"><?php JCommonHTML :: tableOrdering( JText::_( 'CITY' ), 'l.city', $this->lists, 'selectvenue' ); ?></td>
+			<td align="left" class="sectiontableheader" align="left"><?php echo JText::_( 'COUNTRY' ); ?></td>
+		</tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
 		<?php
 		$k = 0;
 		for ($i=0, $n=count( $this->rows ); $i < $n; $i++) {
 			$row = &$this->rows[$i];
 		?>
-		<tr class="<?php echo "row$k"; ?>">
+	<tr class="<?php echo "row$k"; ?>">
 			<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
 			<td align="left">
-
 				<a style="cursor:pointer" onclick="window.parent.elSelectVenue('<?php echo $row->id; ?>', '<?php echo $row->club; ?>');">
 						<?php echo htmlspecialchars($row->club, ENT_QUOTES); ?>
 				</a>
-
 			</td>
 			<td align="left"><?php echo $row->city; ?></td>
 			<td align="left"><?php echo $row->country; ?></td>
-		</tr>
+	</tr>
 		<?php $k = 1 - $k; } ?>
-	</tbody>
-
-	<tfoot>
-		<td colspan="5">
-			<?php echo $this->pageNav->getPagesLinks( $this->link ); ?>
-		</td>
-	</tfoot>
 </table>
 
+<p class="pageslinks">
+	<?php echo $this->pageNav->getPagesLinks(); ?>
+</p>
+
+<p class="pagescounter">
+	<?php echo $this->pageNav->getPagesCounter(); ?>
+</p>
+
+<p class="copyright">
 <?php echo ELOutput::footer( );	?>
+</p>
 
 <input type="hidden" name="task" value="selectvenue" />
 <input type="hidden" name="option" value="com_eventlist" />

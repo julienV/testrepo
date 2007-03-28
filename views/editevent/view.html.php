@@ -111,7 +111,7 @@ class EventListViewEditevent extends JView
 			document.popup.hide();
 		}";
 
-		$link = 'index.php?option=com_eventlist&amp;task=selectvenue&amp;tmpl=component';
+		$link = JRoute::_('index.php?option=com_eventlist&task=selectvenue&tmpl=component');
 		$doc->addScriptDeclaration($js);
 		$doc->addScript($url.'includes/js/joomla/modal.js');
 		$doc->addStyleSheet($url.'includes/js/joomla/modal.css');
@@ -151,11 +151,11 @@ class EventListViewEditevent extends JView
 
 		$limit				= JRequest::getVar('limit', $mainframe->getCfg('list_limit'), '', 'int');
 		$limitstart			= JRequest::getVar('limitstart', 0, '', 'int');
-		$filter 			= JRequest::getVar('filter', '', 'request');
-		$filter 			= intval( $filter );
+		$filter_type		= JRequest::getVar('filter_type', '', 'request');
+		$filter_type		= intval( $filter_type );
 		$filter_order		= JRequest::getVar('filter_order');
 		$filter_order_Dir	= JRequest::getVar('filter_order_Dir');
-		$search 			= JRequest::getVar('search');
+		$filter 			= JRequest::getVar('filter');
 
 		$live_site = $mainframe->getCfg('live_site');
 
@@ -180,22 +180,18 @@ class EventListViewEditevent extends JView
 		$document->addScript(JPATH_SITE.'includes/js/joomla/modal.js');
 		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');
 
-		// TODO change to own css sheet
-		$document->addStyleSheet("administrator/templates/khepri/css/general.css");
-
-		$link = JRoute::_('index.php?option=com_eventlist&amp;task=selectvenue&amp;tmpl=component');
+		$document->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
 
 		$filters = array();
 		$filters[] = JHTMLSelect::option( '1', JText::_( 'VENUE' ) );
 		$filters[] = JHTMLSelect::option( '2', JText::_( 'CITY' ) );
-		$searchfilter = JHTMLSelect::genericList( $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
+		$searchfilter = JHTMLSelect::genericList( $filters, 'filter_type', 'size="1" class="inputbox"', 'value', 'text', $filter_type );
 
 		$this->assignRef('rows' , 				$rows);
 		$this->assignRef('searchfilter' , 		$searchfilter);
 		$this->assignRef('pageNav' , 			$pageNav);
-		$this->assignRef('link' , 				$link);
 		$this->assignRef('lists' , 				$lists);
-		$this->assignRef('search' , 			$search);
+		$this->assignRef('filter' , 			$filter);
 		
 
 		parent::display($tpl);

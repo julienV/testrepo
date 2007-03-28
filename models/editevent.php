@@ -301,18 +301,18 @@ class EventListModelEditevent extends JModel
 	function _buildVenuesWhere(  )
 	{
 
-		$filter 			= JRequest::getVar('filter', '', 'request');
-		$search 			= JRequest::getVar('search');
-		$search 			= $this->_db->getEscaped( trim(JString::strtolower( $search ) ) );
+		$filter_type		= JRequest::getVar('filter_type', '', 'request');
+		$filter 			= JRequest::getVar('filter');
+		$filter 			= $this->_db->getEscaped( trim(JString::strtolower( $filter ) ) );
 
 		$where = array();
 
-		if ($search && $filter == 1) {
-			$where[] = 'LOWER(l.club) LIKE "%'.$search.'%"';
+		if ($filter && $filter_type == 1) {
+			$where[] = 'LOWER(l.club) LIKE "%'.$filter.'%"';
 		}
 
-		if ($search && $filter == 2) {
-			$where[] = 'LOWER(l.city) LIKE "%'.$search.'%"';
+		if ($filter && $filter_type == 2) {
+			$where[] = 'LOWER(l.city) LIKE "%'.$filter.'%"';
 		}
 
 		$where = ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '');
