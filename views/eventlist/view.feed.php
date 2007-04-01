@@ -46,7 +46,7 @@ class EventListViewEventList extends JView
 
 			// url link to article
 			// & used instead of &amp; as this is converted by feed creator
-			$link = 'index.php?option=com_eventlist&view=details&did='. $row->id;
+			$link = JURI::base().'index.php?option=com_eventlist&view=details&did='. $row->id;
 			$link = JRoute::_( $link );
 
 			// strip html from feed item description text

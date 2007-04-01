@@ -81,9 +81,9 @@ class EventListViewVenueevents extends JView
 		//add alternate feed link
 		$link    = 'index.php?option=com_eventlist&view=venueevents&format=feed&locatid='.$venue->id;
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
-		$document->addHeadLink($link.'&type=rss', 'alternate', 'rel', $attribs);
+		$document->addHeadLink(JRoute::_($link.'&type=rss'), 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
-		$document->addHeadLink($link.'&type=atom', 'alternate', 'rel', $attribs);
+		$document->addHeadLink(JRoute::_($link.'&type=atom'), 'alternate', 'rel', $attribs);
 
 		//set Page title
 		$document->setTitle( $item->name.' - '.$venue->venue );

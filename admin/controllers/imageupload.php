@@ -60,19 +60,16 @@ class EventListControllerImageupload extends EventListController
 			}
 
 			if (file_exists($base_Dir.strtolower($file['name']))) {
-				//$mainframe->redirect( 'index.php?option='.$option.'&amp;task='.$task.'&amp;tmpl=component', JText::_( 'UPLOAD FAILED' ) );
 				echo "<script> alert('".JText::_( 'UPLOAD FAILED' )."'); window.history.go(-1); </script>\n";
 				$mainframe->close();
 			}
 
 			if (empty($file)) {
-				//$mainframe->redirect('index.php?option='.$option.'&amp;task='.$task.'&amp;tmpl=component', JText::_( 'IMAGE EMPTY' ) );
 				echo "<script> alert('".JText::_( 'IMAGE EMPTY' )."'); window.history.go(-1); </script>\n";
 				$mainframe->close();
 			}
 
 			if ($imagesize > $sizelimit) {
-				//$mainframe->redirect('index.php?option='.$option.'&amp;task='.$task.'&amp;tmpl=component', JText::_( 'IMAGE FILE SIZE' ));
 				echo "<script> alert('".JText::_( 'IMAGE FILE SIZE' )."'); window.history.go(-1); </script>\n";
 				$mainframe->close();
 			}
@@ -87,19 +84,16 @@ class EventListControllerImageupload extends EventListController
 			}
 
 			if (!$noMatch) {
-				//$mainframe->redirect('index.php?option='.$option.'&amp;task='.$task.'&amp;tmpl=component',  JText::_( 'WRONG IMAGE FILE TYPE' ) );
 				echo "<script> alert('".JText::_( 'WRONG IMAGE FILE TYPE' )."'); window.history.go(-1); </script>\n";
 				$mainframe->close();
 			}
 
 			if (!JFile::upload($file['tmp_name'], $base_Dir.strtolower($file['name']))) {
-				//$mainframe->redirect('index.php?option='.$option.'&amp;task='.$task.'&amp;tmpl=component', JText::_('UPLOAD FAILED'));
 				echo "<script> alert('".JText::_( 'UPLOAD FAILED' )."'); window.history.go(-1); </script>\n";
 				$mainframe->close();
 
 			} else {
 				$imagename = $file['name'];
-				//$mainframe->redirect('index.php?option='.$option.'&amp;task='.$task.'&amp;tmpl=component', JText::_( 'UPLOAD COMPLETE' ) );
 				echo "<script> alert('".JText::_( 'UPLOAD COMPLETE' )."'); window.history.go(-1); window.parent.elSelectImage('$imagename', '$imagename'); </script>\n";
 				$mainframe->close();
 			}
