@@ -1,3 +1,5 @@
+<?php defined('_JEXEC') or die('Restricted access'); ?>
+
 <form action="index.php" method="post" name="adminForm">
 	  	<table cellpadding="4" cellspacing="0" border="0" width="100%">
 			<tr>

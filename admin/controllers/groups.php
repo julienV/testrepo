@@ -55,7 +55,7 @@ class EventListControllerGroups extends EventListController
 	 * @return void
 	 * @since 0.9
 	 */
-	function newgroup( )
+	function add( )
 	{
 		global $option;
 
@@ -69,7 +69,7 @@ class EventListControllerGroups extends EventListController
 	 * @return void
 	 * @since 0.9
 	 */
-	function editgroup( )
+	function edit( )
 	{
 		global $option;
 
@@ -100,7 +100,7 @@ class EventListControllerGroups extends EventListController
 	 * @return void
 	 * @since 0.9
 	 */
-	function savegroup()
+	function save()
 	{
 		global $option;
 
@@ -122,7 +122,7 @@ class EventListControllerGroups extends EventListController
 	 * @return void
 	 * @since 0.9
 	 */
- 	function removegroup()
+ 	function remove()
 	{
 		$cid = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 

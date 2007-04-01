@@ -1,22 +1,22 @@
-		<script language="javascript" type="text/javascript">
-		function submitbutton(pressbutton) {
-			var form = document.adminForm;
-			if (pressbutton == 'cancel') {
-				submitform( pressbutton );
-				return;
-			}
+<?php defined('_JEXEC') or die('Restricted access'); ?>
 
-			// do field validation
-			if (form.catname.value == ""){
-				alert( "<?php echo JText::_( 'ADD NAME CATEGORY' ); ?>" );
-			} else {
-				<?php
-				echo $this->editor->save( 'catdescription' );
-				?>
-				submitform( pressbutton );
-			}
-		}
-		</script>
+<script language="javascript" type="text/javascript">
+function submitbutton(pressbutton) {
+	var form = document.adminForm;
+	if (pressbutton == 'cancel') {
+		submitform( pressbutton );
+		return;
+	}
+
+	// do field validation
+	if (form.catname.value == ""){
+		//alert( "<?php echo JText::_( 'ADD NAME CATEGORY' ); ?>" );
+	} else {
+		<?php echo $this->editor->save( 'catdescription' ); ?>
+		submitform( pressbutton );
+	}
+}
+</script>
 		
 		
 <form action="<?php $this->request_url; ?>" method="post" name="adminForm" id="adminForm">
@@ -175,13 +175,18 @@
 		</td>
 	</tr>
 </table>
-
-<p class="copyright">
-	<?php echo ELAdmin::footer( ); ?>
-</p>
 		
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
 <input type="hidden" name="controller" value="categories" />
 <input type="hidden" name="task" value="" />
 </form>
+
+<p class="copyright">
+	<?php echo ELAdmin::footer( ); ?>
+</p>
+
+<?php 
+//keep session alive while editing
+JHTML::keepAlive();
+?>

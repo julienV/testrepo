@@ -1,3 +1,5 @@
+<?php defined('_JEXEC') or die('Restricted access'); ?>
+
 <table class="adminlist" width="100%">
 	<tr>
 		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>  

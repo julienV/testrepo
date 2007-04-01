@@ -229,10 +229,10 @@ class EventListModelVenue extends JModel
 
 		// bind it to the table
 		if (!$row->bind($data)) {
-				JError::raiseError( 500, $this->_db->stderr() );
+				$this->setError($this->_db->getErrorMsg());
 				return false;
 		}
-
+/*
 		// Fields empty?
 		if(empty($row->venue)) {
 			$row->checkin();
@@ -251,7 +251,7 @@ class EventListModelVenue extends JModel
 				$mainframe->redirect('index.php?option='.$option.'&view=venues', JText::_( 'ADD ADDRESS') );
 			}
 		}
-
+*/
 		// Check if image was selected
 		jimport('joomla.filesystem.file');
 		$format 	= JFile::getExt('JPATH_SITE/images/eventlist/venues/'.$row->locimage);
@@ -276,22 +276,23 @@ class EventListModelVenue extends JModel
 		} else {
 			$row->modified 		= $nullDate;
 			$row->modified_by 	= '';
+			
+			//get IP, time and userid
+			$row->author_ip 		= getenv('REMOTE_ADDR');
+			$row->created			= $datenow->toFormat();
+			$row->created_by		= $user->get('id');
 		}
 
-		$row->created_by		= $row->created_by ? $row->created_by : $user->get('id');
-		$row->author_ip 		= $row->author_ip ? $row->author_ip : getenv('REMOTE_ADDR');
-		$row->created			= $row->created ? $row->created : $datenow->toFormat();
-
 		// Make sure the data is valid
-		if (!$row->check()) {
-			JError::raiseError( 500, $this->_db->stderr() );
+		if (!$row->check($elsettings)) {
+			$this->setError($this->_db->getErrorMsg());
 			return false;
 		}
 
 		// Store it in the db
 		if (!$row->store()) {
-				JError::raiseError( 500, $this->_db->stderr() );
-				return false;
+			$this->setError($this->_db->getErrorMsg());
+			return false;
 		}
 
 		// Check the venue item in and update item order

@@ -28,6 +28,8 @@ class EventListModelSettings extends JModel
 	 */
 	function __construct()
 	{
+		//TODO: Limit access to administrators and super administrators
+		
 		parent::__construct();
 	}
 }

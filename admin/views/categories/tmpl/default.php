@@ -1,3 +1,5 @@
+<?php defined('_JEXEC') or die('Restricted access'); ?>
+
 <form action="<?php echo $this->request_url; ?>" method="post" name="adminForm">
 		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 			<tr>
@@ -42,7 +44,8 @@
 			for ($i=0, $n=count($this->rows); $i < $n; $i++) {
 				$row = $this->rows[$i];
 
-				$link 		= 'index.php?option=com_eventlist&controller=categories&task=categoryedit&cid[]='. $row->id;
+				$link 		= 'index.php?option=com_eventlist&controller=categories&task=edit&cid[]='. $row->id;
+				$grouplink 	= 'index.php?option=com_eventlist&controller=groups&task=editgroup&cid[]='. $row->groupid;
 				$published 	= JCommonHTML::PublishedProcessing( $row, $i );
 				$access 	= JCommonHTML::AccessProcessing( $row, $i );
 				$checked 	= JCommonHTML::CheckedOutProcessing( $row, $i );
@@ -56,7 +59,7 @@
 					echo htmlspecialchars($row->catname, ENT_QUOTES);
 				} else {
 				?>
-					<a href="<?php echo $link; ?>" title="Edit Category">
+					<a href="<?php echo $link; ?>" title="<?php echo JText::_( 'EDIT CATEGORY' ); ?>">
 					<?php echo htmlspecialchars($row->catname, ENT_QUOTES); ?>
 					</a>
 				<?php
@@ -72,9 +75,17 @@
 				?>
 				</td>
 				<td align="center">
-				<?php
-				echo $row->catgroup ? htmlspecialchars($row->catgroup, ENT_QUOTES) : '-';
-				?>
+					<?php
+					if ($row->catgroup) { 
+					?>
+						<a href="<?php echo $grouplink; ?>" title="<?php echo JText::_( 'EDIT GROUP' ); ?>">
+							<?php echo htmlspecialchars($row->catgroup, ENT_QUOTES); ?>
+						</a>
+					<?php
+					} else {
+						echo '-';	
+					}
+					?>
 				</td>
 				<td class="order" colspan="2">
 					<span><?php echo $this->pageNav->orderUpIcon( $i, true, 'orderup', 'Move Up', $this->ordering ); ?></span>

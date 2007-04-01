@@ -45,15 +45,15 @@ class EventListViewCategories extends JView {
 		
 		//create the toolbar
 		JMenuBar::title( JText::_( 'CATEGORIES' ), 'elcategories' );
-		JMenuBar::publishList('publish');
+		JMenuBar::publishList();
 		JMenuBar::spacer();
-		JMenuBar::unpublishList('unpublish');
+		JMenuBar::unpublishList();
 		JMenuBar::spacer();
-		JMenuBar::addNewX('categorynew');
+		JMenuBar::addNew();
 		JMenuBar::spacer();
-		JMenuBar::editListX('categoryedit');
+		JMenuBar::editList();
 		JMenuBar::spacer();
-		JMenuBar::deleteList( ' ', 'delete', 'Remove' );
+		JMenuBar::deleteList();
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.listcategories', true );
 

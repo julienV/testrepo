@@ -30,8 +30,8 @@ class EventListControllerEvents extends EventListController
 		parent::__construct();
 
 		// Register Extra task
-		$this->registerTask( 'apply', 		'saveevent' );
-		$this->registerTask( 'copy',	 	'editevent' );
+		$this->registerTask( 'apply', 		'save' );
+		$this->registerTask( 'copy',	 	'edit' );
 	}
 
 	/**
@@ -140,7 +140,7 @@ class EventListControllerEvents extends EventListController
 	 * @return void
 	 * @since 0.9
 	 */
-	function newevent( )
+	function add( )
 	{
 		global $option;
 
@@ -154,7 +154,7 @@ class EventListControllerEvents extends EventListController
 	 * @return void
 	 * @since 0.9
 	 */
-	function editevent( )
+	function edit( )
 	{
 		global $option;
 
@@ -190,7 +190,7 @@ class EventListControllerEvents extends EventListController
 	 * @return void
 	 * @since 0.9
 	 */
-	function saveevent()
+	function save()
 	{
 		global $option;
 

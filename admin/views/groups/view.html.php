@@ -51,11 +51,11 @@ class EventListViewGroups extends JView {
 
 		//create the toolbar
 		JMenuBar::title( JText::_( 'GROUPS' ), 'groups' );
-		JMenuBar::addNewX('newgroup');
+		JMenuBar::addNew();
 		JMenuBar::spacer();
-		JMenuBar::editListX( 'editgroup', 'Edit' );
+		JMenuBar::editList();
 		JMenuBar::spacer();
-		JMenuBar::deleteList( '', 'removegroup', 'Remove' );
+		JMenuBar::deleteList();
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.listgroups', true );
 

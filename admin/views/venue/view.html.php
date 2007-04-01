@@ -45,9 +45,6 @@ class EventListViewVenue extends JView {
 		$document->addScript('../includes/js/joomla/popup.js');
 		$document->addStyleSheet('../includes/js/joomla/popup.css');
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
-
-		//image
-		//JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
 		
 		// Get data from the model
 		$row      	= & $this->get( 'Data');
@@ -56,6 +53,8 @@ class EventListViewVenue extends JView {
 		//create the toolbar
 		if ( $cid ) {
 			JMenuBar::title( JText::_( 'EDIT VENUE' ), 'venuesedit' );
+			
+			//makes data safe
 			jimport('joomla.filter.output');
 			JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'locdescription' );
 
@@ -69,11 +68,11 @@ class EventListViewVenue extends JView {
 			$document->setBuffer($submenu, 'module', 'submenu');
 
 		}
-		JMenuBar::apply('apply');
+		JMenuBar::apply();
 		JMenuBar::spacer();
-		JMenuBar::save('savevenue');
+		JMenuBar::save();
 		JMenuBar::spacer();
-		JMenuBar::cancel('cancel');
+		JMenuBar::cancel();
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.editvenues', true );
 
@@ -91,7 +90,7 @@ class EventListViewVenue extends JView {
 		$document->addScriptDeclaration($js);
 		$document->addScript($url.'includes/js/joomla/modal.js');
 		$document->addStyleSheet($url.'includes/js/joomla/modal.css');
-		$imageselect = "\n<input style=\"background: #ffffff;\" type=\"text\" id=\"a_imagename\" value=\"$image->locimage\" disabled=\"disabled\" onchange=\"javascript:if (document.forms[0].a_imagename.value!='') {document.imagelib.src='../images/eventlist/events/' + document.forms[0].a_imagename.value} else {document.imagelib.src='../images/blank.png'}\"; /><br />";
+		$imageselect = "\n<input style=\"background: #ffffff;\" type=\"text\" id=\"a_imagename\" value=\"$image->locimage\" disabled=\"disabled\" onchange=\"javascript:if (document.forms[0].a_imagename.value!='') {document.imagelib.src='../images/eventlist/venues/' + document.forms[0].a_imagename.value} else {document.imagelib.src='../images/blank.png'}\"; /><br />";
 		$imageselect .= "\n <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 400, null);\" value=\"".JText::_('Upload')."\" />";
 		$imageselect .= "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link2', 650, 400, null);\" value=\"".JText::_('SELECTIMAGE')."\" />";
 		$imageselect .= "\n<input type=\"hidden\" id=\"a_image\" name=\"locimage\" value=\"$image->locimage\" />";

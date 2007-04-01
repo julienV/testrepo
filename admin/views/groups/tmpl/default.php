@@ -1,3 +1,5 @@
+<?php defined('_JEXEC') or die('Restricted access'); ?>
+
 <form action="<?php echo $this->request_url; ?>" method="post" name="adminForm">
 
 <table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
@@ -34,7 +36,7 @@
 		for($i=0, $n=count( $this->rows ); $i < $n; $i++) {
 			$row = &$this->rows[$i];
 
-			$link 		= 'index.php?option=com_eventlist&controller=groups&task=editgroup&cid[]='.$row->id;
+			$link 		= 'index.php?option=com_eventlist&controller=groups&task=edit&cid[]='.$row->id;
 			$checked 	= JCommonHTML::CheckedOutProcessing( $row, $i );
    		?>
 		<tr class="<?php echo "row$k"; ?>">

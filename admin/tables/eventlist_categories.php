@@ -50,8 +50,39 @@ class eventlist_categories extends JTable
 	/** @var int */
 	var $ordering 			= null;
 
+	/**
+	* @param database A database connector object
+	*/
 	function eventlist_categories(& $db) {
 		parent::__construct('#__eventlist_categories', 'id', $db);
+	}
+	
+	// overloaded check function
+	function check()
+	{
+		global $mainframe;
+		
+		// Not typed in a category name?
+		if (trim( $this->catname ) == '') {
+			//$this->_error = JText::_( 'ADD NAME CATEGORY' );
+			$mainframe->enqueueMessage( JText::_( 'ADD NAME CATEGORY' ) );
+			return false;
+		}
+/*		
+		// check for existing name
+		$query = 'SELECT id FROM #__eventlist_categories WHERE catname = "' .$this->catname. '"';
+		$this->_db->setQuery($query);
+
+		$xid = (int)$this->_db->loadResult();
+		if ($xid && ($xid != (int)$this->id)) {
+			$this->_error = JText::_( 'CATEGORY NAME ALREADY EXIST' );
+			return false;
+		}
+		
+		jimport('joomla.filter.output');
+		$this->catname = JOutputFilter::stringURLSafe($this->catname);
+*/
+		return true;
 	}
 }
 ?>

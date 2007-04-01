@@ -244,26 +244,19 @@ class EventListModelCategory extends JModel
 
 		// bind it to the table
 		if (!$row->bind($data)) {
-			JError::raiseError( 500, $this->_db->stderr() );
+			$this->setError($this->_db->getErrorMsg());
 			return false;
 		}
-
-		// Not typed in a category name?
-		if(empty($row->catname)) {
-			$row->checkin();
-			$mainframe->redirect('index.php?option='.$option.'&view=categories', JText::_( 'ADD NAME CATEGORY' ) );
-		}
-
-		/*
+		
 		// Make sure the data is valid
 		if (!$row->check()) {
-			JError::raiseError( 500, $db->stderr() );
+			$this->setError($this->_db->getErrorMsg());
 			return false;
 		}
-*/
+
 		// Store it in the db
 		if (!$row->store()) {
-			JError::raiseError( 500, $db->stderr() );
+			$this->setError($this->_db->getErrorMsg());
 			return false;
 		}
 

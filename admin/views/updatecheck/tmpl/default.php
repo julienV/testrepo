@@ -1,3 +1,5 @@
+<?php defined('_JEXEC') or die('Restricted access'); ?>
+
 <?php		
 if ($this->updatedata->failed == 0) {
 		?>

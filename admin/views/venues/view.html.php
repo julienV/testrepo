@@ -51,15 +51,15 @@ class EventListViewVenues extends JView {
 
 		//create the toolbar
 		JMenuBar::title( JText::_( 'VENUES' ), 'venues' );
-		JMenuBar::publishList('publish');
+		JMenuBar::publishList();
 		JMenuBar::spacer();
-		JMenuBar::unpublishList('unpublish');
+		JMenuBar::unpublishList();
 		JMenuBar::spacer();
-		JMenuBar::addNewX('newvenue');
+		JMenuBar::addNew();
 		JMenuBar::spacer();
-		JMenuBar::editListX('editvenue', 'Edit');
+		JMenuBar::editList();
 		JMenuBar::spacer();
-		JMenuBar::deleteList( ' ', 'remove', 'Remove' );
+		JMenuBar::deleteList();
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.listvenues', true );
 		

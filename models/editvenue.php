@@ -169,5 +169,183 @@ class EventListModelEditvenue extends JModel
 				
     	return $this->_db->loadObject();
 	}
+	
+	/**
+	 * Method to store the venue
+	 *
+	 * @access	public
+	 * @return	boolean	True on success
+	 * @since	1.5
+	 */
+	function store($data, $file)
+	{
+		global $mainframe, $option;
+		
+		jimport('joomla.utilities.date');
+
+		$user 		= & JFactory::getUser();
+		$elsettings = ELHelper::config();
+
+		//Get mailinformation
+		$SiteName 		= $mainframe->getCfg('sitename');
+		$MailFrom	 	= $mainframe->getCfg('mailfrom');
+		$FromName 		= $mainframe->getCfg('fromname');
+		
+		$sizelimit 	= $elsettings->sizelimit*1024; //size limit in kb
+		$base_Dir = JPATH_SITE.'/images/eventlist/venues/';
+
+		$row =& JTable::getInstance('eventlist_venues', '');
+
+		//bind it to the table
+		if (!$row->bind($data)) {
+			JError::raiseError( 500, $this->_db->stderr() );
+			return false;
+		}
+
+		$datenow = new JDate();
+
+		//Are we saving from an item edit?
+		if ($row->id) {
+
+			$owner = ELUser::isOwner($row->id, 'venues');
+
+			//check if user is allowed to edit venues
+			$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $owner, $elsettings->venueeditrec, $elsettings->venueedit);
+
+			if ($allowedtoeditvenue == 0) {
+				$row->checkin();
+				$mainframe->enqueueMessage( JText::_( 'NO ACCESS' ) );
+				return false;
+			}
+
+			$row->modified 		= $datenow->toFormat();
+			$row->modified_by 	= $user->get('id');
+
+			//Is editor the owner of the venue
+			//This extra Check is needed to make it possible
+			//that the venue is published after an edit from an owner
+			if ($elsettings->venueowner == 1 && $owner == $user->get('id')) {
+				$owneredit = 1;
+			} else {
+				$owneredit = 0;
+			}
+
+		} else {
+
+			//check if user is allowed to submit new venues
+			$delloclink = ELUser::validate_user( $elsettings->locdelrec, $elsettings->deliverlocsyes );
+
+			if ($delloclink == 0){
+				$mainframe->enqueueMessage( JText::_( 'NO ACCESS' ) );
+				return false;
+			}
+
+
+			//get IP, time and userid
+			$row->author_ip 		= getenv('REMOTE_ADDR');
+			$row->created			= $datenow->toFormat();
+			$row->created_by		= $user->get('id');
+
+			//set owneredit to false
+			$owneredit = 0;
+		}
+
+		//Image upload
+		if ( ( $elsettings->imageenabled == 2 || $elsettings->imageenabled == 1 ) && ( !empty($file['name'])) )  {
+
+			$imagesize 	= $file['size'];
+
+			if (empty($file['name'])) {
+				$mainframe->enqueueMessage( JText::_( 'IMAGE EMPTY' ) );
+				return false;
+			}
+
+			if ($imagesize > $sizelimit) {
+				$mainframe->enqueueMessage( JText::_( 'IMAGE FILE SIZE' ) );
+				return false;
+			}
+
+			if (file_exists($base_Dir.$file['name'])) {
+				$mainframe->enqueueMessage( JText::_( 'IMAGE EXISTS' ) );
+				return false;
+			}
+
+			jimport('joomla.filesystem.file');
+			$format 	= JFile::getExt($file['name']);
+
+			$allowable 	= array ('bmp', 'gif', 'jpg', 'png');
+			if (in_array($format, $allowable)) {
+				$noMatch = true;
+			} else {
+				$noMatch = false;
+			}
+
+			if (!$noMatch) {
+				$mainframe->enqueueMessage( JText::_( 'WRONG IMAGE FILE TYPE' ) );
+				return false;
+			}
+
+			if (!JFile::upload($file['tmp_name'], $base_Dir.strtolower($file['name']))) {
+				$mainframe->enqueueMessage( JText::_( 'UPLOAD FAILED' ) );
+				return false;
+			} else {
+				$row->locimage = strtolower($file['name']);
+			}
+		} else {
+			//keep image if edited and left blank
+			$row->locimage = $row->curimage;
+		}//end image upload if
+
+		//Check description
+		$editoruser = & ELUser::editoruser();
+		if (!$editoruser) {
+
+			$row->locdescription = strip_tags($row->locdescription);
+
+			//cut too long words
+			$row->locdescription = wordwrap($row->locdescription, 75, " ", 1);
+
+			//check length
+			$beschnitten = JString::strlen($row->locdescription);
+			if ($beschnitten > $elsettings->datdesclimit) {
+
+				// if required shorten it
+				$row->locdescription = JString::substr($row->locdescription, 0, $elsettings->datdesclimit);
+				//if shortened add ...
+				$row->locdescription = $row->locdescription.'...';
+			}
+		}
+
+		//Autopublish
+		//check if the user has the required rank for autopublish
+		$autopublloc = ELUser::validate_user( $elsettings->locpubrec, $elsettings->autopublocate );
+
+		//Check if user is the owner of the venue
+		//If yes enable autopublish
+		if ($autopublloc || $owneredit) {
+			$row->published = 1 ;
+		} else {
+			$row->published = 0 ;
+		}
+
+		//Make sure the data is valid
+		if (!$row->check($elsettings)) {
+			//JError::raiseError( 500, $this->_db->stderr() );
+			$this->setError($this->_db->getErrorMsg());
+			return false;
+		}
+
+		//store it in the db
+		if (!$row->store()) {
+			$this->setError($this->_db->getErrorMsg());
+			return false;
+		}
+
+		//Check the venue item in and update item order
+		$row->checkin();
+		$row->reorder();
+		
+		return $row->id;
+	}
 }
 ?>

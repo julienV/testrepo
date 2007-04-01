@@ -367,6 +367,11 @@ defined('_JEXEC') or die('Restricted access');
 		<input type="hidden" name="task" value="saveevent" />
 	</form>
 	
+	<?php 
+	//keep session alive while editing
+	JHTML::keepAlive();
+	?>
+	
 <p class="copyright">
 	<?php echo ELOutput::footer( ); ?>
 </p>

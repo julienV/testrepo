@@ -60,13 +60,12 @@ class EventListViewEvent extends JView {
 			//set the submenu
 			$submenu = ELAdmin::submenu();
 			$document->setBuffer($submenu, 'module', 'submenu');
-
 		}
 		JMenuBar::apply();
 		JMenuBar::spacer();
-		JMenuBar::save('saveevent');
+		JMenuBar::save();
 		JMenuBar::spacer();
-		JMenuBar::cancel('cancel');
+		JMenuBar::cancel();
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.editevents', true );
 		
@@ -88,8 +87,6 @@ class EventListViewEvent extends JView {
 		$Lists['category'] = JHTMLSelect::genericList( $catlist, 'catsid', 'size="1" class="inputbox"', 'value', 'text', $row->catsid );
 
 		//TODO: move to model
-		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-
 		$venue =& JTable::getInstance('eventlist_venues', '');
 		if ($row->id) {
 			$venue->load($row->locid);

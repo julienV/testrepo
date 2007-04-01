@@ -53,17 +53,17 @@ class EventListViewEvents extends JView {
 		JMenuBar::title( JText::_( 'EVENTS' ), 'events' );
 		JMenuBar::archiveList();
 		JMenuBar::spacer();
-		JMenuBar::publishList('publish');
+		JMenuBar::publishList();
 		JMenuBar::spacer();
-		JMenuBar::unpublishList('unpublish');
+		JMenuBar::unpublishList();
 		JMenuBar::spacer();
-		JMenuBar::addNewX('newevent');
+		JMenuBar::addNew();
 		JMenuBar::spacer();
-		JMenuBar::editListX( 'editevent', 'Edit' );
+		JMenuBar::editList();
 		JMenuBar::spacer();
 		JMenuBar::deleteList( '', 'remove', 'Remove' );
 		JMenuBar::spacer();
-		JMenuBar::customX( 'copy', 'copy.png', 'copy_f2.png', 'Copy' );
+		JMenuBar::custom( 'copy', 'copy.png', 'copy_f2.png', 'Copy' );
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.listevents', true );
 		

@@ -54,11 +54,11 @@ class EventListViewCategory extends JView {
 		}
 		JMenuBar::apply();
 		JMenuBar::spacer();
-		JMenuBar::save('savecategory');
+		JMenuBar::save();
 		JMenuBar::spacer();
 		JMenuBar::media_manager();
 		JMenuBar::spacer();
-		JMenuBar::cancel('cancel');
+		JMenuBar::cancel();
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.editcategories', true );
 

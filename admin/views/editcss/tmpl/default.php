@@ -1,4 +1,6 @@
-		<form action="index.php" method="post" name="adminForm">
+<?php defined('_JEXEC') or die('Restricted access'); ?>
+
+<form action="index.php" method="post" name="adminForm">
 		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 			<tr>
 		  		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>  

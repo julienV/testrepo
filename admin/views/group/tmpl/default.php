@@ -1,3 +1,5 @@
+<?php defined('_JEXEC') or die('Restricted access'); ?>
+
 <script language="javascript" type="text/javascript">
 	function submitbutton(task)
 	{
@@ -118,12 +120,17 @@
 	</tr>
 </table>
 
-<p class="copyright">
-	<?php echo ELAdmin::footer( ); ?>
-</p>
-
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="controller" value="groups" />
 <input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
 <input type="hidden" name="task" value="" />
 </form>
+
+<p class="copyright">
+	<?php echo ELAdmin::footer( ); ?>
+</p>
+
+<?php 
+//keep session alive while editing
+JHTML::keepAlive();
+?>

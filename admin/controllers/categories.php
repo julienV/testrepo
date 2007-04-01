@@ -30,8 +30,8 @@ class EventListControllerCategories extends EventListController
 		parent::__construct();
 
 		// Register Extra task
-		$this->registerTask( 'categorynew'  , 	'categoryedit' );
-		$this->registerTask( 'apply', 			'savecategory' );
+		$this->registerTask( 'add'  ,		 	'edit' );
+		$this->registerTask( 'apply', 			'save' );
 		$this->registerTask( 'accesspublic', 	'access' );
 		$this->registerTask( 'accessregistered','access' );
 		$this->registerTask( 'accessspecial', 	'access' );
@@ -44,9 +44,9 @@ class EventListControllerCategories extends EventListController
 	 * @return void
 	 * @since 0.9
 	 */
-	function savecategory()
+	function save()
 	{
-		global $option;
+		global $option, $mainframe;
 		
 		$task		= JRequest::getVar('task');
 
@@ -56,20 +56,27 @@ class EventListControllerCategories extends EventListController
 
 		$model = $this->getModel('category');
 
-		$returnid = $model->store($post);
+		if ($returnid = $model->store($post)) {
 
-		switch ($task)
-		{
-			case 'apply' :
-				$link = 'index.php?option='.$option.'&view=category&hidemainmenu=1&cid[]='.$returnid;
-				break;
+			switch ($task)
+			{
+				case 'apply' :
+					$link = 'index.php?option='.$option.'&view=category&cid[]='.$returnid;
+					break;
 
-			default :
-				$link = 'index.php?option='.$option.'&view=categories';
-				break;
+				default :
+					$link = 'index.php?option='.$option.'&view=categories';
+					break;
+			}
+			$msg = JText::_( 'CATEGORY SAVED' );
+		} else {
+			//TODO: FIX messages from table check
+			//current state can be only a temporary solution
+		//	$msg 	= $this->getError();
+			$msg 	= $mainframe->getMessageQueue();
+			$link 	= 'index.php?option='.$option.'&view=category';
 		}
-
-		$this->setRedirect($link, JText::_( 'CATEGORY SAVED' ) );
+		$this->setRedirect($link, $msg );
 	}
 
 	/**
@@ -184,7 +191,7 @@ class EventListControllerCategories extends EventListController
 	 * @return void
 	 * @since 0.9
 	 */
-	function delete()
+	function remove()
 	{
 		global $option;
 
@@ -256,7 +263,7 @@ class EventListControllerCategories extends EventListController
 	 * @return void
 	 * @since 0.9
 	 */
-	function categoryedit( )
+	function edit( )
 	{		
 		JRequest::setVar( 'view', 'category' );
 		JRequest::setVar( 'hidemainmenu', 1 );

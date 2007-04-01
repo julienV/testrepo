@@ -47,9 +47,9 @@ class EventListViewArchive extends JView {
 
 		//create the toolbar
 		JMenuBar::title( JText::_( 'ARCHIVE' ), 'archive' );
-		JMenuBar::unarchiveList('unarchive');
+		JMenuBar::unarchiveList();
 		JMenuBar::spacer();
-		JMenuBar::deleteList( ' ', 'remove', 'Remove' );
+		JMenuBar::deleteList();
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.archive', true );
 

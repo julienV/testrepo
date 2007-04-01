@@ -32,8 +32,8 @@ class EventListControllerVenues extends EventListController
 		parent::__construct();
 
 		// Register Extra task
-		$this->registerTask( 'newvenue', 	'editvenue' );
-		$this->registerTask( 'apply', 		'savevenue' );
+		$this->registerTask( 'add', 		'edit' );
+		$this->registerTask( 'apply', 		'save' );
 	}
 
 	/**
@@ -170,7 +170,7 @@ class EventListControllerVenues extends EventListController
 	 * @return void
 	 * @since 0.9
 	 */
-	function editvenue( )
+	function edit( )
 	{
 		JRequest::setVar( 'view', 'venue' );
 		JRequest::setVar( 'hidemainmenu', 1 );
@@ -189,9 +189,9 @@ class EventListControllerVenues extends EventListController
 	 * @return void
 	 * @since 0.9
 	 */
-	function savevenue()
+	function save()
 	{
-		global $option;
+		global $option, $mainframe;
 
 		$task		= JRequest::getVar('task');
 
@@ -202,20 +202,28 @@ class EventListControllerVenues extends EventListController
 
 		$model = $this->getModel('venue');
 
-		$returnid = $model->store($post);
+		if ($returnid = $model->store($post)) {
+			
+			switch ($task)
+			{
+				case 'apply':
+					$link = 'index.php?option='.$option.'&view=venue&hidemainmenu=1&cid[]='.$returnid;
+					break;
 
-		switch ($task)
-		{
-			case 'apply':
-				$link = 'index.php?option='.$option.'&view=venue&hidemainmenu=1&cid[]='.$returnid;
-				break;
-
-			default:
-				$link = 'index.php?option='.$option.'&view=venues';
-				break;
+				default:
+					$link = 'index.php?option='.$option.'&view=venues';
+					break;
+			}
+			$msg	= JText::_( 'VENUE SAVED');
+			
+		} else {
+			//TODO: FIX messages from table check
+			//current state can be only a temporary solution
+			$link 	= 'index.php?option='.$option.'&view=venue';
+			$msg	= $mainframe->getMessageQueue();
 		}
-
-		$this->SetRedirect( $link, JText::_( 'VENUE SAVED') );
+		
+		$this->setRedirect( $link, $msg );
 	}
 }
 ?>

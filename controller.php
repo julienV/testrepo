@@ -110,14 +110,13 @@ class EventListController extends JController
 		}
 	}
 
-
 	/**
 	 * Saves the submitted venue to the database
 	 *
 	 * TODO move to model
 	 *
 	 * @since 0.5
-	 */
+	 *
 	function savevenue()
 	{
 		global $mainframe, $option;
@@ -127,7 +126,7 @@ class EventListController extends JController
 		if(!JRequest::getVar( $token, 0, 'post' )) {
 			JError::raiseError(403, 'Request Forbidden');
 		}
-		
+/*		
 		jimport('joomla.utilities.date');
 
 		$db 		= & JFactory::getDBO();
@@ -151,14 +150,11 @@ class EventListController extends JController
 
 		$row =& JTable::getInstance('eventlist_venues', '');
 
-
 		//bind it to the table
 		if (!$row->bind($post)) {
 			JError::raiseError( 500, $db->stderr() );
 			return false;
 		}
-
-		
 
 		//Get view the user come from
 		if ($row->id) {
@@ -262,8 +258,7 @@ class EventListController extends JController
 
 		//cleanup fields
 		$row->venue = strip_tags($row->venue);
-		$row->venue = ampReplace($row->venue);
-
+/*
 		if(empty($row->venue)) {
 			$row->checkin();
 			$mainframe->redirect('index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$returnview, JText::_( 'ERROR ADD VENUE' ) );
@@ -276,7 +271,7 @@ class EventListController extends JController
 			}
 		}
 
-		if (($elsettings->showmap24 == 1) && ($elsettings->showdetailsadress == 1)){
+		if (($elsettings->showmapserv == 1) && ($elsettings->showdetailsadress == 1)){
 			if ((empty($row->street)) || (empty($row->plz)) || (empty($row->city)) || (empty($row->country))) {
 				$row->checkin();
 				$mainframe->redirect('index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$returnview, JText::_( 'ERROR ADD ADDRESS' ) );
@@ -348,8 +343,8 @@ class EventListController extends JController
 
 				// if required shorten it
 				$row->locdescription = JString::substr($row->locdescription, 0, $elsettings->datdesclimit);
-				//if shortened add ...[striped]
-				$row->locdescription = $row->locdescription.'...[striped]';
+				//if shortened add ...
+				$row->locdescription = $row->locdescription.'...';
 			}
 		}
 
@@ -367,15 +362,16 @@ class EventListController extends JController
 
 		/*
 		 * Make sure the data is valid
-		 */
-		if (!$row->check()) {
-			JError::raiseError( 500, $db->stderr() );
+		 *
+		if (!$row->check($elsettings)) {
+			//JError::raiseError( 500, $db->stderr() );
+			$this->setRedirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$returnview, $mainframe->getMessageQueue() );
 			return false;
 		}
 
 		/*
 		 * store it in the db
-		 */
+		 *
 		if (!$row->store()) {
 			JError::raiseError( 500, $db->stderr() );
 			return false;
@@ -383,13 +379,13 @@ class EventListController extends JController
 
 		/*
 		 * Check the venue item in and update item order
-		 */
+		 *
 		$row->checkin();
 		$row->reorder();
-
+*/
 		/*
 		* create mail
-		*/
+		*
 		if (($elsettings->mailinform == 2) || ($elsettings->mailinform == 3)) {
 
 			$db->SetQuery("SELECT username, email FROM #__users"
@@ -437,6 +433,94 @@ class EventListController extends JController
 
 	}
 
+	/**
+	 * Saves the submitted venue to the database
+	 *
+	 * TODO move to model
+	 *
+	 * @since 0.5
+	 */
+	function savevenue()
+	{
+		global $mainframe, $option;
+
+		//check the token before we do anything else
+		$token	= JUtility::getToken();
+		if(!JRequest::getVar( $token, 0, 'post' )) {
+			JError::raiseError(403, 'Request Forbidden');
+		}
+		
+		//Sanitize
+		$post = JRequest::get( 'post' );
+		$post['locdescription'] = JRequest::getVar( 'locdescription', '', 'post', 'string', JREQUEST_ALLOWRAW );
+		
+		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
+		$Itemid 	= JRequest::getVar( 'Itemid', 0, 'post', 'int' );
+		
+		
+		$model = $this->getModel('editvenue');
+		
+		if ($returnid = $model->store($post, $file)) {
+
+			$msg 	= JText::_( 'VENUE SAVED' );
+			$link 	= 'index.php?option='.$option.'&Itemid='.$Itemid.'&view=venueevents&locatid='.$returnid ;
+			
+		} else {
+			
+			//TODO: FIX messages from table check
+			//current state can be only a temporary solution
+			$msg 		= $mainframe->getMessageQueue();
+			$returnview	= JRequest::getVar('returnview', '', '', 'string');
+			$link 		= 'index.php?option='.$option.'&Itemid='.$Itemid.'&view='.$returnview ;
+		}
+
+		//create mail
+		if (($elsettings->mailinform == 2) || ($elsettings->mailinform == 3)) {
+
+			$db->SetQuery("SELECT username, email FROM #__users"
+						. "\nWHERE id = ".$user->get('id')
+						);
+
+			$rowuser = $db->loadObject();
+			If ($row->id) {
+				$mailbody = JText::_( 'GOT EDITING' ).' '.$rowuser->username.' \n';
+				$mailbody .= ' \n';
+				$mailbody .= JText::_( 'USERMAILADDRESS' ).' '.$rowuser->email.' \n';
+				//$mailbody .= JText::_( 'USER IP' ).' '.$row->author_ip.' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).' '.strftime( '%c', $row->modified ).' \n';
+			} else {
+				$mailbody = JText::_( 'GOT SUBMISSION' ).' '.$rowuser->username.' \n';
+				$mailbody .= ' \n';
+				$mailbody .= JText::_( 'USERMAILADDRESS' ).' '.$rowuser->email.' \n';
+				$mailbody .= JText::_( 'USER IP' ).' '.$row->author_ip.' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).' '.strftime( '%c', $row->created ).' \n';
+			}
+			$mailbody .= ' \n';
+			$mailbody .= JText::_( 'VENUE' ).': '.$row->venue.' \n';
+			$mailbody .= JText::_( 'WEBSITE' ).': '.$row->url.' \n';
+			$mailbody .= JText::_( 'STREET' ).': '.$row->street.' \n';
+			$mailbody .= JText::_( 'ZIP' ).': '.$row->plz.' \n';
+			$mailbody .= JText::_( 'CITY' ).': '.$row->city.' \n';
+			$mailbody .= JText::_( 'COUNTRY' ).': '.$row->country.' \n';
+			$mailbody .= ' \n';
+			$mailbody .= JText::_( 'DESCRIPTION' ).': '.$row->locdescription.' \n';
+
+			jimport('joomla.utilities.mail');
+
+			$mail = new JMail();
+
+			$mail->addRecipient( $elsettings->mailinformrec );
+			//$mail->addRecipient( array( $mailinformrec, $mailinformrec2 )  );
+			$mail->setSender( array( $MailFrom, $FromName ) );
+			$mail->setSubject( $SiteName.JText::_( 'NEW VENUE MAIL' ) );
+			$mail->setBody( $mailbody );
+
+			$sent = $mail->Send();
+		}
+
+		$this->setRedirect($link, $msg );
+	}
+	
 	/**
 	 * Cleanes and saves the submitted event to the database
 	 *

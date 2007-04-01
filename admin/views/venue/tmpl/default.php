@@ -1,4 +1,6 @@
-	<script language="javascript" type="text/javascript">
+<?php defined('_JEXEC') or die('Restricted access'); ?>
+
+<script language="javascript" type="text/javascript">
 	function submitbutton(task)
 	{
 		var form = document.adminForm;
@@ -21,21 +23,22 @@
 			submitform( task );
 		}
 	}
-	</script>
+</script>
 		
-		<form action="<?php echo $this->request_url; ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo $this->request_url; ?>" method="post" name="adminForm" id="adminForm">
 		
-		<table class="adminlist">
-			<tr>
-		  		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>  
-		  		<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;"><?php echo $this->row->id ? '::'.JText::_( 'EDIT VENUE' ).'::' : '::'.JText::_( 'Add Venue' ).'::';?></font></td>
-			</tr>
-		</table>
+<table class="adminlist">
+	<tr>
+		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>  
+		<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;"><?php echo $this->row->id ? '::'.JText::_( 'EDIT VENUE' ).'::' : '::'.JText::_( 'Add Venue' ).'::';?></font></td>
+	</tr>
+</table>
 		
-		<table cellspacing="0" cellpadding="0" border="0" width="100%">
-		<tr>
-			<td valign="top">
-		<table  class="adminform">
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+	<tr>
+		<td valign="top">
+		
+	<table  class="adminform">
 		<tr>
 			<td>
 				<label for="venue">
@@ -57,8 +60,8 @@
 				?>
 			</td>
 		</tr>
-		</table>
-				<table class="adminform">
+	</table>
+			<table class="adminform">
 				<tr>
 					<td>
 						<?php
@@ -69,15 +72,15 @@
 				</table>
 			</td>
 			<td valign="top" width="320px" style="padding: 7px 0 0 5px">
-			<?php
-			$title = JText::_( 'ADDRESS' );
-			echo $this->pane->startPane('det-pane');
-			echo $this->pane->startPanel( $title, 'address' );
+		<?php
+		$title = JText::_( 'ADDRESS' );
+		echo $this->pane->startPane('det-pane');
+		echo $this->pane->startPanel( $title, 'address' );
 
 		//Set the info image
 		$infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', '../components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'NOTES' ), JText::_( 'NOTES' ) );
 		?>
-		<table>
+	<table>
 		<tr>
 			<td>
 				<label for="street">
@@ -151,15 +154,13 @@
 			<?php echo JText::_( 'ADDRESS NOTICE' ); ?>
 			</td>
 		</tr>
-		</table>
-		<?php
-			
-			$title = JText::_( 'IMAGE' );
-			echo $this->pane->endPanel();
-			echo $this->pane->startPanel( $title, 'image' );
-
-		?>
-		<table>
+	</table>
+	<?php	
+	$title = JText::_( 'IMAGE' );
+	echo $this->pane->endPanel();
+	echo $this->pane->startPanel( $title, 'image' );
+	?>
+	<table>
 		<tr>
 			<td>
 				<label for="locimage">
@@ -188,14 +189,13 @@
 				<br />
 			</td>
 		</tr>
-		</table>
-		<?php
-
-			$title = JText::_( 'Metadata Information' );
-			echo $this->pane->endPanel();
-			echo $this->pane->startPanel( $title, 'metadata' );
-		?>
-		<table>
+	</table>
+	<?php
+	$title = JText::_( 'Metadata Information' );
+	echo $this->pane->endPanel();
+	echo $this->pane->startPanel( $title, 'metadata' );
+	?>
+	<table>
 		<tr>
 			<td>
 				<label for="metadesc">
@@ -219,25 +219,30 @@
 				<input type="button" class="button" value="<?php echo JText::_( 'ADD VENUE CITY' ); ?>" onclick="f=document.adminForm;f.metakey.value=f.venue.value+', '+f.city.value+f.metakey.value;" />
 			</td>
 		</tr>
-		</table>
+	</table>
 		
 		<?php
-			echo $this->pane->endPanel();
-			echo $this->pane->endPane();
+		echo $this->pane->endPanel();
+		echo $this->pane->endPane();
 		?>
-			</td>
-		</tr>
-		</table>
+		</td>
+	</tr>
+</table>
 		
-	<p class="copyright">
-		<?php echo ELAdmin::footer( ); ?>
-	</p>
-		
-			<input type="hidden" name="option" value="com_eventlist" />
-			<input type="hidden" name="controller" value="venues" />
-			<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
-			<input type="hidden" name="created" value="<?php echo $this->row->created; ?>" />
-			<input type="hidden" name="author_ip" value="<?php echo $this->row->author_ip; ?>" />
-			<input type="hidden" name="created_by" value="<?php echo $this->row->created_by; ?>" />
-			<input type="hidden" name="task" value="" />
-		</form>
+	<input type="hidden" name="option" value="com_eventlist" />
+	<input type="hidden" name="controller" value="venues" />
+	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
+	<input type="hidden" name="created" value="<?php echo $this->row->created; ?>" />
+	<input type="hidden" name="author_ip" value="<?php echo $this->row->author_ip; ?>" />
+	<input type="hidden" name="created_by" value="<?php echo $this->row->created_by; ?>" />
+	<input type="hidden" name="task" value="" />
+</form>
+
+<p class="copyright">
+	<?php echo ELAdmin::footer( ); ?>
+</p>
+
+<?php 
+//keep session alive while editing
+JHTML::keepAlive();
+?>

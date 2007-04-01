@@ -73,7 +73,11 @@ class EventListController extends JController
 
     	$mainframe->redirect('index.php?option='.$option, JText::_( 'SETTINGS SAVE') );
 	}
-
+	
+	/**
+	 * Saves the css
+	 *
+	 */
 	function savecss()
 	{
 		global $mainframe;

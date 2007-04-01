@@ -1,3 +1,5 @@
+<?php defined('_JEXEC') or die('Restricted access'); ?>
+
 <form action="<?php echo $this->request_url; ?>" method="post" name="adminForm">
 
 		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
@@ -64,7 +66,10 @@
 					$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
 					$displaytime = $time.' '.$this->elsettings->timename;
 				}
-				$link 		= 'index.php?option=com_eventlist&controller=events&task=editevent&cid[]='.$row->id;
+				$link 			= 'index.php?option=com_eventlist&controller=events&task=edit&cid[]='.$row->id;
+				$catlink 		= 'index.php?option=com_eventlist&controller=categories&task=edit&cid[]='.$row->catsid;
+				$venuelink 		= 'index.php?option=com_eventlist&controller=venues&task=edit&cid[]='.$row->locid;
+				
 				$checked 	= JCommonHTML::CheckedOutProcessing( $row, $i );
 				$published 	= JCommonHTML::PublishedProcessing( $row, $i );
    			?>
@@ -77,7 +82,7 @@
 						echo $displaydate;
 					} else {
 						?>
-						<a href="<?php echo $link; ?>" title="Edit Event">
+						<a href="<?php echo $link; ?>" title="<?php echo JText::_( 'EDIT EVENT' ); ?>">
 						<?php echo $displaydate; ?>
 						</a>
 						<?php
@@ -86,21 +91,45 @@
 				</td>
 				<td><?php echo $displaytime; ?></td>
 				<td><?php echo htmlspecialchars($row->title, ENT_QUOTES) ? htmlspecialchars($row->title, ENT_QUOTES) : '-'; ?></td>
-				<td><?php echo htmlspecialchars($row->venue, ENT_QUOTES) ? htmlspecialchars($row->venue, ENT_QUOTES) : '-'; ?></td>
+				<td>
+					<?php
+					if ($row->venue) { 
+					?>
+						<a href="<?php echo $venuelink; ?>" title="<?php echo JText::_( 'EDIT VENUE' ); ?>">
+							<?php echo htmlspecialchars($row->venue, ENT_QUOTES); ?>
+						</a>
+					<?php
+					} else {
+						echo '-';	
+					}
+					?>
+				</td>
 				<td><?php echo htmlspecialchars($row->city, ENT_QUOTES) ? htmlspecialchars($row->city, ENT_QUOTES) : '-'; ?></td>
-				<td><?php echo htmlspecialchars($row->catname, ENT_QUOTES) ? htmlspecialchars($row->catname, ENT_QUOTES) : '-'; ?></td>
+				<td>
+					<?php
+					if ($row->catname) { 
+					?>
+						<a href="<?php echo $catlink; ?>" title="<?php echo JText::_( 'EDIT CATEGORY' ); ?>">
+							<?php echo htmlspecialchars($row->catname, ENT_QUOTES); ?>
+						</a>
+					<?php
+					} else {
+						echo '-';	
+					}
+					?>
+				</td>
 				<td align="center"><?php echo $published; ?></td>
 				<td>
 					<?php echo JText::_( 'AUTHOR' ).': '; ?><a href="<?php echo 'index.php?option=com_users&task=edit&hidemainmenu=1&cid[]='.$row->created_by; ?>"><?php echo $row->author; ?></a><br />
 					<?php echo JText::_( 'EMAIL' ).': '; ?><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a><br />
 					<?php
-					$delivertime = JHTML::Date( $row->created, DATE_FORMAT_LC2 );
-					$edittime = JHTML::Date( $row->modified, DATE_FORMAT_LC2 );
-					$image 		= JAdminMenus::ImageCheck( 'icon-16-info.png', '/templates/'. $this->template .'/images/menu/', NULL, NULL, 'info' );
-					$overlib 	= JText::_( 'CREATED AT' ).': '.$delivertime.'<br />';
-					$overlib	.= JText::_( 'WITH IP' ).': '.$row->author_ip.'<br />';
+					$created	 	= JHTML::Date( $row->created, DATE_FORMAT_LC2 );
+					$edited 		= JHTML::Date( $row->modified, DATE_FORMAT_LC2 );
+					$image 			= JAdminMenus::ImageCheck( 'icon-16-info.png', '/templates/'. $this->template .'/images/menu/', NULL, NULL, 'info' );
+					$overlib 		= JText::_( 'CREATED AT' ).': '.$created.'<br />';
+					$overlib		.= JText::_( 'WITH IP' ).': '.$row->author_ip.'<br />';
 					if ($row->modified != '0000-00-00 00:00:00') {
-						$overlib 	.= JText::_( 'EDITED AT' ).': '.$edittime.'<br />';
+						$overlib 	.= JText::_( 'EDITED AT' ).': '.$edited.'<br />';
 						$overlib 	.= JText::_( 'EDITED FROM' ).': '.$row->editor.'<br />';
 					}
 					?>

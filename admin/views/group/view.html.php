@@ -45,6 +45,10 @@ class EventListViewGroup extends JView {
 		$row      	= & $this->get( 'Data');
 		$maintainers = & $this->get( 'Members');
 		$available_users = & $this->get( 'Available');
+		
+		//make data safe
+		jimport('joomla.filter.output');
+		JOutputFilter::objectHTMLSafe( $row );
 
 		//build toolbar
 		if ( $cid ) {
@@ -59,9 +63,9 @@ class EventListViewGroup extends JView {
 			$document->setBuffer($submenu, 'module', 'submenu');
 
 		}
-		JMenuBar::save('savegroup');
+		JMenuBar::save();
 		JMenuBar::spacer();
-		JMenuBar::cancel('cancel');
+		JMenuBar::cancel();
 		JMenuBar::spacer();
 		JMenuBar::help( 'el.editgroup', true );
 

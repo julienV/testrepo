@@ -1,3 +1,5 @@
+<?php defined('_JEXEC') or die('Restricted access'); ?>
+
 <form action="index.php?option=com_eventlist&amp;view=categoryelement&amp;tmpl=component" method="post" name="adminForm">
 
 <table class="adminform">
