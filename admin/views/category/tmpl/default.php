@@ -10,7 +10,7 @@ function submitbutton(pressbutton) {
 
 	// do field validation
 	if (form.catname.value == ""){
-		//alert( "<?php echo JText::_( 'ADD NAME CATEGORY' ); ?>" );
+		alert( "<?php echo JText::_( 'ADD NAME CATEGORY' ); ?>" );
 	} else {
 		<?php echo $this->editor->save( 'catdescription' ); ?>
 		submitform( pressbutton );
