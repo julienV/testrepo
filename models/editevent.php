@@ -339,5 +339,285 @@ class EventListModelEditevent extends JModel
 
   		return $this->_db->loadResult();
 	}
+	
+	/**
+	 * Method to store the event
+	 *
+	 * @access	public
+	 * @return	id
+	 * @since	0.9
+	 */
+	function store($data, $file)
+	{
+		global $mainframe, $option;
+		
+		jimport('joomla.utilities.date');
+
+		$user 		= & JFactory::getUser();
+		$acl		= & JFactory::getACL();
+		$elsettings = ELHelper::config();
+
+		//Get mailinformation
+		$SiteName 		= $mainframe->getCfg('sitename');
+		$MailFrom	 	= $mainframe->getCfg('mailfrom');
+		$FromName 		= $mainframe->getCfg('fromname');
+		
+		$sizelimit 		= $elsettings->sizelimit*1024; //size limit in kb
+		$base_Dir 		= JPATH_SITE.'/images/eventlist/events/';
+		
+		$row =& JTable::getInstance('eventlist_events', '');
+		
+		//Sanitize
+		$data['datdescription'] = JRequest::getVar( 'datdescription', '', 'post','string', JREQUEST_ALLOWRAW );
+
+		//include the metatags
+		$data['meta_description'] = addslashes(htmlspecialchars(trim($elsettings->meta_description)));
+		if (strlen($data['meta_description']) > 255) {
+			$data['meta_description'] = substr($data['meta_description'],0,254);
+		}
+		$data['meta_keywords'] = addslashes(htmlspecialchars(trim($elsettings->meta_keywords)));
+		if (strlen($data['meta_keywords']) > 200) {
+			$data['meta_keywords'] = substr($data['meta_keywords'],0,199);
+		}
+
+		/*
+		* bind it to the table
+		*/
+		if (!$row->bind($data)) {
+			JError::raiseError( 500, $this->_db->stderr() );
+			return false;
+		}
+
+		$datenow = new JDate();
+		
+		//Are we saving from an item edit?
+		if ($row->id) {
+
+			//check if user is allowed to edit events
+			$owner = ELUser::isOwner($row->id, 'events');
+			$editaccess	= & ELUser::editaccess($elsettings->eventowner, $owner, $elsettings->eventeditrec, $elsettings->eventedit);
+			$maintainer = ELUser::ismaintainer();
+
+			if ($maintainer || $editaccess ) $allowedtoeditevent = 1;
+
+			if ($allowedtoeditevent == 0) {
+				JError::raiseError( 403, JText::_( 'NO ACCESS' ) );
+			}
+
+			$row->modified 		= $datenow->toFormat();
+			$row->modified_by 	= $user->get('id');
+
+			/*
+			* Is editor the owner of the event
+			* This extra Check is needed to make it possible
+			* that the venue is published after an edit from an owner
+			*/
+			if ($elsettings->venueowner == 1 && $owner == $user->get('id')) {
+				$owneredit = 1;
+			} else {
+				$owneredit = 0;
+			}
+
+		} else {
+
+			//check if user is allowed to submit new events
+			$maintainer = ELUser::ismaintainer();
+			$genaccess 	= ELUser::validate_user( $elsettings->evdelrec, $elsettings->delivereventsyes );
+
+			if ($maintainer || $genaccess ) $dellink = 1;
+
+			if ($dellink == 0){
+				JError::raiseError( 403, JText::_( 'NO ACCESS' ) );
+			}
+
+			//get IP, time and userid
+			$row->author_ip 	= getenv('REMOTE_ADDR');
+			$row->created 		= $datenow->toFormat();
+			$row->created_by 	= $user->get('id');
+
+			//Set owneredit to false
+			$owneredit = 0;
+		}
+
+		/*
+		* Autopublish
+		* check if the user has the required rank for autopublish
+		*/
+		$autopubev = ELUser::validate_user( $elsettings->evpubrec, $elsettings->autopubl );
+		if ($autopubev || $owneredit) {
+				$row->published = 1 ;
+			} else {
+				$row->published = 0 ;
+		}
+		
+		//Image upload
+		if ( ( $elsettings->imageenabled == 2 || $elsettings->imageenabled == 1 ) && ( !empty($file['name'])  ) )  {
+			
+			$imagesize 	= $file['size'];
+
+			if ($imagesize > $sizelimit) {
+				$this->setError( JText::_( 'IMAGE FILE SIZE' ) );
+				return false;
+			}
+
+			if (file_exists($base_Dir.$file['name'])) {
+				$this->setError( JText::_( 'IMAGE EXISTS' ) );
+				return false;
+			}
+
+			jimport('joomla.filesystem.file');
+			$format 	= JFile::getExt($file['name']);
+			$allowable 	= array ('bmp', 'gif', 'jpg', 'png');
+
+			if (in_array($format, $allowable)) {
+				$noMatch = true;
+			} else {
+				$noMatch = false;
+			}
+
+			if (!$noMatch) {
+				$this->setError( JText::_( 'WRONG IMAGE FILE TYPE' ) );
+				return false;
+			}
+
+			if (!JFile::upload($file['tmp_name'], $base_Dir.strtolower($file['name']))) {
+				$this->setError( JText::_( 'UPLOAD FAILED' ) );
+				return false;
+			} else {
+				$row->datimage = strtolower($file['name']);
+			}
+		} else {
+			//keep image if edited and left blank
+			$row->datimage = $row->curimage;
+		}//end image if
+
+		$editoruser = & ELUser::editoruser();
+		if (!$editoruser) {
+			//check datdescription --> wipe out code
+			$row->datdescription = strip_tags($row->datdescription);
+
+			// cut too long words
+			$row->datdescription = wordwrap($row->datdescription, 75, ' ', 1);
+
+			//check length
+			$beschnitten = JString::strlen($row->datdescription);
+			if ($beschnitten > $elsettings->datdesclimit) {
+				//too long then shorten datdescription
+				$row->datdescription = JString::substr($row->datdescription, 0, $elsettings->datdesclimit);
+				//add ...
+				$row->datdescription = $row->datdescription.'...';
+			}
+		}
+
+		/*
+		* set registration regarding the el settings
+		*/
+		switch ($elsettings->showfroregistra) {
+			case 0:
+				$row->registra = 0;
+			break;
+
+			case 1:
+				$row->registra = 1;
+			break;
+
+			case 2:
+				$row->registra =  $row->registra ;
+			break;
+		}
+
+		switch ($elsettings->showfrounregistra) {
+			case 0:
+				$row->unregistra = 0;
+			break;
+
+			case 1:
+				$row->unregistra = 1;
+			break;
+
+			case 2:
+				if ($elsettings->showfroregistra >= 1) {
+					$row->unregistra = $row->unregistra;
+				} else {
+					$row->unregistra = 0;
+				}
+			break;
+		}
+
+
+		/*
+		 * Make sure the table is valid
+		 */
+		if (!$row->check($elsettings)) {
+			$this->setError($row->getError());
+			return false;
+		}
+
+		/*
+		 * store it in the db
+		 */
+		if (!$row->store(true)) {
+			JError::raiseError( 500, $this->_db->stderr() );
+			return false;
+		}
+
+		/*
+		 * Check the event item in
+		 */
+		$row->checkin();
+
+		/*
+		* create mail
+		*/
+		if (($elsettings->mailinform == 1) || ($elsettings->mailinform == 3)) {
+			
+			$this->_db->setQuery("SELECT * FROM #__eventlist_venues"
+						. "\nWHERE id = ".(int)$row->locid
+						);
+
+			$rowloc = $this->_db->loadObject();
+
+			$this->_db->SetQuery("SELECT username, email FROM #__users"
+						. "\nWHERE id = ".$user->get('id')
+						);
+
+			$rowuser = $this->_db->loadObject( );
+
+			if ($elsettings->id) {
+				$mailbody = JText::_( 'GOT EDITING' ).': '.$rowuser->username.' \n';
+				$mailbody .= ' \n';
+				$mailbody .= JText::_( 'USERMAILADDRESS' ).': '.$rowuser->email.' \n';
+				//$mailbody .= JText::_( 'USER IP' ).': '.$row->author_ip.' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.strftime( '%c', $row->modified ).' \n';
+			} else {
+				$mailbody = JText::_( 'GOT SUBMISSION' ).': '.$rowuser->username.' \n';
+				$mailbody .= ' \n';
+				$mailbody .= JText::_( 'USERMAILADDRESS' ).': '.$rowuser->email.' \n';
+				$mailbody .= JText::_( 'USER IP' ).': '.$row->author_ip.' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.strftime( '%c', $row->created ).' \n';
+			}
+			$mailbody .= ' \n';
+			$mailbody .= JText::_( 'TITLE' ).': '.$row->title.' \n';
+			$mailbody .= JText::_( 'DATE' ).': '.$row->dates.' \n';
+			$mailbody .= JText::_( 'TIME' ).': '.$row->times.' \n';
+			$mailbody .= JText::_( 'VENUE' ).': '.$rowloc->venue.' / '.$rowloc->city.' \n';
+			$mailbody .= JText::_( 'DESCRIPTION' ).': '.$row->datdescription.' \n';
+
+			jimport('joomla.utilities.mail');
+
+			$mail = new JMail();
+
+			//$mail->addRecipient( $elsettings->mailinformrec );
+			$mail->addRecipient( array( $elsettings->mailinformrec, $elsettings->mailinformrec2 )  );
+			$mail->setSender( array( $MailFrom, $FromName ) );
+			$mail->setSubject( $SiteName.JText::_( 'NEW EVENT MAIL' ) );
+			$mail->setBody( $mailbody );
+
+			$sent = $mail->Send();
+
+		}//mail end
+		
+		return $row->id;
+	}
 }
 ?>

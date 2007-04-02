@@ -69,5 +69,66 @@ class eventlist_events extends JTable
 	function eventlist_events(& $db) {
 		parent::__construct('#__eventlist_events', 'id', $db);
 	}
+	
+	// overloaded check function
+	function check($elsettings)
+	{
+		// Check fields
+		if (empty($this->enddates)) {
+			$this->enddates = NULL;
+		}
+		
+		if (empty($this->times)) {
+			$this->times = NULL;
+		}
+		
+		if (empty($this->endtimes)) {
+			$this->endtimes = NULL;
+		}
+		
+		if (isset($this->dates)) {
+			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $this->dates)) {
+	 	     	$this->_error = JText::_( 'DATE WRONG' );
+			}
+		}
+		
+		if ($row->enddates != 0) {
+			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $row->enddates)) {
+				$this->_error = JText::_( 'ENDDATE WRONG FORMAT') ;
+			}
+		}
+
+		if (($elsettings->showtime == 1) || (!empty($this->times))) {
+			if (isset($this->times)) {
+   				if (!preg_match("/^[0-2][0-9]:[0-5][0-9]$/", $this->times)) {
+      				$this->_error = JText::_( 'TIME WRONG' );
+	  			}
+			}
+		}
+
+		if ($this->endtimes != 0) {
+   			if (!preg_match("/^[0-2][0-9]:[0-5][0-9]$/", $this->endtimes)) {
+      			$this->_error = JText::_( 'TIME WRONG' );
+	  		}
+		}
+
+		$this->title = strip_tags($this->title);
+		$titlelength = JString::strlen($this->title);
+
+		if ($titlelength > 60 || $this->title =='') {
+      		$this->_error = JText::_( 'ERROR TITLE LONG' );
+		}
+		
+		//No venue or category choosen?
+		if($this->locid == '') {
+			$this->_error = JText::_( 'VENUE EMPTY');
+		}
+
+		if($this->catsid == 0) {
+			$this->_error = JText::_( 'CATEGORY EMPTY');
+		}
+		
+		return true;
+	}
 }
 ?>

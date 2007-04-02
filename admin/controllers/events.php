@@ -200,21 +200,28 @@ class EventListControllerEvents extends EventListController
 		$post['datdescription'] = JRequest::getVar( 'datdescription', '', 'post','string', JREQUEST_ALLOWRAW );
 
 		$model = $this->getModel('event');
-
-		$returnid = $model->store($post);
-
-		switch ($task)
-		{
-			case 'apply' :
-				$link = 'index.php?option='.$option.'&controller=events&view=event&hidemainmenu=1&cid[]='.$returnid;
-				break;
+		
+		if ($returnid = $model->store($post)) {
+			
+			switch ($task)
+			{
+				case 'apply' :
+					$link = 'index.php?option='.$option.'&controller=events&view=event&hidemainmenu=1&cid[]='.$returnid;
+					break;
 				
-			default :
-				$link = 'index.php?option='.$option.'&view=events';
-				break;
+				default :
+					$link = 'index.php?option='.$option.'&view=events';
+					break;
+			}
+			$msg	= JText::_( 'EVENT SAVED');
+			
+		} else {
+			
+			$link = 'index.php?option='.$option.'&view=events';
+			$msg 	= $model->getError();
 		}
 
-		$this->setRedirect( $link, JText::_( 'EVENT SAVED') );
+		$this->setRedirect( $link, $msg );
  	}
 
 	/**

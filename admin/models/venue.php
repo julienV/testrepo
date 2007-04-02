@@ -232,26 +232,7 @@ class EventListModelVenue extends JModel
 			JError::raiseError(500, $this->_db->getErrorMsg() );
 			return false;
 		}
-/*
-		// Fields empty?
-		if(empty($row->venue)) {
-			$row->checkin();
-	        $mainframe->redirect('index.php?option='.$option.'&view=venues', JText::_( 'ADD VENUE') );
-		}
 
-		if ( $elsettings->showcity == 1 ) {
-			if(empty($row->city)) {
-				$row->checkin();
-        		$mainframe->redirect('index.php?option='.$option.'&view=venues', JText::_( 'ADD CITY') );
-			}
-		}
-		if (($elsettings->showmapserv == 1 ) && ($elsettings->showdetailsadress == 1 )){
-			if ((empty($row->street)) || (empty($row->plz)) || (empty($row->city)) || (empty($row->country))) {
-				$row->checkin();
-				$mainframe->redirect('index.php?option='.$option.'&view=venues', JText::_( 'ADD ADDRESS') );
-			}
-		}
-*/
 		// Check if image was selected
 		jimport('joomla.filesystem.file');
 		$format 	= JFile::getExt('JPATH_SITE/images/eventlist/venues/'.$row->locimage);

@@ -174,8 +174,8 @@ class EventListModelEditvenue extends JModel
 	 * Method to store the venue
 	 *
 	 * @access	public
-	 * @return	boolean	True on success
-	 * @since	1.5
+	 * @return	id
+	 * @since	0.9
 	 */
 	function store($data, $file)
 	{
@@ -256,17 +256,17 @@ class EventListModelEditvenue extends JModel
 			$imagesize 	= $file['size'];
 
 			if (empty($file['name'])) {
-				$mainframe->enqueueMessage( JText::_( 'IMAGE EMPTY' ) );
+				$this->setError( JText::_( 'IMAGE EMPTY' ) );
 				return false;
 			}
 
 			if ($imagesize > $sizelimit) {
-				$mainframe->enqueueMessage( JText::_( 'IMAGE FILE SIZE' ) );
+				$this->setError( JText::_( 'IMAGE FILE SIZE' ) );
 				return false;
 			}
 
 			if (file_exists($base_Dir.$file['name'])) {
-				$mainframe->enqueueMessage( JText::_( 'IMAGE EXISTS' ) );
+				$this->setError( JText::_( 'IMAGE EXISTS' ) );
 				return false;
 			}
 
@@ -281,12 +281,12 @@ class EventListModelEditvenue extends JModel
 			}
 
 			if (!$noMatch) {
-				$mainframe->enqueueMessage( JText::_( 'WRONG IMAGE FILE TYPE' ) );
+				$this->setError( JText::_( 'WRONG IMAGE FILE TYPE' ) );
 				return false;
 			}
 
 			if (!JFile::upload($file['tmp_name'], $base_Dir.strtolower($file['name']))) {
-				$mainframe->enqueueMessage( JText::_( 'UPLOAD FAILED' ) );
+				$this->setError( JText::_( 'UPLOAD FAILED' ) );
 				return false;
 			} else {
 				$row->locimage = strtolower($file['name']);
@@ -343,6 +343,51 @@ class EventListModelEditvenue extends JModel
 		//Check the venue item in and update item order
 		$row->checkin();
 		$row->reorder();
+		
+		//create mail
+		if (($elsettings->mailinform == 2) || ($elsettings->mailinform == 3)) {
+
+			$this->_db->setQuery("SELECT username, email FROM #__users"
+						. "\nWHERE id = ".$user->get('id')
+						);
+
+			$rowuser = $this->_db->loadObject();
+			
+			If ($row->id) {
+				$mailbody = JText::_( 'GOT EDITING' ).' '.$rowuser->username.' \n';
+				$mailbody .= ' \n';
+				$mailbody .= JText::_( 'USERMAILADDRESS' ).' '.$rowuser->email.' \n';
+				//$mailbody .= JText::_( 'USER IP' ).' '.$row->author_ip.' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).' '.strftime( '%c', $row->modified ).' \n';
+			} else {
+				$mailbody = JText::_( 'GOT SUBMISSION' ).' '.$rowuser->username.' \n';
+				$mailbody .= ' \n';
+				$mailbody .= JText::_( 'USERMAILADDRESS' ).' '.$rowuser->email.' \n';
+				$mailbody .= JText::_( 'USER IP' ).' '.$row->author_ip.' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).' '.strftime( '%c', $row->created ).' \n';
+			}
+			$mailbody .= ' \n';
+			$mailbody .= JText::_( 'VENUE' ).': '.$row->venue.' \n';
+			$mailbody .= JText::_( 'WEBSITE' ).': '.$row->url.' \n';
+			$mailbody .= JText::_( 'STREET' ).': '.$row->street.' \n';
+			$mailbody .= JText::_( 'ZIP' ).': '.$row->plz.' \n';
+			$mailbody .= JText::_( 'CITY' ).': '.$row->city.' \n';
+			$mailbody .= JText::_( 'COUNTRY' ).': '.$row->country.' \n';
+			$mailbody .= ' \n';
+			$mailbody .= JText::_( 'DESCRIPTION' ).': '.$row->locdescription.' \n';
+
+			jimport('joomla.utilities.mail');
+
+			$mail = new JMail();
+
+			//$mail->addRecipient( $elsettings->mailinformrec );
+			$mail->addRecipient( array( $elsettings->mailinformrec, $elsettings->mailinformrec2 )  );
+			$mail->setSender( array( $MailFrom, $FromName ) );
+			$mail->setSubject( $SiteName.JText::_( 'NEW VENUE MAIL' ) );
+			$mail->setBody( $mailbody );
+
+			$sent = $mail->Send();
+		}
 		
 		return $row->id;
 	}

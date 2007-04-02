@@ -258,24 +258,6 @@ class EventListModelEvent extends JModel
 		if (!$row->bind($data)) {
 			$this->setError($this->_db->getErrorMsg());
 			return false;
-		}	
-		
-		if (empty($row->enddates)) {
-			$row->enddates = NULL;
-		}
-		
-		if (isset($row->dates)) {
-			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $row->dates)) {
-				$row->checkin();
-				$mainframe->redirect( 'index.php?option='.$option.'&view=events', JText::_( 'DATE WRONG FORMAT') );
-			}
-		}
-
-		if ($row->enddates != 0) {
-			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $row->enddates)) {
-				$row->checkin();
-				$mainframe->redirect( 'index.php?option='.$option.'&view=events', JText::_( 'ENDDATE WRONG FORMAT') );
-			}
 		}
 
 		// Check/sanitize the metatags
@@ -287,50 +269,6 @@ class EventListModelEvent extends JModel
 		$row->meta_keywords = htmlspecialchars(trim(addslashes($row->meta_keywords)));
 		if (JString::strlen($row->meta_keywords) > 200) {
 			$row->meta_keywords = JString::substr($row->meta_keywords, 0, 199);
-		}
-
-		//Check time format
-		if (empty($row->times)) {
-			$row->times = NULL;
-		}
-		
-		if (empty($row->endtimes)) {
-			$row->endtimes = NULL;
-		}
-		
-		
-		if ( $elsettings->showtime == 1 ) {
-			if (isset($row->times)) {
-   				if (!preg_match("/^[0-2][0-9]:[0-5][0-9]$/", $row->times)) {
-     		 		$row->checkin();
-   					$mainframe->redirect( 'index.php?option='.$option.'&view=events', JText::_( 'TIME WRONG FORMAT') );
-			  	}
-			}
-			if ($row->endtimes != 0) {
-   				if (!preg_match("/^[0-2][0-9]:[0-5][0-9]$/", $row->endtimes)) {
-     		 		$row->checkin();
-   					$mainframe->redirect( 'index.php?option='.$option.'&view=events', JText::_( 'TIME WRONG FORMAT') );
-	 		 	}
-			}
-		}
-		
-		$row->title = strip_tags($row->title);
-		$titlelength = JString::strlen($row->title);
-
-		if ($titlelength > 60 || $row->title =='') {
-			$row->checkin();
-      		$mainframe->redirect('index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$returnview, JText::_( 'ERROR TITLE LONG' ) );
-		}
-
-		//No venue or category choosen?
-		if($row->locid == '') {
-  	      	$row->checkin();
-			$mainframe->redirect( 'index.php?option='.$option.'&view=venue', JText::_( 'VENUE EMPTY') );
-		}
-
-		if($row->catsid == 0) {
- 	       	$row->checkin();
-			$mainframe->redirect( 'index.php?option='.$option.'&view=categories', JText::_( 'CATEGORY EMPTY') );
 		}
 
 		/*
@@ -364,6 +302,12 @@ class EventListModelEvent extends JModel
 		$row->created_by	= $row->created_by ? $row->created_by : $user->get('id');
 		$row->author_ip 	= $row->author_ip ? $row->author_ip : getenv('REMOTE_ADDR');
 		$row->created	 	= $row->created ? $row->created : $datenow->toFormat();
+		
+		// Make sure the data is valid
+		if (!$row->check($elsettings)) {
+			$this->setError($row->getError());
+			return false;
+		}
 		
 		// Store the table to the database
 		if (!$row->store(true)) {

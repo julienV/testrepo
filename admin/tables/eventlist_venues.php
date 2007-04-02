@@ -70,9 +70,7 @@ class eventlist_venues extends JTable
 	
 	// overloaded check function
 	function check($elsettings)
-	{
-		global $mainframe;
-		
+	{		
 		// not typed in a venue name
 		if(!trim($this->venue)) {
 	      	$this->_error = JText::_( 'ADD VENUE');
