@@ -217,10 +217,9 @@ class EventListControllerVenues extends EventListController
 			$msg	= JText::_( 'VENUE SAVED');
 			
 		} else {
-			//TODO: FIX messages from table check
-			//current state can be only a temporary solution
+			
 			$link 	= 'index.php?option='.$option.'&view=venue';
-			$msg	= $mainframe->getMessageQueue();
+			$msg 	= $model->getError();
 		}
 		
 		$this->setRedirect( $link, $msg );

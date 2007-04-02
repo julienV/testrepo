@@ -467,9 +467,7 @@ class EventListController extends JController
 			
 		} else {
 			
-			//TODO: FIX messages from table check
-			//current state can be only a temporary solution
-			$msg 		= $mainframe->getMessageQueue();
+			$msg 		= $model->getError();
 			$returnview	= JRequest::getVar('returnview', '', '', 'string');
 			$link 		= 'index.php?option='.$option.'&Itemid='.$Itemid.'&view='.$returnview ;
 		}

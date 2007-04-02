@@ -75,20 +75,20 @@ class eventlist_venues extends JTable
 		
 		// not typed in a venue name
 		if(!trim($this->venue)) {
-	       $mainframe->enqueueMessage( JText::_( 'ADD VENUE') );
-	       return false;
+	      	$this->_error = JText::_( 'ADD VENUE');
+	       	return false;
 		}
 
 		if ( $elsettings->showcity == 1 ) {
 			if(!trim($this->city)) {
-        		$mainframe->enqueueMessage( JText::_( 'ADD CITY') );
+        		$this->_error = JText::_( 'ADD CITY');
         		return false;
 			}
 		}
 		
 		if (($elsettings->showmapserv == 1 ) && ($elsettings->showdetailsadress == 1 )){
 			if ((!trim($this->street)) || (!trim($this->plz)) || (!trim($this->city)) || (!trim($this->country))) {
-				$mainframe->enqueueMessage( JText::_( 'ADD ADDRESS') );
+				$this->_error = JText::_( 'ADD ADDRESS');
 				return false;
 			}
 		}
@@ -98,12 +98,12 @@ class eventlist_venues extends JTable
 			$urllength = strlen($this->url);
 
 			if ($urllength > 150) {
-      			$mainframe->enqueueMessage( JText::_( 'ERROR URL LONG' ) );
+      			$this->_error = JText::_( 'ERROR URL LONG' );
       			return false;
 			}
 			if (!preg_match( '/^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}'
        		.'((:[0-9]{1,5})?\/.*)?$/i' , $this->url)) {
-				$mainframe->enqueueMessage( JText::_( 'ERROR URL WRONG FORMAT' ) );
+				$this->_error = JText::_( 'ERROR URL WRONG FORMAT' );
 				return false;
 			}
 		}
@@ -111,35 +111,35 @@ class eventlist_venues extends JTable
 		$this->street = strip_tags($this->street);
 		$streetlength = JString::strlen($this->street);
 		if ($streetlength > 50) {
-     	 	$mainframe->enqueueMessage( JText::_( 'ERROR STREET LONG' ) );
+     	 	$this->_error = JText::_( 'ERROR STREET LONG' );
      	 	return false;
 		}
 
 		$this->plz = strip_tags($this->plz);
 		$plzlength = JString::strlen($this->plz);
 		if ($plzlength > 10) {
-      		$mainframe->enqueueMessage( JText::_( 'ERROR ZIP LONG' ) );
+      		$this->_error = JText::_( 'ERROR ZIP LONG' );
       		return false;
 		}
 
 		$this->city = strip_tags($this->city);
 		$citylength = JString::strlen($this->city);
 		if ($citylength > 50) {
-    	  	$mainframe->enqueueMessage( JText::_( 'ERROR CITY LONG' ) );
+    	  	$this->_error = JText::_( 'ERROR CITY LONG' );
     	  	return false;
 		}
 
 		$this->state = strip_tags($this->state);
 		$statelength = JString::strlen($this->state);
 		if ($statelength > 50) {
-    	  	$mainframe->enqueueMessage( JText::_( 'ERROR STATE LONG' ) );
+    	  	$this->_error = JText::_( 'ERROR STATE LONG' );
     	  	return false;
 		}
 
 		$this->country = strip_tags($this->country);
 		$countrylength = JString::strlen($this->country);
 		if ($countrylength > 3) {
-     	 	$mainframe->enqueueMessage( JText::_( 'ERROR COUNTRY LONG' ) );
+     	 	$this->_error = JText::_( 'ERROR COUNTRY LONG' );
      	 	return false;
 		}
 		

@@ -69,11 +69,10 @@ class EventListControllerCategories extends EventListController
 					break;
 			}
 			$msg = JText::_( 'CATEGORY SAVED' );
+			
 		} else {
-			//TODO: FIX messages from table check
-			//current state can be only a temporary solution
+
 			$msg 	= $model->getError();
-		//	$msg 	= $mainframe->getMessageQueue();
 			$link 	= 'index.php?option='.$option.'&view=category';
 		}
 		$this->setRedirect($link, $msg );

@@ -244,19 +244,19 @@ class EventListModelCategory extends JModel
 
 		// bind it to the table
 		if (!$row->bind($data)) {
-			$this->setError($this->_db->getErrorMsg());
+			JError::raiseError(500, $this->_db->getErrorMsg() );
 			return false;
 		}
 		
 		// Make sure the data is valid
 		if (!$row->check()) {
-			$this->setError($this->_db->getErrorMsg());
+			$this->setError($row->getError());
 			return false;
 		}
 
 		// Store it in the db
 		if (!$row->store()) {
-			$this->setError($this->_db->getErrorMsg());
+			JError::raiseError(500, $this->_db->getErrorMsg() );
 			return false;
 		}
 

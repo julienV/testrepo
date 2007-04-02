@@ -330,8 +330,7 @@ class EventListModelEditvenue extends JModel
 
 		//Make sure the data is valid
 		if (!$row->check($elsettings)) {
-			//JError::raiseError( 500, $this->_db->stderr() );
-			$this->setError($this->_db->getErrorMsg());
+			$this->setError($row->getError());
 			return false;
 		}
 
