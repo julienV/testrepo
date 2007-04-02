@@ -507,8 +507,8 @@ class EventListController extends JController
 
 			$mail = new JMail();
 
-			$mail->addRecipient( $elsettings->mailinformrec );
-			//$mail->addRecipient( array( $mailinformrec, $mailinformrec2 )  );
+			//$mail->addRecipient( $elsettings->mailinformrec );
+			$mail->addRecipient( array( $elsettings->mailinformrec, $elsettings->mailinformrec2 )  );
 			$mail->setSender( array( $MailFrom, $FromName ) );
 			$mail->setSubject( $SiteName.JText::_( 'NEW VENUE MAIL' ) );
 			$mail->setBody( $mailbody );
@@ -851,8 +851,8 @@ class EventListController extends JController
 
 			$mail = new JMail();
 
-			$mail->addRecipient( $elsettings->mailinformrec );
-			//$mail->addRecipient( array( $mailinformrec, $mailinformrec2 )  );
+			//$mail->addRecipient( $elsettings->mailinformrec );
+			$mail->addRecipient( array( $elsettings->mailinformrec, $elsettings->mailinformrec2 )  );
 			$mail->setSender( array( $MailFrom, $FromName ) );
 			$mail->setSubject( $SiteName.JText::_( 'NEW EVENT MAIL' ) );
 			$mail->setBody( $mailbody );
