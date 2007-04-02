@@ -260,9 +260,8 @@ class EventListModelCategory extends JModel
 			return false;
 		}
 
-		$row->checkin();
 		$row->reorder();
-
+		
 		return $row->id;
 	}
 

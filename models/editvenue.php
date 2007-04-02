@@ -171,6 +171,26 @@ class EventListModelEditvenue extends JModel
 	}
 	
 	/**
+	 * Method to checkin/unlock the item
+	 *
+	 * @access	public
+	 * @return	boolean	True on success
+	 * @since	0.9
+	 */
+	function checkin()
+	{
+		if ($this->_id)
+		{
+			$item = & $this->getTable('eventlist_venues', '');
+			if(! $item->checkin($this->_id)) {
+				$this->setError($this->_db->getErrorMsg());
+				return false;
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * Method to store the venue
 	 *
 	 * @access	public
@@ -340,8 +360,7 @@ class EventListModelEditvenue extends JModel
 			return false;
 		}
 
-		//Check the venue item in and update item order
-		$row->checkin();
+		//update item order
 		$row->reorder();
 		
 		//create mail

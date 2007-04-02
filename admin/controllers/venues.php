@@ -222,6 +222,8 @@ class EventListControllerVenues extends EventListController
 			$msg 	= $model->getError();
 		}
 		
+		$model->checkin();
+		
 		$this->setRedirect( $link, $msg );
 	}
 }

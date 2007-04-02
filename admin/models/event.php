@@ -315,8 +315,6 @@ class EventListModelEvent extends JModel
 			return false;
 		}
 
-		$row->checkin();
-
 		return $row->id;
 	}
 }

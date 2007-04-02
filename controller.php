@@ -149,6 +149,8 @@ class EventListController extends JController
 			$link 		= 'index.php?option='.$option.'&Itemid='.$Itemid.'&view='.$returnview ;
 		}
 
+		$model->checkin();
+		
 		$this->setRedirect($link, $msg );
 	}
 	
@@ -188,6 +190,8 @@ class EventListController extends JController
 			$link 		= 'index.php?option='.$option.'&Itemid='.$Itemid.'&view='.$returnview ;
 		}
 
+		$model->checkin();
+		
 		$this->setRedirect($link, $msg );
 	}
 

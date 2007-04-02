@@ -341,6 +341,26 @@ class EventListModelEditevent extends JModel
 	}
 	
 	/**
+	 * Method to checkin/unlock the item
+	 *
+	 * @access	public
+	 * @return	boolean	True on success
+	 * @since	0.9
+	 */
+	function checkin()
+	{
+		if ($this->_id)
+		{
+			$item = & $this->getTable('eventlist_events', '');
+			if(! $item->checkin($this->_id)) {
+				$this->setError($this->_db->getErrorMsg());
+				return false;
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * Method to store the event
 	 *
 	 * @access	public
@@ -561,14 +581,7 @@ class EventListModelEditevent extends JModel
 			return false;
 		}
 
-		/*
-		 * Check the event item in
-		 */
-		$row->checkin();
-
-		/*
-		* create mail
-		*/
+		//create mail
 		if (($elsettings->mailinform == 1) || ($elsettings->mailinform == 3)) {
 			
 			$this->_db->setQuery("SELECT * FROM #__eventlist_venues"

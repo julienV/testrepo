@@ -75,6 +75,9 @@ class EventListControllerCategories extends EventListController
 			$msg 	= $model->getError();
 			$link 	= 'index.php?option='.$option.'&view=category';
 		}
+		
+		$model->checkin();
+		
 		$this->setRedirect($link, $msg );
 	}
 

@@ -276,8 +276,7 @@ class EventListModelVenue extends JModel
 			return false;
 		}
 
-		// Check the venue item in and update item order
-		$row->checkin();
+		//update item order
 		$row->reorder();
 
 		return $row->id;
