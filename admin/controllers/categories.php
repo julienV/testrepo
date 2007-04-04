@@ -72,8 +72,11 @@ class EventListControllerCategories extends EventListController
 			
 		} else {
 
-			$msg 	= $model->getError();
+			//instead of a simple message we use a warning
+			$msg 	= '';
 			$link 	= 'index.php?option='.$option.'&view=category';
+			
+			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
 		}
 		
 		$model->checkin();

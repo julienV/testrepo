@@ -108,11 +108,22 @@ class EventListControllerGroups extends EventListController
 
 		$model = $this->getModel('group');
 
-		$model->store($post);
+		if ($model->store($post)) {
 
-		$link = 'index.php?option='.$option.'&view=groups';
+			$link 	= 'index.php?option='.$option.'&view=groups';
+			$msg	= JText::_( 'GROUP SAVED');
+			
+		} else {
+			
+			$link 	= 'index.php?option='.$option.'&view=group';
+			$msg	= '';
+			
+			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
+		}
+			
+		$model->checkin();
 
-		$this->setRedirect( $link, JText::_( 'GROUP SAVED') );
+		$this->setRedirect( $link, $msg );
  	}
 
 	/**

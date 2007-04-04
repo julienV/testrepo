@@ -35,5 +35,19 @@ class eventlist_groups extends JTable
 	function eventlist_groups(& $db) {
 		parent::__construct('#__eventlist_groups', 'id', $db);
 	}
+	
+	// overloaded check function
+	function check()
+	{
+		global $mainframe;
+		
+		// Not typed in a category name?
+		if (trim( $this->name ) == '') {
+			$this->_error = JText::_( 'ADD GROUP NAME' );
+			return false;
+		}
+
+		return true;
+	}
 }
 ?>

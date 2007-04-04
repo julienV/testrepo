@@ -215,8 +215,12 @@ class EventListControllerVenues extends EventListController
 			
 		} else {
 			
+			//instead of a simple message we use a warning
+			$msg 	= '';
 			$link 	= 'index.php?option='.$option.'&view=venue';
-			$msg 	= $model->getError();
+			
+			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
+			
 		}
 		
 		$model->checkin();

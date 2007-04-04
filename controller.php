@@ -144,9 +144,11 @@ class EventListController extends JController
 			
 		} else {
 			
-			$msg 		= $model->getError();
+			$msg 		= '';
 			$returnview	= JRequest::getVar('returnview', '', '', 'string');
 			$link 		= 'index.php?option='.$option.'&Itemid='.$Itemid.'&view='.$returnview ;
+			
+			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
 		}
 
 		$model->checkin();
@@ -185,9 +187,11 @@ class EventListController extends JController
 			
 		} else {
 			
-			$msg 		= $model->getError();
+			$msg 		= '';
 			$returnview	= JRequest::getVar('returnview', '', '', 'string');
 			$link 		= 'index.php?option='.$option.'&Itemid='.$Itemid.'&view='.$returnview ;
+			
+			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
 		}
 
 		$model->checkin();

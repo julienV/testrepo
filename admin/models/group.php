@@ -302,18 +302,23 @@ class EventListModelGroup extends JModel
 			return false;
 		}
 		
+		// Make sure the data is valid
+		if (!$row->check()) {
+			$this->setError($row->getError());
+			return false;
+		}
+		
 		//Store the table to the database
 		if (!$row->store()) {
 			$this->setError($this->_db->getErrorMsg());
 			return false;
 		}
 		
-		$row->checkin();
-		
 		$members =JRequest::getVar('maintainers',  '', 'post', 'array');
 	
 		$this->_db->setQuery ('DELETE FROM #__eventlist_groupmembers WHERE group_id = '.$row->id);
 		$this->_db->query();
+		
 		foreach ($members as $member){
 			$member = intval($member);
 			$this->_db->setQuery ("INSERT INTO #__eventlist_groupmembers (group_id, member) VALUES ($row->id, $member)");
