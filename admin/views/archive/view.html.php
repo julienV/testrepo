@@ -23,6 +23,9 @@ class EventListViewArchive extends JView {
 	function display($tpl = null)
 	{
 		global $mainframe, $option;
+		
+		//Load tooltips behavior
+		jimport('joomla.html.tooltips');
 
 		//initialise variables
 		$document	= & JFactory::getDocument();
