@@ -71,8 +71,7 @@ class EventListControllerArchive extends EventListController
 		$total = count( $cid );
 
 		if (!is_array( $cid ) || count( $cid ) < 1) {
-			echo "<script> alert('". JText::_( 'Select an item to delete' ) ."'); window.history.go(-1);</script>\n";
-			exit;
+			JError::raiseError(500, JText::_( 'Select an item to delete' ) );
 		}
 
 		$model = $this->getModel('archive');

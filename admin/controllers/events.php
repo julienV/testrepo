@@ -46,8 +46,7 @@ class EventListControllerEvents extends EventListController
 		$cid 	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
 
 		if (!is_array( $cid ) || count( $cid ) < 1) {
-			echo "<script> alert('". JText::_( 'Select an item to publish' ) ."'); window.history.go(-1);</script>\n";
-			exit;
+			JError::raiseError(500, JText::_( 'Select an item to publish' ) );
 		}
 
 		$model = $this->getModel('events');
@@ -73,8 +72,7 @@ class EventListControllerEvents extends EventListController
 		$cid 	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
 
 		if (!is_array( $cid ) || count( $cid ) < 1) {
-			echo "<script> alert('". JText::_( 'Select an item to unpublish' ) ."'); window.history.go(-1);</script>\n";
-			exit;
+			JError::raiseError(500, JText::_( 'Select an item to unpublish' ) );
 		}
 
 		$model = $this->getModel('events');
@@ -100,8 +98,7 @@ class EventListControllerEvents extends EventListController
 		$cid 	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
 
 		if (!is_array( $cid ) || count( $cid ) < 1) {
-			echo "<script> alert('". JText::_( 'Select an item to unpublish' ) ."'); window.history.go(-1);</script>\n";
-			exit;
+			JError::raiseError(500, JText::_( 'Select an item to archive' ) );
 		}
 
 		$model = $this->getModel('events');
@@ -240,8 +237,7 @@ class EventListControllerEvents extends EventListController
 		$total = count( $cid );
 
 		if (!is_array( $cid ) || count( $cid ) < 1) {
-			echo "<script> alert('". JText::_( 'Select an item to delete' ) ."'); window.history.go(-1);</script>\n";
-			exit;
+			JError::raiseError(500, JText::_( 'Select an item to delete' ) );
 		}
 
 		$model = $this->getModel('events');

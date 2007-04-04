@@ -12,8 +12,7 @@
 	<table class="adminform">
 		<tr>
 			<td width="100%">
-				<?php
-				echo JText::_( 'SEARCH' ).' '.$this->lists['filter']; ?>
+				<?php echo JText::_( 'SEARCH' ).' '.$this->lists['filter']; ?>
 				<input type="text" name="search" id="search" value="<?php echo $this->search;?>" class="text_area" onchange="document.adminForm.submit();" title="<?php echo JText::_( 'Filter by title or enter article ID' );?>"/>
 				<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
 				<button onclick="this.form.getElementById('search').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
