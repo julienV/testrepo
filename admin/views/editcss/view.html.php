@@ -26,6 +26,14 @@ class EventListViewEditcss extends JView {
 		
 		//initialise variables
 		$document	= & JFactory::getDocument();
+		$user 		= & JFactory::getUser();
+		
+		//only admins have access to this view
+		if ($user->get('gid') < 24) {
+			JError::raiseWarning( 'SOME_ERROR_CODE', JText::_( 'ALERTNOTAUTH'));
+			$mainframe->redirect( 'index.php?option=com_eventlist&view=eventlist' );
+			return false;
+		}
 		
 		//get vars
 		$option		= JRequest::getVar('option');

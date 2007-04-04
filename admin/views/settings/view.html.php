@@ -32,6 +32,14 @@ class EventListViewSettings extends JView {
 		$document 	= & JFactory::getDocument();
 		$acl		= & JFactory::getACL();
 		$uri 		= & JFactory::getURI();
+		$user 		= & JFactory::getUser();
+		
+		//only admins have access to this view
+		if ($user->get('gid') < 24) {
+			JError::raiseWarning( 'SOME_ERROR_CODE', JText::_( 'ALERTNOTAUTH'));
+			$mainframe->redirect( 'index.php?option=com_eventlist&view=eventlist' );
+			return false;
+		}
 		
 		//get vars
 		$live_site 	= $mainframe->getCfg('live_site');

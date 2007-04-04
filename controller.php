@@ -113,8 +113,6 @@ class EventListController extends JController
 	/**
 	 * Saves the submitted venue to the database
 	 *
-	 * TODO move to model
-	 *
 	 * @since 0.5
 	 */
 	function savevenue()
@@ -281,6 +279,7 @@ class EventListController extends JController
 		//get Data from model
 		$model = & $this->getModel('Details', 'EventListModel');
 		$model->setId($did);
+		
 		$row = $model->getDetails();
 
 		$Start = mktime(strftime('%H', strtotime($row->times)),

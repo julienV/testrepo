@@ -25,6 +25,8 @@ class ELAdmin {
 	*/
 	function submenu()
 	{
+		$user = & JFactory::getUser();
+		
 		// Get active sub menu item
 		$activeview	= JRequest::getVar('view');
 
@@ -38,9 +40,15 @@ class ELAdmin {
 		'CATEGORIES' => 'categories',
 		'ARCHIVE' => 'archive',
 		'GROUPS' => 'groups',
-		'SETTINGS' => 'settings',
 		'HELP' => 'help',
 		);
+		
+		//only admins should be able to see the settings submenuitem
+		$onlyadmins = array('SETTINGS' => 'settings');
+		
+		if ($user->get('gid') > 24) {
+			$subMenus = array_merge( $subMenus, $onlyadmins );
+		}
 
 		// Create the Home item
 		$subMenuItem['title']	= JText::_( 'EVENTLIST' );

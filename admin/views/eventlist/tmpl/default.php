@@ -42,13 +42,16 @@
 						
 						$link = 'index.php?option='.$option.'&amp;view=archive';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-archive.png', JText::_( 'ARCHIVE' ) );
-
-						$link = 'index.php?option='.$option.'&amp;view=settings';
-						EventListViewEventList::quickiconButton( $link, 'icon-48-settings.png', JText::_( 'SETTINGS' ) );
 						
-						$link = 'index.php?option='.$option.'&amp;view=editcss';
-						EventListViewEventList::quickiconButton( $link, 'icon-48-cssedit.png', JText::_( 'EDIT CSS' ) );
-
+						//only admins should be able to see this items
+						if ($this->user->get('gid') > 24) {
+							$link = 'index.php?option='.$option.'&amp;view=settings';
+							EventListViewEventList::quickiconButton( $link, 'icon-48-settings.png', JText::_( 'SETTINGS' ) );
+						
+							$link = 'index.php?option='.$option.'&amp;view=editcss';
+							EventListViewEventList::quickiconButton( $link, 'icon-48-cssedit.png', JText::_( 'EDIT CSS' ) );
+						}
+						
 						$link = 'index.php?option='.$option.'&amp;view=help';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-help.png', JText::_( 'HELP' ) );
 						

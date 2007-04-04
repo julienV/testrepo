@@ -30,6 +30,7 @@ class EventListViewEventList extends JView {
 		//initialise variables
 		$document	= & JFactory::getDocument();
 		$pane   	= & JPane::getInstance('sliders');
+		$user 		= & JFactory::getUser();
 		$submenu 	= ELAdmin::submenu();
 		
 		//get vars
@@ -54,6 +55,7 @@ class EventListViewEventList extends JView {
 		$this->assignRef('events'		, $events);
 		$this->assignRef('venue'		, $venue);
 		$this->assignRef('category'		, $category);
+		$this->assignRef('user'			, $user);
 		
 		parent::display($tpl);
 
