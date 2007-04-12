@@ -24,7 +24,7 @@ defined('_JEXEC') or die('Restricted access');
 <table width="100%" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
 	<tr>
 		<td align="left" width="100%" nowrap="nowrap">
-			<?php echo JText::_( 'SEARCH' ).': ';
+			<?php echo JText::_( 'SEARCH' );
 			echo $this->searchfilter;
 			?>
 				<input type="text" name="filter" id="filter" value="<?php echo $this->filter;?>" class="text_area" onchange="document.adminForm.submit();" />
@@ -69,6 +69,8 @@ defined('_JEXEC') or die('Restricted access');
 	</tr>
 		<?php $k = 1 - $k; } ?>
 </table>
+
+<br /><br />
 
 <p class="pageslinks">
 	<?php echo $this->pageNav->getPagesLinks(); ?>

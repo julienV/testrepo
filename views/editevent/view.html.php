@@ -157,7 +157,8 @@ class EventListViewEditevent extends JView
 		$filter_order_Dir	= JRequest::getVar('filter_order_Dir');
 		$filter 			= JRequest::getVar('filter');
 
-		$live_site = $mainframe->getCfg('live_site');
+		$live_site 		= $mainframe->getCfg('live_site');
+		//$template 		= $mainframe->getTemplate();
 
 		// Get/Create the model
 		$rows 	= $this->get('Venues');
@@ -181,6 +182,7 @@ class EventListViewEditevent extends JView
 		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');
 
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
+		//$document->addStyleSheet('templates/'.$template.'/css/template.css');
 
 		$filters = array();
 		$filters[] = JHTMLSelect::option( '1', JText::_( 'VENUE' ) );

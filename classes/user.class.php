@@ -35,47 +35,47 @@ class ELUser {
 		//only check when user is logged in
 		if ($user->get('id')) {
 		
-		$acl		= & JFactory::getACL();
-		$superuser 	= ELUser::superuser();
+			$acl		= & JFactory::getACL();
+			$superuser 	= ELUser::superuser();
 		
-		$groupid	= $user->get('gid');
+			$groupid	= $user->get('gid');
 		
-		if ($recurse) {
-			$recursec="RECURSE";
-		} else {
-			$recursec="NO_RECURSE";
-		}
-		
-		//open for superuser or registered and thats all what is needed
-		if ((( $level == -1 ) && ( $groupid > 0 )) || (( $superuser ) && ( $level != -2 ))) {
-			return 1;
-			
-		//if not proceed checking
-		} else {
-			
-			if( $groupid == $level ) {
-				//User has the needed groupid->ok
-				return 1;
-				
+			if ($recurse) {
+				$recursec="RECURSE";
 			} else {
+				$recursec="NO_RECURSE";
+			}
+		
+			//open for superuser or registered and thats all what is needed
+			if ((( $level == -1 ) && ( $groupid > 0 )) || (( $superuser ) && ( $level != -2 ))) {
+				return 1;
+			
+			//if not proceed checking
+			} else {
+			
+				if( $groupid == $level ) {
+					//User has the needed groupid->ok
+					return 1;
 				
-				if ($recursec=='RECURSE') {
-					//Child group for this level?
-					$group_childs=array();
-					$group_childs=$acl->get_group_children( $level, 'ARO', $recursec );
+				} else {
+				
+					if ($recursec=='RECURSE') {
+						//Child group for this level?
+						$group_childs=array();
+						$group_childs=$acl->get_group_children( $level, 'ARO', $recursec );
 
-					if ( is_array( $group_childs ) && count( $group_childs ) > 0) {
+						if ( is_array( $group_childs ) && count( $group_childs ) > 0) {
 
-						//Childgroups exists than check if user belongs to one of it
-						if ( in_array($groupid, $group_childs) ) {
+							//Childgroups exists than check if user belongs to one of it
+							if ( in_array($groupid, $group_childs) ) {
 
-							//User belongs to one of it -> ok
-							return 1;
+								//User belongs to one of it -> ok
+								return 1;
+							}
 						}
 					}
 				}
-			}
-		}		
+			}		
 		//end logged in check
 		}
 		
