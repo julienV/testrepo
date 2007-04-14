@@ -50,7 +50,7 @@ class EventListViewEditevent extends JView
 		$id					= JRequest::getVar('id', 0, '', 'int');
 		$returnview			= JRequest::getVar('returnview', '', '', 'string');
 		$live_site 			= $mainframe->getCfg('live_site');
-
+		
 		// Add the Calendar includes to the document <head> section
 		JCommonHTML::loadCalendar();
 		// Load tooltips behavior
