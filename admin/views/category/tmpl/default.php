@@ -39,7 +39,7 @@ function submitbutton(pressbutton) {
 							</label>
 						</td>
 						<td>
-							<input name="catname" value="<?php echo $this->row->catname; ?>" size="55" maxlength="50">
+							<input name="catname" value="<?php echo $this->row->catname; ?>" size="50" maxlength="100">
 						</td>
 					</tr>
 					<tr>
@@ -53,6 +53,16 @@ function submitbutton(pressbutton) {
 							$html = JHTMLSelect::yesnoList( 'published', 'class="inputbox"', $this->row->published );
 							echo $html;
 							?>
+						</td>
+					</tr>						
+					<tr>
+						<td>
+							<label for="alias">
+								<?php echo JText::_( 'Alias' ); ?>
+							</label>
+						</td>
+						<td colspan="3">
+							<input class="inputbox" type="text" name="alias" id="alias" size="50" maxlength="100" value="<?php echo $this->row->alias; ?>" />
 						</td>
 					</tr>
 				</table>

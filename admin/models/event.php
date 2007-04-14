@@ -151,6 +151,7 @@ class EventListModelEvent extends JModel
 			$event->times				= null;
 			$event->endtimes			= null;
 			$event->title				= null;
+			$event->alias				= null;
 			$event->created				= null;
 			$event->author_ip			= null;
 			$event->created_by			= null;

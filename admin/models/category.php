@@ -148,6 +148,7 @@ class EventListModelCategory extends JModel
 			$category->parent_id			= 0;
 			$category->groupid				= 0;
 			$category->catname				= null;
+			$category->alias				= null;
 			$category->catdescription		= null;
 			$category->meta_description		= null;
 			$category->meta_keywords		= null;

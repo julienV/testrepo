@@ -120,6 +120,7 @@ class EventListModelVenue extends JModel
 			$venue = new stdClass();
 			$venue->id					= 0;
 			$venue->venue				= null;
+			$venue->alias				= null;
 			$venue->url					= null;
 			$venue->street				= null;
 			$venue->city				= null;

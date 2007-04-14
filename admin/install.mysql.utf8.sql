@@ -16,6 +16,7 @@ CREATE TABLE `#__eventlist_events` (
 `times` time NULL default NULL,
 `endtimes` time NULL default NULL,
 `title` varchar(100) NOT NULL default '',
+`alias` varchar(100) NOT NULL default '',
 `created_by` int(11) unsigned NOT NULL default '0',
 `modified` datetime NOT NULL,
 `modified_by` int(11) unsigned NOT NULL default '0',
@@ -36,6 +37,7 @@ PRIMARY KEY  (`id`)
 CREATE TABLE `#__eventlist_venues` (
 `id` int(11) unsigned NOT NULL auto_increment,
 `venue` varchar(50) NOT NULL default '',
+`venue` varchar(100) NOT NULL default '',
 `url` varchar(200)  NOT NULL default '',
 `street` varchar(50) default NULL,
 `plz` varchar(20) default NULL,
@@ -62,6 +64,7 @@ CREATE TABLE `#__eventlist_categories` (
 `id` int(11) unsigned NOT NULL auto_increment,
 `parent_id` int(11) unsigned NOT NULL default '0',
 `catname` varchar(100) NOT NULL default '',
+`alias` varchar(100) NOT NULL default '',
 `catdescription` text NOT NULL,
 `meta_keywords` text NOT NULL,
 `meta_description` text NOT NULL,

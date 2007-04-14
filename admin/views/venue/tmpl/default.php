@@ -46,7 +46,7 @@
 				</label>
 			</td>
 			<td>
-				<input name="venue" id= "venue" value="<?php echo $this->row->venue; ?>" size="40" maxlength="50">
+				<input class="inputbox" name="venue" id= "venue" value="<?php echo $this->row->venue; ?>" size="40" maxlength="100">
 			</td>
 			<td>
 				<label for="publish">
@@ -58,6 +58,16 @@
 				$html = JHTMLSelect::yesnoList( 'published', 'class="inputbox"', $this->row->published );
 				echo $html;
 				?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="alias">
+					<?php echo JText::_( 'Alias' ); ?>
+				</label>
+			</td>
+			<td colspan="3">
+				<input class="inputbox" type="text" name="alias" id="alias" size="40" maxlength="100" value="<?php echo $this->row->alias; ?>" />
 			</td>
 		</tr>
 	</table>
@@ -88,7 +98,7 @@
 				</label>
 			</td>
 			<td>
-				<input name="street" value="<?php echo $this->row->street; ?>" size="35" maxlength="50">
+				<input class="inputbox" name="street" value="<?php echo $this->row->street; ?>" size="35" maxlength="50">
 			</td>
 		</tr>
 		<tr>
@@ -98,7 +108,7 @@
 				</label>
 			</td>
 			<td>
-				<input name="plz" value="<?php echo $this->row->plz; ?>" size="15" maxlength="10">
+				<input class="inputbox" name="plz" value="<?php echo $this->row->plz; ?>" size="15" maxlength="10">
 			</td>
 		</tr>
 		<tr>
@@ -108,7 +118,7 @@
 				</label>
 			</td>
 			<td>
-				<input name="city" id="city" value="<?php echo $this->row->city; ?>" size="35" maxlength="50">
+				<input class="inputbox" name="city" id="city" value="<?php echo $this->row->city; ?>" size="35" maxlength="50">
 			</td>
 		</tr>
 		<tr>
@@ -118,7 +128,7 @@
 				</label>
 			</td>
 			<td>
-				<input name="state" id="state" value="<?php echo $this->row->state; ?>" size="35" maxlength="50">
+				<input class="inputbox" name="state" id="state" value="<?php echo $this->row->state; ?>" size="35" maxlength="50">
 			</td>
 		</tr>
 		<tr>
@@ -128,7 +138,7 @@
 				</label>
 			</td>
 			<td>
-				<input name="country" value="<?php echo $this->row->country; ?>" size="4" maxlength="3">&nbsp;
+				<input class="inputbox" name="country" value="<?php echo $this->row->country; ?>" size="4" maxlength="3">&nbsp;
 				
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('COUNTRY HINT'); ?>">
 					<?php echo $infoimage; ?>
@@ -142,7 +152,7 @@
 				</label>
 			</td>
 			<td>
-				<input name="url" value="<?php echo $this->row->url; ?>" size="35" maxlength="150">&nbsp;
+				<input class="inputbox" name="url" value="<?php echo $this->row->url; ?>" size="35" maxlength="150">&nbsp;
 
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('WEBSITE HINT'); ?>">
 					<?php echo $infoimage; ?>

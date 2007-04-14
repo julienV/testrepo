@@ -37,6 +37,8 @@ class eventlist_events extends JTable
 	var $endtimes 			= null;
 	/** @var string */
 	var $title 				= '';
+	/** @var string */
+	var $alias	 			= '';
 	/** @var int */
 	var $created_by			= null;
 	/** @var int */

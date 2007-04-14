@@ -76,7 +76,7 @@
 						</label>
 					</td>
 					<td>
-						<input name="title" value="<?php echo $this->row->title; ?>" size="50" maxlength="60" id="title">
+						<input class="inputbox" name="title" value="<?php echo $this->row->title; ?>" size="50" maxlength="100" id="title">
 					</td>
 					<td>
 						<label for="published">
@@ -88,6 +88,16 @@
 						$html = JHTMLSelect::yesnoList( 'published', 'class="inputbox"', $this->row->published );
 						echo $html;
 						?>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="alias">
+							<?php echo JText::_( 'Alias' ); ?>
+						</label>
+					</td>
+					<td colspan="3">
+						<input class="inputbox" type="text" name="alias" id="alias" size="50" maxlength="100" value="<?php echo $this->row->alias; ?>" />
 					</td>
 				</tr>
 				<tr>
@@ -180,7 +190,7 @@
 							$this->row->times = substr($this->row->times, 0, 5);
 						}
 						?>
-						<input name="times" value="<?php echo $this->row->times; ?>" size="15" maxlength="8" id="times">
+						<input class="inputbox" name="times" value="<?php echo $this->row->times; ?>" size="15" maxlength="8" id="times">
 					</td>
 					<td>
 			  			<?php if ( $this->elsettings->showtime == 1 ) { ?>
@@ -206,7 +216,7 @@
 							$this->row->endtimes = substr($this->row->endtimes, 0, 5);
 						}
 						?>
-						<input name="endtimes" value="<?php echo $this->row->endtimes; ?>" size="15" maxlength="8" id="endtimes">
+						<input class="inputbox" name="endtimes" value="<?php echo $this->row->endtimes; ?>" size="15" maxlength="8" id="endtimes">
 					</td>
 					<td>
 			  			<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('FORMAT TIME OPTIONAL'); ?>">

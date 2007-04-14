@@ -28,6 +28,8 @@ class eventlist_categories extends JTable
 	/** @var string */
 	var $catname 			= '';
 	/** @var string */
+	var $alias	 			= '';
+	/** @var string */
 	var $catdescription 	= null;
 	/** @var string */
 	var $meta_description 	= null;
