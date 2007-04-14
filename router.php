@@ -8,12 +8,15 @@
 */
 
 function EventListBuildRoute(&$query)
-{
-	
-	//print_r($query);
-	
+{	
 	$segments = array();
 
+	if(isset($query['view']))
+	{
+		$segments[] = $query['view'];
+		unset($query['view']);
+	}
+	
 	if(isset($query['did']))
 	{
 		$segments[] = $query['did'];
@@ -31,51 +34,52 @@ function EventListBuildRoute(&$query)
 		$segments[] = $query['categid'];
 		unset($query['categid']);
 	};
-
-	unset($query['view']);
+	
+	if(isset($query['id']))
+	{
+		$segments[] = $query['id'];
+		unset($query['id']);
+	};
 
 	return $segments;
 }
 
 function EventListParseRoute($segments)
-{	
-	//print_r($segments);
-	
-	//Get the active menu item
-	$menu =& JMenu::getInstance();
-	$item =& $menu->getActive();
-
-	// Count route segments
-	$count = count($segments);
-
+{
 	//Handle View and Identifier
-	switch($item->query['view'])
-	//switch(JRequest::getVar('view'))
+	switch($segments[0])
 	{
 		case 'categoryevents':
 		{
-			JRequest::setVar('categid'  , $segments[2], 'get');
+			JRequest::setVar('categid'  , substr( $segments[1], 0, 1 ), 'get');
 			$view = 'categoryevents';
 
 		} break;
 
 		case 'details':
 		{
-			JRequest::setVar('did'  	, $segments[2], 'get');
+			JRequest::setVar('did'  	, substr( $segments[1], 0, 1 ), 'get');
 			$view = 'details';
+
+		} break;
+		
+		case 'venueevents':
+		{
+			JRequest::setVar('locatid'  	, substr( $segments[1], 0, 1 ), 'get');
+			$view = 'venueevents';
 
 		} break;
 		
 		case 'editevent':
 		{
-			JRequest::setVar('id'  		, $segments[2], 'get');
+			JRequest::setVar('id'  		, substr( $segments[1], 0, 1 ), 'get');
 			$view = 'editevent';
 
 		} break;
 		
 		case 'editvenue':
 		{
-			JRequest::setVar('id'  		, $segments[2], 'get');
+			JRequest::setVar('id'  		, substr( $segments[1], 0, 1 ), 'get');
 			$view = 'editvenue';
 
 		} break;

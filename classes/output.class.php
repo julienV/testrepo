@@ -57,7 +57,7 @@ class ELOutput {
 				$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'DELIVER NEW EVENT' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 			}
 
-			$link = 'index.php?option=com_eventlist&amp;view=editevent&amp;returnview='.$view;
+			$link = 'index.php?view=editevent&returnview='.$view;
 
 			$overlib = JText::_( 'SUBMIT EVENT TIP' );
 			?>
@@ -96,7 +96,7 @@ class ELOutput {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
 					$overlib = JText::_( 'SHOW EVENTS TIP' );
-					$link = JRoute::_( 'index.php?option=com_eventlist' );
+					$link = JRoute::_( 'index.php' );
 					?>
 					<a href="<?php echo $link ?>" class="editlinktip hasTip" title="<?php echo JText::_( 'SHOW EVENTS' ); ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
 					<?php
@@ -110,7 +110,7 @@ class ELOutput {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
 					$overlib = JText::_( 'SHOW EVENTS TIP' );
-					$link = JRoute::_( 'index.php?option=com_eventlist&amp;view=categoryevents&amp;categid='.$categid );
+					$link = JRoute::_( 'index.php?view=categoryevents&categid='.$categid );
 					?>
 					<a href="<?php echo $link ?>" class="editlinktip hasTip" title="<?php echo JText::_( 'SHOW EVENTS' ); ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
 					<?php
@@ -125,7 +125,7 @@ class ELOutput {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW ARCHIVE' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
 					$overlib = JText::_( 'SHOW ARCHIVE TIP' );
-					$link = JRoute::_('index.php?option=com_eventlist&amp;view=categoriesview&amp;task=archive');
+					$link = JRoute::_('index.php?view=categoriesview&task=archive');
 						?>
 						<a href="<?php echo $link ?>" class="editlinktip hasTip" title="<?php echo JText::_( 'SHOW ARCHIVE' ); ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
 						<?php
@@ -182,7 +182,7 @@ class ELOutput {
 					break;
 			}
 
-			$link = 'index.php?option=com_eventlist&amp;Itemid='.$Itemid.'&amp;Returnid='.$Itemid.'&amp;view='.$view.'&amp;id='.$id;
+			$link = 'index.php?returnid='.$Itemid.'&view='.$view.'&id='.$id;
 
 				?>
 				<a href="<?php echo JRoute::_($link); ?>" class="editlinktip hasTip" title="<?php echo $text; ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
