@@ -88,6 +88,13 @@ class eventlist_events extends JTable
 			$this->endtimes = NULL;
 		}
 		
+		jimport('joomla.filter.output');
+		$alias = JOutputFilter::stringURLSafe($this->title);
+
+		if(empty($this->alias) || $this->alias === $alias ) {
+			$this->alias = $alias;
+		}
+		
 		if (isset($this->dates)) {
 			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $this->dates)) {
 	 	     	$this->_error = JText::_( 'DATE WRONG' );
@@ -117,7 +124,7 @@ class eventlist_events extends JTable
 		$this->title = strip_tags($this->title);
 		$titlelength = JString::strlen($this->title);
 
-		if ($titlelength > 60 || $this->title =='') {
+		if ($titlelength > 100 || $this->title =='') {
       		$this->_error = JText::_( 'ERROR TITLE LONG' );
 		}
 		

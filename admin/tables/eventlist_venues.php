@@ -78,6 +78,13 @@ class eventlist_venues extends JTable
 	      	$this->_error = JText::_( 'ADD VENUE');
 	       	return false;
 		}
+		
+		jimport('joomla.filter.output');
+		$alias = JOutputFilter::stringURLSafe($this->venue);
+
+		if(empty($this->alias) || $this->alias === $alias ) {
+			$this->alias = $alias;
+		}
 
 		if ( $elsettings->showcity == 1 ) {
 			if(!trim($this->city)) {

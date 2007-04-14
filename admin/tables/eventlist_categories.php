@@ -69,6 +69,13 @@ class eventlist_categories extends JTable
 			$this->_error = JText::_( 'ADD NAME CATEGORY' );
 			return false;
 		}
+		
+		jimport('joomla.filter.output');
+		$alias = JOutputFilter::stringURLSafe($this->catname);
+
+		if(empty($this->alias) || $this->alias === $alias ) {
+			$this->alias = $alias;
+		}
 /*		
 		// check for existing name
 		$query = 'SELECT id FROM #__eventlist_categories WHERE catname = "' .$this->catname. '"';
