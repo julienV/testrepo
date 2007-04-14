@@ -19,7 +19,7 @@
 	}
 </script>
 
-<form action="<?php echo JRoute::_('index.php?option=com_eventlist&view=eventlist') ?>" method="post" name="adminForm">
+<form action="<?php echo JRoute::_('index.php?view=eventlist') ?>" method="post" name="adminForm">
 
 <?php if ($this->params->get('filter') || $this->params->get('display')) : ?>
 <table width="<?php echo $this->elsettings->tablewidth; ?>" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
@@ -105,7 +105,7 @@
 				</td>
 				<?php
 				//Link to details
-				$detaillink = JRoute::_( 'index.php?option=com_eventlist&view=details&did='. $row->slug );
+				$detaillink = JRoute::_( 'index.php?view=details&did='. $row->slug );
 				//title
 				if (($this->elsettings->showtitle == 1 ) && ($this->elsettings->showdetails == 1) ) :
 				?>
@@ -122,7 +122,7 @@
 					<td width="<?php echo $this->elsettings->locationwidth; ?>" align="left" valign="top">
 				<?php
 					if ($this->elsettings->showlinkvenue == 1 ) :
-							echo $row->locid != 0 ? "<a href='".JRoute::_('index.php?option=com_eventlist&view=venueevents&locatid='.$row->venueslug)."'>".$row->venue."</a>" : '-';
+							echo $row->locid != 0 ? "<a href='".JRoute::_('index.php?view=venueevents&locatid='.$row->venueslug)."'>".$row->venue."</a>" : '-';
 						else :
 							echo $row->locid ? $row->venue : '-';
 						endif;
@@ -147,7 +147,7 @@
 					if ($this->elsettings->catlinklist == 1) :
 					?>
 						<td width="<?php echo $this->elsettings->catfrowidth; ?>" align="left" valign="top">
-							<a href="<?php echo JRoute::_('index.php?option=com_eventlist&view=categoryevents&categid='.$row->categoryslug) ; ?>">
+							<a href="<?php echo JRoute::_('index.php?view=categoryevents&categid='.$row->categoryslug); ?>">
 								<?php echo $row->catname ? $row->catname : '-' ; ?>
 							</a>
 						</td>

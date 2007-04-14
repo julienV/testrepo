@@ -31,12 +31,6 @@ function EventListBuildRoute(&$query)
 		$segments[] = $query['categid'];
 		unset($query['categid']);
 	};
-	
-	if(isset($query['categid']))
-	{
-		$segments[] = $query['categid'];
-		unset($query['categid']);
-	};
 
 	unset($query['view']);
 
@@ -60,28 +54,28 @@ function EventListParseRoute($segments)
 	{
 		case 'categoryevents':
 		{
-			JRequest::setVar('categid'  , $segments[1], 'get');
+			JRequest::setVar('categid'  , $segments[2], 'get');
 			$view = 'categoryevents';
 
 		} break;
 
 		case 'details':
 		{
-			JRequest::setVar('did'  	, $segments[$count-1], 'get');
+			JRequest::setVar('did'  	, $segments[2], 'get');
 			$view = 'details';
 
 		} break;
 		
 		case 'editevent':
 		{
-			JRequest::setVar('id'  		, $segments[1], 'get');
+			JRequest::setVar('id'  		, $segments[2], 'get');
 			$view = 'editevent';
 
 		} break;
 		
 		case 'editvenue':
 		{
-			JRequest::setVar('id'  		, $segments[1], 'get');
+			JRequest::setVar('id'  		, $segments[2], 'get');
 			$view = 'editvenue';
 
 		} break;
@@ -111,7 +105,7 @@ function EventListParseRoute($segments)
 		} break;
 		
 	}
-
-	JRequest::setVar('view'		, $view, 'get');
+	
+	JRequest::setVar('view', $view, 'get');
 }
 ?>

@@ -160,7 +160,7 @@ defined('_JEXEC') or die('Restricted access');
 			<?php
 				//show location submission link
 				if ( $this->delloclink == 1 && !$this->row->id ) :
-						$link = JRoute::_('index.php?option=com_eventlist&amp;Returnid='.$this->item->id.'&amp;view=editvenue&amp;returnview='.$this->returnview);
+						$link = JRoute::_('index.php?view=editvenue&Returnid='.$this->item->id.'&returnview='.$this->returnview);
 						?>
 						<a href="<?php echo $link ?>" target="_self">
 						<?php echo JText::_( 'DELIVER NEW VENUE' ); ?></a>
