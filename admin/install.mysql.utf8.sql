@@ -37,7 +37,7 @@ PRIMARY KEY  (`id`)
 CREATE TABLE `#__eventlist_venues` (
 `id` int(11) unsigned NOT NULL auto_increment,
 `venue` varchar(50) NOT NULL default '',
-`venue` varchar(100) NOT NULL default '',
+`alias` varchar(100) NOT NULL default '',
 `url` varchar(200)  NOT NULL default '',
 `street` varchar(50) default NULL,
 `plz` varchar(20) default NULL,
