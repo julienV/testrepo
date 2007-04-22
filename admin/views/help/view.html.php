@@ -23,34 +23,33 @@ class EventListViewHelp extends JView {
 	function display($tpl = null) {
 
 		global $mainframe;
-		
+
 		//Load filesystem folder and pane behavior
 		jimport('joomla.html.pane');
 		jimport( 'joomla.filesystem.folder' );
-		
+
 		//initialise variables
 		$document		= & JFactory::getDocument();
 		$lang 			= & JFactory::getLanguage();
 		$uri 			= & JFactory::getURI();
 		$pane 			= & JPane::getInstance('sliders');
 		$submenu 		= ELAdmin::submenu();
-		
+
 		//get vars
 		$live_site	 	= $mainframe->getCfg('live_site');
 		$request_url 	= $uri->toString();
 		$helpsearch 	= JRequest::getVar( 'search' );
-		
+
 		//add css and submenu to document
 		$document->setBuffer($submenu, 'module', 'submenu');
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
-		
+
 		//create the toolbar
 		JMenuBar::title( JText::_( 'HELP' ), 'help' );
-		JMenuBar::back();
-		
+
 		// Check for files in the actual language
 		$langTag = $lang->getTag();
-		
+
 		if( !JFolder::exists( JPATH_SITE . DS.'administrator'.DS.'components'.DS.'com_eventlist/help'.DS .$langTag ) ) {
 			$langTag = 'en-GB';		// use english as fallback
 		}
