@@ -22,17 +22,17 @@ class EventListController extends JController
 {
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @since 0.9
 	 */
 	function __construct()
 	{
 		parent::__construct();
-		
+
 		//register extratasks
 		$this->registerTask( 'ical', 		'vcal' );
 	}
-	
+
 	/**
 	 * Display the view
 	 */
@@ -86,7 +86,7 @@ class EventListController extends JController
 		$db 	= & JFactory::getDBO();
 		$user	= & JFactory::getUser();
 
-		$view	= JRequest::getVar('returnview', '', 'post', 'string');
+		$view	= JRequest::getVar('returnview', '', 'request', 'string');
 		$id		= JRequest::getVar( 'id', 0, 'post', 'int' );
 		$Itemid = JRequest::getVar( 'Itemid', 0, 'post', 'int' );
 
@@ -124,36 +124,36 @@ class EventListController extends JController
 		if(!JRequest::getVar( $token, 0, 'post' )) {
 			JError::raiseError(403, 'Request Forbidden');
 		}
-		
+
 		//Sanitize
 		$post = JRequest::get( 'post' );
 		$post['locdescription'] = JRequest::getVar( 'locdescription', '', 'post', 'string', JREQUEST_ALLOWRAW );
-		
+
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
 		$Itemid 	= JRequest::getVar( 'Itemid', 0, 'post', 'int' );
-		
-		
+
+
 		$model = $this->getModel('editvenue');
-		
+
 		if ($returnid = $model->store($post, $file)) {
 
 			$msg 	= JText::_( 'VENUE SAVED' );
 			$link 	= 'index.php?option='.$option.'&Itemid='.$Itemid.'&view=venueevents&locatid='.$returnid ;
-			
+
 		} else {
-			
+
 			$msg 		= '';
 			$returnview	= JRequest::getVar('returnview', '', '', 'string');
 			$link 		= 'index.php?option='.$option.'&Itemid='.$Itemid.'&view='.$returnview ;
-			
+
 			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
 		}
 
 		$model->checkin();
-		
+
 		$this->setRedirect($link, $msg );
 	}
-	
+
 	/**
 	 * Cleanes and saves the submitted event to the database
 	 *
@@ -170,30 +170,30 @@ class EventListController extends JController
 		if(!JRequest::getVar( $token, 0, 'post' )) {
 			JError::raiseError(403, 'Request Forbidden');
 		}
-				
+
 		//get image
-		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );	
+		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
 		$Itemid 	= JRequest::getVar( 'Itemid', 0, 'post', 'int' );
 		$post 		= JRequest::get( 'post' );
 
 		$model = $this->getModel('editevent');
-		
+
 		if ($returnid = $model->store($post, $file)) {
 
 			$msg 	= JText::_( 'EVENT SAVED' );
 			$link 	= 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view=details&did='.$returnid ;
-			
+
 		} else {
-			
+
 			$msg 		= '';
 			$returnview	= JRequest::getVar('returnview', '', '', 'string');
 			$link 		= 'index.php?option='.$option.'&Itemid='.$Itemid.'&view='.$returnview ;
-			
+
 			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
 		}
 
 		$model->checkin();
-		
+
 		$this->setRedirect($link, $msg );
 	}
 
@@ -261,7 +261,7 @@ class EventListController extends JController
 
 		parent::display();
 	}
-	
+
 	/**
 	 * offers the vcal/ical functonality
 	 *
@@ -271,15 +271,15 @@ class EventListController extends JController
 	function vcal()
 	{
 		global $mainframe;
-		
+
 		$task 			= JRequest::getVar( 'task' );
 		$did 			= (int) JRequest::getVar( 'did', 0, 'request', 'int' );
 		$user_offset 	= $mainframe->getCfg( 'offset_user' );
-		
+
 		//get Data from model
 		$model = & $this->getModel('Details', 'EventListModel');
 		$model->setId($did);
-		
+
 		$row = $model->getDetails();
 
 		$Start = mktime(strftime('%H', strtotime($row->times)),
@@ -288,7 +288,7 @@ class EventListController extends JController
 				strftime('%m', strtotime($row->dates)),
 				strftime('%d', strtotime($row->dates)),
 				strftime('%Y', strtotime($row->dates)),0);
-				
+
 		$End   = mktime(strftime('%H', strtotime($row->endtimes)),
 				strftime('%M', strtotime($row->endtimes)),
 				strftime('%S', strtotime($row->endtimes)),

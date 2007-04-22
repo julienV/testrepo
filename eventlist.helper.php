@@ -22,7 +22,7 @@ class ELHelper {
 	{
 		$db =& JFactory::getDBO();
 
-		$sql = "SELECT * FROM #__eventlist_settings WHERE id = 1";
+		$sql = 'SELECT * FROM #__eventlist_settings WHERE id = 1';
 		$db->setQuery($sql);
 		$config = $db->loadObject();
 
@@ -35,7 +35,7 @@ class ELHelper {
 	 * @since 0.9
 	 */
 	function cleanevents($lastupdate)
-	{	
+	{
 		$now = time();
 
 		//last update later then 24h?
