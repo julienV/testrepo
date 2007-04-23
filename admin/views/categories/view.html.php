@@ -38,29 +38,29 @@ class EventListViewCategories extends JView {
 		$search 			= $mainframe->getUserStateFromRequest( "$option.categories.search", 			'search', 			'' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 		$live_site 			= $mainframe->getCfg('live_site');
-		
+
 		//add css and submenu to document
 		$document->setBuffer($submenu, 'module', 'submenu');
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
-		
+
 		//create the toolbar
-		JMenuBar::title( JText::_( 'CATEGORIES' ), 'elcategories' );
-		JMenuBar::publishList();
-		JMenuBar::spacer();
-		JMenuBar::unpublishList();
-		JMenuBar::spacer();
-		JMenuBar::addNew();
-		JMenuBar::spacer();
-		JMenuBar::editList();
-		JMenuBar::spacer();
-		JMenuBar::deleteList();
-		JMenuBar::spacer();
-		JMenuBar::help( 'el.listcategories', true );
+		JToolBarHelper::title( JText::_( 'CATEGORIES' ), 'elcategories' );
+		JToolBarHelper::publishList();
+		JToolBarHelper::spacer();
+		JToolBarHelper::unpublishList();
+		JToolBarHelper::spacer();
+		JToolBarHelper::addNew();
+		JToolBarHelper::spacer();
+		JToolBarHelper::editList();
+		JToolBarHelper::spacer();
+		JToolBarHelper::deleteList();
+		JToolBarHelper::spacer();
+		JToolBarHelper::help( 'el.listcategories', true );
 
 		//Get data from the model
 		$rows      	= & $this->get( 'Data');
 		$total      = & $this->get( 'Total');
-		$pageNav 	= & $this->get( 'Pagination' );		
+		$pageNav 	= & $this->get( 'Pagination' );
 
 		//publish unpublished filter
 		$lists['state']	= JCommonHTML::selectState( $filter_state );

@@ -23,7 +23,7 @@ class EventListViewArchive extends JView {
 	function display($tpl = null)
 	{
 		global $mainframe, $option;
-		
+
 		//Load tooltips behavior
 		jimport('joomla.html.tooltips');
 
@@ -40,21 +40,21 @@ class EventListViewArchive extends JView {
 		$filter 			= $mainframe->getUserStateFromRequest( "$option.archive.filter", 'filter', '' );
 		$filter 			= intval( $filter );
 		$search 			= $mainframe->getUserStateFromRequest( "$option.archive.search", 'search', '' );
-		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );	
+		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 		$live_site 			= $mainframe->getCfg('live_site');
 		$template			= $mainframe->getTemplate();
-		
+
 		//add css and submenu to document
 		$document->setBuffer($submenu, 'module', 'submenu');
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
 		//create the toolbar
-		JMenuBar::title( JText::_( 'ARCHIVE' ), 'archive' );
-		JMenuBar::unarchiveList();
-		JMenuBar::spacer();
-		JMenuBar::deleteList();
-		JMenuBar::spacer();
-		JMenuBar::help( 'el.archive', true );
+		JToolBarHelper::title( JText::_( 'ARCHIVE' ), 'archive' );
+		JToolBarHelper::unarchiveList();
+		JToolBarHelper::spacer();
+		JToolBarHelper::deleteList();
+		JToolBarHelper::spacer();
+		JToolBarHelper::help( 'el.archive', true );
 
 		// Get data from the model
 		$rows      	= & $this->get( 'Data');

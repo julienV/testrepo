@@ -50,14 +50,14 @@ class EventListViewGroups extends JView {
 		$pageNav 	= & $this->get( 'Pagination' );
 
 		//create the toolbar
-		JMenuBar::title( JText::_( 'GROUPS' ), 'groups' );
-		JMenuBar::addNew();
-		JMenuBar::spacer();
-		JMenuBar::editList();
-		JMenuBar::spacer();
-		JMenuBar::deleteList();
-		JMenuBar::spacer();
-		JMenuBar::help( 'el.listgroups', true );
+		JToolBarHelper::title( JText::_( 'GROUPS' ), 'groups' );
+		JToolBarHelper::addNew();
+		JToolBarHelper::spacer();
+		JToolBarHelper::editList();
+		JToolBarHelper::spacer();
+		JToolBarHelper::deleteList();
+		JToolBarHelper::spacer();
+		JToolBarHelper::help( 'el.listgroups', true );
 
 		//table ordering
 		if ( $filter_order_Dir == 'DESC' ) {

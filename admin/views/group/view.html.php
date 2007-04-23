@@ -45,33 +45,33 @@ class EventListViewGroup extends JView {
 		$row      	= & $this->get( 'Data');
 		$maintainers = & $this->get( 'Members');
 		$available_users = & $this->get( 'Available');
-		
+
 		//make data safe
 		jimport('joomla.filter.output');
 		JOutputFilter::objectHTMLSafe( $row );
 
 		//build toolbar
 		if ( $cid ) {
-			JMenuBar::title( JText::_( 'EDIT GROUP' ), 'groupedit' );
-			JMenuBar::spacer();
+			JToolBarHelper::title( JText::_( 'EDIT GROUP' ), 'groupedit' );
+			JToolBarHelper::spacer();
 		} else {
-			JMenuBar::title( JText::_( 'ADD GROUP' ), 'groupedit' );
-			JMenuBar::spacer();
+			JToolBarHelper::title( JText::_( 'ADD GROUP' ), 'groupedit' );
+			JToolBarHelper::spacer();
 
 			//set the submenu
 			$submenu = ELAdmin::submenu();
 			$document->setBuffer($submenu, 'module', 'submenu');
 
 		}
-		JMenuBar::save();
-		JMenuBar::spacer();
-		JMenuBar::cancel();
-		JMenuBar::spacer();
-		JMenuBar::help( 'el.editgroup', true );
+		JToolBarHelper::save();
+		JToolBarHelper::spacer();
+		JToolBarHelper::cancel();
+		JToolBarHelper::spacer();
+		JToolBarHelper::help( 'el.editgroup', true );
 
 		//create selectlists
 		$lists = array();
-		$lists['maintainers']		= JHTMLSelect::genericList( $maintainers, 'maintainers[]', 'class="inputbox" size="20" onDblClick="moveOptions(document.adminForm[\'maintainers[]\'], document.adminForm[\'available_users\'])" multiple="multiple" style="padding: 6px; width: 250px;"', 'value', 'text' );	
+		$lists['maintainers']		= JHTMLSelect::genericList( $maintainers, 'maintainers[]', 'class="inputbox" size="20" onDblClick="moveOptions(document.adminForm[\'maintainers[]\'], document.adminForm[\'available_users\'])" multiple="multiple" style="padding: 6px; width: 250px;"', 'value', 'text' );
 		$lists['available_users']	= JHTMLSelect::genericList( $available_users, 'available_users', 'class="inputbox" size="20" onDblClick="moveOptions(document.adminForm[\'available_users\'], document.adminForm[\'maintainers[]\'])" multiple="multiple" style="padding: 6px; width: 250px;"', 'value', 'text' );
 
 		//assign data to template

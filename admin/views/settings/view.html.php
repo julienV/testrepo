@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -14,36 +14,36 @@ jimport( 'joomla.application.component.view');
 /**
  * View class for the EventList Settings screen
  *
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @since 0.9
  */
 class EventListViewSettings extends JView {
-	
+
 	function display($tpl = null) {
-		
+
 		global $mainframe;
-		
+
 		// Load tooltips behavior
 		jimport('joomla.html.tooltips');
-		
+
 		//initialise variables
 		$elsettings = ELAdmin::config();
 		$document 	= & JFactory::getDocument();
 		$acl		= & JFactory::getACL();
 		$uri 		= & JFactory::getURI();
 		$user 		= & JFactory::getUser();
-		
+
 		//only admins have access to this view
 		if ($user->get('gid') < 24) {
 			JError::raiseWarning( 'SOME_ERROR_CODE', JText::_( 'ALERTNOTAUTH'));
 			$mainframe->redirect( 'index.php?option=com_eventlist&view=eventlist' );
 			return false;
 		}
-		
+
 		//get vars
 		$live_site 	= $mainframe->getCfg('live_site');
-		
+
 		//Build submenu
 		$contents = '';
 		ob_start();
@@ -55,17 +55,17 @@ class EventListViewSettings extends JView {
 		$document->setBuffer($contents, 'module', 'submenu');
 		$document->addScript( JURI::base().'components/com_eventlist/assets/js/settings.js' );
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
-		
+
 		//create the toolbar
-		JMenuBar::title( JText::_( 'SETTINGS' ), 'settings' );
-		JMenuBar::save('savesettings');
-		JMenuBar::spacer();
-		JMenuBar::cancel();
-		JMenuBar::spacer();
-		JMenuBar::help( 'el.settings', true );
-		
+		JToolBarHelper::title( JText::_( 'SETTINGS' ), 'settings' );
+		JToolBarHelper::save('savesettings');
+		JToolBarHelper::spacer();
+		JToolBarHelper::cancel();
+		JToolBarHelper::spacer();
+		JToolBarHelper::help( 'el.settings', true );
+
 		$accessLists = array();
-		
+
  	  	//Create custom group levels to include into the public group selectList
  	  	$access   = array();
  	  	$access[] = JHTMLSelect::option( -2, '- disabled -' );
@@ -73,7 +73,7 @@ class EventListViewSettings extends JView {
  	  	$access[] = JHTMLSelect::option( -1, '- All Registered Users -' );
  	  	//$pub_groups = array_merge( $pub_groups, $acl->get_group_children_tree( null, 'Registered', true ) );
 		$access = array_merge( $access, $acl->get_group_children_tree( null, 'USERS', false ) );
-	
+
 		//Create the access control list
 		$accessLists['evdel_access']	= JHTMLSelect::genericList( $access, 'delivereventsyes', 'class="inputbox" size="4"', 'value', 'text', $elsettings->delivereventsyes );
 		$accessLists['locdel_access']	= JHTMLSelect::genericList( $access, 'deliverlocsyes', 'class="inputbox" size="4"', 'value', 'text', $elsettings->deliverlocsyes );
@@ -88,7 +88,7 @@ class EventListViewSettings extends JView {
 		$this->assignRef('elsettings'	, $elsettings);
 		$this->assignRef('WarningIcon'	, $this->WarningIcon());
 		$this->assignRef('request_url'	, $uri->toString());
-		
+
 		parent::display();
 
 	}

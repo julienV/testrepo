@@ -35,7 +35,7 @@ class EventListViewEvent extends JView {
 		$pane 		= & JPane::getInstance('sliders');
 		$uri 		= & JFactory::getURI();
 		$elsettings = ELAdmin::config();
-		
+
 		//load calendar library
 		JCommonHTML::loadCalendar();
 
@@ -44,31 +44,31 @@ class EventListViewEvent extends JView {
 		$task		= JRequest::getVar('task');
 		$live_site 	= $mainframe->getCfg('live_site');
 		$url 		= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
-		
+
 		//add the custom stylesheet and the seo javascript
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 		$document->addScript($url.'administrator/components/com_eventlist/assets/js/seo.js');
-		
+
 		//build toolbar
 		if ( $cid ) {
-			JMenuBar::title( JText::_( 'EDIT EVENT' ), 'eventedit' );
-			JMenuBar::spacer();
+			JToolBarHelper::title( JText::_( 'EDIT EVENT' ), 'eventedit' );
+			JToolBarHelper::spacer();
 		} else {
-			JMenuBar::title( JText::_( 'ADD EVENT' ), 'eventedit' );
-			JMenuBar::spacer();
+			JToolBarHelper::title( JText::_( 'ADD EVENT' ), 'eventedit' );
+			JToolBarHelper::spacer();
 
 			//set the submenu
 			$submenu = ELAdmin::submenu();
 			$document->setBuffer($submenu, 'module', 'submenu');
 		}
-		JMenuBar::apply();
-		JMenuBar::spacer();
-		JMenuBar::save();
-		JMenuBar::spacer();
-		JMenuBar::cancel();
-		JMenuBar::spacer();
-		JMenuBar::help( 'el.editevents', true );
-		
+		JToolBarHelper::apply();
+		JToolBarHelper::spacer();
+		JToolBarHelper::save();
+		JToolBarHelper::spacer();
+		JToolBarHelper::cancel();
+		JToolBarHelper::spacer();
+		JToolBarHelper::help( 'el.editevents', true );
+
 		//get data from model
 		$row     	= & $this->get( 'Data');
 

@@ -23,7 +23,7 @@ class EventListViewVenue extends JView {
 	function display($tpl = null)
 	{
 		global $mainframe, $option;
-		
+
 		// Load tooltips and pane behavior
 		jimport('joomla.html.pane');
 		jimport('joomla.html.tooltips');
@@ -40,20 +40,20 @@ class EventListViewVenue extends JView {
 		$live_site		= $mainframe->getCfg('live_site');
 		$cid 			= JRequest::getVar( 'cid' );
 		$url 			= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
-		
+
 		//add css and js to document
 		$document->addScript('../includes/js/joomla/popup.js');
 		$document->addStyleSheet('../includes/js/joomla/popup.css');
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
-		
+
 		// Get data from the model
 		$row      	= & $this->get( 'Data');
 		$image 		= & JTable::getInstance('eventlist_venues', '');
 
 		//create the toolbar
 		if ( $cid ) {
-			JMenuBar::title( JText::_( 'EDIT VENUE' ), 'venuesedit' );
-			
+			JToolBarHelper::title( JText::_( 'EDIT VENUE' ), 'venuesedit' );
+
 			//makes data safe
 			jimport('joomla.filter.output');
 			JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'locdescription' );
@@ -61,20 +61,20 @@ class EventListViewVenue extends JView {
 			$image->load($row->id);
 
 		} else {
-			JMenuBar::title( JText::_( 'ADD VENUE' ), 'venuesedit' );
+			JToolBarHelper::title( JText::_( 'ADD VENUE' ), 'venuesedit' );
 
 			//set the submenu
 			$submenu = ELAdmin::submenu();
 			$document->setBuffer($submenu, 'module', 'submenu');
 
 		}
-		JMenuBar::apply();
-		JMenuBar::spacer();
-		JMenuBar::save();
-		JMenuBar::spacer();
-		JMenuBar::cancel();
-		JMenuBar::spacer();
-		JMenuBar::help( 'el.editvenues', true );
+		JToolBarHelper::apply();
+		JToolBarHelper::spacer();
+		JToolBarHelper::save();
+		JToolBarHelper::spacer();
+		JToolBarHelper::cancel();
+		JToolBarHelper::spacer();
+		JToolBarHelper::help( 'el.editvenues', true );
 
 		//Build the image select functionality
 		$js = "

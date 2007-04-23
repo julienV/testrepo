@@ -45,7 +45,7 @@ class EventListViewHelp extends JView {
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
 		//create the toolbar
-		JMenuBar::title( JText::_( 'HELP' ), 'help' );
+		JToolBarHelper::title( JText::_( 'HELP' ), 'help' );
 
 		// Check for files in the actual language
 		$langTag = $lang->getTag();

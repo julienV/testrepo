@@ -36,36 +36,36 @@ class EventListViewCategory extends JView {
 		//get vars
 		$cid 		= JRequest::getVar( 'cid' );
 		$live_site	= $mainframe->getCfg('live_site');
-		
+
 		//add css to document
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
 		//create the toolbar
 		if ( $cid ) {
-			JMenuBar::title( JText::_( 'EDIT CATEGORY' ), 'categoriesedit' );
+			JToolBarHelper::title( JText::_( 'EDIT CATEGORY' ), 'categoriesedit' );
 
 		} else {
-			JMenuBar::title( JText::_( 'ADD CATEGORY' ), 'categoriesedit' );
+			JToolBarHelper::title( JText::_( 'ADD CATEGORY' ), 'categoriesedit' );
 
 			//set the submenu
 			$submenu = ELAdmin::submenu();
 			$document->setBuffer($submenu, 'module', 'submenu');
 
 		}
-		JMenuBar::apply();
-		JMenuBar::spacer();
-		JMenuBar::save();
-		JMenuBar::spacer();
-		JMenuBar::media_manager();
-		JMenuBar::spacer();
-		JMenuBar::cancel();
-		JMenuBar::spacer();
-		JMenuBar::help( 'el.editcategories', true );
+		JToolBarHelper::apply();
+		JToolBarHelper::spacer();
+		JToolBarHelper::save();
+		JToolBarHelper::spacer();
+		JToolBarHelper::media_manager();
+		JToolBarHelper::spacer();
+		JToolBarHelper::cancel();
+		JToolBarHelper::spacer();
+		JToolBarHelper::help( 'el.editcategories', true );
 
 		//Get data from the model
 		$row     	= & $this->get( 'Data' );
 		$groups = & $this->get( 'Groups' );
-		
+
 		//clean data
 		jimport('joomla.filter.output');
 		JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'catdescription' );
@@ -76,7 +76,7 @@ class EventListViewCategory extends JView {
 		$Lists['imagelist'] 		= JAdminMenus::Images( 'image', $row->image, $javascript, '/images/stories/' );
 		$Lists['access'] 			= JAdminMenus::Access( $row );
 
-		
+
 		//build grouplist
 		$grouplist		= array();
 		$grouplist[] 	= JHTMLSelect::option( '0', JText::_( 'NO GROUP' ) );

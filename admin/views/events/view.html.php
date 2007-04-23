@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -14,27 +14,27 @@ jimport( 'joomla.application.component.view');
 /**
  * View class for the EventList events screen
  *
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @since 0.9
  */
 class EventListViewEvents extends JView {
-	
+
 	function display($tpl = null)
 	{
 		global $mainframe, $option;
-		
+
 		//Load tooltips behavior
 		jimport('joomla.html.tooltips');
-		
+
 		//initialise variables
 		$user 		= & JFactory::getUser();
 		$document	= & JFactory::getDocument();
 		$db  		= & JFactory::getDBO();
 		$uri 		= & JFactory::getURI();
 		$elsettings = ELAdmin::config();
-		$submenu 	= ELAdmin::submenu();	
-		
+		$submenu 	= ELAdmin::submenu();
+
 		//get vars
 		$filter_order		= $mainframe->getUserStateFromRequest( "$option.events.filter_order", 		'filter_order', 	'a.dates' );
 		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.events.filter_order_Dir",	'filter_order_Dir',	'' );
@@ -44,37 +44,37 @@ class EventListViewEvents extends JView {
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 		$live_site 			= $mainframe->getCfg('live_site');
 		$template			= $mainframe->getTemplate();
-		
+
 		//add css and submenu to document
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 		$document->setBuffer($submenu, 'module', 'submenu');
-		
+
 		//create the toolbar
-		JMenuBar::title( JText::_( 'EVENTS' ), 'events' );
-		JMenuBar::archiveList();
-		JMenuBar::spacer();
-		JMenuBar::publishList();
-		JMenuBar::spacer();
-		JMenuBar::unpublishList();
-		JMenuBar::spacer();
-		JMenuBar::addNew();
-		JMenuBar::spacer();
-		JMenuBar::editList();
-		JMenuBar::spacer();
-		JMenuBar::deleteList( '', 'remove', 'Remove' );
-		JMenuBar::spacer();
-		JMenuBar::custom( 'copy', 'copy.png', 'copy_f2.png', 'Copy' );
-		JMenuBar::spacer();
-		JMenuBar::help( 'el.listevents', true );
-		
+		JToolBarHelper::title( JText::_( 'EVENTS' ), 'events' );
+		JToolBarHelper::archiveList();
+		JToolBarHelper::spacer();
+		JToolBarHelper::publishList();
+		JToolBarHelper::spacer();
+		JToolBarHelper::unpublishList();
+		JToolBarHelper::spacer();
+		JToolBarHelper::addNew();
+		JToolBarHelper::spacer();
+		JToolBarHelper::editList();
+		JToolBarHelper::spacer();
+		JToolBarHelper::deleteList( '', 'remove', 'Remove' );
+		JToolBarHelper::spacer();
+		JToolBarHelper::custom( 'copy', 'copy.png', 'copy_f2.png', 'Copy' );
+		JToolBarHelper::spacer();
+		JToolBarHelper::help( 'el.listevents', true );
+
 		// Get data from the model
 		$rows      	= & $this->get( 'Data');
 		$total      = & $this->get( 'Total');
 		$pageNav 	= & $this->get( 'Pagination' );
-		
-		//publish unpublished filter 
+
+		//publish unpublished filter
 		$lists['state']	= JCommonHTML::selectState( $filter_state );
-	
+
 		//table ordering
 		if ( $filter_order_Dir == 'DESC' ) {
 			$lists['order_Dir'] = 'ASC';
@@ -82,8 +82,8 @@ class EventListViewEvents extends JView {
 			$lists['order_Dir'] = 'DESC';
 		}
 		$lists['order'] = $filter_order;
-		
-		//search filter 
+
+		//search filter
 		$filters = array();
 		$filters[] = JHTMLSelect::option( '1', JText::_( 'EVENT TITLE' ) );
 		$filters[] = JHTMLSelect::option( '2', JText::_( 'VENUE' ) );
