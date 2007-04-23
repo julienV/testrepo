@@ -83,7 +83,7 @@ CREATE TABLE `#__eventlist_register` (
 `rdid` int(11) unsigned NOT NULL default '0',
 `uid` int(11) unsigned NOT NULL default '0',
 `urname` varchar(60) NOT NULL default '0',
-`uregdate` varchar(150) NOT NULL default '',
+`uregdate` datetime NOT NULL,
 `uip` varchar(45) NOT NULL default '',
 PRIMARY KEY  (`rid`)
 ) TYPE=MyISAM;

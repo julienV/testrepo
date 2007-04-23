@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS 
+DROP TABLE IF EXISTS
 `#__eventlist_events`,
 `#__eventlist_venues`,
 `#__eventlist_categories`,
@@ -83,7 +83,7 @@ CREATE TABLE `#__eventlist_register` (
 `rdid` int(11) NOT NULL default '0',
 `uid` int(11) NOT NULL default '0',
 `urname` varchar(20) NOT NULL default '0',
-`uregdate` varchar(50) NOT NULL default '',
+`uregdate` datetime NOT NULL,
 `uip` varchar(15) NOT NULL default '',
 PRIMARY KEY  (`rid`)
 ) TYPE=MyISAM CHARACTER SET `utf8` COLLATE `utf8_general_ci`;
