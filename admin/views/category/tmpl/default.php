@@ -17,17 +17,17 @@ function submitbutton(pressbutton) {
 	}
 }
 </script>
-		
-		
+
+
 <form action="<?php $this->request_url; ?>" method="post" name="adminForm" id="adminForm">
 <table class="adminlist">
 	<tr>
-  		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>  
+  		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>
   		<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;"><?php echo $this->row->id ? '::'.JText::_( 'EDIT CATEGORY' ).'::' : '::'.JText::_( 'ADD CATEGORY' ).'::';?></font></td>
 	</tr>
 </table>
-		
-		
+
+
 	<table cellspacing="0" cellpadding="0" border="0" width="100%">
 		<tr>
 			<td valign="top">
@@ -41,8 +41,6 @@ function submitbutton(pressbutton) {
 						<td>
 							<input name="catname" value="<?php echo $this->row->catname; ?>" size="50" maxlength="100">
 						</td>
-					</tr>
-					<tr>
 						<td>
 							<label for="published">
 								<?php echo JText::_( 'PUBLISHED' ).':'; ?>
@@ -54,7 +52,7 @@ function submitbutton(pressbutton) {
 							echo $html;
 							?>
 						</td>
-					</tr>						
+					</tr>
 					<tr>
 						<td>
 							<label for="alias">
@@ -66,7 +64,7 @@ function submitbutton(pressbutton) {
 						</td>
 					</tr>
 				</table>
-				
+
 			<table class="adminform">
 				<tr>
 					<td>
@@ -177,7 +175,7 @@ function submitbutton(pressbutton) {
 			</td>
 		</tr>
 		</table>
-			
+
 		<?php
 		echo $this->pane->endPanel();
 		echo $this->pane->endPane();
@@ -185,7 +183,7 @@ function submitbutton(pressbutton) {
 		</td>
 	</tr>
 </table>
-		
+
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
 <input type="hidden" name="controller" value="categories" />
@@ -196,7 +194,7 @@ function submitbutton(pressbutton) {
 	<?php echo ELAdmin::footer( ); ?>
 </p>
 
-<?php 
+<?php
 //keep session alive while editing
 JHTML::keepAlive();
 ?>
