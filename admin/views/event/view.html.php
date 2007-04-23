@@ -52,10 +52,8 @@ class EventListViewEvent extends JView {
 		//build toolbar
 		if ( $cid ) {
 			JToolBarHelper::title( JText::_( 'EDIT EVENT' ), 'eventedit' );
-			JToolBarHelper::spacer();
 		} else {
 			JToolBarHelper::title( JText::_( 'ADD EVENT' ), 'eventedit' );
-			JToolBarHelper::spacer();
 
 			//set the submenu
 			$submenu = ELAdmin::submenu();
