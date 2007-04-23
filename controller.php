@@ -106,7 +106,9 @@ class EventListController extends JController
 			$this->setRedirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view=venueevents&locatid='.$id);
 
 		} else {
+		//	$view != '' ? $target = '&view='.$view : $target = '';
 			$this->setRedirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$view );
+		//	$this->setRedirect( 'index.php?option=com_eventlist'.$target );
 		}
 	}
 

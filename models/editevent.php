@@ -339,7 +339,7 @@ class EventListModelEditevent extends JModel
 
   		return $this->_db->loadResult();
 	}
-	
+
 	/**
 	 * Method to checkin/unlock the item
 	 *
@@ -359,7 +359,7 @@ class EventListModelEditevent extends JModel
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Method to store the event
 	 *
@@ -370,23 +370,25 @@ class EventListModelEditevent extends JModel
 	function store($data, $file)
 	{
 		global $mainframe, $option;
-		
+
 		jimport('joomla.utilities.date');
 
 		$user 		= & JFactory::getUser();
 		$acl		= & JFactory::getACL();
+		$config 	= & JFactory::getConfig();
 		$elsettings = ELHelper::config();
 
 		//Get mailinformation
 		$SiteName 		= $mainframe->getCfg('sitename');
 		$MailFrom	 	= $mainframe->getCfg('mailfrom');
 		$FromName 		= $mainframe->getCfg('fromname');
-		
+		$tzoffset 		= $config->getValue('config.offset');
+
 		$sizelimit 		= $elsettings->sizelimit*1024; //size limit in kb
 		$base_Dir 		= JPATH_SITE.'/images/eventlist/events/';
-		
+
 		$row =& JTable::getInstance('eventlist_events', '');
-		
+
 		//Sanitize
 		$data['datdescription'] = JRequest::getVar( 'datdescription', '', 'post','string', JREQUEST_ALLOWRAW );
 
@@ -408,8 +410,6 @@ class EventListModelEditevent extends JModel
 			return false;
 		}
 
-		$datenow = new JDate();
-		
 		//Are we saving from an item edit?
 		if ($row->id) {
 
@@ -424,7 +424,8 @@ class EventListModelEditevent extends JModel
 				JError::raiseError( 403, JText::_( 'NO ACCESS' ) );
 			}
 
-			$row->modified 		= $datenow->toFormat();
+			$date 				= new JDate($row->modified, $tzoffset);
+			$row->modified 		= $date->toMySQL();
 			$row->modified_by 	= $user->get('id');
 
 			/*
@@ -451,8 +452,10 @@ class EventListModelEditevent extends JModel
 			}
 
 			//get IP, time and userid
+			$date 				= new JDate($row->created, $tzoffset);
+			$row->created 		= $date->toMySQL();
+
 			$row->author_ip 	= getenv('REMOTE_ADDR');
-			$row->created 		= $datenow->toFormat();
 			$row->created_by 	= $user->get('id');
 
 			//Set owneredit to false
@@ -469,10 +472,10 @@ class EventListModelEditevent extends JModel
 			} else {
 				$row->published = 0 ;
 		}
-		
+
 		//Image upload
 		if ( ( $elsettings->imageenabled == 2 || $elsettings->imageenabled == 1 ) && ( !empty($file['name'])  ) )  {
-			
+
 			$imagesize 	= $file['size'];
 
 			if ($imagesize > $sizelimit) {
@@ -583,7 +586,7 @@ class EventListModelEditevent extends JModel
 
 		//create mail
 		if (($elsettings->mailinform == 1) || ($elsettings->mailinform == 3)) {
-			
+
 			$this->_db->setQuery("SELECT * FROM #__eventlist_venues"
 						. "\nWHERE id = ".(int)$row->locid
 						);
@@ -601,13 +604,13 @@ class EventListModelEditevent extends JModel
 				$mailbody .= ' \n';
 				$mailbody .= JText::_( 'USERMAILADDRESS' ).': '.$rowuser->email.' \n';
 				//$mailbody .= JText::_( 'USER IP' ).': '.$row->author_ip.' \n';
-				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.strftime( '%c', $row->modified ).' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.JHTML::Date( $row->modified, DATE_FORMAT_LC2 ).' \n';
 			} else {
 				$mailbody = JText::_( 'GOT SUBMISSION' ).': '.$rowuser->username.' \n';
 				$mailbody .= ' \n';
 				$mailbody .= JText::_( 'USERMAILADDRESS' ).': '.$rowuser->email.' \n';
 				$mailbody .= JText::_( 'USER IP' ).': '.$row->author_ip.' \n';
-				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.strftime( '%c', $row->created ).' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.JHTML::Date( $row->created, DATE_FORMAT_LC2 ).' \n';
 			}
 			$mailbody .= ' \n';
 			$mailbody .= JText::_( 'TITLE' ).': '.$row->title.' \n';
@@ -629,7 +632,7 @@ class EventListModelEditevent extends JModel
 			$sent = $mail->Send();
 
 		}//mail end
-		
+
 		return $row->id;
 	}
 }

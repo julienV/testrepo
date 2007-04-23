@@ -1,7 +1,7 @@
-<?php 
+<?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -15,7 +15,7 @@ jimport('joomla.application.component.model');
 /**
  * EventList Component Editvenue Model
  *
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @since		0.9
  */
@@ -52,7 +52,7 @@ class EventListModelEditvenue extends JModel
 		// Set new venue ID
 		$this->_id			= $id;
 	}
-	
+
 	/**
 	 * Logic to get the venue
 	 *
@@ -65,11 +65,11 @@ class EventListModelEditvenue extends JModel
 		// Initialize variables
 		$user		= & JFactory::getUser();
 		$elsettings = ELHelper::config();
-		
+
 		$view		= JRequest::getVar('view', '', '', 'string');
 
 		if ($this->_id) {
-		
+
 			// Load the Event data
 			$this->_loadVenue();
 
@@ -82,32 +82,32 @@ class EventListModelEditvenue extends JModel
 			} else {
 				$this->_venue->checkout( $user->get('id') );
 			}
-			
+
 			/*
 			* access check
 			*/
 			$owner = $this->getOwner();
-			
+
 			$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $owner->created_by, $user->get('id'), $elsettings->venueeditrec, $elsettings->venueedit);
-			
+
 			if ($allowedtoeditvenue == 0) {
-				
+
 				JError::raiseError( 403, JText::_( 'NO ACCESS' ) );
-				
+
 			}
-			
+
 
 		} else {
-			
+
 			/*
 			* access checks
 			*/
 			$delloclink = ELUser::validate_user( $elsettings->locdelrec, $elsettings->deliverlocsyes );
-			
+
 			if ($delloclink == 0) {
-				
+
 				JError::raiseError( 403, JText::_( 'NO ACCESS' ) );
-				
+
 			}
 
 			//prepare output
@@ -129,7 +129,7 @@ class EventListModelEditvenue extends JModel
 		return $this->_venue;
 
 	}
-	
+
 	/**
 	 * logic to get the venue
 	 *
@@ -138,7 +138,7 @@ class EventListModelEditvenue extends JModel
 	 */
 	function _loadVenue( )
 	{
-		
+
 		if (empty($this->_venue)) {
 
 			$this->_venue =& JTable::getInstance('eventlist_venues', '');
@@ -153,23 +153,23 @@ class EventListModelEditvenue extends JModel
 
 		}
 	}
-	
+
 	/**
 	 * Logic to get the owner
 	 *
 	 * @return integer
 	 */
 	function getOwner( )
-	{		
+	{
 		$query = 'SELECT l.created_by'
-				. ' FROM #__eventlist_venues AS l' 
+				. ' FROM #__eventlist_venues AS l'
 				. ' WHERE l.id = '.$this->_id
 				;
 		$this->_db->setQuery( $query );
-				
+
     	return $this->_db->loadObject();
 	}
-	
+
 	/**
 	 * Method to checkin/unlock the item
 	 *
@@ -189,7 +189,7 @@ class EventListModelEditvenue extends JModel
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Method to store the venue
 	 *
@@ -200,17 +200,19 @@ class EventListModelEditvenue extends JModel
 	function store($data, $file)
 	{
 		global $mainframe, $option;
-		
+
 		jimport('joomla.utilities.date');
 
 		$user 		= & JFactory::getUser();
+		$config 	= & JFactory::getConfig();
 		$elsettings = ELHelper::config();
 
 		//Get mailinformation
 		$SiteName 		= $mainframe->getCfg('sitename');
 		$MailFrom	 	= $mainframe->getCfg('mailfrom');
 		$FromName 		= $mainframe->getCfg('fromname');
-		
+		$tzoffset 		= $config->getValue('config.offset');
+
 		$sizelimit 	= $elsettings->sizelimit*1024; //size limit in kb
 		$base_Dir = JPATH_SITE.'/images/eventlist/venues/';
 
@@ -221,8 +223,6 @@ class EventListModelEditvenue extends JModel
 			JError::raiseError( 500, $this->_db->stderr() );
 			return false;
 		}
-
-		$datenow = new JDate();
 
 		//Are we saving from an item edit?
 		if ($row->id) {
@@ -238,7 +238,9 @@ class EventListModelEditvenue extends JModel
 				return false;
 			}
 
-			$row->modified 		= $datenow->toFormat();
+			$date 				= new JDate($row->modified, $tzoffset);
+			$row->modified 		= $date->toMySQL();
+
 			$row->modified_by 	= $user->get('id');
 
 			//Is editor the owner of the venue
@@ -260,10 +262,11 @@ class EventListModelEditvenue extends JModel
 				return false;
 			}
 
-
 			//get IP, time and userid
+			$date 					= new JDate($row->created, $tzoffset);
+			$row->created 			= $date->toMySQL();
+
 			$row->author_ip 		= getenv('REMOTE_ADDR');
-			$row->created			= $datenow->toFormat();
 			$row->created_by		= $user->get('id');
 
 			//set owneredit to false
@@ -362,7 +365,7 @@ class EventListModelEditvenue extends JModel
 
 		//update item order
 		$row->reorder();
-		
+
 		//create mail
 		if (($elsettings->mailinform == 2) || ($elsettings->mailinform == 3)) {
 
@@ -371,19 +374,19 @@ class EventListModelEditvenue extends JModel
 						);
 
 			$rowuser = $this->_db->loadObject();
-			
+
 			If ($row->id) {
-				$mailbody = JText::_( 'GOT EDITING' ).' '.$rowuser->username.' \n';
+				$mailbody = JText::_( 'GOT EDITING' ).': '.$rowuser->username.' \n';
 				$mailbody .= ' \n';
-				$mailbody .= JText::_( 'USERMAILADDRESS' ).' '.$rowuser->email.' \n';
+				$mailbody .= JText::_( 'USERMAILADDRESS' ).': '.$rowuser->email.' \n';
 				//$mailbody .= JText::_( 'USER IP' ).' '.$row->author_ip.' \n';
-				$mailbody .= JText::_( 'SUBMISSION TIME' ).' '.strftime( '%c', $row->modified ).' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.JHTML::Date( $row->modified, DATE_FORMAT_LC2 ).' \n';
 			} else {
-				$mailbody = JText::_( 'GOT SUBMISSION' ).' '.$rowuser->username.' \n';
+				$mailbody = JText::_( 'GOT SUBMISSION' ).': '.$rowuser->username.' \n';
 				$mailbody .= ' \n';
-				$mailbody .= JText::_( 'USERMAILADDRESS' ).' '.$rowuser->email.' \n';
-				$mailbody .= JText::_( 'USER IP' ).' '.$row->author_ip.' \n';
-				$mailbody .= JText::_( 'SUBMISSION TIME' ).' '.strftime( '%c', $row->created ).' \n';
+				$mailbody .= JText::_( 'USERMAILADDRESS' ).': '.$rowuser->email.' \n';
+				$mailbody .= JText::_( 'USER IP' ).': '.$row->author_ip.' \n';
+				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.JHTML::Date( $row->created, DATE_FORMAT_LC2 ).' \n';
 			}
 			$mailbody .= ' \n';
 			$mailbody .= JText::_( 'VENUE' ).': '.$row->venue.' \n';
@@ -407,7 +410,7 @@ class EventListModelEditvenue extends JModel
 
 			$sent = $mail->Send();
 		}
-		
+
 		return $row->id;
 	}
 }

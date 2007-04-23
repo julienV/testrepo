@@ -58,18 +58,13 @@
 			<tr class="<?php echo "row$k"; ?>">
 				<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
 				<td><input type="checkbox" id="cb<?php echo $i;?>" name="cid[]" value="<?php echo $row->rid; ?>" onclick="isChecked(this.checked);" /></td>
-				<td><a href="<?php echo $this->live_site.'/administrator/index.php?option=com_users&task=edit&cid[]='.$row->uid; ?>"><?php echo $row->name; ?></a></td>				
+				<td><a href="<?php echo $this->live_site.'/administrator/index.php?option=com_users&task=edit&cid[]='.$row->uid; ?>"><?php echo $row->name; ?></a></td>
 				<td>
 					<a href="<?php echo $this->live_site.'/administrator/index.php?option=com_users&task=edit&cid[]='.$row->uid; ?>"><?php echo $row->urname; ?></a>
 				</td>
 				<td><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a></td>
 				<td><?php echo $row->uip; ?></td>
-				<td>
-					<?php
-					$regdate = strftime( '%c',$row->uregdate );
-					echo $regdate;
-					?>
-				</td>
+				<td><?php echo JHTML::Date( $row->uregdate, DATE_FORMAT_LC2 ); ?></td>
 				<td><?php echo $row->uid; ?></td>
 				<td><a href="javascript: void(0);" onclick="return listItemTask('cb<?php echo $i;?>','removeuser')"><img src="images/publish_x.png" width="16" height="16" border="0" alt="Delete" /></a></td>
 			</tr>
@@ -82,7 +77,7 @@
 			</tr>
 		</tfoot>
 	</table>
-	
+
 	<p class="copyright">
 		<?php echo ELAdmin::footer( ); ?>
 	</p>

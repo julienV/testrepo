@@ -249,9 +249,12 @@ class EventListModelEvent extends JModel
 		global $mainframe, $option;
 
 		jimport('joomla.utilities.date');
-		
+
 		$elsettings = ELAdmin::config();
-		$user		=& JFactory::getUser();
+		$user		= & JFactory::getUser();
+		$config 	= & JFactory::getConfig();
+
+		$tzoffset 	= $config->getValue('config.offset');
 
 		$row =& JTable::getInstance('eventlist_events', '');
 
@@ -272,9 +275,7 @@ class EventListModelEvent extends JModel
 			$row->meta_keywords = JString::substr($row->meta_keywords, 0, 199);
 		}
 
-		/*
-		* Check if image was selected
-		*/
+		//Check if image was selected
 		jimport('joomla.filesystem.file');
 		$format 	= JFile::getExt('JPATH_SITE/images/eventlist/events/'.$row->datimage);
 
@@ -284,32 +285,36 @@ class EventListModelEvent extends JModel
 		} else {
 			$row->datimage = '';
 		}
-		
+
 		// sanitise id field
 		$row->id = (int) $row->id;
 
 		$datenow 	= new JDate();
 		$nullDate	= $this->_db->getNullDate();
-		
+
 		// Are we saving from an item edit?
 		if ($row->id) {
-			$row->modified 		= $datenow->toFormat();
+			$date 				= new JDate($row->modified, $tzoffset);
+			$row->modified 		= $date->toMySQL();
 			$row->modified_by 	= $user->get('id');
 		} else {
 			$row->modified 		= $nullDate;
 			$row->modified_by 	= '';
+
+			//get IP, time and userid
+			$date 					= new JDate($row->created, $tzoffset);
+			$row->created 			= $date->toMySQL();
+
+			$row->author_ip 		= getenv('REMOTE_ADDR');
+			$row->created_by		= $user->get('id');
 		}
 
-		$row->created_by	= $row->created_by ? $row->created_by : $user->get('id');
-		$row->author_ip 	= $row->author_ip ? $row->author_ip : getenv('REMOTE_ADDR');
-		$row->created	 	= $row->created ? $row->created : $datenow->toFormat();
-		
 		// Make sure the data is valid
 		if (!$row->check($elsettings)) {
 			$this->setError($row->getError());
 			return false;
 		}
-		
+
 		// Store the table to the database
 		if (!$row->store(true)) {
 			$this->setError($this->_db->getErrorMsg());

@@ -1,7 +1,7 @@
-<?php 
+<?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -15,7 +15,7 @@ jimport('joomla.application.component.model');
 /**
  * EventList Component Details Model
  *
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @since		0.9
  */
@@ -27,15 +27,15 @@ class EventListModelDetails extends JModel
 	 * @var array
 	 */
 	var $_details = null;
-	
+
 	/**
 	 * Pics in array
 	 *
 	 * @var array
 	 */
 	var $_pics = null;
-	
-	
+
+
 	/**
 	 * registeres in array
 	 *
@@ -62,13 +62,13 @@ class EventListModelDetails extends JModel
 	 * @access	public
 	 * @param	int	details ID number
 	 */
-	
+
 	function setId($id)
 	{
 		// Set new details ID and wipe data
 		$this->_id			= $id;
 	}
-	
+
 	/**
 	 * Method to get event data for the Detailsview
 	 *
@@ -84,24 +84,24 @@ class EventListModelDetails extends JModel
 		if ($this->_loadDetails())
 		{
 			$user	= & JFactory::getUser();
-			
+
 			// Is the category published?
 			if (!$this->_details->published && $this->_details->catsid)
 			{
 				JError::raiseError( 404, JText::_("CATEGORY NOT PUBLISHED") );
 			}
-			
+
 			// Do we have access to the category?
 			if (($this->_details->access > $user->get('aid')) && $this->_details->catsid)
 			{
 				JError::raiseError( 403, JText::_("ALERTNOTAUTH") );
 			}
-			
+
 		}
-		
+
 		return $this->_details;
 	}
-	
+
 	/**
 	 * Method to load required data
 	 *
@@ -110,14 +110,14 @@ class EventListModelDetails extends JModel
 	 * @since	0.9
 	 */
 	function _loadDetails()
-	{		
+	{
 		if (empty($this->_details))
 		{
 			// Get the WHERE clause
 			$where	= $this->_buildDetailsWhere();
-		
+
 			$query = 'SELECT a.id AS did, a.dates, a.enddates, a.title, a.times, a.endtimes, a.datdescription, a.meta_keywords, a.meta_description, a.datimage, a.registra, a.unregistra, a.locid, a.catsid, a.created_by,'
-					. ' l.id AS locid, l.venue, l.city, l.state, l.url, l.locdescription, l.locimage, l.city, l.plz, l.street, l.country, l.created_by AS venueowner,' 
+					. ' l.id AS locid, l.venue, l.city, l.state, l.url, l.locdescription, l.locimage, l.city, l.plz, l.street, l.country, l.created_by AS venueowner,'
 					. ' c.catname, c.published, c.access,'
 					. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\'-\', a.locid, l.alias) ELSE a.locid END as venueslug,'
 					. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\'-\', c.id, c.alias) ELSE c.id END as categoryslug'
@@ -132,7 +132,7 @@ class EventListModelDetails extends JModel
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Method to build the WHERE clause of the query to select the details
 	 *
@@ -146,7 +146,7 @@ class EventListModelDetails extends JModel
 
 		return $where;
 	}
-	
+
 	/**
 	 * Method to check if the user is allready registered
 	 *
@@ -159,7 +159,7 @@ class EventListModelDetails extends JModel
 		// Initialize variables
 		$user 		= & JFactory::getUser();
 		$userid		= (int) $user->get('id', 0);
-		
+
 		//usercheck
 		$query = 'SELECT urname'
 				. ' FROM #__eventlist_register'
@@ -169,7 +169,7 @@ class EventListModelDetails extends JModel
 		$this->_db->setQuery( $query );
 		return $this->_db->loadResult();
 	}
-	
+
 	/**
 	 * Method to get the registered users
 	 *
@@ -178,19 +178,19 @@ class EventListModelDetails extends JModel
 	 * @since	0.9
 	 */
 	function getRegisters()
-	{						
+	{
 		//Register holen
 		$query = 'SELECT urname, uid'
 				. ' FROM #__eventlist_register'
 				. ' WHERE rdid = '.$this->_id
 				;
 		$this->_db->setQuery( $query );
-		
+
 		$_registers = $this->_db->loadObjectList();
-		
+
 		return $_registers;
 	}
-	
+
 	/**
 	 * Method to get the avatars of the registered users
 	 *
@@ -202,7 +202,7 @@ class EventListModelDetails extends JModel
 	{
 		// Initialize variables
 		$_registers	= & $this->getRegisters();
-		
+
 		//get avatars
 
 		foreach ($_registers as $register) {
@@ -212,7 +212,7 @@ class EventListModelDetails extends JModel
 		}
 		return $_pics;
 	}
-	
+
 	/**
 	 * Saves the registration to the database
 	 *
@@ -222,26 +222,31 @@ class EventListModelDetails extends JModel
 	 */
 	function userregister()
 	{
-		$user 	= & JFactory::getUser();
-		
+		jimport('joomla.utilities.date');
+
+		$user 		= & JFactory::getUser();
+		$config 	= & JFactory::getConfig();
+
 		$rdid 		= (int) $this->_id;
 		$uid 		= (int) $user->get('id');
 		$urname 	= $user->get('username');
-		
+
 		// Must be logged in
 		if ($uid < 1) {
 			JError::raiseError( 403, JText::_('ALERTNOTAUTH') );
 			return;
 		}
-	
+
 		//IP+time of registration
-		$uregdate	= time();
+		$date 		= new JDate($uregdate, $tzoffset);
+		$uregdate 	= $date->toMySQL();
+		//$uregdate	= time();
 		$uip 		= getenv('REMOTE_ADDR');
-		
+
 		$query = "INSERT INTO #__eventlist_register ( rdid, uid, urname, uregdate, uip )" .
-					"\n VALUES ( $rdid, $uid, '$urname', $uregdate, '$uip' )";
+					"\n VALUES ( $rdid, $uid, '$urname', '$uregdate', '$uip' )";
 		$this->_db->setQuery($query);
-	
+
 		if (!$this->_db->query()) {
 				JError::raiseError( 500, $this->_db->stderr());
 		}
@@ -253,25 +258,25 @@ class EventListModelDetails extends JModel
 	 *
 	 */
 	function delreguser()
-	{		
+	{
 		$user 	= & JFactory::getUser();
-	
+
 		$rdid 	= (int) $this->_id;
 		$userid = $user->get('id');
-		
+
 		// Must be logged in
 		if ($userid < 1) {
 			JError::raiseError( 403, JText::_('ALERTNOTAUTH') );
 			return;
 		}
-	
+
 		$query = 'DELETE FROM #__eventlist_register WHERE rdid = '.$rdid.' AND uid= '.$userid;
 		$this->_db->SetQuery( $query );
-	
+
 		if (!$this->_db->query()) {
 				JError::raiseError( 500, $this->_db->getErrorMsg() );
 		}
-		
+
 		return true;
 	}
 }

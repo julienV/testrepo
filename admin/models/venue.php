@@ -222,8 +222,11 @@ class EventListModelVenue extends JModel
 		global $mainframe, $option;
 
 		$elsettings = ELAdmin::config();
-		$user		=& JFactory::getUser();
-		
+		$user		= & JFactory::getUser();
+		$config 	= & JFactory::getConfig();
+
+		$tzoffset 	= $config->getValue('config.offset');
+
 		jimport('joomla.utilities.date');
 
 		$row  =& $this->getTable('eventlist_venues', '');
@@ -244,24 +247,26 @@ class EventListModelVenue extends JModel
 		} else {
 			$row->locimage = '';
 		}
-		
+
 		// sanitise id field
 		$row->id = (int) $row->id;
 
-		$datenow 	= new JDate();
 		$nullDate	= $this->_db->getNullDate();
-		
+
 		// Are we saving from an item edit?
 		if ($row->id) {
-			$row->modified 		= $datenow->toFormat();
+			$date 				= new JDate($row->modified, $tzoffset);
+			$row->modified 		= $date->toMySQL();
 			$row->modified_by 	= $user->get('id');
 		} else {
 			$row->modified 		= $nullDate;
 			$row->modified_by 	= '';
-			
+
 			//get IP, time and userid
+			$date 					= new JDate($row->created, $tzoffset);
+			$row->created 			= $date->toMySQL();
+
 			$row->author_ip 		= getenv('REMOTE_ADDR');
-			$row->created			= $datenow->toFormat();
 			$row->created_by		= $user->get('id');
 		}
 
