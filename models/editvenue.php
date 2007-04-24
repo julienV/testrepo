@@ -380,7 +380,7 @@ class EventListModelEditvenue extends JModel
 			$base 	= JURI::base();
 			$state = $row->published ? JText::_('published').' '.$base.JRoute::_('index.php?view=venueevents&locatid='.$row->id, false) : JText::_('unpublished');
 
-			If ($row->id) {
+			If ($edited) {
 
 				$modified_ip 	= getenv('REMOTE_ADDR');
 				$edited 		= JHTML::Date( $row->modified, DATE_FORMAT_LC2 );
