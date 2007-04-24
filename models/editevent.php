@@ -568,17 +568,17 @@ class EventListModelEditevent extends JModel
 		}
 
 
-		/*
-		 * Make sure the table is valid
-		 */
+		//Make sure the table is valid
 		if (!$row->check($elsettings)) {
 			$this->setError($row->getError());
 			return false;
 		}
 
-		/*
-		 * store it in the db
-		 */
+		//is this an edited event or not?
+		//after store we allways have an id
+		$edited = $row->id ? $row->id : false;
+
+		//store it in the db
 		if (!$row->store(true)) {
 			JError::raiseError( 500, $this->_db->stderr() );
 			return false;
@@ -587,46 +587,36 @@ class EventListModelEditevent extends JModel
 		//create mail
 		if (($elsettings->mailinform == 1) || ($elsettings->mailinform == 3)) {
 
-			$this->_db->setQuery("SELECT * FROM #__eventlist_venues"
-						. "\nWHERE id = ".(int)$row->locid
-						);
-
+			$this->_db->setQuery('SELECT * FROM #__eventlist_venues WHERE id = '.(int)$row->locid);
 			$rowloc = $this->_db->loadObject();
 
-			$this->_db->SetQuery("SELECT username, email FROM #__users"
-						. "\nWHERE id = ".$user->get('id')
-						);
-
+			$this->_db->SetQuery('SELECT username, email FROM #__users WHERE id = '.(int)$user->get('id'));
 			$rowuser = $this->_db->loadObject( );
-
-			if ($elsettings->id) {
-				$mailbody = JText::_( 'GOT EDITING' ).': '.$rowuser->username.' \n';
-				$mailbody .= ' \n';
-				$mailbody .= JText::_( 'USERMAILADDRESS' ).': '.$rowuser->email.' \n';
-				//$mailbody .= JText::_( 'USER IP' ).': '.$row->author_ip.' \n';
-				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.JHTML::Date( $row->modified, DATE_FORMAT_LC2 ).' \n';
-			} else {
-				$mailbody = JText::_( 'GOT SUBMISSION' ).': '.$rowuser->username.' \n';
-				$mailbody .= ' \n';
-				$mailbody .= JText::_( 'USERMAILADDRESS' ).': '.$rowuser->email.' \n';
-				$mailbody .= JText::_( 'USER IP' ).': '.$row->author_ip.' \n';
-				$mailbody .= JText::_( 'SUBMISSION TIME' ).': '.JHTML::Date( $row->created, DATE_FORMAT_LC2 ).' \n';
-			}
-			$mailbody .= ' \n';
-			$mailbody .= JText::_( 'TITLE' ).': '.$row->title.' \n';
-			$mailbody .= JText::_( 'DATE' ).': '.$row->dates.' \n';
-			$mailbody .= JText::_( 'TIME' ).': '.$row->times.' \n';
-			$mailbody .= JText::_( 'VENUE' ).': '.$rowloc->venue.' / '.$rowloc->city.' \n';
-			$mailbody .= JText::_( 'DESCRIPTION' ).': '.$row->datdescription.' \n';
 
 			jimport('joomla.utilities.mail');
 
 			$mail = new JMail();
 
-			//$mail->addRecipient( $elsettings->mailinformrec );
+			$base 	= JURI::base();
+			$state = $row->published ? JText::_('published').' '.$base.JRoute::_('index.php?view=details&did='.$row->id, false) : JText::_('unpublished');
+
+			if ($edited) {
+
+				$modified_ip 	= getenv('REMOTE_ADDR');
+				$edited 		= JHTML::Date( $row->modified, DATE_FORMAT_LC2 );
+				$mailbody 		= JText::sprintf('MAIL EDIT EVENT', $rowuser->username, $rowuser->email, $modified_ip, $edited, $row->title, $row->dates, $row->times, $rowloc->venue, $rowloc->city, $row->datdescription, $state);
+				$mail->setSubject( $SiteName.JText::_( 'EDIT EVENT MAIL' ) );
+
+			} else {
+
+				$created 	= JHTML::Date( $row->created, DATE_FORMAT_LC2 );
+				$mailbody 	= JText::sprintf('MAIL NEW EVENT', $rowuser->username, $rowuser->email, $row->author_ip, $created, $row->title, $row->dates, $row->times, $rowloc->venue, $rowloc->city, $row->datdescription, $state);
+				$mail->setSubject( $SiteName.JText::_( 'NEW EVENT MAIL' ) );
+
+			}
+
 			$mail->addRecipient( array( $elsettings->mailinformrec, $elsettings->mailinformrec2 )  );
 			$mail->setSender( array( $MailFrom, $FromName ) );
-			$mail->setSubject( $SiteName.JText::_( 'NEW EVENT MAIL' ) );
 			$mail->setBody( $mailbody );
 
 			$sent = $mail->Send();
