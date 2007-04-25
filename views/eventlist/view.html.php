@@ -49,7 +49,7 @@ class EventListViewEventList extends JView
 		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0));
 		$pop			= JRequest::getVar('pop', 0, '', 'int');
 		$pathway 		= & $mainframe->getPathWay();
-		
+
 		//get data from model
 		$rows 	= & $this->get('Data');
 		$total 	= & $this->get('Total');
@@ -74,7 +74,7 @@ class EventListViewEventList extends JView
 		}
 
 		$print_link = JRoute::_('index.php?view=eventlist&tmpl=component&pop=1');
-		
+
 		//pathway
 		$pathway->setItemName( 1, $item->name );
 
@@ -105,9 +105,9 @@ class EventListViewEventList extends JView
 
 		//create select lists
 		$lists	= $this->_buildSortLists($elsettings);
-		
+
 		$this->assign('lists' , 					$lists);
-		
+
 		$this->assignRef('rows' , 					$rows);
 		$this->assignRef('noevents' , 				$noevents);
 		$this->assignRef('print_link' , 			$print_link);
@@ -157,22 +157,22 @@ class EventListViewEventList extends JView
 					$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
 					$time = $time.' '.$this->elsettings->timename;
 					$displaytime = '<br />'.$time;
-				
+
 				}
 				if ($row->endtimes) {
 					$endtime = strftime( $this->elsettings->formattime, strtotime( $row->endtimes ));
 					$endtime = $endtime.' '.$this->elsettings->timename;
 					$displaytime = '<br />'.$time.' - '.$endtime;
-					
+
 				}
 			}
-			
+
 			if (isset($displaytime)) {
 				$row->displaytime = $displaytime;
 			} else {
 				$row->displaytime = '<br />-';
 			}
-			
+
 			$row->displaydate = $displaydate;
 			$row->odd   = $k;
 			$k = 1 - $k;
@@ -192,7 +192,7 @@ class EventListViewEventList extends JView
 	{
 		$filter_order		= JRequest::getVar('filter_order');
 		$filter_order_Dir	= JRequest::getVar('filter_order_Dir');
-		
+
 		$filter				= JRequest::getVar('filter');
 		$filter_type		= JRequest::getVar('filter_type');
 

@@ -19,15 +19,13 @@
 				switch (mode) {
 					case 0:
 						document.getElementById('mail1').style.display = 'none';
-						document.getElementById('mail2').style.display = 'none';
 					break;
 					default:
 						document.getElementById('mail1').style.display = '';
-						document.getElementById('mail2').style.display = '';
 				} // switch
 			} // if
 		}
-		
+
 	function changeintegrateMode()
 		{
 			if(document.getElementById) {
@@ -41,7 +39,7 @@
 				} // switch
 			} // if
 		}
-		
+
 	function changegdMode(mode)
 		{
 			if(document.getElementById) {
@@ -56,7 +54,7 @@
 				} // switch
 			} // if
 		}
-		
+
 	function changemapMode()
 		{
 			if(document.getElementById) {
@@ -73,7 +71,7 @@
 				} // switch
 			} // if
 		}
-		
+
 	function changetitleMode(mode)
 		{
 			if(document.getElementById) {
@@ -89,7 +87,7 @@
 				} // switch
 			} // if
 		}
-		
+
 	function changelocateMode(mode)
 		{
 			if(document.getElementById) {
@@ -107,7 +105,7 @@
 				} // switch
 			} // if
 		}
-		
+
 	function changecityMode(mode)
 		{
 			if(document.getElementById) {
@@ -123,7 +121,7 @@
 				} // switch
 			} // if
 		}
-		
+
 		function changestateMode(mode)
 		{
 			if(document.getElementById) {
@@ -139,7 +137,7 @@
 				} // switch
 			} // if
 		}
-		
+
 		function changecatMode(mode)
 		{
 			if(document.getElementById) {
@@ -157,7 +155,7 @@
 				} // switch
 			} // if
 		}
-		
+
 		function changeregMode()
 		{
 			if(document.getElementById) {
@@ -171,7 +169,7 @@
 				} // switch
 			} // if
 		}
-		
+
 /**
  * Switcher behavior for configuration component
  *

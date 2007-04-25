@@ -56,7 +56,7 @@
 				</tbody>
 			</table>
 		  </fieldset>
-		  
+
 		  <fieldset class="adminform">
 			<legend><?php echo JText::_( 'EVENT HANDLING' ); ?></legend>
 				<table class="admintable" cellspacing="1">
@@ -97,7 +97,7 @@
 				</tbody>
 				</table>
 		  </fieldset>
-		  
+
 		  <fieldset class="adminform">
 			<legend><?php echo JText::_( 'MAIL HANDLING' ); ?></legend>
 				<table class="admintable" cellspacing="1">
@@ -130,26 +130,31 @@
 							</span>
 						</td>
        					<td valign="top">
-							<input type="text" name="mailinformrec" value="<?php echo $this->elsettings->mailinformrec; ?>" size="40" maxlength="35" />  
+							<input type="text" name="mailinformrec" value="<?php echo $this->elsettings->mailinformrec; ?>" size="40" maxlength="220" />
        	 				</td>
       				</tr>
-					<tr id="mail2"<?php if (!$mode) echo ' style="display:none"'; ?>>
+      				<tr>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'MAIL RECIPIENT CC' ); ?>::<?php echo JText::_('MAIL RECIPIENT CC TIP'); ?>">
-								<?php echo JText::_( 'MAIL RECIPIENT CC' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'MAIL NEW USER SUBMISSION' ); ?>::<?php echo JText::_('MAIL NEW USER SUBMISSION TIP'); ?>">
+								<?php echo JText::_( 'MAIL NEW USER SUBMISSION' ); ?>
 							</span>
 						</td>
        					<td valign="top">
-         					<input type="text" name="mailinformrec2" value="<?php echo $this->elsettings->mailinformrec2; ?>" size="40" maxlength="35" />
+							<select name="mailinformuser" size="1" class="inputbox">
+  								<option value="0"<?php if ($this->elsettings->mailinformuser == 0) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'DISABLED' ); ?></option>
+  								<option value="1"<?php if ($this->elsettings->mailinformuser == 1) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'ONLY NEW EVENT' ); ?></option>
+  								<option value="2"<?php if ($this->elsettings->mailinformuser == 2) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'ONLY NEW VENUE' ); ?></option>
+		  						<option value="3"<?php if ($this->elsettings->mailinformuser == 3) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'BOTH' ); ?></option>
+							</select>
        	 				</td>
       				</tr>
 				</tbody>
 			</table>
 		</fieldset>
-		  
+
 		</td>
         <td width="50%" valign="top">
-        
+
        	<fieldset class="adminform">
 			<legend><?php echo JText::_( 'IMAGE HANDLING' ); ?></legend>
 				<table class="admintable" cellspacing="1">
@@ -161,7 +166,7 @@
 							</span>
 						</td>
        					<td valign="top">
-							<input type="text" name="sizelimit" value="<?php echo $this->elsettings->sizelimit; ?>" size="10" maxlength="10" />  
+							<input type="text" name="sizelimit" value="<?php echo $this->elsettings->sizelimit; ?>" size="10" maxlength="10" />
        	 				</td>
       				</tr>
 					<tr>
@@ -223,7 +228,7 @@
 							</span>
 						</td>
        					<td valign="top">
-         					<?php 
+         					<?php
 							$html = JHTMLSelect::yesnoList( 'imageprob', 'class="inputbox"', $this->elsettings->imageprob );
 							echo $html;
 							?>
@@ -236,7 +241,7 @@
 							</span>
 						</td>
        					<td valign="top">
-         					<?php 
+         					<?php
 							$html = JHTMLSelect::yesnoList( 'lightbox', 'class="inputbox"', $this->elsettings->lightbox );
 							echo $html;
 							?>
@@ -245,7 +250,7 @@
 				</tbody>
 			</table>
 		</fieldset>
-		
+
 		<fieldset class="adminform">
 			<legend><?php echo JText::_( 'META HANDLING' ); ?></legend>
 				<table class="admintable" cellspacing="1">
@@ -294,9 +299,9 @@
 									meta_description += " "+$keyword;
 									$("meta_description").value = meta_description;
 								}
-								
+
 								function include_description() {
-									$("meta_description").value = "<?php echo JText::_( 'META DESCRIPTION STANDARD' ); ?>"; 
+									$("meta_description").value = "<?php echo JText::_( 'META DESCRIPTION STANDARD' ); ?>";
 								}
 							-->
 							</script>
@@ -322,7 +327,7 @@
 				</tbody>
 			</table>
 		</fieldset>
-			  
+
 		</td>
       </tr>
 	</table>

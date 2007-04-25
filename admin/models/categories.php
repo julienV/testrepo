@@ -347,12 +347,12 @@ class EventListModelCategories extends JModel
 		}
 
 		if (count( $err )) {
-			$cids = implode( ', ', $err );
-    		$msg = JText::sprintf( 'EVENT ASSIGNED CATEGORY', $cids );
+			$cids 	= implode( ', ', $err );
+    		$msg 	= JText::sprintf( 'EVENT ASSIGNED CATEGORY', $cids );
     		return $msg;
 		} else {
-			$total = count( $cid );
-			$msg = $total.' '.JText::_('CATEGORIES DELETED');
+			$total 	= count( $cid );
+			$msg 	= $total.' '.JText::_('CATEGORIES DELETED');
 			return $msg;
 		}
 	}

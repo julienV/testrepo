@@ -367,12 +367,12 @@ class EventListModelVenues extends JModel
 		}
 
 		if (count( $err )) {
-			$cids = implode( ', ', $err );
-    		$msg = JText::sprintf( 'VENUE ASSIGNED EVENT', $cids );
+			$cids 	= implode( ', ', $err );
+    		$msg 	= JText::sprintf( 'VENUE ASSIGNED EVENT', $cids );
     		return $msg;
 		} else {
-			$total = count( $cid );
-			$msg = $total.' '.JText::_('VENUES DELETED');
+			$total 	= count( $cid );
+			$msg 	= $total.' '.JText::_('VENUES DELETED');
 			return $msg;
 		}
 	}

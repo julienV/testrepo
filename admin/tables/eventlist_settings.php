@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
 /**
  * EventList settings table class
  *
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @since 0.9
  */
@@ -20,7 +20,7 @@ class eventlist_settings extends JTable
 {
 	/**
 	 * Unique Key
-	 * @var int 
+	 * @var int
 	 */
 	var $id					= "1";
 	/** @var int */
@@ -90,7 +90,7 @@ class eventlist_settings extends JTable
 	/** @var string */
 	var $mailinformrec 		= null;
 	/** @var string */
-	var $mailinformrec2 	= null;
+	var $mailinformuser 	= "0";
 	/** @var int */
 	var $datdesclimit 		= "1000";
 	/** @var int */
@@ -104,7 +104,7 @@ class eventlist_settings extends JTable
 	/** @var int */
 	var $catfrowidth 		= "";
 	/** @var string */
-	var $catfroname 		= null;	
+	var $catfroname 		= null;
 	/** @var int */
 	var $evdelrec 			= "1";
 	/** @var int */

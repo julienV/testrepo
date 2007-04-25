@@ -22,7 +22,7 @@ class EventListControllerCategories extends EventListController
 {
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @since 0.9
 	 */
 	function __construct()
@@ -47,7 +47,7 @@ class EventListControllerCategories extends EventListController
 	function save()
 	{
 		global $option, $mainframe;
-		
+
 		$task		= JRequest::getVar('task');
 
 		//Sanitize
@@ -69,18 +69,18 @@ class EventListControllerCategories extends EventListController
 					break;
 			}
 			$msg = JText::_( 'CATEGORY SAVED' );
-			
+
 		} else {
 
 			//instead of a simple message we use a warning
 			$msg 	= '';
 			$link 	= 'index.php?option='.$option.'&view=category';
-			
+
 			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
 		}
-		
+
 		$model->checkin();
-		
+
 		$this->setRedirect($link, $msg );
 	}
 
@@ -100,11 +100,11 @@ class EventListControllerCategories extends EventListController
 		}
 
 		$model = $this->getModel('categories');
-		
+
 		if(!$model->publish($cid, 1)) {
 			echo "<script> alert('".$model->getError()."'); window.history.go(-1); </script>\n";
 		}
-		
+
 		$total = count( $cid );
 		$msg 	= $total.' '.JText::_( 'CATEGORY PUBLISHED');
 
@@ -127,7 +127,7 @@ class EventListControllerCategories extends EventListController
 		}
 
 		$model = $this->getModel('categories');
-		
+
 		if(!$model->publish($cid, 0)) {
 			echo "<script> alert('".$model->getError()."'); window.history.go(-1); </script>\n";
 		}
@@ -199,13 +199,13 @@ class EventListControllerCategories extends EventListController
 		global $option;
 
 		$cid		= JRequest::getVar( 'cid', array(0), 'post', 'array' );
-		
+
 		if (!is_array( $cid ) || count( $cid ) < 1) {
 			JError::raiseError(500, JText::_( 'Select an item to delete' ) );
 		}
-		
+
 		$model = $this->getModel('categories');
-		
+
 		$msg = $model->delete($cid);
 
 		$this->setRedirect( 'index.php?option='. $option .'&view=categories', $msg );
@@ -251,7 +251,7 @@ class EventListControllerCategories extends EventListController
 		} else {
 			$access = 2;
 		}
-		
+
 		$model = $this->getModel('category');
 		$model->access( $id, $access );
 
@@ -266,21 +266,21 @@ class EventListControllerCategories extends EventListController
 	 * @since 0.9
 	 */
 	function edit( )
-	{		
+	{
 		JRequest::setVar( 'view', 'category' );
 		JRequest::setVar( 'hidemainmenu', 1 );
-		
-		parent::display();	
-	
+
+		parent::display();
+
 		$model = $this->getModel('category');
-		
+
 		/* Error if checkedout by another administrator
 		if ($model->isCheckedOut( $user->get('id') )) {
 			$this->setRedirect( 'index.php?option='.$option.'&task=categories', JText::_( 'THE CATEGORY' ).' '.$row->catname.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ) );
 		}
-		
+
 		*/
-		
+
 		$model->checkout();
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -12,15 +12,15 @@ defined('_JEXEC') or die('Restricted access');
 /**
  * EventList categories Model class
  *
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @since 0.9
  */
-class eventlist_categories extends JTable 
+class eventlist_categories extends JTable
 {
 	/**
 	 * Primary Key
-	 * @var int 
+	 * @var int
 	 */
 	var $id 				= null;
 	/** @var int */
@@ -58,25 +58,25 @@ class eventlist_categories extends JTable
 	function eventlist_categories(& $db) {
 		parent::__construct('#__eventlist_categories', 'id', $db);
 	}
-	
+
 	// overloaded check function
 	function check()
 	{
 		global $mainframe;
-		
+
 		// Not typed in a category name?
 		if (trim( $this->catname ) == '') {
 			$this->_error = JText::_( 'ADD NAME CATEGORY' );
 			return false;
 		}
-		
+
 		jimport('joomla.filter.output');
 		$alias = JOutputFilter::stringURLSafe($this->catname);
 
 		if(empty($this->alias) || $this->alias === $alias ) {
 			$this->alias = $alias;
 		}
-/*		
+/*
 		// check for existing name
 		$query = 'SELECT id FROM #__eventlist_categories WHERE catname = "' .$this->catname. '"';
 		$this->_db->setQuery($query);
@@ -86,9 +86,6 @@ class eventlist_categories extends JTable
 			$this->_error = JText::_( 'CATEGORY NAME ALREADY EXIST' );
 			return false;
 		}
-		
-		jimport('joomla.filter.output');
-		$this->catname = JOutputFilter::stringURLSafe($this->catname);
 */
 		return true;
 	}

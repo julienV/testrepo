@@ -239,8 +239,6 @@ class EventListModelCategory extends JModel
 	 */
 	function store($data)
 	{
-		global $mainframe, $option;
-
 		$row  =& $this->getTable('eventlist_categories', '');
 
 		// bind it to the table
@@ -248,7 +246,7 @@ class EventListModelCategory extends JModel
 			JError::raiseError(500, $this->_db->getErrorMsg() );
 			return false;
 		}
-		
+
 		// Make sure the data is valid
 		if (!$row->check()) {
 			$this->setError($row->getError());
@@ -262,7 +260,7 @@ class EventListModelCategory extends JModel
 		}
 
 		$row->reorder();
-		
+
 		return $row->id;
 	}
 

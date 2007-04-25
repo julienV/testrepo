@@ -76,17 +76,13 @@ defined('_JEXEC') or die('Restricted access');
   					}
 				}
 
-				if (form.title.value == "") {
-    				alert("<?php echo JText::_( 'ADD TITLE' ); ?>");
-    				form.title.focus();
-    				return false;
-  				}
 				if (form.catsid.value == "0") {
     				alert("<?php echo JText::_( 'SELECT CATEGORY' ); ?>");
     				form.catsid.focus();
     				return false;
   				}
-				if (form.locid.value == "0") {
+
+				if (form.locid.value == "") {
     				alert("<?php echo JText::_( 'SELECT VENUE' ); ?>");
     				form.locid.focus();
     				return false;
@@ -366,12 +362,12 @@ defined('_JEXEC') or die('Restricted access');
 		<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
 		<input type="hidden" name="task" value="saveevent" />
 	</form>
-	
-	<?php 
+
+	<?php
 	//keep session alive while editing
 	JHTML::keepAlive();
 	?>
-	
+
 <p class="copyright">
 	<?php echo ELOutput::footer( ); ?>
 </p>
