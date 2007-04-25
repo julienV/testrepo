@@ -52,7 +52,7 @@ Wählen Sie ob Sie den Link zur Detailseite auf den Icons oder den Veranstaltung
 und wenn Sie sich für die Icons entschieden haben stellen Sie sicher dass sie die Breite für die Iconspalte in den Layout Einstellungen definiert haben.</p>
 
 <p><strong>Datumsformat:</strong><br />
-Nutzen Sie die php strftime syntax um das Datumsformat Ihren Vorstellungen anzupassen. Beispiel: '%d.%m.%Y' erzeugt '25.05.2006'. Mehr Formatierungsmöglichkeiten erläutert das 
+Nutzen Sie die php strftime syntax um das Datumsformat Ihren Vorstellungen anzupassen. Beispiel: '%d.%m.%Y' erzeugt '25.05.2006'. Mehr Formatierungsmöglichkeiten erläutert das
 <a href="http://www.php.net/strftime" target="_blank">php strftime
 manual</a>.</p>
 
@@ -76,11 +76,13 @@ Wählen Sie eine der drei Optionen. 'Alte Veranstaltungen löschen' entfernt all
 
 <h3>E-Mail Benachrichtigungen </h3>
 
-<p>Wollen Sie über neue Eingaben per E-Mail informiert werden? Wählen Sie eine der drei Optionen und geben Sie mindestens eine E-Mail Adresse an. Diese Funktion ist sinnvoll wenn sie automatisches Freischalten deaktiviert haben. </p>
+<p>Wollen Sie über neue Eingaben per E-Mail informiert werden? Wählen Sie eine der drei Optionen und geben Sie mindestens eine E-Mail Adresse an. Sie können auch mehrere durch Kommas getrennt angeben. Diese Funktion ist sinnvoll wenn sie automatisches Freischalten deaktiviert haben. </p>
+
+<p>Sie können auch dem Benutzer eine Danke Email zusenden. Mit dieser erhält der Benutzer noch einmal einen Überblick über die gemachten Eingaben.</p>
 
 <h3>Bild Einstellungen </h3>
 
-<p><strong>Max. Bildgröße:</strong><br /> 
+<p><strong>Max. Bildgröße:</strong><br />
 Geben Sie die maximale Bildgröße in kb an
 </p>
 
@@ -93,7 +95,7 @@ Geben Sie die maximale Breite des Vorschaubildes an. Dieser Wert wird auch für 
 <p><strong>Vorschaubilder aktivieren :</strong><br />
 EventList erzeugt Verkleinerungen (Vorschaubilder) der hochgeladenen Bilder falls die GD Bibliothek in Version 2 auf dem Server installiert ist. Falls der Status etwas anderes anzeigt, diese Funktion unbedingt deaktivieren. In diesem Fall werden obige Breiten und Höhen Angaben auf das Original angewandt. </p>
 
-<p><strong>Proportionen erhalten:</strong><br /> 
+<p><strong>Proportionen erhalten:</strong><br />
 Wenn Sie Vorschaubilder erzeugen aktiviert haben kann EventList versuchen die Proportionen Ihrer Bilder zu erhalten.
 </p>
 
@@ -135,7 +137,7 @@ und dies mit [stripped] dargestellt. Dies Betrifft nur Benutzer die Einen Benutz
 
 <h3>Zugriffskontrolle - Veranstaltungen</h3>
 
-<p><strong>Neue Veranstaltungen von Benutzern:</strong><br /> 
+<p><strong>Neue Veranstaltungen von Benutzern:</strong><br />
 Wählen Sie hier den minimalen benötigten Benutzerrang um Veranstaltungen eingeben zu können.
 </p>
 
@@ -143,13 +145,13 @@ Wählen Sie hier den minimalen benötigten Benutzerrang um Veranstaltungen einge
 Wählen Sie hier den minimalen benötigten Benutzerrang damit Veranstaltungen automatisch freigeschalten werden. Andernfalls müssen Sie im Backend manuell freigeschalten werden.</p>
 
 <p><strong>Bearbeiten von Veranstaltungen im Frontend:</strong><br />
-Wählen Sie hier den minimalen benötigten Benutzerrang um Veranstaltungen auf der 
+Wählen Sie hier den minimalen benötigten Benutzerrang um Veranstaltungen auf der
 Frontpage bearbeiten zu können.</p>
 
 <p><strong>Rekursiv:</strong><br />
 Sollen Kindgruppen eingeschlossen werden? Falls nicht hat nur die selektierte Gruppe Zugriff. Beachten Sie: Administratoren haben immer Zugriff.</p>
 
-<p><strong>Erlauben eingereichte Veranstaltungen zu bearbeiten:</strong><br /> 
+<p><strong>Erlauben eingereichte Veranstaltungen zu bearbeiten:</strong><br />
   Erlauben Sie Benutzern Ihre eingereichten Veranstaltungen bearbeiten zu dürfen obwohl Sie normalerweise keine ausreichenden Rechte für die bearbeiten Funktion haben?
 </p>
 
@@ -167,7 +169,7 @@ Wählen Sie hier den minimalen benötigten Benutzerrang um Veranstaltungsorte ei
 Wählen Sie hier den minimalen benötigten Benutzerrang damit Veranstaltungsorte automatisch freigeschalten werden. Andernfalls müssen Sie im Backend manuell freigeschalten werden.</p>
 
 <p><strong>Bearbeiten von Veranstaltungsorten im Frontend:</strong><br />
-Wählen Sie hier den minimalen benötigten Benutzerrang um Veranstaltungsorte auf der 
+Wählen Sie hier den minimalen benötigten Benutzerrang um Veranstaltungsorte auf der
 Frontpage bearbeiten zu können.</p>
 
 <p><strong>Rekursiv:</strong><br />
@@ -200,23 +202,23 @@ Soll eine Karte angezeigt werden. Wählen Sie Map24 oder Google als Kartenservic
 <h3>Veranstaltungen</h3>
 
 <p>
-<strong>Zeit anzeigen :</strong><br /> 
+<strong>Zeit anzeigen :</strong><br />
 Soll die Zeit auf der Detailsseite angezeigt werden?
 </p>
 
 <p>
-<strong>Veranstaltungsbeschreibung anzeigen:</strong><br /> 
+<strong>Veranstaltungsbeschreibung anzeigen:</strong><br />
 Soll die Veranstaltungsbeschreibung angezeigt werden?
 </p>
 
 <p>
-<strong>Veranstaltungstitel anzeigen :</strong><br /> 
+<strong>Veranstaltungstitel anzeigen :</strong><br />
 Soll der Veranstaltungstitel angezeigt werden?
 </p>
 
 <h3>Andere Komponenten bei der Registrierung einbinden </h3>
 
-<p><strong>Community Lösung:</strong><br /> 
+<p><strong>Community Lösung:</strong><br />
   Soll der CB/CBE verwendet werden?
 </p>
 
@@ -230,7 +232,7 @@ Sie haben drei Optionen zur Wahl. Keine Integration, ein Linkzum Profil des ange
 <h3>Generelle Layout Einstellungen </h3>
 
 <p>
-<strong>Zeit anzeigen :</strong><br /> 
+<strong>Zeit anzeigen :</strong><br />
 Soll Die Zeit auf der Frontpage angezeigt werden oder nicht?
 </p>
 
