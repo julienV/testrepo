@@ -24,20 +24,20 @@
 		}
 	}
 </script>
-		
+
 <form action="<?php echo $this->request_url; ?>" method="post" name="adminForm" id="adminForm">
-		
+
 <table class="adminlist">
 	<tr>
-		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>  
+		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>
 		<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;"><?php echo $this->row->id ? '::'.JText::_( 'EDIT VENUE' ).'::' : '::'.JText::_( 'Add Venue' ).'::';?></font></td>
 	</tr>
 </table>
-		
+
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
 	<tr>
 		<td valign="top">
-		
+
 	<table  class="adminform">
 		<tr>
 			<td>
@@ -63,7 +63,7 @@
 		<tr>
 			<td>
 				<label for="alias">
-					<?php echo JText::_( 'Alias' ); ?>
+					<?php echo JText::_( 'Alias' ).':'; ?>
 				</label>
 			</td>
 			<td colspan="3">
@@ -139,7 +139,7 @@
 			</td>
 			<td>
 				<input class="inputbox" name="country" value="<?php echo $this->row->country; ?>" size="4" maxlength="3">&nbsp;
-				
+
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('COUNTRY HINT'); ?>">
 					<?php echo $infoimage; ?>
 				</span>
@@ -165,7 +165,7 @@
 			</td>
 		</tr>
 	</table>
-	<?php	
+	<?php
 	$title = JText::_( 'IMAGE' );
 	echo $this->pane->endPanel();
 	echo $this->pane->startPanel( $title, 'image' );
@@ -201,7 +201,7 @@
 		</tr>
 	</table>
 	<?php
-	$title = JText::_( 'Metadata Information' );
+	$title = JText::_( 'METADATA INFORMATION' );
 	echo $this->pane->endPanel();
 	echo $this->pane->startPanel( $title, 'metadata' );
 	?>
@@ -209,7 +209,7 @@
 		<tr>
 			<td>
 				<label for="metadesc">
-					<?php echo JText::_( 'Description' ); ?>:
+					<?php echo JText::_( 'META DESCRIPTION' ); ?>:
 				</label>
 				<br />
 				<textarea class="inputbox" cols="40" rows="5" name="meta_description" id="metadesc" style="width:300px;"><?php echo str_replace('&','&amp;',$this->row->meta_description); ?></textarea>
@@ -218,7 +218,7 @@
 		<tr>
 			<td>
 				<label for="metakey">
-					<?php echo JText::_( 'Keywords' ); ?>:
+					<?php echo JText::_( 'META KEYWORDS' ); ?>:
 				</label>
 				<br />
 				<textarea class="inputbox" cols="40" rows="5" name="meta_keywords" id="metakey" style="width:300px;"><?php echo str_replace('&','&amp;',$this->row->meta_keywords); ?></textarea>
@@ -230,7 +230,7 @@
 			</td>
 		</tr>
 	</table>
-		
+
 		<?php
 		echo $this->pane->endPanel();
 		echo $this->pane->endPane();
@@ -238,7 +238,7 @@
 		</td>
 	</tr>
 </table>
-		
+
 	<input type="hidden" name="option" value="com_eventlist" />
 	<input type="hidden" name="controller" value="venues" />
 	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
@@ -252,7 +252,7 @@
 	<?php echo ELAdmin::footer( ); ?>
 </p>
 
-<?php 
+<?php
 //keep session alive while editing
 JHTML::keepAlive();
 ?>

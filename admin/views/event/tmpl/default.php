@@ -24,7 +24,7 @@
 		}
 		else if (!form.dates.value.match(/20[0-9]{2}-[0-1][0-9]-[0-3][0-9]/gi)) {
 			alert("<?php echo JText::_( 'DATE WRONG'); ?>");
-			
+
 			<?php
 			if ( $this->elsettings->showtime == 1 ) {
 				?>
@@ -33,7 +33,7 @@
 			} else if (!form.times.value.match(/[0-2][0-9]:[0-5][0-9]/gi)) {
 				alert("<?php echo JText::_( 'TIME WRONG'); ?>");
 			<?php } ?>
-			
+
 		} else if (form.catsid.value == "0"){
 			alert( "<?php echo JText::_( 'CHOOSE CATEGORY'); ?>" );
 		} else if (form.locid.value == ""){
@@ -45,26 +45,26 @@
 			submitform( task );
 		}
 	}
-		</script>
-		
-		<form action="<?php echo $this->request_url; ?>" method="post" name="adminForm" id="adminForm">
-		<table class="adminlist">
-			<tr>
-		  		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>  
-		  		<td class="sectionname" align="right" width="100%">
-		  			<font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">
-		  			<?php 
-		  			if ($this->task == 'copy') {
-		  				echo '::'.JText::_( 'COPY EVENT').'::';
-		  			} else {
-		  				echo $this->row->id ? '::'.JText::_( 'EDIT EVENT').'::' : '::'.JText::_( 'ADD EVENT').'::';
-		  			}
-		  			?>
-		  			</font>
-		  		</td>
-			</tr>
-		</table>
-		
+</script>
+
+<form action="<?php echo $this->request_url; ?>" method="post" name="adminForm" id="adminForm">
+<table class="adminlist">
+	<tr>
+		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>
+		<td class="sectionname" align="right" width="100%">
+		  	<font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">
+		  	<?php
+		  	if ($this->task == 'copy') {
+		  		echo '::'.JText::_( 'COPY EVENT').'::';
+		  	} else {
+		  		echo $this->row->id ? '::'.JText::_( 'EDIT EVENT').'::' : '::'.JText::_( 'ADD EVENT').'::';
+		  	}
+			?>
+			</font>
+		</td>
+	</tr>
+</table>
+
 <table cellspacing="0" cellpadding="0" border="0" width="100%" class="adminform">
 	<tr>
 		<td valign="top">
@@ -93,7 +93,7 @@
 				<tr>
 					<td>
 						<label for="alias">
-							<?php echo JText::_( 'Alias' ); ?>
+							<?php echo JText::_( 'Alias' ).':'; ?>
 						</label>
 					</td>
 					<td colspan="3">
@@ -124,7 +124,7 @@
 					</td>
 				</tr>
 			</table>
-			
+
 			<table class="adminform">
 				<tr>
 					<td>
@@ -153,7 +153,7 @@
 						</label>
 					</td>
 					<td>
-						<input class="inputbox" type="text" name="dates" id="dates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" /> 
+						<input class="inputbox" type="text" name="dates" id="dates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" />
             			<input type="reset" class="button" value="..." onclick="return showCalendar('dates', 'Y-m-d');" onblur="seo_switch()" />
            			</td>
             		<td>
@@ -169,7 +169,7 @@
 						</label>
 					</td>
 					<td>
-						<input class="inputbox" type="text" name="enddates" id="enddates" size="15" maxlength="10" value="<?php echo $this->row->enddates; ?>" /> 
+						<input class="inputbox" type="text" name="enddates" id="enddates" size="15" maxlength="10" value="<?php echo $this->row->enddates; ?>" />
             			<input type="reset" class="button" value="..." onclick="return showCalendar('enddates', 'Y-m-d');" onblur="seo_switch()" />
            			</td>
           		 	<td>
@@ -196,11 +196,11 @@
 			  			<?php if ( $this->elsettings->showtime == 1 ) { ?>
 							<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('FORMAT TIME'); ?>">
 								<?php echo $infoimage; ?>
-							</span>			  	
+							</span>
 			  			<?php } else { ?>
 			  				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('FORMAT TIME OPTIONAL'); ?>">
 								<?php echo $infoimage; ?>
-							</span>	
+							</span>
 			  			<?php } ?>
 					</td>
 				</tr>
@@ -221,7 +221,7 @@
 					<td>
 			  			<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('FORMAT TIME OPTIONAL'); ?>">
 							<?php echo $infoimage; ?>
-						</span>	
+						</span>
 					</td>
 				</tr>
 			</table>
@@ -285,13 +285,13 @@
 							document.getElementById('imagelib').src= jsimg;
 						}
 						</script>
-						
+
 						<br />
 					</td>
 				</tr>
 			</table>
 			<?php
-			$title = JText::_( 'Metadata Information' );
+			$title = JText::_( 'METADATA INFORMATION' );
 			echo $this->pane->endPanel();
 			echo $this->pane->startPanel( $title, 'meta' );
 			?>
@@ -310,7 +310,7 @@
 							<?php echo JText::_( 'META KEYWORDS' ).':'; ?>
 						</label>
 						<br />
-				
+
 						<?php
 						if (!empty($this->row->meta_keywords)) {
 							$meta_keywords = $this->row->meta_keywords;
@@ -318,7 +318,7 @@
 							$meta_keywords = $this->elsettings->meta_keywords;
 						}
 						?>
-			
+
 						<textarea class="inputbox" name="meta_keywords" id="meta_keywords" rows="5" cols="40" maxlength="150" onfocus="get_inputbox('meta_keywords')" onblur="change_metatags()"><?php echo $meta_keywords; ?></textarea>
 				</td>
 			<tr>
@@ -328,14 +328,14 @@
 						<?php echo JText::_( 'META DESCRIPTION' ).':'; ?>
 					</label>
 					<br />
-					<?php 
+					<?php
 					if (!empty($this->row->meta_description)) {
 						$meta_description = $this->row->meta_description;
 					} else {
 						$meta_description = $this->elsettings->meta_description;
 					}
 					?>
-				
+
 					<textarea class="inputbox" name="meta_description" id="meta_description" rows="5" cols="40" maxlength="200" onfocus="get_inputbox('meta_description')" onblur="change_metatags()"><?php echo $meta_description; ?></textarea>
 				</td>
 			<tr>
@@ -346,7 +346,7 @@
 			starter("<?php echo JText::_( 'META ERROR' ); ?>");	// da window.onload schon belegt wurde, wird die Funktion 'manuell' aufgerufen
 		-->
 		</script>
-		<?php 
+		<?php
 		echo $this->pane->endPanel();
 		echo $this->pane->endPane(); ?>
 		</td>
@@ -373,7 +373,7 @@
 	<?php echo ELAdmin::footer( ); ?>
 </p>
 
-<?php 
+<?php
 //keep session alive while editing
 JHTML::keepAlive();
 ?>

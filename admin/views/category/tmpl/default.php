@@ -56,7 +56,7 @@ function submitbutton(pressbutton) {
 					<tr>
 						<td>
 							<label for="alias">
-								<?php echo JText::_( 'Alias' ); ?>
+								<?php echo JText::_( 'Alias' ).':'; ?>
 							</label>
 						</td>
 						<td colspan="3">
@@ -146,7 +146,7 @@ function submitbutton(pressbutton) {
 				</tr>
 			</table>
 			<?php
-			$title = JText::_( 'Metadata Information' );
+			$title = JText::_( 'METADATA INFORMATION' );
 			echo $this->pane->endPanel();
 			echo $this->pane->startPanel( $title, 'metadata' );
 			?>
@@ -154,7 +154,7 @@ function submitbutton(pressbutton) {
 		<tr>
 			<td>
 				<label for="metadesc">
-					<?php echo JText::_( 'Description' ); ?>:
+					<?php echo JText::_( 'META DESCRIPTION' ); ?>:
 				</label>
 				<br />
 				<textarea class="inputbox" cols="40" rows="5" name="meta_description" id="metadesc" style="width:300px;"><?php echo str_replace('&','&amp;',$this->row->meta_description); ?></textarea>
@@ -163,7 +163,7 @@ function submitbutton(pressbutton) {
 		<tr>
 			<td>
 				<label for="metakey">
-					<?php echo JText::_( 'Keywords' ); ?>:
+					<?php echo JText::_( 'META KEYWORDS' ); ?>:
 				</label>
 				<br />
 				<textarea class="inputbox" cols="40" rows="5" name="meta_keywords" id="metakey" style="width:300px;"><?php echo str_replace('&','&amp;',$this->row->meta_keywords); ?></textarea>
