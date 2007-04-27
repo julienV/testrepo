@@ -240,7 +240,7 @@ class EventListModelDetails extends JModel
 		}
 
 		//IP+time of registration
-		$date 		= new JDate($uregdate, $tzoffset);
+		$date 		= new JDate('now', $tzoffset);
 		$uregdate 	= $date->toMySQL();
 		//$uregdate	= time();
 		$uip 		= getenv('REMOTE_ADDR');

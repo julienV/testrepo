@@ -73,7 +73,7 @@ class EventListController extends JController
 
     	$mainframe->redirect('index.php?option='.$option, JText::_( 'SETTINGS SAVE') );
 	}
-	
+
 	/**
 	 * Saves the css
 	 *
@@ -110,6 +110,20 @@ class EventListController extends JController
 		} else {
 			$mainframe->redirect('index.php?option='.$option, JText::_('Operation Failed').': '.JText::_('Failed to open file for writing.'));
 		}
+	}
+
+	/**
+	 * displays the fast addvenue screen
+	 *
+	 * @since 0.9
+	 */
+	function addvenue( )
+	{
+		//TODO: Implement Access check
+		JRequest::setVar( 'view', 'event' );
+		JRequest::setVar( 'layout', 'addvenue'  );
+
+		parent::display();
 	}
 }
 ?>

@@ -83,9 +83,7 @@ class EventListModelEditvenue extends JModel
 				$this->_venue->checkout( $user->get('id') );
 			}
 
-			/*
-			* access check
-			*/
+			//access check
 			$owner = $this->getOwner();
 
 			$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $owner->created_by, $user->get('id'), $elsettings->venueeditrec, $elsettings->venueedit);
@@ -99,9 +97,7 @@ class EventListModelEditvenue extends JModel
 
 		} else {
 
-			/*
-			* access checks
-			*/
+			//access checks
 			$delloclink = ELUser::validate_user( $elsettings->locdelrec, $elsettings->deliverlocsyes );
 
 			if ($delloclink == 0) {
