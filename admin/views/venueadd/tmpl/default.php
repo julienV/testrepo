@@ -4,29 +4,20 @@
 	function submitbutton(task)
 	{
 		var form = document.adminForm;
-		if (task == 'locimupview')
-		{
-			var url='index3.php?option=com_eventlist&task=locimupview';
-			document.popup.show(url, 700, 500, null);
 
-		} else if (task == 'cancel') {
-			submitform( task );
-			return;
-		} else if (form.venue.value == ""){
+		if (form.venue.value == ""){
 			alert( "<?php echo JText::_( 'ADD VENUE' ); ?>" );
+			form.venue.focus();
 		} else if (form.city.value == ""){
 			alert( "<?php echo JText::_( 'ADD CITY' ); ?>" );
+			form.city.focus();
 		} else {
 			<?php
 			echo $this->editor->save( 'locdescription' );
 			?>
 			submitform( task );
-		}
-	}
-
-	function elAddVenue(savevenue) {
-			submitform(savevenue);
 			window.parent.close();
+		}
 	}
 </script>
 
@@ -45,18 +36,18 @@ $infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', '../components/com_eve
 				<label for="venue">
 					<?php echo JText::_( 'VENUE' ).':'; ?>
 				</label>
-				<input name="venue" value="<?php echo $this->row->venue; ?>" size="55" maxlength="50" />
+				<input name="venue" value="" size="55" maxlength="50" />
 					&nbsp;&nbsp;&nbsp;
 			</div>
 
 			<div style="float: right;">
-				<button type="button" onclick="elAddVenue('savevenue')">
+				<button type="button" onclick="submitbutton('save')">
 					<?php echo JText::_('SAVE') ?>
 				</button>
 				<button type="button" onclick="window.parent.close()" />
 					<?php echo JText::_('CANCEL') ?>
 				</button>
-				</div>
+			</div>
 		</td>
 	</tr>
 </table>
@@ -74,7 +65,7 @@ $infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', '../components/com_eve
 		</td>
 		<td>
 			<?php
-			$html = JHTMLSelect::yesnoList( 'published', 'class="inputbox"', $this->row->published );
+			$html = JHTMLSelect::yesnoList( 'published', 'class="inputbox"', $this->published );
 			echo $html;
 			?>
 		</td>
@@ -114,26 +105,26 @@ $infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', '../components/com_eve
 	<table class="adminform" width="100%">
 		<tr>
   			<td><?php echo JText::_( 'STREET' ).':'; ?></td>
-			<td><input name="street" value="<?php echo $this->row->street; ?>" size="55" maxlength="50" /></td>
+			<td><input name="street" value="" size="55" maxlength="50" /></td>
 	 	</tr>
   		<tr>
   		  	<td><?php echo JText::_( 'ZIP' ).':'; ?></td>
-  		  	<td><input name="plz" value="<?php echo $this->row->plz; ?>" size="15" maxlength="10" /></td>
+  		  	<td><input name="plz" value="" size="15" maxlength="10" /></td>
 	  	</tr>
   		<tr>
   			<td><?php echo JText::_( 'CITY' ).':'; ?></td>
-  			<td><input name="city" value="<?php echo $this->row->city; ?>" size="55" maxlength="50" />
+  			<td><input name="city" value="" size="55" maxlength="50" />
 			</td>
   		</tr>
   		<tr>
   			<td><?php echo JText::_( 'STATE' ).':'; ?></td>
-  			<td><input name="state" value="<?php echo $this->row->state; ?>" size="55" maxlength="50" />
+  			<td><input name="state" value="" size="55" maxlength="50" />
 			</td>
   		</tr>
   		<tr>
   		  	<td><?php echo JText::_( 'COUNTRY' ).':'; ?></td>
   		  	<td>
-				<input name="country" value="<?php echo $this->row->country; ?>" size="4" maxlength="3" />&nbsp;
+				<input name="country" value="" size="4" maxlength="3" />&nbsp;
 				<span class="editlinktip hasTip" title="<?php echo JText::_('NOTES'); ?>::<?php echo JText::_( 'COUNTRY HINT' ); ?>">
 					<?php echo $infoimage; ?>
 				</span>
@@ -142,7 +133,7 @@ $infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', '../components/com_eve
   		<tr>
     		<td><?php echo JText::_( 'WEBSITE' ).':'; ?></td>
     		<td>
-    			<input name="url" value="<?php echo $this->row->url; ?>" size="55" maxlength="50" />&nbsp;
+    			<input name="url" value="" size="55" maxlength="50" />&nbsp;
     			<span class="editlinktip hasTip" title="<?php echo JText::_('NOTES'); ?>::<?php echo JText::_( 'WEBSITE HINT' ); ?>">
 					<?php echo $infoimage; ?>
 				</span>
@@ -153,7 +144,7 @@ $infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', '../components/com_eve
 
 <fieldset>
 	<legend><?php echo JText::_('DESCRIPTION'); ?></legend>
-		<?php echo $this->editor->display('locdescription', $this->row->locdescription, '655', '400', '70', '15'); ?>
+		<?php echo $this->editor->display('locdescription', '', '655', '400', '70', '15', false); ?>
 </fieldset>
 
 <fieldset>
@@ -161,17 +152,17 @@ $infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', '../components/com_eve
 		<tr>
 			<td valign="top">
 				<label for="metadesc">
-					<?php echo JText::_( 'Description' ); ?>:
+					<?php echo JText::_( 'META DESCRIPTION' ); ?>:
 				</label>
 				<br />
-				<textarea class="inputbox" cols="40" rows="5" name="meta_description" id="metadesc" style="width:300px;"><?php echo str_replace('&','&amp;',$this->row->meta_description); ?></textarea>
+				<textarea class="inputbox" cols="40" rows="5" name="meta_description" id="metadesc" style="width:300px;"></textarea>
 			</td>
 			<td valign="top">
 				<label for="metakey">
-					<?php echo JText::_( 'Keywords' ); ?>:
+					<?php echo JText::_( 'META KEYWORDS' ); ?>:
 				</label>
 				<br />
-				<textarea class="inputbox" cols="40" rows="5" name="meta_keywords" id="metakey" style="width:300px;"><?php echo str_replace('&','&amp;',$this->row->meta_keywords); ?></textarea>
+				<textarea class="inputbox" cols="40" rows="5" name="meta_keywords" id="metakey" style="width:300px;"></textarea>
 				<br />
 				<input type="button" class="button" value="<?php echo JText::_( 'ADD VENUE CITY' ); ?>" onclick="f=document.adminForm;f.metakey.value=f.venue.value+', '+f.city.value+f.metakey.value;" />
 			</td>
@@ -185,6 +176,6 @@ $infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', '../components/com_eve
 
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="controller" value="venues" />
-<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
+<input type="hidden" name="id" value="" />
 <input type="hidden" name="task" value="" />
 </form>

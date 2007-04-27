@@ -22,7 +22,7 @@ class EventListViewVenue extends JView {
 
 	function display($tpl = null)
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		// Load tooltips and pane behavior
 		jimport('joomla.html.pane');
@@ -31,7 +31,6 @@ class EventListViewVenue extends JView {
 		//initialise variables
 		$editor 	= & JFactory::getEditor();
 		$document	= & JFactory::getDocument();
-		$db		 	= & JFactory::getDBO();
 		$uri 		= & JFactory::getURI();
 		$pane		= & JPane::getInstance('sliders');
 
@@ -48,7 +47,6 @@ class EventListViewVenue extends JView {
 
 		// Get data from the model
 		$row      	= & $this->get( 'Data');
-		$image 		= & JTable::getInstance('eventlist_venues', '');
 
 		//create the toolbar
 		if ( $cid ) {
@@ -57,8 +55,6 @@ class EventListViewVenue extends JView {
 			//makes data safe
 			jimport('joomla.filter.output');
 			JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'locdescription' );
-
-			$image->load($row->id);
 
 		} else {
 			JToolBarHelper::title( JText::_( 'ADD VENUE' ), 'venuesedit' );
@@ -90,11 +86,11 @@ class EventListViewVenue extends JView {
 		$document->addScriptDeclaration($js);
 		$document->addScript($url.'includes/js/joomla/modal.js');
 		$document->addStyleSheet($url.'includes/js/joomla/modal.css');
-		$imageselect = "\n<input style=\"background: #ffffff;\" type=\"text\" id=\"a_imagename\" value=\"$image->locimage\" disabled=\"disabled\" onchange=\"javascript:if (document.forms[0].a_imagename.value!='') {document.imagelib.src='../images/eventlist/venues/' + document.forms[0].a_imagename.value} else {document.imagelib.src='../images/blank.png'}\"; /><br />";
-		$imageselect .= "\n <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 400, null);\" value=\"".JText::_('Upload')."\" />";
-		$imageselect .= "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link2', 650, 400, null);\" value=\"".JText::_('SELECTIMAGE')."\" />";
+		$imageselect = "\n<input style=\"background: #ffffff;\" type=\"text\" id=\"a_imagename\" value=\"$row->locimage\" disabled=\"disabled\" onchange=\"javascript:if (document.forms[0].a_imagename.value!='') {document.imagelib.src='../images/eventlist/venues/' + document.forms[0].a_imagename.value} else {document.imagelib.src='../images/blank.png'}\"; /><br />";
+		$imageselect .= "\n<input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 400, null);\" value=\"".JText::_('Upload')."\" />";
+		$imageselect .= "\n&nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link2', 650, 400, null);\" value=\"".JText::_('SELECTIMAGE')."\" />";
 		$imageselect .= "\n&nbsp;<input class=\"inputbox\" type=\"button\" onclick=\"elSelectImage('', '".JText::_('SELECTIMAGE')."' );\" value=\"".JText::_('Reset')."\" />";
-		$imageselect .= "\n<input type=\"hidden\" id=\"a_image\" name=\"locimage\" value=\"$image->locimage\" />";
+		$imageselect .= "\n<input type=\"hidden\" id=\"a_image\" name=\"locimage\" value=\"$row->locimage\" />";
 
 		//assign data to template
 		$this->assignRef('live_site' 	, $live_site);

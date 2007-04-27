@@ -4,18 +4,15 @@
 	function submitbutton(task)
 	{
 		var form = document.adminForm;
-		if (task == 'locimupview')
-		{
-			var url='index3.php?option=com_eventlist&task=locimupview';
-			document.popup.show(url, 700, 500, null);
 
-		} else if (task == 'cancel') {
+		if (task == 'cancel') {
 			submitform( task );
-			return;
 		} else if (form.venue.value == ""){
 			alert( "<?php echo JText::_( 'ADD VENUE' ); ?>" );
+			form.venue.focus();
 		} else if (form.city.value == ""){
 			alert( "<?php echo JText::_( 'ADD CITY' ); ?>" );
+			form.city.focus();
 		} else {
 			<?php
 			echo $this->editor->save( 'locdescription' );

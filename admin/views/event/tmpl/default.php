@@ -6,23 +6,14 @@
 
 		var form = document.adminForm;
 
-		if (task == 'datimupview')
-		{
-			var url='index.php?option=com_eventlist&task=datimupview&tmpl=component';
-			document.popup.show(url, 700, 500, null);
-
-		}
-		else if (task == 'cancel') {
+		if (task == 'cancel') {
 			submitform( task );
-			return;
-		}
-		else if (form.dates.value == ""){
+		} else if (form.dates.value == ""){
 			alert( "<?php echo JText::_( 'ADD DATE'); ?>" );
-		}
-		else if (form.title.value == ""){
+		} else if (form.title.value == ""){
 			alert( "<?php echo JText::_( 'ADD TITLE'); ?>" );
-		}
-		else if (!form.dates.value.match(/20[0-9]{2}-[0-1][0-9]-[0-3][0-9]/gi)) {
+			form.title.focus();
+		} else if (!form.dates.value.match(/20[0-9]{2}-[0-1][0-9]-[0-3][0-9]/gi)) {
 			alert("<?php echo JText::_( 'DATE WRONG'); ?>");
 
 			<?php
@@ -30,8 +21,10 @@
 				?>
 			} else if (form.times.value == "") {
 				alert("<?php echo JText::_( 'ADD TIME'); ?>");
+				form.times.focus();
 			} else if (!form.times.value.match(/[0-2][0-9]:[0-5][0-9]/gi)) {
 				alert("<?php echo JText::_( 'TIME WRONG'); ?>");
+				form.times.focus();
 			<?php } ?>
 
 		} else if (form.catsid.value == "0"){
@@ -108,9 +101,8 @@
 					</td>
 					<td>
 						<?php
-						echo $this->venueselect.$this->venueadd;
+						echo $this->venueselect;
 						?>
-						&nbsp;<input class="inputbox" type="button" onclick="elSelectVenue(0, '<?php echo JText::_('NO VENUE'); ?>' );" value="<?php echo JText::_('NO VENUE'); ?>" onblur="seo_switch()" />
 					</td>
 					<td>
 						<label for="catid">

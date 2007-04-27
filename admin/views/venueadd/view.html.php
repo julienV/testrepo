@@ -22,25 +22,20 @@ class EventListViewVenueadd extends JView {
 
 	function display($tpl = null)
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		//initialise variables
 		$editor 	= & JFactory::getEditor();
 		$document	= & JFactory::getDocument();
-		$db		 	= & JFactory::getDBO();
 		$uri 		= & JFactory::getURI();
 
 		//get vars
-		$request_url	=  $uri->toString();
 		$url 			= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
 		$live_site		= $mainframe->getCfg('live_site');
 
 		//add css and js to document
 		$document->addScript('../includes/js/joomla/popup.js');
 		$document->addStyleSheet('../includes/js/joomla/popup.css');
-			
-		// Get data from the model
-		$row      	= & $this->get( 'Data');
 
 		//Build the image select functionality
 		$js = "
@@ -56,15 +51,19 @@ class EventListViewVenueadd extends JView {
 		$document->addScript($url.'includes/js/joomla/modal.js');
 		$document->addStyleSheet($url.'includes/js/joomla/modal.css');
 		$imageselect = "\n<input style=\"background: #ffffff;\" type=\"text\" id=\"a_imagename\" value=\"".JText::_('SELECTIMAGE')."\" disabled=\"disabled\" onchange=\"javascript:if (document.forms[0].a_imagename.value!='') {document.imagelib.src='../images/eventlist/events/' + document.forms[0].a_imagename.value} else {document.imagelib.src='../images/blank.png'}\"; /><br />";
-		$imageselect .= "\n <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 400, null);\" value=\"".JText::_('Upload')."\" />";
-		$imageselect .= "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link2', 650, 400, null);\" value=\"".JText::_('SELECTIMAGE')."\" />";
+		$imageselect .= "\n<input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 400, null);\" value=\"".JText::_('Upload')."\" />";
+		$imageselect .= "\n&nbsp;<input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link2', 650, 400, null);\" value=\"".JText::_('SELECTIMAGE')."\" />";
+		$imageselect .= "\n&nbsp;<input class=\"inputbox\" type=\"button\" onclick=\"elSelectImage('', '".JText::_('SELECTIMAGE')."' );\" value=\"".JText::_('Reset')."\" />";
 		$imageselect .= "\n<input type=\"hidden\" id=\"a_image\" name=\"locimage\" value=\"".JText::_('SELECTIMAGE')."\" />";
+
+		//set published
+		$published = 1;
 
 		//create the toolbar
 		$this->assignRef('live_site' 	, $live_site);
-		$this->assignRef('row'      	, $row);
 		$this->assignRef('editor'      	, $editor);
 		$this->assignRef('imageselect' 	, $imageselect);
+		$this->assignRef('published' 	, $published);
 		$this->assignRef('request_url'	, $uri->toString());
 
 		parent::display($tpl);

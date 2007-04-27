@@ -31,7 +31,6 @@ class EventListViewEvent extends JView {
 		//initialise variables
 		$editor 	= & JFactory::getEditor();
 		$document	= & JFactory::getDocument();
-		$db		 	= & JFactory::getDBO();
 		$pane 		= & JPane::getInstance('sliders');
 		$uri 		= & JFactory::getURI();
 		$elsettings = ELAdmin::config();
@@ -84,14 +83,6 @@ class EventListViewEvent extends JView {
 		$Lists = array();
 		$Lists['category'] = JHTMLSelect::genericList( $catlist, 'catsid', 'size="1" class="inputbox"', 'value', 'text', $row->catsid );
 
-		//TODO: move to model
-		$venue =& JTable::getInstance('eventlist_venues', '');
-		if ($row->id) {
-			$venue->load($row->locid);
-		} else {
-			$venue->venue = JText::_('SELECTVENUE');
-		}
-
 		//build venue select js and load the view
 		$js = "
 		function elSelectVenue(id, venue) {
@@ -100,27 +91,16 @@ class EventListViewEvent extends JView {
 			document.popup.hide();
 		}";
 
-		$link = 'index.php?option=com_eventlist&amp;view=venueelement&amp;tmpl=component';
+		$linkvsel = 'index.php?option=com_eventlist&amp;view=venueelement&amp;tmpl=component';
+		$linkvadd = 'index.php?option=com_eventlist&amp;view=venueadd&amp;tmpl=component';
 		$document->addScriptDeclaration($js);
 		$document->addScript($url.'includes/js/joomla/modal.js');
 		$document->addStyleSheet($url.'includes/js/joomla/modal.css');
-		$venueselect = "\n<div style=\"float: left;\"><input style=\"background: #ffffff;\" type=\"text\" id=\"a_name\" value=\"$venue->venue\" disabled=\"disabled\" /></div>";
-		$venueselect .= "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 375, null);\" value=\"".JText::_('SELECT')."\" />";
+		$venueselect = "\n<div style=\"float: left;\"><input style=\"background: #ffffff;\" type=\"text\" id=\"a_name\" value=\"$row->venue\" disabled=\"disabled\" /></div>";
+		$venueselect .= "\n&nbsp;<input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$linkvsel', 650, 375, null);\" value=\"".JText::_('SELECT')."\" />";
 		$venueselect .= "\n<input type=\"hidden\" id=\"a_id\" name=\"locid\" value=\"$row->locid\" />";
-
-		//venueadd start
-		$link = 'index.php?option=com_eventlist&amp;view=venueadd&amp;tmpl=component';
-		$venueadd = "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"window.open('$link', 'popup', 'width=750,height=400,scrollbars=yes,toolbar=no,status=no,resizable=yes,menubar=no,location=no,directories=no,top=10,left=10')\" value=\"".JText::_('ADD')."\" />";
-		//venueadd end
-
-		/*
-		* image
-		* TODO: move to model
-		*/
-		$image =& JTable::getInstance('eventlist_events', '');
-		if ($row->id) {
-			$image->load($row->id);
-		}
+		$venueselect .= "\n&nbsp;<input class=\"inputbox\" type=\"button\" onclick=\"window.open('$linkvadd', 'popup', 'width=750,height=400,scrollbars=yes,toolbar=no,status=no,resizable=yes,menubar=no,location=no,directories=no,top=10,left=10')\" value=\"".JText::_('ADD')."\" />";
+		$venueselect .= "\n&nbsp;<input class=\"inputbox\" type=\"button\" onclick=\"elSelectVenue(0, '".JText::_('NO VENUE')."' );\" value=\"".JText::_('NO VENUE')."\" onblur=\"seo_switch()\" />";
 
 		//build image select js and load the view
 		$js = "
@@ -134,11 +114,11 @@ class EventListViewEvent extends JView {
 		$link = 'index.php?option=com_eventlist&amp;view=imageupload&amp;task=eventimg&amp;tmpl=component';
 		$link2 = 'index.php?option=com_eventlist&amp;view=imageselect&amp;task=selecteventimg&amp;tmpl=component';
 		$document->addScriptDeclaration($js);
-		$imageselect = "\n<input style=\"background: #ffffff;\" type=\"text\" id=\"a_imagename\" value=\"$image->datimage\" disabled=\"disabled\" onchange=\"javascript:if (document.forms[0].a_imagename.value!='') {document.imagelib.src='../images/eventlist/events/' + document.forms[0].a_imagename.value} else {document.imagelib.src='../images/blank.png'}\"; /><br />";
+		$imageselect = "\n<input style=\"background: #ffffff;\" type=\"text\" id=\"a_imagename\" value=\"$row->datimage\" disabled=\"disabled\" onchange=\"javascript:if (document.forms[0].a_imagename.value!='') {document.imagelib.src='../images/eventlist/events/' + document.forms[0].a_imagename.value} else {document.imagelib.src='../images/blank.png'}\"; /><br />";
 		$imageselect .= "\n <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 400, null);\" value=\"".JText::_('Upload')."\" />";
 		$imageselect .= "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link2', 650, 400, null);\" value=\"".JText::_('SELECTIMAGE')."\" />";
 		$imageselect .= "\n&nbsp;<input class=\"inputbox\" type=\"button\" onclick=\"elSelectImage('', '".JText::_('SELECTIMAGE')."' );\" value=\"".JText::_('Reset')."\" />";
-		$imageselect .= "\n<input type=\"hidden\" id=\"a_image\" name=\"datimage\" value=\"$image->datimage\" />";
+		$imageselect .= "\n<input type=\"hidden\" id=\"a_image\" name=\"datimage\" value=\"$row->datimage\" />";
 
 		//assign vars to the template
 		$this->assignRef('Lists'      	, $Lists);
@@ -149,9 +129,7 @@ class EventListViewEvent extends JView {
 		$this->assignRef('venueselect'	, $venueselect);
 		$this->assignRef('editor'		, $editor);
 		$this->assignRef('pane'			, $pane);
-		$this->assignRef('venue'		, $venue);
 		$this->assignRef('task'			, $task);
-		$this->assignRef('venueadd'		, $venueadd);
 		$this->assignRef('elsettings'	, $elsettings);
 
 		parent::display($tpl);

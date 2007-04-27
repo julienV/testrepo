@@ -97,9 +97,10 @@ class EventListModelEvent extends JModel
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_data))
 		{
-			$query = 'SELECT *'
-					. ' FROM #__eventlist_events'
-					. ' WHERE id = '.$this->_id
+			$query = 'SELECT e.*, v.venue'
+					. ' FROM #__eventlist_events AS e'
+					. ' LEFT JOIN #__eventlist_venues AS v ON v.id = e.locid'
+					. ' WHERE e.id = '.$this->_id
 					;
 			$this->_db->setQuery($query);
 			$this->_data = $this->_db->loadObject();
@@ -162,6 +163,7 @@ class EventListModelEvent extends JModel
 			$event->meta_keywords		= null;
 			$event->meta_description	= null;
 			$event->datimage			= JText::_('SELECTIMAGE');
+			$event->venue				= JText::_('SELECTVENUE');
 			$this->_data				= $event;
 			return (boolean) $this->_data;
 		}
@@ -252,9 +254,8 @@ class EventListModelEvent extends JModel
 
 		$elsettings = ELAdmin::config();
 		$user		= & JFactory::getUser();
-		$config 	= & JFactory::getConfig();
 
-		$tzoffset 	= $config->getValue('config.offset');
+		$tzoffset 	= $mainframe->getCfg('offset');
 
 		$row =& JTable::getInstance('eventlist_events', '');
 
