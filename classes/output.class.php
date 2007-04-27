@@ -215,17 +215,129 @@ class ELOutput {
 			//button in popup
 			$attribs['title']   = '"'.JText::_( 'Print' ).'"';
 			$attribs['onclick'] = "\"javascript:window.print(); return false;\"";
-		
+
 			$link = JHTML::Link('#', $text, $attribs);
 		} else {
 			//button in view
 			$attribs['title']   = '"'.JText::_( 'Print' ).'"';
 			$attribs['onclick'] = "\"window.open('".$print_link."','win2','".$status."'); return false;\"";
-		
+
 			$link = JHTML::Link($print_link, $text, $attribs);
 		}
-		
+
 		return $link;
+	}
+
+	/**
+	 * Creates the email button
+	 *
+	 * @param string $print_link
+	 * @param array $params
+	 * @param int $pop
+	 * @since 0.9
+	 */
+
+	function mailbutton($params)
+	{
+		$url 	= 'index.php?option=com_mailto&tmpl=component&link='.base64_encode( JRequest::getURI());
+		$status = 'width=400,height=300,menubar=yes,resizable=yes';
+
+		if ($params->get('icons')) 	{
+			$text = JAdminMenus::ImageCheck('emailButton.png', '/images/M_images/', NULL, NULL, JText::_( 'Email' ), JText::_( 'Email' ));
+		} else {
+			$text = '&nbsp;'.JText::_( 'Email' );
+		}
+
+		$attribs['title']	= '"'.JText::_( 'Email' ).'"';
+		$attribs['onclick'] = "\"window.open(this.href,'win2','".$status."'); return false;\"";
+
+		$output = JHTML::Link($url, $text, $attribs);
+
+		return $output;
+	}
+
+	function mapicon($data, $settings)
+	{
+		//Link to map
+		$mapimage = JAdminMenus::ImageCheck( 'mapsicon.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'MAP' ), JText::_( 'MAP' ) );
+
+		switch ($settings->showmapserv)
+		{
+			case 1:
+			{
+  				if ($settings->map24id) {
+
+				$url		= 'http://link2.map24.com/?lid='.$settings->map24id.'&maptype=JAVA&width0=2000&street0='.$data->street.'&zip0='.$data->plz.'&city0='.$data->city.'&country0='.$data->country.'&sym0=10280&description0='.$data->venue;
+			//	$attribs	= array( 'class' => 'flyer', 'target' => '_blank', 'title' => '"'.JText::_( 'MAP' ).'"');
+			//	$output 	= JHTML::Link($url, $mapimage, $attribs);
+				$output		='<a class="flyer" title="'.JText::_( 'MAP' ).'" href="'.$url.'" target="_blank">'.$mapimage.'</a>';
+
+  				}
+			} break;
+
+			case 2:
+			{
+
+				$url		= 'http://maps.google.com/maps?q='.$data->street.'+'.$data->city.'+'.$data->plz.'+'.$data->country;
+			//	$attribs	= array( 'class' => 'flyer', 'target' => '_blank', 'title' => '"'.JText::_( 'MAP' ).'"');
+			//	$output 	= JHTML::Link($url, $mapimage, $attribs);
+				$output		='<a class="flyer" title="'.JText::_( 'MAP' ).'" href="'.$url.'" target="_blank">'.$mapimage.'</a>';
+
+			} break;
+		}
+
+		return $output;
+	}
+
+	function flyer( $data, $settings, $image, $type = 'venue' )
+	{
+
+		//define the environment based on the type
+		if ($type == 'event') {
+			$folder		= 'events';
+			$imagefile	= $data->datimage;
+			$info		= $data->title;
+		} else {
+			$folder 	= 'venues';
+			$imagefile	= $data->locimage;
+			$info		= $data->venue;
+		}
+
+		//do we have an image?
+		if (empty($imagefile)) {
+
+			//nothing to do
+			return;
+
+		} else {
+
+			//does a thumbnail exist?
+			if (file_exists(JPATH_SITE.'/images/eventlist/'.$folder.'/small/'.$imagefile)) {
+
+				if ($settings->lightbox == 0) {
+
+					$url		= '#';
+					$attributes	= 'class="flyer" onclick="window.open(\''.$image['original'].'\',\'Popup\',\'width='.$image['width'].',height='.$image['height'].',location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no\')"';
+
+				} else {
+
+					$url		= $image['original'];
+					$attributes	= 'class="flyer" rel="lightbox" title="'.$info.'"';
+
+				}
+
+				$icon	= '<img src="'.$image['thumb'].'" width="'.$image['thumbwidth'].'" height="'.$image['thumbheight'].'" alt="'.$info.'" title="'.JText::_( 'CLICK TO ENLARGE' ).'" />';
+				$output	= '<a href="'.$url.'" '.$attributes.'>'.$icon.'</a>';
+
+			//No thumbnail? Then take the in the settings specified values for the original
+			} else {
+
+				$output	= '<img class="flyer" src="'.$image['original'].'" width="'.$settings->imagewidth.'" height="'.$settings->imagehight.'" alt="'.$info.'" />';
+
+			}
+		}
+
+		return $output;
 	}
 }
 ?>

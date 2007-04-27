@@ -47,7 +47,7 @@ class EventListViewDetails extends JView
 		} else {
 			$pics = '';
 		}
-		
+
 		//Check if the id exists
 		if ($row->did == 0)
 		{
@@ -104,7 +104,7 @@ class EventListViewDetails extends JView
 
 		//Generate Date
 		$date 	= strftime( $elsettings->formatdate ,strtotime( $row->dates ));
-		
+
 		if ($row->times) {
 		$time 	= strftime( $elsettings->formattime ,strtotime( $row->times ));
 		}
@@ -180,13 +180,6 @@ class EventListViewDetails extends JView
 			$venuedescription = $row->text;
 		}
 
-		//get email button
-		if ($params->get('icons')) 	{
-			$mailbutton = JAdminMenus::ImageCheck('emailButton.png', '/images/M_images/', NULL, NULL, JText::_('Mail to Friend'), JText::_('Mail to Friend'));
-		} else {
-			$mailbutton = '&nbsp;'.JText::_('Mail to Friend');
-		}
-
 		// generate Metatags
 		$meta_keywords_content = "";
 		if (!empty($row->meta_keywords)) {
@@ -233,7 +226,6 @@ class EventListViewDetails extends JView
 
 		//assign vars to jview
 		$this->assignRef('row', 					$row);
-		$this->assignRef('mailbutton' , 			$mailbutton);
 		$this->assignRef('params' , 				$params);
 		$this->assignRef('allowedtoeditevent' , 	$allowedtoeditevent);
 		$this->assignRef('allowedtoeditvenue' , 	$allowedtoeditvenue);

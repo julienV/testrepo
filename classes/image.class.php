@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -11,8 +11,8 @@ defined('_JEXEC') or die('Restricted access');
 
 /**
  * Holds the logic for image manipulation
- * 
- * @package Joomla 
+ *
+ * @package Joomla
  * @subpackage EventList
  */
 class ELImage {
@@ -22,14 +22,14 @@ class ELImage {
 	*
  	* @author Christoph Lukes
 	* @since 0.9
- 	* 
- 	* @param string $file The path to the file	 
+ 	*
+ 	* @param string $file The path to the file
 	* @param string $save The targetpath
 	* @param string $width The with of the image
 	* @param string $height The height of the image
 	* @param int $prop Keep propertions or not
 	*/
-	function thumb($file, $save, $width, $height, $prop = TRUE) 
+	function thumb($file, $save, $width, $height, $prop = TRUE)
 	{
 		/*
 		* GD-Lib > 2.0
@@ -60,7 +60,7 @@ class ELImage {
 			$iNewH = $height;
 		}
 
-		
+
 		//Don't resize images which are smaller than thumbs
 		if ($infos[0] < $width && $infos[1] < $height) {
 			$iNewW = $infos[0];
@@ -102,10 +102,10 @@ class ELImage {
 	/**
 	* Determine the GD version
 	* Code from php.net
-	* 
+	*
 	* @since 0.9
 	* @param int
-	* 
+	*
 	* @return int
 	*/
 	function gdVersion($user_ver = 0)
@@ -155,10 +155,10 @@ class ELImage {
 
 	/**
 	* Creates image information of event picture
-	* 
+	*
 	* @author Christoph Lukes
 	* @since 0.9
-	* 
+	*
 	* @param string $live_site The path to the site
 	* @param string $image The image name
 	* @return array $dimage which holds the information
@@ -191,27 +191,27 @@ class ELImage {
 				* get imagesize of the original
 				*/
 				$iminfo = @getimagesize('images/eventlist/events/'.$image);
-				$dimage['widthev'] 	= $iminfo[0];
-				$dimage['heightev'] = $iminfo[1];
+				$dimage['width'] 	= $iminfo[0];
+				$dimage['height'] = $iminfo[1];
 
 				/*
 				* get imagesize of the thumbnail
 				*/
 				$thumbiminfo = @getimagesize('images/eventlist/events/small/'.$image);
-				$dimage['thumbwidthev'] 	= $thumbiminfo[0];
-				$dimage['thumbheightev'] 	= $thumbiminfo[1];
+				$dimage['thumbwidth'] 	= $thumbiminfo[0];
+				$dimage['thumbheight'] 	= $thumbiminfo[1];
 			}
 			return $dimage;
 		}
-		return $dimage = 0;
+		return false;
 	}
 
 	/**
 	* Creates image information of venue picture
-	* 
+	*
 	* @author Christoph Lukes
 	* @since 0.9
-	* 
+	*
 	* @param string $live_site The path to the site
 	* @param string $image The image name
 	* @return array $limage which holds the information
@@ -228,10 +228,10 @@ class ELImage {
 
 				ELImage::thumb($filepath, $save, $imagewidth, $imagehight, $imageprob);
 			}
-			
+
 			//set paths
-			$limage['originalloc'] 	= $live_site.'/images/eventlist/venues/'.$image;
-			$limage['thumbloc'] 	= $live_site.'/images/eventlist/venues/small/'.$image;
+			$limage['original'] 	= $live_site.'/images/eventlist/venues/'.$image;
+			$limage['thumb'] 	= $live_site.'/images/eventlist/venues/small/'.$image;
 
 			if (file_exists(JPATH_SITE.'/images/eventlist/venues/small/'.$image)) {
 
@@ -239,19 +239,19 @@ class ELImage {
 				* get imagesize of the original
 				*/
 				$iminfoloc 	= @getimagesize('images/eventlist/venues/'.$image);
-				$limage['widthloc'] 	= $iminfoloc[0];
-				$limage['heightloc'] 	= $iminfoloc[1];
+				$limage['width'] 	= $iminfoloc[0];
+				$limage['height'] 	= $iminfoloc[1];
 
 				/*
 				* get imagesize of the thumbnail
 				*/
 				$thumbiminfoloc 	= @getimagesize('images/eventlist/venues/small/'.$image);
-				$limage['thumbwidthloc'] 	= $thumbiminfoloc[0];
-				$limage['thumbheightloc']	= $thumbiminfoloc[1];
+				$limage['thumbwidth'] 	= $thumbiminfoloc[0];
+				$limage['thumbheight']	= $thumbiminfoloc[1];
 			}
 			return $limage;
 		}
-		return $limage = 0;
+		return false;
 	}
 }
 ?>
