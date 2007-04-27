@@ -88,7 +88,7 @@ class EventListViewImagehandler extends JView  {
 					$info		= $images[$i]['imgInfo'];
 
 
-					if (($info[0] > 70) || ($info[0] > 70)) {
+					if (($info[0] > 70) || ($info[1] > 70)) {
 						$img_dimensions = $this->_imageResize($info[0], $info[1], 80);
 					} else {
 						$img_dimensions = 'width="' . $info[0] . '" height="' . $info[1] . '"';

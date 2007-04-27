@@ -28,9 +28,8 @@ class EventListViewDetails extends JView
 	 */
 	function display($tpl = null)
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
-		$live_site 	= $mainframe->getCfg('live_site');
 		$document 	= & JFactory::getDocument();
 		$user		= & JFactory::getUser();
 		$elsettings = ELHelper::config();
@@ -87,16 +86,16 @@ class EventListViewDetails extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = JRoute::_('index.php?option=com_eventlist&view=details&did='. $row->did .'&pop=1&tmpl=component');
+		$print_link = JRoute::_('index.php?view=details&did='. $row->did .'&pop=1&tmpl=component');
 
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();
 		$pathway->setItemName(1, $item->name);
-		$pathway->addItem( JText::_( 'DETAILS' ). ' - '.$row->title, JRoute::_('index.php?option='.$option.'&view=details&did='.$row->did));
+		$pathway->addItem( JText::_( 'DETAILS' ). ' - '.$row->title, JRoute::_('index.php?view=details&did='.$row->did));
 
 		//Get images
-		$dimage = ELImage::eventimage($live_site, $row->datimage, $elsettings->imagewidth, $elsettings->imagehight, $elsettings->imageprob, $elsettings->gddisabled);
-		$limage = ELImage::venueimage($live_site, $row->locimage, $elsettings->imagewidth, $elsettings->imagehight, $elsettings->imageprob, $elsettings->gddisabled);
+		$dimage = ELImage::flyercreator($row->datimage, $elsettings, 'event');
+		$limage = ELImage::flyercreator($row->locimage, $elsettings);
 
 		//Check user if he can edit
 		$allowedtoeditevent = ELUser::editaccess($elsettings->eventowner, $row->created_by, $elsettings->eventeditrec, $elsettings->eventedit);

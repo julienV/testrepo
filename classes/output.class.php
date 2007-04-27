@@ -57,17 +57,15 @@ class ELOutput {
 				$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'DELIVER NEW EVENT' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 			}
 
-			$link = 'index.php?view=editevent&returnview='.$view;
+			$link 		= 'index.php?view=editevent&returnview='.$view;
+			$overlib 	= JText::_( 'SUBMIT EVENT TIP' );
+			$output		= '<a href="'.JRoute::_($link).'" class="editlinktip hasTip" title="'.JText::_( 'DELIVER NEW EVENT' ).'::'.$overlib.'">'.$image.'</a>';
 
-			$overlib = JText::_( 'SUBMIT EVENT TIP' );
-			?>
-			<a href="<?php echo JRoute::_($link); ?>" class="editlinktip hasTip" title="<?php echo JText::_( 'DELIVER NEW EVENT' ); ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
-			<?php
-
-		} else {
-			echo '&nbsp;';
+			return $output;
 		}
-	}//function submitevbutton end
+
+		return;
+	}
 
 	/**
 	* Writes Archivebutton
@@ -159,8 +157,8 @@ class ELOutput {
 			$document->addScript('includes/js/joomla/modal.js');
 			$document->addStyleSheet('includes/js/joomla/modal.css');
 
-			switch ($view) {
-
+			switch ($view)
+			{
 				case 'editevent':
 					if ( $params->get('icons') ) {
 						$image = JAdminMenus::ImageCheck( 'calendar_edit.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'EDIT EVENT' ), JText::_( 'EDIT EVENT' ) );
@@ -182,15 +180,14 @@ class ELOutput {
 					break;
 			}
 
-			$link = 'index.php?returnid='.$Itemid.'&view='.$view.'&id='.$id;
+			$link 	= 'index.php?returnid='.$Itemid.'&view='.$view.'&id='.$id;
+			$output	= '<a href="'.JRoute::_($link).'" class="editlinktip hasTip" title="'.$text.'::'.$overlib.'">'.$image.'</a>';
 
-				?>
-				<a href="<?php echo JRoute::_($link); ?>" class="editlinktip hasTip" title="<?php echo $text; ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
-			<?php
-		} else {
-			echo '&nbsp;';
+			return $output;
 		}
-	}//function editbutton end
+
+		return;
+	}
 
 	/**
 	 * Creates the print button
@@ -216,16 +213,16 @@ class ELOutput {
 			$attribs['title']   = '"'.JText::_( 'Print' ).'"';
 			$attribs['onclick'] = "\"javascript:window.print(); return false;\"";
 
-			$link = JHTML::Link('#', $text, $attribs);
+			$output = JHTML::Link('#', $text, $attribs);
 		} else {
 			//button in view
 			$attribs['title']   = '"'.JText::_( 'Print' ).'"';
 			$attribs['onclick'] = "\"window.open('".$print_link."','win2','".$status."'); return false;\"";
 
-			$link = JHTML::Link($print_link, $text, $attribs);
+			$output = JHTML::Link($print_link, $text, $attribs);
 		}
 
-		return $link;
+		return $output;
 	}
 
 	/**
@@ -332,7 +329,7 @@ class ELOutput {
 			//No thumbnail? Then take the in the settings specified values for the original
 			} else {
 
-				$output	= '<img class="flyer" src="'.$image['original'].'" width="'.$settings->imagewidth.'" height="'.$settings->imagehight.'" alt="'.$info.'" />';
+				$output	= '<img class="flyer" src="'.$image['original'].'" width="'.$image['width'].'" height="'.$image['height'].'" alt="'.$info.'" />';
 
 			}
 		}

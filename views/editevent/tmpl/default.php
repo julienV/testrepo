@@ -284,22 +284,12 @@ defined('_JEXEC') or die('Restricted access');
 		<tr>
 			<td>
 				<?php
-					if (!empty($this->row->datimage)) :
-						if (file_exists(JPATH_SITE.'/images/eventlist/events/small/'.$this->row->datimage)) :
-						?>
-							<a href="javascript:void window.open('<?php echo $this->dimage['original']; ?>','Popup','width=<?php echo $this->dimage['widthev']; ?>,height=<?php echo $this->dimage['heightev']; ?>,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no');">
-								<img src="<?php echo $this->dimage['thumb']; ?>" width="<?php echo $this->dimage['thumbwidthev']; ?>" height="<?php echo $this->dimage['thumbheightev']; ?>" alt="<?php echo $this->row->title; ?>" />
-							</a>
-						<?php
-						//No thumbnail? Then take the in the settings specified values for the original
-						else : ?>
-							<img src="<?php echo $this->dimage['original']; ?>" width="<?php echo $this->elsettings->imagewidth; ?>" height="<?php echo $this->elsettings->imagehight; ?>">
-					<?php
-						endif;
-				 else :
-				 	?>
-					<img src="<?php echo $this->live_site.'/images/cancel.png'; ?>" alt="no image"/>
-					<?php
+				if ($this->row->datimage) :
+						echo ELOutput::flyer( $this->row, $this->elsettings, $this->dimage, 'event' );
+				else :
+				?>
+					<img src="<?php echo 'images/cancel.png'; ?>" alt="no image"/>
+				<?php
 				endif;
   			  	?>
 			</td>

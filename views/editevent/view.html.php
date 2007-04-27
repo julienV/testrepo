@@ -48,7 +48,6 @@ class EventListViewEditevent extends JView
 		//Get requests
 		$id					= JRequest::getVar('id', 0, '', 'int');
 		$returnview			= JRequest::getVar('returnview', '', '', 'string');
-		$live_site 			= $mainframe->getCfg('live_site');
 
 		//Add the Calendar includes to the document <head> section
 		JCommonHTML::loadCalendar();
@@ -84,7 +83,7 @@ class EventListViewEditevent extends JView
 		$delloclink = ELUser::validate_user( $elsettings->locdelrec, $elsettings->deliverlocsyes );
 
 		//Get image information
-		$dimage = ELImage::eventimage($live_site, $row->datimage, $elsettings->imagewidth, $elsettings->imagehight, $elsettings->imageprob, $elsettings->gddisabled);
+		$dimage = ELImage::flyercreator($row->datimage, $elsettings, 'event');
 
 		//Set the info image
 		$infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'NOTES' ), JText::_( 'NOTES' ) );
@@ -115,7 +114,6 @@ class EventListViewEditevent extends JView
 		$this->assignRef('infoimage' , 				$infoimage);
 		$this->assignRef('delloclink' , 			$delloclink);
 		$this->assignRef('editoruser' , 			$editoruser);
-		$this->assignRef('live_site' , 				$live_site);
 		$this->assignRef('venueselect' , 			$venueselect);
 		$this->assignRef('returnview' , 			$returnview);
 		$this->assignRef('elsettings' , 			$elsettings);

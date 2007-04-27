@@ -76,7 +76,7 @@ class EventListViewVenueevents extends JView
 		}
 
 		//Get image
-		$limage = ELImage::venueimage($live_site, $venue->locimage, $elsettings->imagewidth, $elsettings->imagehight, $elsettings->imageprob, $elsettings->gddisabled);
+		$limage = ELImage::flyercreator($venue->locimage, $elsettings);
 
 		//add alternate feed link
 		$link    = 'index.php?option=com_eventlist&view=venueevents&format=feed&locatid='.$venue->id;
@@ -194,16 +194,16 @@ class EventListViewVenueevents extends JView
 					$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
 					$time = $time.' '.$this->elsettings->timename;
 					$displaytime = '<br />'.$time;
-				
+
 				}
 				if ($row->endtimes) {
 					$endtime = strftime( $this->elsettings->formattime, strtotime( $row->endtimes ));
 					$endtime = $endtime.' '.$this->elsettings->timename;
 					$displaytime = '<br />'.$time.' - '.$endtime;
-					
+
 				}
 			}
-			
+
 			if (isset($displaytime)) {
 				$row->displaytime = $displaytime;
 			} else {

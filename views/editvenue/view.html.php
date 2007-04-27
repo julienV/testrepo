@@ -35,8 +35,6 @@ class EventListViewEditvenue extends JView
 		$doc 		= & JFactory::getDocument();
 		$elsettings = ELHelper::config();
 
-		$live_site 	= $mainframe->getCfg('live_site');
-
 		// Get requests
 		$id				= JRequest::getVar('id', 0, '', 'int');
 		$returnview		= JRequest::getVar('returnview', '', '', 'string');
@@ -73,14 +71,13 @@ class EventListViewEditvenue extends JView
 		$editoruser = ELUser::editoruser();
 
 		//Get image
-		$limage = ELImage::venueimage($live_site, $row->locimage, $elsettings->imagewidth, $elsettings->imagehight, $elsettings->imageprob, $elsettings->gddisabled);
+		$limage = ELImage::flyercreator($row->locimage, $elsettings);
 
 		//Set the info image
 		$infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'NOTES' ), JText::_( 'NOTES' ) );
 
 		$this->assignRef('row' , 					$row);
 		$this->assignRef('editor' , 				$editor);
-		$this->assignRef('live_site' , 				$live_site);
 		$this->assignRef('editoruser' , 			$editoruser);
 		$this->assignRef('limage' , 				$limage);
 		$this->assignRef('infoimage' , 				$infoimage);

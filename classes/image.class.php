@@ -154,102 +154,74 @@ class ELImage {
 	}
 
 	/**
-	* Creates image information of event picture
+	* Creates image information of an image
 	*
 	* @author Christoph Lukes
 	* @since 0.9
 	*
-	* @param string $live_site The path to the site
 	* @param string $image The image name
-	* @return array $dimage which holds the information
+	* @param array $settings
+	* @param string $type event or venue
+	*
+	* @return imagedata if available
 	*/
-	function eventimage($live_site, $image, $imagewidth, $imagehight, $imageprob, $gddisabled)
+	function flyercreator($image, $settings, $type= 'venue')
 	{
-		if (!empty($image)) {
-
-			/*
-			*Create thumbnail
-			*/
-
-			if ($gddisabled == 1 && !file_exists(JPATH_SITE.'/images/eventlist/events/small/'.$image)) {
-
-				$filepath 	= JPATH_SITE.'/images/eventlist/events/'.$image;
-				$save 		= JPATH_SITE.'/images/eventlist/events/small/'.$image;
-
-				ELImage::thumb($filepath, $save, $imagewidth, $imagehight, $imageprob);
-			}
-
-			/*
-			* set paths
-			*/
-			$dimage['original'] = $live_site.'/images/eventlist/events/'.$image;
-			$dimage['thumb'] 	= $live_site.'/images/eventlist/events/small/'.$image;
-
-			if (file_exists(JPATH_SITE.'/images/eventlist/events/small/'.$image)) {
-
-				/*
-				* get imagesize of the original
-				*/
-				$iminfo = @getimagesize('images/eventlist/events/'.$image);
-				$dimage['width'] 	= $iminfo[0];
-				$dimage['height'] = $iminfo[1];
-
-				/*
-				* get imagesize of the thumbnail
-				*/
-				$thumbiminfo = @getimagesize('images/eventlist/events/small/'.$image);
-				$dimage['thumbwidth'] 	= $thumbiminfo[0];
-				$dimage['thumbheight'] 	= $thumbiminfo[1];
-			}
-			return $dimage;
+		//define the environment based on the type
+		if ($type == 'event') {
+			$folder		= 'events';
+		} else {
+			$folder 	= 'venues';
 		}
-		return false;
-	}
 
-	/**
-	* Creates image information of venue picture
-	*
-	* @author Christoph Lukes
-	* @since 0.9
-	*
-	* @param string $live_site The path to the site
-	* @param string $image The image name
-	* @return array $limage which holds the information
-	*/
-	function venueimage($live_site, $image, $imagewidth, $imagehight, $imageprob, $gddisabled)
-	{
-		if (!empty($image)) {
+		if ( $image ) {
 
-			//Create thumbnail
-			if ($gddisabled == 1 && !file_exists(JPATH_SITE.'/images/eventlist/venues/small/'.$image)) {
+			//Create thumbnail if enabled and it does not exist already
+			if ($settings->gddisabled == 1 && !file_exists(JPATH_SITE.'/images/eventlist/'.$folder.'/small/'.$image)) {
 
-				$filepath 	= JPATH_SITE.'/images/eventlist/venues/'.$image;
-				$save 		= JPATH_SITE.'/images/eventlist/venues/small/'.$image;
+				$filepath 	= JPATH_SITE.'/images/eventlist/'.$folder.'/'.$image;
+				$save 		= JPATH_SITE.'/images/eventlist/'.$folder.'/small/'.$image;
 
-				ELImage::thumb($filepath, $save, $imagewidth, $imagehight, $imageprob);
+				ELImage::thumb($filepath, $save, $settings->imagewidth, $settings->imagehight, $settings->imageprob);
 			}
 
 			//set paths
-			$limage['original'] 	= $live_site.'/images/eventlist/venues/'.$image;
-			$limage['thumb'] 	= $live_site.'/images/eventlist/venues/small/'.$image;
+			$dimage['original'] = 'images/eventlist/'.$folder.'/'.$image;
+			$dimage['thumb'] 	= 'images/eventlist/'.$folder.'/small/'.$image;
 
-			if (file_exists(JPATH_SITE.'/images/eventlist/venues/small/'.$image)) {
+			//get imagesize of the original
+			$iminfo = @getimagesize('images/eventlist/'.$folder.'/'.$image);
 
-				/*
-				* get imagesize of the original
-				*/
-				$iminfoloc 	= @getimagesize('images/eventlist/venues/'.$image);
-				$limage['width'] 	= $iminfoloc[0];
-				$limage['height'] 	= $iminfoloc[1];
+			//if the width or height is too large this formula will resize them accordingly
+			if (($iminfo[0] > $settings->imagewidth) || ($iminfo[1] > $settings->imagehight)) {
 
-				/*
-				* get imagesize of the thumbnail
-				*/
-				$thumbiminfoloc 	= @getimagesize('images/eventlist/venues/small/'.$image);
-				$limage['thumbwidth'] 	= $thumbiminfoloc[0];
-				$limage['thumbheight']	= $thumbiminfoloc[1];
+				$iRatioW = $settings->imagewidth / $iminfo[0];
+				$iRatioH = $settings->imagehight / $iminfo[1];
+
+				if ($iRatioW < $iRatioH) {
+					$dimage['width'] 	= round($iminfo[0] * $iRatioW);
+					$dimage['height'] 	= round($iminfo[1] * $iRatioW);
+				} else {
+					$dimage['width'] 	= round($iminfo[0] * $iRatioH);
+					$dimage['height'] 	= round($iminfo[1] * $iRatioH);
+				}
+
+			} else {
+
+				$dimage['width'] 	= $iminfo[0];
+				$dimage['height'] 	= $iminfo[1];
+
 			}
-			return $limage;
+
+			if (file_exists(JPATH_SITE.'/images/eventlist/'.$folder.'/small/'.$image)) {
+
+				//get imagesize of the thumbnail
+				$thumbiminfo = @getimagesize('images/eventlist/'.$folder.'/small/'.$image);
+				$dimage['thumbwidth'] 	= $thumbiminfo[0];
+				$dimage['thumbheight'] 	= $thumbiminfo[1];
+
+			}
+			return $dimage;
 		}
 		return false;
 	}

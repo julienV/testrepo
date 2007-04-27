@@ -98,7 +98,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   			<?php echo ELOutput::editbutton($this->item->id, $this->row->locid, $this->params, $this->allowedtoeditvenue, 'editvenue' ); ?>
 		</h2>
 
-		<?php //cell for flyer
+		<?php //flyer
 		echo ELOutput::flyer( $this->row, $this->elsettings, $this->limage );
 		echo ELOutput::mapicon( $this->row, $this->elsettings );
 		?>

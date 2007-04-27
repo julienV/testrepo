@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -24,74 +24,25 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <!--Venue-->
 <div id="eventlist" class="el_venueevents">
-			<?php //cell for flyer
-				if (!empty($this->venue->locimage)) :
-					if (file_exists(JPATH_SITE.'/images/eventlist/venues/small/'.$this->venue->locimage)) :
 
-						if ($this->elsettings->lightbox == 0) :
-						?>
-						<a class="flyer" href="javascript:void window.open('<?php echo $this->limage['originalloc']; ?>','Popup','width=<?php echo $this->limage['widthloc']; ?>,height=<?php echo $this->limage['heightloc']; ?>,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no');">
-						<?php
-						 else :
-						?>
-						<a href="<?php echo $this->limage['originalloc']; ?>" class="flyer" rel="lightbox" title="<?php echo $this->venue->venue; ?>">
-						<?php endif; ?>
+	<?php //flyer
+	echo ELOutput::flyer( $this->venue, $this->elsettings, $this->limage );
+	echo ELOutput::mapicon( $this->venue, $this->elsettings );
+	?>
 
-						<img src="<?php echo $this->limage['thumbloc']; ?>" width="<?php echo $this->limage['thumbwidthloc']; ?>" height="<?php echo $this->limage['thumbheightloc']; ?>" alt="location image" title="<?php echo JText::_( 'CLICK TO ENLARGE' ); ?>" />
-						</a>
-						<?php else : ?>
-						<img src="<?php echo $this->limage['originalloc']; ?>" class="flyer" width="<?php echo $this->elsettings->imagewidth; ?>" height="<?php echo $this->elsettings->imagehight; ?>" />
-					<?php
-					endif;
-				else :
-					echo '';
-				endif;
-
-
-				//Link to map
-				$mapimage = JAdminMenus::ImageCheck( 'mapsicon.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'MAP' ), JText::_( 'MAP' ) );
-				
-				switch ($this->elsettings->showmapserv) :
-					case 0:
-					break;
-
-					case 1:
-  						if ($this->elsettings->map24id != '') :
-						?>
-							<a class="flyer" href="http://link2.map24.com/?lid=<?php echo $this->elsettings->map24id ?>&maptype=JAVA&width0=2000&street0=<?php echo $this->venue->street ?>&zip0=<?php echo $this->venue->plz ?>&city0=<?php echo $this->venue->city ?>&country0=<?php echo $this->venue->country ?>&sym0=10280&description0=<?php echo $this->venue->venue ?>" target="_blank">
-								<?php echo $mapimage; ?>
-							</a>
-						<?php
-						endif;
-					break;
-
-					case 2:
-					?>
-						<a class="flyer" href="http://maps.google.com/maps?q=<?php echo $this->venue->street; ?>+<?php echo $this->venue->city ?>+<?php echo $this->venue->plz ?>+<?php echo $this->venue->country ?>" title="<?php echo JText::_( 'MAP' ); ?>" target="_blank">
-							<?php echo $mapimage; ?>
-						</a>
-				<?php
-					break;
-				endswitch; //switch ende
-				?>
-            <dl class="location floattext">
-			 <dt class="venue"><?php echo $this->elsettings->locationname.':'; ?></dt>
-				<dd class="venue">
-					<?php echo $this->venue->venue; ?>
-					
-				<?php
-				if (!empty($this->venue->url)) :
-				?>
+	<dl class="location floattext">
+		<dt class="venue"><?php echo $this->elsettings->locationname.':'; ?></dt>
+			<dd class="venue">
+				<?php echo $this->venue->venue; ?>
+				<?php if (!empty($this->venue->url)) : ?>
 					&nbsp; - &nbsp;
 					<a href="<?php echo $this->venue->url; ?>" target="_blank"> <?php echo JText::_( 'WEBSITE' ); ?></a>
 				<?php
 				endif;
 				?>
-				</dd>
+			</dd>
 
-			<?php
-  			if ( $this->elsettings->showdetailsadress == 1 ) :
-  			?>
+		<?php if ( $this->elsettings->showdetailsadress == 1 ) : ?>
 
   			<?php if ( $this->venue->street ) : ?>
   			<dt class="venue_street"><?php echo JText::_( 'STREET' ).':'; ?></dt>
@@ -99,14 +50,14 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
     			<?php echo $this->venue->street; ?>
 			</dd>
 			<?php endif; ?>
-			
+
 			<?php if ( $this->venue->plz ) : ?>
   			<dt class="venue_plz"><?php echo JText::_( 'ZIP' ).':'; ?></dt>
 			<dd class="venue_plz">
     			<?php echo $this->venue->plz; ?>
 			</dd>
 			<?php endif; ?>
- 
+
 			<?php if ( $this->venue->city ) : ?>
     		<dt class="venue_city"><?php echo JText::_( 'CITY' ).':'; ?></dt>
     		<dd class="venue_city">
@@ -120,7 +71,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
     			<?php echo $this->venue->state; ?>
 			</dd>
 			<?php endif; ?>
-			
+
 			<?php if ( $this->venue->country ) : ?>
 			<dt class="venue_country"><?php echo JText::_( 'COUNTRY' ).':'; ?></dt>
     		<dd class="venue_country">
@@ -133,41 +84,41 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	</dl>
 
 	<?php
-  		if ($this->elsettings->showlocdescription == 1) :
-		?>
-		
+  	if ($this->elsettings->showlocdescription == 1) :
+	?>
+
 		<h2 class="location_desc"><?php echo JText::_( 'DESCRIPTION' ); ?></h2>
 	  		<div class="location_desc">
 	  			<?php echo $this->venuedescription;	?>
 				<br /><br />
 			</div>
 
-		<?php endif; ?>
+	<?php endif; ?>
 
-<!--table-->
+	<!--table-->
 
-<?php echo $this->loadTemplate('table'); ?>
+	<?php echo $this->loadTemplate('table'); ?>
 
-<input type="hidden" name="option" value="com_eventlist" />
-<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
-<input type="hidden" name="filter_order_Dir" value="" />
-<input type="hidden" name="view" value="venueevents" />
-<input type="hidden" name="locatid" value="<?php echo $this->locatid; ?>" />
-<input type="hidden" name="Itemid" value="<?php echo $this->item->id;?>" />
-</form>
+	<input type="hidden" name="option" value="com_eventlist" />
+	<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
+	<input type="hidden" name="filter_order_Dir" value="" />
+	<input type="hidden" name="view" value="venueevents" />
+	<input type="hidden" name="locatid" value="<?php echo $this->locatid; ?>" />
+	<input type="hidden" name="Itemid" value="<?php echo $this->item->id;?>" />
+	</form>
 
 </div>
 
 <!--pagination-->
 
 <?php if (( $this->page > 0 ) && ( !$this->params->get( 'popup' ) )) : ?>
-<p class="pageslinks">
-	<?php echo $this->pageNav->getPagesLinks(); ?>
-</p>
+	<p class="pageslinks">
+		<?php echo $this->pageNav->getPagesLinks(); ?>
+	</p>
 
-<p class="pagescounter">
-	<?php echo $this->pageNav->getPagesCounter(); ?>
-</p>
+	<p class="pagescounter">
+		<?php echo $this->pageNav->getPagesCounter(); ?>
+	</p>
 <?php endif; ?>
 
 <!--copyright-->
