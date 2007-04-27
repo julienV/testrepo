@@ -50,14 +50,14 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 						if ($this->elsettings->lightbox == 0) :
 						?>
-							<a class="flyer" href="javascript:void window.open('<?php echo $this->dimage['original']; ?>','Popup','width=<?php echo $this->dimage['widthev']; ?>,height=<?php echo $this->dimage['heightev']; ?>,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no');">
+						    <a class="flyer" href="javascript:void window.open('<?php echo $this->dimage['original']; ?>','Popup','width=<?php echo $this->dimage['widthev']; ?>,height=<?php echo $this->dimage['heightev']; ?>,location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no');">
 						<?php
 						 else :
 						?>
-						<a class="flyer" href="<?php echo $this->dimage['original']; ?>" rel="lightbox" title="<?php echo $this->row->title; ?>">
+						    <a class="flyer" href="<?php echo $this->dimage['original']; ?>" rel="lightbox" title="<?php echo $this->row->title; ?>">
 						<?php endif; ?>
-						<img src="<?php echo $this->dimage['thumb']; ?>" width="<?php echo $this->dimage['thumbwidthev']; ?>" height="<?php echo $this->dimage['thumbheightev']; ?>" alt="<?php echo $this->row->title; ?>" title="<?php echo JText::_( 'CLICK TO ENLARGE' ); ?>" />
-						</a>
+						    <img src="<?php echo $this->dimage['thumb']; ?>" width="<?php echo $this->dimage['thumbwidthev']; ?>" height="<?php echo $this->dimage['thumbheightev']; ?>" alt="<?php echo $this->row->title; ?>" title="<?php echo JText::_( 'CLICK TO ENLARGE' ); ?>" />
+						    </a>
 					<?php
 					//No thumbnail? Then take the in the settings specified values for the original
 					else : ?>
@@ -70,7 +70,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			?>
 		<dl class="event_info floattext">
 			<dt class="when"><?php echo JText::_( 'WHEN' ).':' ;?></dt>
-    		<dd class="when">
+			<dd class="when">
 			<?php
 				echo $this->displaydate;
 				echo $this->displaytime;
@@ -87,14 +87,14 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   			if ($this->row->locid != 0) :
   			?>
 		    <dt class="where"><?php echo JText::_( 'WHERE' ).':' ; ?></dt>
-    		<dd class="where">
+		    <dd class="where">
     		<?php if (($this->elsettings->showdetlinkvenue == 1) && (!empty($this->row->url))) :	?>
     		
-				<a href="<?php echo $this->row->url; ?>" target="_blank"> <?php echo $this->row->venue; ?></a>
+			    <a href="<?php echo $this->row->url; ?>" target="_blank"> <?php echo $this->row->venue; ?></a>
 				
 			<?php elseif ($this->elsettings->showdetlinkvenue == 2) : ?>
 			
-				<a href="<?php echo JRoute::_( 'index.php?view=venueevents&locatid='.$this->row->venueslug ); ?>"><?php echo $this->row->venue; ?></a>
+			    <a href="<?php echo JRoute::_( 'index.php?view=venueevents&locatid='.$this->row->venueslug ); ?>"><?php echo $this->row->venue; ?></a>
 			<?php
 				elseif ($this->elsettings->showdetlinkvenue == 0) :
 					echo $this->row->venue;
@@ -128,7 +128,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   		<?php echo ELOutput::editbutton($this->item->id, $this->row->locid, $this->params, $this->allowedtoeditvenue, 'editvenue' ); ?>
 	</h2>
 			<?php //cell for flyer
-				if (!empty($this->row->locimage)) :
+			
+			if (!empty($this->row->locimage)) :
 					if (file_exists(JPATH_SITE.'/images/eventlist/venues/small/'.$this->row->locimage)) :
 
 						if ($this->elsettings->lightbox == 0) :
@@ -137,7 +138,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 						<?php
 						 else :
 						?>
-						<a href="<?php echo $this->limage['originalloc']; ?>" class="flyer" rel="lightbox" title="<?php echo $this->row->venue; ?>" title="<?php echo JText::_( 'CLICK TO ENLARGE' ); ?>">
+						<a href="<?php echo $this->limage['originalloc']; ?>" class="flyer" rel="lightbox" title="<?php echo $this->row->venue.' '.JText::_( 'CLICK TO ENLARGE' ); ?>">
 						<?php endif; ?>
 
 						<img src="<?php echo $this->limage['thumbloc']; ?>" width="<?php echo $this->limage['thumbwidthloc']; ?>" height="<?php echo $this->limage['thumbheightloc']; ?>" alt="venue image" title="<?php echo JText::_( 'CLICK TO ENLARGE' ); ?>" />
@@ -177,8 +178,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 					break;
 				endswitch; //switch ende
 				?>
+			    
 				
-            <dl class="location floattext">
+		<dl class="location floattext">
 			 <dt class="venue"><?php echo $this->elsettings->locationname.':'; ?></dt>
 				<dd class="venue">
 				<?php echo "<a href='".JRoute::_( 'index.php?view=venueevents&locatid='.$this->row->venueslug )."'>".$this->row->venue."</a>"; ?>
@@ -239,9 +241,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		?>
 
 		<h2 class="location_desc"><?php echo JText::_( 'DESCRIPTION' ); ?></h2>
-  		<p class="location_desc">
+  		<div class="location_desc">
   			<?php echo $this->venuedescription;	?>
-  		</p>
+  		</div>
 
 		<?php endif; ?>
 	<?php endif; //row->locid !=0 end ?>

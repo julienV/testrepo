@@ -1,5 +1,16 @@
-/* ---- Eventlist ---- */
-div#eventlist * /* reset all */
+/**
+ * @version 0.9 $Id: eventlist.css 2007-04-27 16:00:00Z spook68 $
+ * @package Joomla
+ * @subpackage EventList
+ * @copyright (C) 2005 - 2007 Christoph Lukes
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * 
+ * if you've problems with this stylesheet or you found a bug, please contact me @ spook.68[at]gmail.com
+ * 
+**/
+
+/* reset all */
+div#eventlist * 
 { margin: 0; padding: 0; }
 
 /* clearing >> do not edit if you don't know what you do <<
@@ -7,8 +18,11 @@ div#eventlist * /* reset all */
 .clear
 {clear: both; line-height: 1px;}
 
-.floattext:after /* ie fix in coditional comments  (html source) */
+.floattext:after /* ie fix in coditional comments (html source) */
 {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+
+.floattext
+{ display:block; /* safari */ }
 
 /* buttons
 **********************************************************************************/
@@ -16,12 +30,12 @@ div#eventlist * /* reset all */
 { float: right; }
 
 .buttons a
-{ padding: 0 3px; height: 16px; line-height: 16px; }
+{ padding: 0 0 0 3px; height: 16px; line-height: 16px; }
 
 /* headlines
 **************************************************************************/
 div#eventlist h2
-{ font-size: 1.0em; font-weight: bold; border-bottom:2px solid #ddd; color:#000; padding:0.2em 0.3em; margin: 0.8em 0; }
+{ font-size: 1.0em; font-weight: bold; border-bottom: 2px solid #ddd; color:#000; padding:0.2em 0.3em; margin: 0.8em 0; }
 
 /* definition list
 **************************************************************************/
@@ -32,24 +46,26 @@ div#eventlist dt /* definition title */
 { float:left; font-size: 11px; font-weight: bold; width: 11em;}
 
 div#eventlist dd /* definition desription */
-{ position:relative; display: block; margin: 0 0 5px 12em; font-size: 0.9em; }
+{ display: block; margin: 0 0 5px 12em; font-size: 0.9em; }
 
 * html .floattext dd /* ie fix against the 3px jog bug */ 
 { height: 1%; }
 
-div#eventlist div.description
+div#eventlist .description, div#eventlist .location_desc
 { margin: 5px 0; padding: 0 5px; } 
 
 .copyright
 { font-size: 0.85em; text-align: center; margin: 1em 0; color: #aaa; }
 
-/* flyer and location pictures
+/* flyer, location, map pictures
 *************************************************************************************/
-.flyer
-{ position: relative; z-index: 100; float:right; clear: right; margin:5px 5px 10px 5px; }
+div#eventlist .el_pics {} /* div around all images */
 
-a.flyer img, img.flyer, .cat_img img
-{ border: 1px solid #ddd; padding:2px; }
+div#eventlist .flyer
+{float:right; margin:0.3em;  }
+
+div#eventlist a.flyer img, div#eventlist img.flyer, div#eventlist .cat_img img
+{ border: 1px solid #ddd; padding:1px; }
 
 /* registered user list
 *************************************************************************************/
