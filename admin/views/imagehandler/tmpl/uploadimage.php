@@ -4,7 +4,7 @@
 
 <table class="adminlist">
 	<tr>
-  		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>  
+  		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>
   		<td class="sectionname" align="right"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">::<?php echo JText::_( 'UPLOAD IMAGE' ); ?>::</font></td>
 	</tr>
 </table>
@@ -12,7 +12,7 @@
 <table class="noshow">
   	<tr>
 		<td width="50%" valign="top">
-		
+
 			<fieldset class="adminform">
 			<legend><?php echo JText::_( 'SELECT IMAGE UPLOAD' ); ?></legend>
 			<table class="admintable" cellspacing="1">
@@ -27,10 +27,10 @@
 				</tbody>
 			</table>
 			</fieldset>
-			
-		</td>		
+
+		</td>
         <td width="50%" valign="top">
-        
+
 			<fieldset class="adminform">
 			<legend><?php echo JText::_( 'ATTENTION' ); ?></legend>
 			<table class="admintable" cellspacing="1">
@@ -39,7 +39,7 @@
 	          			<td>
  							<b><?php
  							echo JText::_( 'TARGET DIRECTORY' ).':'; ?></b>
-							<?php 
+							<?php
 							if ($this->task == 'venueimg') {
 								echo "/images/eventlist/venues/";
 								$this->task = 'venueimgup';
@@ -85,15 +85,15 @@
 				</tbody>
 			</table>
 			</fieldset>
-			
+
 		</td>
 	</tr>
 </table>
-  	
+
 <table class="noshow">
 	<tr>
 		<td>
-		
+
 			<fieldset class="adminform">
 			<legend><?php echo JText::_( 'ATTENTION' ); ?></legend>
 			<table class="admintable" cellspacing="1">
@@ -106,7 +106,7 @@
 				</tbody>
 			</table>
 			</fieldset>
-			
+
 		</td>
 	</tr>
 </table>
@@ -115,7 +115,7 @@
 <input type="hidden" name="controller" value="imageupload" />
 <input type="hidden" name="task" value="<?php echo $this->task;?>" />
 </form>
-		
+
 <p class="copyright">
 	<?php echo ELAdmin::footer( ); ?>
 </p>

@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -15,36 +15,41 @@ jimport( 'joomla.application.component.view');
  * View class for the EventList imageselect screen
  * Based on the Joomla! media component
  *
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @since 0.9
  */
-class EventListViewImageselect extends JView  {
-	
+class EventListViewImagehandler extends JView  {
+
 	function display($tpl = null)
 	{
 		global $mainframe;
-		
+
+		if($this->getLayout() == 'uploadimage') {
+			$this->_displayuploadimage($tpl);
+			return;
+		}
+
 		//Load filesystem folder
 		jimport('joomla.filesystem.folder');
-		
+
 		//initialise variables
 		$document   =& JFactory::getDocument();
-		
+
 		//get vars
-		$live_site 	= $mainframe->getCfg('live_site');	
+		$live_site 	= $mainframe->getCfg('live_site');
 		$task = JRequest::getVar( 'task' );
-		
+
 		//add css
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
-		
+
 		//set variables
 		if ($task == 'selecteventimg') {
 			$Path 	= '/images/eventlist/events/';
 		} else {
 			$Path 	= '/images/eventlist/venues/';
 		}
-		
+
 		$basePath 	= JPATH_SITE.$Path;
 		$images 	= array ();
 
@@ -63,12 +68,12 @@ class EventListViewImageselect extends JView  {
 						$fileDetails['imgInfo'] = $imageInfo;
 						$fileDetails['size'] = filesize($basePath.DS.$file);
 						$images[] = $fileDetails;
-					} 
+					}
 				}
 			}
 		}
-		
-		//prepare images	
+
+		//prepare images
 		if (count($images) > 0 )
 		{
 			//now sort the images by name.
@@ -77,18 +82,18 @@ class EventListViewImageselect extends JView  {
 			// Handle the images
 			if ( $numImages = count( $images ) ) {
 				for( $i = 0; $i < $numImages; $i++ ) {
-					
+
 					$file		= $images[$i]['name'];
 					$img_url	= $live_site.$Path.rawurlencode($file);
 					$info		= $images[$i]['imgInfo'];
-					
+
 
 					if (($info[0] > 70) || ($info[0] > 70)) {
 						$img_dimensions = $this->_imageResize($info[0], $info[1], 80);
 					} else {
 						$img_dimensions = 'width="' . $info[0] . '" height="' . $info[1] . '"';
 					}
-					
+
 					//output the images
 					?>
 					<div class="imgOutline">
@@ -106,16 +111,16 @@ class EventListViewImageselect extends JView  {
 						</div>
 					</div>
 					<?php
-					
+
 				}
 			}
 		}
-		
+
 	}
-		
+
 	/**
 	 * Checks if the file is an image
-	 * 
+	 *
 	 * @access private
 	 * @param string The filename
 	 * @return boolean
@@ -125,7 +130,7 @@ class EventListViewImageselect extends JView  {
 		static $imageTypes = 'gif|jpg|png';
 		return preg_match("/$imageTypes/i",$fileName);
 	}
-	
+
 	/**
 	 * Resizes the image if needed
 	 *
@@ -147,12 +152,43 @@ class EventListViewImageselect extends JView  {
 		}
 
 		//gets the new value and applies the percentage, then rounds the value
-		$width = round($width * $percentage);
+		$width 	= round($width * $percentage);
 		$height = round($height * $percentage);
 
 		//returns the new sizes in html image tag format...this is so you
 		//can plug this function inside an image tag and just get the
 		return "width=\"$width\" height=\"$height\"";
+	}
+
+	/**
+	 * Prepares the upload image screen
+	 *
+	 * @param unknown_type $tpl
+	 */
+	function _displayuploadimage($tpl = null)
+	{
+		global $mainframe;
+
+		//initialise variables
+		$document	= & JFactory::getDocument();
+		$uri 		= & JFactory::getURI();
+		$elsettings = ELAdmin::config();
+
+		//get vars
+		$live_site 	= $mainframe->getCfg('live_site');
+		$template	= $mainframe->getTemplate();
+		$task 		= JRequest::getVar( 'task' );
+
+		//add css
+		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
+
+		//assign data to template
+		$this->assignRef('live_site' 	, $live_site);
+		$this->assignRef('task'      	, $task);
+		$this->assignRef('elsettings'  	, $elsettings);
+		$this->assignRef('request_url'	, $uri->toString());
+
+		parent::display($tpl);
 	}
 }
 ?>

@@ -116,8 +116,8 @@ class EventListViewEvent extends JView {
 			document.popup.hide();
 		}";
 
-		$link = 'index.php?option=com_eventlist&amp;view=imageupload&amp;task=eventimg&amp;tmpl=component';
-		$link2 = 'index.php?option=com_eventlist&amp;view=imageselect&amp;task=selecteventimg&amp;tmpl=component';
+		$link = 'index.php?option=com_eventlist&amp;view=imagehandler&amp;layout=uploadimage&amp;task=eventimg&amp;tmpl=component';
+		$link2 = 'index.php?option=com_eventlist&amp;view=imagehandler&amp;task=selecteventimg&amp;tmpl=component';
 		$document->addScriptDeclaration($js);
 		$imageselect = "\n<input style=\"background: #ffffff;\" type=\"text\" id=\"a_imagename\" value=\"$row->datimage\" disabled=\"disabled\" onchange=\"javascript:if (document.forms[0].a_imagename.value!='') {document.imagelib.src='../images/eventlist/events/' + document.forms[0].a_imagename.value} else {document.imagelib.src='../images/blank.png'}\"; /><br />";
 		$imageselect .= "\n <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 400, null);\" value=\"".JText::_('Upload')."\" />";
@@ -171,8 +171,8 @@ class EventListViewEvent extends JView {
 			document.popup.hide();
 		}";
 
-		$link = 'index.php?option=com_eventlist&amp;view=imageupload&amp;task=venueimg&amp;tmpl=component';
-		$link2 = 'index.php?option=com_eventlist&amp;view=imageselect&amp;task=selectvenueimg&amp;tmpl=component';
+		$link = 'index.php?option=com_eventlist&amp;view=imagehandler&amp;layout=uploadimage&amp;task=venueimg&amp;tmpl=component';
+		$link2 = 'index.php?option=com_eventlist&amp;view=imagehandler&amp;task=selectvenueimg&amp;tmpl=component';
 		$document->addScriptDeclaration($js);
 		$document->addScript($url.'includes/js/joomla/modal.js');
 		$document->addStyleSheet($url.'includes/js/joomla/modal.css');

@@ -81,8 +81,8 @@ class EventListViewVenue extends JView {
 			document.popup.hide();
 		}";
 
-		$link = 'index.php?option=com_eventlist&amp;view=imageupload&amp;task=venueimg&amp;tmpl=component';
-		$link2 = 'index.php?option=com_eventlist&amp;view=imageselect&amp;task=selectvenueimg&amp;tmpl=component';
+		$link = 'index.php?option=com_eventlist&amp;view=imagehandler&amp;layout=uploadimage&amp;task=venueimg&amp;tmpl=component';
+		$link2 = 'index.php?option=com_eventlist&amp;view=imagehandler&amp;task=selectvenueimg&amp;tmpl=component';
 		$document->addScriptDeclaration($js);
 		$document->addScript($url.'includes/js/joomla/modal.js');
 		$document->addStyleSheet($url.'includes/js/joomla/modal.css');

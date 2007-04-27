@@ -19,7 +19,7 @@ jimport('joomla.application.component.model');
  * @subpackage EventList
  * @since 0.9
  */
-class EventListModelImageselect extends JModel
+class EventListModelImagehandler extends JModel
 {
 	/**
 	 * Constructor
