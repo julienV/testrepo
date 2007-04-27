@@ -222,10 +222,12 @@ class EventListModelDetails extends JModel
 	 */
 	function userregister()
 	{
+		global $mainframe;
+
 		jimport('joomla.utilities.date');
 
 		$user 		= & JFactory::getUser();
-		$config 	= & JFactory::getConfig();
+		$tzoffset	= $mainframe->getCfg('offset');
 
 		$rdid 		= (int) $this->_id;
 		$uid 		= (int) $user->get('id');

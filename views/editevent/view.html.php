@@ -39,33 +39,32 @@ class EventListViewEditevent extends JView
 		// Initialize variables
 		$editor 	= & JFactory::getEditor();
 		$doc 		= & JFactory::getDocument();
-		$db			= & JFactory::getDBO();
 		$elsettings = ELHelper::config();
 
 		//Get Data from the model
 		$row 		= $this->Get('Event');
 		$categories	= $this->Get('Categories');
 
-		// Get requests
+		//Get requests
 		$id					= JRequest::getVar('id', 0, '', 'int');
 		$returnview			= JRequest::getVar('returnview', '', '', 'string');
 		$live_site 			= $mainframe->getCfg('live_site');
-		
-		// Add the Calendar includes to the document <head> section
+
+		//Add the Calendar includes to the document <head> section
 		JCommonHTML::loadCalendar();
-		// Load tooltips behavior
+
+		//Load tooltips behavior
 		jimport('joomla.html.tooltips');
 
+		//Clean output
 		jimport('joomla.filter.output');
 		JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'datdescription' );
-		
+
 		//add css file
 		$doc->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
 		$doc->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
 
-		/*
-		* Set page title
-		*/
+		//Set page title
 		$id ? $title = JText::_( 'EDIT EVENT' ) : $title = JText::_( 'ADD EVENT' );
 
 		$doc->setTitle($title);
@@ -93,17 +92,6 @@ class EventListViewEditevent extends JView
 		//Create the stuff required for the venueselect functionality
 		$url	= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
 
-		/*
-		* TODO Move to model
-		*/
-		$venue =& JTable::getInstance('eventlist_venues', '');
-
-		if ($row->id) {
-			$venue->load($row->locid);
-		} else {
-			$venue->venue = JText::_('SELECTVENUE');
-		}
-
 		$js = "
 		function elSelectVenue(id, venue) {
 			document.getElementById('a_id').value = id;
@@ -115,7 +103,7 @@ class EventListViewEditevent extends JView
 		$doc->addScriptDeclaration($js);
 		$doc->addScript($url.'includes/js/joomla/modal.js');
 		$doc->addStyleSheet($url.'includes/js/joomla/modal.css');
-		$venueselect = "\n<div style=\"float: left;\"><input style=\"background: #ffffff;\" type=\"text\" id=\"a_name\" value=\"$venue->venue\" disabled=\"disabled\" /></div>";
+		$venueselect = "\n<div style=\"float: left;\"><input style=\"background: #ffffff;\" type=\"text\" id=\"a_name\" value=\"$row->venue\" disabled=\"disabled\" /></div>";
 		$venueselect .= "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 375, null);\" value=\"".JText::_('Select')."\" />";
 		$venueselect .= "\n<input type=\"hidden\" id=\"a_id\" name=\"locid\" value=\"$row->locid\" />";
 
@@ -182,7 +170,6 @@ class EventListViewEditevent extends JView
 		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');
 
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
-		//$document->addStyleSheet('templates/'.$template.'/css/template.css');
 
 		$filters = array();
 		$filters[] = JHTMLSelect::option( '1', JText::_( 'VENUE' ) );
@@ -194,7 +181,7 @@ class EventListViewEditevent extends JView
 		$this->assignRef('pageNav' , 			$pageNav);
 		$this->assignRef('lists' , 				$lists);
 		$this->assignRef('filter' , 			$filter);
-		
+
 
 		parent::display($tpl);
 	}

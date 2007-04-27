@@ -95,7 +95,6 @@ class EventListViewVenue extends JView {
 		//assign data to template
 		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('row'      	, $row);
-		$this->assignRef('image'      	, $image);
 		$this->assignRef('pane'      	, $pane);
 		$this->assignRef('editor'      	, $editor);
 		$this->assignRef('imageselect' 	, $imageselect);

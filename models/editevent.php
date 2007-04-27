@@ -89,10 +89,10 @@ class EventListModelEditevent extends JModel
 			/*
 			* Error if allready checked out otherwise check event out
 			*/
-			if ($this->_event->isCheckedOut( $user->get('id') )) {
+			if ($this->isCheckedOut( $user->get('id') )) {
 				$mainframe->redirect( 'index.php?option='.$option.'&Itemid='.$Itemid.'&view='.$view, JText::_( 'THE EVENT' ).': '.$this->_event->title.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ) );
 			} else {
-				$this->_event->checkout( $user->get('id') );
+				$this->checkout( $user->get('id') );
 			}
 
 			/*
@@ -145,6 +145,7 @@ class EventListModelEditevent extends JModel
 			$this->_event->sendername		= '';
 			$this->_event->sendermail		= '';
 			$this->_event->datimage			= '';
+			$this->_event->venue			= JText::_('SELECTVENUE');
 
 		}
 
@@ -160,20 +161,20 @@ class EventListModelEditevent extends JModel
 	 */
 	function _loadEvent(  )
 	{
+		// Lets load the content if it doesn't already exist
+		if (empty($this->_event))
+		{
+			$query = 'SELECT e.*, v.venue'
+					. ' FROM #__eventlist_events AS e'
+					. ' LEFT JOIN #__eventlist_venues AS v ON v.id = e.locid'
+					. ' WHERE e.id = '.$this->_id
+					;
+			$this->_db->setQuery($query);
+			$this->_event = $this->_db->loadObject();
 
-		if (empty($this->_event)) {
-
-			$this->_event =& JTable::getInstance('eventlist_events', '');
-
-			$this->_event->load( $this->_id );
-
-			return $this->_event;
-
-		} else {
-
-			return true;
-
+			return (boolean) $this->_event;
 		}
+		return true;
 	}
 
 	/**
@@ -358,6 +359,55 @@ class EventListModelEditevent extends JModel
 			}
 		}
 		return false;
+	}
+
+		/**
+	 * Method to checkout/lock the item
+	 *
+	 * @access	public
+	 * @param	int	$uid	User ID of the user checking the item out
+	 * @return	boolean	True on success
+	 * @since	0.9
+	 */
+	function checkout($uid = null)
+	{
+		if ($this->_id)
+		{
+			// Make sure we have a user id to checkout the article with
+			if (is_null($uid)) {
+				$user	=& JFactory::getUser();
+				$uid	= $user->get('id');
+			}
+			// Lets get to it and checkout the thing...
+			$item = & $this->getTable('eventlist_events', '');
+			if(!$item->checkout($uid, $this->_id)) {
+				$this->setError($this->_db->getErrorMsg());
+				return false;
+			}
+
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Tests if the event is checked out
+	 *
+	 * @access	public
+	 * @param	int	A user id
+	 * @return	boolean	True if checked out
+	 * @since	0.9
+	 */
+	function isCheckedOut( $uid=0 )
+	{
+		if ($this->_loadEvent())
+		{
+			if ($uid) {
+				return ($this->_event->checked_out && $this->_event->checked_out != $uid);
+			} else {
+				return $this->_event->checked_out;
+			}
+		}
 	}
 
 	/**
