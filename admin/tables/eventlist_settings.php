@@ -120,8 +120,6 @@ class eventlist_settings extends JTable
 	/** @var int */
 	var $imagewidth 		= "100";
 	/** @var int */
-	var $imageprob 			= "1";
-	/** @var int */
 	var $gddisabled 		= "0";
 	/** @var int */
 	var $imageenabled 		= "1";

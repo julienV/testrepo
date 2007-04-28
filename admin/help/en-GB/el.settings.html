@@ -111,14 +111,12 @@ the Frontend.
 </p>
 
 <p><strong>Enable Thumbnails:</strong><br />
-Event List can create thumbnails if gd library version 2 is
-installed on your server. If the status shows another version,
-disable this feature.</p>
-
-<p><strong>Keep Proportions:</strong><br />
-If you have activated thumbnail creation you can resize the image
-to the values typed in above or keep the proportions of the
-image.</p>
+EventList can create thumbnails if the GD library version 2 is
+installed on your server. If it isn't available this feature will be disabled.
+In this case the above typed in hight and width values will be used to resize the
+images if they are larger than these values. Keep in mind that this method results
+in a much lower quality than using the GD library. Also the filesize of the images aren't reduced.
+</p>
 
 <div class="attentionheader">Attention</div>
 <div class="attention">If you define an imagewidth of more than the width of 20% of the contentarea you have to modify the eventlist.css accordingly.</div>

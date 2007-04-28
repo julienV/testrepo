@@ -50,18 +50,9 @@
 
 							?><br />
 							<b><?php echo JText::_( 'IMAGE FILESIZE' ).':'; ?></b> <?php echo $this->elsettings->sizelimit; ?> kb<br />
-							<b><?php echo JText::_( 'GD VERSION' ).':'; ?></b><br />
+
 							<?php
-							if ( $gdv = ELImage::gdVersion() ) {
-   								if ( $gdv >= 2 ) {
-       								echo "<font color='green'>".JText::_( 'GD VERSION TWO' )."</font><br />";
-   								} else {
-       								echo "<font color='red'>".JText::_( 'GD VERSION ONE' )."</font><br />";
-   								}
-							} else {
-   								echo "<font color='red'>".JText::_( 'NO GD LIBRARY' )."</font><br />";
-							}
-							if (extension_loaded( 'gd' ) ) {
+							if ( $this->elsettings->gddisabled ) {
 
 								if (imagetypes() & IMG_PNG) {
 									echo "<br /><font color='green'>".JText::_( 'PNG SUPPORT' )."</font>";
@@ -78,6 +69,10 @@
 								} else {
 									echo "<br /><font color='red'>".JText::_( 'NO GIF SUPPORT' )."</font>";
 								}
+							} else {
+								echo "<br /><font color='green'>".JText::_( 'PNG SUPPORT' )."</font>";
+								echo "<br /><font color='green'>".JText::_( 'JPG SUPPORT' )."</font>";
+								echo "<br /><font color='green'>".JText::_( 'GIF SUPPORT' )."</font>";
 							}
 							?>
     			       	</td>
@@ -89,6 +84,8 @@
 		</td>
 	</tr>
 </table>
+
+<?php if ( $this->elsettings->gddisabled ) { ?>
 
 <table class="noshow">
 	<tr>
@@ -110,6 +107,8 @@
 		</td>
 	</tr>
 </table>
+
+<?php } ?>
 
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="controller" value="imageupload" />

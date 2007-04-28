@@ -38,7 +38,6 @@ class EventListViewSettings extends JView {
 		if ($user->get('gid') < 24) {
 			JError::raiseWarning( 'SOME_ERROR_CODE', JText::_( 'ALERTNOTAUTH'));
 			$mainframe->redirect( 'index.php?option=com_eventlist&view=eventlist' );
-			return false;
 		}
 
 		//get vars

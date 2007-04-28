@@ -93,14 +93,16 @@ Geben Sie die maximale Höhe des Vorschaubildes an. Dieser Wert wird auch für d
 Geben Sie die maximale Breite des Vorschaubildes an. Dieser Wert wird auch für das Frontend und die Kategoriebilder verwendet. </p>
 
 <p><strong>Vorschaubilder aktivieren :</strong><br />
-EventList erzeugt Verkleinerungen (Vorschaubilder) der hochgeladenen Bilder falls die GD Bibliothek in Version 2 auf dem Server installiert ist. Falls der Status etwas anderes anzeigt, diese Funktion unbedingt deaktivieren. In diesem Fall werden obige Breiten und Höhen Angaben auf das Original angewandt. </p>
-
-<p><strong>Proportionen erhalten:</strong><br />
-Wenn Sie Vorschaubilder erzeugen aktiviert haben kann EventList versuchen die Proportionen Ihrer Bilder zu erhalten.
+EventList erzeugt Verkleinerungen (Vorschaubilder sogenannte Thumbnails) der hochgeladenen Bilder falls die GD Bibliothek in Version 2 auf dem Server installiert ist.
+Sollte dies nicht zutreffen, wird diese Funktion automatisch deaktiviert.
+Ist dies der Fall werden obige Breiten- und Höhenangaben auf das Original angewandt wenn diese überschritten werden.
+Hier versucht EventList die Proportionen zu erhalten, dies hat aber weit schlechtere Ergebnisse zur Folge wie durch Nutzung der GD-Bibliothek.
+Außerdem wird wird die Dateigröße mit dieser Methode nicht reduziert.
 </p>
 
+
 <div class="attentionheader">Achtung</div>
-<div class="attention">Falls Sie ine Bildbreite definieret haben die im Verhältnis mehr als 20% der Breite des Inhaltsbereiches beträgt, müssen Sie die eventlist.css dem entspechend anpassen. </div>
+<div class="attention">Falls Sie eine Bildbreite definiert haben die im Verhältnis mehr als 20% der Breite des Inhaltsbereiches beträgt, müssen Sie die eventlist.css dementspechend anpassen. </div>
 
 <br />
 

@@ -27,39 +27,27 @@ class ELImage {
 	* @param string $save The targetpath
 	* @param string $width The with of the image
 	* @param string $height The height of the image
-	* @param int $prop Keep propertions or not
+	* @return true when success
 	*/
-	function thumb($file, $save, $width, $height, $prop = TRUE)
+	function thumb($file, $save, $width, $height)
 	{
-		/*
-		* GD-Lib > 2.0
-		* If $prop=TRUE, then the proportions of the image are kept in the thumbnail
-		*/
+		//GD-Lib > 2.0 only!
 		@unlink($save);
 		$infos = @getimagesize($file);
 
-		if ($prop) {
-			// keep proportions
-			$iWidth = $infos[0];
-			$iHeight = $infos[1];
-			$iRatioW = $width / $iWidth;
-			$iRatioH = $height / $iHeight;
+		// keep proportions
+		$iWidth = $infos[0];
+		$iHeight = $infos[1];
+		$iRatioW = $width / $iWidth;
+		$iRatioH = $height / $iHeight;
 
-			if ($iRatioW < $iRatioH) {
-				$iNewW = $iWidth * $iRatioW;
-				$iNewH = $iHeight * $iRatioW;
-			} else {
-				$iNewW = $iWidth * $iRatioH;
-				$iNewH = $iHeight * $iRatioH;
-			} // end if
-
+		if ($iRatioW < $iRatioH) {
+			$iNewW = $iWidth * $iRatioW;
+			$iNewH = $iHeight * $iRatioW;
 		} else {
-
-			//Stretch it
-			$iNewW = $width;
-			$iNewH = $height;
+			$iNewW = $iWidth * $iRatioH;
+			$iNewH = $iHeight * $iRatioH;
 		}
-
 
 		//Don't resize images which are smaller than thumbs
 		if ($infos[0] < $width && $infos[1] < $height) {
@@ -94,7 +82,7 @@ class ELImage {
 			imagecopyresampled($imgB, $imgA, 0, 0, 0, 0, $iNewW, $iNewH, $infos[0], $infos[1]);
 			imagepng($imgB, $save);
 		} else {
-			return FALSE;
+			return false;
 		}
 		return true;
 	}
@@ -182,7 +170,7 @@ class ELImage {
 				$filepath 	= JPATH_SITE.'/images/eventlist/'.$folder.'/'.$image;
 				$save 		= JPATH_SITE.'/images/eventlist/'.$folder.'/small/'.$image;
 
-				ELImage::thumb($filepath, $save, $settings->imagewidth, $settings->imagehight, $settings->imageprob);
+				ELImage::thumb($filepath, $save, $settings->imagewidth, $settings->imagehight);
 			}
 
 			//set paths

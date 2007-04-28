@@ -204,37 +204,43 @@
 							if ($this->elsettings->gddisabled == 1) {
 								$mode = 1;
 							} // if
-							?>
-			  				<input type="radio" id="gddisabled0" name="gddisabled" value="0" onclick="changegdMode(0)"<?php if (!$mode) echo ' checked="checked"'; ?>/><?php echo JText::_( 'NO' ); ?>
-							<input type="radio" id="gddisabled1" name="gddisabled" value="1" onclick="changegdMode(1)"<?php if ($mode) echo ' checked="checked"'; ?>/><?php echo JText::_( 'YES' ); ?>
-       	 					<b><?php echo JText::_( 'Status' ).':'; ?></b>
-							<?php
+
+							//is the gd library installed on the server running EventList?
 							if ($gdv = ELImage::gdVersion()) {
-   								if ($gdv >=2) {
-       								echo "<font color='green'>".JText::_( 'GD VERSION TWO' )."</font>";
+
+								//is it Version two or higher? If yes let the user the choice
+   								if ($gdv >= 2) {
+   								?>
+       								<input type="radio" id="gddisabled0" name="gddisabled" value="0" onclick="changegdMode(0)"<?php if (!$mode) echo ' checked="checked"'; ?>/><?php echo JText::_( 'NO' ); ?>
+									<input type="radio" id="gddisabled1" name="gddisabled" value="1" onclick="changegdMode(1)"<?php if ($mode) echo ' checked="checked"'; ?>/><?php echo JText::_( 'YES' ); ?>
+       							<?php
+       								$note	= JText::_( 'GD VERSION TWO' );
+       								$color	= 'green';
+
+       							//No it is version one...disable thumbnailing
    								} else {
-       								echo "<font color='red'>".JText::_( 'GD VERSION ONE' )."</font>";
+   								?>
+   								<input type="hidden" name="gddisabled" value="0" />
+   								<?php
+   								$note	= JText::_( 'GD VERSION ONE' );
+   								$color	= 'red';
    								}
+
+   							//the gd library is not available on this server...disable thumbnailing
 							} else {
-   								echo "<font color='red'>".JText::_( 'NO GD LIBRARY' )."</font>";
+							?>
+								<input type="hidden" name="gddisabled" value="0" />
+   							<?php
+   								$note	= JText::_( 'NO GD LIBRARY' );
+   								$color	= 'red';
 							}
 							?>
+							<br />
+							<strong><?php echo JText::_( 'STATUS' ).':'; ?></strong>
+							<font color="<?php echo $color; ?>"><?php echo $note; ?></font>
 						</td>
       				</tr>
-					<tr id="gd1"<?php if (!$mode) echo ' style="display:none"'; ?>>
-	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'IMAGE PROPORTION' ); ?>::<?php echo JText::_('IMAGE PROPORTION TIP'); ?>">
-								<?php echo JText::_( 'IMAGE PROPORTION' ); ?>
-							</span>
-						</td>
-       					<td valign="top">
-         					<?php
-							$html = JHTMLSelect::yesnoList( 'imageprob', 'class="inputbox"', $this->elsettings->imageprob );
-							echo $html;
-							?>
-       	 				</td>
-      				</tr>
-      				<tr id="gd2"<?php if (!$mode) echo ' style="display:none"'; ?>>
+      				<tr id="gd1"<?php if (!$mode) echo ' style="display:none"'; ?>>
 	          			<td width="300" class="key">
 							<span class="editlinktip hasTip" title="<?php echo JText::_( 'IMAGE LIGHTBOX' ); ?>::<?php echo JText::_('IMAGE LIGHTBOX TIP'); ?>">
 								<?php echo JText::_( 'IMAGE LIGHTBOX' ); ?>

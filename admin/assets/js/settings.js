@@ -46,11 +46,9 @@
 				switch (mode) {
 					case 0:
 						document.getElementById('gd1').style.display = 'none';
-						document.getElementById('gd2').style.display = 'none';
 						break;
 					default:
 						document.getElementById('gd1').style.display = '';
-						document.getElementById('gd2').style.display = '';
 				} // switch
 			} // if
 		}
