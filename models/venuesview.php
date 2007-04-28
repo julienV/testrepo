@@ -77,7 +77,7 @@ class EventListModelVenuesview extends JModel
 		$menu		=& JMenu::getInstance();
 		$item    	= $menu->getActive();
 		$params		=& $menu->getParams($item->id);
-		
+
 		$elsettings 	=  ELHelper::config();
 		$live_site 		= $mainframe->getCfg('live_site');
 
@@ -88,36 +88,13 @@ class EventListModelVenuesview extends JModel
 			$query = $this->_buildQuery();
 			$this->_data = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
 
-			/* Only php5 compatible
-			foreach ($this->_data as $venue) {
-
-				//Create image information
-				$venue->limage = ELImage::venueimage($live_site, $venue->locimage, $elsettings->imagewidth, $elsettings->imagehight, $elsettings->imageprob, $elsettings->gddisabled);
-
-				//Generate Venuedescription
-				if (empty ($venue->locdescription)) {
-					$venue->locdescription = JText::_( 'NO DESCRIPTION' );
-				} else {
-					//execute plugins
-					$venue->text	= $venue->locdescription;
-					$venue->title 	= $venue->venue;
-					JPluginHelper::importPlugin('content');
-					$results = $mainframe->triggerEvent( 'onPrepareContent', array( &$venue, &$params, 0 ));
-					$venue->locdescription = $venue->text;
-				}
-
-				//Get total of assigned events of each venue
-				$_venue->assignedevents = $this->_assignedevents( $venue->id );
-			}
-			*/
-
 			$k = 0;
 			for($i = 0; $i <  count($this->_data); $i++)
 			{
 				$venue =& $this->_data[$i];
 
 				//Create image information
-				$venue->limage = ELImage::venueimage($live_site, $venue->locimage, $elsettings->imagewidth, $elsettings->imagehight, $elsettings->imageprob, $elsettings->gddisabled);
+				$venue->limage = ELImage::flyercreator($venue->locimage, $elsettings);
 
 				//Generate Venuedescription
 				if (empty ($venue->locdescription)) {
@@ -130,6 +107,11 @@ class EventListModelVenuesview extends JModel
 					$results = $mainframe->triggerEvent( 'onPrepareContent', array( &$venue, &$params, 0 ));
 					$venue->locdescription = $venue->text;
 				}
+
+				//build the url
+				if(strtolower(substr($venue->url, 0, 7)) != "http://") {
+					$venue->url = 'http://'.$venue->url;
+    		    }
 
 				//Get total of assigned events of each venue
 				$venue->assignedevents = $this->_assignedevents( $venue->id );

@@ -54,10 +54,6 @@ class EventListViewVenuesview extends JView
 		$rows 		= & $this->get('Data');
 		$total 		= & $this->get('Total');
 
-		//print_r($rows);
-		//$mainframe->close();
-
-
 		//Add needed scripts if the lightbox effect is enabled
 		if ($elsettings->lightbox == 1) {
   			$document->addScript('components/com_eventlist/assets/js/slimbox.js');
@@ -93,7 +89,7 @@ class EventListViewVenuesview extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = $live_site. '/index2.php?option=com_eventlist&amp;Itemid='. $item->id .'&amp;view=venuesview&amp;pop=1';
+		$print_link = JRoute::_('index.php?view=venuesview&pop=1&tmpl=component');
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
