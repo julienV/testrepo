@@ -93,11 +93,10 @@ class ELOutput {
 					} else {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
-					$overlib = JText::_( 'SHOW EVENTS TIP' );
-					$link = JRoute::_( 'index.php' );
-					?>
-					<a href="<?php echo $link ?>" class="editlinktip hasTip" title="<?php echo JText::_( 'SHOW EVENTS' ); ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
-					<?php
+					$overlib 	= JText::_( 'SHOW EVENTS TIP' );
+					$link 		= JRoute::_( 'index.php' );
+					$title 		= JText::_( 'SHOW EVENTS' );
+
 					break;
 
 				case 'catarchive':
@@ -107,11 +106,9 @@ class ELOutput {
 					} else {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
-					$overlib = JText::_( 'SHOW EVENTS TIP' );
-					$link = JRoute::_( 'index.php?view=categoryevents&categid='.$categid );
-					?>
-					<a href="<?php echo $link ?>" class="editlinktip hasTip" title="<?php echo JText::_( 'SHOW EVENTS' ); ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
-					<?php
+					$overlib 	= JText::_( 'SHOW EVENTS TIP' );
+					$link 		= JRoute::_( 'index.php?view=categoryevents&categid='.$categid );
+					$title 		= JText::_( 'SHOW EVENTS' );
 
 					break;
 
@@ -122,18 +119,19 @@ class ELOutput {
 					} else {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW ARCHIVE' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
-					$overlib = JText::_( 'SHOW ARCHIVE TIP' );
-					$link = JRoute::_('index.php?view=categoriesview&task=archive');
-						?>
-						<a href="<?php echo $link ?>" class="editlinktip hasTip" title="<?php echo JText::_( 'SHOW ARCHIVE' ); ?>::<?php echo $overlib; ?>"><?php echo $image; ?></a>
-						<?php
-						break;
-			}
+					$overlib 	= JText::_( 'SHOW ARCHIVE TIP' );
+					$link		= JRoute::_('index.php?view=categoriesview&task=archive');
+					$title 		= JText::_( 'SHOW ARCHIVE' );
 
-		} else {
-			echo '&nbsp;';
+					break;
+			}
+			$output = '<a href="'.$link.'" class="editlinktip hasTip" title="'.$title.'::'.$overlib.'">'.$image.'</a>';
+
+			return $output;
+
 		}
-	}//function archiveevbutton end
+		return;
+	}
 
 	/**
 	 * Creates the edit button
@@ -265,9 +263,7 @@ class ELOutput {
   				if ($settings->map24id) {
 
 				$url		= 'http://link2.map24.com/?lid='.$settings->map24id.'&maptype=JAVA&width0=2000&street0='.$data->street.'&zip0='.$data->plz.'&city0='.$data->city.'&country0='.$data->country.'&sym0=10280&description0='.$data->venue;
-			//	$attribs	= array( 'class' => 'flyer', 'target' => '_blank', 'title' => '"'.JText::_( 'MAP' ).'"');
-			//	$output 	= JHTML::Link($url, $mapimage, $attribs);
-				$output		='<a class="flyer" title="'.JText::_( 'MAP' ).'" href="'.$url.'" target="_blank">'.$mapimage.'</a>';
+				$output		= '<a class="flyer" title="'.JText::_( 'MAP' ).'" href="'.$url.'" target="_blank">'.$mapimage.'</a>';
 
   				}
 			} break;
@@ -276,9 +272,7 @@ class ELOutput {
 			{
 
 				$url		= 'http://maps.google.com/maps?q='.$data->street.'+'.$data->city.'+'.$data->plz.'+'.$data->country;
-			//	$attribs	= array( 'class' => 'flyer', 'target' => '_blank', 'title' => '"'.JText::_( 'MAP' ).'"');
-			//	$output 	= JHTML::Link($url, $mapimage, $attribs);
-				$output		='<a class="flyer" title="'.JText::_( 'MAP' ).'" href="'.$url.'" target="_blank">'.$mapimage.'</a>';
+				$output		= '<a class="flyer" title="'.JText::_( 'MAP' ).'" href="'.$url.'" target="_blank">'.$mapimage.'</a>';
 
 			} break;
 		}
