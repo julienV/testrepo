@@ -114,6 +114,12 @@ class EventListViewImagehandler extends JView  {
 
 				}
 			}
+		} else {
+			//no images in the folder, redirect to uploadscreen and raise notice
+			JError::raiseNotice('SOME_ERROR_CODE', JText::_('NO IMAGES AVAILABLE'));
+			$this->setLayout('uploadimage');
+			$this->_displayuploadimage($tpl);
+			return;
 		}
 
 	}
