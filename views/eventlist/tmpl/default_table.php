@@ -26,21 +26,20 @@
 	<tr>
 		<?php if ($this->params->get('filter')) : ?>
 		<td align="left" width="100%" nowrap="nowrap">
-				<?php
-					echo JText::_('Filter').'&nbsp;';
-					echo $this->lists['filter_type'].'&nbsp;';
-				?>
-
-				<input type="text" name="filter" id="filter" value="<?php echo $this->lists['filter'];?>" class="text_area" onchange="document.adminForm.submit();" />
-				<button onclick="document.adminForm.submit();"><?php echo JText::_( 'Go' ); ?></button>
-				<button onclick="document.getElementById('filter').value='';document.adminForm.submit();"><?php echo JText::_( 'Reset' ); ?></button>
+			<?php
+			echo JText::_('Filter').'&nbsp;';
+			echo $this->lists['filter_type'].'&nbsp;';
+			?>
+			<input type="text" name="filter" id="filter" value="<?php echo $this->lists['filter'];?>" class="text_area" onchange="document.adminForm.submit();" />
+			<button onclick="document.adminForm.submit();"><?php echo JText::_( 'Go' ); ?></button>
+			<button onclick="document.getElementById('filter').value='';document.adminForm.submit();"><?php echo JText::_( 'Reset' ); ?></button>
 		</td>
 		<?php endif; ?>
 		<?php if ($this->params->get('display')) : ?>
 		<td align="right" width="100%" nowrap="nowrap">
 			<?php
-				echo '&nbsp;&nbsp;&nbsp;'.JText::_('Display Num').'&nbsp;';
-				echo $this->pageNav->getLimitBox();
+			echo '&nbsp;&nbsp;&nbsp;'.JText::_('Display Num').'&nbsp;';
+			echo $this->pageNav->getLimitBox();
 			?>
 		</td>
 		<?php endif; ?>
@@ -101,7 +100,6 @@
 				if ($this->elsettings->showtime == 1) :
 					echo $row->displaytime;
 				endif;
-			//	echo $row->displaytime ? $row->displaytime : '';
 				?>
 				</td>
 				<?php

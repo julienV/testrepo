@@ -177,6 +177,10 @@ class EventListViewCategoryevents extends JView
 		$k = 0;
 		for($i = 0; $i <  count($this->rows); $i++)
 		{
+			//initialise
+			$displaydate = null;
+			$displaytime = null;
+
 			$row =& $this->rows[$i];
 
 			//Format date
@@ -189,26 +193,26 @@ class EventListViewCategoryevents extends JView
 			}
 
 			//Format time
-			unset($displaytime);
 			if ($this->elsettings->showtime == 1) {
 				if ($row->times) {
 					$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
 					$time = $time.' '.$this->elsettings->timename;
 					$displaytime = '<br />'.$time;
-				
+
 				}
 				if ($row->endtimes) {
 					$endtime = strftime( $this->elsettings->formattime, strtotime( $row->endtimes ));
 					$endtime = $endtime.' '.$this->elsettings->timename;
 					$displaytime = '<br />'.$time.' - '.$endtime;
-					
+
 				}
 			}
-			
-			if (isset($displaytime)) {
+
+			if ($displaytime) {
 				$row->displaytime = $displaytime;
 			} else {
-				$row->displaytime = '<br />-';
+			//	$row->displaytime = '<br />-';
+				$row->displaytime = '';
 			}
 
 			$row->displaydate = $displaydate;

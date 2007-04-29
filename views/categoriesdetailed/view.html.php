@@ -44,7 +44,7 @@ class EventListViewCategoriesdetailed extends JView
 		$limit			= JRequest::getVar('limit', $params->get('cat_num'), '', 'int');
 		$pathway 		= & $mainframe->getPathWay();
 		$pop			= JRequest::getVar('pop', 0, '', 'int');
-		
+
 		//Get data from the model
 		$categories	= & $this->get('Data');
 		$total 		= & $this->get('Total');
@@ -93,7 +93,7 @@ class EventListViewCategoriesdetailed extends JView
 
 		// Create the pagination object
 		jimport('joomla.html.pagination');
-		
+
 		$page = $total - $limit;
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
@@ -131,6 +131,10 @@ class EventListViewCategoriesdetailed extends JView
 		$k = 0;
 		for($i = 0; $i <  count($this->rows); $i++)
 		{
+			//initialise
+			$displaydate = null;
+			$displaytime = null;
+
 			$row =& $this->rows[$i];
 
 			//Format date
@@ -143,26 +147,26 @@ class EventListViewCategoriesdetailed extends JView
 			}
 
 			//Format time
-			unset($displaytime);
 			if ($this->elsettings->showtime == 1) {
 				if ($row->times) {
 					$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
 					$time = $time.' '.$this->elsettings->timename;
 					$displaytime = '<br />'.$time;
-				
+
 				}
 				if ($row->endtimes) {
 					$endtime = strftime( $this->elsettings->formattime, strtotime( $row->endtimes ));
 					$endtime = $endtime.' '.$this->elsettings->timename;
 					$displaytime = '<br />'.$time.' - '.$endtime;
-					
+
 				}
 			}
-			
-			if (isset($displaytime)) {
+
+			if ($displaytime) {
 				$row->displaytime = $displaytime;
 			} else {
-				$row->displaytime = '<br />-';
+				//$row->displaytime = '<br />-';
+				$row->displaytime = '';
 			}
 
 			$row->displaydate = $displaydate;

@@ -105,7 +105,7 @@ class EventListViewDetails extends JView
 		$date 	= strftime( $elsettings->formatdate ,strtotime( $row->dates ));
 
 		if ($row->times) {
-		$time 	= strftime( $elsettings->formattime ,strtotime( $row->times ));
+			$time 	= strftime( $elsettings->formattime ,strtotime( $row->times ));
 		}
 
 		if (!$row->enddates) {
@@ -259,7 +259,11 @@ class EventListViewDetails extends JView
 				break;
 			case "times":
 			case "endtimes":
-				$content = strftime( $formattime ,strtotime( $row->$keyword ) );
+				if ($row->$keyword) {
+					$content = strftime( $formattime ,strtotime( $row->$keyword ) );
+				} else {
+					$content = '';
+				}
 				break;
 			case "dates":
 			case "enddates":
