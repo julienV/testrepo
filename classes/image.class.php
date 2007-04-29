@@ -79,7 +79,9 @@ class ELImage {
 			*/
 			$imgA = imagecreatefrompng($file);
 			$imgB = imagecreatetruecolor($iNewW, $iNewH);
+			imagealphablending($imgB, false);
 			imagecopyresampled($imgB, $imgA, 0, 0, 0, 0, $iNewW, $iNewH, $infos[0], $infos[1]);
+			imagesavealpha($imgB, true);
 			imagepng($imgB, $save);
 		} else {
 			return false;

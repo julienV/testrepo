@@ -48,7 +48,6 @@ class EventListViewVenuesview extends JView
 		// Request variables
 		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
 		$limit			= JRequest::getVar('limit', $params->get('display_num'), '', 'int');
-		$live_site 		= $mainframe->getCfg('live_site');
 		$pop			= JRequest::getVar('pop', 0, '', 'int');
 
 		$rows 		= & $this->get('Data');
@@ -108,7 +107,6 @@ class EventListViewVenuesview extends JView
 		$this->assignRef('print_link' , 			$print_link);
 		$this->assignRef('params' , 				$params);
 		$this->assignRef('dellink' , 				$dellink);
-		$this->assignRef('live_site' , 				$live_site);
 		$this->assignRef('link' , 					$link);
 		$this->assignRef('page' , 					$page);
 		$this->assignRef('pageNav' , 				$pageNav);

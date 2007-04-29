@@ -51,15 +51,14 @@ class EventListViewVenueevents extends JView
 
 			// strip html from feed item description text
 			$description = $row->locdescription;
-			@$date = ( $row->dates ? date( 'r', strtotime($row->dates.''.$row->times) ) : '' );
+			@$created = ( $row->created ? date( 'r', strtotime($row->created) ) : '' );
 
 			// load individual item creator class
 			$item = new JFeedItem();
 			$item->title 		= $title;
 			$item->link 		= $link;
 			$item->description 	= $description;
-			$item->date			= $date;
-			//$item->category   	= $row->catname;
+			$item->date			= $created;
 
 			// loads item info into rss array
 			$doc->addItem( $item );

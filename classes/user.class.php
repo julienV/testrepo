@@ -48,14 +48,14 @@ class ELUser {
 
 			//open for superuser or registered and thats all what is needed
 			if ((( $level == -1 ) && ( $groupid > 0 )) || (( $superuser ) && ( $level != -2 ))) {
-				return 1;
+				return true;
 
 			//if not proceed checking
 			} else {
 
 				if( $groupid == $level ) {
 					//User has the needed groupid->ok
-					return 1;
+					return true;
 
 				} else {
 
@@ -70,7 +70,7 @@ class ELUser {
 							if ( in_array($groupid, $group_childs) ) {
 
 								//User belongs to one of it -> ok
-								return 1;
+								return true;
 							}
 						}
 					}
@@ -79,8 +79,8 @@ class ELUser {
 		//end logged in check
 		}
 
-		//oh oh, user have no permissions
-		return 0;
+		//oh oh, user has no permissions
+		return false;
 	}
 
 	/**
@@ -102,11 +102,11 @@ class ELUser {
 		$generalaccess = ELUser::validate_user( $recurse, $level );
 
 		if ($allowowner == 1 && ( $user->get('id') == $ownerid && $ownerid != 0 ) ) {
-			return 1;
+			return true;
 		} elseif ($generalaccess == 1) {
-			return 1;
+			return true;
 		}
-		return 0;
+		return false;
 	}
 
 	/**
