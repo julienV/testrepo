@@ -101,6 +101,7 @@
 				if ($this->elsettings->showtime == 1) :
 					echo $row->displaytime;
 				endif;
+			//	echo $row->displaytime ? $row->displaytime : '';
 				?>
 				</td>
 				<?php

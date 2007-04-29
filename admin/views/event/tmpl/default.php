@@ -15,18 +15,17 @@
 			form.title.focus();
 		} else if (!form.dates.value.match(/20[0-9]{2}-[0-1][0-9]-[0-3][0-9]/gi)) {
 			alert("<?php echo JText::_( 'DATE WRONG'); ?>");
-
-			<?php
-			if ( $this->elsettings->showtime == 1 ) {
-				?>
-			} else if (form.times.value == "") {
+		} else if (form.enddates.value !="" && !form.enddates.value.match(/20[0-9]{2}-[0-1][0-9]-[0-3][0-9]/gi)) {
+			alert("<?php echo JText::_( 'ENDDATE WRONG'); ?>");
+		} else if (form.times.value == "" && form.endtimes.value != "") {
 				alert("<?php echo JText::_( 'ADD TIME'); ?>");
-				form.times.focus();
-			} else if (!form.times.value.match(/[0-2][0-9]:[0-5][0-9]/gi)) {
+				form.endtimes.focus();
+		} else if (form.times.value != "" && !form.times.value.match(/[0-2][0-9]:[0-5][0-9]/gi)) {
 				alert("<?php echo JText::_( 'TIME WRONG'); ?>");
 				form.times.focus();
-			<?php } ?>
-
+		} else if (form.endtimes.value != "" && !form.endtimes.value.match(/[0-2][0-9]:[0-5][0-9]/gi)) {
+				alert("<?php echo JText::_( 'TIME WRONG'); ?>");
+				form.endtimes.focus();
 		} else if (form.catsid.value == "0"){
 			alert( "<?php echo JText::_( 'CHOOSE CATEGORY'); ?>" );
 		} else if (form.locid.value == ""){
