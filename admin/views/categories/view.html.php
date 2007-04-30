@@ -37,7 +37,6 @@ class EventListViewCategories extends JView {
 		$filter_state 		= $mainframe->getUserStateFromRequest( "$option.categories.filter_state", 		'filter_state', 	'*' );
 		$search 			= $mainframe->getUserStateFromRequest( "$option.categories.search", 			'search', 			'' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
-		$live_site 			= $mainframe->getCfg('live_site');
 
 		//add css and submenu to document
 		$document->setBuffer($submenu, 'module', 'submenu');
@@ -64,27 +63,22 @@ class EventListViewCategories extends JView {
 
 		//publish unpublished filter
 		$lists['state']	= JCommonHTML::selectState( $filter_state );
+		// search filter
+		$lists['search']= $search;
 
-		//table ordering
-		if ( $filter_order_Dir == 'DESC' ) {
-			$lists['order_Dir'] = 'ASC';
-		} else {
-			$lists['order_Dir'] = 'DESC';
-		}
-
+		// table ordering
+		$lists['order_Dir'] = $filter_order_Dir;
 		$lists['order'] = $filter_order;
 
 		$ordering = ($lists['order'] == 'c.ordering');
 
 		//assign data to template
 		$this->assignRef('lists'      	, $lists);
-		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);
 		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('ordering'		, $ordering);
 		$this->assignRef('user'			, $user);
-		$this->assignRef('search'		, $search);
 
 		parent::display($tpl);
 	}

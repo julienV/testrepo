@@ -27,7 +27,7 @@ class EventListViewVenueelement extends JView {
 		//initialise variables
 		$db			= & JFactory::getDBO();
 		$document	= & JFactory::getDocument();
-		
+
 		//get vars
 		$filter_order		= $mainframe->getUserStateFromRequest( "$option.venueelement.filter_order", 		'filter_order', 	'l.ordering' );
 		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.venueelement.filter_order_Dir",	'filter_order_Dir',	'' );
@@ -36,7 +36,7 @@ class EventListViewVenueelement extends JView {
 		$search 			= $mainframe->getUserStateFromRequest( "$option.venueelement.search", 			'search', '' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 		$template 			= $mainframe->getTemplate();
-		
+
 		//prepare document
 		$document->setTitle(JText::_( 'SELECTVENUE' ));
 		$document->addScript(JPATH_SITE.'includes/js/joomla/modal.js');
@@ -47,17 +47,12 @@ class EventListViewVenueelement extends JView {
 		$rows      	= & $this->get( 'Data');
 		$total      = & $this->get( 'Total');
 		$pageNav 	= & $this->get( 'Pagination' );
-		
+
 		//publish unpublished filter
 		$lists['state']	= JCommonHTML::selectState( $filter_state );
 
-		//table ordering
-		if ( $filter_order_Dir == 'DESC' ) {
-			$lists['order_Dir'] = 'ASC';
-		} else {
-			$lists['order_Dir'] = 'DESC';
-		}
-
+		// table ordering
+		$lists['order_Dir'] = $filter_order_Dir;
 		$lists['order'] = $filter_order;
 
 		//Build search filter
@@ -66,11 +61,13 @@ class EventListViewVenueelement extends JView {
 		$filters[] = JHTMLSelect::option( '2', JText::_( 'CITY' ) );
 		$lists['filter'] = JHTMLSelect::genericList( $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
 
+		// search filter
+		$lists['search']= $search;
+
 		//assign data to template
 		$this->assignRef('lists'      	, $lists);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);
-		$this->assignRef('search'		, $search);
 
 		parent::display($tpl);
 	}

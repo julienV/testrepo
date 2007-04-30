@@ -40,9 +40,6 @@ class EventListViewSettings extends JView {
 			$mainframe->redirect( 'index.php?option=com_eventlist&view=eventlist' );
 		}
 
-		//get vars
-		$live_site 	= $mainframe->getCfg('live_site');
-
 		//Build submenu
 		$contents = '';
 		ob_start();
@@ -82,7 +79,6 @@ class EventListViewSettings extends JView {
 		$accessLists['venue_edit']		= JHTMLSelect::genericList( $access, 'venueedit', 'class="inputbox" size="4"', 'value', 'text', $elsettings->venueedit );
 
 		//assign data to template
-		$this->assignRef('live_site'	, $live_site);
 		$this->assignRef('accessLists'	, $accessLists);
 		$this->assignRef('elsettings'	, $elsettings);
 		$this->assignRef('WarningIcon'	, $this->WarningIcon());

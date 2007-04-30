@@ -39,7 +39,6 @@ class EventListViewEditcss extends JView {
 		$filename	= 'eventlist.css';
 		$path		= JPATH_SITE.'/components/com_eventlist/assets/css/';
 		$css_path	= $path . $filename;
-		$live_site	= $mainframe->getCfg('live_site');
 
 		//create the toolbar
 		JToolBarHelper::title( JText::_( 'EDITCSS' ), 'cssedit' );
@@ -70,7 +69,6 @@ class EventListViewEditcss extends JView {
 
 		//assign data to template
 		$this->assignRef('css_path'		, $css_path);
-		$this->assignRef('live_site'	, $live_site);
 		$this->assignRef('content'		, $content);
 		$this->assignRef('filename'		, $filename);
 		$this->assignRef('path'			, $path);

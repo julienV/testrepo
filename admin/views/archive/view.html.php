@@ -41,7 +41,6 @@ class EventListViewArchive extends JView {
 		$filter 			= intval( $filter );
 		$search 			= $mainframe->getUserStateFromRequest( "$option.archive.search", 'search', '' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
-		$live_site 			= $mainframe->getCfg('live_site');
 		$template			= $mainframe->getTemplate();
 
 		//add css and submenu to document
@@ -69,22 +68,18 @@ class EventListViewArchive extends JView {
 		$filters[] = JHTMLSelect::option( '4', JText::_( 'CATEGORY' ) );
 		$lists['filter'] = JHTMLSelect::genericList( $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
 
-		//table ordering
-		if ( $filter_order_Dir == 'DESC' ) {
-			$lists['order_Dir'] = 'ASC';
-		} else {
-			$lists['order_Dir'] = 'DESC';
-		}
-
+		// table ordering
+		$lists['order_Dir'] = $filter_order_Dir;
 		$lists['order'] = $filter_order;
+
+		// search filter
+		$lists['search']= $search;
 
 		//assign data to template
 		$this->assignRef('lists'      	, $lists);
-		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);
 		$this->assignRef('request_url'	, $uri->toString());
-		$this->assignRef('search'		, $search);
 		$this->assignRef('elsettings'	, $elsettings);
 		$this->assignRef('template'		, $template);
 

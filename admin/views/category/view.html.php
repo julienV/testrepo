@@ -35,7 +35,6 @@ class EventListViewCategory extends JView {
 
 		//get vars
 		$cid 		= JRequest::getVar( 'cid' );
-		$live_site	= $mainframe->getCfg('live_site');
 
 		//add css to document
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
@@ -86,7 +85,6 @@ class EventListViewCategory extends JView {
 
 		//assign data to template
 		$this->assignRef('Lists'      	, $Lists);
-		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('row'      	, $row);
 		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('editor'		, $editor);

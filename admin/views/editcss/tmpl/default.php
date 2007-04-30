@@ -3,11 +3,11 @@
 <form action="index.php" method="post" name="adminForm">
 		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 			<tr>
-		  		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>  
+		  		<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left"></td>
 		  		<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">::<?php echo JText::_( 'EDIT CSS' ); ?>::</font></td>
 			</tr>
 		</table>
-		
+
 		<br />
 
 		<table cellpadding="1" cellspacing="1" border="0" width="100%" class="adminlist">
@@ -20,9 +20,9 @@
 			<?php
 
 		jimport('joomla.filesystem.path');
-		if (JPath::canCHMOD($this->css_path)) 
+		if (JPath::canCHMOD($this->css_path))
 		{
-			if (is_writable($this->css_path)) 
+			if (is_writable($this->css_path))
 			{
 				?>
 				<td>
@@ -57,11 +57,11 @@
 			</td>
 		</tr>
 		</table>
-		
+
 		<p class="copyright">
 			<?php echo ELAdmin::footer( ); ?>
 		</p>
-	
+
 		<input type="hidden" name="filename" value="<?php echo $this->filename; ?>" />
 		<input type="hidden" name="path" value="<?php echo $this->path; ?>" />
 		<input type="hidden" name="option" value="com_eventlist" />

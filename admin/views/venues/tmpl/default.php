@@ -4,7 +4,7 @@
 
 <table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 	<tr>
-  		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>
+  		<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left"></td>
   		<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">::<?php echo JText::_( 'VENUES' ); ?>::</font></td>
 	</tr>
 </table>
@@ -13,7 +13,7 @@
 	<tr>
 		<td width="100%">
 			 <?php echo JText::_( 'SEARCH' ).' '.$this->lists['filter']; ?>
-			<input type="text" name="search" id="search" value="<?php echo $this->search;?>" class="text_area" onChange="document.adminForm.submit();" />
+			<input type="text" name="search" id="search" value="<?php echo $this->lists['search']; ?>" class="text_area" onChange="document.adminForm.submit();" />
 			<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
 			<button onclick="this.form.getElementById('search').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
 		</td>
@@ -26,12 +26,12 @@
 		<tr>
 			<th width="5"><?php echo JText::_( 'Num' ); ?></th>
 			<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
-			<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'l.venue', $this->lists ); ?></th>
+			<th align="left" class="title"><?php JHTML::element('grid_sort', 'VENUE', 'l.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th align="left" class="title"><?php echo JText::_( 'WEBSITE' ); ?></th>
-			<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CITY' ), 'l.city', $this->lists ); ?></th>
+			<th align="left" class="title"><?php JHTML::element('grid_sort', 'CITY', 'l.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="1%" nowrap="nowrap"><?php echo JText::_( 'PUBLISHED' ); ?></th>
 			<th class="title"><?php echo JText::_( 'CREATION' ); ?></th>
-		    <th width="80" colspan="2"><?php JCommonHTML :: tableOrdering( JText::_( 'REORDER' ), 'l.ordering', $this->lists ); ?></th>
+		    <th width="80" colspan="2"><?php JHTML::element('grid_sort', 'REORDER', 'l.ordering', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 		</tr>
 	</thead>
 
@@ -61,11 +61,11 @@
 				?>
 			</td>
 			<td align="left">
-				<?php 
+				<?php
 				if ($row->url) {
 				?>
 					<a href="<?php echo htmlspecialchars($row->url, ENT_QUOTES); ?>" target="_blank">
-						<?php 
+						<?php
 						if (strlen(htmlspecialchars($row->url, ENT_QUOTES)) > 35) {
 							echo substr( htmlspecialchars($row->url, ENT_QUOTES), 0 , 35).'...';
 						} else {
@@ -74,7 +74,7 @@
 						?>
 					</a>
 				<?php
-				} else {	
+				} else {
 					echo  '-';
 				}
 				?>
@@ -120,7 +120,7 @@
 		</td>
 	</tfoot>
 </table>
-		
+
 <p class="copyright">
 	<?php echo ELAdmin::footer( ); ?>
 </p>

@@ -36,7 +36,6 @@ class EventListViewVenue extends JView {
 
 		//get vars
 		$request_url 	= $uri->toString();
-		$live_site		= $mainframe->getCfg('live_site');
 		$cid 			= JRequest::getVar( 'cid' );
 		$url 			= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
 
@@ -93,7 +92,6 @@ class EventListViewVenue extends JView {
 		$imageselect .= "\n<input type=\"hidden\" id=\"a_image\" name=\"locimage\" value=\"$row->locimage\" />";
 
 		//assign data to template
-		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('row'      	, $row);
 		$this->assignRef('pane'      	, $pane);
 		$this->assignRef('editor'      	, $editor);

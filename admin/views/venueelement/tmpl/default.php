@@ -6,7 +6,7 @@
 	<tr>
 		<td width="100%">
 			<?php echo JText::_( 'SEARCH' ).' '.$this->lists['filter']; ?>
-			<input type="text" name="search" id="search" value="<?php echo $this->search;?>" class="text_area" onChange="document.adminForm.submit();" />
+			<input type="text" name="search" id="search" value="<?php echo $this->lists['search']; ?>" class="text_area" onChange="document.adminForm.submit();" />
 			<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
 			<button onclick="this.form.getElementById('search').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
 		</td>
@@ -20,8 +20,8 @@
 	<thead>
 		<tr>
 			<th width="7"><?php echo JText::_( 'Num' ); ?></th>
-			<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'l.venue', $this->lists, 'venueelement' ); ?></th>
-			<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CITY' ), 'l.city', $this->lists, 'venueelement' ); ?></th>
+			<th align="left" class="title"><?php JHTML::element('grid_sort', 'VENUE', 'l.venue', $this->lists['order_Dir'], $this->lists['order'], 'venueelement' ); ?></th>
+			<th align="left" class="title"><?php JHTML::element('grid_sort', 'CITY', 'l.city', $this->lists['order_Dir'], $this->lists['order'], 'venueelement' ); ?></th>
 			<th align="left" class="title"><?php echo JText::_( 'COUNTRY' ); ?></th>
 			<th class="title"><?php echo JText::_( 'PUBLISHED' ); ?></th>
 		</tr>

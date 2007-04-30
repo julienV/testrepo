@@ -29,7 +29,7 @@
 			  to.options[to.options.length] = new Option( o.text, o.value, false, false);
 			}
 		}
-		
+
 		// Delete them from original
 		for (var i=(from.options.length-1); i>=0; i--) {
 			var o = from.options[i];
@@ -40,21 +40,21 @@
 		from.selectedIndex = -1;
 		to.selectedIndex = -1;
 	}
-		
+
 	function allSelected(element) {
-		
+
 		for (var i=0; i<element.options.length; i++) {
 			var o = element.options[i];
 			o.selected = true;
 		}
 	}
 </script>
-		
+
 <form action="<?php echo $this->request_url; ?>" method="post" name="adminForm" id="adminForm">
 
 <table class="adminlist">
 	<tr>
-		  <td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>  
+		  <td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left"></td>
 		  <td class="sectionname" align="right" width="100%">
 		  	<font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">
 		  		<?php echo $this->row->id ? '::'.JText::_( 'EDIT GROUP').'::' : '::'.JText::_( 'ADD GROUP').'::'; ?>
@@ -62,11 +62,11 @@
 		</td>
 	</tr>
 </table>
-		
+
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
 	<tr>
 		<td valign="top">
-		
+
 			<table class="adminform">
 				<tr>
 					<td>
@@ -79,7 +79,7 @@
 					</td>
 				</tr>
 			</table>
-				
+
 		   <table class="adminform">
 				<tr>
 					<td><b><?php echo JText::_( 'AVAILABLE USERS' ).':'; ?></b></td>
@@ -130,7 +130,7 @@
 	<?php echo ELAdmin::footer( ); ?>
 </p>
 
-<?php 
+<?php
 //keep session alive while editing
 JHTML::keepAlive();
 ?>

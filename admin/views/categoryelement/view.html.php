@@ -35,14 +35,13 @@ class EventListViewCategoryelement extends JView {
 		$search 			= $mainframe->getUserStateFromRequest( "$option.categoryelement.search", 			'search', 			'' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 		$template 			= $mainframe->getTemplate();
-		$live_site 			= $mainframe->getCfg('live_site');
-		
+
 		//prepare document
 		$document->setTitle(JText::_( 'SELECTCATEGORY'));
 		$document->addScript(JPATH_SITE.'includes/js/joomla/modal.js');
-		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');	
+		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');
 		$document->addStyleSheet("templates/$template/css/general.css");
-		
+
 		// Get data from the model
 		$rows      	= & $this->get( 'Data');
 		$total      = & $this->get( 'Total');
@@ -51,20 +50,17 @@ class EventListViewCategoryelement extends JView {
 		//publish unpublished filter
 		$lists['state']	= JCommonHTML::selectState( $filter_state );
 
-		//table ordering
-		if ( $filter_order_Dir == 'DESC' ) {
-			$lists['order_Dir'] = 'ASC';
-		} else {
-			$lists['order_Dir'] = 'DESC';
-		}
-
+		// table ordering
+		$lists['order_Dir'] = $filter_order_Dir;
 		$lists['order'] = $filter_order;
+
+		// search filter
+		$lists['search']= $search;
 
 		//assign data to template
 		$this->assignRef('lists'      	, $lists);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);
-		$this->assignRef('search'		, $search);
 
 		parent::display($tpl);
 	}

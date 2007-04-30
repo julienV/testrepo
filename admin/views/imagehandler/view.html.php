@@ -37,7 +37,6 @@ class EventListViewImagehandler extends JView  {
 		$document   =& JFactory::getDocument();
 
 		//get vars
-		$live_site 	= $mainframe->getCfg('live_site');
 		$task = JRequest::getVar( 'task' );
 
 		//add css
@@ -189,7 +188,6 @@ class EventListViewImagehandler extends JView  {
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
 		//assign data to template
-		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('task'      	, $task);
 		$this->assignRef('elsettings'  	, $elsettings);
 		$this->assignRef('request_url'	, $uri->toString());

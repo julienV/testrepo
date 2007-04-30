@@ -26,7 +26,7 @@ class EventListViewEventelement extends JView {
 
 		//initialise variables
 		$db			= & JFactory::getDBO();
-		$elsettings = & ELAdmin::config();
+		$elsettings = ELAdmin::config();
 		$document	= & JFactory::getDocument();
 
 		//get var
@@ -37,12 +37,14 @@ class EventListViewEventelement extends JView {
 		$search 			= $mainframe->getUserStateFromRequest( "$option.eventelement.search", 			'search', '' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 		$template 			= $mainframe->getTemplate();
-		
+
 		//prepare the document
 		$document->setTitle(JText::_( 'SELECTEVENT' ));
 		$document->addScript(JPATH_SITE.'includes/js/joomla/modal.js');
 		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');
 		$document->addStyleSheet("templates/$template/css/general.css");
+
+		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
 		//Get data from the model
 		$rows      	= & $this->get( 'Data');
@@ -52,12 +54,8 @@ class EventListViewEventelement extends JView {
 		//publish unpublished filter
 		$lists['state']	= JCommonHTML::selectState( $filter_state );
 
-		//table ordering
-		if ( $filter_order_Dir == 'DESC' ) {
-			$lists['order_Dir'] = 'ASC';
-		} else {
-			$lists['order_Dir'] = 'DESC';
-		}
+		// table ordering
+		$lists['order_Dir'] = $filter_order_Dir;
 		$lists['order'] = $filter_order;
 
 		//Create the filter selectlist
@@ -68,11 +66,13 @@ class EventListViewEventelement extends JView {
 		$filters[] = JHTMLSelect::option( '4', JText::_( 'CATEGORY' ) );
 		$lists['filter'] = JHTMLSelect::genericList( $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
 
+		// search filter
+		$lists['search']= $search;
+
 		//assign data to template
 		$this->assignRef('lists'      	, $lists);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);
-		$this->assignRef('search'		, $search);
 		$this->assignRef('elsettings'	, $elsettings);
 
 		parent::display($tpl);

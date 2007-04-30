@@ -46,7 +46,6 @@ class EventListViewEvent extends JView {
 		//get vars
 		$cid		= JRequest::getVar( 'cid' );
 		$task		= JRequest::getVar('task');
-		$live_site 	= $mainframe->getCfg('live_site');
 		$url 		= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
 
 		//add the custom stylesheet and the seo javascript
@@ -127,7 +126,6 @@ class EventListViewEvent extends JView {
 
 		//assign vars to the template
 		$this->assignRef('Lists'      	, $Lists);
-		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('row'      	, $row);
 		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('imageselect'	, $imageselect);

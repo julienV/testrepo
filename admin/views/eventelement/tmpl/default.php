@@ -6,7 +6,7 @@
 	<tr>
 		<td width="100%">
 			<?php echo JText::_( 'SEARCH' ).' '.$this->lists['filter']; ?>
-			<input type="text" name="search" id="search" value="<?php echo $this->search;?>" class="text_area" onChange="document.adminForm.submit();" />
+			<input type="text" name="search" id="search" value="<?php echo $this->lists['search']; ?>" class="text_area" onChange="document.adminForm.submit();" />
 			<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
 			<button onclick="this.form.getElementById('search').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
 		</td>
@@ -20,12 +20,12 @@
 	<thead>
 		<tr>
 			<th width="5"><?php echo JText::_( 'Num' ); ?></th>
-			<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'EVENT TITLE' ), 'a.title', $this->lists, 'eventelement' ); ?></th>
-			<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'DATE' ), 'dates', $this->lists, 'eventelement' ); ?></th>
-			<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'Start' ), 'a.times', $this->lists, 'eventelement' ); ?></th>
-			<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'loc.venue', $this->lists, 'eventelement' ); ?></th>
-			<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CITY' ), 'cat.catname', $this->lists, 'eventelement' ); ?></th>
-			<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CATEGORY' ), 'loc.city', $this->lists, 'eventelement' ); ?></th>
+			<th class="title"><?php JHTML::element('grid_sort', 'EVENT TITLE', 'a.title', $this->lists['order_Dir'], $this->lists['order'], 'eventelement' ); ?></th>
+			<th class="title"><?php JHTML::element('grid_sort', 'DATE', 'a.dates', $this->lists['order_Dir'], $this->lists['order'], 'eventelement' ); ?></th>
+			<th class="title"><?php JHTML::element('grid_sort', 'Start', 'a.times', $this->lists['order_Dir'], $this->lists['order'], 'eventelement' ); ?></th>
+			<th class="title"><?php JHTML::element('grid_sort', 'VENUE', 'loc.venue', $this->lists['order_Dir'], $this->lists['order'], 'eventelement' ); ?></th>
+			<th class="title"><?php JHTML::element('grid_sort', 'CITY', 'loc.city', $this->lists['order_Dir'], $this->lists['order'], 'eventelement' ); ?></th>
+			<th class="title"><?php JHTML::element('grid_sort', 'CATEGORY', 'cat.catname', $this->lists['order_Dir'], $this->lists['order'], 'eventelement' ); ?></th>
 		    <th width="1%" nowrap="nowrap"><?php echo JText::_( 'PUBLISHED' ); ?></th>
 		</tr>
 	</thead>
@@ -47,7 +47,7 @@
 				<?php
 					//Format date
 					$date = strftime( $this->elsettings->formatdate, strtotime( $row->dates ));
-					if ($row->enddates == '0000-00-00') {
+					if ( !$row->enddates ) {
 						$displaydate = $date;
 					} else {
 						$enddate 	= strftime( $this->elsettings->formatdate, strtotime( $row->enddates ));
@@ -59,21 +59,14 @@
 			</td>
 			<td>
 				<?php
-					//Format time
-					$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
-					$time = $time.' '.$timename;
-
-					$endtime = strftime( $this->elsettings->formattime, strtotime( $row->endtimes ));
-					$endtime = $endtime.' '.$timename;
-
-					if ($row->times != '00:00:00') {
-						$displaytime = '<br />'.$time;
+					//Prepare time
+					if (!$row->times) {
+						$displaytime = '-';
+					} else {
+						$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
+						$displaytime = $time.' '.$this->elsettings->timename;
 					}
-
-					if ($row->endtimes != '00:00:00') {
-						$displaytime = '<br />'.$time.' - '.$endtime;
-					}
-					echo $displaytime ? $displaytime : '-';
+					echo $displaytime;
 				?>
 			</td>
 			<td><?php echo $row->venue ? $row->venue : '-'; ?></td>

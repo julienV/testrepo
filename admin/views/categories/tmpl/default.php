@@ -3,7 +3,7 @@
 <form action="<?php echo $this->request_url; ?>" method="post" name="adminForm">
 		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 			<tr>
-		  		<td><img src="<?php echo $this->live_site."/administrator/components/com_eventlist/assets/images/evlogo.png"; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>
+		  		<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left"></td>
 		  		<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">::<?php echo JText::_( 'CATEGORIES' ); ?>::</font></td>
 			</tr>
 		</table>
@@ -12,7 +12,7 @@
 			<tr>
 			 <td width="100%">
 			  	<?php echo JText::_( 'SEARCH' ); ?>
-				<input type="text" name="search" id="search" value="<?php echo $this->search;?>" class="text_area" onChange="document.adminForm.submit();" />
+				<input type="text" name="search" id="search" value="<?php echo $this->lists['search']; ?>" class="text_area" onChange="document.adminForm.submit();" />
 				<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
 				<button onclick="this.form.getElementById('search').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
 			</td>
@@ -29,11 +29,11 @@
 			<tr>
 				<th width="5"><?php echo JText::_( 'Num' ); ?></th>
 				<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
-				<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CATEGORY' ), 'catname', $this->lists ); ?></th>
+				<th align="left" class="title"><?php JHTML::element('grid_sort', 'CATEGORY', 'catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<th width="1%" nowrap="nowrap"><?php echo JText::_( 'PUBLISHED' ); ?></th>
-				<th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'ACCESS' ),'c.access', $this->lists ); ?></th>
-			    <th align="left" class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'GROUP' ),'gr.name', $this->lists ); ?></th>
-				<th width="80"><?php JCommonHTML :: tableOrdering( JText::_( 'REORDER' ), 'c.ordering', $this->lists ); ?></th>
+				<th align="left" class="title"><?php JHTML::element('grid_sort', 'ACCESS', 'c.access', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			    <th align="left" class="title"><?php JHTML::element('grid_sort', 'GROUP', 'gr.name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th width="80"><?php JHTML::element('grid_sort', 'REORDER', 'c.ordering', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			    <th width="1%"><?php JCommonHTML::saveorderButton( $this->rows, 'filesave.png', 'saveordercat' ); ?></th>
 			</tr>
 			</thead>
@@ -76,14 +76,14 @@
 				</td>
 				<td align="center">
 					<?php
-					if ($row->catgroup) { 
+					if ($row->catgroup) {
 					?>
 						<a href="<?php echo $grouplink; ?>" title="<?php echo JText::_( 'EDIT GROUP' ); ?>">
 							<?php echo htmlspecialchars($row->catgroup, ENT_QUOTES); ?>
 						</a>
 					<?php
 					} else {
-						echo '-';	
+						echo '-';
 					}
 					?>
 				</td>
@@ -105,11 +105,11 @@
 				</td>
 			</tfoot>
 		</table>
-		
+
 		<p class="copyright">
 			<?php echo ELAdmin::footer( ); ?>
 		</p>
-		
+
 			<input type="hidden" name="boxchecked" value="0" />
 			<input type="hidden" name="option" value="<?php echo $option; ?>" />
 			<input type="hidden" name="controller" value="categories" />

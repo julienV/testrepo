@@ -38,7 +38,6 @@ class EventListViewAttendees extends JView {
 		$filter 			= intval( $filter );
 		$search 			= $mainframe->getUserStateFromRequest( "$option.attendees.search", 'search', '' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
-		$live_site 			= $mainframe->getCfg('live_site');
 
 		//add css and submenu to document
 		$document->setBuffer($submenu, 'module', 'submenu');
@@ -64,22 +63,18 @@ class EventListViewAttendees extends JView {
 		$filters[] = JHTMLSelect::option( '2', JText::_( 'USERNAME' ) );
 		$lists['filter'] = JHTMLSelect::genericList( $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
 
-		//table ordering
-		if ( $filter_order_Dir == 'DESC' ) {
-			$lists['order_Dir'] = 'ASC';
-		} else {
-			$lists['order_Dir'] = 'DESC';
-		}
+		// search filter
+		$lists['search']= $search;
 
+		// table ordering
+		$lists['order_Dir'] = $filter_order_Dir;
 		$lists['order'] = $filter_order;
 
 		//assign to template
 		$this->assignRef('lists'      	, $lists);
-		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);
 		$this->assignRef('event'		, $event);
-		$this->assignRef('search'		, $search);
 		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('elsettings'	, $elsettings);
 

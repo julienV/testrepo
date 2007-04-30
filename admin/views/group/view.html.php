@@ -33,7 +33,6 @@ class EventListViewGroup extends JView {
 		$pane 		= & JPane::getInstance('sliders');
 
 		//get vars
-		$live_site 		= $mainframe->getCfg('live_site');
 		$template		= $mainframe->getTemplate();
 		$request_url 	= $uri->toString();
 		$cid 			= JRequest::getVar( 'cid' );
@@ -75,7 +74,6 @@ class EventListViewGroup extends JView {
 		$lists['available_users']	= JHTMLSelect::genericList( $available_users, 'available_users', 'class="inputbox" size="20" onDblClick="moveOptions(document.adminForm[\'available_users\'], document.adminForm[\'maintainers[]\'])" multiple="multiple" style="padding: 6px; width: 250px;"', 'value', 'text' );
 
 		//assign data to template
-		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('row'      	, $row);
 		$this->assignRef('pane'      	, $pane);
 		$this->assignRef('request_url'	, $uri->toString());

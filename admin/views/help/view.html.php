@@ -36,8 +36,6 @@ class EventListViewHelp extends JView {
 		$submenu 		= ELAdmin::submenu();
 
 		//get vars
-		$live_site	 	= $mainframe->getCfg('live_site');
-		$request_url 	= $uri->toString();
 		$helpsearch 	= JRequest::getVar( 'search' );
 
 		//add css and submenu to document
@@ -60,7 +58,6 @@ class EventListViewHelp extends JView {
 		//assign data to template
 		$this->assignRef('pane'			, $pane);
 		$this->assignRef('langTag'		, $langTag);
-		$this->assignRef('live_site'	, $live_site);
 		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('helpsearch'	, $helpsearch);
 		$this->assignRef('toc'			, $toc);

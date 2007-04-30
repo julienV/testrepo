@@ -33,9 +33,6 @@ class EventListViewEventList extends JView {
 		$user 		= & JFactory::getUser();
 		$submenu 	= ELAdmin::submenu();
 
-		//get vars
-		$live_site 	= $mainframe->getCfg('live_site');
-
 		//build toolbar
 		JToolBarHelper::title( JText::_( 'EVENTLIST' ), 'home' );
 		JToolBarHelper::help( 'el.intro', true );
@@ -50,7 +47,6 @@ class EventListViewEventList extends JView {
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
 		//assign vars to the template
-		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('pane'			, $pane);
 		$this->assignRef('events'		, $events);
 		$this->assignRef('venue'		, $venue);

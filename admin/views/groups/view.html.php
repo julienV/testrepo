@@ -36,7 +36,6 @@ class EventListViewGroups extends JView {
 		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.groups.filter_order_Dir",	'filter_order_Dir',	'' );
 		$search 			= $mainframe->getUserStateFromRequest( "$option.groups.search", 			'search', 			'' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
-		$live_site 			= $mainframe->getCfg('live_site');
 		$template			= $mainframe->getTemplate();
 		$request_url 		= $uri->toString();
 
@@ -59,22 +58,19 @@ class EventListViewGroups extends JView {
 		JToolBarHelper::spacer();
 		JToolBarHelper::help( 'el.listgroups', true );
 
-		//table ordering
-		if ( $filter_order_Dir == 'DESC' ) {
-			$lists['order_Dir'] = 'ASC';
-		} else {
-			$lists['order_Dir'] = 'DESC';
-		}
+		// table ordering
+		$lists['order_Dir'] = $filter_order_Dir;
 		$lists['order'] = $filter_order;
+
+		// search filter
+		$lists['search']= $search;
 
 		//assign data to template
 		$this->assignRef('lists'      	, $lists);
-		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);
 		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('user'			, $user);
-		$this->assignRef('search'		, $search);
 		$this->assignRef('template'		, $template);
 
 		parent::display($tpl);

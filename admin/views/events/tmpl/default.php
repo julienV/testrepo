@@ -4,7 +4,7 @@
 
 		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 			<tr>
-		  		<td><img src="<?php echo $this->live_site.'/administrator/components/com_eventlist/assets/images/evlogo.png'; ?>" height="108" width="250" alt="Event List Logo" align="left"></td>
+		  		<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left"></td>
 		  		<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">::<?php echo JText::_( 'EVENTS'); ?>::</font></td>
 			</tr>
 		</table>
@@ -16,7 +16,7 @@
 				echo JText::_( 'SEARCH' );
 				echo $this->lists['filter'];
 				?>
-				<input type="text" name="search" id="search" value="<?php echo $this->search;?>" class="text_area" onChange="document.adminForm.submit();" />
+				<input type="text" name="search" id="search" value="<?php echo $this->lists['search']; ?>" class="text_area" onChange="document.adminForm.submit();" />
 				<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
 				<button onclick="this.form.getElementById('search').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
 			</td>
@@ -31,12 +31,12 @@
 			<tr>
 				<th width="5"><?php echo JText::_( 'Num' ); ?></th>
 				<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
-				<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'DATE' ), 'a.dates', $this->lists ); ?></th>
-				<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'Start' ), 'a.times', $this->lists ); ?></th>
-				<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'EVENT TITLE' ), 'a.title', $this->lists ); ?></th>
-				<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'loc.venue', $this->lists ); ?></th>
-				<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CITY' ), 'loc.city', $this->lists ); ?></th>
-				<th class="title"><?php JCommonHTML :: tableOrdering( JText::_( 'CATEGORY' ), 'cat.catname', $this->lists ); ?></th>
+				<th class="title"><?php JHTML::element('grid_sort', 'DATE', 'a.dates', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php JHTML::element('grid_sort', 'Start', 'a.times', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php JHTML::element('grid_sort', 'EVENT TITLE', 'a.title', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php JHTML::element('grid_sort', 'VENUE', 'loc.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php JHTML::element('grid_sort', 'CITY', 'loc.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php JHTML::element('grid_sort', 'CATEGORY', 'cat.catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			    <th width="1%" nowrap="nowrap"><?php echo JText::_( 'PUBLISHED' ); ?></th>
 				<th class="title"><?php echo JText::_( 'CREATION' ); ?></th>
 				<th width="1%" nowrap="nowrap"><?php echo JText::_( 'REGISTERED USERS' ); ?></th>
@@ -51,7 +51,7 @@
 
 				//Prepare date
 				$date = strftime( $this->elsettings->formatdate, strtotime( $row->dates ));
-				
+
 				if (!$row->enddates) {
 					$displaydate = $date;
 				} else {
@@ -62,14 +62,14 @@
 				//Prepare time
 				if (!$row->times) {
 					$displaytime = '-';
-				} else {	
+				} else {
 					$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
 					$displaytime = $time.' '.$this->elsettings->timename;
 				}
 				$link 			= 'index.php?option=com_eventlist&controller=events&task=edit&cid[]='.$row->id;
 				$catlink 		= 'index.php?option=com_eventlist&controller=categories&task=edit&cid[]='.$row->catsid;
 				$venuelink 		= 'index.php?option=com_eventlist&controller=venues&task=edit&cid[]='.$row->locid;
-				
+
 				$checked 	= JCommonHTML::CheckedOutProcessing( $row, $i );
 				$published 	= JCommonHTML::PublishedProcessing( $row, $i );
    			?>
@@ -93,28 +93,28 @@
 				<td><?php echo htmlspecialchars($row->title, ENT_QUOTES) ? htmlspecialchars($row->title, ENT_QUOTES) : '-'; ?></td>
 				<td>
 					<?php
-					if ($row->venue) { 
+					if ($row->venue) {
 					?>
 						<a href="<?php echo $venuelink; ?>" title="<?php echo JText::_( 'EDIT VENUE' ); ?>">
 							<?php echo htmlspecialchars($row->venue, ENT_QUOTES); ?>
 						</a>
 					<?php
 					} else {
-						echo '-';	
+						echo '-';
 					}
 					?>
 				</td>
 				<td><?php echo htmlspecialchars($row->city, ENT_QUOTES) ? htmlspecialchars($row->city, ENT_QUOTES) : '-'; ?></td>
 				<td>
 					<?php
-					if ($row->catname) { 
+					if ($row->catname) {
 					?>
 						<a href="<?php echo $catlink; ?>" title="<?php echo JText::_( 'EDIT CATEGORY' ); ?>">
 							<?php echo htmlspecialchars($row->catname, ENT_QUOTES); ?>
 						</a>
 					<?php
 					} else {
-						echo '-';	
+						echo '-';
 					}
 					?>
 				</td>

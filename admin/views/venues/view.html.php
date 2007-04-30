@@ -43,7 +43,6 @@ class EventListViewVenues extends JView {
 		$search 			= $mainframe->getUserStateFromRequest( "$option.search", 			'search', '' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 		$template			= $mainframe->getTemplate();
-		$live_site 			= $mainframe->getCfg('live_site');
 
 		//add css and submenu to document
 		$document->setBuffer($submenu, 'module', 'submenu');
@@ -76,26 +75,22 @@ class EventListViewVenues extends JView {
 		$filters[] = JHTMLSelect::option( '2', JText::_( 'CITY' ) );
 		$lists['filter'] = JHTMLSelect::genericList( $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
 
-		//table ordering
-		if ( $filter_order_Dir == 'DESC' ) {
-			$lists['order_Dir'] = 'ASC';
-		} else {
-			$lists['order_Dir'] = 'DESC';
-		}
+		// search filter
+		$lists['search']= $search;
 
+		// table ordering
+		$lists['order_Dir'] = $filter_order_Dir;
 		$lists['order'] = $filter_order;
 
 		$ordering = ($lists['order'] == 'l.ordering');
 
 		//assign data to template
 		$this->assignRef('lists'      	, $lists);
-		$this->assignRef('live_site' 	, $live_site);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);
 		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('ordering'		, $ordering);
 		$this->assignRef('user'			, $user);
-		$this->assignRef('search'		, $search);
 		$this->assignRef('template'		, $template);
 
 		parent::display($tpl);
