@@ -113,6 +113,11 @@ class EventListModelVenuesview extends JModel
 					$venue->url = 'http://'.$venue->url;
     		    }
 
+    		    //create flag
+				if ($venue->country) {
+					$venue->countryimg = ELOutput::getFlag( $venue->country );
+				}
+
 				//Get total of assigned events of each venue
 				$venue->assignedevents = $this->_assignedevents( $venue->id );
 

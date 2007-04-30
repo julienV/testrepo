@@ -75,7 +75,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			<?php if ( $this->venue->country ) : ?>
 			<dt class="venue_country"><?php echo JText::_( 'COUNTRY' ).':'; ?></dt>
     		<dd class="venue_country">
-    			<?php echo $this->venue->country; ?>
+    			<?php echo $this->venue->countryimg ? $this->venue->countryimg : $this->venue->country; ?>
     		</dd>
     		<?php endif; ?>
 		<?php

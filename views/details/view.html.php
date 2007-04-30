@@ -223,6 +223,11 @@ class EventListViewDetails extends JView
         	$row->url = 'http://'.$row->url;
         }
 
+        //create flag
+        if ($row->country) {
+        	$row->countryimg = ELOutput::getFlag( $row->country );
+        }
+
 		//assign vars to jview
 		$this->assignRef('row', 					$row);
 		$this->assignRef('params' , 				$params);

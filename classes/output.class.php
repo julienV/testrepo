@@ -330,5 +330,20 @@ class ELOutput {
 
 		return $output;
 	}
+
+	function getFlag($country)
+	{
+        $country = JString::strtolower($country);
+
+        jimport('joomla.filesystem.file');
+
+        if (JFile::exists(JPATH_COMPONENT_SITE.DS.'assets'.DS.'images'.DS.'flags'.DS.$country.'.gif')) {
+        	$countryimg = '<img src="components/com_eventlist/assets/images/flags/'.$country.'.gif" alt="'.JText::_( 'COUNTRY' ).': '.$country.'" width="16" height="11" />';
+
+        	return $countryimg;
+        }
+
+        return null;
+	}
 }
 ?>

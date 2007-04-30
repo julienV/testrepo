@@ -132,6 +132,11 @@ class EventListViewVenueevents extends JView
         	$venue->url = 'http://'.$venue->url;
         }
 
+        //create flag
+        if ($venue->country) {
+        	$venue->countryimg = ELOutput::getFlag( $venue->country );
+        }
+
 		// Create the pagination object
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);

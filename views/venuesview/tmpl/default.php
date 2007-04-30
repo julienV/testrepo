@@ -92,7 +92,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			<?php if ( $row->country ) : ?>
 			<dt class="venue_country"><?php echo JText::_( 'COUNTRY' ).':'; ?></dt>
     		<dd class="venue_country">
-    			<?php echo $row->country; ?>
+    			<?php echo $row->countryimg ? $row->countryimg : $row->country; ?>
     		</dd>
     		<?php endif; ?>
 
