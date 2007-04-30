@@ -26,21 +26,20 @@
 	<tr>
 		<?php if ($this->params->get('filter')) : ?>
 		<td align="left" width="100%" nowrap="nowrap">
-				<?php
-					echo JText::_('Filter').'&nbsp;';
-					echo $this->lists['filter_type'].'&nbsp;';
-				?>
-
-				<input type="text" name="filter" id="filter" value="<?php echo $this->lists['filter'];?>" class="text_area" onchange="document.adminForm.submit();" />
-				<button onclick="document.adminForm.submit();"><?php echo JText::_( 'Go' ); ?></button>
-				<button onclick="document.getElementById('filter').value='';document.adminForm.submit();"><?php echo JText::_( 'Reset' ); ?></button>
+			<?php
+			echo JText::_('Filter').'&nbsp;';
+			echo $this->lists['filter_type'].'&nbsp;';
+			?>
+			<input type="text" name="filter" id="filter" value="<?php echo $this->lists['filter'];?>" class="text_area" onchange="document.adminForm.submit();" />
+			<button onclick="document.adminForm.submit();"><?php echo JText::_( 'Go' ); ?></button>
+			<button onclick="document.getElementById('filter').value='';document.adminForm.submit();"><?php echo JText::_( 'Reset' ); ?></button>
 		</td>
 		<?php endif; ?>
 		<?php if ($this->params->get('display')) : ?>
 		<td align="right" width="100%" nowrap="nowrap">
 			<?php
-				echo '&nbsp;&nbsp;&nbsp;'.JText::_('Display Num').'&nbsp;';
-				echo $this->pageNav->getLimitBox();
+			echo '&nbsp;&nbsp;&nbsp;'.JText::_('Display Num').'&nbsp;';
+			echo $this->pageNav->getLimitBox();
 			?>
 		</td>
 		<?php endif; ?>
@@ -51,31 +50,31 @@
 
 <table width="<?php echo $this->elsettings->tablewidth; ?>" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
 			<tr>
-				<td width="<?php echo $this->elsettings->datewidth; ?>" class="sectiontableheader" align="left"><?php JCommonHTML::tableOrdering( $this->elsettings->datename, 'a.dates', $this->lists ); ?></td>
+				<td width="<?php echo $this->elsettings->datewidth; ?>" class="sectiontableheader" align="left"><?php JHTML::element('grid_sort', $this->elsettings->datename, 'a.dates', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
 				<?php
 				if ($this->elsettings->showtitle == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->titlewidth; ?>" class="sectiontableheader" align="left"><?php JCommonHTML::tableOrdering( $this->elsettings->titlename, 'a.title', $this->lists ); ?></td>
+				<td width="<?php echo $this->elsettings->titlewidth; ?>" class="sectiontableheader" align="left"><?php JHTML::element('grid_sort', $this->elsettings->titlename, 'a.title', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
 				<?php
 				endif;
 				if ($this->elsettings->showlocate == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->locationwidth; ?>" class="sectiontableheader" align="left"><?php JCommonHTML::tableOrdering( $this->elsettings->locationname, 'l.venue', $this->lists ); ?></td>
+				<td width="<?php echo $this->elsettings->locationwidth; ?>" class="sectiontableheader" align="left"><?php JHTML::element('grid_sort', $this->elsettings->locationname, 'l.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
 				<?php
 				endif;
 				if ($this->elsettings->showcity == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->citywidth; ?>" class="sectiontableheader" align="left"><?php JCommonHTML::tableOrdering( $this->elsettings->cityname, 'l.city', $this->lists ); ?></td>
+				<td width="<?php echo $this->elsettings->citywidth; ?>" class="sectiontableheader" align="left"><?php JHTML::element('grid_sort', $this->elsettings->cityname, 'l.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
 				<?php
 				endif;
 				if ($this->elsettings->showstate == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->statewidth; ?>" class="sectiontableheader" align="left"><?php JCommonHTML::tableOrdering( $this->elsettings->statename, 'l.state', $this->lists ); ?></td>
+				<td width="<?php echo $this->elsettings->statewidth; ?>" class="sectiontableheader" align="left"><?php JHTML::element('grid_sort', $this->elsettings->statename, 'l.state', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
 				<?php
 				endif;
 				if ($this->elsettings->showcat == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->catfrowidth; ?>" class="sectiontableheader" align="left"><?php JCommonHTML::tableOrdering( $this->elsettings->catfroname, 'c.catname', $this->lists ); ?></td>
+				<td width="<?php echo $this->elsettings->catfrowidth; ?>" class="sectiontableheader" align="left"><?php JHTML::element('grid_sort', $this->elsettings->catfroname, 'c.catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
 				<?php
 				endif;
 				?>

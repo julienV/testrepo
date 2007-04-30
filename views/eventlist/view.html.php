@@ -116,6 +116,7 @@ class EventListViewEventList extends JView
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('page' , 					$page);
 		$this->assignRef('elsettings' , 			$elsettings);
+		$this->assignRef('lists' , 					$lists);
 
 		parent::display($tpl);
 
@@ -206,12 +207,7 @@ class EventListViewEventList extends JView
 		$sortselects[] 	= JHTMLSelect::option( 'city', $elsettings->cityname );
 		$sortselect 	= JHTMLSelect::genericList( $sortselects, 'filter_type', 'size="1" class="inputbox"', 'value', 'text', $filter_type );
 
-		if ($filter_order_Dir == 'DESC') {
-			$lists['order_Dir'] = 'ASC';
-		} else {
-			$lists['order_Dir'] = 'DESC';
-		}
-
+		$lists['order_Dir'] 	= $filter_order_Dir;
 		$lists['order'] 		= $filter_order;
 		$lists['filter'] 		= $filter;
 		$lists['filter_type'] 	= $sortselect;

@@ -232,12 +232,7 @@ class EventListViewVenueevents extends JView
 
 		$html= '';
 
-		if ($filter_order_Dir == 'DESC') {
-			$lists['order_Dir'] = 'ASC';
-		} else {
-			$lists['order_Dir'] = 'DESC';
-		}
-
+		$lists['order_Dir'] 	= $filter_order_Dir;
 		$lists['order'] 		= $filter_order;
 		$lists['filter'] 		= $filter;
 		$lists['filter_type'] 	= $html;
