@@ -23,17 +23,17 @@
 						<input type="button" value="<?php echo JText::_( 'Reset' ); ?>" class="button" onclick="f=document.adminForm;f.search.value='';f.submit()" />
 					</td>
 					<td style="text-align:right">
-						<a href="<?php echo $this->live_site.'/administrator/components/com_eventlist/help/'.$this->langTag.'/el.intro.html'; ?>" target='helpFrame'><?php echo JText::_( 'HOME' ); ?></a>
+						<a href="<?php echo 'components/com_eventlist/help/'.$this->langTag.'/el.intro.html'; ?>" target='helpFrame'><?php echo JText::_( 'HOME' ); ?></a>
 						|
-						<a href="<?php echo $this->live_site.'/administrator/components/com_eventlist/help/'.$this->langTag.'/helpsite/el.gethelp.html'; ?>" target='helpFrame'><?php echo JText::_( 'GET HELP' ); ?></a>
+						<a href="<?php echo 'components/com_eventlist/help/'.$this->langTag.'/helpsite/el.gethelp.html'; ?>" target='helpFrame'><?php echo JText::_( 'GET HELP' ); ?></a>
 						|
-						<a href="<?php echo $this->live_site.'/administrator/components/com_eventlist/help/'.$this->langTag.'/helpsite/el.givehelp.html'; ?>" target='helpFrame'><?php echo JText::_( 'GIVE HELP' ); ?></a>
+						<a href="<?php echo 'components/com_eventlist/help/'.$this->langTag.'/helpsite/el.givehelp.html'; ?>" target='helpFrame'><?php echo JText::_( 'GIVE HELP' ); ?></a>
 						|
-						<a href="<?php echo $this->live_site.'/administrator/components/com_eventlist/help/'.$this->langTag.'/helpsite/el.credits.html'; ?>" target='helpFrame'><?php echo JText::_( 'CREDITS' ); ?></a>
+						<a href="<?php echo 'components/com_eventlist/help/'.$this->langTag.'/helpsite/el.credits.html'; ?>" target='helpFrame'><?php echo JText::_( 'CREDITS' ); ?></a>
 						|
-						<a href="<?php echo $this->live_site.'/administrator/components/com_eventlist/help/'.$this->langTag.'/helpsite/el.changelog.html'; ?>" target='helpFrame'><?php echo JText::_( 'CHANGELOG' ); ?></a>
+						<a href="<?php echo 'components/com_eventlist/help/'.$this->langTag.'/helpsite/el.changelog.html'; ?>" target='helpFrame'><?php echo JText::_( 'CHANGELOG' ); ?></a>
 						|
-						<a href="<?php echo $this->live_site.'/administrator/components/com_eventlist/assets/gpl.txt'; ?>" target='helpFrame'><?php echo JText::_( 'LICENCE' ); ?></a>
+						<a href="<?php echo 'components/com_eventlist/assets/gpl.txt'; ?>" target='helpFrame'><?php echo JText::_( 'LICENCE' ); ?></a>
 					</td>
 				</tr>
 			</table>
@@ -55,7 +55,7 @@
 				foreach ($this->toc as $k=>$v) {
 					echo '<tr>';
 					echo '<td>';
-					echo JHTML::Link($this->live_site.'/administrator/components/com_eventlist/help/'.$this->langTag.'/'.$k, $v, array('target' => "'helpFrame'"));
+					echo JHTML::Link('components/com_eventlist/help/'.$this->langTag.'/'.$k, $v, array('target' => "'helpFrame'"));
 					echo '</td>';
 					echo '</tr>';
 				}
@@ -68,7 +68,7 @@
 		  	?>
 		</td>
 		<td>
-			<iframe name="helpFrame" src="<?php echo $this->live_site.'/administrator/components/com_eventlist/help/'.$this->langTag.'/el.intro.html'; ?>" class="helpFrame" frameborder="0"></iframe>
+			<iframe name="helpFrame" src="<?php echo 'components/com_eventlist/help/'.$this->langTag.'/el.intro.html'; ?>" class="helpFrame" frameborder="0"></iframe>
 		</td>
 	</tr>
 </table>
