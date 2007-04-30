@@ -83,7 +83,7 @@ class EventListViewImagehandler extends JView  {
 				for( $i = 0; $i < $numImages; $i++ ) {
 
 					$file		= $images[$i]['name'];
-					$img_url	= $live_site.$Path.rawurlencode($file);
+					$img_url	= $Path.rawurlencode($file);
 					$info		= $images[$i]['imgInfo'];
 
 
@@ -100,7 +100,7 @@ class EventListViewImagehandler extends JView  {
 							<div align="center" class="imgBorder">
 								<a style="display: block; width: 100%; height: 100%" onclick="window.parent.elSelectImage('<?php echo $file; ?>', '<?php echo $file; ?>');">
 									<div class="image">
-										<img src="<?php echo $img_url; ?>" <?php echo $img_dimensions; ?> border="0" />
+										<img src="<?php echo '../'.$img_url; ?>" <?php echo $img_dimensions; ?> border="0" />
 									</div>
 								</a>
 							</div>
