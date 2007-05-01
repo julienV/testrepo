@@ -10,9 +10,9 @@
 		} else if (form.venue.value == ""){
 			alert( "<?php echo JText::_( 'ADD VENUE' ); ?>" );
 			form.venue.focus();
-		} else if (form.city.value == ""){
-			alert( "<?php echo JText::_( 'ADD CITY' ); ?>" );
-			form.city.focus();
+	//	} else if (form.city.value == ""){
+	//		alert( "<?php // echo JText::_( 'ADD CITY' ); ?>" );
+	//		form.city.focus();
 		} else {
 			<?php
 			echo $this->editor->save( 'locdescription' );

@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -12,15 +12,15 @@ defined('_JEXEC') or die('Restricted access');
 /**
  * EventList venues Model class
  *
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @since 0.9
  */
-class eventlist_venues extends JTable 
+class eventlist_venues extends JTable
 {
 	/**
 	 * Primary Key
-	 * @var int 
+	 * @var int
 	 */
 	var $id 				= null;
 	/** @var string */
@@ -69,16 +69,16 @@ class eventlist_venues extends JTable
 	function eventlist_venues(& $db) {
 		parent::__construct('#__eventlist_venues', 'id', $db);
 	}
-	
+
 	// overloaded check function
 	function check($elsettings)
-	{		
+	{
 		// not typed in a venue name
 		if(!trim($this->venue)) {
 	      	$this->_error = JText::_( 'ADD VENUE');
 	       	return false;
 		}
-		
+
 		jimport('joomla.filter.output');
 		$alias = JOutputFilter::stringURLSafe($this->venue);
 
@@ -92,14 +92,14 @@ class eventlist_venues extends JTable
         		return false;
 			}
 		}
-		
+
 		if (($elsettings->showmapserv == 1 ) && ($elsettings->showdetailsadress == 1 )){
 			if ((!trim($this->street)) || (!trim($this->plz)) || (!trim($this->city)) || (!trim($this->country))) {
 				$this->_error = JText::_( 'ADD ADDRESS');
 				return false;
 			}
 		}
-		
+
 		if (trim($this->url)) {
 			$this->url = strip_tags($this->url);
 			$urllength = strlen($this->url);
@@ -114,7 +114,7 @@ class eventlist_venues extends JTable
 				return false;
 			}
 		}
-		
+
 		$this->street = strip_tags($this->street);
 		$streetlength = JString::strlen($this->street);
 		if ($streetlength > 50) {
@@ -145,11 +145,11 @@ class eventlist_venues extends JTable
 
 		$this->country = strip_tags($this->country);
 		$countrylength = JString::strlen($this->country);
-		if ($countrylength > 3) {
+		if ($countrylength > 2) {
      	 	$this->_error = JText::_( 'ERROR COUNTRY LONG' );
      	 	return false;
 		}
-		
+
 		return true;
 	}
 }

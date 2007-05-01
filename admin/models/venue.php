@@ -270,6 +270,11 @@ class EventListModelVenue extends JModel
 			$row->created_by		= $user->get('id');
 		}
 
+		//uppercase needed by mapservices
+		if ($row->country) {
+			$row->country = JString::strtoupper($row->country);
+		}
+
 		// Make sure the data is valid
 		if (!$row->check($elsettings)) {
 			$this->setError($row->getError());
