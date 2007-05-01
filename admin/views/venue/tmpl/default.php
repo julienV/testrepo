@@ -10,9 +10,18 @@
 		} else if (form.venue.value == ""){
 			alert( "<?php echo JText::_( 'ADD VENUE' ); ?>" );
 			form.venue.focus();
-	//	} else if (form.city.value == ""){
-	//		alert( "<?php // echo JText::_( 'ADD CITY' ); ?>" );
-	//		form.city.focus();
+		} else if (form.city.value == "" && form.map.value == "1"){
+			alert( "<?php echo JText::_( 'ADD CITY' ); ?>" );
+			form.city.focus();
+		} else if (form.street.value == "" && form.map.value == "1"){
+			alert( "<?php echo JText::_( 'ADD STREET' ); ?>" );
+			form.street.focus();
+		} else if (form.plz.value == "" && form.map.value == "1"){
+			alert( "<?php echo JText::_( 'ADD ZIP' ); ?>" );
+			form.plz.focus();
+		} else if (form.country.value == "" && form.map.value == "1"){
+			alert( "<?php echo JText::_( 'ADD COUNTRY' ); ?>" );
+			form.country.focus();
 		} else {
 			<?php
 			echo $this->editor->save( 'locdescription' );
@@ -135,7 +144,7 @@
 				</label>
 			</td>
 			<td>
-				<input class="inputbox" name="country" value="<?php echo $this->row->country; ?>" size="4" maxlength="3">&nbsp;
+				<input class="inputbox" name="country" value="<?php echo $this->row->country; ?>" size="3" maxlength="2">&nbsp;
 
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('COUNTRY HINT'); ?>">
 					<?php echo $infoimage; ?>
@@ -149,18 +158,31 @@
 				</label>
 			</td>
 			<td>
-				<input class="inputbox" name="url" value="<?php echo $this->row->url; ?>" size="35" maxlength="150">&nbsp;
+				<input class="inputbox" name="url" value="<?php echo $this->row->url; ?>" size="30" maxlength="150">&nbsp;
 
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('WEBSITE HINT'); ?>">
 					<?php echo $infoimage; ?>
 				</span>
 			</td>
 		</tr>
+		<?php if ( $this->settings->showmapserv != 0 ) { ?>
 		<tr>
-			<td colspan="2">
-			<?php echo JText::_( 'ADDRESS NOTICE' ); ?>
+			<td>
+				<label for="url">
+					<?php echo JText::_( 'ENABLE MAP' ).':'; ?>
+				</label>
+			</td>
+			<td>
+				<?php
+          			echo JHTMLSelect::yesnoList( 'map', 'class="inputbox"', $this->row->map );
+          		?>
+          		&nbsp;
+          		<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('ADDRESS NOTICE'); ?>">
+					<?php echo $infoimage; ?>
+				</span>
 			</td>
 		</tr>
+		<?php } ?>
 	</table>
 	<?php
 	$title = JText::_( 'IMAGE' );

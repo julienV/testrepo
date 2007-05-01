@@ -256,6 +256,15 @@ class ELOutput {
 		//Link to map
 		$mapimage = JAdminMenus::ImageCheck( 'mapsicon.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'MAP' ), JText::_( 'MAP' ) );
 
+		//set var
+		$output = null;
+
+		//stop if disabled
+		if (!$data->map) {
+			return $output;
+		}
+
+		//google or map24
 		switch ($settings->showmapserv)
 		{
 			case 1:

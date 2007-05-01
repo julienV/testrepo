@@ -128,13 +128,14 @@ class EventListModelVenue extends JModel
 			$venue->state				= null;
 			$venue->country				= null;
 			$venue->locimage			= JText::_('SELECTIMAGE');
+			$venue->map					= 0;
 			$venue->published			= 1;
 			$venue->locdescription		= null;
 			$venue->meta_keywords		= null;
 			$venue->meta_description	= null;
-			$event->created				= null;
-			$event->author_ip			= null;
-			$event->created_by			= null;
+			$venue->created				= null;
+			$venue->author_ip			= null;
+			$venue->created_by			= null;
 			$this->_data				= $venue;
 			return (boolean) $this->_data;
 		}

@@ -48,6 +48,7 @@ CREATE TABLE `#__eventlist_venues` (
 `meta_keywords` text NOT NULL,
 `meta_description` text NOT NULL,
 `locimage` text NOT NULL default '',
+`map` tinyint(1) NOT NULL default '0',
 `created_by` int(11) unsigned NOT NULL default '0',
 `author_ip` varchar(45) NOT NULL default '',
 `created` datetime NOT NULL,

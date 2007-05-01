@@ -48,6 +48,8 @@ class eventlist_venues extends JTable
 	/** @var string */
 	var $locimage 			= null;
 	/** @var int */
+	var $map		 		= null;
+	/** @var int */
 	var $created_by			= null;
 	/** @var string */
 	var $author_ip	 		= null;
