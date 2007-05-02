@@ -189,7 +189,7 @@ class EventListModelEventList extends JModel
 		$user		=& JFactory::getUser();
 		$gid		= (int) $user->get('aid');
 
-		// Get the paramaters of the active menu item		
+		// Get the paramaters of the active menu item
 		$menu		=& JMenu::getInstance();
 		$item    	= $menu->getActive();
 		$params		=& $menu->getParams($item->id);

@@ -36,13 +36,13 @@
 							</span>
 						</td>
        					<td valign="top">
-		 					<?php       						
+		 					<?php
           					$showlink = array();
 							$showlink[] = JHTMLSelect::option( '0', JText::_( 'NO LINK' ) );
 							$showlink[] = JHTMLSelect::option( '1', JText::_( 'LINK TO URL' ) );
 							$showlink[] = JHTMLSelect::option( '2', JText::_( 'LINK TO VENUEVIEW' ) );
 							$show = JHTMLSelect::genericList( $showlink, 'showdetlinkvenue', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->showdetlinkvenue );
-							echo $show;	
+							echo $show;
           					?>
        	 				</td>
       				</tr>
@@ -57,7 +57,9 @@
 							$mode = 0;
 							if ($this->elsettings->showmapserv == 1) {
 								$mode = 1;
-							} // if
+							} elseif ($this->elsettings->showmapserv == 2) {
+								$mode = 2;
+							}
 							?>
 							<select name="showmapserv" size="1" class="inputbox" onChange="changemapMode()">
   								<option value="0"<?php if ($this->elsettings->showmapserv == 0) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'NO MAP SERVICE' ); ?></option>
@@ -66,7 +68,7 @@
 							</select>
        	 				</td>
       				</tr>
-					<tr id="map24"<?php if (!$mode) echo ' style="display:none"'; ?>>
+					<tr id="map24"<?php if ($mode != 1) echo ' style="display:none"'; ?>>
 	          			<td width="300" class="key">
 							<span class="editlinktip hasTip" title="<?php echo JText::_( 'REGISTER MAP24' ); ?>::<?php echo JText::_('REGISTER MAP24 TIP'); ?>">
 								<?php echo JText::_( 'REGISTER MAP24' ); ?>
@@ -77,13 +79,24 @@
        	 					<a href="http://www.map24.com/" target="_blank">map24.com</a>
 						</td>
       				</tr>
+      				<tr id="gapikey"<?php if ($mode != 2) echo ' style="display:none"'; ?>>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'GOOGLE MAP KEY' ); ?>::<?php echo JText::_('GOOGLE MAP KEY TIP'); ?>">
+								<?php echo JText::_( 'GOOGLE MAP KEY' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+          					<input type="text" name="gmapkey" value="<?php echo $this->elsettings->gmapkey; ?>" size="25" maxlength="255" />
+       	 					<a href="http://www.google.com/apis/maps/signup.html/" target="_blank"><?php echo JText::_( 'REQUEST MAP KEY' ); ?></a>
+						</td>
+      				</tr>
 				</tbody>
 			</table>
 		</fieldset>
-		
+
 		</td>
         <td width="50%">
-        
+
 		<fieldset class="adminform">
 			<legend><?php echo JText::_( 'EVENTS' ); ?></legend>
 				<table class="admintable" cellspacing="1">
@@ -127,7 +140,7 @@
 				</tbody>
 			</table>
 			</fieldset>
-			
+
 			<fieldset class="adminform">
 			<legend><?php echo JText::_( 'INTEGRATE' ); ?></legend>
 				<table class="admintable" cellspacing="1">
@@ -171,7 +184,7 @@
 				</tbody>
 			</table>
 		</fieldset>
-			
+
 	</td>
   </tr>
 </table>

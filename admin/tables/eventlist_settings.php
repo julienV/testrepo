@@ -38,7 +38,9 @@ class eventlist_settings extends JTable
 	/** @var int */
 	var $showmapserv 		= "0";
 	/** @var string */
-	var $map24id 			= "";
+	var $map24id 			= null;
+	/** @var int */
+	var $gmapkey	 		= null;
 	/** @var string */
 	var $tablewidth 		= null;
 	/** @var string */

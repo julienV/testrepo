@@ -60,12 +60,19 @@ function changemapMode()
 		switch (mode) {
 			case 0:
 				document.getElementById('map24').style.display = 'none';
+				document.getElementById('gapikey').style.display = 'none';
+				break;
+			case 1:
+				document.getElementById('map24').style.display = '';
+				document.getElementById('gapikey').style.display = 'none';
 				break;
 			case 2:
 				document.getElementById('map24').style.display = 'none';
+				document.getElementById('gapikey').style.display = '';
 				break;
 			default:
 				document.getElementById('map24').style.display = '';
+				document.getElementById('gapikey').style.display = '';
 		} // switch
 	} // if
 }

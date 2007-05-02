@@ -257,7 +257,8 @@ class ELOutput {
 		$mapimage = JAdminMenus::ImageCheck( 'mapsicon.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'MAP' ), JText::_( 'MAP' ) );
 
 		//set var
-		$output = null;
+		$output 	= null;
+		$attributes = null;
 
 		//stop if disabled
 		if (!$data->map) {
@@ -279,9 +280,22 @@ class ELOutput {
 
 			case 2:
 			{
+				if($settings->gmapkey) {
 
-				$url		= 'http://maps.google.com/maps?q='.$data->street.'+'.$data->city.'+'.$data->plz.'+'.$data->country;
-				$output		= '<a class="flyer" title="'.JText::_( 'MAP' ).'" href="'.$url.'" target="_blank">'.$mapimage.'</a>';
+					$document 	= & JFactory::getDocument();
+
+					$document->addScript('components/com_eventlist/assets/js/gmapsoverlay.js');
+					$document->addScript('http://maps.google.com/maps?file=api&v=2&key='.trim($settings->gmapkey));
+  					$document->addStyleSheet('components/com_eventlist/assets/css/gmapsoverlay.css', 'text/css');
+
+					$url		= 'http://maps.google.com/maps?q='.str_replace(" ", "+", $data->street).', '.$data->plz.' '.str_replace(" ", "+", $data->city).', '.$data->country.'&venue='.$data->venue;
+					$attributes = ' rel="gmapsoverlay"';
+				} else {
+
+					$url		= 'http://maps.google.com/maps?q='.str_replace(" ", "+", $data->street).', '.$data->plz.' '.str_replace(" ", "+", $data->city).', '.$data->country;
+				}
+
+				$output		= '<a class="flyer" title="'.JText::_( 'MAP' ).'" href="'.$url.'" target="_blank"'.$attributes.'>'.$mapimage.'</a>';
 
 			} break;
 		}
