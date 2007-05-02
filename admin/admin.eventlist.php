@@ -21,7 +21,7 @@ JTable::addIncludePath(JPATH_COMPONENT.DS.'tables');
 require_once (JPATH_COMPONENT.DS.'controller.php');
 
 // Require specific controller if requested
-if($controller = JRequest::getVar('controller')) {
+if($controller = JRequest::getCmd('controller')) {
 	require_once (JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php');
 }
 
@@ -30,6 +30,6 @@ $classname  = 'EventListController'.$controller;
 $controller = new $classname( );
 
 // Perform the Request task
-$controller->execute( JRequest::getVar('task'));
+$controller->execute( JRequest::getCmd('task'));
 $controller->redirect();
 ?>
