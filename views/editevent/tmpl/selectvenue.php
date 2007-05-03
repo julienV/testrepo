@@ -45,8 +45,8 @@ defined('_JEXEC') or die('Restricted access');
 <table width="100%" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
 		<tr>
 			<td width="7" class="sectiontableheader" align="left"><?php echo JText::_( 'Num' ); ?></td>
-			<td align="left" class="sectiontableheader" align="left"><?php JCommonHTML :: tableOrdering( JText::_( 'VENUE' ), 'l.venue', $this->lists, 'selectvenue' ); ?></td>
-			<td align="left" class="sectiontableheader" align="left"><?php JCommonHTML :: tableOrdering( JText::_( 'CITY' ), 'l.city', $this->lists, 'selectvenue' ); ?></td>
+			<td align="left" class="sectiontableheader" align="left"><?php JHTML::_('grid.sort', 'VENUE', 'l.venue', $this->lists['order_Dir'], $this->lists['order'], 'selectvenue' ); ?></td>
+			<td align="left" class="sectiontableheader" align="left"><?php JHTML::_('grid.sort', 'CITY', 'l.city', $this->lists['order_Dir'], $this->lists['order'], 'selectvenue' ); ?></td>
 			<td align="left" class="sectiontableheader" align="left"><?php echo JText::_( 'COUNTRY' ); ?></td>
 		</tr>
 </table>
