@@ -134,7 +134,7 @@
 			echo $this->pane->startPanel( $title, 'date' );
 
 			//Set the info image
-			$infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', '../components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'NOTES' ), JText::_( 'NOTES' ) );
+			$infoimage = JHTML::_('image.site', 'icon-16-hint.png', '../components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'NOTES' ), JText::_( 'NOTES' ) );
 			?>
 			<table>
 				<tr>

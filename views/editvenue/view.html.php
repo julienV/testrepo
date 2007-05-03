@@ -73,7 +73,7 @@ class EventListViewEditvenue extends JView
 		$limage = ELImage::flyercreator($row->locimage, $elsettings);
 
 		//Set the info image
-		$infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'NOTES' ), JText::_( 'NOTES' ) );
+		$infoimage = JHTML::_('image.site', 'icon-16-hint.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'NOTES' ), JText::_( 'NOTES' ) );
 
 		$this->assignRef('row' , 					$row);
 		$this->assignRef('editor' , 				$editor);

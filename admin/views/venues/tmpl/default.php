@@ -87,7 +87,7 @@
 				<?php
 				$delivertime 	= JHTML::Date( $row->created, DATE_FORMAT_LC2 );
 				$edittime 		= JHTML::Date( $row->modified, DATE_FORMAT_LC2 );
-				$image 			= JAdminMenus::imageCheckAdmin( 'icon-16-info.png', '/templates/'. $this->template .'/images/menu/', NULL, NULL, 'info' );
+				$image 			= JHTML::_('image.administrator', 'icon-16-info.png', '/templates/'. $this->template .'/images/menu/', NULL, NULL, 'info' );
 				$overlib 		= JText::_( 'CREATED AT' ).': '.$delivertime.'<br />';
 				$overlib		.= JText::_( 'WITH IP' ).': '.$row->author_ip.'<br />';
 				if ($row->modified != '0000-00-00 00:00:00') {

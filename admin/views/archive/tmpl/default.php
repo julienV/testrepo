@@ -74,7 +74,7 @@
 					<?php
 					$created = JHTML::Date( $row->created, DATE_FORMAT_LC2 );
 					$edited	 = JHTML::Date( $row->modified, DATE_FORMAT_LC2 );
-					$image 		= JAdminMenus::ImageCheck( 'icon-16-info.png', '/templates/'. $this->template .'/images/menu/', NULL, NULL, 'info' );
+					$image 		= JHTML::_('image.site', 'icon-16-info.png', '/templates/'. $this->template .'/images/menu/', NULL, NULL, 'info' );
 					$overlib 	= JText::_( 'CREATED AT' ).': '.$created.'<br />';
 					$overlib	.= JText::_( 'WITH IP' ).': '.$row->author_ip.'<br />';
 					if ($row->modified != '0000-00-00 00:00:00') {

@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -26,7 +26,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<h1 class="componentheading">
 	<?php echo $this->params->get('header'); ?>
 	</h1>
-	
+
 <?php endif;
 foreach($this->categories as $category) :
 ?>
@@ -38,11 +38,11 @@ foreach($this->categories as $category) :
 	</h2>
 
 	<div class="catimg">
-	  	<?php 
+	  	<?php
 		if ($category->image != '') :
 				echo "<a href='".JRoute::_('index.php?view=categoryevents&categid='.$category->slug)."'><img src='".$this->live_site."/images/stories/".$category->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$category->catname."' /></a>";
 		else :
-			echo JAdminMenus::ImageCheck( 'noimage.png', '/components/com_eventlist/assets/images/', NULL, NULL, $category->catname );
+			echo JHTML::_('image.site', 'noimage.png', '/components/com_eventlist/assets/images/', NULL, NULL, $category->catname );
 		endif;
 		?>
 		<p>
@@ -52,7 +52,7 @@ foreach($this->categories as $category) :
 			?>
 		</p>
 	</div>
-	
+
 	<div class="catdescription"><?php echo $category->catdescription ; ?>
 		<p>
 			<?php
@@ -76,9 +76,9 @@ endforeach;
 
 
 <!--pagination-->
-		
+
 <?php if (( $this->page > 0 ) ) : ?>
-	
+
 <p class="pageslinks">
 	<?php echo $this->pageNav->getPagesLinks($this->link); ?>
 </p>
@@ -86,9 +86,9 @@ endforeach;
 <p class="pagescounter">
 	<?php echo $this->pageNav->getPagesCounter(); ?>
 </p>
-	
+
 <?php endif; ?>
-	
+
 <!--copyright-->
 
 <p class="copyright">

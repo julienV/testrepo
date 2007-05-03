@@ -89,7 +89,7 @@ class EventListViewEventList extends JView {
 				<a href="<?php echo $link; ?>">
 				<?php
 				}
-					echo JAdminMenus::ImageCheck( $image, '/components/com_eventlist/assets/images/', NULL, NULL, $text );
+					echo JHTML::_('image.site', $image, '/components/com_eventlist/assets/images/', NULL, NULL, $text );
 				?>
 					<span><?php echo $text; ?></span>
 				</a>

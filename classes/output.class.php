@@ -50,7 +50,7 @@ class ELOutput {
 			$document->addStyleSheet('includes/js/joomla/modal.css');
 
 			if ( $params->get('icons') ) {
-				$image = JAdminMenus::ImageCheck( 'submitevent.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'DELIVER NEW EVENT' ), JText::_( 'DELIVER NEW EVENT' ) );
+				$image = JHTML::_('image.site', 'submitevent.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'DELIVER NEW EVENT' ), JText::_( 'DELIVER NEW EVENT' ) );
 			} else {
 				$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'DELIVER NEW EVENT' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 			}
@@ -86,7 +86,7 @@ class ELOutput {
 				case 'archive':
 
 					if ( $params->get('icons') ) {
-						$image = JAdminMenus::ImageCheck( 'eventlist.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW EVENTS' ), JText::_( 'SHOW EVENTS' ) );
+						$image = JHTML::_('image.site', 'eventlist.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW EVENTS' ), JText::_( 'SHOW EVENTS' ) );
 					} else {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
@@ -99,7 +99,7 @@ class ELOutput {
 				case 'catarchive':
 
 					if ( $params->get('icons') ) {
-						$image = JAdminMenus::ImageCheck( 'eventlist.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW EVENTS' ), JText::_( 'SHOW EVENTS' ) );
+						$image = JHTML::_('image.site', 'eventlist.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW EVENTS' ), JText::_( 'SHOW EVENTS' ) );
 					} else {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
@@ -112,7 +112,7 @@ class ELOutput {
 				default:
 
 					if ( $params->get('icons') ) {
-						$image = JAdminMenus::ImageCheck( 'archive_front.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW ARCHIVE' ), JText::_( 'SHOW ARCHIVE' ) );
+						$image = JHTML::_('image.site', 'archive_front.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW ARCHIVE' ), JText::_( 'SHOW ARCHIVE' ) );
 					} else {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW ARCHIVE' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
@@ -155,7 +155,7 @@ class ELOutput {
 			{
 				case 'editevent':
 					if ( $params->get('icons') ) {
-						$image = JAdminMenus::ImageCheck( 'calendar_edit.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'EDIT EVENT' ), JText::_( 'EDIT EVENT' ) );
+						$image = JHTML::_('image.site', 'calendar_edit.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'EDIT EVENT' ), JText::_( 'EDIT EVENT' ) );
 					} else {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'EDIT EVENT' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
@@ -165,7 +165,7 @@ class ELOutput {
 
 				case 'editvenue':
 					if ( $params->get('icons') ) {
-						$image = JAdminMenus::ImageCheck( 'calendar_edit.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'EDIT EVENT' ), JText::_( 'EDIT EVENT' ) );
+						$image = JHTML::_('image.site', 'calendar_edit.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'EDIT EVENT' ), JText::_( 'EDIT EVENT' ) );
 					} else {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'EDIT VENUE' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
@@ -197,7 +197,7 @@ class ELOutput {
 
 		// checks template image directory for image, if non found default are loaded
 		if ( $params->get( 'icons' ) ) {
-			$text = JAdminMenus::ImageCheck( 'printButton.png', '/images/M_images/', NULL, NULL, JText::_( 'Print' ), JText::_( 'Print' ) );
+			$text = JHTML::_('image.site', 'printButton.png', '/images/M_images/', NULL, NULL, JText::_( 'Print' ), JText::_( 'Print' ) );
 		} else {
 			$text = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'Print' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 		}
@@ -234,7 +234,7 @@ class ELOutput {
 		$status = 'width=400,height=300,menubar=yes,resizable=yes';
 
 		if ($params->get('icons')) 	{
-			$text = JAdminMenus::ImageCheck('emailButton.png', '/images/M_images/', NULL, NULL, JText::_( 'Email' ), JText::_( 'Email' ));
+			$text = JHTML::_('image.site', 'emailButton.png', '/images/M_images/', NULL, NULL, JText::_( 'Email' ), JText::_( 'Email' ));
 		} else {
 			$text = '&nbsp;'.JText::_( 'Email' );
 		}
@@ -250,7 +250,7 @@ class ELOutput {
 	function mapicon($data, $settings)
 	{
 		//Link to map
-		$mapimage = JAdminMenus::ImageCheck( 'mapsicon.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'MAP' ), JText::_( 'MAP' ) );
+		$mapimage = JHTML::_('image.site', 'mapsicon.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'MAP' ), JText::_( 'MAP' ) );
 
 		//set var
 		$output 	= null;

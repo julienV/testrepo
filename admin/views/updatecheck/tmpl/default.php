@@ -1,21 +1,21 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 
-<?php		
+<?php
 if ($this->updatedata->failed == 0) {
 		?>
 		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 			<tr>
 		  		<td>
-		  		<?php 
+		  		<?php
 		  			if ($this->updatedata->current == 0 ) {
-		  				echo JAdminMenus::imageCheckAdmin( 'icon-48-checkin.png', '/templates/'. $this->template .'/images/header/', NULL, NULL); 
+		  				echo JHTML::_('image.administrator', 'icon-48-checkin.png', '/templates/'. $this->template .'/images/header/', NULL, NULL);
 		  			} elseif( $this->updatedata->current == -1 ) {
-		  				echo JAdminMenus::imageCheckAdmin( 'icon-48-help_header.png', '/templates/'. $this->template .'/images/header/', NULL, NULL); 
+		  				echo JHTML::_('image.administrator', 'icon-48-help_header.png', '/templates/'. $this->template .'/images/header/', NULL, NULL);
 		  			} else {
-		  				echo JAdminMenus::imageCheckAdmin( 'icon-48-help_header.png', '/templates/'. $this->template .'/images/header/', NULL, NULL);
+		  				echo JHTML::_('image.administrator', 'icon-48-help_header.png', '/templates/'. $this->template .'/images/header/', NULL, NULL);
 		  			}
 		  		?>
-		  		</td>  
+		  		</td>
 		  		<td>
 		  		<?php
 		  			if ($this->updatedata->current == 0) {
@@ -29,67 +29,67 @@ if ($this->updatedata->failed == 0) {
 		  		</td>
 			</tr>
 		</table>
-		
+
 		<br />
-		
+
 		<table  cellspacing="0" cellpadding="0" border="0" width="100%" class="adminlist">
 			<tr>
-		  		<td><b><?php echo JText::_( 'VERSION' ).':'; ?></b></td>  
-		  		<td><?php		
+		  		<td><b><?php echo JText::_( 'VERSION' ).':'; ?></b></td>
+		  		<td><?php
 					echo $this->updatedata->versiondetail;
 					?>
 		  		</td>
 			</tr>
 			<tr>
-		  		<td><b><?php echo JText::_( 'RELEASE DATE' ).':'; ?></b></td>  
-		  		<td><?php		
+		  		<td><b><?php echo JText::_( 'RELEASE DATE' ).':'; ?></b></td>
+		  		<td><?php
 					echo $this->updatedata->date;
 					?>
 		  		</td>
 			</tr>
 			<tr>
-		  		<td><b><?php echo JText::_( 'CHANGES' ).':'; ?></b></td>  
+		  		<td><b><?php echo JText::_( 'CHANGES' ).':'; ?></b></td>
 		  		<td><ul>
 		  			<?php
 					foreach ($this->updatedata->changes as $change) {
    						echo '<li>'.$change->data(), '</li>';
-					}	
+					}
 					?>
 					<ul>
 		  		</td>
 			</tr>
 			<tr>
-		  		<td><b><?php echo JText::_( 'INFORMATION' ).':'; ?></b></td>  
+		  		<td><b><?php echo JText::_( 'INFORMATION' ).':'; ?></b></td>
 		  		<td>
 					<a href="<?php echo $this->updatedata->info; ?>" target="_blank">Click for more information</a>
 		  		</td>
 			</tr>
 			<tr>
-		  		<td><b><?php echo JText::_( 'FILES' ).':'; ?></b></td>  
+		  		<td><b><?php echo JText::_( 'FILES' ).':'; ?></b></td>
 		  		<td>
 					<a href="<?php echo $this->updatedata->download; ?>" target="_blank">Download new release or upgradepack</a>
 		  		</td>
 			</tr>
 			<tr>
-		  		<td><b><?php echo JText::_( 'NOTES' ).':'; ?></b></td>  
+		  		<td><b><?php echo JText::_( 'NOTES' ).':'; ?></b></td>
 		  		<td><?php
 					echo $this->updatedata->notes;
 					?>
 		  		</td>
 			</tr>
 		</table>
-		
+
 <?php
 } else {
 ?>
-		
+
 		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 			<tr>
 		  		<td>
 		  		<?php
-		  			echo JAdminMenus::imageCheckAdmin( 'icon-48-help_header.png', '/templates/'. $this->template .'/images/header/', NULL, NULL); 
+		  			echo JHTML::_('image.administrator', 'icon-48-help_header.png', '/templates/'. $this->template .'/images/header/', NULL, NULL);
 		  		?>
-		  		</td>  
+		  		</td>
 		  		<td>
 		  		<?php
 		  			echo '<b><font color="red">'.JText::_( 'CONNECTION FAILED' ).'</font></b>';
@@ -97,7 +97,7 @@ if ($this->updatedata->failed == 0) {
 		  		</td>
 			</tr>
 		</table>
-<?php	
+<?php
 }
 ?>
 <br />
