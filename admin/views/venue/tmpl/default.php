@@ -258,6 +258,13 @@
 	</tr>
 </table>
 
+<?php
+if ( $this->settings->showmapserv == 0 ) { ?>
+	<input type="hidden" name="map" value="0" />
+<?php
+}
+?>
+
 	<input type="hidden" name="option" value="com_eventlist" />
 	<input type="hidden" name="controller" value="venues" />
 	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />

@@ -200,7 +200,7 @@ class EventListControllerVenues extends EventListController
 		$model = $this->getModel('venue');
 
 		if ($returnid = $model->store($post)) {
-			
+
 			switch ($task)
 			{
 				case 'apply':
@@ -212,19 +212,19 @@ class EventListControllerVenues extends EventListController
 					break;
 			}
 			$msg	= JText::_( 'VENUE SAVED');
-			
+
 		} else {
-			
+
 			//instead of a simple message we use a warning
 			$msg 	= '';
 			$link 	= 'index.php?option='.$option.'&view=venue';
-			
+
 			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
-			
+
 		}
-		
+
 		$model->checkin();
-		
+
 		$this->setRedirect( $link, $msg );
 	}
 }

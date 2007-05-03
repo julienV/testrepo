@@ -72,8 +72,8 @@ class EventListViewCategory extends JView {
 		//build selectlists
 		$Lists = array();
 		$javascript = "onchange=\"javascript:if (document.forms[0].image.options[selectedIndex].value!='') {document.imagelib.src='../images/stories/' + document.forms[0].image.options[selectedIndex].value} else {document.imagelib.src='../images/blank.png'}\"";
-		$Lists['imagelist'] 		= JAdministratorHelper::Images( 'image', $row->image, $javascript, '/images/stories/' );
-		$Lists['access'] 			= JAdministratorHelper::Access( $row );
+		$Lists['imagelist'] 		= JHTML::_('list.images', 'image', $row->image, $javascript, '/images/stories/' );
+		$Lists['access'] 			= JHTML::_('list.accesslevel', $row );
 
 
 		//build grouplist
