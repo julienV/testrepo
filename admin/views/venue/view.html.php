@@ -24,9 +24,9 @@ class EventListViewVenue extends JView {
 	{
 		global $mainframe;
 
-		// Load tooltips and pane behavior
+		// Load pane behavior
 		jimport('joomla.html.pane');
-		jimport('joomla.html.tooltips');
+		JHTML::_('behavior.tooltip');
 
 		//initialise variables
 		$editor 	= & JFactory::getEditor();

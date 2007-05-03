@@ -48,7 +48,7 @@ CREATE TABLE `#__eventlist_venues` (
 `meta_keywords` text NOT NULL,
 `meta_description` text NOT NULL,
 `locimage` text NOT NULL default '',
-`map` tinyint(1) NOT NULL default '0',
+`map` tinyint(4) NOT NULL default '0',
 `created_by` int(11) unsigned NOT NULL default '0',
 `author_ip` varchar(45) NOT NULL default '',
 `created` datetime NOT NULL,
@@ -137,7 +137,7 @@ CREATE TABLE `#__eventlist_settings` (
   `delivereventsyes` tinyint(4) NOT NULL,
   `mailinform` tinyint(4) NOT NULL,
   `mailinformrec` varchar(250) NOT NULL,
-  `mailinformrec2` varchar(250) NOT NULL,
+  `mailinformuser` tinyint(4) NOT NULL,
   `datdesclimit` varchar(45) NOT NULL,
   `autopubl` tinyint(4) NOT NULL,
   `deliverlocsyes` tinyint(4) NOT NULL,
@@ -175,4 +175,4 @@ CREATE TABLE `#__eventlist_settings` (
   UNIQUE KEY `id` (`id`)
 ) TYPE = MYISAM;
 
-INSERT INTO `jos_eventlist_settings` VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '', '100%', '15%', '25%', '20%', '20%', 'Date', 'Title', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 0, 1, 1, 1, 1, 1, 1, -2, 0, 'example@example.com', '', '1000', -2, -2, -2, 1, '20%', 'Type', 1, 1, 1, 1, '100', '100', '100', 0, 1, 0, 0, 1, 2, 2, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [catsid], [times]', '', 0, 'State', '', '1174491851');
+INSERT INTO `jos_eventlist_settings` VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '', '100%', '15%', '25%', '20%', '20%', 'Date', 'Title', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 0, 1, 1, 1, 1, 1, 1, -2, 0, 'example@example.com', 0, '1000', -2, -2, -2, 1, '20%', 'Type', 1, 1, 1, 1, '100', '100', '100', 0, 1, 0, 0, 1, 2, 2, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [catsid], [times]', '', 0, 'State', '', '1174491851');

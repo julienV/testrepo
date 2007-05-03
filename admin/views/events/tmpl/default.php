@@ -31,12 +31,12 @@
 			<tr>
 				<th width="5"><?php echo JText::_( 'Num' ); ?></th>
 				<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
-				<th class="title"><?php JHTML::element('grid_sort', 'DATE', 'a.dates', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php JHTML::element('grid_sort', 'Start', 'a.times', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php JHTML::element('grid_sort', 'EVENT TITLE', 'a.title', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php JHTML::element('grid_sort', 'VENUE', 'loc.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php JHTML::element('grid_sort', 'CITY', 'loc.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php JHTML::element('grid_sort', 'CATEGORY', 'cat.catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php JHTML::_('grid.sort', 'DATE', 'a.dates', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php JHTML::_('grid.sort', 'Start', 'a.times', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php JHTML::_('grid.sort', 'EVENT TITLE', 'a.title', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php JHTML::_('grid.sort', 'VENUE', 'loc.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php JHTML::_('grid.sort', 'CITY', 'loc.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php JHTML::_('grid.sort', 'CATEGORY', 'cat.catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			    <th width="1%" nowrap="nowrap"><?php echo JText::_( 'PUBLISHED' ); ?></th>
 				<th class="title"><?php echo JText::_( 'CREATION' ); ?></th>
 				<th width="1%" nowrap="nowrap"><?php echo JText::_( 'REGISTERED USERS' ); ?></th>
@@ -70,8 +70,8 @@
 				$catlink 		= 'index.php?option=com_eventlist&controller=categories&task=edit&cid[]='.$row->catsid;
 				$venuelink 		= 'index.php?option=com_eventlist&controller=venues&task=edit&cid[]='.$row->locid;
 
-				$checked 	= JCommonHTML::CheckedOutProcessing( $row, $i );
-				$published 	= JCommonHTML::PublishedProcessing( $row, $i );
+				$checked 	= JHTML::_('grid.checkedout', $row, $i );
+				$published 	= JHTML::_('grid.published', $row, $i );
    			?>
 			<tr class="<?php echo "row$k"; ?>">
 				<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>

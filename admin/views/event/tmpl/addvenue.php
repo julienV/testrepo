@@ -65,7 +65,7 @@ $infoimage = JAdminMenus::ImageCheck( 'icon-16-hint.png', '../components/com_eve
 		</td>
 		<td>
 			<?php
-			$html = JHTMLSelect::yesnoList( 'published', 'class="inputbox"', $this->published );
+			$html = JHTML::_('select.booleanlist', 'published', 'class="inputbox"', $this->published );
 			echo $html;
 			?>
 		</td>

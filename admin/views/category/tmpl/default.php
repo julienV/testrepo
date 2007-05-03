@@ -48,7 +48,7 @@ function submitbutton(pressbutton) {
 						</td>
 						<td>
 							<?php
-							$html = JHTMLSelect::yesnoList( 'published', 'class="inputbox"', $this->row->published );
+							$html = JHTML::_('select.booleanlist', 'published', 'class="inputbox"', $this->row->published );
 							echo $html;
 							?>
 						</td>
@@ -196,5 +196,5 @@ function submitbutton(pressbutton) {
 
 <?php
 //keep session alive while editing
-JHTML::keepAlive();
+JHTML::_('behavior.keepalive');
 ?>

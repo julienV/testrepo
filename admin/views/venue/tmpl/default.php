@@ -61,7 +61,7 @@
 			</td>
 			<td>
 				<?php
-				$html = JHTMLSelect::yesnoList( 'published', 'class="inputbox"', $this->row->published );
+				$html = JHTML::_('select.booleanlist', 'published', 'class="inputbox"', $this->row->published );
 				echo $html;
 				?>
 			</td>
@@ -174,7 +174,7 @@
 			</td>
 			<td>
 				<?php
-          			echo JHTMLSelect::yesnoList( 'map', 'class="inputbox"', $this->row->map );
+          			echo JHTML::_('select.booleanlist', 'map', 'class="inputbox"', $this->row->map );
           		?>
           		&nbsp;
           		<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('ADDRESS NOTICE'); ?>">
@@ -273,5 +273,5 @@
 
 <?php
 //keep session alive while editing
-JHTML::keepAlive();
+JHTML::_('behavior.keepalive');
 ?>

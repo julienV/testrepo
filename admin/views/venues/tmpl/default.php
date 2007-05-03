@@ -26,12 +26,12 @@
 		<tr>
 			<th width="5"><?php echo JText::_( 'Num' ); ?></th>
 			<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
-			<th align="left" class="title"><?php JHTML::element('grid_sort', 'VENUE', 'l.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th align="left" class="title"><?php JHTML::_('grid.sort', 'VENUE', 'l.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th align="left" class="title"><?php echo JText::_( 'WEBSITE' ); ?></th>
-			<th align="left" class="title"><?php JHTML::element('grid_sort', 'CITY', 'l.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th align="left" class="title"><?php JHTML::_('grid.sort', 'CITY', 'l.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="1%" nowrap="nowrap"><?php echo JText::_( 'PUBLISHED' ); ?></th>
 			<th class="title"><?php echo JText::_( 'CREATION' ); ?></th>
-		    <th width="80" colspan="2"><?php JHTML::element('grid_sort', 'REORDER', 'l.ordering', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+		    <th width="80" colspan="2"><?php JHTML::_('grid.sort', 'REORDER', 'l.ordering', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 		</tr>
 	</thead>
 
@@ -41,8 +41,8 @@
 		for ($i=0, $n=count( $this->rows ); $i < $n; $i++) {
 			$row = &$this->rows[$i];
 			$link 		= 'index.php?option=com_eventlist&controller=venues&task=edit&cid[]='. $row->id;
-			$checked 	= JCommonHTML::CheckedOutProcessing( $row, $i );
-			$published 	= JCommonHTML::PublishedProcessing( $row, $i );
+			$checked 	= JHTML::_('grid.checkedout', $row, $i );
+			$published 	= JHTML::_('grid.published', $row, $i );
    		?>
 		<tr class="<?php echo "row$k"; ?>">
 			<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>

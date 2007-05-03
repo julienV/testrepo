@@ -132,5 +132,5 @@
 
 <?php
 //keep session alive while editing
-JHTML::keepAlive();
+JHTML::_('behavior.keepalive');
 ?>

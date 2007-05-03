@@ -49,7 +49,7 @@ class EventListViewVenueelement extends JView {
 		$pageNav 	= & $this->get( 'Pagination' );
 
 		//publish unpublished filter
-		$lists['state']	= JCommonHTML::selectState( $filter_state );
+		$lists['state']	= JHTML::_('grid.state', $filter_state );
 
 		// table ordering
 		$lists['order_Dir'] = $filter_order_Dir;
@@ -57,9 +57,9 @@ class EventListViewVenueelement extends JView {
 
 		//Build search filter
 		$filters = array();
-		$filters[] = JHTMLSelect::option( '1', JText::_( 'VENUE' ) );
-		$filters[] = JHTMLSelect::option( '2', JText::_( 'CITY' ) );
-		$lists['filter'] = JHTMLSelect::genericList( $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
+		$filters[] = JHTML::_('select.option', '1', JText::_( 'VENUE' ) );
+		$filters[] = JHTML::_('select.option', '2', JText::_( 'CITY' ) );
+		$lists['filter'] = JHTML::_('select.genericlist', $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
 
 		// search filter
 		$lists['search']= $search;

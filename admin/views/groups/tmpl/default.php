@@ -25,7 +25,7 @@
 		<tr>
 			<th width="5"><?php echo JText::_( 'Num' ); ?></th>
 			<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
-			<th width="20%" class="title"><?php JHTML::element('grid_sort', 'GROUP NAME', 'name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th width="20%" class="title"><?php JHTML::_('grid.sort', 'GROUP NAME', 'name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th class="title"><?php echo JText::_( 'DESCRIPTION' ); ?></th>
 		</tr>
 	</thead>
@@ -37,7 +37,7 @@
 			$row = &$this->rows[$i];
 
 			$link 		= 'index.php?option=com_eventlist&controller=groups&task=edit&cid[]='.$row->id;
-			$checked 	= JCommonHTML::CheckedOutProcessing( $row, $i );
+			$checked 	= JHTML::_('grid.checkedout', $row, $i );
    		?>
 		<tr class="<?php echo "row$k"; ?>">
 			<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>

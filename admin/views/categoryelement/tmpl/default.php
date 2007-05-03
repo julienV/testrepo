@@ -18,7 +18,7 @@
 	<thead>
 		<tr>
 			<th width="7"><?php echo JText::_( 'Num' ); ?></th>
-			<th align="left" class="title"><?php JHTML::element('grid_sort', 'CATEGORY', 'catname', $this->lists['order_Dir'], $this->lists['order'], 'categoryelement' ); ?></th>
+			<th align="left" class="title"><?php JHTML::_('grid.sort', 'CATEGORY', 'catname', $this->lists['order_Dir'], $this->lists['order'], 'categoryelement' ); ?></th>
 			<th width="1%" nowrap="nowrap"><?php echo JText::_( 'ACCESS' ); ?></th>
 			<th width="1%" nowrap="nowrap"><?php echo JText::_( 'PUBLISHED' ); ?></th>
 		</tr>

@@ -24,9 +24,6 @@ class EventListViewVenues extends JView {
 	{
 		global $mainframe, $option;
 
-		// Load tooltips behavior
-		jimport('joomla.html.tooltips');
-
 		//initialise variables
 		$user 		= & JFactory::getUser();
 		$db 		= & JFactory::getDBO();
@@ -48,6 +45,8 @@ class EventListViewVenues extends JView {
 		$document->setBuffer($submenu, 'module', 'submenu');
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
+		JHTML::_('behavior.tooltip');
+
 		//create the toolbar
 		JToolBarHelper::title( JText::_( 'VENUES' ), 'venues' );
 		JToolBarHelper::publishList();
@@ -68,12 +67,12 @@ class EventListViewVenues extends JView {
 		$pageNav 	= & $this->get( 'Pagination' );
 
 		//publish unpublished filter
-		$lists['state']	= JCommonHTML::selectState( $filter_state );
+		$lists['state']	= JHTML::_('grid.state', $filter_state );
 
 		$filters = array();
-		$filters[] = JHTMLSelect::option( '1', JText::_( 'VENUE' ) );
-		$filters[] = JHTMLSelect::option( '2', JText::_( 'CITY' ) );
-		$lists['filter'] = JHTMLSelect::genericList( $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
+		$filters[] = JHTML::_('select.option', '1', JText::_( 'VENUE' ) );
+		$filters[] = JHTML::_('select.option', '2', JText::_( 'CITY' ) );
+		$lists['filter'] = JHTML::_('select.genericlist', $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
 
 		// search filter
 		$lists['search']= $search;

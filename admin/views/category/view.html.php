@@ -78,10 +78,10 @@ class EventListViewCategory extends JView {
 
 		//build grouplist
 		$grouplist		= array();
-		$grouplist[] 	= JHTMLSelect::option( '0', JText::_( 'NO GROUP' ) );
+		$grouplist[] 	= JHTML::_('select.option', '0', JText::_( 'NO GROUP' ) );
 		$grouplist 		= array_merge( $grouplist, $groups );
 
-		$Lists['groups']	= JHTMLSelect::genericList( $grouplist, 'groupid', 'size="1" class="inputbox"', 'value', 'text', $row->groupid );
+		$Lists['groups']	= JHTML::_('select.genericlist', $grouplist, 'groupid', 'size="1" class="inputbox"', 'value', 'text', $row->groupid );
 
 		//assign data to template
 		$this->assignRef('Lists'      	, $Lists);

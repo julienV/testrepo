@@ -43,6 +43,8 @@ class EventListViewGroups extends JView {
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 		$document->setBuffer($submenu, 'module', 'submenu');
 
+		JHTML::_('behavior.tooltip');
+
 		// Get data from the model
 		$rows      	= & $this->get( 'Data');
 		$total      = & $this->get( 'Total');

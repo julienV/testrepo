@@ -29,12 +29,12 @@
 			<tr>
 				<th width="5"><?php echo JText::_( 'Num' ); ?></th>
 				<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
-				<th align="left" class="title"><?php JHTML::element('grid_sort', 'CATEGORY', 'catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th align="left" class="title"><?php JHTML::_('grid.sort', 'CATEGORY', 'catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<th width="1%" nowrap="nowrap"><?php echo JText::_( 'PUBLISHED' ); ?></th>
-				<th align="left" class="title"><?php JHTML::element('grid_sort', 'ACCESS', 'c.access', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-			    <th align="left" class="title"><?php JHTML::element('grid_sort', 'GROUP', 'gr.name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th width="80"><?php JHTML::element('grid_sort', 'REORDER', 'c.ordering', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-			    <th width="1%"><?php JCommonHTML::saveorderButton( $this->rows, 'filesave.png', 'saveordercat' ); ?></th>
+				<th align="left" class="title"><?php JHTML::_('grid.sort', 'ACCESS', 'c.access', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			    <th align="left" class="title"><?php JHTML::_('grid.sort', 'GROUP', 'gr.name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th width="80"><?php JHTML::_('grid.sort', 'REORDER', 'c.ordering', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			    <th width="1%"><?php JHTML::_('grid.order', $this->rows, 'filesave.png', 'saveordercat' ); ?></th>
 			</tr>
 			</thead>
 
@@ -46,9 +46,9 @@
 
 				$link 		= 'index.php?option=com_eventlist&controller=categories&task=edit&cid[]='. $row->id;
 				$grouplink 	= 'index.php?option=com_eventlist&controller=groups&task=editgroup&cid[]='. $row->groupid;
-				$published 	= JCommonHTML::PublishedProcessing( $row, $i );
-				$access 	= JCommonHTML::AccessProcessing( $row, $i );
-				$checked 	= JCommonHTML::CheckedOutProcessing( $row, $i );
+				$published 	= JHTML::_('grid.published', $row, $i );
+				$access 	= JHTML::_('grid.access', $row, $i );
+				$checked 	= JHTML::_('grid.checkedout', $row, $i );
    			?>
 			<tr class="<?php echo "row$k"; ?>">
 				<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>

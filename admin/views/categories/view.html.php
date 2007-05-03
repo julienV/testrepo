@@ -62,7 +62,7 @@ class EventListViewCategories extends JView {
 		$pageNav 	= & $this->get( 'Pagination' );
 
 		//publish unpublished filter
-		$lists['state']	= JCommonHTML::selectState( $filter_state );
+		$lists['state']	= JHTML::_('grid.state', $filter_state );
 		// search filter
 		$lists['search']= $search;
 

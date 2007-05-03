@@ -59,9 +59,9 @@ class EventListViewAttendees extends JView {
 
 		//build filter selectlist
 		$filters = array();
-		$filters[] = JHTMLSelect::option( '1', JText::_( 'NAME' ) );
-		$filters[] = JHTMLSelect::option( '2', JText::_( 'USERNAME' ) );
-		$lists['filter'] = JHTMLSelect::genericList( $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
+		$filters[] = JHTML::_('select.option', '1', JText::_( 'NAME' ) );
+		$filters[] = JHTML::_('select.option', '2', JText::_( 'USERNAME' ) );
+		$lists['filter'] = JHTML::_('select.genericlist', $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
 
 		// search filter
 		$lists['search']= $search;

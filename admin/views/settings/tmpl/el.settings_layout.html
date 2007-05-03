@@ -13,7 +13,7 @@
 						</td>
        					<td valign="top">
 							<?php
-          						echo JHTMLSelect::yesnoList( 'showtime', 'class="inputbox"', $this->elsettings->showtime );
+          						echo JHTML::_('select.booleanlist', 'showtime', 'class="inputbox"', $this->elsettings->showtime );
 							?>
 						</td>
       				</tr>
@@ -57,7 +57,7 @@
 				</tbody>
 				</table>
 			</fieldset>
-			  
+
 			<fieldset class="adminform">
 			<legend><?php echo JText::_( 'CITY COLUMN' ); ?></legend>
 				<table class="admintable" cellspacing="1">
@@ -102,7 +102,7 @@
 				</tbody>
 				</table>
 			</fieldset>
-			  
+
 			<fieldset class="adminform">
 			<legend><?php echo JText::_( 'TITLE COLUMN' ); ?></legend>
 				<table class="admintable" cellspacing="1">
@@ -148,9 +148,9 @@
 				</table>
 			</fieldset>
 		</td>
-		
-		
-        <td width="50%">			  
+
+
+        <td width="50%">
 			<fieldset class="adminform">
 			<legend><?php echo JText::_( 'VENUE COLUMN' ); ?></legend>
 				<table class="admintable" cellspacing="1">
@@ -200,14 +200,14 @@
 						</td>
        					<td valign="top">
 							<?php
-          					echo JHTMLSelect::yesnoList( 'showlinkvenue', 'class="inputbox"', $this->elsettings->showlinkvenue );
+          					echo JHTML::_('select.booleanlist', 'showlinkvenue', 'class="inputbox"', $this->elsettings->showlinkvenue );
         					?>
        	 				</td>
       				</tr>
 				</tbody>
 				</table>
 			</fieldset>
-			
+
 			<fieldset class="adminform">
 			<legend><?php echo JText::_( 'STATE COLUMN' ); ?></legend>
 				<table class="admintable" cellspacing="1">
@@ -252,7 +252,7 @@
 				</tbody>
 				</table>
 			</fieldset>
-			
+
 			<fieldset class="adminform">
 			<legend><?php echo JText::_( 'CATEGORY COLUMN'); ?></legend>
 				<table class="admintable" cellspacing="1">
@@ -302,7 +302,7 @@
 						</td>
        					<td valign="top">
 							<?php
-        						echo JHTMLSelect::yesnoList( 'catlinklist', 'class="inputbox"', $this->elsettings->catlinklist );
+        						echo JHTML::_('select.booleanlist', 'catlinklist', 'class="inputbox"', $this->elsettings->catlinklist );
         					?>
        	 				</td>
       				</tr>

@@ -13,7 +13,7 @@
 						</td>
        					<td valign="top">
 		 					<?php
-          						echo JHTMLSelect::yesnoList( 'showlocdescription', 'class="inputbox"', $this->elsettings->showlocdescription );
+          						echo JHTML::_('select.booleanlist', 'showlocdescription', 'class="inputbox"', $this->elsettings->showlocdescription );
        						?>
        	 				</td>
       				</tr>
@@ -25,7 +25,7 @@
 						</td>
        					<td valign="top">
 		 					<?php
-          						echo JHTMLSelect::yesnoList( 'showdetailsadress', 'class="inputbox"', $this->elsettings->showdetailsadress );
+          						echo JHTML::_('select.booleanlist', 'showdetailsadress', 'class="inputbox"', $this->elsettings->showdetailsadress );
        						?>
        	 				</td>
       				</tr>
@@ -38,10 +38,10 @@
        					<td valign="top">
 		 					<?php
           					$showlink = array();
-							$showlink[] = JHTMLSelect::option( '0', JText::_( 'NO LINK' ) );
-							$showlink[] = JHTMLSelect::option( '1', JText::_( 'LINK TO URL' ) );
-							$showlink[] = JHTMLSelect::option( '2', JText::_( 'LINK TO VENUEVIEW' ) );
-							$show = JHTMLSelect::genericList( $showlink, 'showdetlinkvenue', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->showdetlinkvenue );
+							$showlink[] = JHTML::_('select.option', '0', JText::_( 'NO LINK' ) );
+							$showlink[] = JHTML::_('select.option', '1', JText::_( 'LINK TO URL' ) );
+							$showlink[] = JHTML::_('select.option', '2', JText::_( 'LINK TO VENUEVIEW' ) );
+							$show = JHTML::_('select.genericlist', $showlink, 'showdetlinkvenue', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->showdetlinkvenue );
 							echo $show;
           					?>
        	 				</td>
@@ -109,7 +109,7 @@
 						</td>
        					<td valign="top">
 							<?php
-          						echo JHTMLSelect::yesnoList( 'showtimedetails', 'class="inputbox"', $this->elsettings->showtimedetails );
+          						echo JHTML::_('select.booleanlist', 'showtimedetails', 'class="inputbox"', $this->elsettings->showtimedetails );
        						?>
        	 				</td>
       				</tr>
@@ -121,7 +121,7 @@
 						</td>
        					<td valign="top">
 		 					<?php
-          						echo JHTMLSelect::yesnoList( 'showevdescription', 'class="inputbox"', $this->elsettings->showevdescription );
+          						echo JHTML::_('select.booleanlist', 'showevdescription', 'class="inputbox"', $this->elsettings->showevdescription );
        						?>
        	 				</td>
       				</tr>
@@ -133,7 +133,7 @@
 						</td>
        					<td valign="top">
 		 					<?php
-          						echo JHTMLSelect::yesnoList( 'showdetailstitle', 'class="inputbox"', $this->elsettings->showdetailstitle );
+          						echo JHTML::_('select.booleanlist', 'showdetailstitle', 'class="inputbox"', $this->elsettings->showdetailstitle );
        						?>
        	 				</td>
       				</tr>
@@ -173,10 +173,10 @@
        					<td valign="top">
        						<?php
 		   					$comoption = array();
-							$comoption[] = JHTMLSelect::option( '0', JText::_( 'DISABLED' ) );
-							$comoption[] = JHTMLSelect::option( '1', JText::_( 'LINK PROFILE' ) );
-							$comoption[] = JHTMLSelect::option( '2', JText::_( 'LINK AVATAR' ) );
-							$comoptions = JHTMLSelect::genericList( $comoption, 'comunoption', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->comunoption );
+							$comoption[] = JHTML::_('select.option', '0', JText::_( 'DISABLED' ) );
+							$comoption[] = JHTML::_('select.option', '1', JText::_( 'LINK PROFILE' ) );
+							$comoption[] = JHTML::_('select.option', '2', JText::_( 'LINK AVATAR' ) );
+							$comoptions = JHTML::_('select.genericlist', $comoption, 'comunoption', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->comunoption );
 							echo $comoptions;
         					?>
        	 				</td>

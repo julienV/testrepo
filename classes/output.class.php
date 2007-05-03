@@ -42,9 +42,7 @@ class ELOutput {
 	function submitbutton( $dellink, &$params, $view )
 	{
 		$document =& JFactory::getDocument();
-
-		// Load tooltips behavior
-		jimport('joomla.html.tooltips');
+		JHTML::_('behavior.tooltip');
 
 		if ($dellink == 1) {
 
@@ -80,10 +78,9 @@ class ELOutput {
 	*/
 	function archivebutton( $oldevent, &$params, $task = NULL, $categid = NULL )
 	{
-		if ( $oldevent == 2 ) {
+		JHTML::_('behavior.tooltip');
 
-			// Load tooltips behavior
-			jimport('joomla.html.tooltips');
+		if ( $oldevent == 2 ) {
 
 			switch ($task) {
 				case 'archive':
@@ -147,8 +144,7 @@ class ELOutput {
 	{
 
 		$document =& JFactory::getDocument();
-		// Load tooltips behavior
-		jimport('joomla.html.tooltips');
+		JHTML::_('behavior.tooltip');
 
 		if ( $allowedtoedit ) {
 

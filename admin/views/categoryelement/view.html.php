@@ -48,7 +48,7 @@ class EventListViewCategoryelement extends JView {
 		$pageNav 	= & $this->get( 'Pagination' );
 
 		//publish unpublished filter
-		$lists['state']	= JCommonHTML::selectState( $filter_state );
+		$lists['state']	= JHTML::_('grid.state', $filter_state );
 
 		// table ordering
 		$lists['order_Dir'] = $filter_order_Dir;

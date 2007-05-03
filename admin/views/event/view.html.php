@@ -29,9 +29,10 @@ class EventListViewEvent extends JView {
 			return;
 		}
 
-		//Load tooltips and pane behavior
+		//Load behavior
 		jimport('joomla.html.pane');
-		jimport('joomla.html.tooltips');
+		JHTML::_('behavior.tooltip');
+		JHTML::_('behavior.calendar');
 
 		//initialise variables
 		$editor 	= & JFactory::getEditor();
@@ -39,9 +40,6 @@ class EventListViewEvent extends JView {
 		$pane 		= & JPane::getInstance('sliders');
 		$uri 		= & JFactory::getURI();
 		$elsettings = ELAdmin::config();
-
-		//load calendar library
-		JCommonHTML::loadCalendar();
 
 		//get vars
 		$cid		= JRequest::getVar( 'cid' );
@@ -81,11 +79,11 @@ class EventListViewEvent extends JView {
 		$categories = & $this->get( 'Categories');
 
 		$catlist 	= array();
-		$catlist[] 	= JHTMLSelect::option( '0', JText::_( 'SELECT CATEGORY' ) );
+		$catlist[] 	= JHTML::_('select.option', '0', JText::_( 'SELECT CATEGORY' ) );
 		$catlist 	= array_merge( $catlist, $categories );
 
 		$Lists = array();
-		$Lists['category'] = JHTMLSelect::genericList( $catlist, 'catsid', 'size="1" class="inputbox"', 'value', 'text', $row->catsid );
+		$Lists['category'] = JHTML::_('select.genericlist', $catlist, 'catsid', 'size="1" class="inputbox"', 'value', 'text', $row->catsid );
 
 		//build venue select js and load the view
 		$js = "

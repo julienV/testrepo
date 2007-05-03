@@ -170,7 +170,7 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 			<td>
 				<?php
-					$html = JHTMLSelect::genericList( $this->categories, 'catsid','size="1" class="inputbox"', 'value', 'text', $this->row->catsid );
+					$html = JHTML::_('select.genericlist', $this->categories, 'catsid','size="1" class="inputbox"', 'value', 'text', $this->row->catsid );
 					echo $html;
 				?>
 			</td>
@@ -252,7 +252,7 @@ defined('_JEXEC') or die('Restricted access');
 			<td><?php echo JText::_( 'SUBMIT REGISTER' ).':'; ?></td>
 			<td>
 				<?php
-			  	$html = JHTMLSelect::yesnoList( 'registra', 'class="inputbox"', $this->row->registra );
+			  	$html = JHTML::_('select.booleanlist', 'registra', 'class="inputbox"', $this->row->registra );
 				echo $html;
 				?>
 			</td>
@@ -266,7 +266,7 @@ defined('_JEXEC') or die('Restricted access');
 			<td><?php echo JText::_( 'SUBMIT UNREGISTER' ).':'; ?></td>
 			<td>
 			<?php
-			$html = JHTMLSelect::yesnoList( 'unregistra', 'class="inputbox"', $this->row->unregistra );
+			$html = JHTML::_('select.booleanlist', 'unregistra', 'class="inputbox"', $this->row->unregistra );
 			echo $html;
 			?>
 			</td>
@@ -355,7 +355,7 @@ defined('_JEXEC') or die('Restricted access');
 
 	<?php
 	//keep session alive while editing
-	JHTML::keepAlive();
+	JHTML::_('behavior.keepalive');
 	?>
 
 <p class="copyright">

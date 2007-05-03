@@ -49,15 +49,12 @@ class EventListViewEditevent extends JView
 		$id					= JRequest::getVar('id', 0, '', 'int');
 		$returnview			= JRequest::getVar('returnview', '', '', 'string');
 
-		//Add the Calendar includes to the document <head> section
-		JCommonHTML::loadCalendar();
-
-		//Load tooltips behavior
-		jimport('joomla.html.tooltips');
-
 		//Clean output
 		jimport('joomla.filter.output');
 		JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'datdescription' );
+
+		JHTML::_('behavior.tooltip');
+		JHTML::_('behavior.calendar');
 
 		//add css file
 		$doc->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
@@ -170,9 +167,9 @@ class EventListViewEditevent extends JView
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
 
 		$filters = array();
-		$filters[] = JHTMLSelect::option( '1', JText::_( 'VENUE' ) );
-		$filters[] = JHTMLSelect::option( '2', JText::_( 'CITY' ) );
-		$searchfilter = JHTMLSelect::genericList( $filters, 'filter_type', 'size="1" class="inputbox"', 'value', 'text', $filter_type );
+		$filters[] = JHTML::_('select.option', '1', JText::_( 'VENUE' ) );
+		$filters[] = JHTML::_('select.option', '2', JText::_( 'CITY' ) );
+		$searchfilter = JHTML::_('select.genericlist', $filters, 'filter_type', 'size="1" class="inputbox"', 'value', 'text', $filter_type );
 
 		$this->assignRef('rows' , 				$rows);
 		$this->assignRef('searchfilter' , 		$searchfilter);

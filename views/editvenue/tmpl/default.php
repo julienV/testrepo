@@ -230,7 +230,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	<?php
 	//keep session alive while editing
-	JHTML::keepAlive();
+	JHTML::_('behavior.keepalive');
 	?>
 
 <p class="copyright">

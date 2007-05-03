@@ -42,11 +42,10 @@ class EventListViewEditvenue extends JView
 		//Get Data from the model
 		$row 		= $this->Get('Venue');
 
-		// Load tooltips behavior
-		jimport('joomla.html.tooltips');
-
 		jimport('joomla.filter.output');
 		JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'locdescription' );
+
+		JHTML::_('behavior.tooltip');
 
 		//add css file
 		$doc->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');

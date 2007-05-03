@@ -14,9 +14,9 @@
        					<td valign="top">
         					<?php
 		  						$showdets = array();
-								$showdets[] = JHTMLSelect::option( '0', JText::_( 'DETAILS OFF' ) );
-								$showdets[] = JHTMLSelect::option( '1', JText::_( 'LINK ON TITLE' ) );
-								$showdet = JHTMLSelect::genericList( $showdets, 'showdetails', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->showdetails );
+								$showdets[] = JHTML::_('select.option', '0', JText::_( 'DETAILS OFF' ) );
+								$showdets[] = JHTML::_('select.option', '1', JText::_( 'LINK ON TITLE' ) );
+								$showdet = JHTML::_('select.genericlist', $showdets, 'showdetails', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->showdetails );
 								echo $showdet;
         					?>
        	 				</td>
@@ -248,7 +248,7 @@
 						</td>
        					<td valign="top">
          					<?php
-							$html = JHTMLSelect::yesnoList( 'lightbox', 'class="inputbox"', $this->elsettings->lightbox );
+							$html = JHTML::_('select.booleanlist', 'lightbox', 'class="inputbox"', $this->elsettings->lightbox );
 							echo $html;
 							?>
        	 				</td>
