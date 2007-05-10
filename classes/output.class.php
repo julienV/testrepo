@@ -71,10 +71,10 @@ class ELOutput {
 	* @author Christoph Lukes
 	* @since 0.9
 	*
-	* @param int $Itemid The Itemid of the Component
 	* @param int $oldevent Archive used or not
 	* @param array $params needed params
 	* @param string $task The current task
+	* @param int $categid The cat id
 	*/
 	function archivebutton( $oldevent, &$params, $task = NULL, $categid = NULL )
 	{
@@ -227,7 +227,6 @@ class ELOutput {
 	 * @param int $pop
 	 * @since 0.9
 	 */
-
 	function mailbutton($params)
 	{
 		$url 	= 'index.php?option=com_mailto&tmpl=component&link='.base64_encode( JRequest::getURI());
@@ -247,6 +246,14 @@ class ELOutput {
 		return $output;
 	}
 
+	/**
+	 * Creates the map button
+	 *
+	 * @param obj $data
+	 * @param obj $settings
+	 *
+	 * @since 0.9
+	 */
 	function mapicon($data, $settings)
 	{
 		//Link to map
@@ -299,6 +306,16 @@ class ELOutput {
 		return $output;
 	}
 
+	/**
+	 * Creates the flyer
+	 *
+	 * @param obj $data
+	 * @param obj $settings
+	 * @param array $image
+	 * @param string $type
+	 *
+	 * @since 0.9
+	 */
 	function flyer( $data, $settings, $image, $type = 'venue' )
 	{
 
@@ -350,6 +367,13 @@ class ELOutput {
 		return $output;
 	}
 
+	/**
+	 * Creates the country flag
+	 *
+	 * @param string $country
+	 *
+	 * @since 0.9
+	 */
 	function getFlag($country)
 	{
         $country = JString::strtolower($country);

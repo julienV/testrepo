@@ -160,6 +160,11 @@ class ELUser {
     	return $owner;
 	}
 
+	/**
+	 * Checks if the user is a maintainer of a category
+	 *
+	 * @since 0.9
+	 */
 	function ismaintainer()
 	{
 		//lets look if the user is a maintainer
@@ -173,6 +178,11 @@ class ELUser {
 		$db->setQuery( $query );
 
 		$catids = $db->loadResultArray();
+
+		//no results, no maintainer
+		if (!$catids) {
+			return null;
+		}
 
 		$categories = implode(' OR c.groupid = ', $catids);
 

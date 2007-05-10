@@ -12,7 +12,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 /**
 * cleanup
 * taken from PHP documentation comments
-* 
+*
 * @author Lybegard Karl-Olof
 * @since 0.9
 */
@@ -62,13 +62,15 @@ function quoted_printable_encode($input) {
 /**
 * offers the vcal/ical functonality
 *
+* @package Joomla
+* @subpackage EventList
 * @author Lybegard Karl-Olof
 * @since 0.9
 */
 class vCal {
 
 	var $properties;
-	
+
 	var $filename;
 
 	function setTimeZone($timezone) {
