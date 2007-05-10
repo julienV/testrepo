@@ -171,6 +171,19 @@ class ELUser {
 				. ' WHERE g.member = '.$user->get('id')
 				;
 		$db->setQuery( $query );
+
+		$catids = $db->loadResultArray();
+
+		$categories = implode(' OR c.groupid = ', $catids);
+
+		//count the maintained categories
+		$query = 'SELECT COUNT(id)'
+				. ' FROM #__eventlist_categories'
+				. ' WHERE published = 1'
+				. ' AND groupid = '.$categories
+				;
+		$db->setQuery( $query );
+
 		$maintainer = $db->loadResult();
 
 		return $maintainer;

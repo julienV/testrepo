@@ -45,7 +45,7 @@
 				$row = $this->rows[$i];
 
 				$link 		= 'index.php?option=com_eventlist&controller=categories&task=edit&cid[]='. $row->id;
-				$grouplink 	= 'index.php?option=com_eventlist&controller=groups&task=editgroup&cid[]='. $row->groupid;
+				$grouplink 	= 'index.php?option=com_eventlist&controller=groups&task=edit&cid[]='. $row->groupid;
 				$published 	= JHTML::_('grid.published', $row, $i );
 				$access 	= JHTML::_('grid.access', $row, $i );
 				$checked 	= JHTML::_('grid.checkedout', $row, $i );

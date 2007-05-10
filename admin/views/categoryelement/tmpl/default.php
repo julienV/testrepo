@@ -29,7 +29,6 @@
 		for ($i=0, $n=count($this->rows); $i < $n; $i++) {
 			$row = $this->rows[$i];
 
-			//TODO: translate
 			if (!$row->access) {
 				$access = 'Public';
 			} else if ($row->access == 1) {

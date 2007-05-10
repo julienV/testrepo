@@ -74,7 +74,6 @@ class EventListModelEditvenue extends JModel
 			$this->_loadVenue();
 
 			/*
-			* TODO Lang strings
 			* Error if allready checked out
 			*/
 			if ($this->_venue->isCheckedOut( $user->get('id') )) {
