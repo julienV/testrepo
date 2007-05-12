@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -12,15 +12,15 @@ defined('_JEXEC') or die('Restricted access');
 /**
  * EventList groups Model class
  *
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @since 0.9
  */
-class eventlist_groups extends JTable 
+class eventlist_groups extends JTable
 {
 	/**
 	 * Primary Key
-	 * @var int 
+	 * @var int
 	 */
 	var $id 				= null;
 	/** @var int */
@@ -35,15 +35,16 @@ class eventlist_groups extends JTable
 	function eventlist_groups(& $db) {
 		parent::__construct('#__eventlist_groups', 'id', $db);
 	}
-	
+
 	// overloaded check function
 	function check()
 	{
 		global $mainframe;
-		
+
 		// Not typed in a category name?
 		if (trim( $this->name ) == '') {
 			$this->_error = JText::_( 'ADD GROUP NAME' );
+			JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
 			return false;
 		}
 

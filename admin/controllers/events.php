@@ -22,7 +22,7 @@ class EventListControllerEvents extends EventListController
 {
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @since 0.9
 	 */
 	function __construct()
@@ -36,7 +36,7 @@ class EventListControllerEvents extends EventListController
 
 	/**
 	 * Logic to publish events
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 * @since 0.9
@@ -62,7 +62,7 @@ class EventListControllerEvents extends EventListController
 
 	/**
 	 * Logic to unpublish events
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 * @since 0.9
@@ -88,7 +88,7 @@ class EventListControllerEvents extends EventListController
 
 	/**
 	 * Logic to archive events
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 * @since 0.9
@@ -114,7 +114,7 @@ class EventListControllerEvents extends EventListController
 
 	/**
 	 * logic for cancel an action
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 * @since 0.9
@@ -132,7 +132,7 @@ class EventListControllerEvents extends EventListController
 
 	/**
 	 * logic to create the new event screen
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 * @since 0.9
@@ -146,7 +146,7 @@ class EventListControllerEvents extends EventListController
 
 	/**
 	 * logic to create the edit event screen
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 * @since 0.9
@@ -157,19 +157,19 @@ class EventListControllerEvents extends EventListController
 
 		$cid 	= JRequest::getVar( 'cid', array(0), '', 'array' );
 		$id		= $cid[0];
-		
+
 		JRequest::setVar( 'view', 'event' );
 		JRequest::setVar( 'hidemainmenu', 1 );
-			
+
 		$model = $this->getModel('event');
-		
+
 		/* Error if checkedout by another administrator
 		if ($model->isCheckedOut( $user->get('id') )) {
 			$this->setRedirect( 'index.php?option='.$option.'&task=categories', JText::_( 'THE CATEGORY' ).' '.$row->catname.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ) );
 		}
-		
+
 		*/
-		
+
 		$task 	= JRequest::getVar( 'task' );
 
 		if ($task == 'copy') {
@@ -177,12 +177,12 @@ class EventListControllerEvents extends EventListController
 		} else {
 			$model->checkout();
 		}
-		parent::display();	
+		parent::display();
 	}
 
 	/**
 	 * logic to save an event
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 * @since 0.9
@@ -197,38 +197,36 @@ class EventListControllerEvents extends EventListController
 		$post['datdescription'] = JRequest::getVar( 'datdescription', '', 'post','string', JREQUEST_ALLOWRAW );
 
 		$model = $this->getModel('event');
-		
+
 		if ($returnid = $model->store($post)) {
-			
+
 			switch ($task)
 			{
 				case 'apply' :
 					$link = 'index.php?option='.$option.'&controller=events&view=event&hidemainmenu=1&cid[]='.$returnid;
 					break;
-				
+
 				default :
 					$link = 'index.php?option='.$option.'&view=events';
 					break;
 			}
 			$msg	= JText::_( 'EVENT SAVED');
-			
+
 		} else {
-			
-			//instead of a simple message we use a warning
+
 			$msg 	= '';
 			$link = 'index.php?option='.$option.'&view=events';
-			
-			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
+
 		}
 
 		$model->checkin();
-		
+
 		$this->setRedirect( $link, $msg );
  	}
 
 	/**
 	 * logic to remove an event
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 * @since 0.9
