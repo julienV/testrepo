@@ -69,10 +69,10 @@ class EventListController extends JController
 			$row->load($id);
 			$row->checkin();
 
-			$this->setRedirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view=details&did='.$id );
+			$this->setRedirect( JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid ) );
 
 		} else {
-			$this->setRedirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$view );
+			$this->setRedirect( JRoute::_('index.php?view='.$view.'&Itemid='.$Itemid ) );
 		}
 	}
 
@@ -103,12 +103,12 @@ class EventListController extends JController
 			$row->load($id);
 			$row->checkin();
 
-			$this->setRedirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view=venueevents&locatid='.$id);
+			$this->setRedirect( JRoute::_('index.php?view=venueevents&locatid='.$id.'&Itemid='.$Itemid) );
 
 		} else {
 		//	$view != '' ? $target = '&view='.$view : $target = '';
-			$this->setRedirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view='.$view );
-		//	$this->setRedirect( 'index.php?option=com_eventlist'.$target );
+			$this->setRedirect( JRoute::_('index.php?view='.$view.'&Itemid='.$Itemid) );
+		//	$this->setRedirect( JRoute::_('index.php?'.$target) );
 		}
 	}
 
