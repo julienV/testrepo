@@ -258,7 +258,7 @@ class EventListController extends JController
 	function selectvenue( )
 	{
 		//TODO: Implement Access check
-		JRequest::setVar( 'view', 'editevent' );
+		//JRequest::setVar( 'view', 'editevent' );
 		JRequest::setVar( 'layout', 'selectvenue'  );
 
 		parent::display();

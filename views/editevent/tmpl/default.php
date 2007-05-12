@@ -92,7 +92,7 @@ defined('_JEXEC') or die('Restricted access');
 		// JavaScript for extracting editor text
 		echo $this->editor->save( 'datdescription' );
 		?>
-					submitform(pressbutton);
+				submitform(pressbutton);
 		}
 
 
