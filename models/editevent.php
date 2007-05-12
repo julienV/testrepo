@@ -188,32 +188,45 @@ class EventListModelEditevent extends JModel
 		$user		= & JFactory::getUser();
 		$elsettings = ELHelper::config();
 		$userid		= (int) $user->get('id');
+		$gid		= (int) $user->get('aid');
+		$superuser	= ELUser::superuser();
 
-		//get the ids of the categories the user maintaines
-		$query = 'SELECT g.group_id'
-				. ' FROM #__eventlist_groupmembers AS g'
-				. ' WHERE g.member = '.$userid
-				;
-		$this->_db->setQuery( $query );
-		$catids = $this->_db->loadResultArray();
+		$where = ' WHERE c.published = 1 AND c.access <= '.$gid;
 
-		$categories = implode(' OR c.groupid = ', $catids);
+		//only check for maintainers if we don't have an edit action
+		if(!$this->_id) {
+			//get the ids of the categories the user maintaines
+			$query = 'SELECT g.group_id'
+					. ' FROM #__eventlist_groupmembers AS g'
+					. ' WHERE g.member = '.$userid
+					;
+			$this->_db->setQuery( $query );
+			$catids = $this->_db->loadResultArray();
 
-		//build ids query
-		if ($categories) {
-			if (ELUser::validate_user($elsettings->evdelrec, $elsettings->delivereventsyes)) {
-				$where = ' AND c.groupid = 0 OR c.groupid = '.$categories;
+			$categories = implode(' OR c.groupid = ', $catids);
+
+			//build ids query
+			if ($categories) {
+				if (ELUser::validate_user($elsettings->evdelrec, $elsettings->delivereventsyes)) {
+					$where .= ' AND c.groupid = 0 OR c.groupid = '.$categories;
+				} else {
+					$where .= ' AND c.groupid = '.$categories;
+				}
 			} else {
-				$where = ' AND c.groupid = '.$categories;
+				$where .= ' AND c.groupid = 0';
 			}
-		} else {
-			$where = ' AND c.groupid = 0';
+
+		}
+
+		//administrators or superadministrators have access to all categories, also maintained ones
+		if($superuser) {
+			$where = ' WHERE c.published = 1';
 		}
 
 		//get the maintained categories and the categories whithout any group
+		//or just get all if somebody have edit rights
 		$query = 'SELECT c.id AS value, c.catname AS text, c.groupid'
 				. ' FROM #__eventlist_categories AS c'
-				. ' WHERE c.published = 1'
 				. $where
 				. ' ORDER BY c.ordering'
 				;
