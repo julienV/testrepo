@@ -33,6 +33,7 @@ class EventListViewDetails extends JView
 		$document 	= & JFactory::getDocument();
 		$user		= & JFactory::getUser();
 		$elsettings = ELHelper::config();
+		$ELConfig	= &JComponentHelper::getParams('com_eventlist');
 
 		$row		= & $this->get('Details');
 		$registers	= & $this->get('Registers');
@@ -75,8 +76,8 @@ class EventListViewDetails extends JView
 
 		//Print
 		$pop	= JRequest::getVar('pop', 0, '', 'int');
-		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
-		$params->def( 'icons', $mainframe->getCfg( 'icons' ) );
+		$params->def( 'print', $ELConfig->get('showPrint', 1) );
+		$params->def( 'icons', $ELConfig->get('showIcons', 1) );
 
 		if ($params->def('page_title', 1)) {
 			$params->def('header', $item->name);
@@ -90,7 +91,6 @@ class EventListViewDetails extends JView
 
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();
-		$pathway->setItemName(1, $item->name);
 		$pathway->addItem( JText::_( 'DETAILS' ). ' - '.$row->title, JRoute::_('index.php?view=details&did='.$row->did));
 
 		//Get images
