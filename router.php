@@ -53,13 +53,25 @@ function EventListBuildRoute(&$query)
 		unset($query['returnview']);
 	};
 
+	if(isset($query['pop']))
+	{
+		$segments[] = $query['pop'];
+		unset($query['pop']);
+	};
+
+	if(isset($query['tmpl']))
+	{
+		$segments[] = $query['tmpl'];
+		unset($query['tmpl']);
+	};
+
 	return $segments;
 }
 
 function EventListParseRoute($segments)
 {
 
-//	print_r($segments);
+	print_r($segments);
 
 	//Handle View and Identifier
 	switch($segments[0])
@@ -90,17 +102,31 @@ function EventListParseRoute($segments)
 
 		case 'editevent':
 		{
-			$vars['id'] = $segments[1];
-			$vars['view'] = 'editevent';
-			$vars['returnid'] = $segments[2];
+			$count = count($segments);
+
+			if($count > 2) {
+				$vars['id'] = $segments[1];
+				$vars['view'] = 'editevent';
+				$vars['returnid'] = $segments[2];
+			} else {
+				$vars['view'] = 'editevent';
+				$vars['returnview'] = $segments[1];
+			}
 
 		} break;
 
 		case 'editvenue':
 		{
-			$vars['id'] = $segments[1];
-			$vars['view'] = 'editvenue';
-			$vars['returnid'] = $segments[2];
+			$count = count($segments);
+
+			if($count > 2) {
+				$vars['id'] = $segments[1];
+				$vars['view'] = 'editvenue';
+				$vars['returnid'] = $segments[2];
+			} else {
+				$vars['view'] = 'editvenue';
+				$vars['returnview'] = $segments[1];
+			}
 
 		} break;
 

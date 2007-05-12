@@ -55,7 +55,7 @@ class ELOutput {
 				$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'DELIVER NEW EVENT' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 			}
 
-			$link 		= 'index.php?view=editevent&id=0&returnview='.$view;
+			$link 		= 'index.php?view=editevent&returnview='.$view;
 			$overlib 	= JText::_( 'SUBMIT EVENT TIP' );
 			$output		= '<a href="'.JRoute::_($link).'" class="editlinktip hasTip" title="'.JText::_( 'DELIVER NEW EVENT' ).'::'.$overlib.'">'.$image.'</a>';
 
@@ -174,7 +174,7 @@ class ELOutput {
 					break;
 			}
 
-			$link 	= 'index.php?returnid='.$Itemid.'&view='.$view.'&id='.$id;
+			$link 	= 'index.php?view='.$view.'&id='.$id.'&returnid='.$Itemid;
 			$output	= '<a href="'.JRoute::_($link).'" class="editlinktip hasTip" title="'.$text.'::'.$overlib.'">'.$image.'</a>';
 
 			return $output;
