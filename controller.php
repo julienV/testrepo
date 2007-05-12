@@ -69,10 +69,10 @@ class EventListController extends JController
 			$row->load($id);
 			$row->checkin();
 
-			$this->setRedirect( JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid ) );
+			$this->setRedirect( JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid, false ) );
 
 		} else {
-			$this->setRedirect( JRoute::_('index.php?view='.$view.'&Itemid='.$Itemid ) );
+			$this->setRedirect( JRoute::_('index.php?view='.$view.'&Itemid='.$Itemid, false ) );
 		}
 	}
 
@@ -103,11 +103,11 @@ class EventListController extends JController
 			$row->load($id);
 			$row->checkin();
 
-			$this->setRedirect( JRoute::_('index.php?view=venueevents&locatid='.$id.'&Itemid='.$Itemid) );
+			$this->setRedirect( JRoute::_('index.php?view=venueevents&locatid='.$id.'&Itemid='.$Itemid, false) );
 
 		} else {
 		//	$view != '' ? $target = '&view='.$view : $target = '';
-			$this->setRedirect( JRoute::_('index.php?view='.$view.'&Itemid='.$Itemid) );
+			$this->setRedirect( JRoute::_('index.php?view='.$view.'&Itemid='.$Itemid, false) );
 		//	$this->setRedirect( JRoute::_('index.php?'.$target) );
 		}
 	}
@@ -140,13 +140,13 @@ class EventListController extends JController
 		if ($returnid = $model->store($post, $file)) {
 
 			$msg 	= JText::_( 'VENUE SAVED' );
-			$link 	= JRoute::_('index.php?view=venueevents&locatid='.$returnid) ;
+			$link 	= JRoute::_('index.php?view=venueevents&locatid='.$returnid, false) ;
 
 		} else {
 
 			$msg 		= '';
 			$returnview	= JRequest::getVar('returnview', '', '', 'string');
-			$link 		= JRoute::_('index.php?view='.$returnview) ;
+			$link 		= JRoute::_('index.php?view='.$returnview, false) ;
 
 			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
 		}
@@ -181,13 +181,13 @@ class EventListController extends JController
 		if ($returnid = $model->store($post, $file)) {
 
 			$msg 	= JText::_( 'EVENT SAVED' );
-			$link 	= JRoute::_('index.php?view=details&did='.$returnid) ;
+			$link 	= JRoute::_('index.php?view=details&did='.$returnid, false) ;
 
 		} else {
 
 			$msg 		= '';
 			$returnview	= JRequest::getVar('returnview', '', '', 'string');
-			$link 		= JRoute::_('index.php?view='.$returnview) ;
+			$link 		= JRoute::_('index.php?view='.$returnview, false) ;
 
 			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
 		}
@@ -219,8 +219,9 @@ class EventListController extends JController
 		$model->setId($id);
 		$model->userregister();
 
-	//	$this->setRedirect(JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid), JText::_( 'REGISTERED SUCCESSFULL' ) );
-		$this->setRedirect('index.php?view=details&did='.$id.'&Itemid='.$Itemid, JText::_( 'REGISTERED SUCCESSFULL' ) );
+		$msg = JText::_( 'REGISTERED SUCCESSFULL' );
+
+		$this->setRedirect(JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid, false), $msg );
 	}
 
 	/**
@@ -246,8 +247,7 @@ class EventListController extends JController
 		$model->delreguser();
 
 		$msg = JText::_( 'UNREGISTERED SUCCESSFULL' );
-	//	$this->setRedirect( JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid), $msg );
-		$this->setRedirect( 'index.php?view=details&did='.$id.'&Itemid='.$Itemid, $msg );
+		$this->setRedirect( JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid, false), $msg );
 	}
 
 	/**
