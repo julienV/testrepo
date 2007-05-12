@@ -45,7 +45,7 @@ class EventListViewAttendees extends JView {
 
 		//add toolbar
 		JToolBarHelper::title( JText::_( 'REGISTERED USERS' ), 'users' );
-		JToolBarHelper::deleteList( ' ', 'remove', 'Remove' );
+		JToolBarHelper::deleteList();
 		JToolBarHelper::spacer();
 		JToolBarHelper::back();
 		JToolBarHelper::spacer();

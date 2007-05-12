@@ -59,7 +59,7 @@ class EventListViewEvents extends JView {
 		JToolBarHelper::spacer();
 		JToolBarHelper::editList();
 		JToolBarHelper::spacer();
-		JToolBarHelper::deleteList( '', 'remove', 'Remove' );
+		JToolBarHelper::deleteList();
 		JToolBarHelper::spacer();
 		JToolBarHelper::custom( 'copy', 'copy.png', 'copy_f2.png', 'Copy' );
 		JToolBarHelper::spacer();
