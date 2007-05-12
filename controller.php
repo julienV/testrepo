@@ -140,13 +140,13 @@ class EventListController extends JController
 		if ($returnid = $model->store($post, $file)) {
 
 			$msg 	= JText::_( 'VENUE SAVED' );
-			$link 	= 'index.php?option='.$option.'&Itemid='.$Itemid.'&view=venueevents&locatid='.$returnid ;
+			$link 	= JRoute::_('index.php?view=venueevents&locatid='.$returnid) ;
 
 		} else {
 
 			$msg 		= '';
 			$returnview	= JRequest::getVar('returnview', '', '', 'string');
-			$link 		= 'index.php?option='.$option.'&Itemid='.$Itemid.'&view='.$returnview ;
+			$link 		= JRoute::_('index.php?view='.$returnview) ;
 
 			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
 		}
@@ -165,8 +165,6 @@ class EventListController extends JController
 	 */
 	function saveevent()
 	{
-		global $option;
-
 		//check the token before we do anything else
 		$token	= JUtility::getToken();
 		if(!JRequest::getVar( $token, 0, 'post' )) {
@@ -183,13 +181,13 @@ class EventListController extends JController
 		if ($returnid = $model->store($post, $file)) {
 
 			$msg 	= JText::_( 'EVENT SAVED' );
-			$link 	= 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view=details&did='.$returnid ;
+			$link 	= JRoute::_('index.php?view=details&did='.$returnid) ;
 
 		} else {
 
 			$msg 		= '';
 			$returnview	= JRequest::getVar('returnview', '', '', 'string');
-			$link 		= 'index.php?option='.$option.'&Itemid='.$Itemid.'&view='.$returnview ;
+			$link 		= JRoute::_('index.php?view='.$returnview) ;
 
 			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
 		}
@@ -221,7 +219,7 @@ class EventListController extends JController
 		$model->setId($id);
 		$model->userregister();
 
-		$this->setRedirect('index.php?option=com_eventlist&Itemid='.$Itemid.'&view=details&did='.$id, JText::_( 'REGISTERED SUCCESSFULL' ) );
+		$this->setRedirect(JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid), JText::_( 'REGISTERED SUCCESSFULL' ) );
 	}
 
 	/**
@@ -247,7 +245,7 @@ class EventListController extends JController
 		$model->delreguser();
 
 		$msg = JText::_( 'UNREGISTERED SUCCESSFULL' );
-		$this->setRedirect( 'index.php?option=com_eventlist&Itemid='.$Itemid.'&view=details&did='.$id, $msg );
+		$this->setRedirect( JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid), $msg );
 	}
 
 	/**
