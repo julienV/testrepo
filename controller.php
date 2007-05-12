@@ -119,7 +119,7 @@ class EventListController extends JController
 	 */
 	function savevenue()
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		//check the token before we do anything else
 		$token	= JUtility::getToken();
@@ -219,7 +219,8 @@ class EventListController extends JController
 		$model->setId($id);
 		$model->userregister();
 
-		$this->setRedirect(JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid), JText::_( 'REGISTERED SUCCESSFULL' ) );
+	//	$this->setRedirect(JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid), JText::_( 'REGISTERED SUCCESSFULL' ) );
+		$this->setRedirect('index.php?view=details&did='.$id.'&Itemid='.$Itemid, JText::_( 'REGISTERED SUCCESSFULL' ) );
 	}
 
 	/**
@@ -245,7 +246,8 @@ class EventListController extends JController
 		$model->delreguser();
 
 		$msg = JText::_( 'UNREGISTERED SUCCESSFULL' );
-		$this->setRedirect( JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid), $msg );
+	//	$this->setRedirect( JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid), $msg );
+		$this->setRedirect( 'index.php?view=details&did='.$id.'&Itemid='.$Itemid, $msg );
 	}
 
 	/**
