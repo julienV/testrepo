@@ -63,7 +63,7 @@ class EventListController extends JController
 			}
 			$meta_key .= $meta_keyword;
 		}
-
+		$settings->meta_keywords = $meta_key;
 		$settings->id = 1;
 
 		if (!$settings->store()) {

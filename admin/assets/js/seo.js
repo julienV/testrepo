@@ -28,14 +28,18 @@ function starter($msg) {			// Funktion, welche beim Starten der Seite aufgerufen
 function switchstart() {	// Diese Funktion uebergibt alle relevanten Feldern ein onchange
 	
 	try {
-		for (var i=0; i < $keyword.length; i++) {
-			$($keyword[i]).onchange = seo_switch;
+		if ($keyword.length > 0) {
+			for (var i=0; i < $keyword.length; i++) {
+				$($keyword[i]).onchange = seo_switch;
+			}
 		}
-		for (var i=0; i < $description_vars.length; i++) {
-			$($description_vars[i]).onchange = seo_switch;
+		if ($description_vars.length > 0) {
+			for (var i=0; i < $description_vars.length; i++) {
+				$($description_vars[i]).onchange = seo_switch;
+			}
 		}
 	} catch(e) {
-		alert("Error occurred! Eventlist SEO - Javascript stopped!");
+		//alert("Error occurred! Eventlist SEO - Javascript stopped!");
 	}
 }
 
@@ -86,7 +90,7 @@ function get_description() {
 	$description = $("meta_description").value;	// uebergebene Bechreibung wird aufgerufen und eingefuegt
 	if ($description != "") {
 		var Ergebnis = $description.split("[");		// alle relevanten Teile werden getrennt
-		if (Ergebnis.length > 1) {//.length > 0) {	
+		if (Ergebnis.length > 1) {
 			$description_vars = new Array(Ergebnis.length - 1);	// Neues Array zum eintragen der geforderten Variablen wird angelegt
 			for (var i=1; i < Ergebnis.length; i++) {
 				var inputarray = Ergebnis[i].substring(0,(Ergebnis[i].indexOf("]")));	// die einzelnen Variablen werden aus dem Satz ausgelesen
@@ -98,6 +102,8 @@ function get_description() {
 					continue;
 				}	
 			}
+		} else {
+			$description_vars = new Array(0);	
 		}
 	} else {
 		$description_vars = new Array(0);	
