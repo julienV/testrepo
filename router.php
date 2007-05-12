@@ -41,77 +41,95 @@ function EventListBuildRoute(&$query)
 		unset($query['id']);
 	};
 
+	if(isset($query['returnid']))
+	{
+		$segments[] = $query['returnid'];
+		unset($query['returnid']);
+	};
+
+	if(isset($query['returnview']))
+	{
+		$segments[] = $query['returnview'];
+		unset($query['returnview']);
+	};
+
 	return $segments;
 }
 
 function EventListParseRoute($segments)
 {
 
-	//print_r($segments);
+//	print_r($segments);
+
 	//Handle View and Identifier
 	switch($segments[0])
 	{
 		case 'categoryevents':
 		{
-			JRequest::setVar('categid'  , substr( $segments[1], 0, 1 ), 'get');
-			$view = 'categoryevents';
+			$categid = explode(':', $segments[1]);
+			$vars['categid'] = $categid[0];
+			$vars['view'] = 'categoryevents';
 
 		} break;
 
 		case 'details':
 		{
-			JRequest::setVar('did'  	, substr( $segments[1], 0, 1 ), 'get');
-			$view = 'details';
+			$did = explode(':', $segments[1]);
+			$vars['did'] = $did[0];
+			$vars['view'] = 'details';
 
 		} break;
 
 		case 'venueevents':
 		{
-			JRequest::setVar('locatid'  	, substr( $segments[1], 0, 1 ), 'get');
-			$view = 'venueevents';
+			$locatid = explode(':', $segments[1]);
+			$vars['locatid'] = $locatid[0];
+			$vars['view'] = 'venueevents';
 
 		} break;
 
 		case 'editevent':
 		{
-			JRequest::setVar('id'  		, substr( $segments[1], 0, 1 ), 'get');
-			$view = 'editevent';
+			$vars['id'] = $segments[1];
+			$vars['view'] = 'editevent';
+			$vars['returnid'] = $segments[2];
 
 		} break;
 
 		case 'editvenue':
 		{
-			JRequest::setVar('id'  		, substr( $segments[1], 0, 1 ), 'get');
-			$view = 'editvenue';
+			$vars['id'] = $segments[1];
+			$vars['view'] = 'editvenue';
+			$vars['returnid'] = $segments[2];
 
 		} break;
 
 		case 'eventlist':
 		{
-			$view = 'eventlist';
+			$vars['view'] = 'eventlist';
 
 		} break;
 
 		case 'categoriesdetailed':
 		{
-			$view = 'categoriesdetailed';
+			$vars['view'] = 'categoriesdetailed';
 
 		} break;
 
 		case 'categoriesview':
 		{
-			$view = 'categoriesview';
+			$vars['view'] = 'categoriesview';
 
 		} break;
 
 		case 'venuesview':
 		{
-			$view = 'venuesview';
+			$vars['view'] = 'venuesview';
 
 		} break;
 
 	}
 
-	JRequest::setVar('view', $view, 'get');
+	return $vars;
 }
 ?>
