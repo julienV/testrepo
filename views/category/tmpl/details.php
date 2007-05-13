@@ -40,7 +40,7 @@ foreach($this->category as $cat) :
 	<div class="catimg">
 	  	<?php
 		if ($cat->image != '') :
-				echo "<a href='".JRoute::_('index.php?view=category&cid='.$cat->slug)."'><img src='images/stories/".$cat->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$cat->catname."' /></a>";
+				echo "<a href='".JRoute::_('index.php?view=category&layout=default&cid='.$cat->slug)."'><img src='images/stories/".$cat->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$cat->catname."' /></a>";
 		else :
 			echo JHTML::_('image.site', 'noimage.png', '/components/com_eventlist/assets/images/', NULL, NULL, $cat->catname );
 		endif;
@@ -48,7 +48,7 @@ foreach($this->category as $cat) :
 		<p>
 			<?php
 			echo JText::_( 'EVENTS' ).': ';
-				echo "<a href='".JRoute::_('index.php?view=category&cid='.$cat->slug)."'>". $cat->assignedevents."</a>";
+				echo "<a href='".JRoute::_('index.php?view=category&layout=default&cid='.$cat->slug)."'>". $cat->assignedevents."</a>";
 			?>
 		</p>
 	</div>
@@ -56,7 +56,7 @@ foreach($this->category as $cat) :
 	<div class="catdescription"><?php echo $cat->catdescription ; ?>
 		<p>
 			<?php
-				echo "<a href='".JRoute::_('index.php?view=category&cid='.$cat->slug)."'>".JText::_( 'SHOW EVENTS' )."</a>";
+				echo "<a href='".JRoute::_('index.php?view=category&layout=default&cid='.$cat->slug)."'>".JText::_( 'SHOW EVENTS' )."</a>";
 			?>
 		</p>
 	</div>

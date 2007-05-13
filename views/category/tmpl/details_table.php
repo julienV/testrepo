@@ -81,7 +81,7 @@
 					<td width="<?php echo $this->elsettings->locationwidth; ?>" align="left" valign="top">
 				<?php
 					if ($this->elsettings->showlinkvenue == 1 ) :
-							echo $row->locid != 0 ? "<a href='".JRoute::_("index.php?view=venueevents&locatid=$row->venueslug")."'>".$row->venue."</a>" : '-';
+							echo $row->locid != 0 ? "<a href='".JRoute::_('index.php?view=venueevents&locatid='.$row->venueslug)."'>".$row->venue."</a>" : '-';
 						else :
 							echo $row->locid ? $row->venue : '-';
 						endif;
@@ -105,7 +105,7 @@
 					if ($this->elsettings->catlinklist == 1) :
 					?>
 						<td width="<?php echo $this->elsettings->catfrowidth; ?>" align="left" valign="top">
-							<a href="<?php echo JRoute::_('index.php?view=category&layout=details&cid='.$row->categoryslug) ; ?>">
+							<a href="<?php echo JRoute::_('index.php?view=category&layout=default&cid='.$row->categoryslug) ; ?>">
 								<?php echo $row->catname ? $row->catname : '-' ; ?>
 							</a>
 						</td>
