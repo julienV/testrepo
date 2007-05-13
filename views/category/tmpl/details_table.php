@@ -105,7 +105,7 @@
 					if ($this->elsettings->catlinklist == 1) :
 					?>
 						<td width="<?php echo $this->elsettings->catfrowidth; ?>" align="left" valign="top">
-							<a href="<?php echo JRoute::_('index.php?view=categoryevents&categid='.$row->categoryslug) ; ?>">
+							<a href="<?php echo JRoute::_('index.php?view=category&layout=details&cid='.$row->categoryslug) ; ?>">
 								<?php echo $row->catname ? $row->catname : '-' ; ?>
 							</a>
 						</td>
