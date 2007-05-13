@@ -8,7 +8,7 @@
 	<state>
 		<name>Details Layout</name>
 		<description>DETAILS VIEW DESC</description>
-		<url addParameterDir="/administrator/components/com_eventlist/elements">
+		<url addpath="/administrator/components/com_eventlist/elements">
 			<param name="did" type="event" default="0" label="SELECT EVENT" description="SELECT EVENT DESC" />
 		</url>
 		<params>

@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -13,12 +13,12 @@ defined('_JEXEC') or die();
 /**
  * Renders an Category element
  *
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @since 0.9
  */
 
-class JElementCategory extends JElement
+class JElementCategories extends JElement
 {
    /**
 	* Element name
@@ -26,7 +26,7 @@ class JElementCategory extends JElement
 	* @access	protected
 	* @var		string
 	*/
-	var	$_name = 'Category';
+	var	$_name = 'Categories';
 
 	function fetchElement($name, $value, &$node, $control_name)
 	{
@@ -37,11 +37,11 @@ class JElementCategory extends JElement
 		$template 	= $mainframe->getTemplate();
 		$url 		= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
 		$fieldName	= $control_name.'['.$name.']';
-		
+
 		JTable::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_eventlist'.DS.'tables');
-		
+
 		$category =& JTable::getInstance('eventlist_categories', '');
-		
+
 		if ($value) {
 			$category->load($value);
 		} else {

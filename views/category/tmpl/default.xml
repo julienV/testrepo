@@ -8,8 +8,8 @@
 	<state>
 		<name>Categoryevents Layout</name>
 		<description>CATEGORYEVENTS VIEW DESC</description>
-		<url addParameterDir="/administrator/components/com_eventlist/elements">
-			<param name="categid" type="category" default="0" label="SELECT CATEGORY" description="SELECT CATEGORY DESC" />
+		<url addpath="/administrator/components/com_eventlist/elements">
+			<param name="cid" type="categories" default="0" label="SELECT CATEGORY" description="SELECT CATEGORY DESC" />
 		</url>
 		<params>
 			<param name="@spacer" type="spacer" default="" label="" description="" />
