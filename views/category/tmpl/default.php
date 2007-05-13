@@ -1,7 +1,7 @@
-<?php 
+<?php
 /**
  * @version 0.9 $Id: default.php 35 2007-03-26 21:41:46Z schlu $
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -16,7 +16,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			echo ELOutput::submitbutton( $this->dellink, $this->params, 'categoryevents');
 			echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params, $this->task, $this->category->id );
 		endif;
-		
+
 		echo ELOutput::printbutton( $this->print_link, $this->params );
 	?>
 </p>
@@ -28,30 +28,29 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		echo $this->params->get('header').' - '.$this->category->catname;
 		?>
 	</h1>
-	
+
 <?php endif; ?>
 
 <div class="clear"></div>
 
-<!--<div class="categoryevents">--> 
+<div class="catimg">
 
 	<?php if ($this->category->image != '') : ?>
-		<img class="flyer" src="images/stories/<?php echo $this->category->image; ?>" name="image" width="<?php echo $this->elsettings->imagewidth; ?>" height="<?php echo $this->elsettings->imagehight; ?>" border="0" alt="<?php echo $this->category->catname; ?>" />
+		<img src="images/stories/<?php echo $this->category->image; ?>" name="image" width="<?php echo $this->elsettings->imagewidth; ?>" height="<?php echo $this->elsettings->imagehight; ?>" border="0" alt="<?php echo $this->category->catname; ?>" />
 	<?php else :
 		echo "&nbsp;";
 		endif;
 	?>
+</div>
 
-	<p class="description">
+<div class="catdescription">
 		<?php echo $this->catdescription; ?>
-	</p>
-
-<!--</div>-->
+</div>
 
 <div class="clear"></div>
 
 <br />
-		
+
 <!--table-->
 
 <?php echo $this->loadTemplate('table'); ?>
