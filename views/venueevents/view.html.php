@@ -132,6 +132,13 @@ class EventListViewVenueevents extends JView
         	$venue->url = 'http://'.$venue->url;
         }
 
+        //prepare the url for output
+        if (strlen(htmlspecialchars($venue->url, ENT_QUOTES)) > 35) {
+			$venue->urlclean = substr( htmlspecialchars($venue->url, ENT_QUOTES), 0 , 35).'...';
+		} else {
+			$venue->urlclean = htmlspecialchars($venue->url, ENT_QUOTES);
+		}
+
         //create flag
         if ($venue->country) {
         	$venue->countryimg = ELOutput::getFlag( $venue->country );

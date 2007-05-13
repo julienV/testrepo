@@ -31,16 +31,12 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	?>
 
 	<dl class="location floattext">
-		<dt class="venue"><?php echo $this->elsettings->locationname.':'; ?></dt>
+		<?php if (!empty($this->venue->url)) : ?>
+		<dt class="venue"><?php echo JText::_( 'WEBSITE' ).':'; ?></dt>
 			<dd class="venue">
-				<?php echo $this->venue->venue; ?>
-				<?php if (!empty($this->venue->url)) : ?>
-					&nbsp; - &nbsp;
-					<a href="<?php echo $this->venue->url; ?>" target="_blank"> <?php echo JText::_( 'WEBSITE' ); ?></a>
-				<?php
-				endif;
-				?>
+					<a href="<?php echo $this->venue->url; ?>" target="_blank"> <?php echo $this->venue->urlclean; ?></a>
 			</dd>
+		<?php endif; ?>
 
 		<?php if ( $this->elsettings->showdetailsadress == 1 ) : ?>
 
