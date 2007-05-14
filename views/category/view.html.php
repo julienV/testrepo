@@ -60,6 +60,8 @@ $elsettings	= ELHelper::config();
 
 			$document->setTitle( $item->name );
 
+			$this->genfeed();
+
 		} else {
 			if($layout == 'details') {
 				$rows		= & $this->get('Data');
@@ -67,6 +69,8 @@ $elsettings	= ELHelper::config();
 				$category	= & $this->get('Categories');
 
 				$document->setTitle( $item->name );
+
+				$this->genfeed();
 
 			} else {
 				//get data from model
@@ -86,6 +90,13 @@ $elsettings	= ELHelper::config();
 					$pathway 	= & $mainframe->getPathWay();
 					$pathway->addItem( $category->catname, JRoute::_('index.php?view=category&layout=default&cid='.$cid));
 				}
+
+				//add alternate feed link
+				$link    = 'index.php?view=category&format=feed&cid='.$cid;
+				$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
+				$document->addHeadLink(JRoute::_($link.'&type=rss'), 'alternate', 'rel', $attribs);
+				$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
+				$document->addHeadLink(JRoute::_($link.'&type=atom', 'alternate', 'rel'), $attribs);
 
 			}
 		}
@@ -111,13 +122,6 @@ $elsettings	= ELHelper::config();
 		}
 
 		$print_link = JRoute::_( 'index.php?view=category&layout=events&cid='. $category->id .'&pop=1&tmpl=component');
-
-		//add alternate feed link
-		$link    = 'index.php?view=category&format=feed&cid='.$cid;
-		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
-		$document->addHeadLink(JRoute::_($link.'&type=rss'), 'alternate', 'rel', $attribs);
-		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
-		$document->addHeadLink(JRoute::_($link.'&type=atom', 'alternate', 'rel'), $attribs);
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
@@ -267,6 +271,18 @@ $elsettings	= ELHelper::config();
 		$lists['filter_type'] 	= $sortselect;
 
 		return $lists;
+	}
+
+	function genfeed()
+	{
+		$document	= & JFactory::getDocument();
+
+		//add alternate feed link
+		$link    = 'index.php?option=com_eventlist&view=eventlist&format=feed';
+		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
+		$document->addHeadLink(JRoute::_($link.'&type=rss'), 'alternate', 'rel', $attribs);
+		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
+		$document->addHeadLink(JRoute::_($link.'&type=atom', 'alternate', 'rel'), $attribs);
 	}
 }
 ?>

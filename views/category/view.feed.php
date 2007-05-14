@@ -1,7 +1,7 @@
-<?php 
+<?php
 /**
  * @version 0.9 $Id: view.feed.php 55 2007-04-04 13:52:21Z schlu $
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -15,12 +15,12 @@ jimport( 'joomla.application.component.view');
 /**
  * EventList Component Venueevents Model
  *
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @since		0.9
  */
-class EventListViewCategoryevents extends JView 
-{	
+class EventListViewCategory extends JView
+{
 	/**
 	 * Creates the Event Feed of the Category
 	 *
@@ -44,11 +44,11 @@ class EventListViewCategoryevents extends JView
 			// strip html from feed item title
 			$title = htmlspecialchars( $row->title );
 			$title = html_entity_decode( $title );
-			
+
 			// strip html from feed item category
 			$category = htmlspecialchars( $row->catname );
 			$category = html_entity_decode( $category );
-			
+
 			//Format date
 			$date = strftime( $elsettings->formatdate, strtotime( $row->dates ));
 			if (!$row->enddates) {
@@ -57,12 +57,12 @@ class EventListViewCategoryevents extends JView
 				$enddate 	= strftime( $elsettings->formatdate, strtotime( $row->enddates ));
 				$displaydate = $date.' - '.$enddate;
 			}
-			
+
 			//Format time
 			if ($row->times) {
 				$time = strftime( $elsettings->formattime, strtotime( $row->times ));
 				$time = $time.' '.$elsettings->timename;
-				$displaytime = $time;	
+				$displaytime = $time;
 			}
 			if ($row->endtimes) {
 				$endtime = strftime( $elsettings->formattime, strtotime( $row->endtimes ));
@@ -82,9 +82,9 @@ class EventListViewCategoryevents extends JView
 			$description .= JText::_( 'DATE' ).': '.$displaydate.'<br />';
 			$description .= JText::_( 'TIME' ).': '.$displaytime.'<br />';
 			$description .= JText::_( 'DESCRIPTION' ).': '.$row->datdescription;
-			
+
 			@$created = ( $row->created ? date( 'r', strtotime($row->created) ) : '' );
-			
+
 			// load individual item creator class
 			$item = new JFeedItem();
 			$item->title 		= $title;
