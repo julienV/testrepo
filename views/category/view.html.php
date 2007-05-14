@@ -57,16 +57,36 @@ $elsettings	= ELHelper::config();
 			$rows		= & $this->get('Categories');
 			$total 	= & $this->get('Total');
 			$category	= '';
+
+			$document->setTitle( $item->name );
+
 		} else {
 			if($layout == 'details') {
 				$rows		= & $this->get('Data');
 				$total 	= & $this->get('Total');
-				$category	= & $this->get('Categories');;
+				$category	= & $this->get('Categories');
+
+				$document->setTitle( $item->name );
+
 			} else {
 				//get data from model
 				$rows 	= & $this->get('Data');
 				$category 	= & $this->get('Category');
 				$total 	= & $this->get('Total');
+
+				$document->setTitle( $item->name.' - '.$category->catname );
+				$document->setMetadata( 'keywords', $category->meta_keywords );
+				$document->setDescription( strip_tags($category->meta_description) );
+
+				//create the pathway
+				if ($task == 'catarchive') {
+					$pathway 	= & $mainframe->getPathWay();
+					$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$category->catname, JRoute::_('index.php?view=category&layout=default&task=catarchive&cid='.$cid));
+				} else {
+					$pathway 	= & $mainframe->getPathWay();
+					$pathway->addItem( $category->catname, JRoute::_('index.php?view=category&layout=default&cid='.$cid));
+				}
+
 			}
 		}
 
@@ -83,11 +103,6 @@ $elsettings	= ELHelper::config();
 			return JError::raiseError( 404, JText::sprintf( 'Category #%d not found', $categid ) );
 		}
 
-		//Set Meta data
-		$document->setTitle( $item->name.' - '.$category->catname );
-		$document->setMetadata( 'keywords', $category->meta_keywords );
-		$document->setDescription( strip_tags($category->meta_description) );
-
 		if ($params->def('page_title', 1)) {
 			$params->def('header', $item->name);
 		}
@@ -103,15 +118,6 @@ $elsettings	= ELHelper::config();
 		$document->addHeadLink(JRoute::_($link.'&type=rss'), 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
 		$document->addHeadLink(JRoute::_($link.'&type=atom', 'alternate', 'rel'), $attribs);
-
-		//create the pathway
-		if ($task == 'catarchive') {
-			$pathway 	= & $mainframe->getPathWay();
-			$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$category->catname, JRoute::_('index.php?view=category&layout=events&task=catarchive&cid='.$cid));
-		} else {
-			$pathway 	= & $mainframe->getPathWay();
-			$pathway->addItem( $category->catname, JRoute::_('index.php?view=category&layout=events&cid='.$cid));
-		}
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
@@ -166,7 +172,7 @@ $elsettings	= ELHelper::config();
 		$this->assignRef('catdescription' , $catdescription);
 		$this->assignRef('live_site' , 	$live_site);
 		$this->assignRef('link' , 		$link);
-		$this->assignRef('cid' , 		$categid);
+		$this->assignRef('cid' , 		$cid);
 		$this->assignRef('pageNav' , 		$pageNav);
 		$this->assignRef('page' , 		$page);
 		$this->assignRef('elsettings' , 	$elsettings);
