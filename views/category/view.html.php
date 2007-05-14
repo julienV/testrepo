@@ -37,8 +37,8 @@ class EventListViewCategory extends JView
 		$params	=& $mainframe->getPageParameters();
 		$layout 	= JRequest::getVar('layout', 'default');
 
-//DEPRECATED
-$elsettings	= ELHelper::config();
+		//DEPRECATED
+		$elsettings	= ELHelper::config();
 
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );
@@ -50,7 +50,7 @@ $elsettings	= ELHelper::config();
 		// Request variables
 		$limitstart	= JRequest::getVar('limitstart', 0, '', 'int');
 		$limit      = $mainframe->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0));
-		$task 	= JRequest::getVar('task', '', '', 'string');
+		$task 		= JRequest::getVar('task', '', '', 'string');
 		$cid		= JRequest::getVar('cid', 0, '', 'int');
 
 		if($layout == 'list') {
@@ -71,6 +71,8 @@ $elsettings	= ELHelper::config();
 				$document->setTitle( $item->name );
 
 				$this->genfeed();
+
+				$print_link = JRoute::_( 'index.php?view=category&layout=details&pop=1&tmpl=component');
 
 			} else {
 				//get data from model
@@ -98,6 +100,7 @@ $elsettings	= ELHelper::config();
 				$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
 				$document->addHeadLink(JRoute::_($link.'&type=atom', 'alternate', 'rel'), $attribs);
 
+				$print_link = JRoute::_( 'index.php?view=category&layout=default&cid='. $category->id .'&pop=1&tmpl=component');
 			}
 		}
 
@@ -121,8 +124,6 @@ $elsettings	= ELHelper::config();
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = JRoute::_( 'index.php?view=category&layout=events&cid='. $category->id .'&pop=1&tmpl=component');
-
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
 		$genaccess 	= ELUser::validate_user( $elsettings->evdelrec, $elsettings->delivereventsyes );
@@ -137,9 +138,9 @@ $elsettings	= ELHelper::config();
 
 		//create the form links
 		if ($task == 'catarchive') {
-			$link = JRoute::_( 'index.php?view=category&layout=events&task=catarchive&cid='.$category->id );
+			$link = JRoute::_( 'index.php?view=category&layout=default&task=catarchive&cid='.$category->id );
 		} else {
-			$link = JRoute::_( 'index.php?view=category&layout=events&cid='.$category->id );
+			$link = JRoute::_( 'index.php?view=category&layout=default&cid='.$category->id );
 		}
 
 
