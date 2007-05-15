@@ -172,8 +172,8 @@ class EventListModelCategory extends JModel
 	function _buildQuery()
 	{
 		// Get the WHERE and ORDER BY clauses for the query
-		$where		= $this->_buildContentWhere();
-		$orderby	= $this->_buildContentOrderBy();
+		$where		= $this->_buildCategoryWhere();
+		$orderby	= $this->_buildCategoryOrderBy();
 
 		//Get Events from Database
 		$query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.venue, l.city, l.state, l.url, c.catname, c.id AS catid, '
@@ -196,7 +196,7 @@ class EventListModelCategory extends JModel
 	 * @access private
 	 * @return string
 	 */
-	function _buildContentOrderBy()
+	function _buildCategoryOrderBy()
 	{
 		global $mainframe, $option;
 
@@ -214,7 +214,7 @@ class EventListModelCategory extends JModel
 	 * @access private
 	 * @return array
 	 */
-	function _buildContentWhere( )
+	function _buildCategoryWhere( )
 	{
 		$user		=& JFactory::getUser();
 		$gid		= (int) $user->get('aid');
@@ -301,51 +301,51 @@ class EventListModelCategory extends JModel
 	function &getCategories( )
 	{
 		$task = JRequest::getVar('task', '', '', 'string');
- 
+
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_categories))
 		{
 			$query = $this->_buildCategoriesQuery();
 			$this->_categories = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
-		
-			/* Only php5 compatible	
+
+			/* Only php5 compatible
 			foreach ($this->_categories as $category) {
-			
+
 				if( $task == 'archive' ) {
-				
+
 					$category->assignedevents = $this->_countarchiveevents( $category->catid );
-				
+
 				} else {
-			
+
 					$category->assignedevents = $this->_countcatevents( $category->catid );
-			
+
 				}
 			}
 			*/
-			
+
 			$k = 0;
 			for($i = 0; $i <  count($this->_categories); $i++)
 			{
 				$category =& $this->_categories[$i];
 
 				if( $task == 'archive' ) {
-				
+
 					$category->assignedevents = $this->_countarchiveevents( $category->catid );
-				
+
 				} else {
-			
+
 					$category->assignedevents = $this->_countcatevents( $category->catid );
-			
+
 				}
 
 				$k = 1 - $k;
-			}	
-			
+			}
+
 		}
 
 		return $this->_categories;
-	}	
-	
+	}
+
 	/**
 	 * Total nr of Venues
 	 *
@@ -363,7 +363,7 @@ class EventListModelCategory extends JModel
 
 		return $this->_totalCategories;
 	}
-	
+
 	/**
 	 * Method to load the Categories
 	 *
@@ -371,23 +371,32 @@ class EventListModelCategory extends JModel
 	 * @return array
 	 */
 	function _buildCategoriesQuery()
-	{		
+	{
 		//initialize some vars
 		$user		= & JFactory::getUser();
 		$gid		= (int) $user->get('aid');
-		
+
 		// Get the paramaters of the active menu item
 		$menu		=& JMenu::getInstance();
 		$item    	= $menu->getActive();
 		$params		=& $menu->getParams($item->id);
-		
+
 		// show/hide empty categories
 		$empty = null;
 		if (!$params->get('empty_cat'))
 		{
 			$empty = "\n HAVING COUNT( a.id ) > 0";
 		}
-				
+
+		//check archive task and ensure that only categories get selected if they contain a publishes/arcived event
+		$task 		= JRequest::getVar('task', '', '', 'string');
+		if($task == 'archive') {
+			$eventstate = ' AND a.published = -1';
+		} else {
+			$eventstate = ' AND a.published = 1';
+		}
+
+
 		//get categories
 		$query = 'SELECT c.*, c.id AS catid,'
 				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\'-\', c.id, c.alias) ELSE c.id END as slug'
@@ -395,17 +404,17 @@ class EventListModelCategory extends JModel
 				. ' LEFT JOIN #__eventlist_events AS a ON a.catsid = c.id'
 				. ' WHERE c.published = 1'
 				. ' AND c.access <= '.$gid
-			//	. ' AND a.published = 1'
+				. $eventstate
 				. ' GROUP BY c.id '.$empty
 				. ' ORDER BY c.ordering'
 				;
-		
+
 		return $query;
 	}
-	
+
 	/**
 	 * Method to get the total number
-	 * 
+	 *
 	 * @access private
 	 * @return integer
 	 */
@@ -415,21 +424,21 @@ class EventListModelCategory extends JModel
 		$user		= & JFactory::getUser();
 		$gid		= (int) $user->get('aid');
 		$id			= (int) $id;
-		
+
 		$query = 'SELECT COUNT(a.id)'
-				. ' FROM #__eventlist_events AS a' 
+				. ' FROM #__eventlist_events AS a'
 				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
 				. ' WHERE a.published = 1 && a.catsid = '.$id
 				. ' AND c.access <= '.$gid
 				;
 		$this->_db->setQuery( $query );
-		
+
   		return $this->_db->loadResult();
 	}
-	
+
 	/**
 	 * Method to get the total number of archived events
-	 * 
+	 *
 	 * @access private
 	 * @return integer
 	 */
@@ -439,15 +448,15 @@ class EventListModelCategory extends JModel
 		$user		= & JFactory::getUser();
 		$gid		= (int) $user->get('aid');
 		$id			= (int) $id;
-		
+
 		$query = 'SELECT COUNT(a.id)'
-				. ' FROM #__eventlist_events AS a' 
+				. ' FROM #__eventlist_events AS a'
 				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
 				. ' WHERE a.published = -1 && a.catsid = '.$id
 				. ' AND c.access <= '.$gid
 				;
 		$this->_db->setQuery( $query );
-				
+
   		return $this->_db->loadResult();
 	}
 }

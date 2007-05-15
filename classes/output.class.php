@@ -92,6 +92,7 @@ class ELOutput {
 					}
 					$overlib 	= JText::_( 'SHOW EVENTS TIP' );
 					$link 		= JRoute::_( 'index.php' );
+	//				$link 		= JRoute::_( 'index.php?view=category' );
 					$title 		= JText::_( 'SHOW EVENTS' );
 
 					break;
@@ -105,6 +106,7 @@ class ELOutput {
 					}
 					$overlib 	= JText::_( 'SHOW EVENTS TIP' );
 					$link 		= JRoute::_( 'index.php?view=categoryevents&categid='.$categid );
+	//				$link 		= JRoute::_( 'index.php?view=category&layout=default&categid='.$categid );
 					$title 		= JText::_( 'SHOW EVENTS' );
 
 					break;
@@ -118,6 +120,7 @@ class ELOutput {
 					}
 					$overlib 	= JText::_( 'SHOW ARCHIVE TIP' );
 					$link		= JRoute::_('index.php?view=categoriesview&task=archive');
+	//				$link		= JRoute::_('index.php?view=category&task=archive');
 					$title 		= JText::_( 'SHOW ARCHIVE' );
 
 					break;

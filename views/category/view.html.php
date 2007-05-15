@@ -33,8 +33,8 @@ class EventListViewCategory extends JView
 		//initialize variables
 		$document	= & JFactory::getDocument();
 		$menu		= & JMenu::getInstance();
-		$item		=& $menu->getActive();
-		$params	=& $mainframe->getPageParameters();
+		$item		= & $menu->getActive();
+		$params		= & $mainframe->getPageParameters();
 		$layout 	= JRequest::getVar('layout', 'default');
 
 		//DEPRECATED

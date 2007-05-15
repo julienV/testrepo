@@ -159,8 +159,8 @@ class EventListModelCategoryevents extends JModel
 	function _buildQuery()
 	{
 		// Get the WHERE and ORDER BY clauses for the query
-		$where		= $this->_buildContentWhere();
-		$orderby	= $this->_buildContentOrderBy();
+		$where		= $this->_buildCategoryWhere();
+		$orderby	= $this->_buildCategoryOrderBy();
 
 		//Get Events from Database
 		$query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.venue, l.city, l.state, l.url, c.catname, c.id AS catid, '
@@ -183,7 +183,7 @@ class EventListModelCategoryevents extends JModel
 	 * @access private
 	 * @return string
 	 */
-	function _buildContentOrderBy()
+	function _buildCategoryOrderBy()
 	{
 		global $mainframe, $option;
 
@@ -201,7 +201,7 @@ class EventListModelCategoryevents extends JModel
 	 * @access private
 	 * @return array
 	 */
-	function _buildContentWhere( )
+	function _buildCategoryWhere( )
 	{
 		$user		=& JFactory::getUser();
 		$gid		= (int) $user->get('aid');

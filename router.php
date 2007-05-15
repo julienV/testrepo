@@ -41,10 +41,23 @@ function EventListBuildRoute(&$query)
 		unset($query['cid']);
 	};
 
+	//Deprecated
+	if(isset($query['categid']))
+	{
+		$segments[] = $query['categid'];
+		unset($query['categid']);
+	};
+
 	if(isset($query['id']))
 	{
 		$segments[] = $query['id'];
 		unset($query['id']);
+	};
+
+	if(isset($query['task']))
+	{
+		$segments[] = $query['task'];
+		unset($query['task']);
 	};
 
 	if(isset($query['returnid']))
@@ -77,7 +90,7 @@ function EventListBuildRoute(&$query)
 function EventListParseRoute($segments)
 {
 
-	//print_r($segments);
+	print_r($segments);
 
 	//Handle View and Identifier
 	switch($segments[0])
@@ -93,6 +106,9 @@ function EventListParseRoute($segments)
 			}
 			$vars['cid'] = $cid[0];
 			$vars['view'] = 'category';
+
+			//temp
+	//		$vars['task'] = $segments[1];
 		} break;
 
 		case 'categoryevents':
@@ -100,7 +116,12 @@ function EventListParseRoute($segments)
 			$categid = explode(':', $segments[1]);
 			$vars['categid'] = $categid[0];
 			$vars['view'] = 'categoryevents';
-
+/*
+			$count = count($segments);
+			if($count >= 2) {
+				$vars['task'] = $segments[2];
+			}
+*/
 		} break;
 
 		case 'details':
