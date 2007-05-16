@@ -87,11 +87,11 @@ class EventListViewDetails extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = JRoute::_('index.php?view=details&did='. $row->did .'&pop=1&tmpl=component');
+		$print_link = JRoute::_('index.php?view=details&did='.$row->slug.'&pop=1&tmpl=component');
 
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();
-		$pathway->addItem( JText::_( 'DETAILS' ). ' - '.$row->title, JRoute::_('index.php?view=details&did='.$row->did));
+		$pathway->addItem( JText::_( 'DETAILS' ). ' - '.$row->title, JRoute::_('index.php?view=details&did='.$row->slug));
 
 		//Get images
 		$dimage = ELImage::flyercreator($row->datimage, $elsettings, 'event');

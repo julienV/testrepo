@@ -71,7 +71,7 @@ function EventListBuildRoute(&$query)
 		$segments[] = $query['returnview'];
 		unset($query['returnview']);
 	};
-
+/*
 	if(isset($query['pop']))
 	{
 		$segments[] = $query['pop'];
@@ -83,7 +83,7 @@ function EventListBuildRoute(&$query)
 		$segments[] = $query['tmpl'];
 		unset($query['tmpl']);
 	};
-
+*/
 	return $segments;
 }
 
