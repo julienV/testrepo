@@ -15,7 +15,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
  * @since 0.1
  */
 function com_install() {
-	
+
 	global $mainframe;
 
 	$db 		= & JFactory::getDBO();
@@ -38,7 +38,7 @@ function com_install() {
 	</tr>
 	<tr>
 		<td colspan="2">
-			<code>Installation Process:<br />
+			<code>Installation process:<br />
 			<?php
 			// Check for existing /images/eventlist directory
         	if ($direxists = JFolder::exists( JPATH_SITE.'/images/eventlist' )) {
@@ -75,16 +75,16 @@ function com_install() {
         		}
 			}
         	?>
-        	
+
 			<br />
-			
-			<?php 
+
+			<?php
 			if (($direxists) || ($makedir1)) {
 			?>
 				<font color="green"><b>Joomla! EventList 0.9 ALPHA Installed Successfully!</b></font><br />
 				Ensure that EventList have write access in the above shown directories! Have Fun.
 				</code>
-			<?php 
+			<?php
 			} else {
 			?>
 				<font color="red">
@@ -97,17 +97,17 @@ function com_install() {
 					<li>/images/eventlist</li>
 					<li>/images/eventlist/events</li>
 					<li>/images/eventlist/events/small</li>
-					<li>/images/eventlist/locate</li>
-					<li>/images/eventlist/locate/small</li>
+					<li>/images/eventlist/venues</li>
+					<li>/images/eventlist/venues/small</li>
 				</ul>
 				<br />
-				
+
 				<code>
 					If they do not exist, create them and ensure EventList have write access to this directories.<br />
 					If you don't so, you prevent EventList from functioning correctly. (You can't upload images).
 				</code>
-			<?php 
-			} 
+			<?php
+			}
 			?>
 		</td>
 	</tr>
