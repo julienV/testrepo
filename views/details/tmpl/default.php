@@ -17,7 +17,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<?php echo ELOutput::printbutton( $this->print_link, $this->params ); ?>
 	</span>
 
-	<?php echo $this->params->get('header').' - '.JText::_( 'DETAILS' ) ; ?>
+	<?php echo JText::_( 'DETAILS' ) ; ?>
 
 </h1>
 <?php endif; ?>
@@ -36,19 +36,21 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	?>
 
 	<dl class="event_info floattext">
-		<dt class="when"><?php echo JText::_( 'WHEN' ).':' ;?></dt>
-		<dd class="when">
-			<?php
-			echo $this->displaydate;
-			echo $this->displaytime;
-			?>
-		</dd>
 
 		<?php if ($this->elsettings->showdetailstitle == 1) : ?>
 			<dt class="title"><?php echo JText::_( 'TITLE' ).':'; ?></dt>
     		<dd class="title"><?php echo $this->row->title; ?></dd>
 		<?php
   		endif;
+  		?>
+  		<dt class="when"><?php echo JText::_( 'WHEN' ).':' ;?></dt>
+		<dd class="when">
+			<?php
+			echo $this->displaydate;
+			echo $this->displaytime;
+			?>
+		</dd>
+  		<?php
   		if ($this->row->locid != 0) :
   		?>
 		    <dt class="where"><?php echo JText::_( 'WHERE' ).':' ; ?></dt>

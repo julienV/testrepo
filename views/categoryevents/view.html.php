@@ -79,10 +79,7 @@ class EventListViewCategoryevents extends JView
 		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
 		$params->def( 'icons', $mainframe->getCfg( 'icons' ) );
 
-		if ($params->def('page_title', 1)) {
-			$params->def('header', $item->name);
-		}
-				if ( $pop ) {
+		if ( $pop ) {
 			$params->set( 'popup', 1 );
 		}
 

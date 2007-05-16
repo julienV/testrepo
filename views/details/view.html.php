@@ -79,10 +79,6 @@ class EventListViewDetails extends JView
 		$params->def( 'print', $ELConfig->get('showPrint', 1) );
 		$params->def( 'icons', $ELConfig->get('showIcons', 1) );
 
-		if ($params->def('page_title', 1)) {
-			$params->def('header', $item->name);
-		}
-
 		if ( $pop ) {
 			$params->set( 'popup', 1 );
 		}

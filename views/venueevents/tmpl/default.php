@@ -19,7 +19,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	?>
 </span>
 <?php if ($this->params->get('page_title')) : ?>
-	<h1 class='componentheading'><?php echo $this->params->get('header').' - '.$this->venue->venue; ?></h1>
+	<h1 class='componentheading'>
+		<?php echo $this->venue->venue; ?>
+	</h1>
 <?php endif; ?>
 
 <!--Venue-->

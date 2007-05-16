@@ -25,7 +25,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
     <h1 class='componentheading'>
 		<?php
-		echo $this->params->get('header').' - '.$this->category->catname;
+		echo $this->category->catname;
 		?>
 	</h1>
 
