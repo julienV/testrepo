@@ -25,12 +25,12 @@
 			<tr>
 				<th width="5"><?php echo JText::_( 'Num' ); ?></th>
 				<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
-				<th class="title"><?php JHTML::_('grid.sort', 'DATE', 'a.dates', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php JHTML::_('grid.sort', 'Start', 'a.times', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php JHTML::_('grid.sort', 'EVENT TITLE', 'a.title', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php JHTML::_('grid.sort', 'VENUE', 'loc.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php JHTML::_('grid.sort', 'CATEGORY', 'cat.catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php JHTML::_('grid.sort', 'CITY', 'loc.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php echo JHTML::_('grid.sort', 'DATE', 'a.dates', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php echo JHTML::_('grid.sort', 'Start', 'a.times', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php echo JHTML::_('grid.sort', 'EVENT TITLE', 'a.title', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php echo JHTML::_('grid.sort', 'VENUE', 'loc.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php echo JHTML::_('grid.sort', 'CATEGORY', 'cat.catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php echo JHTML::_('grid.sort', 'CITY', 'loc.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<th class="title"><?php echo JText::_( 'CREATION' ); ?></th>
 			</tr>
 		</thead>

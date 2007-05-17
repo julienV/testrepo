@@ -50,31 +50,31 @@
 
 <table width="<?php echo $this->elsettings->tablewidth; ?>" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
 			<tr>
-				<td width="<?php echo $this->elsettings->datewidth; ?>" class="sectiontableheader" align="left"><?php JHTML::_('grid.sort', $this->elsettings->datename, 'a.dates', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
+				<td width="<?php echo $this->elsettings->datewidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->datename, 'a.dates', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
 				<?php
 				if ($this->elsettings->showtitle == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->titlewidth; ?>" class="sectiontableheader" align="left"><?php JHTML::_('grid.sort', $this->elsettings->titlename, 'a.title', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
+				<td width="<?php echo $this->elsettings->titlewidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->titlename, 'a.title', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
 				<?php
 				endif;
 				if ($this->elsettings->showlocate == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->locationwidth; ?>" class="sectiontableheader" align="left"><?php JHTML::_('grid.sort', $this->elsettings->locationname, 'l.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
+				<td width="<?php echo $this->elsettings->locationwidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->locationname, 'l.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
 				<?php
 				endif;
 				if ($this->elsettings->showcity == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->citywidth; ?>" class="sectiontableheader" align="left"><?php JHTML::_('grid.sort', $this->elsettings->cityname, 'l.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
+				<td width="<?php echo $this->elsettings->citywidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->cityname, 'l.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
 				<?php
 				endif;
 				if ($this->elsettings->showstate == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->statewidth; ?>" class="sectiontableheader" align="left"><?php JHTML::_('grid.sort', $this->elsettings->statename, 'l.state', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
+				<td width="<?php echo $this->elsettings->statewidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->statename, 'l.state', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
 				<?php
 				endif;
 				if ($this->elsettings->showcat == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->catfrowidth; ?>" class="sectiontableheader" align="left"><?php JHTML::_('grid.sort', $this->elsettings->catfroname, 'c.catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
+				<td width="<?php echo $this->elsettings->catfrowidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->catfroname, 'c.catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
 				<?php
 				endif;
 				?>

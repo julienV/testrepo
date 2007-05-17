@@ -39,12 +39,12 @@
 			<tr>
 				<th width="5"><?php echo JText::_( 'Num' ); ?></th>
 				<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
-				<th class="title"><?php JHTML::_('grid.sort', 'NAME', 'u.name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php JHTML::_('grid.sort', 'USERNAME', 'u.urname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php echo JHTML::_('grid.sort', 'NAME', 'u.name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php echo JHTML::_('grid.sort', 'USERNAME', 'u.urname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<th class="title"><?php echo JText::_( 'EMAIL' ); ?></th>
 				<th class="title"><?php echo JText::_( 'IP ADDRESS' ); ?></th>
-				<th class="title"><?php JHTML::_('grid.sort', 'REGDATE', 'r.uregdate', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php JHTML::_('grid.sort', 'USER ID', 'r.uid', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php echo JHTML::_('grid.sort', 'REGDATE', 'r.uregdate', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php echo JHTML::_('grid.sort', 'USER ID', 'r.uid', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<th class="title"><?php echo JText::_( 'REMOVE USER' ); ?></th>
 			</tr>
 		</thead>

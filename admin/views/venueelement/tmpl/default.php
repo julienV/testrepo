@@ -20,8 +20,8 @@
 	<thead>
 		<tr>
 			<th width="7"><?php echo JText::_( 'Num' ); ?></th>
-			<th align="left" class="title"><?php JHTML::_('grid.sort', 'VENUE', 'l.venue', $this->lists['order_Dir'], $this->lists['order'], 'venueelement' ); ?></th>
-			<th align="left" class="title"><?php JHTML::_('grid.sort', 'CITY', 'l.city', $this->lists['order_Dir'], $this->lists['order'], 'venueelement' ); ?></th>
+			<th align="left" class="title"><?php echo JHTML::_('grid.sort', 'VENUE', 'l.venue', $this->lists['order_Dir'], $this->lists['order'], 'venueelement' ); ?></th>
+			<th align="left" class="title"><?php echo JHTML::_('grid.sort', 'CITY', 'l.city', $this->lists['order_Dir'], $this->lists['order'], 'venueelement' ); ?></th>
 			<th align="left" class="title"><?php echo JText::_( 'COUNTRY' ); ?></th>
 			<th class="title"><?php echo JText::_( 'PUBLISHED' ); ?></th>
 		</tr>
