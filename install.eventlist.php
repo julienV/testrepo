@@ -44,7 +44,7 @@ function com_install() {
         	if ($direxists = JFolder::exists( JPATH_SITE.'/images/eventlist' )) {
         		echo "<font color='green'>FINISHED:</font> Directory /images/eventlist exists. Skipping creation.<br />";
        		} else {
-        		echo "<font color='orange'>Note:</font> Directory /images/eventlist is NOT existing. Trying to create them.<br />";
+        		echo "<font color='orange'>Note:</font> The Directory /images/eventlist does NOT exist. EventList will try to create them.<br />";
 
         		//Image folder creation
         		if ($makedir1 = JFolder::create( JPATH_SITE.'/images/eventlist')) {
