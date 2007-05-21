@@ -72,43 +72,18 @@ class EventListModelCategoriesview extends JModel
 	 */
 	function &getData( )
 	{
-		$task = JRequest::getVar('task', '', '', 'string');
-
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_data))
 		{
 			$query = $this->_buildQuery();
 			$this->_data = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
 
-			/* Only php5 compatible
-			foreach ($this->_data as $category) {
-
-				if( $task == 'archive' ) {
-
-					$category->assignedevents = $this->_countarchiveevents( $category->catid );
-
-				} else {
-
-					$category->assignedevents = $this->_countcatevents( $category->catid );
-
-				}
-			}
-			*/
-
 			$k = 0;
 			for($i = 0; $i <  count($this->_data); $i++)
 			{
 				$category =& $this->_data[$i];
 
-				if( $task == 'archive' ) {
-
-					$category->assignedevents = $this->_countarchiveevents( $category->catid );
-
-				} else {
-
-					$category->assignedevents = $this->_countcatevents( $category->catid );
-
-				}
+				$category->assignedevents = $this->_countcatevents( $category->catid );
 
 				$k = 1 - $k;
 			}
@@ -196,34 +171,18 @@ class EventListModelCategoriesview extends JModel
 		$gid		= (int) $user->get('aid');
 		$id			= (int) $id;
 
-		$query = 'SELECT COUNT(a.id)'
-				. ' FROM #__eventlist_events AS a'
-				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
-				. ' WHERE a.published = 1 && a.catsid = '.$id
-				. ' AND c.access <= '.$gid
-				;
-		$this->_db->setQuery( $query );
+		$task 		= JRequest::getVar('task', '', '', 'string');
 
-  		return $this->_db->loadResult();
-	}
-
-	/**
-	 * Method to get the total number of archived events
-	 *
-	 * @access private
-	 * @return integer
-	 */
-	function _countarchiveevents( $id )
-	{
-		//initialize some vars
-		$user		= & JFactory::getUser();
-		$gid		= (int) $user->get('aid');
-		$id			= (int) $id;
+		if($task == 'archive') {
+			$where = ' WHERE a.published = -1 && a.catsid = '.$id;
+		} else {
+			$where = ' WHERE a.published = 1 && a.catsid = '.$id;
+		}
 
 		$query = 'SELECT COUNT(a.id)'
 				. ' FROM #__eventlist_events AS a'
 				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
-				. ' WHERE a.published = -1 && a.catsid = '.$id
+				. $where
 				. ' AND c.access <= '.$gid
 				;
 		$this->_db->setQuery( $query );
