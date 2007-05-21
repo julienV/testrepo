@@ -34,7 +34,7 @@ class EventListViewCategory extends JView
 		$document	= & JFactory::getDocument();
 		$menu		= & JMenu::getInstance();
 		$item		= & $menu->getActive();
-		$params		= & $mainframe->getPageParameters();
+		$params 	= & $mainframe->getPageParameters('com_eventlist');
 		$layout 	= JRequest::getVar('layout', 'default');
 
 		//DEPRECATED

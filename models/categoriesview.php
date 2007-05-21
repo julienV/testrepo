@@ -51,10 +51,10 @@ class EventListModelCategoriesview extends JModel
 	{
 		parent::__construct();
 
+		global $mainframe;
+
 		// Get the paramaters of the active menu item
-		$menu		=& JMenu::getInstance();
-		$item    	= $menu->getActive();
-		$params		=& $menu->getParams($item->id);
+		$params = & $mainframe->getPageParameters('com_eventlist');
 
 		//get the number of events from database
 		$limit			= JRequest::getVar('limit', $params->get('cat_num'), '', 'int');

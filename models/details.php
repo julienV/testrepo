@@ -243,7 +243,6 @@ class EventListModelDetails extends JModel
 		//IP+time of registration
 		$date 		= new JDate('now', $tzoffset);
 		$uregdate 	= $date->toMySQL();
-		//$uregdate	= time();
 		$uip 		= getenv('REMOTE_ADDR');
 
 		$query = "INSERT INTO #__eventlist_register ( rdid, uid, urname, uregdate, uip )" .

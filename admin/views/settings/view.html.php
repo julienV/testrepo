@@ -77,11 +77,17 @@ class EventListViewSettings extends JView {
 		$accessLists['ev_edit']			= JHTML::_('select.genericlist', $access, 'eventedit', 'class="inputbox" size="4"', 'value', 'text', $elsettings->eventedit );
 		$accessLists['venue_edit']		= JHTML::_('select.genericlist', $access, 'venueedit', 'class="inputbox" size="4"', 'value', 'text', $elsettings->venueedit );
 
+		//Get global parameters
+		$table =& JTable::getInstance('component');
+		$table->loadByOption( 'com_eventlist' );
+		$globalparams = new JParameter( $table->params, JPATH_ADMINISTRATOR.DS.'components'.DS.'com_eventlist'.DS.'config.xml' );
+
 		//assign data to template
 		$this->assignRef('accessLists'	, $accessLists);
 		$this->assignRef('elsettings'	, $elsettings);
 		$this->assignRef('WarningIcon'	, $this->WarningIcon());
 		$this->assignRef('request_url'	, $uri->toString());
+		$this->assignRef('globalparams'	, $globalparams);
 
 		parent::display();
 

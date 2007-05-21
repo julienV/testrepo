@@ -72,7 +72,7 @@ class EventListViewDetails extends JView
 		//get menu information
 		$menu		=& JMenu::getInstance();
 		$item    	= $menu->getActive();
-		$params		=& $menu->getParams($item->id);
+		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		//Print
 		$pop	= JRequest::getVar('pop', 0, '', 'int');

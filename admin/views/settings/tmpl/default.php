@@ -25,6 +25,10 @@
 			<div id="page-layout">
 				<?php require_once(dirname(__FILE__).DS.'el.settings_layout.html'); ?>
 			</div>
+
+			<div id="page-parameters">
+				<?php require_once(dirname(__FILE__).DS.'el.settings_parameters.html'); ?>
+			</div>
 		</div>
 		<div class="clr"></div>
 

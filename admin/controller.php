@@ -48,6 +48,26 @@ class EventListController extends JController
 		$db 		= & JFactory::getDBO();
 		$post 		= JRequest::get( 'post' );
 
+		$table =& JTable::getInstance('component');
+
+		$parampost['params'] = JRequest::getVar('globalparams');
+		$parampost['option'] = 'com_eventlist';
+		$table->loadByOption( 'com_eventlist' );
+		$table->bind( $parampost );
+
+		/* pre-save checks
+		if (!$table->check()) {
+			JError::raiseWarning( 500, $table->getError() );
+			return false;
+		}
+		*/
+
+		// save the changes
+		if (!$table->store()) {
+			JError::raiseWarning( 500, $table->getError() );
+			return false;
+		}
+
 		$settings 	= & JTable::getInstance('eventlist_settings', '');
 
 		// Bind the form fields to the table

@@ -53,6 +53,7 @@
 		<filename>index.html</filename>
 		<filename>admin.eventlist.php</filename>
 		<filename>controller.php</filename>
+		<filename>config.xml</filename>
 		<filename>install.mysql.utf8.sql</filename>
 		<filename>install.mysql.nonutf8.sql</filename>
 		<filename>uninstall.mysql.utf8.sql</filename>

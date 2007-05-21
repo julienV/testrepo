@@ -36,7 +36,7 @@ class EventListViewCategoriesdetailed extends JView
 		$model 		= $this->getModel();
 		$menu		= & JMenu::getInstance();
 		$item    	= $menu->getActive();
-		$params		= & $menu->getParams($item->id);
+		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		//get vars
 		$live_site		= $mainframe->getCfg('live_site');

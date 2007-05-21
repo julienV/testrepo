@@ -51,12 +51,10 @@ class EventListModelEventList extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe, $option;
+		global $mainframe;
 
 		// Get the paramaters of the active menu item
-		$menu		=& JMenu::getInstance();
-		$item    	= $menu->getActive();
-		$params		=& $menu->getParams($item->id);
+		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		//get the number of events from database
 		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0));
@@ -186,13 +184,13 @@ class EventListModelEventList extends JModel
 	 */
 	function _buildContentWhere()
 	{
-		$user		=& JFactory::getUser();
+		global $mainframe;
+
+		$user		= & JFactory::getUser();
 		$gid		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$menu		=& JMenu::getInstance();
-		$item    	= $menu->getActive();
-		$params		=& $menu->getParams($item->id);
+		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		// First thing we need to do is to select only published events
 		$where = ' WHERE a.published = 1';

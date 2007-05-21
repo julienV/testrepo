@@ -58,15 +58,13 @@ class EventListModelVenueevents extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe, $option;
+		global $mainframe;
 
 		$id = JRequest::getVar('locatid', 0, '', 'int');
 		$this->setId($id);
 
 		// Get the paramaters of the active menu item
-		$menu		=& JMenu::getInstance();
-		$item    	= $menu->getActive();
-		$params		=& $menu->getParams($item->id);
+		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		//get the number of events from database
 		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0));
@@ -203,13 +201,13 @@ class EventListModelVenueevents extends JModel
 	 */
 	function _buildContentWhere( )
 	{
+		global $mainframe;
+
 		$user		=& JFactory::getUser();
 		$gid		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$menu		=& JMenu::getInstance();
-		$item    	= $menu->getActive();
-		$params		=& $menu->getParams($item->id);
+		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		// First thing we need to do is to select only the requested events
 		$where = ' WHERE a.published = 1 && a.locid = '.$this->_id;

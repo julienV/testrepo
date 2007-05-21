@@ -40,9 +40,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	  	<?php
 		if ($row->image != '') :
 			if ($this->task == 'archive') :
-				echo "<a href='".JRoute::_('index.php?view=categoryevents&task=catarchive&categid='.$row->slug)."'><img src='".$this->live_site."/images/stories/".$row->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$row->catname."' /></a>";
+				echo "<a href='".JRoute::_('index.php?view=categoryevents&task=catarchive&categid='.$row->slug)."'><img src='images/stories/".$row->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$row->catname."' /></a>";
 			else :
-				echo "<a href='".JRoute::_('index.php?view=categoryevents&categid='.$row->slug)."'><img src='".$this->live_site."/images/stories/".$row->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$row->catname."' /></a>";
+				echo "<a href='".JRoute::_('index.php?view=categoryevents&categid='.$row->slug)."'><img src='images/stories/".$row->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$row->catname."' /></a>";
 			endif;
 		else :
 			echo JHTML::_('image.site', 'noimage.png', '/components/com_eventlist/assets/images/', NULL, NULL, $row->catname );

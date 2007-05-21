@@ -24,15 +24,6 @@
 				<option value="0">Hide</option>
 				<option value="1">Show</option>
 			</param>
-			<param name="display_num" type="list" default="15" label="EVENT NUMBER" description="EVENT NUMBER TIP">
-				<option value="5">5</option>
-				<option value="10">10</option>
-				<option value="15">15</option>
-				<option value="20">20</option>
-				<option value="25">25</option>
-				<option value="30">30</option>
-				<option value="50">50</option>
-			</param>
 			<param name="@spacer" type="spacer" default="" label="" description="" />
 			<param name="empty_cat" type="radio" default="0" label="Empty Categories" description="Show/Hide empty(no items) categories">
 				<option value="0">Hide</option>

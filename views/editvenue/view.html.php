@@ -52,9 +52,9 @@ class EventListViewEditvenue extends JView
 		$doc->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
 
 		// Get the menu object of the active menu item
-		$menu		=& JMenu::getInstance();
+		$menu		= & JMenu::getInstance();
 		$item    	= $menu->getActive();
-		$params		=& $menu->getParams($item->id);
+		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		$id ? $title = JText::_( 'EDIT VENUE' ) : $title = JText::_( 'ADD VENUE' );
 

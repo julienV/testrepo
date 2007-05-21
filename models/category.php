@@ -77,9 +77,7 @@ class EventListModelCategory extends JModel
 		$this->setId($id);
 
 		// Get the paramaters of the active menu item
-		$menu		=& JMenu::getInstance();
-		$item    	= $menu->getActive();
-		$params	=& $menu->getParams($item->id);
+		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		//get the number of events from database
 		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0));
@@ -216,13 +214,13 @@ class EventListModelCategory extends JModel
 	 */
 	function _buildCategoryWhere( )
 	{
+		global $mainframe;
+
 		$user		=& JFactory::getUser();
 		$gid		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$menu		=& JMenu::getInstance();
-		$item    	= $menu->getActive();
-		$params		=& $menu->getParams($item->id);
+		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		$task 		= JRequest::getVar('task', '', '', 'string');
 
@@ -308,21 +306,6 @@ class EventListModelCategory extends JModel
 			$query = $this->_buildCategoriesQuery();
 			$this->_categories = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
 
-			/* Only php5 compatible
-			foreach ($this->_categories as $category) {
-
-				if( $task == 'archive' ) {
-
-					$category->assignedevents = $this->_countarchiveevents( $category->catid );
-
-				} else {
-
-					$category->assignedevents = $this->_countcatevents( $category->catid );
-
-				}
-			}
-			*/
-
 			$k = 0;
 			for($i = 0; $i <  count($this->_categories); $i++)
 			{
@@ -372,14 +355,13 @@ class EventListModelCategory extends JModel
 	 */
 	function _buildCategoriesQuery()
 	{
+		global $mainframe;
 		//initialize some vars
 		$user		= & JFactory::getUser();
 		$gid		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$menu		=& JMenu::getInstance();
-		$item    	= $menu->getActive();
-		$params		=& $menu->getParams($item->id);
+		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		// show/hide empty categories
 		$empty = null;

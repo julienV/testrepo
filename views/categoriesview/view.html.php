@@ -23,7 +23,7 @@ class EventListViewCategoriesview extends JView
 {
 	function display( $tpl=null )
 	{
-		global $Itemid, $mainframe, $option;
+		global $mainframe;
 
 		$document 	= & JFactory::getDocument();
 		$elsettings = ELHelper::config();
@@ -34,20 +34,18 @@ class EventListViewCategoriesview extends JView
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );
 
-		$live_site 	= $mainframe->getCfg('live_site');
-
 		//add css file
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
 
 		//get menu information
-		$menu		=& JMenu::getInstance();
+		$menu		= & JMenu::getInstance();
 		$item    	= $menu->getActive();
-		$params		=& $menu->getParams($item->id);
+		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		// Request variables
 		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
-		$limit			= JRequest::getVar('limit', $params->get('display_num'), '', 'int');
+		$limit			= JRequest::getVar('limit', $params->get('cat_num'), '', 'int');
 		$task			= JRequest::getVar('task', '', '', 'string');
 
 		//pathway
@@ -55,7 +53,7 @@ class EventListViewCategoriesview extends JView
 		$pathway->setItemName(1, $item->name);
 
 		if ( $task == 'archive' ) {
-			$pathway->addItem(JText::_( 'ARCHIVE' ), JRoute::_('index.php?option='.$option.'&view=categoriesview&task=archive') );
+			$pathway->addItem(JText::_( 'ARCHIVE' ), JRoute::_('index.php?view=categoriesview&task=archive') );
 		}
 
 		//Set Page title
@@ -90,16 +88,15 @@ class EventListViewCategoriesview extends JView
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
 		if ( $task == 'archive' ) {
-			$link = 'index.php?option=com_eventlist&amp;Itemid='.$item->id.'&amp;view=categoriesview&amp;task=archive';
+			$link = JRoute::_('index.php?view=categoriesview&task=archive');
 		} else {
-			$link = 'index.php?option=com_eventlist&amp;Itemid='.$item->id.'&amp;view=categoriesview';
+			$link = JRoute::_('index.php?view=categoriesview');
 		}
 
 		$this->assignRef('rows' , 					$rows);
 		$this->assignRef('task' , 					$task);
 		$this->assignRef('params' , 				$params);
 		$this->assignRef('dellink' , 				$dellink);
-		$this->assignRef('live_site' , 				$live_site);
 		$this->assignRef('page' , 					$page);
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('link' , 					$link);
