@@ -95,7 +95,8 @@ class EventListViewEditevent extends JView
 			document.popup.hide();
 		}";
 
-		$link = JRoute::_('index.php?view=editevent&task=selectvenue&tmpl=component');
+		//$link = JRoute::_('index.php?view=editevent&layout=selectvenue&tmpl=component');
+		$link = 'index.php?view=editevent&layout=selectvenue&tmpl=component';
 		$doc->addScriptDeclaration($js);
 		$doc->addScript($url.'includes/js/joomla/modal.js');
 		$doc->addStyleSheet($url.'includes/js/joomla/modal.css');

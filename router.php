@@ -144,9 +144,9 @@ function EventListParseRoute($segments)
 		{
 			$count = count($segments);
 
-			if($count > 2) {
-				$vars['id'] = $segments[1];
+			if($count == 3) {
 				$vars['view'] = 'editevent';
+				$vars['id'] = $segments[1];
 				$vars['returnid'] = $segments[2];
 			} else {
 				$vars['view'] = 'editevent';
@@ -159,10 +159,12 @@ function EventListParseRoute($segments)
 		{
 			$count = count($segments);
 
-			if($count > 2) {
-				$vars['id'] = $segments[1];
+			if($count == 3) {
+
 				$vars['view'] = 'editvenue';
+				$vars['id'] = $segments[1];
 				$vars['returnid'] = $segments[2];
+
 			} else {
 				$vars['view'] = 'editvenue';
 				$vars['returnview'] = $segments[1];

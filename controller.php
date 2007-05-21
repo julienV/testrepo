@@ -249,20 +249,6 @@ class EventListController extends JController
 	}
 
 	/**
-	 * shows a venue select listing
-	 *
-	 * @since 0.9
-	 */
-	function selectvenue( )
-	{
-		//TODO: Implement Access check
-		//JRequest::setVar( 'view', 'editevent' );
-		JRequest::setVar( 'layout', 'selectvenue'  );
-
-		parent::display();
-	}
-
-	/**
 	 * offers the vcal/ical functonality
 	 *
 	 * @author Lybegard Karl-Olof
