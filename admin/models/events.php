@@ -175,11 +175,13 @@ class EventListModelEvents extends JModel
 
 		$where = array();
 
-		if ( $filter_state ) {
-			if ( $filter_state == 'P' ) {
+		if ($filter_state) {
+			if ($filter_state == 'P') {
 				$where[] = 'a.published = 1';
-			} else if ($filter_state == 'U' ) {
+			} else if ($filter_state == 'U') {
 				$where[] = 'a.published = 0';
+			} else {
+				$where[] = 'a.published >= 0';
 			}
 		} else {
 			$where[] = 'a.published >= 0';
