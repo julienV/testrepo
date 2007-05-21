@@ -1,10 +1,135 @@
 <table class="noshow">
 	<tr>
-        <td width="50%" valign="top">
-			<fieldset class="adminform">
-				<legend><?php echo JText::_( 'GLOBAL PARAMETERS' ); ?></legend>
-				<?php echo $this->globalparams->render('globalparams'); ?>
-			</fieldset>
+   		<td width="50%" valign="top">
+			<table class="noshow">
+      			<tr>
+        			<td width="50%" valign="top">
+						<fieldset class="adminform">
+							<legend><?php echo JText::_( 'GLOBAL PARAMETERS' ); ?></legend>
+							<table class="admintable" cellspacing="1">
+								<tbody>
+	 								<tr>
+	          							<td width="300" class="key">
+											<span class="editlinktip hasTip" title="<?php echo JText::_( 'Page Title' ); ?>::<?php echo JText::_('Show/Hide the pages Title'); ?>">
+												<?php echo JText::_( 'Page Title' ); ?>
+											</span>
+										</td>
+       									<td valign="top">
+        									<?php
+		  									$titel = array();
+											$titel[] = JHTML::_('select.option', '0', JText::_( 'Hide' ) );
+											$titel[] = JHTML::_('select.option', '1', JText::_( 'Show' ) );
+											$showtitel = JHTML::_('select.genericlist', $titel, 'globalparams[page_title]', 'size="1" class="inputbox"', 'value', 'text', $this->globalparams->get('page_title') );
+											echo $showtitel;
+        									?>
+       	 								</td>
+      								</tr>
+      								<tr>
+	          							<td width="300" class="key">
+											<span class="editlinktip hasTip" title="<?php echo JText::_( 'EVENT NUMBER' ); ?>::<?php echo JText::_('EVENT NUMBER TIP'); ?>">
+												<?php echo JText::_( 'EVENT NUMBER' ); ?>
+											</span>
+										</td>
+       									<td valign="top">
+        									<?php
+		  									$nr = array();
+											$nr[] = JHTML::_('select.option', '5', 5 );
+											$nr[] = JHTML::_('select.option', '10', 10 );
+											$nr[] = JHTML::_('select.option', '15', 15 );
+											$nr[] = JHTML::_('select.option', '20', 20 );
+											$nr[] = JHTML::_('select.option', '25', 25 );
+											$nr[] = JHTML::_('select.option', '30', 30 );
+											$nr[] = JHTML::_('select.option', '50', 50 );
+											$nrevents = JHTML::_('select.genericlist', $nr, 'globalparams[display_num]', 'size="1" class="inputbox"', 'value', 'text', $this->globalparams->get('display_num') );
+											echo $nrevents;
+        									?>
+       	 								</td>
+      								</tr>
+      								<tr>
+	          							<td width="300" class="key">
+											<span class="editlinktip hasTip" title="<?php echo JText::_( 'CAT DISPLAY' ); ?>::<?php echo JText::_('CAT DISPLAY DESC'); ?>">
+												<?php echo JText::_( 'CAT DISPLAY' ); ?>
+											</span>
+										</td>
+       									<td valign="top">
+											<input type="text" name="globalparams[cat_num]" value="<?php echo $this->globalparams->get('cat_num'); ?>" size="3" maxlength="3" />
+       	 								</td>
+      								</tr>
+      								<tr>
+	          							<td width="300" class="key">
+											<span class="editlinktip hasTip" title="<?php echo JText::_( 'Empty Categories' ); ?>::<?php echo JText::_('Show/Hide empty(no items) categories'); ?>">
+												<?php echo JText::_( 'Empty Categories' ); ?>
+											</span>
+										</td>
+       									<td valign="top">
+        									<?php
+		  									$empty = array();
+											$empty[] = JHTML::_('select.option', '0', JText::_( 'Hide' ) );
+											$empty[] = JHTML::_('select.option', '1', JText::_( 'Show' ) );
+											$emptycat = JHTML::_('select.genericlist', $empty, 'globalparams[empty_cat]', 'size="1" class="inputbox"', 'value', 'text', $this->globalparams->get('empty_cat') );
+											echo $emptycat;
+        									?>
+       	 								</td>
+      								</tr>
+      								<tr>
+	          							<td width="300" class="key">
+											<span class="editlinktip hasTip" title="<?php echo JText::_( 'Filter' ); ?>::<?php echo JText::_('Show/Hide the Filter ability'); ?>">
+												<?php echo JText::_( 'Filter' ); ?>
+											</span>
+										</td>
+       									<td valign="top">
+        									<?php
+		  									$filter = array();
+											$filter[] = JHTML::_('select.option', '0', JText::_( 'Hide' ) );
+											$filter[] = JHTML::_('select.option', '1', JText::_( 'Show' ) );
+											$showfilter = JHTML::_('select.genericlist', $filter, 'globalparams[filter]', 'size="1" class="inputbox"', 'value', 'text', $this->globalparams->get('filter') );
+											echo $showfilter;
+        									?>
+       	 								</td>
+      								</tr>
+      								<tr>
+	          							<td width="300" class="key">
+											<span class="editlinktip hasTip" title="<?php echo JText::_( 'Display Select' ); ?>::<?php echo JText::_('Show/Hide the Display Select dropdown'); ?>">
+												<?php echo JText::_( 'Display Select' ); ?>
+											</span>
+										</td>
+       									<td valign="top">
+        									<?php
+		  									$display = array();
+											$display[] = JHTML::_('select.option', '0', JText::_( 'Hide' ) );
+											$display[] = JHTML::_('select.option', '1', JText::_( 'Show' ) );
+											$showdisplay = JHTML::_('select.genericlist', $display, 'globalparams[display]', 'size="1" class="inputbox"', 'value', 'text', $this->globalparams->get('display') );
+											echo $showdisplay;
+        									?>
+       	 								</td>
+      								</tr>
+								</tbody>
+							</table>
+						</fieldset>
+					</td>
+
+					<td width="50%" valign="top">
+						<table class="noshow">
+      						<tr>
+        						<td width="50%" valign="top">
+									<fieldset class="adminform">
+										<legend><?php echo JText::_( 'ATTENTION' ); ?></legend>
+										<table class="admintable" cellspacing="1">
+											<tbody>
+	 											<tr>
+	          										<td>
+														That's are just overrides for the menu parameters. They are only used if blablub blafasel blafasel too late for writing in english
+       	 											</td>
+      											</tr>
+											</tbody>
+										</table>
+		 							</fieldset>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 </table>
