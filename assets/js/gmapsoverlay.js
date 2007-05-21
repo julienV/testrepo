@@ -4,6 +4,8 @@
 
 	by André Fiedler (http://www.visualdrugs.net) - GNU license.
 
+	modified for EventList by Christoph Lukes (http://www.schlu.net)
+
 */
 
 var GMapsOverlay = {
