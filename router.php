@@ -116,12 +116,12 @@ function EventListParseRoute($segments)
 			$categid = explode(':', $segments[1]);
 			$vars['categid'] = $categid[0];
 			$vars['view'] = 'categoryevents';
-/*
+
 			$count = count($segments);
-			if($count >= 2) {
+			if($count > 2) {
 				$vars['task'] = $segments[2];
 			}
-*/
+
 		} break;
 
 		case 'details':
@@ -185,6 +185,11 @@ function EventListParseRoute($segments)
 		case 'categoriesview':
 		{
 			$vars['view'] = 'categoriesview';
+
+			$count = count($segments);
+			if($count == 2) {
+				$vars['task'] = $segments[1];
+			}
 
 		} break;
 
