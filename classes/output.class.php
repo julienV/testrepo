@@ -196,30 +196,34 @@ class ELOutput {
 	 */
 	function printbutton( $print_link, &$params )
 	{
-		$status = 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no';
+		if ($params->get( 'show_print_icon' )) {
 
-		// checks template image directory for image, if non found default are loaded
-		if ( $params->get( 'icons' ) ) {
-			$text = JHTML::_('image.site', 'printButton.png', '/images/M_images/', NULL, NULL, JText::_( 'Print' ), JText::_( 'Print' ) );
-		} else {
-			$text = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'Print' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
+			$status = 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no';
+
+			// checks template image directory for image, if non found default are loaded
+			if ( $params->get( 'icons' ) ) {
+				$text = JHTML::_('image.site', 'printButton.png', '/images/M_images/', NULL, NULL, JText::_( 'Print' ), JText::_( 'Print' ) );
+			} else {
+				$text = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'Print' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
+			}
+
+			if ($params->get( 'popup' )) {
+				//button in popup
+				$attribs['title']   = '"'.JText::_( 'Print' ).'"';
+				$attribs['onclick'] = "\"javascript:window.print(); return false;\"";
+
+				$output = JHTML::Link('#', $text, $attribs);
+			} else {
+				//button in view
+				$attribs['title']   = '"'.JText::_( 'Print' ).'"';
+				$attribs['onclick'] = "\"window.open('".$print_link."','win2','".$status."'); return false;\"";
+
+				$output = JHTML::Link($print_link, $text, $attribs);
+			}
+
+			return $output;
 		}
-
-		if ($params->get( 'popup' )) {
-			//button in popup
-			$attribs['title']   = '"'.JText::_( 'Print' ).'"';
-			$attribs['onclick'] = "\"javascript:window.print(); return false;\"";
-
-			$output = JHTML::Link('#', $text, $attribs);
-		} else {
-			//button in view
-			$attribs['title']   = '"'.JText::_( 'Print' ).'"';
-			$attribs['onclick'] = "\"window.open('".$print_link."','win2','".$status."'); return false;\"";
-
-			$output = JHTML::Link($print_link, $text, $attribs);
-		}
-
-		return $output;
+		return;
 	}
 
 	/**
@@ -232,21 +236,24 @@ class ELOutput {
 	 */
 	function mailbutton($params)
 	{
-		$url 	= 'index.php?option=com_mailto&tmpl=component&link='.base64_encode( JRequest::getURI());
-		$status = 'width=400,height=300,menubar=yes,resizable=yes';
+		if ($params->get('show_email_icon')) 	{
+			$url 	= 'index.php?option=com_mailto&tmpl=component&link='.base64_encode( JRequest::getURI());
+			$status = 'width=400,height=300,menubar=yes,resizable=yes';
 
-		if ($params->get('icons')) 	{
-			$text = JHTML::_('image.site', 'emailButton.png', '/images/M_images/', NULL, NULL, JText::_( 'Email' ), JText::_( 'Email' ));
-		} else {
-			$text = '&nbsp;'.JText::_( 'Email' );
+			if ($params->get('icons')) 	{
+				$text = JHTML::_('image.site', 'emailButton.png', '/images/M_images/', NULL, NULL, JText::_( 'Email' ), JText::_( 'Email' ));
+			} else {
+				$text = '&nbsp;'.JText::_( 'Email' );
+			}
+
+			$attribs['title']	= '"'.JText::_( 'Email' ).'"';
+			$attribs['onclick'] = "\"window.open(this.href,'win2','".$status."'); return false;\"";
+
+			$output = JHTML::Link($url, $text, $attribs);
+
+			return $output;
 		}
-
-		$attribs['title']	= '"'.JText::_( 'Email' ).'"';
-		$attribs['onclick'] = "\"window.open(this.href,'win2','".$status."'); return false;\"";
-
-		$output = JHTML::Link($url, $text, $attribs);
-
-		return $output;
+		return;
 	}
 
 	/**

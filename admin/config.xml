@@ -27,5 +27,17 @@
 			<option value="0">Hide</option>
 			<option value="1">Show</option>
 		</param>
+		<param name="icons" type="radio" default="1" label="Show Icons" description="Show the icons or use alternative text">
+			<option value="0">Hide</option>
+			<option value="1">Show</option>
+		</param>
+		<param name="show_print_icon" type="radio" default="1" label="Print Icon" description="">
+			<option value="0">Hide</option>
+			<option value="1">Show</option>
+		</param>
+		<param name="show_email_icon" type="radio" default="1" label="Email Icon" description="">
+			<option value="0">Hide</option>
+			<option value="1">Show</option>
+		</param>
  	</params>
 </config>

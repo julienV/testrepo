@@ -33,7 +33,7 @@ class EventListViewDetails extends JView
 		$document 	= & JFactory::getDocument();
 		$user		= & JFactory::getUser();
 		$elsettings = ELHelper::config();
-		$ELConfig	= &JComponentHelper::getParams('com_eventlist');
+	//	$ELConfig	= &JComponentHelper::getParams('com_eventlist');
 
 		$row		= & $this->get('Details');
 		$registers	= & $this->get('Registers');
@@ -41,6 +41,11 @@ class EventListViewDetails extends JView
 
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );
+
+		//get menu information
+		$menu		= & JMenu::getInstance();
+		$item    	= $menu->getActive();
+		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		if ($elsettings->comunsolution == 1) {
 			$pics		= & $this->get('Avatars');
@@ -69,15 +74,10 @@ class EventListViewDetails extends JView
   			$document->addStyleSheet('components/com_eventlist/assets/css/slimbox.css', 'text/css', 'screen');
 		}
 
-		//get menu information
-		$menu		=& JMenu::getInstance();
-		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
-
 		//Print
 		$pop	= JRequest::getVar('pop', 0, '', 'int');
-		$params->def( 'print', $ELConfig->get('showPrint', 1) );
-		$params->def( 'icons', $ELConfig->get('showIcons', 1) );
+	//	$params->def( 'print', $ELConfig->get('showPrint', 1) );
+	//	$params->def( 'icons', $ELConfig->get('showIcons', 1) );
 
 		if ( $pop ) {
 			$params->set( 'popup', 1 );

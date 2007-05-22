@@ -16,11 +16,7 @@
 										</td>
        									<td valign="top">
         									<?php
-		  									$titel = array();
-											$titel[] = JHTML::_('select.option', '0', JText::_( 'Hide' ) );
-											$titel[] = JHTML::_('select.option', '1', JText::_( 'Show' ) );
-											$showtitel = JHTML::_('select.genericlist', $titel, 'globalparams[page_title]', 'size="1" class="inputbox"', 'value', 'text', $this->globalparams->get('page_title') );
-											echo $showtitel;
+											echo JHTML::_('select.booleanlist', 'globalparams[page_title]', 'class="inputbox"', $this->globalparams->get('page_title'), 'Show', 'Hide' );
         									?>
        	 								</td>
       								</tr>
@@ -63,11 +59,7 @@
 										</td>
        									<td valign="top">
         									<?php
-		  									$empty = array();
-											$empty[] = JHTML::_('select.option', '0', JText::_( 'Hide' ) );
-											$empty[] = JHTML::_('select.option', '1', JText::_( 'Show' ) );
-											$emptycat = JHTML::_('select.genericlist', $empty, 'globalparams[empty_cat]', 'size="1" class="inputbox"', 'value', 'text', $this->globalparams->get('empty_cat') );
-											echo $emptycat;
+											echo JHTML::_('select.booleanlist', 'globalparams[empty_cat]', 'class="inputbox"', $this->globalparams->get('empty_cat'), 'Show', 'Hide' );
         									?>
        	 								</td>
       								</tr>
@@ -79,11 +71,7 @@
 										</td>
        									<td valign="top">
         									<?php
-		  									$filter = array();
-											$filter[] = JHTML::_('select.option', '0', JText::_( 'Hide' ) );
-											$filter[] = JHTML::_('select.option', '1', JText::_( 'Show' ) );
-											$showfilter = JHTML::_('select.genericlist', $filter, 'globalparams[filter]', 'size="1" class="inputbox"', 'value', 'text', $this->globalparams->get('filter') );
-											echo $showfilter;
+											echo JHTML::_('select.booleanlist', 'globalparams[filter]', 'class="inputbox"', $this->globalparams->get('filter'), 'Show', 'Hide' );
         									?>
        	 								</td>
       								</tr>
@@ -95,12 +83,44 @@
 										</td>
        									<td valign="top">
         									<?php
-		  									$display = array();
-											$display[] = JHTML::_('select.option', '0', JText::_( 'Hide' ) );
-											$display[] = JHTML::_('select.option', '1', JText::_( 'Show' ) );
-											$showdisplay = JHTML::_('select.genericlist', $display, 'globalparams[display]', 'size="1" class="inputbox"', 'value', 'text', $this->globalparams->get('display') );
-											echo $showdisplay;
+											echo JHTML::_('select.booleanlist', 'globalparams[display]', 'class="inputbox"', $this->globalparams->get('display'), 'Show', 'Hide' );
         									?>
+       	 								</td>
+      								</tr>
+      								<tr valign="top">
+	          							<td width="300" class="key">
+											<span class="editlinktip hasTip" title="<?php echo JText::_( 'Show Icons' ); ?>::<?php echo JText::_('Show the icons or use alternative text'); ?>">
+												<?php echo JText::_( 'Show Icons' ); ?>
+											</span>
+										</td>
+       									<td valign="top">
+		 									<?php
+          									echo JHTML::_('select.booleanlist', 'globalparams[icons]', 'class="inputbox"', $this->globalparams->get('icons'), 'Show', 'Hide' );
+       										?>
+       	 								</td>
+      								</tr>
+      								<tr valign="top">
+	          							<td width="300" class="key">
+											<span class="editlinktip hasTip" title="<?php echo JText::_( 'Print Icon' ); ?>::<?php echo JText::_('Show the Print Icon'); ?>">
+												<?php echo JText::_( 'Print Icon' ); ?>
+											</span>
+										</td>
+       									<td valign="top">
+		 									<?php
+          									echo JHTML::_('select.booleanlist', 'globalparams[show_print_icon]', 'class="inputbox"', $this->globalparams->get('show_print_icon'), 'Show', 'Hide' );
+       										?>
+       	 								</td>
+      								</tr>
+      								<tr valign="top">
+	          							<td width="300" class="key">
+											<span class="editlinktip hasTip" title="<?php echo JText::_( 'Email Icon' ); ?>::<?php echo JText::_('Show the Email Icon'); ?>">
+												<?php echo JText::_( 'Email Icon' ); ?>
+											</span>
+										</td>
+       									<td valign="top">
+		 									<?php
+          									echo JHTML::_('select.booleanlist', 'globalparams[show_email_icon]', 'class="inputbox"', $this->globalparams->get('show_email_icon'), 'Show', 'Hide' );
+       										?>
        	 								</td>
       								</tr>
 								</tbody>

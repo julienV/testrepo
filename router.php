@@ -89,9 +89,6 @@ function EventListBuildRoute(&$query)
 
 function EventListParseRoute($segments)
 {
-
-	//print_r($segments);
-
 	//Handle View and Identifier
 	switch($segments[0])
 	{
