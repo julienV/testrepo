@@ -145,7 +145,7 @@
 					</td>
 					<td>
 						<input class="inputbox" type="text" name="dates" id="dates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" />
-            			<input type="reset" class="button" value="..." onclick="return showCalendar('dates', 'Y-m-d');" onblur="seo_switch()" />
+            			<a href="#" onclick="return showCalendar('dates', 'Y-m-d');" onblur="seo_switch()"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
            			</td>
             		<td>
             			<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('FORMAT DATE'); ?>">
@@ -161,7 +161,7 @@
 					</td>
 					<td>
 						<input class="inputbox" type="text" name="enddates" id="enddates" size="15" maxlength="10" value="<?php echo $this->row->enddates; ?>" />
-            			<input type="reset" class="button" value="..." onclick="return showCalendar('enddates', 'Y-m-d');" onblur="seo_switch()" />
+            			<a href="#" onclick="return showCalendar('enddates', 'Y-m-d');" onblur="seo_switch()"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
            			</td>
           		 	<td>
 						<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('FORMAT DATE'); ?>">
