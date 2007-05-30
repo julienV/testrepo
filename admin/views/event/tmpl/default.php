@@ -77,7 +77,7 @@
 					</td>
 					<td>
 						<?php
-						$html = JHTML::_('select.booleanlist', 'published', 'class="inputbox"', $this->row->published );
+						$html = JHTML::_('select.booleanlist', 'published', '', $this->row->published );
 						echo $html;
 						?>
 					</td>
@@ -230,7 +230,7 @@
 					</td>
 					<td>
 						<?php
-						$html = JHTML::_('select.booleanlist', 'registra', 'class="inputbox"', $this->row->registra );
+						$html = JHTML::_('select.booleanlist', 'registra', '', $this->row->registra );
 						echo $html;
 						?>
 					</td>
@@ -243,7 +243,7 @@
 					</td>
 					<td>
 						<?php
-						$html = JHTML::_('select.booleanlist', 'unregistra', 'class="inputbox"', $this->row->unregistra );
+						$html = JHTML::_('select.booleanlist', 'unregistra', '', $this->row->unregistra );
 						echo $html;
 						?>
 					</td>

@@ -53,7 +53,7 @@ class EventListModelDetails extends JModel
 		parent::__construct();
 
 		$id = JRequest::getVar('did', 0, '', 'int');
-		$this->setId($id);
+		$this->setId((int)$id);
 	}
 
 	/**
@@ -119,9 +119,9 @@ class EventListModelDetails extends JModel
 			$query = 'SELECT a.id AS did, a.dates, a.enddates, a.title, a.times, a.endtimes, a.datdescription, a.meta_keywords, a.meta_description, a.datimage, a.registra, a.unregistra, a.locid, a.catsid, a.created_by,'
 					. ' l.id AS locid, l.venue, l.city, l.state, l.url, l.locdescription, l.locimage, l.city, l.plz, l.street, l.country, l.map, l.created_by AS venueowner,'
 					. ' c.catname, c.published, c.access,'
-					. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\'-\', a.id, a.alias) ELSE a.id END as slug,'
-					. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\'-\', a.locid, l.alias) ELSE a.locid END as venueslug,'
-					. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\'-\', c.id, c.alias) ELSE c.id END as categoryslug'
+					. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
+					. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug,'
+					. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as categoryslug'
 					. ' FROM #__eventlist_events AS a'
 					. ' LEFT JOIN #__eventlist_venues AS l ON a.locid = l.id'
 					. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'

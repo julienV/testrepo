@@ -312,7 +312,8 @@ class EventListModelEditvenue extends JModel
 		$editoruser = & ELUser::editoruser();
 		if (!$editoruser) {
 
-			$row->locdescription = strip_tags($row->locdescription);
+			$row->locdescription = strip_tags($row->locdescription, '<br />');
+			$row->locdescription = nl2br($row->locdescription);
 
 			//cut too long words
 			$row->locdescription = wordwrap($row->locdescription, 75, " ", 1);

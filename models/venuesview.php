@@ -175,7 +175,7 @@ class EventListModelVenuesview extends JModel
 	{
 		//get categories
 		$query = 'SELECT *,'
-				. ' CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\'-\', id, alias) ELSE id END as slug'
+				. ' CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug'
 				. ' FROM #__eventlist_venues'
 				. ' WHERE published = 1'
 				. ' ORDER BY venue'

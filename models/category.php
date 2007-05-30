@@ -175,9 +175,9 @@ class EventListModelCategory extends JModel
 
 		//Get Events from Database
 		$query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.venue, l.city, l.state, l.url, c.catname, c.id AS catid, '
-				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\'-\', a.id, a.alias) ELSE a.id END as slug,'
-				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\'-\', a.locid, l.alias) ELSE a.locid END as venueslug,'
-				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\'-\', c.id, c.alias) ELSE c.id END as categoryslug'
+				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
+				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug,'
+				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as categoryslug'
 				. ' FROM #__eventlist_events AS a'
 				. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
 				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
@@ -281,7 +281,7 @@ class EventListModelCategory extends JModel
 	function getCategory( )
 	{
 		$query = 'SELECT *, '
-			.'CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\'-\', id, alias) ELSE id END as slug '
+			.'CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug '
 			.'FROM #__eventlist_categories WHERE id = '.$this->_id;
 		$this->_db->setQuery( $query );
 
@@ -381,7 +381,7 @@ class EventListModelCategory extends JModel
 
 		//get categories
 		$query = 'SELECT c.*, c.id AS catid,'
-				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\'-\', c.id, c.alias) ELSE c.id END as slug'
+				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as slug'
 				. ' FROM #__eventlist_categories AS c'
 				. ' LEFT JOIN #__eventlist_events AS a ON a.catsid = c.id'
 				. ' WHERE c.published = 1'

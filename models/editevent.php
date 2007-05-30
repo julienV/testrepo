@@ -574,7 +574,8 @@ class EventListModelEditevent extends JModel
 
 		if (!$editoruser) {
 			//check datdescription --> wipe out code
-			$row->datdescription = strip_tags($row->datdescription);
+			$row->datdescription = strip_tags($row->datdescription, '<br />');
+			$row->datdescription = nl2br($row->datdescription);
 
 			// cut too long words
 			$row->datdescription = wordwrap($row->datdescription, 75, ' ', 1);

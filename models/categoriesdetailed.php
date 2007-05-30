@@ -186,9 +186,9 @@ class EventListModelCategoriesdetailed extends JModel
 
 		//Get Events from Category
 		$query = 'SELECT a.*, l.venue, l.city, l.state, l.url, c.catname, c.id AS catid,'
-				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\'-\', a.id, a.alias) ELSE a.id END as slug,'
-				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\'-\', a.locid, l.alias) ELSE a.locid END as venueslug,'
-				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\'-\', c.id, c.alias) ELSE c.id END as categoryslug'
+				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
+				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug,'
+				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as categoryslug'
 				. ' FROM #__eventlist_events AS a'
 				. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
 				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
@@ -225,7 +225,7 @@ class EventListModelCategoriesdetailed extends JModel
 
 		//Get Categories
 		$query = 'SELECT c.*,'
-				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\'-\', c.id, c.alias) ELSE c.id END as slug'
+				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as slug'
 				. ' FROM #__eventlist_categories AS c'
 				. ' LEFT JOIN #__eventlist_events AS a ON a.catsid = c.id'
 				. ' WHERE c.published = 1'
