@@ -55,7 +55,7 @@
 				foreach ($this->toc as $k=>$v) {
 					echo '<tr>';
 					echo '<td>';
-					echo JHTML::Link('components/com_eventlist/help/'.$this->langTag.'/'.$k, $v, array('target' => "'helpFrame'"));
+					echo JHTML::Link('components/com_eventlist/help/'.$this->langTag.'/'.$k, $v, array('target' => 'helpFrame'));
 					echo '</td>';
 					echo '</tr>';
 				}
