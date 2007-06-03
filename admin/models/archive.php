@@ -218,7 +218,7 @@ class EventListModelArchive extends JModel
 
 		return $where;
 	}
-	
+
 	/**
 	 * Get the editor name
 	 *
@@ -261,7 +261,7 @@ class EventListModelArchive extends JModel
 
 			$query = 'UPDATE #__eventlist_events'
 					. ' SET published = '.(int) $publish
-					. ' WHERE id IN ( $cids )'
+					. ' WHERE id IN ('. $cids .')'
 					. ' AND ( checked_out = 0 OR ( checked_out = ' .$userid. ' ) )'
 			;
 			$this->_db->setQuery( $query );
