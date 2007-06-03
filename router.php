@@ -114,7 +114,6 @@ function EventListParseRoute($segments)
 		{
 			$categid = explode(':', $segments[1]);
 			$vars['categid'] = $categid[0];
-		//	$vars['categid'] = $segments[1];
 			$vars['view'] = 'categoryevents';
 
 			$count = count($segments);
@@ -128,7 +127,6 @@ function EventListParseRoute($segments)
 		{
 			$did = explode(':', $segments[1]);
 			$vars['did'] = $did[0];
-		//	$vars['did'] = $segments[1];
 			$vars['view'] = 'details';
 
 		} break;
@@ -137,7 +135,6 @@ function EventListParseRoute($segments)
 		{
 			$locatid = explode(':', $segments[1]);
 			$vars['locatid'] = $locatid[0];
-		//	$vars['locatid'] = $segments[1];
 			$vars['view'] = 'venueevents';
 
 		} break;
