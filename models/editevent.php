@@ -570,11 +570,16 @@ class EventListModelEditevent extends JModel
 			$row->datimage = $row->curimage;
 		}//end image if
 
-		$editoruser = & ELUser::editoruser();
+		$editoruser = ELUser::editoruser();
 
 		if (!$editoruser) {
 			//check datdescription --> wipe out code
 			$row->datdescription = strip_tags($row->datdescription, '<br />');
+
+			//convert all linebreaks in the linux \n (Mac \r, Win \r\n)
+			$row->datdescription = ereg_replace('(\r\n|\n|\r)', '\n', $row->datdescription);
+
+			//convert \n to <br />
 			$row->datdescription = nl2br($row->datdescription);
 
 			// cut too long words

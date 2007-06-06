@@ -10,17 +10,18 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 
-<?php if ($this->params->get('page_title')) : ?>
 <h1 class="componentheading floattext">
 	<span class="buttons">
 		<?php echo ELOutput::mailbutton( $this->params ); ?>
 		<?php echo ELOutput::printbutton( $this->print_link, $this->params ); ?>
 	</span>
+<?php if ($this->params->get('page_title')) : ?>
 
 	<?php echo JText::_( 'DETAILS' ) ; ?>
 
-</h1>
 <?php endif; ?>
+
+</h1>
 
 <!-- Details EVENT -->
 <div id="eventlist" class="event_id<?php echo $this->row->did; ?> el_details">

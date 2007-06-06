@@ -208,6 +208,8 @@ class EventListModelCategoriesdetailed extends JModel
 	 */
 	function _buildQuery( )
 	{
+		global $mainframe;
+
 		$user		= & JFactory::getUser();
 		$gid 		= (int) $user->get('aid');
 

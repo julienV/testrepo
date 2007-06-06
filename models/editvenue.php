@@ -309,10 +309,16 @@ class EventListModelEditvenue extends JModel
 		}//end image upload if
 
 		//Check description
-		$editoruser = & ELUser::editoruser();
-		if (!$editoruser) {
+		$editoruser = ELUser::editoruser();
 
+		if (!$editoruser) {
+			//check datdescription --> wipe out code
 			$row->locdescription = strip_tags($row->locdescription, '<br />');
+
+			//convert all linebreaks in the linux \n (Mac \r, Win \r\n)
+			$row->locdescription = ereg_replace('(\r\n|\n|\r)', '\n', $row->locdescription);
+
+			//convert \n to <br />
 			$row->locdescription = nl2br($row->locdescription);
 
 			//cut too long words

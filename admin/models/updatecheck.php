@@ -59,6 +59,7 @@ class EventListModelUpdatecheck extends JModel
 
 		//Load the xml file
 		$_updatedata = null;
+
 		if (!@$xml->loadFile($file))	{
 
 			$_updatedata->current = '';
