@@ -282,6 +282,52 @@
 				</tr>
 			</table>
 			<?php
+			$title = JText::_( 'RECURING EVENTS' );
+			echo $this->pane->endPanel();
+			echo $this->pane->startPanel( $title, 'recurrence' );
+			?>
+
+
+				<table width="100%">
+					<tr>
+						<td><?php echo JText::_( 'RECURRENCE' ); ?>:</td>
+						<td>
+						  <select id="recurrence_select" name="recurrence_select" size="1">
+						    <option value="0"><?php echo JText::_( 'NOTHING' ); ?></option>
+						    <option value="1"><?php echo JText::_( 'DAYLY' ); ?></option>
+						    <option value="2"><?php echo JText::_( 'WEEKLY' ); ?></option>
+						    <option value="3"><?php echo JText::_( 'MONTHLY' ); ?></option>
+						    <option value="4"><?php echo JText::_( 'WEEKDAY' ); ?></option>
+						  </select>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" id="recurrence_output">&nbsp;</td>
+					</tr>
+				</table>
+			<br/>
+			<input type="hidden" name="recurrence_number" id="recurrence_number" value="<?php echo $this->row->recurrence_number; ?>" />
+			<input type="hidden" name="recurrence_type" id="recurrence_type" value="<?php echo $this->row->recurrence_type; ?>" />
+			<script type="text/javascript">
+			<!--
+				var $select_output = new Array();
+				$select_output[1] = "<?php echo JText::_( 'OUTPUT DAY' ); ?>";
+				$select_output[2] = "<?php echo JText::_( 'OUTPUT WEEK' ); ?>";
+				$select_output[3] = "<?php echo JText::_( 'OUTPUT MONTH' ); ?>";
+				$select_output[4] = "<?php echo JText::_( 'OUTPUT WEEKDAY' ); ?>";
+
+				var $weekday = new Array();
+				$weekday[0] = "<?php echo JText::_( 'MONDAY' ); ?>";
+				$weekday[1] = "<?php echo JText::_( 'TUESDAY' ); ?>";
+				$weekday[2] = "<?php echo JText::_( 'WEDNESDAY' ); ?>";
+				$weekday[3] = "<?php echo JText::_( 'THURSDAY' ); ?>";
+				$weekday[4] = "<?php echo JText::_( 'FRIDAY' ); ?>";
+				$weekday[5] = "<?php echo JText::_( 'SATURDAY' ); ?>";
+				$weekday[6] = "<?php echo JText::_( 'SUNDAY' ); ?>";
+				start_recurrencescript();
+			-->
+			</script>
+			<?php
 			$title = JText::_( 'METADATA INFORMATION' );
 			echo $this->pane->endPanel();
 			echo $this->pane->startPanel( $title, 'meta' );

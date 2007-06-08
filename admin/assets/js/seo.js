@@ -7,7 +7,7 @@
 
 // Variablen werden als global definiert, da sie ueber mehrere Funktion hinweg genutzt werden
 var $keyword;			// Array - aufgeschlitete Variablen, welche einem HTML-Tag zugeordnet werden kann
-var $keywords;			// String - Verbindungsvariable zur noch nicht umgeschriebenen Variante der Keywords 
+var $keywords;			// String - Verbindungsvariable zur noch nicht umgeschriebenen Variante der Keywords
 var $manual_keywords = "";	// String - Speichert alle manuell eingefügen Keywords ab
 var $description;		// String - die Beschreibung
 var $description_vars;	// Array - HTML - Tags, die mit einem onchange versehen werden
@@ -17,16 +17,16 @@ var meta_error;			// String - Fehler, der in der jeweiligen Sprache ausgegeben w
 function starter($msg) {			// Funktion, welche beim Starten der Seite aufgerufen werden
 	get_keywords();					// leider funktionier window.onload nicht, da sonst die Popupfenster Fehler verursachen
 	get_description();
-	switchstart();	
+	switchstart();
 	$meta_error = $msg;
 	document.adminForm.onsubmit = function() {		// Das Formtag von Joomla wird angesprochen
 		$("meta_keywords").value = $keywords;
-		$("meta_description").value = $description;	
+		$("meta_description").value = $description;
 	};
 }
 
 function switchstart() {	// Diese Funktion uebergibt alle relevanten Feldern ein onchange
-	
+
 	try {
 		if ($keyword.length > 0) {
 			for (var i=0; i < $keyword.length; i++) {
@@ -56,12 +56,12 @@ function get_keywords() {
 	for (var i = 0; i < $keyword.length; i++) {	// und alle Leerzeichen entfernen
 		try { 									// Die Abfrage wird Fehlersicher gemacht
 			$keyword[i] = $keyword[i].replace(/ /g,"");
-			$keyword[i] = $keyword[i].replace(/\[/g,"");	
+			$keyword[i] = $keyword[i].replace(/\[/g,"");
 			$keyword[i] = $keyword[i].replace(/\]/g,"");
 			$($keyword[i]).value;				// ein Fehler wird provoziert, falls dieses Element nicht vorhanden ist
       	} catch (e) {
 			if ($manual_keywords != "") {	// das nicht verwendete Keyword wird neu abgespeichert
-				$manual_keywords += ", ";	
+				$manual_keywords += ", ";
 			}
 			$manual_keywords += $keyword[i];
 			$keyword[i] = $Nullvalue;	// Falls eine angegebene ID nicht vorhanden ist, wird diese aus dem Array entfernt
@@ -78,7 +78,7 @@ function get_keywords() {
 			$keyword_length--;
 			$keyword_count++;
 		} else {
-			i++;	
+			i++;
 		}
 	}
 	for (i=0; i < $keyword_count; i++) {
@@ -100,13 +100,13 @@ function get_description() {
 				} catch (e) {
 					$description_vars.pop();
 					continue;
-				}	
+				}
 			}
 		} else {
-			$description_vars = new Array(0);	
+			$description_vars = new Array(0);
 		}
 	} else {
-		$description_vars = new Array(0);	
+		$description_vars = new Array(0);
 	}
 }
 
@@ -114,13 +114,13 @@ function include_keyword() {
 	var $keywords="";
 	for (var i=0; i<$keyword.length; i++) { 		// Es werden alle keywords ausgelesen
 		if ($keywords != "") {
-					$keywords += ", ";	
+					$keywords += ", ";
 				}
 		if($($keyword[i]).tagName == "SELECT") {	// es wird unterschieden zwischen normalen Inputfeld und Selectfeld
 			if ($($keyword[i]).value != 0) {		// um auch korrekt abspeichern zu koennen wird das Komma richtig gesetzt
 				$keywords += $($keyword[i]).options[$($keyword[i]).value].text;	// Auslesen des Wertes aus dem Selectfeld
 			} else {
-				$keywords += "["+$keyword[i]+"]";	
+				$keywords += "["+$keyword[i]+"]";
 			}
 		} else if ($($keyword[i]).value != "") {
 			$keywords += $($keyword[i]).value;	//Auslesen des Wertes aus dem Inputfeld
@@ -130,7 +130,7 @@ function include_keyword() {
 	}
 	if ($manual_keywords != "") {
 		if ($keywords != "") {
-			$manual_keywords = ", "+ $manual_keywords;	
+			$manual_keywords = ", "+ $manual_keywords;
 		}
 		$keywords = $keywords + $manual_keywords;
 	}
@@ -181,7 +181,7 @@ function insert_keyword($keyword) {
 }
 
 function change_metatags() {
-	
+
 	if ($inputbox == "meta_keywords") {
 		$keywords = $($inputbox).value;
 		get_keywords();
@@ -191,7 +191,7 @@ function change_metatags() {
 	}
 	switchstart();
 }
-			
+
 function get_inputbox($input) {
 	if ($input == "meta_keywords") {
 		$($input).value = $keywords;

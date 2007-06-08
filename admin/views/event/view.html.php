@@ -49,6 +49,7 @@ class EventListViewEvent extends JView {
 		//add the custom stylesheet and the seo javascript
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 		$document->addScript($url.'administrator/components/com_eventlist/assets/js/seo.js');
+		$document->addScript($url.'administrator/components/com_eventlist/assets/js/recurrence.js');
 
 		//build toolbar
 		if ( $cid ) {

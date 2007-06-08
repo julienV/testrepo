@@ -25,6 +25,8 @@ CREATE TABLE `#__eventlist_events` (
 `datdescription` text NOT NULL,
 `meta_keywords` varchar(200) NOT NULL default '',
 `meta_description` varchar(255) NOT NULL default '',
+`recurrence_number` int(2) NOT NULL default '0',
+`recurrence_type` int(2) NOT NULL default '0',
 `datimage` text NOT NULL default '',
 `checked_out` int(11) NOT NULL default '0',
 `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',

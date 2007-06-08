@@ -51,6 +51,10 @@ class eventlist_events extends JTable
 	var $meta_description 	= null;
 	/** @var string */
 	var $meta_keywords		= null;
+	/** @var int */
+	var $recurrence_number	= 0;
+	/** @var int */
+	var $recurrence_type	= 0;
 	/** @var string */
 	var $datimage 			= '';
 	/** @var string */
@@ -98,14 +102,12 @@ class eventlist_events extends JTable
 		if (isset($this->dates)) {
 			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $this->dates)) {
 	 	     	$this->_error = JText::_( 'DATE WRONG' );
-	 	     	JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
 			}
 		}
 
 		if ($row->enddates != 0) {
 			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $row->enddates)) {
 				$this->_error = JText::_( 'ENDDATE WRONG FORMAT') ;
-				JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
 			}
 		}
 
@@ -113,7 +115,6 @@ class eventlist_events extends JTable
 			if (isset($this->times)) {
    				if (!preg_match("/^[0-2][0-9]:[0-5][0-9]$/", $this->times)) {
       				$this->_error = JText::_( 'TIME WRONG' );
-      				JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
 	  			}
 			}
 		}
@@ -121,7 +122,6 @@ class eventlist_events extends JTable
 		if ($this->endtimes != 0) {
    			if (!preg_match("/^[0-2][0-9]:[0-5][0-9]$/", $this->endtimes)) {
       			$this->_error = JText::_( 'TIME WRONG' );
-      			JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
 	  		}
 		}
 
@@ -130,18 +130,15 @@ class eventlist_events extends JTable
 
 		if ($titlelength > 100 || $this->title =='') {
       		$this->_error = JText::_( 'ERROR TITLE LONG' );
-      		JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
 		}
 
 		//No venue or category choosen?
 		if($this->locid == '') {
 			$this->_error = JText::_( 'VENUE EMPTY');
-			JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
 		}
 
 		if($this->catsid == 0) {
 			$this->_error = JText::_( 'CATEGORY EMPTY');
-			JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
 		}
 
 		return true;
