@@ -1,6 +1,7 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 
 <?php
+
 if ($this->updatedata->failed == 0) {
 		?>
 		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
@@ -52,7 +53,7 @@ if ($this->updatedata->failed == 0) {
 		  		<td><ul>
 		  			<?php
 					foreach ($this->updatedata->changes as $change) {
-   						echo '<li>'.$change->data(), '</li>';
+   						echo '<li>'.$change.'</li>';
 					}
 					?>
 					<ul>

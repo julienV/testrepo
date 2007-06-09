@@ -47,42 +47,42 @@ class EventListModelUpdatecheck extends JModel
 	 */
 	function getUpdatedata()
 	{
-		jimport('joomla.utilities.simplexml');
+		global $mainframe;
 
-		$elsettings = ELAdmin::config();
+		include_once(JPATH_COMPONENT_ADMINISTRATOR.DS.'classes'.DS.'Snoopy.class.php');
+
+		$snoopy = new Snoopy();
 
 		//set the source file
-		$file = 'http://www.schlu.net/updatecheck.xml';
+		$file = 'http://www.schlu.net/elupdate.php';
 
-		//Create a JSimpleXML object
-		$xml = new JSimpleXML();
+		$snoopy->read_timeout 	= 30;
+		$snoopy->referer 		= $mainframe->getCfg('live_site');
+		$snoopy->agent 			= "Mozilla/5.0 (compatible; Konqueror/3.2; Linux 2.6.2) (KHTML, like Gecko)";
 
-		//Load the xml file
+		$snoopy->fetch($file);
+
 		$_updatedata = null;
 
-		if (!@$xml->loadFile($file))	{
+		if ($snoopy->status != 200 || $snoopy->error) {
 
-			$_updatedata->current = '';
-			$_updatedata->versiondetail = '';
-			$_updatedata->date = '';
-			$_updatedata->changes = '';
-			$_updatedata->info = '';
-			$_updatedata->download = '';
-			$_updatedata->notes = '';
 			$_updatedata->failed = 1;
 
 		} else {
 
-			$_updatedata->version 		= $xml->document->versions[0]->version[0]->data();
-			$_updatedata->versiondetail	= $xml->document->versions[0]->versiondetail[0]->data();
-			$_updatedata->date			= strftime( $elsettings->formatdate, strtotime( $xml->document->versions[0]->date[0]->data() ));
-			$_updatedata->changes 		= $xml->document->versions[0]->changes[0]->children();
-			$_updatedata->info 			= $xml->document->versions[0]->information[0]->data();
-			$_updatedata->download 		= $xml->document->versions[0]->download[0]->data();
-			$_updatedata->notes			= $xml->document->versions[0]->plot[0]->data();
+			$data = explode('|', $snoopy->results);
+
+			$_updatedata->version 		= $data[0];
+			$_updatedata->versiondetail	= $data[1];
+			$_updatedata->date			= $data[2];
+			$_updatedata->info 			= $data[3];
+			$_updatedata->download 		= $data[4];
+			$_updatedata->notes			= $data[5];
+			$_updatedata->changes 		= explode(';', $data[6]);
 			$_updatedata->failed 		= 0;
 
-			$_updatedata->current = version_compare( "0.9.0.0.alpha", $_updatedata->version );
+			$_updatedata->current = version_compare( '0.9.0.0.alpha', $_updatedata->version );
+
 		}
 
 		return $_updatedata;
