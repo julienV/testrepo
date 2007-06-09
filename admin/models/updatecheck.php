@@ -49,6 +49,8 @@ class EventListModelUpdatecheck extends JModel
 	{
 		global $mainframe;
 
+		$elsettings = ELAdmin::config();
+
 		include_once(JPATH_COMPONENT_ADMINISTRATOR.DS.'classes'.DS.'Snoopy.class.php');
 
 		$snoopy = new Snoopy();
@@ -74,7 +76,7 @@ class EventListModelUpdatecheck extends JModel
 
 			$_updatedata->version 		= $data[0];
 			$_updatedata->versiondetail	= $data[1];
-			$_updatedata->date			= $data[2];
+			$_updatedata->date			= strftime( $elsettings->formatdate, strtotime( $data[2] ) );
 			$_updatedata->info 			= $data[3];
 			$_updatedata->download 		= $data[4];
 			$_updatedata->notes			= $data[5];
