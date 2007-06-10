@@ -64,7 +64,7 @@
 				</td>
 				<td><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a></td>
 				<td><?php echo $row->uip; ?></td>
-				<td><?php echo JHTML::Date( $row->uregdate, DATE_FORMAT_LC2 ); ?></td>
+				<td><?php echo JHTML::Date( $row->uregdate, JText::_( 'DATE_FORMAT_LC2' ) ); ?></td>
 				<td><?php echo $row->uid; ?></td>
 				<td><a href="javascript: void(0);" onclick="return listItemTask('cb<?php echo $i;?>','removeuser')"><img src="images/publish_x.png" width="16" height="16" border="0" alt="Delete" /></a></td>
 			</tr>

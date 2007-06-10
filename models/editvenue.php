@@ -377,13 +377,13 @@ class EventListModelEditvenue extends JModel
 			If ($edited) {
 
 				$modified_ip 	= getenv('REMOTE_ADDR');
-				$edited 		= JHTML::Date( $row->modified, DATE_FORMAT_LC2 );
+				$edited 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
 				$mailbody 		= JText::sprintf('MAIL EDIT VENUE', $user->name, $user->username, $user->email, $modified_ip, $edited, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $row->locdescription, $state);
 				$mail->setSubject( $SiteName.JText::_( 'EDIT VENUE MAIL' ) );
 
 			} else {
 
-				$created 		= JHTML::Date( $row->modified, DATE_FORMAT_LC2 );
+				$created 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
 				$mailbody 		= JText::sprintf('MAIL NEW VENUE', $user->name, $user->username, $user->email, $row->author_ip, $created, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $row->locdescription, $state);
 				$mail->setSubject( $SiteName.JText::_( 'NEW VENUE MAIL' ) );
 
@@ -407,13 +407,13 @@ class EventListModelEditvenue extends JModel
 
 			If ($edited) {
 
-				$edited 		= JHTML::Date( $row->modified, DATE_FORMAT_LC2 );
+				$edited 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
 				$mailbody 		= JText::sprintf('USER MAIL EDIT VENUE', $user->name, $user->username, $edited, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $row->locdescription, $state);
 				$usermail->setSubject( $SiteName.JText::_( 'EDIT USER VENUE MAIL' ) );
 
 			} else {
 
-				$created 		= JHTML::Date( $row->modified, DATE_FORMAT_LC2 );
+				$created 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
 				$mailbody 		= JText::sprintf('USER MAIL NEW VENUE', $user->name, $user->username, $created, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $row->locdescription, $state);
 				$usermail->setSubject( $SiteName.JText::_( 'NEW USER VENUE MAIL' ) );
 
