@@ -25,15 +25,24 @@ class EventListViewSettings extends JView {
 		global $mainframe;
 
 		//initialise variables
-		$elsettings = ELAdmin::config();
 		$document 	= & JFactory::getDocument();
 		$acl		= & JFactory::getACL();
 		$uri 		= & JFactory::getURI();
 		$user 		= & JFactory::getUser();
 
+		//get data from model
+		$model		= & $this->getModel();
+		$elsettings = & $this->get( 'Data');
+
 		//only admins have access to this view
 		if ($user->get('gid') < 24) {
 			JError::raiseWarning( 'SOME_ERROR_CODE', JText::_( 'ALERTNOTAUTH'));
+			$mainframe->redirect( 'index.php?option=com_eventlist&view=eventlist' );
+		}
+
+		// fail if checked out not by 'me'
+		if ($model->isCheckedOut( $user->get('id') )) {
+			JError::raiseWarning( 'SOME_ERROR_CODE', JText::_( 'EDITED BY ANOTHER ADMIN' ));
 			$mainframe->redirect( 'index.php?option=com_eventlist&view=eventlist' );
 		}
 
@@ -53,7 +62,9 @@ class EventListViewSettings extends JView {
 
 		//create the toolbar
 		JToolBarHelper::title( JText::_( 'SETTINGS' ), 'settings' );
-		JToolBarHelper::save('savesettings');
+		JToolBarHelper::apply();
+		JToolBarHelper::spacer();
+		JToolBarHelper::save('save');
 		JToolBarHelper::spacer();
 		JToolBarHelper::cancel();
 		JToolBarHelper::spacer();

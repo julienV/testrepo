@@ -33,6 +33,7 @@ class EventListViewVenue extends JView {
 		$document	= & JFactory::getDocument();
 		$uri 		= & JFactory::getURI();
 		$pane		= & JPane::getInstance('sliders');
+		$user 		= & JFactory::getUser();
 		$settings	= ELAdmin::config();
 
 		//get vars
@@ -46,7 +47,14 @@ class EventListViewVenue extends JView {
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
 		// Get data from the model
+		$model		= & $this->getModel();
 		$row      	= & $this->get( 'Data');
+
+		// fail if checked out not by 'me'
+		if ($model->isCheckedOut( $user->get('id') )) {
+			JError::raiseWarning( 'SOME_ERROR_CODE', $row->venue.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ));
+			$mainframe->redirect( 'index.php?option=com_eventlist&view=venues' );
+		}
 
 		//create the toolbar
 		if ( $cid ) {

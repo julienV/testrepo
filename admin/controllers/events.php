@@ -163,13 +163,6 @@ class EventListControllerEvents extends EventListController
 
 		$model = $this->getModel('event');
 
-		/* Error if checkedout by another administrator
-		if ($model->isCheckedOut( $user->get('id') )) {
-			$this->setRedirect( 'index.php?option='.$option.'&task=categories', JText::_( 'THE CATEGORY' ).' '.$row->catname.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ) );
-		}
-
-		*/
-
 		$task 	= JRequest::getVar( 'task' );
 
 		if ($task == 'copy') {

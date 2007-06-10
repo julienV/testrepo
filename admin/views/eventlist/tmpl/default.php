@@ -45,7 +45,7 @@
 
 						//only admins should be able to see this items
 						if ($this->user->get('gid') > 24) {
-							$link = 'index.php?option='.$option.'&amp;view=settings';
+							$link = 'index.php?option='.$option.'&amp;controller=settings&amp;task=edit';
 							EventListViewEventList::quickiconButton( $link, 'icon-48-settings.png', JText::_( 'SETTINGS' ) );
 
 							$link = 'index.php?option='.$option.'&amp;view=editcss';

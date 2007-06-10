@@ -38,63 +38,6 @@ class EventListController extends JController
 	}
 
 	/**
-	 * Saves the settings
-	 *
-	 */
-	function savesettings()
-	{
-		global $mainframe, $option;
-
-		$db 		= & JFactory::getDBO();
-		$post 		= JRequest::get( 'post' );
-
-		$table =& JTable::getInstance('component');
-
-		$parampost['params'] = JRequest::getVar('globalparams');
-		$parampost['option'] = 'com_eventlist';
-		$table->loadByOption( 'com_eventlist' );
-		$table->bind( $parampost );
-
-		/* pre-save checks
-		if (!$table->check()) {
-			JError::raiseWarning( 500, $table->getError() );
-			return false;
-		}
-		*/
-
-		// save the changes
-		if (!$table->store()) {
-			JError::raiseWarning( 500, $table->getError() );
-			return false;
-		}
-
-		$settings 	= & JTable::getInstance('eventlist_settings', '');
-
-		// Bind the form fields to the table
-		if (!$settings->bind($post)) {
-			$this->setError($db->getErrorMsg());
-			return false;
-		}
-
-		$meta_key="";
-		foreach ($settings->meta_keywords as $meta_keyword) {
-			if ($meta_key != "") {
-				$meta_key .= ", ";
-			}
-			$meta_key .= $meta_keyword;
-		}
-		$settings->meta_keywords = $meta_key;
-		$settings->id = 1;
-
-		if (!$settings->store()) {
-			$this->setError($db->getErrorMsg());
-			return false;
-		}
-
-    	$mainframe->redirect('index.php?option='.$option, JText::_( 'SETTINGS SAVE') );
-	}
-
-	/**
 	 * Saves the css
 	 *
 	 */
@@ -123,7 +66,7 @@ class EventListController extends JController
 					break;
 
 				case 'savecss'  :
-				default          :
+				default         :
 					$mainframe->redirect('index.php?option='.$option, JText::_('CSS FILE SUCCESSFULLY ALTERED') );
 					break;
 			}

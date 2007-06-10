@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -12,12 +12,12 @@ defined('_JEXEC') or die('Restricted access');
 /**
  * Holds helpfull administration related stuff
  *
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @since 0.9
  */
 class ELAdmin {
-	
+
 	/**
 	* Writes Administrator submenu.
 	*
@@ -26,7 +26,7 @@ class ELAdmin {
 	function submenu()
 	{
 		$user = & JFactory::getUser();
-		
+
 		// Get active sub menu item
 		$activeview	= JRequest::getVar('view');
 
@@ -35,17 +35,17 @@ class ELAdmin {
 
 		// Create submenu array
 		$subMenus = array(
-		'EVENTS' => 'events',
-		'VENUES' => 'venues',
-		'CATEGORIES' => 'categories',
-		'ARCHIVE' => 'archive',
-		'GROUPS' => 'groups',
-		'HELP' => 'help',
+		'EVENTS' => 'view=events',
+		'VENUES' => 'view=venues',
+		'CATEGORIES' => 'view=categories',
+		'ARCHIVE' => 'view=archive',
+		'GROUPS' => 'view=groups',
+		'HELP' => 'view=help',
 		);
-		
+
 		//only admins should be able to see the settings submenuitem
-		$onlyadmins = array('SETTINGS' => 'settings');
-		
+		$onlyadmins = array('SETTINGS' => 'controller=settings&task=edit');
+
 		if ($user->get('gid') > 24) {
 			$subMenus = array_merge( $subMenus, $onlyadmins );
 		}
@@ -60,7 +60,7 @@ class ELAdmin {
 		foreach ($subMenus as $name => $itemview)
 		{
 			$subMenuItem['title']	= JText::_( $name );
-			$subMenuItem['link']	= 'index.php?option=com_eventlist&view=' . $itemview;
+			$subMenuItem['link']	= 'index.php?option=com_eventlist&' . $itemview;
 			$subMenuItem['active']	= ($itemview == $activeview);
 			$subMenuList[] = $subMenuItem;
 		}
@@ -105,7 +105,7 @@ class ELAdmin {
 
 		return $txt;
 	}
-	
+
 	/**
 	* Writes footer. Do not remove!
 	*
@@ -117,17 +117,17 @@ class ELAdmin {
 		echo 'EventList by <a href="http://www.schlu.net" target="_blank">schlu.net</a>';
 
 	}
-	
+
 	function config()
-	{		
+	{
 		$db =& JFactory::getDBO();
 
-		$sql = "SELECT * FROM #__eventlist_settings WHERE id = 1";
+		$sql = 'SELECT * FROM #__eventlist_settings WHERE id = 1';
 		$db->setQuery($sql);
 		$config = $db->loadObject();
-		
+
 		return $config;
-	}   
+	}
 }
 
 ?>

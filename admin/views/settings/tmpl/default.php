@@ -36,6 +36,7 @@
 		<input type="hidden" name="id" value="1">
 		<input type="hidden" name="lastupdate" value="<?php echo $this->elsettings->lastupdate; ?>">
 		<input type="hidden" name="option" value="com_eventlist">
+		<input type="hidden" name="controller" value="settings">
 		</form>
 
 		<p class="copyright">

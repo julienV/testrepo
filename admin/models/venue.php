@@ -220,8 +220,6 @@ class EventListModelVenue extends JModel
 	 */
 	function store($data)
 	{
-		global $mainframe, $option;
-
 		$elsettings = ELAdmin::config();
 		$user		= & JFactory::getUser();
 		$config 	= & JFactory::getConfig();
@@ -240,7 +238,7 @@ class EventListModelVenue extends JModel
 
 		// Check if image was selected
 		jimport('joomla.filesystem.file');
-		$format 	= JFile::getExt('JPATH_SITE/images/eventlist/venues/'.$row->locimage);
+		$format 	= JFile::getExt(JPATH_SITE.'/images/eventlist/venues/'.$row->locimage);
 
 		$allowable 	= array ('gif', 'jpg', 'png');
 		if (in_array($format, $allowable)) {

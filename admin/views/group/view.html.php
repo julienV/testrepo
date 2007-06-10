@@ -31,6 +31,7 @@ class EventListViewGroup extends JView {
 		$document	= & JFactory::getDocument();
 		$uri 		= & JFactory::getURI();
 		$pane 		= & JPane::getInstance('sliders');
+		$user 		= & JFactory::getUser();
 
 		//get vars
 		$template		= $mainframe->getTemplate();
@@ -41,9 +42,16 @@ class EventListViewGroup extends JView {
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
 		//Get data from the model
-		$row      	= & $this->get( 'Data');
-		$maintainers = & $this->get( 'Members');
-		$available_users = & $this->get( 'Available');
+		$model				= & $this->getModel();
+		$row      			= & $this->get( 'Data');
+		$maintainers 		= & $this->get( 'Members');
+		$available_users 	= & $this->get( 'Available');
+
+		// fail if checked out not by 'me'
+		if ($model->isCheckedOut( $user->get('id') )) {
+			JError::raiseWarning( 'SOME_ERROR_CODE', $row->name.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ));
+			$mainframe->redirect( 'index.php?option=com_eventlist&view=groups' );
+		}
 
 		//make data safe
 		jimport('joomla.filter.output');

@@ -39,6 +39,7 @@ class EventListViewEvent extends JView {
 		$document	= & JFactory::getDocument();
 		$pane 		= & JPane::getInstance('sliders');
 		$uri 		= & JFactory::getURI();
+		$user 		= & JFactory::getUser();
 		$elsettings = ELAdmin::config();
 
 		//get vars
@@ -70,7 +71,14 @@ class EventListViewEvent extends JView {
 		JToolBarHelper::help( 'el.editevents', true );
 
 		//get data from model
+		$model		= & $this->getModel();
 		$row     	= & $this->get( 'Data');
+
+		// fail if checked out not by 'me'
+		if ($model->isCheckedOut( $user->get('id') )) {
+			JError::raiseWarning( 'SOME_ERROR_CODE', $row->titel.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ));
+			$mainframe->redirect( 'index.php?option=com_eventlist&view=events' );
+		}
 
 		//make data safe
 		jimport('joomla.filter.output');

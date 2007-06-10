@@ -31,6 +31,7 @@ class EventListViewCategory extends JView {
 		$editor 	= & JFactory::getEditor();
 		$document	= & JFactory::getDocument();
 		$uri 		= & JFactory::getURI();
+		$user 		= & JFactory::getUser();
 		$pane 		= & JPane::getInstance('sliders');
 
 		//get vars
@@ -62,8 +63,15 @@ class EventListViewCategory extends JView {
 		JToolBarHelper::help( 'el.editcategories', true );
 
 		//Get data from the model
+		$model		= & $this->getModel();
 		$row     	= & $this->get( 'Data' );
-		$groups = & $this->get( 'Groups' );
+		$groups 	= & $this->get( 'Groups' );
+
+		// fail if checked out not by 'me'
+		if ($model->isCheckedOut( $user->get('id') )) {
+			JError::raiseWarning( 'SOME_ERROR_CODE', $row->catname.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ));
+			$mainframe->redirect( 'index.php?option=com_eventlist&view=categories' );
+		}
 
 		//clean data
 		jimport('joomla.filter.output');
