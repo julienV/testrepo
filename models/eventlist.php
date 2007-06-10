@@ -204,7 +204,7 @@ class EventListModelEventList extends JModel
 		 */
 		if ($params->get('filter'))
 		{
-			$filter 		= JRequest::getVar('filter', '', 'request');
+			$filter 		= JRequest::getString('filter', '', 'request');
 			$filter_type 	= JRequest::getVar('filter_type', '', 'request');
 
 			if ($filter)

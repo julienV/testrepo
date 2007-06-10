@@ -48,6 +48,8 @@ class EventListViewCategoriesview extends JView
 		$limit			= JRequest::getVar('limit', $params->get('cat_num'), '', 'int');
 		$task			= JRequest::getVar('task', '', '', 'string');
 
+		$params->def( 'page_title', $item->name);
+
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();
 		$pathway->setItemName(1, $item->name);
@@ -57,15 +59,11 @@ class EventListViewCategoriesview extends JView
 		}
 
 		//Set Page title
-		$mainframe->setPageTitle( $item->name );
-   		$mainframe->addMetaTag( 'title' , $item->name );
+		$mainframe->setPageTitle( $params->get('page_title') );
+   		$mainframe->addMetaTag( 'title' , $params->get('page_title') );
 
 		//get icon settings
 		$params->def( 'icons', $mainframe->getCfg( 'icons' ) );
-
-		if ($params->def('page_title', 1)) {
-			$params->def('header', $item->name);
-		}
 
 		//add alternate feed link
 		$link    = 'index.php?option=com_eventlist&view=eventlist&format=feed';

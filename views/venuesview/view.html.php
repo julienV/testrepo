@@ -36,7 +36,7 @@ class EventListViewVenuesview extends JView
 		//get menu information
 		$menu		= & JMenu::getInstance();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getPageParameters();
 
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );
@@ -66,10 +66,11 @@ class EventListViewVenuesview extends JView
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
 		$document->addHeadLink(JRoute::_($link.'&type=atom'), 'alternate', 'rel', $attribs);
 
+		$params->def( 'page_title', $item->name);
+
 		//set Page title
-		$document->setTitle( $item->name );
-		$document->setMetadata('keywords', $item->name );
-	//	$document->setDescription( strip_tags($l_row->locdescription) );
+		$document->setTitle( $params->get('page_title') );
+		$document->setMetadata('keywords', $iparams->get('page_title') );
 
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();

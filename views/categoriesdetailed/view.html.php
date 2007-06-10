@@ -36,7 +36,7 @@ class EventListViewCategoriesdetailed extends JView
 		$model 		= $this->getModel();
 		$menu		= & JMenu::getInstance();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getPageParameters();
 
 		//get vars
 		$live_site		= $mainframe->getCfg('live_site');
@@ -56,12 +56,15 @@ class EventListViewCategoriesdetailed extends JView
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
 
+		$params->def( 'page_title', $item->name);
+
 		//pathway
 		$pathway->setItemName(1, $item->name);
 
 		//set Page title
-		$mainframe->setPageTitle( $item->name );
-		$mainframe->addMetaTag( 'title' , $item->name );
+		$mainframe->setPageTitle( $params->get('page_title') );
+		$mainframe->addMetaTag( 'title' , $params->get('page_title') );
+		$document->setMetadata( 'keywords' , $params->get('page_title') );
 
 		//Print
 		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
@@ -69,10 +72,6 @@ class EventListViewCategoriesdetailed extends JView
 
 		if ( $pop ) {
 			$params->set( 'popup', 1 );
-		}
-
-		if ($params->def('page_title', 1)) {
-			$params->def('header', $item->name);
 		}
 
 		$print_link = $live_site. '/index.php?option=com_eventlist&amp;Itemid='. $item->id .'&amp;pop=1&amp;tmpl=component';

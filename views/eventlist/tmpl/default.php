@@ -1,14 +1,14 @@
-<?php 
+<?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
-?>	
+?>
 
 <p class="buttons">
 	<?php
@@ -16,24 +16,22 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			echo ELOutput::submitbutton( $this->dellink, $this->params, 'eventlist' );
 			echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params );
 		endif;
-		
+
 		echo ELOutput::printbutton( $this->print_link, $this->params );
 	?>
 </p>
 
-<?php if ($this->params->get('page_title')) : ?>
+<?php if ($this->params->def( 'show_page_title', 1 )) : ?>
 
     <h1 class='componentheading'>
-		<?php
-		echo $this->params->get('header');
-		?>
+		<?php echo $this->params->get('page_title'); ?>
 	</h1>
-	
+
 <?php endif; ?>
 
 <div class="clear"></div>
 
-<?php if ($this->params->get('showintrotext') == 1) : ?>
+<?php if ($this->params->get('showintrotext')) : ?>
 	<p class="description">
 		<?php echo $this->params->get('introtext'); ?>
 	</p>

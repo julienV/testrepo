@@ -76,8 +76,8 @@ class EventListViewDetails extends JView
 
 		//Print
 		$pop	= JRequest::getVar('pop', 0, '', 'int');
-	//	$params->def( 'print', $ELConfig->get('showPrint', 1) );
-	//	$params->def( 'icons', $ELConfig->get('showIcons', 1) );
+
+		$params->def( 'page_title', JText::_( 'DETAILS' ));
 
 		if ( $pop ) {
 			$params->set( 'popup', 1 );

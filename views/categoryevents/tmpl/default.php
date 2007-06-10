@@ -21,7 +21,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	?>
 </p>
 
-<?php if ($this->params->get('page_title')) : ?>
+<?php if ($this->params->def( 'show_page_title', 1 )) : ?>
 
     <h1 class='componentheading'>
 		<?php

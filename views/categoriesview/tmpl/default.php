@@ -17,13 +17,13 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	?>
 </span>
 
-<?php if ($this->params->get('page_title')) : ?>
+<?php if ($this->params->def( 'show_page_title', 1 )) : ?>
 	<h1 class="componentheading">
 	<?php
 	if ( $this->task == 'archive' ) :
-		echo $this->params->get('header').' - '.JText::_( 'ARCHIVE' );
+		echo $this->params->get('page_title').' - '.JText::_( 'ARCHIVE' );
 	else :
-		echo $this->params->get('header');
+		echo $this->params->get('page_title');
 	endif;
 	?>
 	</h1>

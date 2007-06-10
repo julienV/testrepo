@@ -20,10 +20,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	?>
 </span>
 
-<?php if ($this->params->get('page_title')) : ?>
+<?php if ($this->params->def('show_page_title', 1)) : ?>
 
 	<h1 class='componentheading'>
-		<?php echo $this->params->get('header'); ?>
+		<?php echo $this->params->get('page_title'); ?>
 	</h1>
 
 <?php endif; ?>

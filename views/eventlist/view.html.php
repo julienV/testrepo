@@ -35,7 +35,8 @@ class EventListViewEventList extends JView
 		$elsettings = ELHelper::config();
 		$menu		= & JMenu::getInstance();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		//$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getPageParameters();
 
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );
@@ -61,13 +62,8 @@ class EventListViewEventList extends JView
 			$noevents = 0;
 		}
 
-		//Print function
-		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
-		$params->def( 'icons', $mainframe->getCfg( 'icons' ) );
-
-		if ($params->def('page_title', 1)) {
-			$params->def('header', $item->name);
-		}
+		//params
+		$params->def( 'page_title', $item->name);
 
 		if ( $pop ) {//If printpopup set true
 			$params->set( 'popup', 1 );
@@ -80,8 +76,8 @@ class EventListViewEventList extends JView
 
 		//Set Page title
 		if (!$item->name) {
-			$document->setTitle($item->name);
-			$document->setMetadata( 'keywords' , $item->name );
+			$document->setTitle($params->get('page_title'));
+			$document->setMetadata( 'keywords' , $params->get('page_title') );
 		}
 
 		//Check if the user has access to the form
