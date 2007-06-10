@@ -8,18 +8,6 @@
 							<legend><?php echo JText::_( 'GLOBAL PARAMETERS' ); ?></legend>
 							<table class="admintable" cellspacing="1">
 								<tbody>
-	 								<tr>
-	          							<td width="300" class="key">
-											<span class="editlinktip hasTip" title="<?php echo JText::_( 'Page Title' ); ?>::<?php echo JText::_('Show/Hide the pages Title'); ?>">
-												<?php echo JText::_( 'Page Title' ); ?>
-											</span>
-										</td>
-       									<td valign="top">
-        									<?php
-											echo JHTML::_('select.booleanlist', 'globalparams[page_title]', 'class="inputbox"', $this->globalparams->get('page_title'), 'Show', 'Hide' );
-        									?>
-       	 								</td>
-      								</tr>
       								<tr>
 	          							<td width="300" class="key">
 											<span class="editlinktip hasTip" title="<?php echo JText::_( 'EVENT NUMBER' ); ?>::<?php echo JText::_('EVENT NUMBER TIP'); ?>">

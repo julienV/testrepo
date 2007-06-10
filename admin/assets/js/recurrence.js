@@ -112,4 +112,3 @@ function set_parameter() {
 	}
 	$("recurrence_number").value = document.getElementsByName("recurrence_selectlist")[0].value;
 }
-
