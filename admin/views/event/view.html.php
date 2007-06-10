@@ -75,9 +75,11 @@ class EventListViewEvent extends JView {
 		$row     	= & $this->get( 'Data');
 
 		// fail if checked out not by 'me'
-		if ($model->isCheckedOut( $user->get('id') )) {
-			JError::raiseWarning( 'SOME_ERROR_CODE', $row->titel.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ));
-			$mainframe->redirect( 'index.php?option=com_eventlist&view=events' );
+		if ($row->id) {
+			if ($model->isCheckedOut( $user->get('id') )) {
+				JError::raiseWarning( 'SOME_ERROR_CODE', $row->titel.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ));
+				$mainframe->redirect( 'index.php?option=com_eventlist&view=events' );
+			}
 		}
 
 		//make data safe

@@ -51,9 +51,11 @@ class EventListViewVenue extends JView {
 		$row      	= & $this->get( 'Data');
 
 		// fail if checked out not by 'me'
-		if ($model->isCheckedOut( $user->get('id') )) {
-			JError::raiseWarning( 'SOME_ERROR_CODE', $row->venue.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ));
-			$mainframe->redirect( 'index.php?option=com_eventlist&view=venues' );
+		if ($row->id) {
+			if ($model->isCheckedOut( $user->get('id') )) {
+				JError::raiseWarning( 'SOME_ERROR_CODE', $row->venue.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ));
+				$mainframe->redirect( 'index.php?option=com_eventlist&view=venues' );
+			}
 		}
 
 		//create the toolbar

@@ -48,9 +48,11 @@ class EventListViewGroup extends JView {
 		$available_users 	= & $this->get( 'Available');
 
 		// fail if checked out not by 'me'
-		if ($model->isCheckedOut( $user->get('id') )) {
-			JError::raiseWarning( 'SOME_ERROR_CODE', $row->name.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ));
-			$mainframe->redirect( 'index.php?option=com_eventlist&view=groups' );
+		if ($row->id) {
+			if ($model->isCheckedOut( $user->get('id') )) {
+				JError::raiseWarning( 'SOME_ERROR_CODE', $row->name.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ));
+				$mainframe->redirect( 'index.php?option=com_eventlist&view=groups' );
+			}
 		}
 
 		//make data safe
