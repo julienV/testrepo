@@ -85,8 +85,8 @@
 				<?php echo JText::_( 'AUTHOR' ).': '; ?><a href="<?php echo 'index.php?option=com_users&task=edit&hidemainmenu=1&cid[]='.$row->created_by; ?>"><?php echo $row->author; ?></a><br />
 				<?php echo JText::_( 'EMAIL' ).': '; ?><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a><br />
 				<?php
-				$delivertime 	= JHTML::Date( $row->created, DATE_FORMAT_LC2 );
-				$edittime 		= JHTML::Date( $row->modified, DATE_FORMAT_LC2 );
+				$delivertime 	= JHTML::Date( $row->created, JText::_( 'DATE_FORMAT_LC2' ) );
+				$edittime 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
 				$image 			= JHTML::_('image.administrator', 'icon-16-info.png', '/templates/'. $this->template .'/images/menu/', NULL, NULL, 'info' );
 				$overlib 		= JText::_( 'CREATED AT' ).': '.$delivertime.'<br />';
 				$overlib		.= JText::_( 'WITH IP' ).': '.$row->author_ip.'<br />';
