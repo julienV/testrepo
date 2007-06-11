@@ -65,7 +65,7 @@ class EventListModelCategoriesdetailed extends JModel
 
 		//get the number of events from database
 		$limit			= JRequest::getVar('limit', $params->get('cat_num'), '', 'int');
-		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
+		$limitstart		= JRequest::getInt('limitstart');
 
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
@@ -81,7 +81,7 @@ class EventListModelCategoriesdetailed extends JModel
 	{
 		global $mainframe;
 
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getPageParameters();
 
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_categories))

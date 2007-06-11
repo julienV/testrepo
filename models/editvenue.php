@@ -37,7 +37,7 @@ class EventListModelEditvenue extends JModel
 	{
 		parent::__construct();
 
-		$id = JRequest::getVar('id', 0, '', 'int');
+		$id = JRequest::getInt('id');
 		$this->setId($id);
 	}
 
@@ -66,7 +66,7 @@ class EventListModelEditvenue extends JModel
 		$user		= & JFactory::getUser();
 		$elsettings = ELHelper::config();
 
-		$view		= JRequest::getVar('view', '', '', 'string');
+		$view		= JRequest::getString('view');
 
 		if ($this->_id) {
 
@@ -133,20 +133,14 @@ class EventListModelEditvenue extends JModel
 	 */
 	function _loadVenue( )
 	{
-
 		if (empty($this->_venue)) {
 
 			$this->_venue =& JTable::getInstance('eventlist_venues', '');
-
 			$this->_venue->load( $this->_id );
 
 			return $this->_venue;
-
-		} else {
-
-			return true;
-
 		}
+		return true;
 	}
 
 	/**
@@ -158,7 +152,7 @@ class EventListModelEditvenue extends JModel
 	{
 		$query = 'SELECT l.created_by'
 				. ' FROM #__eventlist_venues AS l'
-				. ' WHERE l.id = '.$this->_id
+				. ' WHERE l.id = '.(int)$this->_id
 				;
 		$this->_db->setQuery( $query );
 

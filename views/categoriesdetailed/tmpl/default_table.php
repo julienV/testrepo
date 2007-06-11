@@ -6,6 +6,9 @@
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
+
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 
 <table width="<?php echo $this->elsettings->tablewidth; ?>" border="0" cellspacing="0" cellpadding="0" summary="eventlist">

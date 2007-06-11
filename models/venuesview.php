@@ -57,8 +57,8 @@ class EventListModelVenuesview extends JModel
 		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		//get the number of events from database
-		$limit			= JRequest::getVar('limit', $params->get('display_venues_num'), '', 'int');
-		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
+		$limit			= JRequest::getInt('limit', $params->get('display_venues_num'));
+		$limitstart		= JRequest::getInt('limitstart');
 
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);

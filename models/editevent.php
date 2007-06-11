@@ -44,7 +44,7 @@ class EventListModelEditevent extends JModel
 	{
 		parent::__construct();
 
-		$id = JRequest::getVar('id', 0, '', 'int');
+		$id = JRequest::getInt('id');
 		$this->setId($id);
 	}
 
@@ -74,7 +74,7 @@ class EventListModelEditevent extends JModel
 		$user		= & JFactory::getUser();
 		$elsettings = ELHelper::config();
 
-		$view		= JRequest::getVar('view', '', '', 'string');
+		$view		= JRequest::getString('view');
 
 		/*
 		* If Id exists we will do the edit stuff
@@ -167,7 +167,7 @@ class EventListModelEditevent extends JModel
 			$query = 'SELECT e.*, v.venue'
 					. ' FROM #__eventlist_events AS e'
 					. ' LEFT JOIN #__eventlist_venues AS v ON v.id = e.locid'
-					. ' WHERE e.id = '.$this->_id
+					. ' WHERE e.id = '.(int)$this->_id
 					;
 			$this->_db->setQuery($query);
 			$this->_event = $this->_db->loadObject();
@@ -249,7 +249,7 @@ class EventListModelEditevent extends JModel
 	{
 		$query = 'SELECT a.created_by'
 				. ' FROM #__eventlist_events AS a'
-				. ' WHERE a.id = '.$this->_id
+				. ' WHERE a.id = '.(int)$this->_id
 				;
 		$this->_db->setQuery( $query );
 
@@ -267,8 +267,8 @@ class EventListModelEditevent extends JModel
 		$where		= $this->_buildVenuesWhere(  );
 		$orderby	= $this->_buildVenuesOrderBy(  );
 
-		$limit			= JRequest::getVar('limit', 0, '', 'int');
-		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
+		$limit			= JRequest::getInt('limit');
+		$limitstart		= JRequest::getInt('limitstart');
 
 		$query = 'SELECT l.id, l.venue, l.city, l.country, l.published'
 				.' FROM #__eventlist_venues AS l'
@@ -291,8 +291,8 @@ class EventListModelEditevent extends JModel
 	function _buildVenuesOrderBy( )
 	{
 
-		$filter_order		= JRequest::getVar('filter_order');
-		$filter_order_Dir	= JRequest::getVar('filter_order_Dir');
+		$filter_order		= JRequest::getCmd('filter_order');
+		$filter_order_Dir	= JRequest::getCmd('filter_order_Dir');
 
 		$orderby = ' ORDER BY ';
 
@@ -315,8 +315,8 @@ class EventListModelEditevent extends JModel
 	function _buildVenuesWhere(  )
 	{
 
-		$filter_type		= JRequest::getVar('filter_type', '', 'request');
-		$filter 			= JRequest::getVar('filter');
+		$filter_type		= JRequest::getString('filter_type');
+		$filter 			= JRequest::getString('filter');
 		$filter 			= $this->_db->getEscaped( trim(JString::strtolower( $filter ) ) );
 
 		$where = array();
@@ -464,9 +464,7 @@ class EventListModelEditevent extends JModel
 			$data['meta_keywords'] = substr($data['meta_keywords'],0,199);
 		}
 
-		/*
-		* bind it to the table
-		*/
+		//bind it to the table
 		if (!$row->bind($data)) {
 			JError::raiseError( 500, $this->_db->stderr() );
 			return false;

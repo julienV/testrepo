@@ -54,11 +54,11 @@ class EventListModelCategoriesview extends JModel
 		global $mainframe;
 
 		// Get the paramaters of the active menu item
-		$params = & $mainframe->getPageParameters('com_eventlist');
+		$params = & $mainframe->getPageParameters();
 
 		//get the number of events from database
 		$limit			= JRequest::getVar('limit', $params->get('cat_num'), '', 'int');
-		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
+		$limitstart		= JRequest::getInt('limitstart');
 
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
@@ -124,9 +124,7 @@ class EventListModelCategoriesview extends JModel
 		$gid		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$menu		=& JMenu::getInstance();
-		$item    	= $menu->getActive();
-		$params		=& $menu->getParams($item->id);
+		$params = & $mainframe->getPageParameters();
 
 		// show/hide empty categories
 		$empty = null;
@@ -171,7 +169,7 @@ class EventListModelCategoriesview extends JModel
 		$gid		= (int) $user->get('aid');
 		$id			= (int) $id;
 
-		$task 		= JRequest::getVar('task', '', '', 'string');
+		$task 		= JRequest::getString('task');
 
 		if($task == 'archive') {
 			$where = ' WHERE a.published = -1 && a.catsid = '.$id;

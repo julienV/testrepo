@@ -133,16 +133,12 @@ class EventListViewEditevent extends JView
 
 		$document	= & JFactory::getDocument();
 
-		$limit				= JRequest::getVar('limit', $mainframe->getCfg('list_limit'), '', 'int');
-		$limitstart			= JRequest::getVar('limitstart', 0, '', 'int');
-		$filter_type		= JRequest::getVar('filter_type', '', 'request');
-		$filter_type		= intval( $filter_type );
-		$filter_order		= JRequest::getVar('filter_order');
-		$filter_order_Dir	= JRequest::getVar('filter_order_Dir');
-		$filter 			= JRequest::getVar('filter');
-
-		$live_site 		= $mainframe->getCfg('live_site');
-		//$template 		= $mainframe->getTemplate();
+		$limit				= JRequest::getInt('limit', $mainframe->getCfg('list_limit'));
+		$limitstart			= JRequest::getInt('limitstart');
+		$filter_order		= JRequest::getCmd('filter_order', 'l.venue');
+		$filter_order_Dir	= JRequest::getCmd('filter_order_Dir', 'ASC');;
+		$filter				= JRequest::getString('filter');
+		$filter_type		= JRequest::getString('filter_type');
 
 		// Get/Create the model
 		$rows 	= $this->get('Venues');
@@ -153,13 +149,8 @@ class EventListViewEditevent extends JView
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
 		// table ordering
-		if ( $filter_order_Dir == 'DESC' ) {
-			$lists['order_Dir'] = 'ASC';
-		} else {
-			$lists['order_Dir'] = 'DESC';
-		}
-
-		$lists['order'] = $filter_order;
+		$lists['order_Dir'] 	= $filter_order_Dir;
+		$lists['order'] 		= $filter_order;
 
 		$document->setTitle(JText::_( 'SELECTVENUE' ));
 		$document->addScript(JPATH_SITE.'includes/js/joomla/modal.js');
