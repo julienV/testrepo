@@ -64,8 +64,8 @@ class EventListModelEventList extends JModel
 		$this->setState('limitstart', $limitstart);
 
 		// Get the filter request variables
-		$this->setState('filter_order', JRequest::getVar('filter_order', 'a.dates'));
-		$this->setState('filter_order_dir', JRequest::getVar('filter_order_Dir', 'ASC'));
+		$this->setState('filter_order', JRequest::getCmd('filter_order', 'a.dates'));
+		$this->setState('filter_order_dir', JRequest::getCmd('filter_order_Dir', 'ASC'));
 	}
 
 	/**
@@ -138,8 +138,8 @@ class EventListModelEventList extends JModel
 	function _buildQuery()
 	{
 		// Get the WHERE and ORDER BY clauses for the query
-		$where		= $this->_buildContentWhere();
-		$orderby	= $this->_buildContentOrderBy();
+		$where		= $this->_buildEventListWhere();
+		$orderby	= $this->_buildEventListOrderBy();
 
 		//Get Events from Database
 		$query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.created, a.locid, a.datdescription,'
@@ -164,9 +164,9 @@ class EventListModelEventList extends JModel
 	 * @access private
 	 * @return string
 	 */
-	function _buildContentOrderBy()
+	function _buildEventListOrderBy()
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		$filter_order		= $this->getState('filter_order');
 		$filter_order_dir	= $this->getState('filter_order_dir');
@@ -182,7 +182,7 @@ class EventListModelEventList extends JModel
 	 * @access private
 	 * @return string
 	 */
-	function _buildContentWhere()
+	function _buildEventListWhere()
 	{
 		global $mainframe;
 
@@ -205,7 +205,7 @@ class EventListModelEventList extends JModel
 		if ($params->get('filter'))
 		{
 			$filter 		= JRequest::getString('filter', '', 'request');
-			$filter_type 	= JRequest::getVar('filter_type', '', 'request');
+			$filter_type 	= JRequest::getString('filter_type', '', 'request');
 
 			if ($filter)
 			{
