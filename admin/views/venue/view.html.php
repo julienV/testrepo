@@ -70,9 +70,16 @@ class EventListViewVenue extends JView {
 			JToolBarHelper::title( JText::_( 'ADD VENUE' ), 'venuesedit' );
 
 			//set the submenu
-			$submenu = ELAdmin::submenu();
-			$document->setBuffer($submenu, 'module', 'submenu');
-
+			JSubMenuHelper::addEntry( JText::_( 'EVENTLIST' ), 'index.php?option=com_eventlist');
+			JSubMenuHelper::addEntry( JText::_( 'EVENTS' ), 'index.php?option=com_eventlist&view=events');
+			JSubMenuHelper::addEntry( JText::_( 'VENUES' ), 'index.php?option=com_eventlist&view=venues');
+			JSubMenuHelper::addEntry( JText::_( 'CATEGORIES' ), 'index.php?option=com_eventlist&view=categories');
+			JSubMenuHelper::addEntry( JText::_( 'ARCHIVE' ), 'index.php?option=com_eventlist&view=archive');
+			JSubMenuHelper::addEntry( JText::_( 'GROUPS' ), 'index.php?option=com_eventlist&view=groups');
+			JSubMenuHelper::addEntry( JText::_( 'HELP' ), 'index.php?option=com_eventlist&view=help');
+			if ($user->get('gid') > 24) {
+				JSubMenuHelper::addEntry( JText::_( 'SETTINGS' ), 'index.php?option=com_eventlist&controller=settings&task=edit');
+			}
 		}
 		JToolBarHelper::apply();
 		JToolBarHelper::spacer();

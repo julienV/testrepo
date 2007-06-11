@@ -33,14 +33,25 @@ class EventListViewHelp extends JView {
 		$lang 			= & JFactory::getLanguage();
 		$uri 			= & JFactory::getURI();
 		$pane 			= & JPane::getInstance('sliders');
-		$submenu 		= ELAdmin::submenu();
+		$user			= & JFactory::getUser();
 
 		//get vars
-		$helpsearch 	= JRequest::getVar( 'search' );
+		$helpsearch 	= JRequest::getString( 'search' );
 
 		//add css and submenu to document
-		$document->setBuffer($submenu, 'module', 'submenu');
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
+
+		//Create Submenu
+		JSubMenuHelper::addEntry( JText::_( 'EVENTLIST' ), 'index.php?option=com_eventlist');
+		JSubMenuHelper::addEntry( JText::_( 'EVENTS' ), 'index.php?option=com_eventlist&view=events');
+		JSubMenuHelper::addEntry( JText::_( 'VENUES' ), 'index.php?option=com_eventlist&view=venues');
+		JSubMenuHelper::addEntry( JText::_( 'CATEGORIES' ), 'index.php?option=com_eventlist&view=categories');
+		JSubMenuHelper::addEntry( JText::_( 'ARCHIVE' ), 'index.php?option=com_eventlist&view=archive');
+		JSubMenuHelper::addEntry( JText::_( 'GROUPS' ), 'index.php?option=com_eventlist&view=groups');
+		JSubMenuHelper::addEntry( JText::_( 'HELP' ), 'index.php?option=com_eventlist&view=help', true);
+		if ($user->get('gid') > 24) {
+			JSubMenuHelper::addEntry( JText::_( 'SETTINGS' ), 'index.php?option=com_eventlist&controller=settings&task=edit');
+		}
 
 		//create the toolbar
 		JToolBarHelper::title( JText::_( 'HELP' ), 'help' );

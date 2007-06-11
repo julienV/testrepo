@@ -29,7 +29,6 @@ class EventListViewCategories extends JView {
 		$db  		= & JFactory::getDBO();
 		$document	= & JFactory::getDocument();
 		$uri 		= & JFactory::getURI();
-		$submenu 	= ELAdmin::submenu();
 
 		//get vars
 		$filter_order		= $mainframe->getUserStateFromRequest( "$option.categories.filter_order", 		'filter_order', 	'c.ordering' );
@@ -39,8 +38,19 @@ class EventListViewCategories extends JView {
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 
 		//add css and submenu to document
-		$document->setBuffer($submenu, 'module', 'submenu');
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
+
+		//Create Submenu
+		JSubMenuHelper::addEntry( JText::_( 'EVENTLIST' ), 'index.php?option=com_eventlist');
+		JSubMenuHelper::addEntry( JText::_( 'EVENTS' ), 'index.php?option=com_eventlist&view=events');
+		JSubMenuHelper::addEntry( JText::_( 'VENUES' ), 'index.php?option=com_eventlist&view=venues');
+		JSubMenuHelper::addEntry( JText::_( 'CATEGORIES' ), 'index.php?option=com_eventlist&view=categories', true);
+		JSubMenuHelper::addEntry( JText::_( 'ARCHIVE' ), 'index.php?option=com_eventlist&view=archive');
+		JSubMenuHelper::addEntry( JText::_( 'GROUPS' ), 'index.php?option=com_eventlist&view=groups');
+		JSubMenuHelper::addEntry( JText::_( 'HELP' ), 'index.php?option=com_eventlist&view=help');
+		if ($user->get('gid') > 24) {
+			JSubMenuHelper::addEntry( JText::_( 'SETTINGS' ), 'index.php?option=com_eventlist&controller=settings&task=edit');
+		}
 
 		//create the toolbar
 		JToolBarHelper::title( JText::_( 'CATEGORIES' ), 'elcategories' );
