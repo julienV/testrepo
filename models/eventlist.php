@@ -166,8 +166,6 @@ class EventListModelEventList extends JModel
 	 */
 	function _buildEventListOrderBy()
 	{
-		global $mainframe;
-
 		$filter_order		= $this->getState('filter_order');
 		$filter_order_dir	= $this->getState('filter_order_dir');
 
@@ -190,7 +188,7 @@ class EventListModelEventList extends JModel
 		$gid		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getPageParameters();
 
 		// First thing we need to do is to select only published events
 		$where = ' WHERE a.published = 1';

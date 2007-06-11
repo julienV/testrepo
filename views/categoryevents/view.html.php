@@ -223,11 +223,11 @@ class EventListViewCategoryevents extends JView
 	function _buildSortLists($elsettings)
 	{
 		// Table ordering values
-		$filter_order		= JRequest::getVar('filter_order');
-		$filter_order_Dir	= JRequest::getVar('filter_order_Dir');
+		$filter_order		= JRequest::getCmd('filter_order', 'a.dates');
+		$filter_order_Dir	= JRequest::getCmd('filter_order_Dir', 'ASC');
 
-		$filter				= JRequest::getVar('filter');
-		$filter_type		= JRequest::getVar('filter_type');
+		$filter				= JRequest::getString('filter');
+		$filter_type		= JRequest::getString('filter_type');
 
 		$sortselects = array();
 		$sortselects[]	= JHTML::_('select.option', 'title', $elsettings->titlename );

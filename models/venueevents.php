@@ -60,18 +60,22 @@ class EventListModelVenueevents extends JModel
 
 		global $mainframe;
 
-		$id = JRequest::getVar('locatid', 0, '', 'int');
+		$id = JRequest::getInt('locatid');
 		$this->setId($id);
 
 		// Get the paramaters of the active menu item
 		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		//get the number of events from database
-		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0));
+		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.venueevents.limit', 'limit', $params->def('display_num', 0));
 		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
 
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
+
+		// Get the filter request variables
+		$this->setState('filter_order', JRequest::getCmd('filter_order', 'a.dates'));
+		$this->setState('filter_order_dir', JRequest::getCmd('filter_order_Dir', 'ASC'));
 	}
 
 	/**
@@ -183,12 +187,10 @@ class EventListModelVenueevents extends JModel
 	 */
 	function _buildContentOrderBy()
 	{
-		global $mainframe, $option;
+		$filter_order		= $this->getState('filter_order');
+		$filter_order_dir	= $this->getState('filter_order_dir');
 
-		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.venueevents.filter_order', 		'filter_order', 	'a.dates' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.venueevents.filter_order_Dir',	'filter_order_Dir',	'' );
-
-		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', a.dates, a.times';
+		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_dir.', a.dates, a.times';
 
 		return $orderby;
 	}
@@ -221,7 +223,7 @@ class EventListModelVenueevents extends JModel
 		 */
 		if ($params->get('filter'))
 		{
-			$filter 		= JRequest::getVar('filter', '', 'request');
+			$filter 		= JRequest::getString('filter');
 
 			if ($filter)
 			{

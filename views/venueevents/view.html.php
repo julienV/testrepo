@@ -45,11 +45,11 @@ class EventListViewVenueevents extends JView
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
 
 		// Request variables
-		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
+		$limitstart		= JRequest::getInt('limitstart');
 		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.venueevents.limit', 'limit', $params->def('display_num', 0));
 		$live_site 		= $mainframe->getCfg('live_site');
-		$locatid		= JRequest::getVar('locatid', 0, '', 'int');
-		$pop			= JRequest::getVar('pop', 0, '', 'int');
+		$locatid		= JRequest::getInt('locatid');
+		$pop			= JRequest::getInt('pop');
 
 		//get data from model
 		$rows 		= & $this->get('Data');
@@ -233,10 +233,11 @@ class EventListViewVenueevents extends JView
 	function _buildSortLists()
 	{
 		// Table ordering values
-		$filter_order		= JRequest::getVar('filter_order');
-		$filter_order_Dir	= JRequest::getVar('filter_order_Dir');
+		$filter_order		= JRequest::getCmd('filter_order', 'a.dates');
+		$filter_order_Dir	= JRequest::getCmd('filter_order_Dir', 'ASC');
 
-		$filter				= JRequest::getVar('filter');
+		$filter				= JRequest::getString('filter');
+		//$filter_type		= JRequest::getString('filter_type');
 
 		$html= '';
 

@@ -60,18 +60,22 @@ class EventListModelCategoryevents extends JModel
 
 		global $mainframe;
 
-		$id = JRequest::getVar('categid', 0, '', 'int');
+		$id = JRequest::getInt('categid');
 		$this->setId($id);
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getPageParameters();
 
 		//get the number of events from database
-		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0));
+		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0));
 		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
 
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
+
+		// Get the filter request variables
+		$this->setState('filter_order', JRequest::getCmd('filter_order', 'a.dates'));
+		$this->setState('filter_order_dir', JRequest::getCmd('filter_order_Dir', 'ASC'));
 	}
 
 	/**
@@ -183,12 +187,10 @@ class EventListModelCategoryevents extends JModel
 	 */
 	function _buildCategoryOrderBy()
 	{
-		global $mainframe, $option;
+		$filter_order		= $this->getState('filter_order');
+		$filter_order_dir	= $this->getState('filter_order_dir');
 
-		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.venueevents.filter_order', 		'filter_order', 	'a.dates' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.venueevents.filter_order_Dir',	'filter_order_Dir',	'' );
-
-		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', a.dates, a.times';
+		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_dir.', a.dates, a.times';
 
 		return $orderby;
 	}
@@ -203,13 +205,13 @@ class EventListModelCategoryevents extends JModel
 	{
 		global $mainframe;
 
-		$user		=& JFactory::getUser();
+		$user		= & JFactory::getUser();
 		$gid		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getPageParameters();
 
-		$task 		= JRequest::getVar('task', '', '', 'string');
+		$task 		= JRequest::getString('task');
 
 		// First thing we need to do is to select only the requested events
 		if ($task == 'catarchive') {
@@ -227,8 +229,8 @@ class EventListModelCategoryevents extends JModel
 		 */
 		if ($params->get('filter'))
 		{
-			$filter 		= JRequest::getVar('filter', '', 'request');
-			$filter_type 	= JRequest::getVar('filter_type', '', 'request');
+			$filter 		= JRequest::getString('filter', '', 'request');
+			$filter_type 	= JRequest::getString('filter_type', '', 'request');
 
 			if ($filter)
 			{
