@@ -183,7 +183,7 @@ class EventListModelCategoryelement extends JModel
 		}
 
 		if ($search) {
-			$where[] = ' LOWER(c.catname) LIKE "%'.$search.'%"';
+			$where[] = ' LOWER(c.catname) LIKE \'%'.$search.'%\' ';
 		}
 
 		$where 		= ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '' );

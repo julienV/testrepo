@@ -195,7 +195,7 @@ class EventListModelVenues extends JModel
 
 		$filter_state 		= $mainframe->getUserStateFromRequest( $option.'.filter_state', 		'filter_state', 	'' );
 		$filter 			= $mainframe->getUserStateFromRequest( $option.'.filter', 			'filter', '' );
-		$filter 			= intval( $filter );
+		$filter 			= (int)$filter;
 		$search 			= $mainframe->getUserStateFromRequest( $option.'.search', 			'search', '' );
 		$search 			= $this->_db->getEscaped( trim(JString::strtolower( $search ) ) );
 
@@ -216,14 +216,14 @@ class EventListModelVenues extends JModel
 		* Search venues
 		*/
 		if ($search && $filter == 1) {
-			$where[] = ' LOWER(l.venue) LIKE "%'.$search.'%"';
+			$where[] = ' LOWER(l.venue) LIKE \'%'.$search.'%\' ';
 		}
 
 		/*
 		* Search city
 		*/
 		if ($search && $filter == 2) {
-			$where[] = ' LOWER(l.city) LIKE "%'.$search.'%"';
+			$where[] = ' LOWER(l.city) LIKE \'%'.$search.'%\' ';
 		}
 
 		$where 		= ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '' );

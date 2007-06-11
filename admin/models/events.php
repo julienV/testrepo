@@ -188,19 +188,19 @@ class EventListModelEvents extends JModel
 		}
 
 		if ($search && $filter == 1) {
-			$where[] = ' LOWER(a.title) LIKE "%'.$search.'%"';
+			$where[] = ' LOWER(a.title) LIKE \'%'.$search.'%\' ';
 		}
 
 		if ($search && $filter == 2) {
-			$where[] = ' LOWER(loc.venue) LIKE "%'.$search.'%"';
+			$where[] = ' LOWER(loc.venue) LIKE \'%'.$search.'%\' ';
 		}
 
 		if ($search && $filter == 3) {
-			$where[] = ' LOWER(loc.city) LIKE "%'.$search.'%"';
+			$where[] = ' LOWER(loc.city) LIKE \'%'.$search.'%\' ';
 		}
 
 		if ($search && $filter == 4) {
-			$where[] = ' LOWER(cat.catname) LIKE "%'.$search.'%"';
+			$where[] = ' LOWER(cat.catname) LIKE \'%'.$search.'%\' ';
 		}
 
 

@@ -179,12 +179,12 @@ class EventListModelGroups extends JModel
 	{
 		global $mainframe, $option;
 
-		$search 			= $mainframe->getUserStateFromRequest( $option.'.search', 			'search', '' );
+		$search 			= $mainframe->getUserStateFromRequest( $option.'.search', 'search', '' );
 		$search 			= $this->_db->getEscaped( trim(JString::strtolower( $search ) ) );
 
 		$where = array();
 
-		$where[] = ' LOWER(name) LIKE "%'.$search.'%"';
+		$where[] = ' LOWER(name) LIKE \'%'.$search.'%\' ';
 
 		$where 		= ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '' );
 

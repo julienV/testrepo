@@ -200,7 +200,7 @@ class EventListModelAttendees extends JModel
 		global $mainframe, $option;
 
 		$filter 			= $mainframe->getUserStateFromRequest( $option.'.attendees.filter', 'filter', '' );
-		$filter 			= intval( $filter );
+		$filter 			= (int) $filter;
 		$search 			= $mainframe->getUserStateFromRequest( $option.'.attendees.search', 'search', '' );
 		$search 			= $this->_db->getEscaped( trim(JString::strtolower( $search ) ) );
 
@@ -212,14 +212,14 @@ class EventListModelAttendees extends JModel
 		* Search venues
 		*/
 		if ($search && $filter == 1) {
-			$where[] = ' LOWER(u.name) LIKE "%'.$search.'%"';
+			$where[] = ' LOWER(u.name) LIKE \'%'.$search.'%\' ';
 		}
 
 		/*
 		* Search city
 		*/
 		if ($search && $filter == 2) {
-			$where[] = ' LOWER(r.urname) LIKE "%'.$search.'%"';
+			$where[] = ' LOWER(r.urname) LIKE \'%'.$search.'%\' ';
 		}
 
 		$where 		= ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '' );
@@ -238,10 +238,9 @@ class EventListModelAttendees extends JModel
 	{
 		$query = 'SELECT id, title, dates FROM #__eventlist_events WHERE id = '.$this->_id;
 
-		$this->_db->SetQuery( $query );
+		$this->_db->setQuery( $query );
 
   		$_event = $this->_db->loadObject();
-		echo $this->_db->getErrorMsg();
 
 		return $_event;
 	}
@@ -255,15 +254,14 @@ class EventListModelAttendees extends JModel
 	 */
 	function remove($cid)
 	{
-		$user = join(",", $cid);
+		$user = join(',', $cid);
 
 		$query = 'DELETE FROM #__eventlist_register WHERE rid IN ('. $user .')';
 
 		$this->_db->setQuery( $query );
-		$this->_db->Query();
 
 		if (!$this->_db->query()) {
-			JError::raiseError( 1001, $db->getErrorMsg() );
+			JError::raiseError( 1001, $this->_db->getErrorMsg() );
   		}
 
   		return true;

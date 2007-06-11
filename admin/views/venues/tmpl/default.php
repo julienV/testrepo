@@ -17,7 +17,7 @@
 			<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
 			<button onclick="this.form.getElementById('search').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
 		</td>
-		<td nowrap="nowrap"><?php $this->lists['state']; ?></td>
+		<td nowrap="nowrap"><?php echo $this->lists['state']; ?></td>
 	</tr>
 </table>
 

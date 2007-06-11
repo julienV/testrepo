@@ -282,7 +282,7 @@
 				</tr>
 			</table>
 			<?php
-			$title = JText::_( 'RECURING EVENTS' );
+			$title = JText::_( 'RECURRING EVENTS' );
 			echo $this->pane->endPanel();
 			echo $this->pane->startPanel( $title, 'recurrence' );
 			?>

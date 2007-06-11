@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @version 0.9 $Id$
  * @package Joomla
@@ -15,33 +15,33 @@ jimport('joomla.application.component.model');
 /**
  * EventList Component Group Model
  *
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @since		0.9
  */
 class EventListModelGroup extends JModel
-{	
+{
 	/**
 	 * Event id
 	 *
 	 * @var int
 	 */
 	var $_id = null;
-	
+
 	/**
 	 * Event data array
 	 *
 	 * @var array
 	 */
 	var $_data = null;
-	
+
 	/**
 	 * Members data array
 	 *
 	 * @var array
 	 */
 	var $_members = null;
-	
+
 	/**
 	 * Constructor
 	 *
@@ -67,24 +67,24 @@ class EventListModelGroup extends JModel
 		$this->_id	    = $id;
 		$this->_data	= null;
 	}
-	
+
 	/**
 	 * Logic for the Group edit screen
 	 *
 	 */
 	function &getData()
 	{
-		
+
 		if ($this->_loadData())
 		{
-			
+
 		}
 		else  $this->_initData();
-		
+
 		//$this->_loadData();
 		return $this->_data;
 	}
-	
+
 	/**
 	 * Method to load content data
 	 *
@@ -102,14 +102,14 @@ class EventListModelGroup extends JModel
 					. ' WHERE id = '.$this->_id
 					;
 			$this->_db->setQuery($query);
-			
+
 			$this->_data = $this->_db->loadObject();
-			
+
 			return (boolean) $this->_data;
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Method to get the members data
 	 *
@@ -118,80 +118,80 @@ class EventListModelGroup extends JModel
 	 * @since	0.9
 	 */
 	function &getMembers()
-	{	
+	{
     	$members = $this->_members();
-		
+
     	$users = array();
-    	
+
     	if ($members) {
         	$query = 'SELECT id AS value, username, name'
-        			. ' FROM #__users' 
-        			. ' WHERE id IN ('.$members.')' 
+        			. ' FROM #__users'
+        			. ' WHERE id IN ('.$members.')'
         			. ' ORDER BY name ASC'
         			;
-        	
+
         	$this->_db->setQuery( $query );
-        	
+
         	$users = $this->_db->loadObjectList();
-    
+
 			$k = 0;
 			for($i=0, $n=count( $users ); $i < $n; $i++) {
     			$item = &$users[$i];
-    
+
 				$item->text = $item->name.' ('.$item->username.')';
-        
-    			$k = 1 - $k;  
+
+    			$k = 1 - $k;
 			}
 
-    	} 
-    	
+    	}
+
     	return $users;
 	}
-	
+
 	function &getAvailable()
-	{		
+	{
 		$members = $this->_members();
-		
+
     	// get non selected members
     	$query = 'SELECT id AS value, username, name FROM #__users';
-    	
+
     	if ($members) $query .= ' WHERE id NOT IN ('.$members.')' ;
     	$query .= ' ORDER BY name ASC';
     	$this->_db->setQuery($query);
-    	
+
     	$available = $this->_db->loadObjectList();
-    	
+
     	$k = 0;
 		for($i=0, $n=count( $available ); $i < $n; $i++) {
     		$item = &$available[$i];
-    
+
 			$item->text = $item->name.' ('.$item->username.')';
-        
-    		$k = 1 - $k;  
+
+    		$k = 1 - $k;
 		}
-		
+
 		return $available;
 	}
-	
+
 	function _members()
-	{ 
+	{
 		$_members 		= "";
-		
+
     	//get selected members
 		if ($this->_id){
-			$query = 'SELECT member' 
-					. ' FROM #__eventlist_groupmembers' 
+			$query = 'SELECT member'
+					. ' FROM #__eventlist_groupmembers'
 					. ' WHERE group_id = '.$this->_id;
-					
+
 			$this->_db->setQuery ($query);
-			
+
 			$member_ids = $this->_db->loadResultArray();
-			
-			if (is_array($member_ids)) $_members = implode(",", $member_ids);
+
+			if (is_array($member_ids)) $_members = implode(',', $member_ids);
 		}
 		return $_members;
 	}
-	
+
 	/**
 	 * Method to initialise the group data
 	 *
@@ -213,7 +213,7 @@ class EventListModelGroup extends JModel
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Method to checkin/unlock the item
 	 *
@@ -233,7 +233,7 @@ class EventListModelGroup extends JModel
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Method to checkout/lock the item
 	 *
@@ -257,12 +257,12 @@ class EventListModelGroup extends JModel
 				$this->setError($this->_db->getErrorMsg());
 				return false;
 			}
-			
+
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Tests if the event is checked out
 	 *
@@ -282,7 +282,7 @@ class EventListModelGroup extends JModel
 			}
 		}
 	}
-	
+
 	/**
 	 * Method to store the group
 	 *
@@ -293,38 +293,38 @@ class EventListModelGroup extends JModel
 	function store($data)
 	{
 		global $mainframe;
-		
+
 		$row =& JTable::getInstance('eventlist_groups', '');
-		
+
 		//Bind the form fields to the table
 		if (!$row->bind($data)) {
 			$this->setError($this->_db->getErrorMsg());
 			return false;
 		}
-		
+
 		// Make sure the data is valid
 		if (!$row->check()) {
 			$this->setError($row->getError());
 			return false;
 		}
-		
+
 		//Store the table to the database
 		if (!$row->store()) {
 			$this->setError($this->_db->getErrorMsg());
 			return false;
 		}
-		
+
 		$members =JRequest::getVar('maintainers',  '', 'post', 'array');
-	
+
 		$this->_db->setQuery ('DELETE FROM #__eventlist_groupmembers WHERE group_id = '.$row->id);
 		$this->_db->query();
-		
+
 		foreach ($members as $member){
 			$member = intval($member);
 			$this->_db->setQuery ("INSERT INTO #__eventlist_groupmembers (group_id, member) VALUES ($row->id, $member)");
 			$this->_db->query();
 		}
-		
+
 		return true;
 	}
 }

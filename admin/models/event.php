@@ -81,7 +81,6 @@ class EventListModelEvent extends JModel
 		}
 		else  $this->_initData();
 
-	//	$this->_loadData();
 		return $this->_data;
 	}
 
