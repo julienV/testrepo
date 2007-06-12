@@ -209,14 +209,11 @@ class ELOutput {
 
 			if ($params->get( 'popup' )) {
 				//button in popup
-				$attribs['title']   = '"'.JText::_( 'Print' ).'"';
-				$attribs['onclick'] = "\"javascript:window.print(); return false;\"";
-
-				$output = JHTML::Link('#', $text, $attribs);
+				$output = '<a href="#" onclick="window.print();return false;">'.$text.'</a>';
 			} else {
 				//button in view
 				$attribs['title']   = '"'.JText::_( 'Print' ).'"';
-				$attribs['onclick'] = "\"window.open('".$print_link."','win2','".$status."'); return false;\"";
+				$attribs['onclick'] = "window.open(this.href,'win2','".$status."'); return false;";
 
 				$output = JHTML::Link($print_link, $text, $attribs);
 			}
