@@ -215,7 +215,7 @@ class ELOutput {
 				$attribs['title']   = '"'.JText::_( 'Print' ).'"';
 				$attribs['onclick'] = "window.open(this.href,'win2','".$status."'); return false;";
 
-				$output = JHTML::Link($print_link, $text, $attribs);
+				$output = JHTML::_('link', $print_link, $text, $attribs);
 			}
 
 			return $output;
@@ -244,9 +244,9 @@ class ELOutput {
 			}
 
 			$attribs['title']	= '"'.JText::_( 'Email' ).'"';
-			$attribs['onclick'] = "\"window.open(this.href,'win2','".$status."'); return false;\"";
+			$attribs['onclick'] = "window.open(this.href,'win2','".$status."'); return false;";
 
-			$output = JHTML::Link($url, $text, $attribs);
+			$output = JHTML::_('link', JRoute::_($url), $text, $attribs);
 
 			return $output;
 		}
