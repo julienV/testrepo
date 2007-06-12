@@ -29,10 +29,10 @@ class EventListViewCategoryelement extends JView {
 		$db			= & JFactory::getDBO();
 
 		//get vars
-		$filter_order		= $mainframe->getUserStateFromRequest( "$option.categoryelement.filter_order", 		'filter_order', 	'c.ordering' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.categoryelement.filter_order_Dir",	'filter_order_Dir',	'' );
-		$filter_state 		= $mainframe->getUserStateFromRequest( "$option.categoryelement.filter_state", 		'filter_state', 	'*' );
-		$search 			= $mainframe->getUserStateFromRequest( "$option.categoryelement.search", 			'search', 			'' );
+		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.categoryelement.filter_order', 'filter_order', 'c.ordering', 'cmd' );
+		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.categoryelement.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
+		$filter_state 		= $mainframe->getUserStateFromRequest( $option.'.categoryelement.filter_state', 'filter_state', '*', 'word' );
+		$search 			= $mainframe->getUserStateFromRequest( $option.'.categoryelement.search', 'search', '', 'string' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 		$template 			= $mainframe->getTemplate();
 
@@ -40,7 +40,7 @@ class EventListViewCategoryelement extends JView {
 		$document->setTitle(JText::_( 'SELECTCATEGORY'));
 		$document->addScript(JPATH_SITE.'includes/js/joomla/modal.js');
 		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');
-		$document->addStyleSheet("templates/$template/css/general.css");
+		$document->addStyleSheet('templates/'.$template.'/css/general.css');
 
 		// Get data from the model
 		$rows      	= & $this->get( 'Data');

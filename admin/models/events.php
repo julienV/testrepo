@@ -53,8 +53,8 @@ class EventListModelEvents extends JModel
 
 		global $mainframe, $option;
 
-		$limit		= $mainframe->getUserStateFromRequest( $option.'limit', 'limit', $mainframe->getCfg('list_limit'), 0);
-		$limitstart = $mainframe->getUserStateFromRequest( $option.'limitstart', 'limitstart', 0 );
+		$limit		= $mainframe->getUserStateFromRequest( $option.'limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
+		$limitstart = $mainframe->getUserStateFromRequest( $option.'limitstart', 'limitstart', 0, 'int' );
 
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
@@ -150,8 +150,8 @@ class EventListModelEvents extends JModel
 	{
 		global $mainframe, $option;
 
-		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.events.filter_order', 		'filter_order', 	'a.dates' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.events.filter_order_Dir',	'filter_order_Dir',	'' );
+		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.events.filter_order', 'filter_order', 'a.dates', 'cmd' );
+		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.events.filter_order_Dir', 'filter_order_Dir', '', 'word' );
 
 		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', a.dates, a.times';
 
@@ -168,9 +168,9 @@ class EventListModelEvents extends JModel
 	{
 		global $mainframe, $option;
 
-		$filter_state 		= $mainframe->getUserStateFromRequest( $option.'.filter_state', 		'filter_state', 	'' );
-		$filter 			= $mainframe->getUserStateFromRequest( $option.'.filter', 'filter', '' );
-		$search 			= $mainframe->getUserStateFromRequest( $option.'.search', 			'search', '' );
+		$filter_state 		= $mainframe->getUserStateFromRequest( $option.'.filter_state', 'filter_state', '', 'word' );
+		$filter 			= $mainframe->getUserStateFromRequest( $option.'.filter', 'filter', '', 'int' );
+		$search 			= $mainframe->getUserStateFromRequest( $option.'.search', 'search', '', 'string' );
 		$search 			= $this->_db->getEscaped( trim(JString::strtolower( $search ) ) );
 
 		$where = array();
@@ -202,7 +202,6 @@ class EventListModelEvents extends JModel
 		if ($search && $filter == 4) {
 			$where[] = ' LOWER(cat.catname) LIKE \'%'.$search.'%\' ';
 		}
-
 
 		$where 		= ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '' );
 

@@ -31,12 +31,11 @@ class EventListViewGroups extends JView {
 		$user 		= & JFactory::getUser();
 
 		//get vars
-		$filter_order		= $mainframe->getUserStateFromRequest( "$option.groups.filter_order", 		'filter_order', 	'name' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.groups.filter_order_Dir",	'filter_order_Dir',	'' );
-		$search 			= $mainframe->getUserStateFromRequest( "$option.groups.search", 			'search', 			'' );
+		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.groups.filter_order', 'filter_order', 	'name', 'cmd' );
+		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.groups.filter_order_Dir', 'filter_order_Dir', '', 'word' );
+		$search 			= $mainframe->getUserStateFromRequest( $option.'.groups.search', 'search', '', 'string' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 		$template			= $mainframe->getTemplate();
-		$request_url 		= $uri->toString();
 
 		//add css and submenu to document
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');

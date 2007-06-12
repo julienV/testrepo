@@ -37,8 +37,7 @@ class EventListViewVenue extends JView {
 		$settings	= ELAdmin::config();
 
 		//get vars
-		$request_url 	= $uri->toString();
-		$cid 			= JRequest::getVar( 'cid' );
+		$cid 			= JRequest::getInt( 'cid' );
 		$url 			= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
 
 		//add css and js to document

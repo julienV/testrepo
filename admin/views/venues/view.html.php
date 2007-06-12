@@ -31,12 +31,11 @@ class EventListViewVenues extends JView {
 		$document	= & JFactory::getDocument();
 
 		//get vars
-		$filter_order		= $mainframe->getUserStateFromRequest( "$option.venues.filter_order", 		'filter_order', 	'l.ordering' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.venues.filter_order_Dir",	'filter_order_Dir',	'' );
-		$filter_state 		= $mainframe->getUserStateFromRequest( "$option.venues.filter_state", 		'filter_state', 	'*' );
-		$filter 			= $mainframe->getUserStateFromRequest( "$option.venues.filter", 			'filter', '' );
-		$filter 			= intval( $filter );
-		$search 			= $mainframe->getUserStateFromRequest( "$option.search", 			'search', '' );
+		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.venues.filter_order', 'filter_order', 'l.ordering', 'cmd' );
+		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.venues.filter_order_Dir', 'filter_order_Dir', '', 'word' );
+		$filter_state 		= $mainframe->getUserStateFromRequest( $option.'.venues.filter_state', 'filter_state', '*', 'word' );
+		$filter 			= $mainframe->getUserStateFromRequest( $option.'.venues.filter', 'filter', '', 'int' );
+		$search 			= $mainframe->getUserStateFromRequest( $option.'.search', 'search', '', 'string' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 		$template			= $mainframe->getTemplate();
 

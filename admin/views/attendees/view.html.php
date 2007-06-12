@@ -32,11 +32,10 @@ class EventListViewAttendees extends JView {
 		$user		= & JFactory::getUser();
 
 		//get vars
-		$filter_order		= $mainframe->getUserStateFromRequest( "$option.attendees.filter_order", 		'filter_order', 	'r.urname' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.attendees.filter_order_Dir",	'filter_order_Dir',	'' );
-		$filter 			= $mainframe->getUserStateFromRequest( "$option.attendees.filter", 'filter', '' );
-		$filter 			= intval( $filter );
-		$search 			= $mainframe->getUserStateFromRequest( "$option.attendees.search", 'search', '' );
+		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.attendees.filter_order', 'filter_order', 'r.urname', 'cmd' );
+		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.attendees.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
+		$filter 			= $mainframe->getUserStateFromRequest( $option.'.attendees.filter', 'filter', '', 'int' );
+		$search 			= $mainframe->getUserStateFromRequest( $option.'.attendees.search', 'search', '', 'string' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 
 		//add css and submenu to document

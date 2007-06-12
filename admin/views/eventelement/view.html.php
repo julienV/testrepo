@@ -30,11 +30,11 @@ class EventListViewEventelement extends JView {
 		$document	= & JFactory::getDocument();
 
 		//get var
-		$filter_order		= $mainframe->getUserStateFromRequest( "$option.eventelement.filter_order", 		'filter_order', 	'a.dates' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.eventelement.filter_order_Dir",	'filter_order_Dir',	'' );
-		$filter 			= $mainframe->getUserStateFromRequest( "$option.eventelement.filter", 'filter', '' );
-		$filter_state 		= $mainframe->getUserStateFromRequest( "$option.eventelement.filter_state", 		'filter_state', 	'*' );
-		$search 			= $mainframe->getUserStateFromRequest( "$option.eventelement.search", 			'search', '' );
+		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.eventelement.filter_order', 'filter_order', 'a.dates', 'cmd' );
+		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.eventelement.filter_order_Dir', 'filter_order_Dir', '', 'word' );
+		$filter 			= $mainframe->getUserStateFromRequest( $option.'.eventelement.filter', 'filter', '', 'int' );
+		$filter_state 		= $mainframe->getUserStateFromRequest( $option.'.eventelement.filter_state', 'filter_state', '*', 'word' );
+		$search 			= $mainframe->getUserStateFromRequest( $option.'.eventelement.search', 'search', '', 'string' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 		$template 			= $mainframe->getTemplate();
 
@@ -42,7 +42,7 @@ class EventListViewEventelement extends JView {
 		$document->setTitle(JText::_( 'SELECTEVENT' ));
 		$document->addScript(JPATH_SITE.'includes/js/joomla/modal.js');
 		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');
-		$document->addStyleSheet("templates/$template/css/general.css");
+		$document->addStyleSheet('templates/'.$template.'/css/general.css');
 
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
