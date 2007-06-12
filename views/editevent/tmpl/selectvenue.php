@@ -43,21 +43,22 @@ defined('_JEXEC') or die('Restricted access');
 <br />
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
+	<thead>
 		<tr>
-			<td width="7" class="sectiontableheader" align="left"><?php echo JText::_( 'Num' ); ?></td>
-			<td align="left" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', 'VENUE', 'l.venue', $this->lists['order_Dir'], $this->lists['order'], 'selectvenue' ); ?></td>
-			<td align="left" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', 'CITY', 'l.city', $this->lists['order_Dir'], $this->lists['order'], 'selectvenue' ); ?></td>
-			<td align="left" class="sectiontableheader" align="left"><?php echo JText::_( 'COUNTRY' ); ?></td>
+			<th width="7" class="sectiontableheader" align="left"><?php echo JText::_( 'Num' ); ?></th>
+			<th align="left" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', 'VENUE', 'l.venue', $this->lists['order_Dir'], $this->lists['order'], 'selectvenue' ); ?></th>
+			<th align="left" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', 'CITY', 'l.city', $this->lists['order_Dir'], $this->lists['order'], 'selectvenue' ); ?></th>
+			<th align="left" class="sectiontableheader" align="left"><?php echo JText::_( 'COUNTRY' ); ?></th>
 		</tr>
-</table>
+	</thead>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
+	<tbody>
 		<?php
 		$k = 0;
 		for ($i=0, $n=count( $this->rows ); $i < $n; $i++) {
 			$row = &$this->rows[$i];
 		?>
-	<tr class="<?php echo "row$k"; ?>">
+		<tr class="<?php echo "row$k"; ?>">
 			<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
 			<td align="left">
 				<a style="cursor:pointer" onclick="window.parent.elSelectVenue('<?php echo $row->id; ?>', '<?php echo $row->venue; ?>');">
@@ -66,8 +67,9 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 			<td align="left"><?php echo $row->city; ?></td>
 			<td align="left"><?php echo $row->country; ?></td>
-	</tr>
+		</tr>
 		<?php $k = 1 - $k; } ?>
+	</tbody>
 </table>
 
 <br /><br />
