@@ -179,9 +179,9 @@ defined('_JEXEC') or die('Restricted access');
 			<td><?php echo JText::_( 'DATE' ).':'; ?>
 			</td>
 			<td>
-				<input id="dates" name="dates" value="<?php echo $this->row->dates; ?>" size="15" maxlength="10" />
-				<input class="button" value="..." onclick="return showCalendar('dates', 'Y-m-d');" type="reset" />&nbsp;
-
+				<input class="inputbox" type="text" name="dates" id="dates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" />
+            	<a href="#" onclick="return showCalendar('dates', 'Y-m-d');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
+				&nbsp;
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
 					<?php echo $this->infoimage; ?>
 				</span>
@@ -195,9 +195,9 @@ defined('_JEXEC') or die('Restricted access');
 					$this->row->enddates ='';
 				}
 				?>
-				<input id="enddates" name="enddates" value="<?php echo $this->row->enddates; ?>" size="15" maxlength="10" />
-				<input class="button" value="..." onclick="return showCalendar('enddates', 'Y-m-d');" type="reset" />&nbsp;
-
+				<input class="inputbox" type="text" name="enddates" id="enddates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" />
+            	<a href="#" onclick="return showCalendar('enddates', 'Y-m-d');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
+				&nbsp;
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
 					<?php echo $this->infoimage; ?>
 				</span>
