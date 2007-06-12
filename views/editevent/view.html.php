@@ -29,7 +29,7 @@ class EventListViewEditevent extends JView
 	 */
 	function display( $tpl=null )
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		if($this->getLayout() == 'selectvenue') {
 			$this->_displayselectvenue($tpl);
@@ -95,8 +95,7 @@ class EventListViewEditevent extends JView
 			document.popup.hide();
 		}";
 
-		//$link = JRoute::_('index.php?view=editevent&layout=selectvenue&tmpl=component');
-		$link = 'index.php?view=editevent&layout=selectvenue&tmpl=component';
+		$link = JRoute::_('index.php?view=editevent&layout=selectvenue&tmpl=component');
 		$doc->addScriptDeclaration($js);
 		$doc->addScript($url.'includes/js/joomla/modal.js');
 		$doc->addStyleSheet($url.'includes/js/joomla/modal.css');
@@ -129,16 +128,16 @@ class EventListViewEditevent extends JView
 	 */
 	function _displayselectvenue($tpl)
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		$document	= & JFactory::getDocument();
 
 		$limit				= JRequest::getInt('limit', $mainframe->getCfg('list_limit'));
 		$limitstart			= JRequest::getInt('limitstart');
 		$filter_order		= JRequest::getCmd('filter_order', 'l.venue');
-		$filter_order_Dir	= JRequest::getCmd('filter_order_Dir', 'ASC');;
+		$filter_order_Dir	= JRequest::getWord('filter_order_Dir', 'ASC');;
 		$filter				= JRequest::getString('filter');
-		$filter_type		= JRequest::getString('filter_type');
+		$filter_type		= JRequest::getInt('filter_type');
 
 		// Get/Create the model
 		$rows 	= $this->get('Venues');

@@ -248,6 +248,14 @@ class EventListController extends JController
 		$this->setRedirect( JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid, false), $msg );
 	}
 
+	function selectvenue()
+	{
+		JRequest::setVar('view', 'editevent');
+		JRequest::setVar('layout', 'selectvenue');
+
+		parent::display();
+	}
+
 	/**
 	 * offers the vcal/ical functonality
 	 *
