@@ -67,7 +67,7 @@
 			echo $this->pane->endPane();
 		  	?>
 		</td>
-		<td>
+		<td width="75%">
 			<iframe name="helpFrame" src="<?php echo 'components/com_eventlist/help/'.$this->langTag.'/el.intro.html'; ?>" class="helpFrame" frameborder="0"></iframe>
 		</td>
 	</tr>
