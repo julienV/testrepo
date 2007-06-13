@@ -59,12 +59,6 @@ class EventListViewHelp extends JView {
 		// Check for files in the actual language
 		$langTag = $lang->getTag();
 
-		//Dirty fallback solution for de-AT/de-CH languagepack users (if you call the help through the toolbar it will remain english)
-		//uncomment that or rename the help folder (better solution)
-		//if ($langTag == 'de-CH' || 'de-AT') {
-		//	$langTag = 'de-DE';
-		//}
-
 		if ( !JFolder::exists( JPATH_SITE . DS.'administrator'.DS.'components'.DS.'com_eventlist/help'.DS .$langTag ) ) {
 			$langTag = 'en-GB';		// use english as fallback
 		}
@@ -97,6 +91,7 @@ class EventListViewHelp extends JView {
 
 		// Check for files in the actual language
 		$langTag = $lang->getTag();
+
 		if( !JFolder::exists( JPATH_SITE . DS.'administrator'.DS.'components'.DS.'com_eventlist'.DS.'help'.DS .$langTag ) ) {
 			$langTag = 'en-GB';		// use english as fallback
 		}
