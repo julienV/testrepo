@@ -45,9 +45,9 @@ class EventListViewEventList extends JView
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
 
 		// get variables
-		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
-		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0));
-		$pop			= JRequest::getVar('pop', 0, '', 'int');
+		$limitstart		= JRequest::getInt('limitstart');
+		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0), 'int');
+		$pop			= JRequest::getBool('pop');
 		$pathway 		= & $mainframe->getPathWay();
 
 		//get data from model
@@ -191,7 +191,7 @@ class EventListViewEventList extends JView
 	function _buildSortLists($elsettings)
 	{
 		$filter_order		= JRequest::getCmd('filter_order', 'a.dates');
-		$filter_order_Dir	= JRequest::getCmd('filter_order_Dir', 'ASC');
+		$filter_order_Dir	= JRequest::getWord('filter_order_Dir', 'ASC');
 
 		$filter				= JRequest::getString('filter');
 		$filter_type		= JRequest::getString('filter_type');

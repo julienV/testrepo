@@ -46,8 +46,8 @@ class EventListViewEditevent extends JView
 		$categories	= $this->Get('Categories');
 
 		//Get requests
-		$id					= JRequest::getVar('id', 0, '', 'int');
-		$returnview			= JRequest::getVar('returnview', '', '', 'string');
+		$id					= JRequest::getInt('id');
+		$returnview			= JRequest::getWord('returnview');
 
 		//Clean output
 		jimport('joomla.filter.output');

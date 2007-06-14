@@ -46,9 +46,9 @@ class EventListViewVenuesview extends JView
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
 
 		// Request variables
-		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
+		$limitstart		= JRequest::getInt('limitstart');
 		$limit			= JRequest::getVar('limit', $params->get('display_num'), '', 'int');
-		$pop			= JRequest::getVar('pop', 0, '', 'int');
+		$pop			= JRequest::getBool('pop', 0, '', 'int');
 
 		$rows 		= & $this->get('Data');
 		$total 		= & $this->get('Total');

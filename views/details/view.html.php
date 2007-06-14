@@ -75,7 +75,7 @@ class EventListViewDetails extends JView
 		}
 
 		//Print
-		$pop	= JRequest::getVar('pop', 0, '', 'int');
+		$pop	= JRequest::getBool('pop');
 
 		$params->def( 'page_title', JText::_( 'DETAILS' ));
 

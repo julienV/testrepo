@@ -118,7 +118,7 @@ class ELUser {
 	function superuser()
 	{
 		$user 		= & JFactory::getUser();
-		$superuser 	= (strtolower($user->get('usertype')) == 'administrator' || strtolower($user->get('usertype')) == 'super administrator' );
+		$superuser 	= (JString::strtolower($user->get('usertype')) == 'administrator' || JString::strtolower($user->get('usertype')) == 'super administrator' );
 
 		return $superuser;
 	}
@@ -173,7 +173,7 @@ class ELUser {
 
 		$query = 'SELECT g.group_id'
 				. ' FROM #__eventlist_groupmembers AS g'
-				. ' WHERE g.member = '.$user->get('id')
+				. ' WHERE g.member = '.(int) $user->get('id')
 				;
 		$db->setQuery( $query );
 

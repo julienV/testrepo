@@ -46,11 +46,11 @@ class EventListViewCategoryevents extends JView
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
 
 		// Request variables
-		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
-		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0));
-		$task 			= JRequest::getVar('task', '', '', 'string');
-		$pop			= JRequest::getVar('pop', 0, '', 'int');
-		$categid		= JRequest::getVar('categid', 0, '', 'int');
+		$limitstart		= JRequest::getInt('limitstart');
+		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0), 'int');
+		$task 			= JRequest::getWord('task');
+		$pop			= JRequest::getBool('pop');
+		$categid		= JRequest::getInt('categid');
 
 		//get data from model
 		$rows 		= & $this->get('Data');

@@ -73,15 +73,15 @@ class EventListModelCategory extends JModel
 		global $mainframe;
 		parent::__construct();
 
-		$id = JRequest::getVar('cid', 0, '', 'int');
+		$id = JRequest::getInt('cid');
 		$this->setId($id);
 
 		// Get the paramaters of the active menu item
 		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		//get the number of events from database
-		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0));
-		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
+		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0), 'int');
+		$limitstart		= JRequest::getInt('limitstart');
 
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
@@ -108,7 +108,7 @@ class EventListModelCategory extends JModel
 	 */
 	function &getData( )
 	{
-		$pop	= JRequest::getVar('pop', 0, '', 'int');
+		$pop	= JRequest::getBool('pop');
 
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_data))
@@ -222,7 +222,7 @@ class EventListModelCategory extends JModel
 		// Get the paramaters of the active menu item
 		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
-		$task 		= JRequest::getVar('task', '', '', 'string');
+		$task 		= JRequest::getWord('task');
 
 		// First thing we need to do is to select only the requested events
 		if ($task == 'catarchive') {
@@ -244,8 +244,8 @@ class EventListModelCategory extends JModel
 		 */
 		if ($params->get('filter'))
 		{
-			$filter 		= JRequest::getVar('filter', '', 'request');
-			$filter_type 	= JRequest::getVar('filter_type', '', 'request');
+			$filter 		= JRequest::getString('filter');
+			$filter_type 	= JRequest::getWord('filter_type');
 
 			if ($filter)
 			{
@@ -298,7 +298,7 @@ class EventListModelCategory extends JModel
 	 */
 	function &getCategories( )
 	{
-		$task = JRequest::getVar('task', '', '', 'string');
+		$task = JRequest::getWord('task');
 
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_categories))
@@ -371,7 +371,7 @@ class EventListModelCategory extends JModel
 		}
 
 		//check archive task and ensure that only categories get selected if they contain a publishes/arcived event
-		$task 		= JRequest::getVar('task', '', '', 'string');
+		$task 		= JRequest::getWord('task');
 		if($task == 'archive') {
 			$eventstate = ' AND a.published = -1';
 		} else {

@@ -67,8 +67,8 @@ class EventListModelCategoryevents extends JModel
 		$params 	= & $mainframe->getPageParameters();
 
 		//get the number of events from database
-		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0));
-		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
+		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0), 'int');
+		$limitstart		= JRequest::getInt('limitstart');
 
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
@@ -99,7 +99,7 @@ class EventListModelCategoryevents extends JModel
 	 */
 	function &getData( )
 	{
-		$pop	= JRequest::getVar('pop', 0, '', 'int');
+		$pop	= JRequest::getBool('pop');
 
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_data))
@@ -211,7 +211,7 @@ class EventListModelCategoryevents extends JModel
 		// Get the paramaters of the active menu item
 		$params 	= & $mainframe->getPageParameters();
 
-		$task 		= JRequest::getString('task');
+		$task 		= JRequest::getWord('task');
 
 		// First thing we need to do is to select only the requested events
 		if ($task == 'catarchive') {
@@ -230,7 +230,7 @@ class EventListModelCategoryevents extends JModel
 		if ($params->get('filter'))
 		{
 			$filter 		= JRequest::getString('filter', '', 'request');
-			$filter_type 	= JRequest::getString('filter_type', '', 'request');
+			$filter_type 	= JRequest::getWord('filter_type', '', 'request');
 
 			if ($filter)
 			{

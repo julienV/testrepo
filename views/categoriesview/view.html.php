@@ -44,9 +44,9 @@ class EventListViewCategoriesview extends JView
 		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		// Request variables
-		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
-		$limit			= JRequest::getVar('limit', $params->get('cat_num'), '', 'int');
-		$task			= JRequest::getVar('task', '', '', 'string');
+		$limitstart		= JRequest::getInt('limitstart');
+		$limit			= JRequest::getInt('limit', $params->get('cat_num'));
+		$task			= JRequest::getWord('task', '', '', 'string');
 
 		$params->def( 'page_title', $item->name);
 

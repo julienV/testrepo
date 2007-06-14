@@ -64,7 +64,7 @@ class EventListModelCategoriesdetailed extends JModel
 		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		//get the number of events from database
-		$limit			= JRequest::getVar('limit', $params->get('cat_num'), '', 'int');
+		$limit			= JRequest::getInt('limit', $params->get('cat_num'));
 		$limitstart		= JRequest::getInt('limitstart');
 
 		$this->setState('limit', $limit);

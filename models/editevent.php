@@ -56,7 +56,7 @@ class EventListModelEditevent extends JModel
 	function setId($id)
 	{
 		// Set new event ID
-		$this->_id			= $id;
+		$this->_id = $id;
 	}
 
 	/**
@@ -74,7 +74,7 @@ class EventListModelEditevent extends JModel
 		$user		= & JFactory::getUser();
 		$elsettings = ELHelper::config();
 
-		$view		= JRequest::getString('view');
+		$view		= JRequest::getWord('view');
 
 		/*
 		* If Id exists we will do the edit stuff
@@ -315,7 +315,7 @@ class EventListModelEditevent extends JModel
 	function _buildVenuesWhere(  )
 	{
 
-		$filter_type		= JRequest::getString('filter_type');
+		$filter_type		= JRequest::getInt('filter_type');
 		$filter 			= JRequest::getString('filter');
 		$filter 			= $this->_db->getEscaped( trim(JString::strtolower( $filter ) ) );
 

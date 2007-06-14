@@ -36,8 +36,8 @@ class EventListViewEditvenue extends JView
 		$elsettings = ELHelper::config();
 
 		// Get requests
-		$id				= JRequest::getVar('id', 0, '', 'int');
-		$returnview		= JRequest::getVar('returnview', '', '', 'string');
+		$id				= JRequest::getInt('id');
+		$returnview		= JRequest::getWord('returnview');
 
 		//Get Data from the model
 		$row 		= $this->Get('Venue');

@@ -79,8 +79,6 @@ class EventListModelVenuesview extends JModel
 		$params		=& $menu->getParams($item->id);
 
 		$elsettings 	=  ELHelper::config();
-		$live_site 		= $mainframe->getCfg('live_site');
-
 
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_data))

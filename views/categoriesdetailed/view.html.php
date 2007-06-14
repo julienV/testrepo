@@ -40,10 +40,10 @@ class EventListViewCategoriesdetailed extends JView
 
 		//get vars
 		$live_site		= $mainframe->getCfg('live_site');
-		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
-		$limit			= JRequest::getVar('limit', $params->get('cat_num'), '', 'int');
+		$limitstart		= JRequest::getInt('limitstart');
+		$limit			= JRequest::getInt('limit', $params->get('cat_num'));
 		$pathway 		= & $mainframe->getPathWay();
-		$pop			= JRequest::getVar('pop', 0, '', 'int');
+		$pop			= JRequest::getBool('pop');
 
 		//Get data from the model
 		$categories	= & $this->get('Data');

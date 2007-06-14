@@ -26,7 +26,7 @@ $classname  = 'EventListController';
 $controller = new $classname( );
 
 // Perform the Request task
-$controller->execute( JRequest::getCmd('task'));
+$controller->execute( JRequest::getWord('task'));
 
 // Redirect if set by the controller
 $controller->redirect();

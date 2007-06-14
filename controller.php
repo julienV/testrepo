@@ -50,9 +50,9 @@ class EventListController extends JController
 		$db 	= & JFactory::getDBO();
 		$user	= & JFactory::getUser();
 
-		$view	= JRequest::getVar('returnview', '', 'post', 'string');
-		$id		= JRequest::getVar( 'id', 0, 'post', 'int' );
-		$Itemid = JRequest::getVar( 'Itemid', 0, 'post', 'int' );
+		$view	= JRequest::getWord('returnview');
+		$id		= JRequest::getInt( 'id');
+		$Itemid = JRequest::getInt( 'Itemid');
 
 		// Must be logged in
 		if ($user->get('id') < 1) {
@@ -84,9 +84,9 @@ class EventListController extends JController
 		$db 	= & JFactory::getDBO();
 		$user	= & JFactory::getUser();
 
-		$view	= JRequest::getVar('returnview', '', 'request', 'string');
-		$id		= JRequest::getVar( 'id', 0, 'post', 'int' );
-		$Itemid = JRequest::getVar( 'Itemid', 0, 'post', 'int' );
+		$view	= JRequest::getWord( 'returnview' );
+		$id		= JRequest::getInt( 'id' );
+		$Itemid = JRequest::getInt( 'Itemid' );
 
 		// Must be logged in
 		if ($user->get('id') < 1) {
@@ -130,7 +130,7 @@ class EventListController extends JController
 		$post['locdescription'] = JRequest::getVar( 'locdescription', '', 'post', 'string', JREQUEST_ALLOWRAW );
 
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
-		$Itemid 	= JRequest::getVar( 'Itemid', 0, 'post', 'int' );
+		$Itemid 	= JRequest::getInt( 'Itemid' );
 
 
 		$model = $this->getModel('editvenue');
@@ -171,7 +171,7 @@ class EventListController extends JController
 
 		//get image
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
-		$Itemid 	= JRequest::getVar( 'Itemid', 0, 'post', 'int' );
+		$Itemid 	= JRequest::getInt( 'Itemid' );
 		$post 		= JRequest::get( 'post' );
 
 		$model = $this->getModel('editevent');
@@ -208,8 +208,8 @@ class EventListController extends JController
 			JError::raiseError(403, 'Request Forbidden');
 		}
 
-		$id 	= JRequest::getVar( 'rdid', 0, 'post', 'int' );
-		$Itemid = JRequest::getVar( 'Itemid', 0, 'post', 'int' );
+		$id 	= JRequest::getInt( 'rdid', 0, 'post' );
+		$Itemid = JRequest::getInt( 'Itemid', 0, 'post' );
 
 		// Get the model
 		$model = & $this->getModel('Details', 'EventListModel');
@@ -235,8 +235,8 @@ class EventListController extends JController
 			JError::raiseError(403, 'Request Forbidden');
 		}
 
-		$id 	= JRequest::getVar( 'rdid', 0, 'post', 'int' );
-		$Itemid = JRequest::getVar( 'Itemid', 0, 'post', 'int' );
+		$id 	= JRequest::getInt( 'rdid', 0, 'post' );
+		$Itemid = JRequest::getInt( 'Itemid', 0, 'post' );
 
 		// Get/Create the model
 		$model = & $this->getModel('Details', 'EventListModel');
@@ -266,8 +266,8 @@ class EventListController extends JController
 	{
 		global $mainframe;
 
-		$task 			= JRequest::getVar( 'task' );
-		$did 			= (int) JRequest::getVar( 'did', 0, 'request', 'int' );
+		$task 			= JRequest::getWord( 'task' );
+		$did 			= JRequest::getInt( 'did' );
 		$user_offset 	= $mainframe->getCfg( 'offset_user' );
 
 		//get Data from model

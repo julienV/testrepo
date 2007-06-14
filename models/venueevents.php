@@ -67,8 +67,8 @@ class EventListModelVenueevents extends JModel
 		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
 		//get the number of events from database
-		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.venueevents.limit', 'limit', $params->def('display_num', 0));
-		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
+		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.venueevents.limit', 'limit', $params->def('display_num', 0), 'int');
+		$limitstart		= JRequest::getInt('limitstart');
 
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
@@ -99,7 +99,7 @@ class EventListModelVenueevents extends JModel
 	 */
 	function &getData( )
 	{
-		$pop	= JRequest::getVar('pop', 0, '', 'int');
+		$pop	= JRequest::getBool('pop');
 
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_data))

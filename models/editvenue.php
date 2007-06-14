@@ -66,7 +66,7 @@ class EventListModelEditvenue extends JModel
 		$user		= & JFactory::getUser();
 		$elsettings = ELHelper::config();
 
-		$view		= JRequest::getString('view');
+		$view		= JRequest::getWord('view');
 
 		if ($this->_id) {
 
