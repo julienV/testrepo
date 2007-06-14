@@ -32,11 +32,11 @@ class EventListViewArchive extends JView {
 		$elsettings = ELAdmin::config();
 
 		//get vars
-		$filter_order		= $mainframe->getUserStateFromRequest( "$option.archive.filter_order", 		'filter_order', 	'a.dates' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( "$option.archive.filter_order_Dir",	'filter_order_Dir',	'' );
-		$filter 			= $mainframe->getUserStateFromRequest( "$option.archive.filter", 'filter', '' );
+		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.archive.filter_order', 'filter_order', 'a.dates', 'cmd' );
+		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.archive.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
+		$filter 			= $mainframe->getUserStateFromRequest( $option.'.archive.filter', 'filter', '', 'int' );
 		$filter 			= intval( $filter );
-		$search 			= $mainframe->getUserStateFromRequest( "$option.archive.search", 'search', '' );
+		$search 			= $mainframe->getUserStateFromRequest( $option.'.archive.search', 'search', '', 'string' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 		$template			= $mainframe->getTemplate();
 

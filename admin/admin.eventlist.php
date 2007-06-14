@@ -30,6 +30,6 @@ $classname  = 'EventListController'.$controller;
 $controller = new $classname( );
 
 // Perform the Request task
-$controller->execute( JRequest::getCmd('task'));
+$controller->execute( JRequest::getWord('task'));
 $controller->redirect();
 ?>
