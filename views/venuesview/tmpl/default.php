@@ -39,14 +39,14 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<a href="<?php echo JRoute::_('index.php?view=venueevents&locatid='.$row->slug); ?>"><?php echo $row->venue; ?></a>
 	</h2>
 
-			<?php
-				echo ELOutput::flyer( $row, $this->elsettings, $row->limage );
-				echo ELOutput::mapicon( $row, $this->elsettings );
-			?>
+		<?php
+			echo ELOutput::flyer( $row, $this->elsettings, $row->limage );
+			echo ELOutput::mapicon( $row, $this->elsettings );
+		?>
 
-            <dl class="location floattext">
-				<dt class="venue_website"><?php echo JText::_( 'WEBSITE' ).':'; ?></dt>
-   				<dd class="venue_website">
+		<dl class="location floattext">
+			<dt class="venue_website"><?php echo JText::_( 'WEBSITE' ).':'; ?></dt>
+   			<dd class="venue_website">
 				<?php
 				if (($this->elsettings->showdetlinkvenue == 1) && (!empty($row->url))) :
 				?>
@@ -56,7 +56,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 					echo JText::_( 'NO WEBSITE' );
 				endif;
 				?>
-				</dd>
+			</dd>
 
 			<?php
   			if ( $this->elsettings->showdetailsadress == 1 ) :
@@ -105,13 +105,13 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		endif;
 		?>
 
-	<?php
+		<?php
   		if ($this->elsettings->showlocdescription == 1) :
 		?>
-		<dt class="location_desc"><?php echo JText::_( 'DESCRIPTION' ); ?></dt>
-  		<dd class="location_desc">
-  			<?php echo $row->locdescription; ?>
-  		</dd>
+			<dt class="location_desc"><?php echo JText::_( 'DESCRIPTION' ).':'; ?></dt>
+  			<dd class="location_desc">
+  				<?php echo $row->locdescription; ?>
+  			</dd>
 
 		<?php endif; ?>
 	</dl>

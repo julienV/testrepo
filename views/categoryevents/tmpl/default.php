@@ -17,7 +17,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			echo ELOutput::submitbutton( $this->dellink, $this->params, 'categoryevents');
 			echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params, $this->task, $this->category->id );
 		endif;
-
+		echo ELOutput::mailbutton( $this->params );
 		echo ELOutput::printbutton( $this->print_link, $this->params );
 	?>
 </p>

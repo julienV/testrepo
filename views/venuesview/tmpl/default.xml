@@ -9,15 +9,7 @@
 		<name>Venuesview Layout</name>
 		<description>VENUESVIEW DESC</description>
 		<params>
-			<param name="display_venues_num" type="list" default="15" label="VENUE NUMBER" description="VENUE NUMBER TIP">
-				<option value="5">5</option>
-				<option value="10">10</option>
-				<option value="15">15</option>
-				<option value="20">20</option>
-				<option value="25">25</option>
-				<option value="30">30</option>
-				<option value="50">50</option>
-			</param>
+			<param name="display_venues_num" type="text" size="2" default="5" label="VENUE NUMBER" description="VENUE NUMBER TIP" />
 		</params>
 	</state>
 </metadata>

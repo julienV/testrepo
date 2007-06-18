@@ -15,6 +15,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		if ( !$this->params->get( 'popup' ) ) : //don't show in printpopup
 			echo ELOutput::submitbutton( $this->dellink, $this->params, 'venueevents' );
 		endif;
+		echo ELOutput::mailbutton( $this->params );
 		echo ELOutput::printbutton( $this->print_link, $this->params );
 	?>
 </span>

@@ -70,7 +70,7 @@ class EventListViewVenuesview extends JView
 
 		//set Page title
 		$document->setTitle( $params->get('page_title') );
-		$document->setMetadata('keywords', $iparams->get('page_title') );
+		$document->setMetadata('keywords', $params->get('page_title') );
 
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();

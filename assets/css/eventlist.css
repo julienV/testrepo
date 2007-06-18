@@ -4,13 +4,13 @@
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
- * 
+ *
  * if you've problems with this stylesheet or you found a bug, please contact me @ spook.68[at]gmail.com
- * 
+ *
 **/
 
 /* reset all */
-div#eventlist * 
+div#eventlist *
 { margin: 0; padding: 0; }
 
 /* clearing >> do not edit if you don't know what you do <<
@@ -48,11 +48,12 @@ div#eventlist dt /* definition title */
 div#eventlist dd /* definition desription */
 { display: block; margin: 0 0 5px 12em; font-size: 0.9em; }
 
-* html .floattext dd /* ie fix against the 3px jog bug */ 
+* html .floattext dd /* ie fix against the 3px jog bug */
 { height: 1%; }
 
-div#eventlist .description, div#eventlist .location_desc
-{ margin: 5px 0; padding: 0 5px; } 
+/*div#eventlist .description, div#eventlist .location_desc*/
+div#eventlist .description
+{ margin: 5px 0; padding: 0 5px; }
 
 .copyright
 { font-size: 0.85em; text-align: center; margin: 1em 0; color: #aaa; }
