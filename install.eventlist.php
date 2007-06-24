@@ -38,7 +38,7 @@ function com_install() {
 	</tr>
 	<tr>
 		<td colspan="2">
-			<code>Installation process:<br />
+			<code>Installation Status:<br />
 			<?php
 			// Check for existing /images/eventlist directory
         	if ($direxists = JFolder::exists( JPATH_SITE.'/images/eventlist' )) {
@@ -82,7 +82,7 @@ function com_install() {
 			if (($direxists) || ($makedir1)) {
 			?>
 				<font color="green"><b>Joomla! EventList 0.9 ALPHA Installed Successfully!</b></font><br />
-				Ensure that EventList have write access in the above shown directories! Have Fun.
+				Ensure that EventList has write access to the directories shown above! Have Fun.
 				</code>
 			<?php
 			} else {
@@ -103,7 +103,7 @@ function com_install() {
 				<br />
 
 				<code>
-					If they do not exist, create them and ensure EventList have write access to this directories.<br />
+					If they do not exist, create them and ensure EventList has write access to these directories.<br />
 					If you don't so, you prevent EventList from functioning correctly. (You can't upload images).
 				</code>
 			<?php
