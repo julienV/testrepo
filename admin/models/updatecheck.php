@@ -56,7 +56,7 @@ class EventListModelUpdatecheck extends JModel
 		$snoopy = new Snoopy();
 
 		//set the source file
-		$file = 'http://www.schlu.net/elupdate.php';
+		$file = 'http://update.schlu.net/elupdate.php';
 
 		$snoopy->read_timeout 	= 30;
 		$snoopy->referer 		= $mainframe->getCfg('live_site');
