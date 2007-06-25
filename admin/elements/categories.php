@@ -45,7 +45,7 @@ class JElementCategories extends JElement
 		if ($value) {
 			$category->load($value);
 		} else {
-			$category->catname = JText::_('SELECTCATEGORY');
+			$category->catname = JText::_('SELECT CATEGORY');
 		}
 
 		$js = "

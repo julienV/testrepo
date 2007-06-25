@@ -37,7 +37,7 @@ class EventListViewCategoryelement extends JView {
 		$template 			= $mainframe->getTemplate();
 
 		//prepare document
-		$document->setTitle(JText::_( 'SELECTCATEGORY'));
+		$document->setTitle(JText::_( 'SELECT CATEGORY'));
 		$document->addScript(JPATH_SITE.'includes/js/joomla/modal.js');
 		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');
 		$document->addStyleSheet('templates/'.$template.'/css/general.css');
