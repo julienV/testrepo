@@ -330,7 +330,7 @@ defined('_JEXEC') or die('Restricted access');
 		<?php
 		//if usertyp min editor then editor else textfield
 		if ($this->editoruser) :
-			echo $this->editor->display('datdescription', $this->row->datdescription, '100%', '400', '70', '15', false );
+			echo $this->editor->display('datdescription', $this->row->datdescription, '100%', '400', '70', '15', array('pagebreak', 'readmore') );
 		else :
 		?>
 			<textarea style="width:100%;" rows="10" name="datdescription" class="inputbox" wrap="virtual" onkeyup="berechne(this.form)"><?php echo $this->row->datdescription; ?></textarea><br />

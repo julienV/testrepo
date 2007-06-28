@@ -120,8 +120,8 @@
 				<tr>
 					<td>
 						<?php
-						// parameters : areaname, content, hidden field, width, height, rows, cols
-						echo $this->editor->display( 'datdescription',  $this->row->datdescription, '100%;', '550', '75', '20', false ) ;
+						// parameters : areaname, content, hidden field, width, height, rows, cols, buttons
+						echo $this->editor->display( 'datdescription',  $this->row->datdescription, '100%;', '550', '75', '20', array('pagebreak', 'readmore') ) ;
 						?>
 					</td>
 				</tr>

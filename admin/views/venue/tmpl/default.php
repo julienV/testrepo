@@ -81,7 +81,7 @@
 				<tr>
 					<td>
 						<?php
-						echo $this->editor->display( 'locdescription',  $this->row->locdescription, '100%;', '550', '75', '20', false ) ;
+						echo $this->editor->display( 'locdescription',  $this->row->locdescription, '100%;', '550', '75', '20', array('pagebreak', 'readmore') ) ;
 						?>
 					</td>
 				</tr>
