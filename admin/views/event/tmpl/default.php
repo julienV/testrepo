@@ -258,7 +258,7 @@
 				<tr>
 					<td>
 						<label for="image">
-							<?php echo JText::_( 'SELECTIMAGE' ).':'; ?>
+							<?php echo JText::_( 'CHOOSE IMAGE' ).':'; ?>
 						</label>
 					</td>
 					<td>

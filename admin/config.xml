@@ -11,27 +11,27 @@
 			<option value="50">50</option>
 		</param>
 		<param name="cat_num" type="text" size="2" default="4" label="CAT DISPLAY" description="CAT DISPLAY DESC" />
-		<param name="empty_cat" type="radio" default="0" label="Empty Categories" description="Show/Hide empty(no items) categories">
+		<param name="empty_cat" type="radio" default="0" label="EMPTY CATEGORIES" description="EMPTY CATEGORIES DESC">
 			<option value="0">Hide</option>
 			<option value="1">Show</option>
 		</param>
-  		<param name="filter" type="radio" default="1" label="Filter" description="Show/Hide the Filter ability">
+  		<param name="filter" type="radio" default="1" label="FILTER" description="FILTER DESC">
 			<option value="0">Hide</option>
 			<option value="1">Show</option>
 		</param>
-		<param name="display" type="radio" default="1" label="Display Select" description="Show/Hide the Display Select dropdown">
+		<param name="display" type="radio" default="1" label="DISPLAY SELECT" description="DISPLAY SELECT DESC">
 			<option value="0">Hide</option>
 			<option value="1">Show</option>
 		</param>
-		<param name="icons" type="radio" default="1" label="Show Icons" description="Show the icons or use alternative text">
+		<param name="icons" type="radio" default="1" label="SHOW ICONS" description="SHOW ICONS DESC">
 			<option value="0">Hide</option>
 			<option value="1">Show</option>
 		</param>
-		<param name="show_print_icon" type="radio" default="1" label="Print Icon" description="">
+		<param name="show_print_icon" type="radio" default="1" label="PRINT ICON" description="PRINT ICON DESC">
 			<option value="0">Hide</option>
 			<option value="1">Show</option>
 		</param>
-		<param name="show_email_icon" type="radio" default="1" label="Email Icon" description="">
+		<param name="show_email_icon" type="radio" default="1" label="EMAIL ICON" description="EMAIL ICON DESC">
 			<option value="0">Hide</option>
 			<option value="1">Show</option>
 		</param>

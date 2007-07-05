@@ -97,7 +97,7 @@ class eventlist_venues extends JTable
 			}
 		}
 
-		if (($elsettings->showmapserv == 1 ) && ($elsettings->showdetailsadress == 1 )){
+		if ( $this->map ){
 			if ((!trim($this->street)) || (!trim($this->plz)) || (!trim($this->city)) || (!trim($this->country))) {
 				$this->_error = JText::_( 'ADD ADDRESS');
 				JError::raiseWarning('SOME_ERROR_CODE', $this->_error );

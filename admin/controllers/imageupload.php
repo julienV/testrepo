@@ -59,13 +59,13 @@ class EventListControllerImageupload extends EventListController
 				$base_Dir = JPATH_SITE.DS.'images'.DS.'eventlist'.DS.'events'.DS;
 			}
 
-			if (file_exists($base_Dir.strtolower($file['name']))) {
-				echo "<script> alert('".JText::_( 'UPLOAD FAILED' )."'); window.history.go(-1); </script>\n";
+			if (empty($file['name'])) {
+				echo "<script> alert('".JText::_( 'IMAGE EMPTY' )."'); window.history.go(-1); </script>\n";
 				$mainframe->close();
 			}
 
-			if (empty($file)) {
-				echo "<script> alert('".JText::_( 'IMAGE EMPTY' )."'); window.history.go(-1); </script>\n";
+			if (file_exists($base_Dir.strtolower($file['name']))) {
+				echo "<script> alert('".JText::_( 'UPLOAD FAILED' )."'); window.history.go(-1); </script>\n";
 				$mainframe->close();
 			}
 

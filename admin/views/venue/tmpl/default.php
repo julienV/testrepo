@@ -193,7 +193,7 @@
 		<tr>
 			<td>
 				<label for="locimage">
-					<?php echo JText::_( 'SELECTIMAGE' ).':'; ?>
+					<?php echo JText::_( 'CHOOSE IMAGE' ).':'; ?>
 				</label>
 			</td>
 			<td>

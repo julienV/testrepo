@@ -177,7 +177,8 @@ class EventListModelVenues extends JModel
 		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.venues.filter_order', 'filter_order', 'l.ordering', 'cmd' );
 		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.venues.filter_order_Dir', 'filter_order_Dir', '', 'word' );
 
-		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', l.ordering';
+	//	$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', l.ordering';
+		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir;
 
 		return $orderby;
 	}

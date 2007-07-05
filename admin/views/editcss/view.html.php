@@ -41,7 +41,7 @@ class EventListViewEditcss extends JView {
 		$css_path	= $path . $filename;
 
 		//create the toolbar
-		JToolBarHelper::title( JText::_( 'EDITCSS' ), 'cssedit' );
+		JToolBarHelper::title( JText::_( 'EDIT CSS' ), 'cssedit' );
 		JToolBarHelper::apply( 'applycss' );
 		JToolBarHelper::spacer();
 		JToolBarHelper::save( 'savecss' );

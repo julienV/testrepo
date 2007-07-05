@@ -19,9 +19,9 @@
 				<tbody>
 					<tr>
 	          			<td>
- 							<input class="inputbox" name="userfile" type="file" />
+ 							<input class="inputbox" name="userfile" id="userfile" type="file" />
 							<br /><br />
-							<input class="button" type="submit" value="Upload" name="adminForm" />
+							<input class="button" type="submit" value="<?php echo JText::_('UPLOAD') ?>" name="adminForm" />
     			       	</td>
       				</tr>
 				</tbody>
