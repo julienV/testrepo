@@ -61,7 +61,7 @@ class EventListModelCategoryevents extends JModel
 		global $mainframe;
 
 		$id = JRequest::getInt('categid');
-		$this->setId($id);
+		$this->setId((int)$id);
 
 		// Get the paramaters of the active menu item
 		$params 	= & $mainframe->getPageParameters();

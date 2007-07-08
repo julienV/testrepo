@@ -61,7 +61,7 @@ class EventListModelVenueevents extends JModel
 		global $mainframe;
 
 		$id = JRequest::getInt('locatid');
-		$this->setId($id);
+		$this->setId((int)$id);
 
 		// Get the paramaters of the active menu item
 		$params 	= & $mainframe->getPageParameters('com_eventlist');
