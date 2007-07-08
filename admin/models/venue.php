@@ -274,6 +274,11 @@ class EventListModelVenue extends JModel
 			$row->country = JString::strtoupper($row->country);
 		}
 
+		//update item order
+		if (!$row->id) {
+			$row->ordering = $row->getNextOrder();
+		}
+
 		// Make sure the data is valid
 		if (!$row->check($elsettings)) {
 			$this->setError($row->getError());
@@ -285,9 +290,6 @@ class EventListModelVenue extends JModel
 			JError::raiseError(500, $this->_db->getErrorMsg() );
 			return false;
 		}
-
-		//update item order
-		$row->reorder();
 
 		return $row->id;
 	}

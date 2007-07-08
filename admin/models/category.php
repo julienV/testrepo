@@ -246,6 +246,10 @@ class EventListModelCategory extends JModel
 			return false;
 		}
 
+		if (!$row->id) {
+			$row->ordering = $row->getNextOrder();
+		}
+
 		// Make sure the data is valid
 		if (!$row->check()) {
 			$this->setError($row->getError());
@@ -257,8 +261,6 @@ class EventListModelCategory extends JModel
 			JError::raiseError(500, $this->_db->getErrorMsg() );
 			return false;
 		}
-
-		$row->reorder();
 
 		return $row->id;
 	}
