@@ -10,7 +10,7 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-//Todo: fix submit
+//TODO: fix submit
 ?>
 
 	<script language="javascript" type="text/javascript">
@@ -163,7 +163,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   			<tr>
     			<td><?php echo JText::_( 'WEBSITE' ).':'; ?></td>
     			<td>
-    				<input name="url" value="<?php echo $this->row->url; ?>" size="55" maxlength="150" />&nbsp;
+    				<input class="inputbox" name="url" id="url" type="text" value="<?php echo $this->row->url; ?>" size="55" maxlength="150" />&nbsp;
     				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('WEBSITE HINT'); ?>">
 						<?php echo $this->infoimage; ?>
 					</span>
@@ -194,31 +194,15 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   			  	?>
 			</td>
 			<td>
-				<input name="userfile" class="inputbox" type="file" />&nbsp;
+				<input class="inputbox <?php echo $this->elsettings->imageenabled == 2 ? 'required' : ''; ?>" name="userfile" id="userfile" type="file" />&nbsp;
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('MAX IMAGE FILE SIZE').' '.$this->elsettings->sizelimit.' kb'; ?>">
 						<?php echo $this->infoimage; ?>
 				</span>
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<?php /*
-  			  		if ($this->row->id) {
-  			  			echo JText::_( 'SELECT IMAGE EDIT' ).':';
-  			  		} else {
-  			  			echo JText::_( 'SELECT IMAGE' ).':';
-  			  		}
-  			  		*/
-					echo JText::_( 'CURRENT IMAGE' );
-  			  	?>
-			</td>
-			<td>
-			<?php /*
-				<input name="userfile" class="inputbox" type="file" /><b> <?php echo JText::_( 'MAX IMAGE FILE SIZE' ); ?><b> <?php echo $this->sizelimit; ?> kb</b>
-				*/
-  			  	echo JText::_( 'SELECTED IMAGE' );
-  			  	?>
-			</td>
+			<td><?php echo JText::_( 'CURRENT IMAGE' );	?></td>
+			<td><?php echo JText::_( 'SELECTED IMAGE' ); ?></td>
 		</tr>
 		</table>
 		</fieldset>
@@ -254,12 +238,12 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<input type="hidden" name="task" value="savevenue" />
 	</form>
 
-	<?php
-	//Todo: reenable it when fixed in core
-	//keep session alive while editing
-	//JHTML::_('behavior.keepalive');
-	?>
-
 <p class="copyright">
 	<?php echo ELOutput::footer( ); ?>
 </p>
+
+<?php
+//TODO: reenable it when fixed in core
+//keep session alive while editing
+//JHTML::_('behavior.keepalive');
+?>

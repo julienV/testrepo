@@ -50,9 +50,8 @@ class EventListController extends JController
 		$db 	= & JFactory::getDBO();
 		$user	= & JFactory::getUser();
 
-		$view	= JRequest::getWord('returnview');
+		$view	= JRequest::getWord( 'returnview' );
 		$id		= JRequest::getInt( 'id');
-		$Itemid = JRequest::getInt( 'Itemid');
 
 		// Must be logged in
 		if ($user->get('id') < 1) {
@@ -75,6 +74,35 @@ class EventListController extends JController
 	}
 
 	/**
+	 * Logic for canceling an event and proceed to add a venue
+	 *
+	 */
+	function addvenue()
+	{
+		$db 	= & JFactory::getDBO();
+		$user	= & JFactory::getUser();
+
+		$view	= JRequest::getWord( 'returnview' );
+		$id		= JRequest::getInt( 'id');
+
+		// Must be logged in
+		if ($user->get('id') < 1) {
+			JError::raiseError( 403, JText::_('ALERTNOTAUTH') );
+			return;
+		}
+
+		if ($id) {
+			// Create and load a events table
+			$row =& JTable::getInstance('eventlist_events', '');
+
+			$row->load($id);
+			$row->checkin();
+		}
+
+		$this->setRedirect( JRoute::_('index.php?view=editvenue&returnview='.$view, false ) );
+	}
+
+	/**
 	 * Logic for canceling a venue edit task
 	 *
 	 * @param string $option
@@ -86,7 +114,6 @@ class EventListController extends JController
 
 		$view	= JRequest::getWord( 'returnview' );
 		$id		= JRequest::getInt( 'id' );
-		$Itemid = JRequest::getInt( 'Itemid' );
 
 		// Must be logged in
 		if ($user->get('id') < 1) {

@@ -18,7 +18,7 @@ defined('_JEXEC') or die('Restricted access');
 class ELOutput {
 
 	/**
-	* Writes footer. Do not remove!
+	* Writes footer. Official copyright! Do not remove!
 	*
 	* @author Christoph Lukes
 	* @since 0.9

@@ -10,7 +10,7 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
-//Todo: fix submit
+//TODO: fix submit
 ?>
 
 		<script language="javascript" type="text/javascript">
@@ -18,7 +18,7 @@ defined('_JEXEC') or die('Restricted access');
 
 				var form = document.adminForm;
 
-				if (pressbutton == 'cancelevent') {
+				if (pressbutton == 'cancelevent' || pressbutton == 'addvenue') {
 					submitform( pressbutton );
 					return;
 				}
@@ -152,21 +152,18 @@ defined('_JEXEC') or die('Restricted access');
 
 		<table class="adminform" width="100%">
 		<tr>
-			<td><?php echo JText::_( 'VENUE' ).':'; ?>
-			</td>
+			<td><?php echo JText::_( 'VENUE' ).':'; ?></td>
 			<td>
-			<?php echo $this->venueselect; ?>
-			&nbsp;
-			<input class="inputbox" type="button" onclick="elSelectVenue(0, '<?php echo JText::_('NO VENUE'); ?>' );" value="<?php  echo JText::_('NO VENUE'); ?>" />
-			<?php
+				<?php echo $this->venueselect; ?>
+				&nbsp;
+				<input class="inputbox" type="button" onclick="elSelectVenue(0, '<?php echo JText::_('NO VENUE'); ?>' );" value="<?php  echo JText::_('NO VENUE'); ?>" />
+				&nbsp;
+				<?php
 				//show location submission link
 				if ( $this->delloclink == 1 && !$this->row->id ) :
-						$link = JRoute::_('index.php?view=editvenue&returnview='.$this->returnview);
-						?>
-						<a href="<?php echo $link ?>" target="_self">
-						<?php echo JText::_( 'DELIVER NEW VENUE' ); ?></a>
+				?>
+					<button type="button" onclick="submitbutton('addvenue')" /><?php echo JText::_( 'DELIVER NEW VENUE' ); ?></button>
 				<?php endif; ?>
-				<br /><br />
 			</td>
 		</tr>
 		<tr>
@@ -299,7 +296,7 @@ defined('_JEXEC') or die('Restricted access');
   			  	?>
 			</td>
 			<td>
-				<input name="userfile" class="inputbox" type="file" />&nbsp;
+				<input class="inputbox <?php echo $this->elsettings->imageenabled == 2 ? 'required' : ''; ?>" name="userfile" id="userfile" type="file" />&nbsp;
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('MAX IMAGE FILE SIZE').' '.$this->elsettings->sizelimit.' kb'; ?>">
 					<?php echo $this->infoimage; ?>
 				</span>
@@ -358,12 +355,12 @@ defined('_JEXEC') or die('Restricted access');
 		<input type="hidden" name="task" value="saveevent" />
 	</form>
 
-	<?php
-	//Todo: reenable it when fixed in core
-	//keep session alive while editing
-	//JHTML::_('behavior.keepalive');
-	?>
-
 <p class="copyright">
 	<?php echo ELOutput::footer( ); ?>
 </p>
+
+<?php
+//TODO: reenable it when fixed in core
+//keep session alive while editing
+//JHTML::_('behavior.keepalive');
+?>
