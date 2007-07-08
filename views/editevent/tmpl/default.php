@@ -9,6 +9,8 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
+
+//Todo: fix submit
 ?>
 
 		<script language="javascript" type="text/javascript">
@@ -21,19 +23,19 @@ defined('_JEXEC') or die('Restricted access');
 					return;
 				}
   				if (form.dates.value == "") {
-    				alert("<?php echo JText::_( 'ADD DATE' ); ?>");
+    				alert("<?php echo JText::_( 'ADD DATE', true ); ?>");
     				form.dates.focus();
     				return false;
   				}
   				if (form.title.value == "") {
-    				alert("<?php echo JText::_( 'ADD TITLE' ); ?>");
+    				alert("<?php echo JText::_( 'ADD TITLE', true ); ?>");
     				form.title.focus();
     				return false;
   				}
 				var s = form.dates.value;
 				var erg = s.match(/20[0-9]{2}-[0-1][0-9]-[0-3][0-9]/gi);
 				if(!erg) {
-    				alert("<?php echo JText::_( 'DATE WRONG' ); ?>");
+    				alert("<?php echo JText::_( 'DATE WRONG', true ); ?>");
     				form.dates.focus();
     				return false;
   				}
@@ -41,26 +43,29 @@ defined('_JEXEC') or die('Restricted access');
   					var es = form.enddates.value;
 					var ergl = es.match(/[0-9]{4}-[0-1][0-9]-[0-3][0-9]/gi);
 					if(!ergl) {
-    					alert("<?php echo JText::_( 'DATE WRONG' ); ?>");
+    					alert("<?php echo JText::_( 'DATE WRONG', true ); ?>");
     					form.enddates.focus();
     					return false;
   					}
   				}
 				<?php
+				/*
 				if ( $this->elsettings->showtime == 1 ) {
 				?>
 					if (form.times.value == "") {
-    					alert("<?php echo JText::_( 'ADD TIME' ); ?>");
+    					alert("<?php echo JText::_( 'ADD TIME', true ); ?>");
     					form.times.focus();
     					return false;
   					}
   				<?php
-				} ?>
+				}
+				*/
+				?>
   				if ( form.times.value != "") {
 					var t = form.times.value;
 					var erg2 = t.match(/[0-2][0-9]:[0-5][0-9]/gi);
 					if(!erg2) {
-    					alert("<?php echo JText::_( 'TIME WRONG' ); ?>");
+    					alert("<?php echo JText::_( 'TIME WRONG', true ); ?>");
     					form.times.focus();
     					return false;
   					}
@@ -70,28 +75,28 @@ defined('_JEXEC') or die('Restricted access');
 					var t = form.endtimes.value;
 					var erg3 = t.match(/[0-2][0-9]:[0-5][0-9]/gi);
 					if(!erg3) {
-    					alert("<?php echo JText::_( 'ENDTIME WRONG' ); ?>");
+    					alert("<?php echo JText::_( 'ENDTIME WRONG', true ); ?>");
     					form.endtimes.focus();
     					return false;
   					}
 				}
 
 				if (form.catsid.value == "0") {
-    				alert("<?php echo JText::_( 'SELECT CATEGORY' ); ?>");
+    				alert("<?php echo JText::_( 'SELECT CATEGORY', true ); ?>");
     				form.catsid.focus();
     				return false;
   				}
 
 				if (form.locid.value == "") {
-    				alert("<?php echo JText::_( 'SELECT VENUE' ); ?>");
+    				alert("<?php echo JText::_( 'SELECT VENUE', true ); ?>");
     				form.locid.focus();
     				return false;
   				}
 
-  		<?php
-		// JavaScript for extracting editor text
-		echo $this->editor->save( 'datdescription' );
-		?>
+  				<?php
+				// JavaScript for extracting editor text
+				echo $this->editor->save( 'datdescription' );
+				?>
 				submitform(pressbutton);
 		}
 
@@ -118,7 +123,7 @@ defined('_JEXEC') or die('Restricted access');
    		}
 	</script>
 
-	<form enctype="multipart/form-data" name="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" onsubmit="javascript:setgood();">
+	<form enctype="multipart/form-data" name="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" class="form-validate">
 
 	<table class="adminform" width="100%">
 		<tr>
@@ -127,11 +132,11 @@ defined('_JEXEC') or die('Restricted access');
 					<label for="title">
 						<?php echo JText::_( 'TITLE' ).':'; ?>
 					</label>
-					<input class="inputbox" type="text" id="title" name="title" value="<?php echo $this->row->title; ?>" size="65" maxlength="60" />
+					<input class="inputbox required" type="text" id="title" name="title" value="<?php echo $this->row->title; ?>" size="65" maxlength="60" />
 					&nbsp;&nbsp;&nbsp;
 				</div>
 				<div style="float: right;">
-				<button type="button" onclick="submitbutton('saveevent')">
+				<button type="button validate" onclick="submitbutton('saveevent')">
 					<?php echo JText::_('SAVE') ?>
 				</button>
 				<button type="button" onclick="submitbutton('cancelevent')" />
@@ -176,10 +181,10 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 		</tr>
 		<tr>
-			<td><?php echo JText::_( 'DATE' ).':'; ?>
+			<td><label for="dates"><?php echo JText::_( 'DATE' ).':'; ?></label>
 			</td>
 			<td>
-				<input class="inputbox" type="text" name="dates" id="dates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" />
+				<input class="inputbox required" type="text" name="dates" id="dates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" />
             	<a href="#" onclick="return showCalendar('dates', 'Y-m-d');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
 				&nbsp;
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
@@ -354,8 +359,9 @@ defined('_JEXEC') or die('Restricted access');
 	</form>
 
 	<?php
+	//Todo: reenable it when fixed in core
 	//keep session alive while editing
-	JHTML::_('behavior.keepalive');
+	//JHTML::_('behavior.keepalive');
 	?>
 
 <p class="copyright">

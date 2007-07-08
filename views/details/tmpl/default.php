@@ -47,7 +47,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<?php
   		endif;
   		?>
-  		<dt class="when"><?php echo JText::_( 'WHEN' ).':' ;?></dt>
+  		<dt class="when"><?php echo JText::_( 'WHEN' ).':'; ?></dt>
 		<dd class="when">
 			<?php
 			echo $this->displaydate;
@@ -57,7 +57,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   		<?php
   		if ($this->row->locid != 0) :
   		?>
-		    <dt class="where"><?php echo JText::_( 'WHERE' ).':' ; ?></dt>
+		    <dt class="where"><?php echo JText::_( 'WHERE' ).':'; ?></dt>
 		    <dd class="where">
     		<?php if (($this->elsettings->showdetlinkvenue == 1) && (!empty($this->row->url))) : ?>
 
@@ -79,7 +79,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 		<?php endif; ?>
 
-		<dt class="category"><?php echo JText::_( 'CATEGORY' ).':' ;?></dt>
+		<dt class="category"><?php echo JText::_( 'CATEGORY' ).':'; ?></dt>
     		<dd class="category">
 				<?php echo "<a href='".JRoute::_( 'index.php?view=categoryevents&categid='.$this->row->categoryslug )."'>".$this->row->catname."</a>";?>
 			</dd>

@@ -51,6 +51,9 @@ class EventListViewEditvenue extends JView
 		$doc->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
 		$doc->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
 
+		//add validation js
+		$doc->addScript('includes/js/joomla/validate.js');
+
 		// Get the menu object of the active menu item
 		$menu		= & JMenu::getInstance();
 		$item    	= $menu->getActive();

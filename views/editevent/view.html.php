@@ -60,6 +60,9 @@ class EventListViewEditevent extends JView
 		$doc->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
 		$doc->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
 
+		//add validation js
+		$doc->addScript('includes/js/joomla/validate.js');
+
 		//Set page title
 		$id ? $title = JText::_( 'EDIT EVENT' ) : $title = JText::_( 'ADD EVENT' );
 

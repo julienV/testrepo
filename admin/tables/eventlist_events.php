@@ -99,11 +99,11 @@ class eventlist_events extends JTable
 			$this->alias = $alias;
 		}
 
-		if (isset($this->dates)) {
+		//if (isset($this->dates)) {
 			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $this->dates)) {
 	 	     	$this->_error = JText::_( 'DATE WRONG' );
 			}
-		}
+		//}
 
 		if ($row->enddates != 0) {
 			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $row->enddates)) {
