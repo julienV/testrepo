@@ -15,12 +15,21 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	<script language="javascript" type="text/javascript">
 	<!--
+		function setgood() {
+			return true;
+		}
+
 		function submitbutton(pressbutton) {
 			var form = document.adminForm;
 
 			if (pressbutton == 'cancelvenue') {
 				submitform( pressbutton );
 				return;
+			}
+			try {
+				form.onsubmit();
+			} catch(e) {
+				alert(e);
 			}
   			if (form.venue.value == "") {
     			return alert("<?php echo JText::_( 'ERROR ADD VENUE', true ); ?>");
@@ -38,38 +47,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
     			return alert("<?php echo JText::_( 'ERROR ADD COUNTRY', true ); ?>");
   			}
 
-			/*
-			if (pressbutton == 'cancelvenue') {
-				submitform( pressbutton );
-				return;
-			}
-
-  			if (form.venue.value == "") {
-    			alert("<?php echo JText::_( 'ERROR ADD VENUE', true ); ?>");
-   	 			form.venue.focus();
-    			return false;
-  			}
-			if (form.street.value == "") {
-    			alert("<?php echo JText::_( 'ERROR ADD STREET', true ); ?>");
-    			form.street.focus();
-    			return false;
-  			}
-			if (form.plz.value == "") {
-    			alert("<?php echo JText::_( 'ERROR ADD ZIP', true ); ?>");
-    			form.plz.focus();
-    			return false;
-  			}
-			if (form.city.value == "") {
-    			alert("<?php echo JText::_( 'ERROR ADD CITY', true ); ?>");
-    			form.city.focus();
-    			return false;
-  			}
-			if (form.country.value == "") {
-    			alert("<?php echo JText::_( 'ERROR ADD COUNTRY', true ); ?>");
-    			form.country.focus();
-    			return false;
-  			}
-*/
   			<?php
 			// JavaScript for extracting editor text
 
@@ -102,7 +79,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   	//-->
 	</script>
 
-	<form enctype="multipart/form-data" name="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" class="form-validate">
+	<form enctype="multipart/form-data" name="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" class="form-validate" onSubmit="setgood();">
 
 	<table class="adminform" width="100%">
 		<tr>
@@ -217,7 +194,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			echo $this->editor->display('locdescription', $this->row->locdescription, '655', '400', '70', '15', array('pagebreak', 'readmore') );
 		} else {
 		?>
-			<textarea style="width:100%;" rows="10" name="locdescription" class="inputbox" wrap="VIRTUAL" onkeyup="berechne(this.form)"></textarea><br />
+			<textarea style="width:100%;" rows="10" name="locdescription" class="inputbox" wrap="virtual" onkeyup="berechne(this.form)"></textarea><br />
 			<?php echo JText::_('NO HTML'); ?><br />
 			<input disabled value="<?php echo $this->elsettings->datdesclimit; ?>" size="4" name="zeige" /><?php echo JText::_('AVAILABLE')." "; ?><br />
 			<a href="javascript:rechne(document.adminForm);"><?php echo JText::_('REFRESH'); ?></a>
@@ -228,7 +205,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 		</fieldset>
 
-		<input type="hidden" name="option" value="<?php echo $option; ?>" />
+		<input type="hidden" name="option" value="com_eventlist" />
 		<input type="hidden" name="Itemid" value="<?php echo $this->item->id; ?>" />
 		<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
 		<input type="hidden" name="returnview" value="<?php echo $this->returnview; ?>" />

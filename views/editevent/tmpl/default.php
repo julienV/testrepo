@@ -303,24 +303,8 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<?php /*
-  			  		if ($this->row->id) {
-  			  			echo JText::_( 'SELECT IMAGE EDIT' ).':';
-  			  		} else {
-  			  			echo JText::_( 'SELECT IMAGE' ).':';
-  			  		}
-  			  		*/
-					echo JText::_( 'CURRENT IMAGE' );
-  			  	?>
-			</td>
-			<td>
-			<?php /*
-				<input name="userfile" class="inputbox" type="file" /><b> <?php echo JText::_( 'MAX IMAGE FILE SIZE' ); ?><b> <?php echo $this->sizelimit; ?> kb</b>
-				*/
-  			  	echo JText::_( 'SELECTED IMAGE' );
-  			  	?>
-			</td>
+			<td><?php echo JText::_( 'CURRENT IMAGE' ); ?></td>
+			<td><?php echo JText::_( 'SELECTED IMAGE' ); ?></td>
 		</tr>
 		</table>
 		</fieldset>
@@ -343,7 +327,7 @@ defined('_JEXEC') or die('Restricted access');
 
 		</fieldset>
 
-		<input type="hidden" name="option" value="<?php echo $option; ?>" />
+		<input type="hidden" name="option" value="com_eventlist" />
 		<input type="hidden" name="Itemid" value="<?php echo $this->item->id; ?>" />
 		<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
 		<input type="hidden" name="returnview" value="<?php echo $this->returnview; ?>" />
