@@ -220,7 +220,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 </p>
 
 <?php
-//TODO: reenable it when fixed in core
 //keep session alive while editing
-//JHTML::_('behavior.keepalive');
+JHTML::_('behavior.keepalive');
 ?>
