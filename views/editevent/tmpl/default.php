@@ -33,7 +33,7 @@ defined('_JEXEC') or die('Restricted access');
     				return false;
   				}
 				var s = form.dates.value;
-				var erg = s.match(/20[0-9]{2}-[0-1][0-9]-[0-3][0-9]/gi);
+				var erg = s.match(/[0-9]{4}-[0-1][0-9]-[0-3][0-9]/gi);
 				if(!erg) {
     				alert("<?php echo JText::_( 'DATE WRONG', true ); ?>");
     				form.dates.focus();
@@ -182,7 +182,7 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 			<td>
 				<input class="inputbox required" type="text" name="dates" id="dates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" />
-            	<a href="#" onclick="return showCalendar('dates', 'Y-m-d');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
+            	<a href="#" onclick="return showCalendar('dates', 'y-mm-dd');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
 				&nbsp;
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
 					<?php echo $this->infoimage; ?>
@@ -198,7 +198,7 @@ defined('_JEXEC') or die('Restricted access');
 				}
 				?>
 				<input class="inputbox" type="text" name="enddates" id="enddates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" />
-            	<a href="#" onclick="return showCalendar('enddates', 'Y-m-d');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
+            	<a href="#" onclick="return showCalendar('enddates', 'y-mm-dd');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
 				&nbsp;
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
 					<?php echo $this->infoimage; ?>
@@ -327,8 +327,8 @@ defined('_JEXEC') or die('Restricted access');
 
 		</fieldset>
 
-		<input type="hidden" name="option" value="com_eventlist" />
-		<input type="hidden" name="Itemid" value="<?php echo $this->item->id; ?>" />
+		<!--<input type="hidden" name="option" value="com_eventlist" />-->
+		<!--<input type="hidden" name="Itemid" value="<?php //echo $this->item->id; ?>" />-->
 		<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
 		<input type="hidden" name="returnview" value="<?php echo $this->returnview; ?>" />
 		<input type="hidden" name="created" value="<?php echo $this->row->created; ?>" />
@@ -336,7 +336,8 @@ defined('_JEXEC') or die('Restricted access');
 		<input type="hidden" name="created_by" value="<?php echo $this->row->created_by; ?>" />
 		<input type="hidden" name="curimage" value="<?php echo $this->row->datimage; ?>" />
 		<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
-		<input type="hidden" name="task" value="saveevent" />
+		<!--<input type="hidden" name="task" value="saveevent" />-->
+		<input type="hidden" name="task" value="" />
 	</form>
 
 <p class="copyright">

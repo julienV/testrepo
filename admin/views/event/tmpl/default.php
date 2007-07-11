@@ -13,9 +13,9 @@
 		} else if (form.title.value == ""){
 			alert( "<?php echo JText::_( 'ADD TITLE'); ?>" );
 			form.title.focus();
-		} else if (!form.dates.value.match(/20[0-9]{2}-[0-1][0-9]-[0-3][0-9]/gi)) {
+		} else if (!form.dates.value.match(/[0-9]{4}-[0-1][0-9]-[0-3][0-9]/gi)) {
 			alert("<?php echo JText::_( 'DATE WRONG'); ?>");
-		} else if (form.enddates.value !="" && !form.enddates.value.match(/20[0-9]{2}-[0-1][0-9]-[0-3][0-9]/gi)) {
+		} else if (form.enddates.value !="" && !form.enddates.value.match(/[0-9]{4}-[0-1][0-9]-[0-3][0-9]/gi)) {
 			alert("<?php echo JText::_( 'ENDDATE WRONG'); ?>");
 		} else if (form.times.value == "" && form.endtimes.value != "") {
 			alert("<?php echo JText::_( 'ADD TIME'); ?>");
