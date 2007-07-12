@@ -21,8 +21,13 @@ JTable::addIncludePath(JPATH_COMPONENT.DS.'tables');
 require_once (JPATH_COMPONENT.DS.'controller.php');
 
 // Require specific controller if requested
-if($controller = JRequest::getCmd('controller')) {
-	require_once (JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php');
+if( $controller = JRequest::getWord('controller') ) {
+	$path = JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php';
+	if (file_exists($path)) {
+		require_once $path;
+	} else {
+		$controller = '';
+	}
 }
 
 //Create the controller
