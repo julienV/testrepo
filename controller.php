@@ -299,7 +299,7 @@ class EventListController extends JController
 
 		//get Data from model
 		$model = & $this->getModel('Details', 'EventListModel');
-		$model->setId($did);
+		$model->setId((int)$did);
 
 		$row = $model->getDetails();
 
@@ -327,7 +327,7 @@ class EventListController extends JController
 		$v->setStartDate($Start);
 		$v->setEndDate($End);
 		$v->setLocation($row->street.', '.$row->plz.', '.$row->city.', '.$row->country);
-		$v->setFilename($row->did);
+		$v->setFilename((int)$row->did);
 
 		if ($task == 'vcal') {
 			$v->generateHTMLvCal();

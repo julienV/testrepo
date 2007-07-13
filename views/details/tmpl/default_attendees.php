@@ -66,7 +66,7 @@ endforeach;
 ?>
 
 <?php
-//only set style info if users allready have registered
+//only set style info if users already have registered
 if ($this->registers) : ?>
 	</ul>
 <?php endif; ?>
@@ -84,7 +84,7 @@ switch ($this->formhandler) {
 
 	case 3:
 
-		//the user is allready registered. Let's check if he can unregister from the event
+		//the user is already registered. Let's check if he can unregister from the event
 		if ($this->row->unregistra == 0) :
 
 			//no he is not allowed to unregister
@@ -122,7 +122,7 @@ switch ($this->formhandler) {
 
 	case 4:
 
-		//the user is not registered allready -> display registration form
+		//the user is not registered already -> display registration form
 		?>
 		<form name="Eventlist" action="<?php echo JRoute::_('index.php'); ?>" method="post">
 		<input type="hidden" name="rdid" value="<?php echo $this->row->did; ?>">

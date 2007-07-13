@@ -126,7 +126,7 @@ class vCal {
 		PRODID:WebCalendar
 		TZ:<?php echo $this->properties['TIMEZONE']."\n" ?>
 		BEGIN:VEVENT
-		UID:1234567890<?= rand(1111111111,9999999999); ?>RBC
+		UID:1234567890<?php echo rand(1111111111,9999999999); ?>RBC
 		SUMMARY;ENCODING=QUOTED-PRINTABLE:<?php echo $this->properties['SUMMARY']."\n" ?>
 		DESCRIPTION;ENCODING=QUOTED-PRINTABLE:<?php echo $this->properties['DESCRIPTION']."\n" ?>
 		DTSTART:<?php echo $this->properties['STARTDATE']."\n" ?>
@@ -153,7 +153,7 @@ class vCal {
 		VERSION:2.0
 		PRODID:WebCalendar
 		BEGIN:VEVENT
-		UID:1234567890<?= rand(1111111111,9999999999); ?>RBC
+		UID:1234567890<?php echo rand(1111111111,9999999999); ?>RBC
 		CATEGORIES:WEBCALNOTE
 		CLASS:PUBLIC
 		DTSTAMP:20070112T214206Z
