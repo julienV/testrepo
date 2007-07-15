@@ -283,7 +283,7 @@ class ELOutput {
   				if ($settings->map24id) {
 
 				$url		= 'http://link2.map24.com/?lid='.$settings->map24id.'&maptype=JAVA&width0=2000&street0='.$data->street.'&zip0='.$data->plz.'&city0='.$data->city.'&country0='.$data->country.'&sym0=10280&description0='.$data->venue;
-				$output		= '<a class="flyer" title="'.JText::_( 'MAP' ).'" href="'.$url.'" target="_blank">'.$mapimage.'</a>';
+				$output		= '<a class="modal" title="'.JText::_( 'MAP' ).'" href="'.$url.'" target="_blank">'.$mapimage.'</a>';
 
   				}
 			} break;
@@ -294,18 +294,22 @@ class ELOutput {
 
 					$document 	= & JFactory::getDocument();
 
+					//TODO: move map into squeezebox
+
 					$document->addScript('components/com_eventlist/assets/js/gmapsoverlay.js');
+				//	$document->addScript('components/com_eventlist/assets/js/gmap.js');
 					$document->addScript('http://maps.google.com/maps?file=api&v=2&key='.trim($settings->gmapkey));
   					$document->addStyleSheet('components/com_eventlist/assets/css/gmapsoverlay.css', 'text/css');
 
 					$url		= 'http://maps.google.com/maps?q='.str_replace(" ", "+", $data->street).', '.$data->plz.' '.str_replace(" ", "+", $data->city).', '.$data->country.'&venue='.$data->venue;
+				//	$attributes = ' rel="{handler:\'map\',size:{x:835,y:600}}"';
 					$attributes = ' rel="gmapsoverlay"';
 				} else {
 
 					$url		= 'http://maps.google.com/maps?q='.str_replace(" ", "+", $data->street).', '.$data->plz.' '.str_replace(" ", "+", $data->city).', '.$data->country;
 				}
 
-				$output		= '<a class="flyer" title="'.JText::_( 'MAP' ).'" href="'.$url.'" target="_blank"'.$attributes.'>'.$mapimage.'</a>';
+				$output		= '<a class="modal" title="'.JText::_( 'MAP' ).'" href="'.$url.'" target="_blank"'.$attributes.'>'.$mapimage.'</a>';
 
 			} break;
 		}
@@ -351,12 +355,12 @@ class ELOutput {
 				if ($settings->lightbox == 0) {
 
 					$url		= '#';
-					$attributes	= 'class="flyer" onclick="window.open(\''.$image['original'].'\',\'Popup\',\'width='.$image['width'].',height='.$image['height'].',location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no\')"';
+					$attributes	= 'class="modal" onclick="window.open(\''.$image['original'].'\',\'Popup\',\'width='.$image['width'].',height='.$image['height'].',location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no\')"';
 
 				} else {
 
 					$url		= $image['original'];
-					$attributes	= 'class="flyer" rel="lightbox" title="'.$info.'"';
+					$attributes	= 'class="modal" title="'.$info.'"';
 
 				}
 
@@ -366,7 +370,7 @@ class ELOutput {
 			//No thumbnail? Then take the in the settings specified values for the original
 			} else {
 
-				$output	= '<img class="flyer" src="'.$image['original'].'" width="'.$image['width'].'" height="'.$image['height'].'" alt="'.$info.'" />';
+				$output	= '<img class="modal" src="'.$image['original'].'" width="'.$image['width'].'" height="'.$image['height'].'" alt="'.$info.'" />';
 
 			}
 		}
