@@ -1,16 +1,17 @@
-/*
-
-	GMapsOverlay v1.0
-
-	by André Fiedler (http://www.visualdrugs.net) - GNU license.
-
-	modified for EventList by Christoph Lukes (http://www.schlu.net)
-
-*/
+/**
+ * @version 0.9 $Id$
+ * @package Joomla
+ * @subpackage EventList
+ * @copyright (C) 2005 - 2007 Christoph Lukes
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ *
+ * This code is based on GMapsOverlay v1.0
+ * by André Fiedler (http://www.visualdrugs.net) - GNU license.
+ * modified for EventList by Christoph Lukes (http://www.schlu.net)
+ *
+**/
 
 var GMapsOverlay = {
-
-
 
 	init: function(options){
 
@@ -29,14 +30,9 @@ var GMapsOverlay = {
 		}, options || {});
 
 
-
 		if(!GBrowserIsCompatible()) return false;
 
-
-
 		this.geocoder = new GClientGeocoder();
-
-
 
 		this.anchors = [];
 
@@ -68,8 +64,6 @@ var GMapsOverlay = {
 
 		this.maplayer = new Element('div').setProperty('id', 'gmMap').injectInside(this.center);
 
-
-
 		this.map = new GMap2(this.maplayer);
 
 		this.map.addControl(new GLargeMapControl());
@@ -77,8 +71,6 @@ var GMapsOverlay = {
 		this.map.addControl(new GMapTypeControl());
 
 		this.map.addControl(new GOverviewMapControl())
-
-
 
 		this.bottomContainer = new Element('div').setProperty('id', 'gmBottomContainer').setStyle('display', 'none').injectInside(document.body);
 
@@ -90,11 +82,7 @@ var GMapsOverlay = {
 
 		new Element('div').setStyle('clear', 'both').injectInside(this.bottom);
 
-
-
 		this.center.style.display = 'none';
-
-
 
 		var nextEffect = this.nextEffect.bind(this);
 
@@ -110,19 +98,13 @@ var GMapsOverlay = {
 
 		};
 
-
-
 	},
-
-
 
 	click: function(link){
 
 		return this.show(link.href);
 
 	},
-
-
 
 	show: function(link){
 
@@ -142,15 +124,11 @@ var GMapsOverlay = {
 
 	},
 
-
-
 	position: function(){
 
 		this.overlay.setStyles({top: window.getScrollTop()+'px', height: window.getHeight()+'px'});
 
 	},
-
-
 
 	setup: function(open){
 
@@ -170,15 +148,11 @@ var GMapsOverlay = {
 
 	},
 
-
-
 	keyboardListener: function(event){
 
 		this.close();
 
 	},
-
-
 
 	changeLink: function(){
 
@@ -205,17 +179,13 @@ var GMapsOverlay = {
 
 	},
 
-
-
 	nextEffect: function(){
 
 		switch (this.step++){
 
-		case 1:
+			case 1:
 
 			this.center.className = '';
-
-
 
 			this.caption.setHTML("<a href=\""+this.link+"\" target=\"_blank\">Google-Maps</a>");
 
@@ -229,7 +199,7 @@ var GMapsOverlay = {
 
 			this.step++;
 
-		case 2:
+			case 2:
 
 			this.bottomContainer.setStyles({top: (this.top + this.center.clientHeight)+'px', height: '0px', marginLeft: this.center.style.marginLeft, width: this.center.clientWidth+'px', display: ''});
 
@@ -237,7 +207,7 @@ var GMapsOverlay = {
 
 			break;
 
-		case 3:
+			case 3:
 
 			if (this.options.animateCaption){
 
@@ -253,15 +223,13 @@ var GMapsOverlay = {
 
 			this.bottomContainer.style.height = '';
 
-		case 4:
+			case 4:
 
 			this.step = 0;
 
 		}
 
 	},
-
-
 
 	close: function(){
 
@@ -279,8 +247,6 @@ var GMapsOverlay = {
 
 	},
 
-
-
 	showAddress: function(address){
 
 		//get geocoded location
@@ -296,9 +262,9 @@ var GMapsOverlay = {
 				place = point.Placemark[0];
 
 				// Retrieve the latitude and longitude
-      			target = new GLatLng(place.Point.coordinates[1], place.Point.coordinates[0]);
+				target = new GLatLng(place.Point.coordinates[1], place.Point.coordinates[0]);
 
-      			//set center
+				//set center
 				this.map.setCenter(target, 15);
 
 				//scroll == zoom

@@ -1,14 +1,19 @@
-/*
-* Project: Eventlist Project
-* Author: Sascha Karnatz
-* Comments in German
-* Function: dieses Javascript ermoeglicht es automatisch die Metatags zu befuellen
-*/
+/**
+ * @version 0.9 $Id$
+ * @package Joomla
+ * @subpackage EventList
+ * @copyright (C) 2005 - 2007 Christoph Lukes
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @author Sascha Karnatz
+ *
+ * Comments in German
+ * Function: dieses Javascript ermoeglicht es automatisch die Metatags zu befuellen
+**/
 
 // Variablen werden als global definiert, da sie ueber mehrere Funktion hinweg genutzt werden
 var $keyword;			// Array - aufgeschlitete Variablen, welche einem HTML-Tag zugeordnet werden kann
 var $keywords;			// String - Verbindungsvariable zur noch nicht umgeschriebenen Variante der Keywords
-var $manual_keywords = "";	// String - Speichert alle manuell eingefügen Keywords ab
+var $manual_keywords = "";	// String - Speichert alle manuell eingefï¿½gen Keywords ab
 var $description;		// String - die Beschreibung
 var $description_vars;	// Array - HTML - Tags, die mit einem onchange versehen werden
 var $inputbox = "";		// String - es wird mit Hilfe dieser Variable ermittel, ob der User Beschreibung bzw. Keywords angeklickt hat
