@@ -165,6 +165,11 @@ class EventListModelEvent extends JModel
 			$event->datdescription		= null;
 			$event->meta_keywords		= null;
 			$event->meta_description	= null;
+
+			$event->recurrence_number	= 0;
+			$event->recurrence_type		= 0;
+			$event->recurrence_counter	= '0000-00-00';
+
 			$event->datimage			= JText::_('SELECTIMAGE');
 			$event->venue				= JText::_('SELECTVENUE');
 			$this->_data				= $event;
