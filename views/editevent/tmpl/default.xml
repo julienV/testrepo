@@ -2,11 +2,11 @@
 <metadata>
 	<layout title="Event submission">
 		<message>
-			<![CDATA[ADD EVENT VIEW DESC]]>
+			<![CDATA[EVENT SUBMISSION DESC]]>
 		</message>
 	</layout>
 	<state>
-		<name>Event submission</name>
-		<description>ADD EVENT VIEW DESC</description>
+		<name>EVENT SUBMISSION</name>
+		<description>EVENT SUBMISSION DESC</description>
 	</state>
 </metadata>

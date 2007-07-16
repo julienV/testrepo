@@ -2,11 +2,11 @@
 <metadata>
 	<layout title="Venue submission">
 		<message>
-			<![CDATA[ADD VENUE VIEW DESC]]>
+			<![CDATA[VENUE SUBMISSION DESC]]>
 		</message>
 	</layout>
 	<state>
-		<name>Venue submission</name>
-		<description>ADD VENUE VIEW DESC</description>
+		<name>VENUE SUBMISSION</name>
+		<description>VENUE SUBMISSION DESC</description>
 	</state>
 </metadata>

@@ -2,12 +2,12 @@
 <metadata>
 	<layout title="Categoryevents Layout">
 		<message>
-			<![CDATA[CATEGORYEVENTS VIEW DESC]]>
+			<![CDATA[CATEGORYEVENTS LAYOUT DESC]]>
 		</message>
 	</layout>
 	<state>
-		<name>Categoryevents Layout</name>
-		<description>CATEGORYEVENTS VIEW DESC</description>
+		<name>CATEGORYEVENTS LAYOUT</name>
+		<description>CATEGORYEVENTS LAYOUT DESC</description>
 		<url addpath="/administrator/components/com_eventlist/elements">
 			<param name="categid" type="categories" default="0" label="SELECT CATEGORY" description="SELECT CATEGORY DESC" />
 		</url>

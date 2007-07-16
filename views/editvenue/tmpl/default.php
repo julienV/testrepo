@@ -15,10 +15,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	<script language="javascript" type="text/javascript">
 	<!--
-		function setgood() {
-			return true;
-		}
-
 		function submitbutton(pressbutton) {
 			var form = document.adminForm;
 
@@ -26,33 +22,26 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				submitform( pressbutton );
 				return;
 			}
-			try {
-				form.onsubmit();
-			} catch(e) {
-				alert(e);
-			}
+
   			if (form.venue.value == "") {
-    			return alert("<?php echo JText::_( 'ERROR ADD VENUE', true ); ?>");
-  			}
-			if (form.street.value == "") {
-    			return alert("<?php echo JText::_( 'ERROR ADD STREET', true ); ?>");
-  			}
-			if (form.plz.value == "") {
-    			return alert("<?php echo JText::_( 'ERROR ADD ZIP', true ); ?>");
-  			}
-			if (form.city.value == "") {
-    			return alert("<?php echo JText::_( 'ERROR ADD CITY', true ); ?>");
-  			}
-			if (form.country.value == "") {
-    			return alert("<?php echo JText::_( 'ERROR ADD COUNTRY', true ); ?>");
-  			}
+    			alert("<?php echo JText::_( 'ERROR ADD VENUE', true ); ?>");
+  			} else if (form.street.value == "") {
+    			alert("<?php echo JText::_( 'ERROR ADD STREET', true ); ?>");
+  			} else if (form.plz.value == "") {
+    			alert("<?php echo JText::_( 'ERROR ADD ZIP', true ); ?>");
+  			} else if (form.city.value == "") {
+    			alert("<?php echo JText::_( 'ERROR ADD CITY', true ); ?>");
+  			} else if (form.country.value == "") {
+    			alert("<?php echo JText::_( 'ERROR ADD COUNTRY', true ); ?>");
+  			} else {
 
   			<?php
 			// JavaScript for extracting editor text
-
 			echo $this->editor->save( 'locdescription' );
 			?>
 			submitform(pressbutton);
+
+  			}
 		}
 
 		var tastendruck = false
@@ -79,7 +68,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   	//-->
 	</script>
 
-	<form enctype="multipart/form-data" name="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" class="form-validate" onSubmit="setgood();">
+	<form enctype="multipart/form-data" name="adminForm" id="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" class="form-validate">
 
 	<table class="adminform" width="100%">
 		<tr>
@@ -206,7 +195,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		</fieldset>
 
 		<input type="hidden" name="option" value="com_eventlist" />
-		<input type="hidden" name="Itemid" value="<?php echo $this->item->id; ?>" />
+		<!--<input type="hidden" name="Itemid" value="<?php echo $this->item->id; ?>" />-->
 		<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
 		<input type="hidden" name="returnview" value="<?php echo $this->returnview; ?>" />
 		<input type="hidden" name="created" value="<?php echo $this->row->created; ?>" />

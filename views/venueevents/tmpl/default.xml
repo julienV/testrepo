@@ -2,12 +2,12 @@
 <metadata>
 	<layout title="Venueevents Layout">
 		<message>
-			<![CDATA[VENUEEVENTS VIEW DESC]]>
+			<![CDATA[VENUEEVENTS LAYOUT DESC]]>
 		</message>
 	</layout>
 	<state>
-		<name>Venueevents Layout</name>
-		<description>VENUEEVENTS VIEW DESC</description>
+		<name>VENUEEVENTS LAYOUT</name>
+		<description>VENUEEVENTS LAYOUT DESC</description>
 		<url addpath="/administrator/components/com_eventlist/elements">
 			<param name="locatid" type="venue" default="0" label="Select Venue" description="SELECTVENUE" />
 		</url>

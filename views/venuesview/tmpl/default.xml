@@ -2,12 +2,12 @@
 <metadata>
 	<layout title="Venuesview Layout">
 		<message>
-			<![CDATA[VENUESVIEW DESC]]>
+			<![CDATA[VENUESVIEW LAYOUT DESC]]>
 		</message>
 	</layout>
 	<state>
-		<name>Venuesview Layout</name>
-		<description>VENUESVIEW DESC</description>
+		<name>VENUES LAYOUT</name>
+		<description>VENUES LAYOUT DESC</description>
 		<params>
 			<param name="display_venues_num" type="text" size="2" default="5" label="VENUE NUMBER" description="VENUE NUMBER TIP" />
 		</params>

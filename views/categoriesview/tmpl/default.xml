@@ -2,11 +2,11 @@
 <metadata>
 	<layout title="Categoriesview Layout">
 		<message>
-			<![CDATA[CATEGORIES VIEW DESC]]>
+			<![CDATA[CATEGORIES LAYOUT DESC]]>
 		</message>
 	</layout>
 	<state>
-		<name>Categoriesview Layout</name>
-		<description>CATEGORIES VIEW DESC</description>
+		<name>CATEGORIES LAYOUT</name>
+		<description>CATEGORIES LAYOUT DESC</description>
 	</state>
 </metadata>
