@@ -55,6 +55,8 @@ class eventlist_events extends JTable
 	var $recurrence_number	= 0;
 	/** @var int */
 	var $recurrence_type	= 0;
+	/** @var date */
+	var $recurrence_counter = null;
 	/** @var string */
 	var $datimage 			= '';
 	/** @var string */
@@ -118,6 +120,10 @@ class eventlist_events extends JTable
 	  			}
 			}
 		}
+
+		if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $this->recurrence_counter)) {
+	 	     	$this->_error = JText::_( 'DATE WRONG' );
+			}
 
 		if ($this->endtimes != 0) {
    			if (!preg_match("/^[0-2][0-9]:[0-5][0-9]$/", $this->endtimes)) {

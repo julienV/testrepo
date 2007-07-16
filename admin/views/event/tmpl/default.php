@@ -290,8 +290,8 @@
 
 				<table width="100%">
 					<tr>
-						<td><?php echo JText::_( 'RECURRENCE' ); ?>:</td>
-						<td>
+						<td width="50%"><?php echo JText::_( 'RECURRENCE' ); ?>:</td>
+						<td width="50%">
 						  <select id="recurrence_select" name="recurrence_select" size="1">
 						    <option value="0"><?php echo JText::_( 'NOTHING' ); ?></option>
 						    <option value="1"><?php echo JText::_( 'DAYLY' ); ?></option>
@@ -303,6 +303,20 @@
 					</tr>
 					<tr>
 						<td colspan="2" id="recurrence_output">&nbsp;</td>
+					</tr>
+					<tr id="counter_row" style="display:none;">
+						<td><?php echo JText::_( 'RECURRENCE COUNTER' ); ?>:
+						<span class="editlinktip hasTip" title="<?php echo JText::_('FORMAT DATE'); ?>::<?php echo JText::_('RECURRENCE COUNTER TIP'); ?>">
+								<?php echo $infoimage; ?>
+						</span>
+						</td>
+						<td>
+							<input class="inputbox" type="text" name="recurrence_counter" id="recurrence_counter" size="15" maxlength="10" value="<?php echo ($this->row->recurrence_counter) ? $this->row->recurrence_counter : "0000-00-00"  ?>" />
+					        <a href="#" onclick="return showCalendar('recurrence_counter', 'y-mm-dd');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
+						</td>
+					<tr>
+					<tr>
+						<td><br/></td>
 					</tr>
 				</table>
 			<br/>

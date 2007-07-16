@@ -30,12 +30,14 @@ function output_recurrencescript() {
 		var $element = generate_output($select_output[$select_value], $select_value);
 		$content.replaceChild($element, $content.firstChild);
 		set_parameter();
+		$("counter_row").style.display = "table-row"; // show the counter
 	} else {
 		$("recurrence_number").value = 0;
 		$("recurrence_type").value = 0;
 		$nothing = document.createElement("span");
 		$nothing.appendChild(document.createTextNode(""));
 		$content.replaceChild($nothing, $content.firstChild);
+		$("counter_row").style.display = "none"; // hide the counter
 	}
 
 }
