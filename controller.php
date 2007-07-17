@@ -157,7 +157,6 @@ class EventListController extends JController
 		$post['locdescription'] = JRequest::getVar( 'locdescription', '', 'post', 'string', JREQUEST_ALLOWRAW );
 
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
-		$Itemid 	= JRequest::getInt( 'Itemid' );
 
 
 		$model = $this->getModel('editvenue');
@@ -198,7 +197,6 @@ class EventListController extends JController
 
 		//get image
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
-		$Itemid 	= JRequest::getInt( 'Itemid' );
 		$post 		= JRequest::get( 'post' );
 
 		$model = $this->getModel('editevent');

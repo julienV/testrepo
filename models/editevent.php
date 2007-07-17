@@ -68,7 +68,7 @@ class EventListModelEditevent extends JModel
 	 */
 	function &getEvent(  )
 	{
-		global $mainframe, $option, $Itemid;
+		global $mainframe;
 
 		// Initialize variables
 		$user		= & JFactory::getUser();
@@ -90,7 +90,7 @@ class EventListModelEditevent extends JModel
 			* Error if allready checked out otherwise check event out
 			*/
 			if ($this->isCheckedOut( $user->get('id') )) {
-				$mainframe->redirect( 'index.php?option='.$option.'&Itemid='.$Itemid.'&view='.$view, JText::_( 'THE EVENT' ).': '.$this->_event->title.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ) );
+				$mainframe->redirect( 'index.php?view='.$view, JText::_( 'THE EVENT' ).': '.$this->_event->title.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ) );
 			} else {
 				$this->checkout( $user->get('id') );
 			}
@@ -432,7 +432,7 @@ class EventListModelEditevent extends JModel
 	 */
 	function store($data, $file)
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		jimport('joomla.utilities.date');
 
@@ -531,6 +531,14 @@ class EventListModelEditevent extends JModel
 		}
 
 		//Image upload
+
+		//If image upload is required we will stop here if no file was attached
+		if ( empty($file['name']) && $elsettings->imageenabled == 2 ) {
+
+			$this->setError( JText::_( 'IMAGE EMPTY' ) );
+			return false;
+		}
+
 		if ( ( $elsettings->imageenabled == 2 || $elsettings->imageenabled == 1 ) && ( !empty($file['name'])  ) )  {
 
 			jimport('joomla.filesystem.file');
@@ -538,12 +546,6 @@ class EventListModelEditevent extends JModel
 			$imagesize 		= $file['size'];
 			$sizelimit 		= $elsettings->sizelimit*1024; //size limit in kb
 			$base_Dir 		= JPATH_SITE.'/images/eventlist/events/';
-
-			//If image upload is required we will stop here if no file was attached
-			if ( empty($file['name']) && $elsettings->imageenabled == 2 ) {
-				$this->setError( JText::_( 'IMAGE EMPTY' ) );
-				return false;
-			}
 
 			//check if the upload is an image...getimagesize will return false if not
 			if (!@getimagesize($file['tmp_name'])) {
