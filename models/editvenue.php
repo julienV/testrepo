@@ -201,9 +201,6 @@ class EventListModelEditvenue extends JModel
 		$FromName 		= $mainframe->getCfg('fromname');
 		$tzoffset 		= $mainframe->getCfg('offset');
 
-		$sizelimit 	= $elsettings->sizelimit*1024; //size limit in kb
-		$base_Dir 	= JPATH_SITE.'/images/eventlist/venues/';
-
 		$row 		= & JTable::getInstance('eventlist_venues', '');
 
 		//bind it to the table
@@ -264,10 +261,21 @@ class EventListModelEditvenue extends JModel
 		//Image upload
 		if ( ( $elsettings->imageenabled == 2 || $elsettings->imageenabled == 1 ) && ( !empty($file['name'])) )  {
 
-			$imagesize 	= $file['size'];
+			jimport('joomla.filesystem.file');
 
-			if (empty($file['name'])) {
+			$imagesize 	= $file['size'];
+			$sizelimit 	= $elsettings->sizelimit*1024; //size limit in kb
+			$base_Dir 	= JPATH_SITE.'/images/eventlist/venues/';
+
+			//If image upload is required we will stop here if no file was attached
+			if ( empty($file['name']) && $elsettings->imageenabled == 2 ) {
 				$this->setError( JText::_( 'IMAGE EMPTY' ) );
+				return false;
+			}
+
+			//check if the upload is an image...getimagesize will return false if not
+			if (!@getimagesize($file['tmp_name'])) {
+				$this->setError( JText::_( 'UPLOAD FAILED NOT AN IMAGE' ) );
 				return false;
 			}
 
@@ -276,12 +284,6 @@ class EventListModelEditvenue extends JModel
 				return false;
 			}
 
-			if (file_exists($base_Dir.$file['name'])) {
-				$this->setError( JText::_( 'IMAGE EXISTS' ) );
-				return false;
-			}
-
-			jimport('joomla.filesystem.file');
 			$format 	= JFile::getExt($file['name']);
 
 			$allowable 	= array ('bmp', 'gif', 'jpg', 'png');
@@ -291,11 +293,15 @@ class EventListModelEditvenue extends JModel
 				return false;
 			}
 
-			if (!JFile::upload($file['tmp_name'], $base_Dir.strtolower($file['name']))) {
+			//sanitize the image filename
+			$filename = ELImage::sanitize($base_Dir, $file['name']);
+			$filepath = $base_Dir . $filename;
+
+			if (!JFile::upload( $file['tmp_name'], $filepath )) {
 				$this->setError( JText::_( 'UPLOAD FAILED' ) );
 				return false;
 			} else {
-				$row->locimage = strtolower($file['name']);
+				$row->locimage = $filename;
 			}
 		} else {
 			//keep image if edited and left blank

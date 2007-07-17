@@ -53,50 +53,59 @@ class EventListControllerImageupload extends EventListController
 		$sizelimit 	= $elsettings->sizelimit*1024; //size limit in kb
 		$imagesize 	= $file['size'];
 
-			if ($task == 'venueimgup') {
-				$base_Dir = JPATH_SITE.DS.'images'.DS.'eventlist'.DS.'venues'.DS;
-			} else {
-				$base_Dir = JPATH_SITE.DS.'images'.DS.'eventlist'.DS.'events'.DS;
-			}
+		//set the target directory
+		if ($task == 'venueimgup') {
+			$base_Dir = JPATH_SITE.DS.'images'.DS.'eventlist'.DS.'venues'.DS;
+		} else {
+			$base_Dir = JPATH_SITE.DS.'images'.DS.'eventlist'.DS.'events'.DS;
+		}
 
-			if (empty($file['name'])) {
-				echo "<script> alert('".JText::_( 'IMAGE EMPTY' )."'); window.history.go(-1); </script>\n";
-				$mainframe->close();
-			}
+		//do we have an upload?
+		if (empty($file['name'])) {
+			echo "<script> alert('".JText::_( 'IMAGE EMPTY' )."'); window.history.go(-1); </script>\n";
+			$mainframe->close();
+		}
 
-			if (file_exists($base_Dir.strtolower($file['name']))) {
-				echo "<script> alert('".JText::_( 'UPLOAD FAILED' )."'); window.history.go(-1); </script>\n";
-				$mainframe->close();
-			}
+		//check if the upload is an image...getimagesize will return false if not
+		if (!@getimagesize($file['tmp_name'])) {
+			echo "<script> alert('".JText::_( 'UPLOAD FAILED NOT AN IMAGE' )."'); window.history.go(-1); </script>\n";
+			$mainframe->close();
+		}
 
-			if ($imagesize > $sizelimit) {
-				echo "<script> alert('".JText::_( 'IMAGE FILE SIZE' )."'); window.history.go(-1); </script>\n";
-				$mainframe->close();
-			}
+		//check if the imagefiletype is valid
+		$fileext 	= JFile::getExt($file['name']);
 
-			$format 	= JFile::getExt($file['name']);
+		$allowable 	= array ('gif', 'jpg', 'png');
+		if (in_array($fileext, $allowable)) {
+			$noMatch = true;
+		} else {
+			$noMatch = false;
+		}
 
-			$allowable 	= array ('gif', 'jpg', 'png');
-			if (in_array($format, $allowable)) {
-				$noMatch = true;
-			} else {
-				$noMatch = false;
-			}
+		if (!$noMatch) {
+			echo "<script> alert('".JText::_( 'WRONG IMAGE FILE TYPE' )."'); window.history.go(-1); </script>\n";
+			$mainframe->close();
+		}
 
-			if (!$noMatch) {
-				echo "<script> alert('".JText::_( 'WRONG IMAGE FILE TYPE' )."'); window.history.go(-1); </script>\n";
-				$mainframe->close();
-			}
+		//Check filesize
+		if ($imagesize > $sizelimit) {
+			echo "<script> alert('".JText::_( 'IMAGE FILE SIZE' )."'); window.history.go(-1); </script>\n";
+			$mainframe->close();
+		}
 
-			if (!JFile::upload($file['tmp_name'], $base_Dir.strtolower($file['name']))) {
-				echo "<script> alert('".JText::_( 'UPLOAD FAILED' )."'); window.history.go(-1); </script>\n";
-				$mainframe->close();
+		//sanitize the image filename
+		$filename = ELImage::sanitize($base_Dir, $file['name']);
+		$filepath = $base_Dir . $filename;
 
-			} else {
-				$imagename = $file['name'];
-				echo "<script> alert('".JText::_( 'UPLOAD COMPLETE' )."'); window.history.go(-1); window.parent.elSelectImage('$imagename', '$imagename'); </script>\n";
-				$mainframe->close();
-			}
+		//upload the image
+		if (!JFile::upload($file['tmp_name'], $filepath)) {
+			echo "<script> alert('".JText::_( 'UPLOAD FAILED' )."'); window.history.go(-1); </script>\n";
+			$mainframe->close();
+
+		} else {
+			echo "<script> alert('".JText::_( 'UPLOAD COMPLETE' )."'); window.history.go(-1); window.parent.elSelectImage('$filename', '$filename'); </script>\n";
+			$mainframe->close();
+		}
 
 	} //function uploadimage end
 
