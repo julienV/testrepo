@@ -52,15 +52,16 @@ class JElementCategories extends JElement
 		function elSelectCategory(id, category) {
 			document.getElementById('a_id').value = id;
 			document.getElementById('a_name').value = category;
-			document.popup.hide();
+			document.getElementById('sbox-window').close();
 		}";
 
 		$link = 'index.php?option=com_eventlist&amp;view=categoryelement&amp;tmpl=component';
 		$doc->addScriptDeclaration($js);
-		$doc->addScript($url.'includes/js/joomla/modal.js');
-		$doc->addStyleSheet($url.'includes/js/joomla/modal.css');
+
+		JHTML::_('behavior.modal', 'a.modal');
+
 		$html = "\n<div style=\"float: left;\"><input style=\"background: #ffffff;\" type=\"text\" id=\"a_name\" value=\"$category->catname\" disabled=\"disabled\" /></div>";
-		$html .= "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 375, null);\" value=\"".JText::_('Select')."\" />";
+		$html .= "<div class=\"button2-left\"><div class=\"blank\"><a class=\"modal\" title=\"".JText::_('Select')."\"  href=\"$link\" rel=\"{handler: 'iframe', size: {x: 650, y: 375}}\">".JText::_('Select')."</a></div></div>\n";
 		$html .= "\n<input type=\"hidden\" id=\"a_id\" name=\"$fieldName\" value=\"$value\" />";
 
 		return $html;

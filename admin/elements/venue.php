@@ -1,7 +1,7 @@
 <?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -13,7 +13,7 @@ defined('_JEXEC') or die();
 /**
  * Renders an venue element
  *
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @since 1.5
  */
@@ -37,9 +37,9 @@ class JElementVenue extends JElement
 		$template 	= $mainframe->getTemplate();
 		$url 		= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
 		$fieldName	= $control_name.'['.$name.']';
-		
+
 		JTable::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_eventlist'.DS.'tables');
-		
+
 		$venue =& JTable::getInstance('eventlist_venues', '');
 		if ($value) {
 			$venue->load($value);
@@ -51,15 +51,16 @@ class JElementVenue extends JElement
 		function elSelectVenue(id, venue) {
 			document.getElementById('a_id').value = id;
 			document.getElementById('a_name').value = venue;
-			document.popup.hide();
+			document.getElementById('sbox-window').close();
 		}";
 
 		$link = 'index.php?option=com_eventlist&amp;view=venueelement&amp;tmpl=component';
 		$doc->addScriptDeclaration($js);
-		$doc->addScript($url.'includes/js/joomla/modal.js');
-		$doc->addStyleSheet($url.'includes/js/joomla/modal.css');
+
+		JHTML::_('behavior.modal', 'a.modal');
+
 		$html = "\n<div style=\"float: left;\"><input style=\"background: #ffffff;\" type=\"text\" id=\"a_name\" value=\"$venue->venue\" disabled=\"disabled\" /></div>";
-		$html .= "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 375, null);\" value=\"".JText::_('Select')."\" />";
+		$html .= "<div class=\"button2-left\"><div class=\"blank\"><a class=\"modal\" title=\"".JText::_('Select')."\"  href=\"$link\" rel=\"{handler: 'iframe', size: {x: 650, y: 375}}\">".JText::_('Select')."</a></div></div>\n";
 		$html .= "\n<input type=\"hidden\" id=\"a_id\" name=\"$fieldName\" value=\"$value\" />";
 
 		return $html;

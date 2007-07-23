@@ -101,13 +101,6 @@ if ($this->updatedata->failed == 0) {
 <?php
 }
 ?>
-<br />
-
-<div align="center">
-	<button type="button" onclick="window.top.document.popup.hide();">
-	<?php echo JText::_( 'Close' );?>
-	</button>
-</div>
 
 <p class="copyright">
 	<?php echo ELAdmin::footer( ); ?>

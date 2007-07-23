@@ -81,24 +81,22 @@ class EventListViewEventList extends JView {
 
 		//initialise variables
 		$lang 		= & JFactory::getLanguage();
-		$document	= & JFactory::getDocument();
   		?>
 
 		<div style="float:<?php echo ($lang->isRTL()) ? 'right' : 'left'; ?>;">
 			<div class="icon">
 				<?php
 				if ($modal == 1) {
-						$url 		= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
-						$document->addScript($url.'includes/js/joomla/modal.js');
-						$document->addStyleSheet($url.'includes/js/joomla/modal.css');
+					JHTML::_('behavior.modal');
 				?>
-					<a style="cursor:pointer" onclick="document.popup.show('<?php echo $link.'&tmpl=component'; ?>', 650, 400, null);">
+					<a href="<?php echo $link.'&tmpl=component'; ?>" style="cursor:pointer" class="modal" rel="{handler: 'iframe', size: {x: 650, y: 400}}">
 				<?php
 				} else {
 				?>
-				<a href="<?php echo $link; ?>">
+					<a href="<?php echo $link; ?>">
 				<?php
 				}
+
 					echo JHTML::_('image.site', $image, '/components/com_eventlist/assets/images/', NULL, NULL, $text );
 				?>
 					<span><?php echo $text; ?></span>
