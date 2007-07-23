@@ -43,7 +43,7 @@ class EventListViewEditvenue extends JView
 		$row 		= $this->Get('Venue');
 
 		jimport('joomla.filter.output');
-		JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'locdescription' );
+		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES, 'locdescription' );
 
 		JHTML::_('behavior.formvalidation');
 		JHTML::_('behavior.tooltip');

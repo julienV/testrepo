@@ -51,7 +51,7 @@ class EventListViewEditevent extends JView
 
 		//Clean output
 		jimport('joomla.filter.output');
-		JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'datdescription' );
+		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES, 'datdescription' );
 
 		JHTML::_('behavior.formvalidation');
 		JHTML::_('behavior.tooltip');

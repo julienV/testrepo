@@ -63,7 +63,7 @@ class EventListViewVenue extends JView {
 
 			//makes data safe
 			jimport('joomla.filter.output');
-			JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'locdescription' );
+			JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES, 'locdescription' );
 
 		} else {
 			JToolBarHelper::title( JText::_( 'ADD VENUE' ), 'venuesedit' );

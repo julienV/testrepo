@@ -92,7 +92,7 @@ class EventListViewEvent extends JView {
 
 		//make data safe
 		jimport('joomla.filter.output');
-		JOutputFilter::objectHTMLSafe( $row, ENT_QUOTES, 'datdescription' );
+		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES, 'datdescription' );
 
 		//Create category list
 		$categories = & $this->get( 'Categories');
