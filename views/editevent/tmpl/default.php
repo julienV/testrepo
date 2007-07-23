@@ -13,91 +13,140 @@ defined('_JEXEC') or die('Restricted access');
 //TODO: fix submit
 ?>
 
-		<script language="javascript" type="text/javascript">
-		function submitbutton(pressbutton) {
-
-				var form = document.adminForm;
-
-				if (pressbutton == 'cancelevent' || pressbutton == 'addvenue') {
-					submitform( pressbutton );
-					return;
+<script language="javascript" type="text/javascript">
+		Window.onDomReady(function(){
+			document.formvalidator.setHandler('date',
+				function (value) {
+					if(value=="") {
+						return true;
+					} else {
+						timer = new Date();
+						time = timer.getTime();
+						regexp = new Array();
+						regexp[time] = new RegExp('[0-9]{4}-[0-1][0-9]-[0-3][0-9]','gi');
+						return regexp[time].test(value);
+					}
 				}
-  				if (form.dates.value == "") {
-    				alert("<?php echo JText::_( 'ADD DATE', true ); ?>");
-    				form.dates.focus();
-    				return false;
-  				}
-  				if (form.title.value == "") {
-    				alert("<?php echo JText::_( 'ADD TITLE', true ); ?>");
-    				form.title.focus();
-    				return false;
-  				}
-				var s = form.dates.value;
-				var erg = s.match(/[0-9]{4}-[0-1][0-9]-[0-3][0-9]/gi);
-				if(!erg) {
-    				alert("<?php echo JText::_( 'DATE WRONG', true ); ?>");
-    				form.dates.focus();
-    				return false;
-  				}
-  				if (form.enddates.value != "") {
-  					var es = form.enddates.value;
-					var ergl = es.match(/[0-9]{4}-[0-1][0-9]-[0-3][0-9]/gi);
-					if(!ergl) {
-    					alert("<?php echo JText::_( 'DATE WRONG', true ); ?>");
-    					form.enddates.focus();
-    					return false;
-  					}
-  				}
-				<?php
-				/*
-				if ( $this->elsettings->showtime == 1 ) {
-				?>
-					if (form.times.value == "") {
-    					alert("<?php echo JText::_( 'ADD TIME', true ); ?>");
-    					form.times.focus();
-    					return false;
-  					}
-  				<?php
+			);
+			document.formvalidator.setHandler('time',
+				function (value) {
+					if(value=="") {
+						return true;
+					} else {
+						timer = new Date();
+						time = timer.getTime();
+						regexp = new Array();
+						regexp[time] = new RegExp('[0-2]{1}[0-9]{1}:[0-5]{1}[0-9]{1}','gi');
+						return regexp[time].test(value);
+					}
 				}
-				*/
-				?>
-  				if ( form.times.value != "") {
-					var t = form.times.value;
-					var erg2 = t.match(/[0-2][0-9]:[0-5][0-9]/gi);
-					if(!erg2) {
-    					alert("<?php echo JText::_( 'TIME WRONG', true ); ?>");
-    					form.times.focus();
-    					return false;
-  					}
+			);
+			document.formvalidator.setHandler('venue',
+				function (value) {
+					timer = new Date();
+					time = timer.getTime();
+					regexp = new Array();
+					regexp[time] = new RegExp('^[0-9]{1}[0-9]{0,}$');
+					return regexp[time].test(value);
 				}
-
-				if ( form.endtimes.value != "") {
-					var t = form.endtimes.value;
-					var erg3 = t.match(/[0-2][0-9]:[0-5][0-9]/gi);
-					if(!erg3) {
-    					alert("<?php echo JText::_( 'ENDTIME WRONG', true ); ?>");
-    					form.endtimes.focus();
-    					return false;
-  					}
+			);
+			document.formvalidator.setHandler('catsid',
+				function (value) {
+					if(value=="") {
+						return true;
+					} else {
+						timer = new Date();
+						time = timer.getTime();
+						regexp = new Array();
+						regexp[time] = new RegExp('^[1-9]{1}[0-9]{0,}$');
+						return regexp[time].test(value);
+					}
 				}
+			);
+		});
 
-				if (form.catsid.value == "0") {
-    				alert("<?php echo JText::_( 'SELECT CATEGORY', true ); ?>");
-    				form.catsid.focus();
-    				return false;
-  				}
+		function submitbutton( pressbutton ) {
 
-				if (form.locid.value == "") {
-    				alert("<?php echo JText::_( 'SELECT VENUE', true ); ?>");
-    				form.locid.focus();
-    				return false;
-  				}
 
-  				<?php
-				// JavaScript for extracting editor text
+			if (pressbutton == 'cancelevent') {
+				submitform( pressbutton );
+				return;
+			}
+
+			var form = document.adminForm;
+			var validator = document.formvalidator;
+			var title = $(form.title).getValue();
+			title.replace(/\s/g,'');
+			if ( title.length==0 ) {
+   			alert("<?php echo JText::_( 'ADD TITLE', true ); ?>");
+   			validator.handleResponse(false,form.title);
+   			form.title.focus();
+   			return false;
+  			} else if ( form.dates.value=="" ) {
+   			alert("<?php echo JText::_( 'ADD DATE', true ); ?>");
+   			validator.handleResponse(false,form.dates);
+   			form.dates.focus();
+   			return false;
+			} else if ( form.dates.value=="" ) {
+   			alert("<?php echo JText::_( 'ADD DATE', true ); ?>");
+   			validator.handleResponse(false,form.dates);
+   			form.dates.focus();
+   			return false;
+  			} else if ( validator.validate(form.dates) === false ) {
+   			alert("<?php echo JText::_( 'DATE WRONG', true ); ?>");
+   			validator.handleResponse(false,form.dates);
+   			form.dates.focus();
+   			return false;
+  			} else if ( validator.validate(form.enddates) === false ) {
+  				alert(validator.validate(form.enddates));
+  				alert("<?php echo JText::_( 'DATE WRONG', true ); ?>");
+    			validator.handleResponse(false,form.enddates);
+  				form.enddates.focus();
+  				return false;
+  			}
+			<?php
+			/*
+			 if ( $this->elsettings->showtime == 1 ) {
+			?>
+			if ( !validator.validate(form.times) === false ) {
+    			alert("<?php echo JText::_( 'ADD TIME', true ); ?>");
+    			validator.handleResponse(false,form.times);
+    			form.times.focus();
+    			return false;
+  			}
+  			<?php
+			}
+			*/
+			?>
+  			else if ( validator.validate(form.times) === false ) {
+    			alert("<?php echo JText::_( 'TIME WRONG', true ); ?>");
+    			validator.handleResponse(false,form.times);
+    			form.times.focus();
+    			return false;
+			} else if ( validator.validate(form.endtimes) === false ) {
+  				alert("<?php echo JText::_( 'ENDTIME WRONG', true ); ?>");
+    			validator.handleResponse(false,form.endtimes);
+  				form.endtimes.focus();
+  				return false;
+			} else if ( validator.validate(form.catsid ) === false ) {
+    			alert("<?php echo JText::_( 'SELECT CATEGORY', true ); ?>");
+    			validator.handleResponse(false,form.catsid);
+    			form.catsid.focus();
+    			return false;
+  			} else if ( validator.validate(form.locid) === false ) {
+    			alert("<?php echo JText::_( 'SELECT VENUE', true ); ?>");
+    			validator.handleResponse(false,form.locid);
+    			form.locid.focus();
+    			return false;
+  			} else {
+  			<?php
+			// JavaScript for extracting editor text
 				echo $this->editor->save( 'datdescription' );
-				?>
+			?>
 				submitform(pressbutton);
+
+				return true;
+			}
 		}
 
 
@@ -136,10 +185,10 @@ defined('_JEXEC') or die('Restricted access');
 					&nbsp;&nbsp;&nbsp;
 				</div>
 				<div style="float: right;">
-				<button type="button validate" onclick="submitbutton('saveevent')">
+				<button type="submit" class="submit" onclick="return submitbutton('saveevent')">
 					<?php echo JText::_('SAVE') ?>
 				</button>
-				<button type="button" onclick="submitbutton('cancelevent')" />
+				<button type="reset" class="button cancel" onclick="submitbutton('cancelevent')">
 					<?php echo JText::_('CANCEL') ?>
 				</button>
 				</div>
