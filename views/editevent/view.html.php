@@ -93,15 +93,16 @@ class EventListViewEditevent extends JView
 		function elSelectVenue(id, venue) {
 			document.getElementById('a_id').value = id;
 			document.getElementById('a_name').value = venue;
-			document.popup.hide();
+			document.getElementById('sbox-window').close();
 		}";
 
 		$link = JRoute::_('index.php?view=editevent&layout=selectvenue&tmpl=component');
 		$doc->addScriptDeclaration($js);
-		$doc->addScript($url.'includes/js/joomla/modal.js');
-		$doc->addStyleSheet($url.'includes/js/joomla/modal.css');
+
+		JHTML::_('behavior.modal', 'a.modal');
+
 		$venueselect = "\n<div style=\"float: left;\"><input style=\"background: #ffffff;\" type=\"text\" id=\"a_name\" value=\"$row->venue\" disabled=\"disabled\" /></div>";
-		$venueselect .= "\n &nbsp; <input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 375, null);\" value=\"".JText::_('Select')."\" />";
+		$venueselect .= "<div class=\"button2-left\"><div class=\"blank\"><a class=\"modal\" title=\"".JText::_('SELECT')."\" href=\"$link\" rel=\"{handler: 'iframe', size: {x: 650, y: 375}}\">".JText::_('SELECT')."</a></div></div>\n";
 		$venueselect .= "\n<input type=\"hidden\" id=\"a_id\" name=\"locid\" value=\"$row->locid\" />";
 
 
