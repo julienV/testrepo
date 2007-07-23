@@ -62,10 +62,10 @@ div#eventlist .description
 *************************************************************************************/
 div#eventlist .el_pics {} /* div around all images */
 
-div#eventlist .modal
+div#eventlist .modal, div#eventlist .map
 {float:right; margin:0.3em;  }
 
-div#eventlist a.modal img, div#eventlist img.modal, div#eventlist .cat_img img
+div#eventlist a.modal img, div#eventlist img.modal, div#eventlist .cat_img img, div#eventlist img.map, div#eventlist a.map
 { border: 1px solid #ddd; padding:1px; }
 
 /* registered user list
