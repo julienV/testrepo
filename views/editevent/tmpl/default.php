@@ -75,26 +75,27 @@ defined('_JEXEC') or die('Restricted access');
 			var validator = document.formvalidator;
 			var title = $(form.title).getValue();
 			title.replace(/\s/g,'');
+
 			if ( title.length==0 ) {
-   			alert("<?php echo JText::_( 'ADD TITLE', true ); ?>");
-   			validator.handleResponse(false,form.title);
-   			form.title.focus();
-   			return false;
+   				alert("<?php echo JText::_( 'ADD TITLE', true ); ?>");
+   				validator.handleResponse(false,form.title);
+   				form.title.focus();
+   				return false;
   			} else if ( form.dates.value=="" ) {
-   			alert("<?php echo JText::_( 'ADD DATE', true ); ?>");
-   			validator.handleResponse(false,form.dates);
-   			form.dates.focus();
-   			return false;
+   				alert("<?php echo JText::_( 'ADD DATE', true ); ?>");
+   				validator.handleResponse(false,form.dates);
+   				form.dates.focus();
+   				return false;
 			} else if ( form.dates.value=="" ) {
-   			alert("<?php echo JText::_( 'ADD DATE', true ); ?>");
-   			validator.handleResponse(false,form.dates);
-   			form.dates.focus();
-   			return false;
+   				alert("<?php echo JText::_( 'ADD DATE', true ); ?>");
+   				validator.handleResponse(false,form.dates);
+   				form.dates.focus();
+   				return false;
   			} else if ( validator.validate(form.dates) === false ) {
-   			alert("<?php echo JText::_( 'DATE WRONG', true ); ?>");
-   			validator.handleResponse(false,form.dates);
-   			form.dates.focus();
-   			return false;
+   				alert("<?php echo JText::_( 'DATE WRONG', true ); ?>");
+   				validator.handleResponse(false,form.dates);
+   				form.dates.focus();
+   				return false;
   			} else if ( validator.validate(form.enddates) === false ) {
   				alert(validator.validate(form.enddates));
   				alert("<?php echo JText::_( 'DATE WRONG', true ); ?>");

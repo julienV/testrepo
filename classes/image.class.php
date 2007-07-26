@@ -33,7 +33,11 @@ class ELImage {
 	{
 		//GD-Lib > 2.0 only!
 		@unlink($save);
-		$infos = @getimagesize($file);
+
+		//get sizes else stop
+		if (!$infos = @getimagesize($file)) {
+			return false;
+		}
 
 		// keep proportions
 		$iWidth = $infos[0];

@@ -45,8 +45,10 @@ class EventListViewImagehandler extends JView  {
 		//set variables
 		if ($task == 'selecteventimg') {
 			$Path 	= '/images/eventlist/events/';
+			$task 	= 'eventimg';
 		} else {
 			$Path 	= '/images/eventlist/venues/';
+			$task	= 'venueimg';
 		}
 
 		$basePath 	= JPATH_SITE.$Path;
@@ -117,6 +119,7 @@ class EventListViewImagehandler extends JView  {
 			//no images in the folder, redirect to uploadscreen and raise notice
 			JError::raiseNotice('SOME_ERROR_CODE', JText::_('NO IMAGES AVAILABLE'));
 			$this->setLayout('uploadimage');
+			JRequest::setVar( 'task', $task );
 			$this->_displayuploadimage($tpl);
 			return;
 		}
