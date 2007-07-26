@@ -446,7 +446,7 @@ class EventListModelEditevent extends JModel
 		$FromName 		= $mainframe->getCfg('fromname');
 		$tzoffset 		= $mainframe->getCfg('offset');
 
-		$row =& JTable::getInstance('eventlist_events', '');
+		$row 	= & JTable::getInstance('eventlist_events', '');
 
 		//Sanitize
 		$data['datdescription'] = JRequest::getVar( 'datdescription', '', 'post','string', JREQUEST_ALLOWRAW );
