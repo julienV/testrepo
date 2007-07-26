@@ -103,7 +103,7 @@ class EventListViewEditevent extends JView
 
 		$venueselect = "\n<div style=\"float: left;\"><input style=\"background: #ffffff;\" type=\"text\" id=\"a_name\" value=\"$row->venue\" disabled=\"disabled\" /></div>";
 		$venueselect .= "<div class=\"button2-left\"><div class=\"blank\"><a class=\"modal\" title=\"".JText::_('SELECT')."\" href=\"$link\" rel=\"{handler: 'iframe', size: {x: 650, y: 375}}\">".JText::_('SELECT')."</a></div></div>\n";
-		$venueselect .= "\n<input type=\"hidden\" id=\"a_id\" name=\"locid\" value=\"$row->locid\" />";
+		$venueselect .= "\n<input class=\"inputbox required validate-venue\" type=\"hidden\" id=\"a_id\" name=\"locid\" value=\"$row->locid\" />";
 
 
 		$this->assignRef('row' , 					$row);

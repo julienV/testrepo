@@ -66,7 +66,7 @@ defined('_JEXEC') or die('Restricted access');
 		function submitbutton( pressbutton ) {
 
 
-			if (pressbutton == 'cancelevent') {
+			if (pressbutton == 'cancelevent' || pressbutton == 'addvenue') {
 				submitform( pressbutton );
 				return;
 			}
@@ -82,11 +82,6 @@ defined('_JEXEC') or die('Restricted access');
    				form.title.focus();
    				return false;
   			} else if ( form.dates.value=="" ) {
-   				alert("<?php echo JText::_( 'ADD DATE', true ); ?>");
-   				validator.handleResponse(false,form.dates);
-   				form.dates.focus();
-   				return false;
-			} else if ( form.dates.value=="" ) {
    				alert("<?php echo JText::_( 'ADD DATE', true ); ?>");
    				validator.handleResponse(false,form.dates);
    				form.dates.focus();
@@ -220,7 +215,7 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 			<td>
 				<?php
-					$html = JHTML::_('select.genericlist', $this->categories, 'catsid','size="1" class="inputbox"', 'value', 'text', $this->row->catsid );
+					$html = JHTML::_('select.genericlist', $this->categories, 'catsid','size="1" class="inputbox required validate-catsid"', 'value', 'text', $this->row->catsid );
 					echo $html;
 				?>
 			</td>
@@ -229,7 +224,7 @@ defined('_JEXEC') or die('Restricted access');
 			<td><label for="dates"><?php echo JText::_( 'DATE' ).':'; ?></label>
 			</td>
 			<td>
-				<input class="inputbox required" type="text" name="dates" id="dates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" />
+				<input class="inputbox required validate-date" type="text" name="dates" id="dates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" />
             	<a href="#" onclick="return showCalendar('dates', 'y-mm-dd');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
 				&nbsp;
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
@@ -245,7 +240,7 @@ defined('_JEXEC') or die('Restricted access');
 					$this->row->enddates ='';
 				}
 				?>
-				<input class="inputbox" type="text" name="enddates" id="enddates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" />
+				<input class="inputbox validate-date" type="text" name="enddates" id="enddates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" />
             	<a href="#" onclick="return showCalendar('enddates', 'y-mm-dd');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
 				&nbsp;
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
@@ -258,8 +253,7 @@ defined('_JEXEC') or die('Restricted access');
 				<?php echo JText::_( 'TIME' ).':'; ?>
 			</td>
 			<td>
-				<input name="times" value="<?php echo substr($this->row->times, 0, 5); ?>" size="15" maxlength="8" />&nbsp;
-				<b>
+				<input class="inputbox validate-time" name="times" value="<?php echo substr($this->row->times, 0, 5); ?>" size="15" maxlength="8" />&nbsp;
 				<?php if ( $this->elsettings->showtime == 1 ) : ?>
 			   		<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('TIME HINT'); ?>">
 						<?php echo $this->infoimage; ?>
@@ -269,7 +263,6 @@ defined('_JEXEC') or die('Restricted access');
 						<?php echo $this->infoimage; ?>
 					</span>
 			   	<?php endif;?>
-				</b>
 			</td>
 		</tr>
 		<tr>
@@ -284,7 +277,7 @@ defined('_JEXEC') or die('Restricted access');
 					$this->row->endtimes = substr($this->row->endtimes, 0, 5);
 				endif;
 				?>
-				<input name="endtimes" value="<?php echo substr($this->row->endtimes, 0, 5); ?>" size="15" maxlength="8" />&nbsp;
+				<input class="inputbox validate-time" name="endtimes" value="<?php echo substr($this->row->endtimes, 0, 5); ?>" size="15" maxlength="8" />&nbsp;
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('ENDTIME HINT'); ?>">
 					<?php echo $this->infoimage; ?>
 				</span>

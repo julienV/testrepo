@@ -13,62 +13,79 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 //TODO: fix submit
 ?>
 
-	<script language="javascript" type="text/javascript">
-	<!--
-		function submitbutton(pressbutton) {
-			var form = document.adminForm;
+<script language="javascript" type="text/javascript">
 
-			if (pressbutton == 'cancelvenue') {
-				submitform( pressbutton );
-				return;
-			}
+	function submitbutton( pressbutton ) {
 
-  			if (form.venue.value == "") {
-    			alert("<?php echo JText::_( 'ERROR ADD VENUE', true ); ?>");
-  			} else if (form.street.value == "") {
-    			alert("<?php echo JText::_( 'ERROR ADD STREET', true ); ?>");
-  			} else if (form.plz.value == "") {
-    			alert("<?php echo JText::_( 'ERROR ADD ZIP', true ); ?>");
-  			} else if (form.city.value == "") {
-    			alert("<?php echo JText::_( 'ERROR ADD CITY', true ); ?>");
-  			} else if (form.country.value == "") {
-    			alert("<?php echo JText::_( 'ERROR ADD COUNTRY', true ); ?>");
-  			} else {
+		if (pressbutton == 'cancelvenue') {
+			submitform( pressbutton );
+			return;
+		}
 
+		var form = document.adminForm;
+		var validator = document.formvalidator;
+		var venue = $(form.venue).getValue();
+		venue.replace(/\s/g,'');
+
+		if ( venue.length==0 ) {
+   			alert("<?php echo JText::_( 'ERROR ADD VENUE', true ); ?>");
+   			validator.handleResponse(false,form.venue);
+   			form.venue.focus();
+   			return false;
+  		} else if ( form.street.value=="" ) {
+   			alert("<?php echo JText::_( 'ERROR ADD STREET', true ); ?>");
+   			validator.handleResponse(false,form.street);
+   			form.street.focus();
+   			return false;
+		} else if ( form.plz.value=="" ) {
+   			alert("<?php echo JText::_( 'ERROR ADD ZIP', true ); ?>");
+   			validator.handleResponse(false,form.plz);
+   			form.plz.focus();
+   			return false;
+  		} else if ( form.city.value=="" ) {
+  			alert("<?php echo JText::_( 'ERROR ADD CITY', true ); ?>");
+  			validator.handleResponse(false,form.city);
+  			form.city.focus();
+  			return false;
+		} else if ( form.country.value=="" ) {
+   			alert("<?php echo JText::_( 'ERROR ADD CITY', true ); ?>");
+   			validator.handleResponse(false,form.country);
+   			form.country.focus();
+   			return false;
+  		} else {
   			<?php
 			// JavaScript for extracting editor text
 			echo $this->editor->save( 'locdescription' );
 			?>
 			submitform(pressbutton);
 
-  			}
+			return true;
 		}
+	}
 
-		var tastendruck = false
-		function rechne(restzeichen)
-		{
-			maximum = <?php echo $this->elsettings->datdesclimit; ?>
 
-			if (restzeichen.locdescription.value.length > maximum)
-          	{
-          		restzeichen.locdescription.value = restzeichen.locdescription.value.substring(0, maximum)
-          		links = 0
-          	}
-  			else
-          	{
-        		links = maximum - restzeichen.locdescription.value.length
-         	}
- 			restzeichen.zeige.value = links
-  		}
-		function berechne(restzeichen)
-   		{
-  			tastendruck = true
-  			rechne(restzeichen)
-  		}
-  	//-->
-	</script>
+	var tastendruck = false
+	function rechne(restzeichen)
+	{
+		maximum = <?php echo $this->elsettings->datdesclimit; ?>
 
-	<form enctype="multipart/form-data" name="adminForm" id="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" class="form-validate">
+		if (restzeichen.locdescription.value.length > maximum) {
+          	restzeichen.locdescription.value = restzeichen.locdescription.value.substring(0, maximum)
+          	links = 0
+		} else {
+        	links = maximum - restzeichen.locdescription.value.length
+        }
+ 		restzeichen.zeige.value = links
+  	}
+
+  	function berechne(restzeichen)
+   	{
+  		tastendruck = true
+  		rechne(restzeichen)
+  	}
+</script>
+
+<form enctype="multipart/form-data" name="adminForm" id="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" class="form-validate">
 
 	<table class="adminform" width="100%">
 		<tr>
@@ -82,10 +99,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				</div>
 
 				<div style="float: right;">
-				<button type="button validate" onclick="submitbutton('savevenue')">
+				<button type="button validate" onclick="return submitbutton('savevenue')">
 					<?php echo JText::_('SAVE') ?>
 				</button>
-				<button type="button" onclick="submitbutton('cancelvenue')" />
+				<button type="reset" onclick="return submitbutton('cancelvenue')" />
 					<?php echo JText::_('CANCEL') ?>
 				</button>
 				</div>
@@ -137,16 +154,16 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   			</tr>
 		</table>
 
-		</fieldset>
+	</fieldset>
 
-		<?php
-			if (( $this->elsettings->imageenabled == 2 ) || ($this->elsettings->imageenabled == 1)) {
-		?>
+	<?php
+		if (( $this->elsettings->imageenabled == 2 ) || ($this->elsettings->imageenabled == 1)) {
+	?>
 
-		<fieldset>
-		<legend><?php echo JText::_('IMAGE'); ?></legend>
+	<fieldset>
+	<legend><?php echo JText::_('IMAGE'); ?></legend>
 
-		<table class="adminform" width="100%">
+	<table class="adminform" width="100%">
 		<tr>
 			<td>
 				<?php
@@ -170,14 +187,13 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			<td><?php echo JText::_( 'CURRENT IMAGE' );	?></td>
 			<td><?php echo JText::_( 'SELECTED IMAGE' ); ?></td>
 		</tr>
-		</table>
-		</fieldset>
-		<?php } ?>
+	</table>
+	</fieldset>
+	<?php } ?>
 
-		<fieldset>
-		<legend><?php echo JText::_('DESCRIPTION'); ?></legend>
+	<fieldset>
+	<legend><?php echo JText::_('DESCRIPTION'); ?></legend>
 		<?php
-
 		//wenn usertyp min editor wird editor ausgegeben ansonsten textfeld
 		if ( $this->editoruser ) {
 			echo $this->editor->display('locdescription', $this->row->locdescription, '655', '400', '70', '15', array('pagebreak', 'readmore') );
@@ -192,18 +208,18 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			}
 		?>
 
-		</fieldset>
+	</fieldset>
 
-		<input type="hidden" name="option" value="com_eventlist" />
-		<!--<input type="hidden" name="Itemid" value="<?php echo $this->item->id; ?>" />-->
-		<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
-		<input type="hidden" name="returnview" value="<?php echo $this->returnview; ?>" />
-		<input type="hidden" name="created" value="<?php echo $this->row->created; ?>" />
-		<input type="hidden" name="curimage" value="<?php echo $this->row->locimage; ?>" />
-		<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
-		<!--<input type="hidden" name="task" value="savevenue" />-->
-		<input type="hidden" name="task" value="" />
-	</form>
+	<input type="hidden" name="option" value="com_eventlist" />
+	<!--<input type="hidden" name="Itemid" value="<?php echo $this->item->id; ?>" />-->
+	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
+	<input type="hidden" name="returnview" value="<?php echo $this->returnview; ?>" />
+	<input type="hidden" name="created" value="<?php echo $this->row->created; ?>" />
+	<input type="hidden" name="curimage" value="<?php echo $this->row->locimage; ?>" />
+	<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
+	<!--<input type="hidden" name="task" value="savevenue" />-->
+	<input type="hidden" name="task" value="" />
+</form>
 
 <p class="copyright">
 	<?php echo ELOutput::footer( ); ?>
