@@ -46,10 +46,9 @@ class ELHelper {
 			$elsettings = ELHelper::config();
 
 			$nulldate = '0000-00-00';
-			$query = 'SELECT * FROM #__eventlist_events WHERE DATE_SUB(NOW(), INTERVAL '.$elsettings->minus.' DAY) > (IF (enddates <> '.$nulldate.', enddates, dates)) AND recurrence_number <> "0" AND recurrence_type <> "0" AND (recurrence_counter = "'.$nulldate.'" OR recurrence_counter > "'.date("Y-m-d").'")';
+			$query = 'SELECT * FROM #__eventlist_events WHERE DATE_SUB(NOW(), INTERVAL '.$elsettings->minus.' DAY) > (IF (enddates <> '.$nulldate.', enddates, dates)) AND recurrence_number <> "0" AND recurrence_type <> "0"';
 			$db->SetQuery( $query );
 			$recurrence_array = $db->loadAssocList();
-
 			foreach($recurrence_array as $recurrence_row) {
 				$insert_keys = '';
 				$insert_values = '';
@@ -116,7 +115,6 @@ class ELHelper {
 
 					$new_date = gmdate("Y-m-d", strtotime($year."-".$month."-01 -1 day"));
 					$new_date =gmdate("Y-m-d", strtotime($new_date." next ".$recurrence_weekday));
-//					echo $recurrence_row['enddates']." Hallo";
 
 					if ($recurrence_row['enddates']) {
 						$timediff = (strtotime($recurrence_row['enddates']) - strtotime($recurrence_row['dates']));
@@ -126,35 +124,36 @@ class ELHelper {
 						$recurrence_row['enddates'] = "null";
 					}
 
-					$recurrence_row['dates'] =gmdate("Y-m-d", strtotime($new_date." +".((7 * ($recurrence_number - 1)) + 2)." days"));
+					$recurrence_row['dates'] = gmdate("Y-m-d", strtotime($new_date." +".((7 * ($recurrence_number - 1)) + 2)." days"));
 
 				}
-
-				// create the INSERT query
-				foreach ($recurrence_row as $key => $result) {
-					if ($key != 'id') {
-						if ($insert_keys != '') {
+				if (($recurrence_row['dates'] <= $recurrence_row['recurrence_counter']) || ($recurrence_row['recurrence_counter'] == "0000-00-00")) {
+					// create the INSERT query
+					foreach ($recurrence_row as $key => $result) {
+						if ($key != 'id') {
+							if ($insert_keys != '') {
+								if (!(($result == "" || $result == "null") && $key == "enddates") && !(($result == "" || $result == "null") && $key == "endtimes")) {
+									$wherequery .= ' AND ';
+									$insert_keys .= ', ';
+									$insert_values .= ', ';
+								}
+							}
 							if (!(($result == "" || $result == "null") && $key == "enddates") && !(($result == "" || $result == "null") && $key == "endtimes")) {
-								$wherequery .= ' AND ';
-								$insert_keys .= ', ';
-								$insert_values .= ', ';
+								$insert_keys .= $key;
+								$insert_values .= "'".$result."'";
+								$wherequery .= '`'.$key.'` = "'.$result.'"';
 							}
 						}
-						if (!(($result == "" || $result == "null") && $key == "enddates") && !(($result == "" || $result == "null") && $key == "endtimes")) {
-							$insert_keys .= $key;
-							$insert_values .= "'".$result."'";
-							$wherequery .= '`'.$key.'` = "'.$result.'"';
-						}
 					}
-				}
 
-				$query = 'SELECT id FROM #__eventlist_events WHERE '.$wherequery.';';
-				$db->SetQuery( $query );
-
-				if (count($db->loadAssocList()) == 0) {
-					$query = 'INSERT INTO #__eventlist_events ('.$insert_keys.') VALUES ('.$insert_values.');';
+					$query = 'SELECT id FROM #__eventlist_events WHERE '.$wherequery.';';
 					$db->SetQuery( $query );
-					$db->Query();
+
+					if (count($db->loadAssocList()) == 0) {
+						$query = 'INSERT INTO #__eventlist_events ('.$insert_keys.') VALUES ('.$insert_values.');';
+						$db->SetQuery( $query );
+						$db->Query();
+					}
 				}
 			}
 
