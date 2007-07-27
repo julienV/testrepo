@@ -115,9 +115,13 @@ class EventListModelEditvenue extends JModel
 			$this->_venue->city				= '';
 			$this->_venue->state			= '';
 			$this->_venue->country			= '';
-			$this->_venue->sendernameloc	= '';
-			$this->_venue->sendermailloc	= '';
+			$this->_venue->map				= $elsettings->showmapserv ? 1 : 0;
+			$this->_venue->created			= '';
+			$this->_venue->created_by		= '';
+			$this->_venue->author_ip		= '';
 			$this->_venue->locimage			= '';
+			$this->_venue->meta_keywords	= '';
+			$this->_venue->meta_description	= '';
 
 		}
 
@@ -335,6 +339,9 @@ class EventListModelEditvenue extends JModel
 				$row->locdescription = $row->locdescription.'...';
 			}
 		}
+
+		jimport('joomla.filter.output');
+		$row->venue = trim( JFilterOutput::ampReplace( $row->venue ) );
 
 		//Autopublish
 		//check if the user has the required rank for autopublish

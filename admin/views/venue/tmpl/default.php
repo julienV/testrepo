@@ -168,7 +168,7 @@
 		<?php if ( $this->settings->showmapserv != 0 ) { ?>
 		<tr>
 			<td>
-				<label for="url">
+				<label for="map">
 					<?php echo JText::_( 'ENABLE MAP' ).':'; ?>
 				</label>
 			</td>

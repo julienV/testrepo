@@ -89,14 +89,6 @@ class eventlist_venues extends JTable
 			$this->alias = $alias;
 		}
 
-		if ( $elsettings->showcity == 1 ) {
-			if(!trim($this->city)) {
-        		$this->_error = JText::_( 'ADD CITY');
-        		JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
-        		return false;
-			}
-		}
-
 		if ( $this->map ){
 			if ((!trim($this->street)) || (!trim($this->plz)) || (!trim($this->city)) || (!trim($this->country))) {
 				$this->_error = JText::_( 'ADD ADDRESS');

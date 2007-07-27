@@ -9,6 +9,7 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
+//TODO: Add reoccuring events
 ?>
 
 <script language="javascript" type="text/javascript">
@@ -97,22 +98,7 @@ defined('_JEXEC') or die('Restricted access');
     			validator.handleResponse(false,form.enddates);
   				form.enddates.focus();
   				return false;
-  			}
-			<?php
-			/*
-			 if ( $this->elsettings->showtime == 1 ) {
-			?>
-			if ( !validator.validate(form.times) === false ) {
-    			alert("<?php echo JText::_( 'ADD TIME', true ); ?>");
-    			validator.handleResponse(false,form.times);
-    			form.times.focus();
-    			return false;
-  			}
-  			<?php
-			}
-			*/
-			?>
-  			else if ( validator.validate(form.times) === false ) {
+  			} else if ( validator.validate(form.times) === false ) {
     			alert("<?php echo JText::_( 'TIME WRONG', true ); ?>");
     			validator.handleResponse(false,form.times);
     			form.times.focus();
@@ -236,11 +222,7 @@ defined('_JEXEC') or die('Restricted access');
 			<td><?php echo JText::_( 'ENDDATE' ).':'; ?>
 			</td>
 			<td>
-				<?php if ($this->row->enddates == '0000-00-00') {
-					$this->row->enddates ='';
-				}
-				?>
-				<input class="inputbox validate-date" type="text" name="enddates" id="enddates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" />
+				<input class="inputbox validate-date" type="text" name="enddates" id="enddates" size="15" maxlength="10" value="<?php echo $this->row->enddates; ?>" />
             	<a href="#" onclick="return showCalendar('enddates', 'y-mm-dd');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
 				&nbsp;
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
@@ -270,13 +252,6 @@ defined('_JEXEC') or die('Restricted access');
 				<?php echo JText::_( 'ENDTIME' ).':'; ?>
 			</td>
 			<td>
-				<?php
-				if ($this->row->endtimes == '00:00:00') :
-					$this->row->endtimes = '';
-				else :
-					$this->row->endtimes = substr($this->row->endtimes, 0, 5);
-				endif;
-				?>
 				<input class="inputbox validate-time" name="endtimes" value="<?php echo substr($this->row->endtimes, 0, 5); ?>" size="15" maxlength="8" />&nbsp;
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('ENDTIME HINT'); ?>">
 					<?php echo $this->infoimage; ?>
@@ -368,8 +343,6 @@ defined('_JEXEC') or die('Restricted access');
 
 		</fieldset>
 
-		<!--<input type="hidden" name="option" value="com_eventlist" />-->
-		<!--<input type="hidden" name="Itemid" value="<?php //echo $this->item->id; ?>" />-->
 		<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
 		<input type="hidden" name="returnview" value="<?php echo $this->returnview; ?>" />
 		<input type="hidden" name="created" value="<?php echo $this->row->created; ?>" />
@@ -377,7 +350,6 @@ defined('_JEXEC') or die('Restricted access');
 		<input type="hidden" name="created_by" value="<?php echo $this->row->created_by; ?>" />
 		<input type="hidden" name="curimage" value="<?php echo $this->row->datimage; ?>" />
 		<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
-		<!--<input type="hidden" name="task" value="saveevent" />-->
 		<input type="hidden" name="task" value="" />
 	</form>
 
