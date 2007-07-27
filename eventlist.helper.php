@@ -39,9 +39,16 @@ class ELHelper {
 		$now = time();
 
 		//last update later then 24h?
-		$difference = $now - $lastupdate;
+		//$difference = $now - $lastupdate;
 
-		if ( $difference > 86400 ) {
+		//if ( $difference > 86400 ) {
+
+		//better: new day since last update?
+		$nrdaysnow = floor($now / 86400);
+		$nrdaysupdate = floor($lastupdate / 86400);
+
+		if ( $nrdaysnow > $nrdaysupdate ) {
+
 			$db			= & JFactory::getDBO();
 			$elsettings = ELHelper::config();
 
@@ -49,6 +56,7 @@ class ELHelper {
 			$query = 'SELECT * FROM #__eventlist_events WHERE DATE_SUB(NOW(), INTERVAL '.$elsettings->minus.' DAY) > (IF (enddates <> '.$nulldate.', enddates, dates)) AND recurrence_number <> "0" AND recurrence_type <> "0"';
 			$db->SetQuery( $query );
 			$recurrence_array = $db->loadAssocList();
+
 			foreach($recurrence_array as $recurrence_row) {
 				$insert_keys = '';
 				$insert_values = '';
@@ -61,13 +69,13 @@ class ELHelper {
 				switch ($recurrence_type) {
 					case "1": // dayly
 						$recurrence_name = "days";
-					break;
+						break;
 					case "2": //weekly
 						$recurrence_name = "weeks";
-					break;
+						break;
 					case "3": // monthly
 						$recurrence_name = "months";
-					break;
+						break;
 					case "4": // weekday
 						$recurrence_weekday = "Monday";
 						break;
@@ -128,6 +136,7 @@ class ELHelper {
 
 				}
 				if (($recurrence_row['dates'] <= $recurrence_row['recurrence_counter']) || ($recurrence_row['recurrence_counter'] == "0000-00-00")) {
+
 					// create the INSERT query
 					foreach ($recurrence_row as $key => $result) {
 						if ($key != 'id') {
