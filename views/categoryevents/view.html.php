@@ -34,7 +34,6 @@ class EventListViewCategoryevents extends JView
 		$document 	= & JFactory::getDocument();
 		$menu		= & JMenu::getInstance();
 		$elsettings = ELHelper::config();
-		$live_site 	= $mainframe->getCfg('live_site');
 		$item    	= $menu->getActive();
 		$params 	= & $mainframe->getPageParameters();
 
@@ -147,7 +146,6 @@ class EventListViewCategoryevents extends JView
 		$this->assignRef('dellink' , 				$dellink);
 		$this->assignRef('task' , 					$task);
 		$this->assignRef('catdescription' , 		$catdescription);
-		$this->assignRef('live_site' , 				$live_site);
 		$this->assignRef('link' , 					$link);
 		$this->assignRef('categid' , 				$categid);
 		$this->assignRef('pageNav' , 				$pageNav);
