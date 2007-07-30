@@ -47,7 +47,6 @@ class EventListViewVenueevents extends JView
 		// Request variables
 		$limitstart		= JRequest::getInt('limitstart');
 		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.venueevents.limit', 'limit', $params->def('display_num', 0), 'int');
-		$live_site 		= $mainframe->getCfg('live_site');
 		$locatid		= JRequest::getInt('locatid');
 		$pop			= JRequest::getBool('pop');
 

@@ -183,7 +183,6 @@ class EventListViewImagehandler extends JView  {
 		$elsettings = ELAdmin::config();
 
 		//get vars
-		$live_site 	= $mainframe->getCfg('live_site');
 		$template	= $mainframe->getTemplate();
 		$task 		= JRequest::getVar( 'task' );
 

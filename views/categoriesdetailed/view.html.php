@@ -39,7 +39,6 @@ class EventListViewCategoriesdetailed extends JView
 		$params 	= & $mainframe->getPageParameters();
 
 		//get vars
-		$live_site		= $mainframe->getCfg('live_site');
 		$limitstart		= JRequest::getInt('limitstart');
 		$limit			= JRequest::getInt('limit', $params->get('cat_num'));
 		$pathway 		= & $mainframe->getPathWay();
@@ -74,7 +73,7 @@ class EventListViewCategoriesdetailed extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = $live_site. '/index.php?option=com_eventlist&amp;Itemid='. $item->id .'&amp;pop=1&amp;tmpl=component';
+		$print_link = JRoute::_( 'index.php?option=com_eventlist&view=categoriesdetailed&pop=1&tmpl=component' );
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
@@ -83,11 +82,11 @@ class EventListViewCategoriesdetailed extends JView
 		if ($maintainer || $genaccess ) $dellink = 1;
 
 		//add alternate feed link
-		$link    = 'feed.php?option=com_eventlist&view=eventlist';
+		$link    = 'index.php?option=com_eventlist&view=eventlist&format=feed';
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
-		$document->addHeadLink($link.'&format=rss', 'alternate', 'rel', $attribs);
+		$document->addHeadLink(JRoute::_($link.'&type=rss'), 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
-		$document->addHeadLink($link.'&format=atom', 'alternate', 'rel', $attribs);
+		$document->addHeadLink(JRoute::_($link.'&type=atom'), 'alternate', 'rel', $attribs);
 
 
 		// Create the pagination object
@@ -103,7 +102,6 @@ class EventListViewCategoriesdetailed extends JView
 		$this->assignRef('params' , 				$params);
 		$this->assignRef('dellink' , 				$dellink);
 		$this->assignRef('item' , 					$item);
-		$this->assignRef('live_site' , 				$live_site);
 		$this->assignRef('model' , 					$model);
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('page' , 					$page);
