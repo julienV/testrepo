@@ -134,7 +134,7 @@ class ELOutput {
 	 * @param int $id
 	 * @param array $params
 	 * @param int $allowedtoedit
-	 * @param string $task
+	 * @param string $view
 	 * @since 0.9
 	 */
 	function editbutton( $Itemid, $id, &$params, $allowedtoedit, $view)
@@ -181,7 +181,6 @@ class ELOutput {
 	 *
 	 * @param string $print_link
 	 * @param array $params
-	 * @param int $pop
 	 * @since 0.9
 	 */
 	function printbutton( $print_link, &$params )
@@ -218,7 +217,6 @@ class ELOutput {
 	 *
 	 * @param string $print_link
 	 * @param array $params
-	 * @param int $pop
 	 * @since 0.9
 	 */
 	function mailbutton($params)
