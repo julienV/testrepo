@@ -41,13 +41,9 @@ class ELOutput {
 	**/
 	function submitbutton( $dellink, &$params, $view )
 	{
-		$document =& JFactory::getDocument();
-		JHTML::_('behavior.tooltip');
-
 		if ($dellink == 1) {
 
-			$document->addScript('includes/js/joomla/modal.js');
-			$document->addStyleSheet('includes/js/joomla/modal.css');
+			JHTML::_('behavior.tooltip');
 
 			if ( $params->get('icons') ) {
 				$image = JHTML::_('image.site', 'submitevent.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'DELIVER NEW EVENT' ), JText::_( 'DELIVER NEW EVENT' ) );
@@ -78,9 +74,10 @@ class ELOutput {
 	*/
 	function archivebutton( $oldevent, &$params, $task = NULL, $categid = NULL )
 	{
-		JHTML::_('behavior.tooltip');
 
 		if ( $oldevent == 2 ) {
+
+			JHTML::_('behavior.tooltip');
 
 			switch ($task) {
 				case 'archive':
@@ -143,13 +140,9 @@ class ELOutput {
 	function editbutton( $Itemid, $id, &$params, $allowedtoedit, $view)
 	{
 
-		$document =& JFactory::getDocument();
-		JHTML::_('behavior.tooltip');
-
 		if ( $allowedtoedit ) {
 
-			$document->addScript('includes/js/joomla/modal.js');
-			$document->addStyleSheet('includes/js/joomla/modal.css');
+			JHTML::_('behavior.tooltip');
 
 			switch ($view)
 			{
@@ -231,7 +224,8 @@ class ELOutput {
 	function mailbutton($params)
 	{
 		if ($params->get('show_email_icon')) 	{
-			$url 	= 'index.php?option=com_mailto&tmpl=component&link='.base64_encode( JRequest::getURI());
+
+			$url 	= 'index.php?option=com_mailto&tmpl=component&link='.base64_encode( JRequest::getURI() );
 			$status = 'width=400,height=300,menubar=yes,resizable=yes';
 
 			if ($params->get('icons')) 	{
