@@ -55,8 +55,7 @@ class EventListViewVenuesview extends JView
 
 		//Add needed scripts if the lightbox effect is enabled
 		if ($elsettings->lightbox == 1) {
-  			$document->addScript('components/com_eventlist/assets/js/slimbox.js');
-  			$document->addStyleSheet('components/com_eventlist/assets/css/slimbox.css', 'text/css', 'screen');
+  			JHTML::_('behavior.modal');
 		}
 
 		//add alternate feed link
