@@ -95,21 +95,6 @@ function EventListParseRoute($segments)
 	//Handle View and Identifier
 	switch($segments[0])
 	{
-		case 'category':
-		{
-			if(isset($segments[2])) {
-				$cid = explode(':', $segments[2]);
-				$vars['layout'] = $segments[1];
-			} else {
-				$cid = explode(':', $segments[1]);
-			}
-			$vars['cid'] = $cid[0];
-			$vars['view'] = 'category';
-
-			//temp
-	//		$vars['task'] = $segments[1];
-		} break;
-
 		case 'categoryevents':
 		{
 			$categid = explode(':', $segments[1]);
