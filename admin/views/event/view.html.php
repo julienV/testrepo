@@ -175,7 +175,6 @@ class EventListViewEvent extends JView {
 
 		//get vars
 		$url 			= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
-		$live_site		= $mainframe->getCfg('live_site');
 
 		//add css and js to document
 		$document->addScript('../includes/js/joomla/popup.js');
@@ -203,8 +202,7 @@ class EventListViewEvent extends JView {
 		//set published
 		$published = 1;
 
-		//create the toolbar
-		$this->assignRef('live_site' 	, $live_site);
+		//assign to template
 		$this->assignRef('editor'      	, $editor);
 		$this->assignRef('imageselect' 	, $imageselect);
 		$this->assignRef('published' 	, $published);

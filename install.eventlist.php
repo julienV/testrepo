@@ -19,7 +19,6 @@ function com_install() {
 	global $mainframe;
 
 	$db 		= & JFactory::getDBO();
-	$live_site 	= $mainframe->getCfg('live_site');
 
 	jimport( 'joomla.filesystem.folder' )
 ?>
@@ -28,7 +27,7 @@ function com_install() {
 <table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 	<tr>
 		<td valign="top">
-    		<img src="<?php echo $live_site.'/administrator/components/com_eventlist/assets/images/evlogo.png'; ?>" height="108" width="250" alt="Event List Logo" align="left">
+    		<img src="<?php echo 'components/com_eventlist/assets/images/evlogo.png'; ?>" height="108" width="250" alt="EventList Logo" align="left">
 		</td>
 		<td valign="top" width="100%">
        	 	<strong>EventList</strong><br/>

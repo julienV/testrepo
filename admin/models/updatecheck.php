@@ -47,7 +47,6 @@ class EventListModelUpdatecheck extends JModel
 	 */
 	function getUpdatedata()
 	{
-		global $mainframe;
 
 		$elsettings = ELAdmin::config();
 
@@ -59,7 +58,6 @@ class EventListModelUpdatecheck extends JModel
 		$file = 'http://update.schlu.net/elupdate.php';
 
 		$snoopy->read_timeout 	= 30;
-		$snoopy->referer 		= $mainframe->getCfg('live_site');
 		$snoopy->agent 			= "Mozilla/5.0 (compatible; Konqueror/3.2; Linux 2.6.2) (KHTML, like Gecko)";
 
 		$snoopy->fetch($file);
