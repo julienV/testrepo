@@ -28,7 +28,7 @@ class EventListViewVenuesview extends JView
 	 */
 	function display( $tpl = null )
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		$document 	= & JFactory::getDocument();
 		$elsettings = ELHelper::config();
