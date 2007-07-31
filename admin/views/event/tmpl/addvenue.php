@@ -8,9 +8,18 @@
 		if (form.venue.value == ""){
 			alert( "<?php echo JText::_( 'ADD VENUE' ); ?>" );
 			form.venue.focus();
-		} else if (form.city.value == ""){
+		} else if (form.city.value == "" && form.map.value == "1"){
 			alert( "<?php echo JText::_( 'ADD CITY' ); ?>" );
 			form.city.focus();
+		} else if (form.street.value == "" && form.map.value == "1"){
+			alert( "<?php echo JText::_( 'ADD STREET' ); ?>" );
+			form.street.focus();
+		} else if (form.plz.value == "" && form.map.value == "1"){
+			alert( "<?php echo JText::_( 'ADD ZIP' ); ?>" );
+			form.plz.focus();
+		} else if (form.country.value == "" && form.map.value == "1"){
+			alert( "<?php echo JText::_( 'ADD COUNTRY' ); ?>" );
+			form.country.focus();
 		} else {
 			<?php
 			echo $this->editor->save( 'locdescription' );
@@ -139,6 +148,24 @@ $infoimage = JHTML::_('image.site', 'icon-16-hint.png', '../components/com_event
 				</span>
     		</td>
   		</tr>
+  		<?php if ( $this->elsettings->showmapserv != 0 ) { ?>
+		<tr>
+			<td>
+				<label for="map">
+					<?php echo JText::_( 'ENABLE MAP' ).':'; ?>
+				</label>
+			</td>
+			<td>
+				<?php
+          			echo JHTML::_('select.booleanlist', 'map', 'class="inputbox"', 0 );
+          		?>
+          		&nbsp;
+          		<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('ADDRESS NOTICE'); ?>">
+					<?php echo $infoimage; ?>
+				</span>
+			</td>
+		</tr>
+		<?php } ?>
 	</table>
 </fieldset>
 

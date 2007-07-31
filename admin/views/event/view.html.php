@@ -172,30 +172,30 @@ class EventListViewEvent extends JView {
 		$editor 	= & JFactory::getEditor();
 		$document	= & JFactory::getDocument();
 		$uri 		= & JFactory::getURI();
+		$elsettings = ELAdmin::config();
 
 		//get vars
 		$url 			= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
 
 		//add css and js to document
-		$document->addScript('../includes/js/joomla/popup.js');
-		$document->addStyleSheet('../includes/js/joomla/popup.css');
+		JHTML::_('behavior.modal', 'a.modal');
 
 		//Build the image select functionality
 		$js = "
 		function elSelectImage(image, imagename) {
 			document.getElementById('a_image').value = image;
 			document.getElementById('a_imagename').value = imagename;
-			document.popup.hide();
+			document.getElementById('sbox-window').close();
 		}";
 
 		$link = 'index.php?option=com_eventlist&amp;view=imagehandler&amp;layout=uploadimage&amp;task=venueimg&amp;tmpl=component';
 		$link2 = 'index.php?option=com_eventlist&amp;view=imagehandler&amp;task=selectvenueimg&amp;tmpl=component';
 		$document->addScriptDeclaration($js);
-		$document->addScript($url.'includes/js/joomla/modal.js');
-		$document->addStyleSheet($url.'includes/js/joomla/modal.css');
 		$imageselect = "\n<input style=\"background: #ffffff;\" type=\"text\" id=\"a_imagename\" value=\"".JText::_('SELECTIMAGE')."\" disabled=\"disabled\" onchange=\"javascript:if (document.forms[0].a_imagename.value!='') {document.imagelib.src='../images/eventlist/events/' + document.forms[0].a_imagename.value} else {document.imagelib.src='../images/blank.png'}\"; /><br />";
-		$imageselect .= "\n<input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link', 650, 400, null);\" value=\"".JText::_('Upload')."\" />";
-		$imageselect .= "\n&nbsp;<input class=\"inputbox\" type=\"button\" onclick=\"document.popup.show('$link2', 650, 400, null);\" value=\"".JText::_('SELECTIMAGE')."\" />";
+
+		$imageselect .= "<div class=\"button2-left\"><div class=\"blank\"><a class=\"modal\" title=\"".JText::_('Upload')."\" href=\"$link\" rel=\"{handler: 'iframe', size: {x: 650, y: 375}}\">".JText::_('Upload')."</a></div></div>\n";
+		$imageselect .= "<div class=\"button2-left\"><div class=\"blank\"><a class=\"modal\" title=\"".JText::_('SELECTIMAGE')."\" href=\"$link2\" rel=\"{handler: 'iframe', size: {x: 650, y: 375}}\">".JText::_('SELECTIMAGE')."</a></div></div>\n";
+
 		$imageselect .= "\n&nbsp;<input class=\"inputbox\" type=\"button\" onclick=\"elSelectImage('', '".JText::_('SELECTIMAGE')."' );\" value=\"".JText::_('Reset')."\" />";
 		$imageselect .= "\n<input type=\"hidden\" id=\"a_image\" name=\"locimage\" value=\"".JText::_('SELECTIMAGE')."\" />";
 
@@ -207,6 +207,7 @@ class EventListViewEvent extends JView {
 		$this->assignRef('imageselect' 	, $imageselect);
 		$this->assignRef('published' 	, $published);
 		$this->assignRef('request_url'	, $uri->toString());
+		$this->assignRef('elsettings'	, $elsettings);
 
 		parent::display($tpl);
 	}
