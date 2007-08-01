@@ -15,6 +15,7 @@
 	<filename>controller.php</filename>
 	<filename>eventlist.helper.php</filename>
 	<filename>router.php</filename>
+	<filename>LICENCE.php</filename>
 	<folder>classes</folder>
 	<folder>assets</folder>
 	<folder>models</folder>

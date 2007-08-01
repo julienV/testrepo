@@ -1,10 +1,23 @@
-<?php 
+<?php
 /**
  * @version 0.9 $Id$
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @license GNU/GPL, see LICENCE.php
+ * EventList is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+
+ * EventList is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with EventList; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
 // no direct access
@@ -15,11 +28,11 @@ jimport( 'joomla.application.component.view');
 /**
  * HTML View class for the EventList View
  *
- * @package Joomla 
+ * @package Joomla
  * @subpackage EventList
  * @since 0.9
  */
-class EventListViewEventList extends JView 
+class EventListViewEventList extends JView
 {
 	/**
 	 * Creates the Event Feed
@@ -44,11 +57,11 @@ class EventListViewEventList extends JView
 			// strip html from feed item title
 			$title = htmlspecialchars( $row->title );
 			$title = html_entity_decode( $title );
-			
+
 			// strip html from feed item category
 			$category = htmlspecialchars( $row->catname );
 			$category = html_entity_decode( $category );
-			
+
 			//Format date
 			$date = strftime( $elsettings->formatdate, strtotime( $row->dates ));
 			if (!$row->enddates) {
@@ -57,12 +70,12 @@ class EventListViewEventList extends JView
 				$enddate 	= strftime( $elsettings->formatdate, strtotime( $row->enddates ));
 				$displaydate = $date.' - '.$enddate;
 			}
-			
+
 			//Format time
 			if ($row->times) {
 				$time = strftime( $elsettings->formattime, strtotime( $row->times ));
 				$time = $time.' '.$elsettings->timename;
-				$displaytime = $time;	
+				$displaytime = $time;
 			}
 			if ($row->endtimes) {
 				$endtime = strftime( $elsettings->formattime, strtotime( $row->endtimes ));
@@ -82,9 +95,9 @@ class EventListViewEventList extends JView
 			$description .= JText::_( 'DATE' ).': '.$displaydate.'<br />';
 			$description .= JText::_( 'TIME' ).': '.$displaytime.'<br />';
 			$description .= JText::_( 'DESCRIPTION' ).': '.$row->datdescription;
-			
+
 			@$created = ( $row->created ? date( 'r', strtotime($row->created) ) : '' );
-			
+
 			// load individual item creator class
 			$item = new JFeedItem();
 			$item->title 		= $title;
