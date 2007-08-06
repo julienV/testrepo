@@ -30,12 +30,6 @@ function EventListBuildRoute(&$query)
 		unset($query['view']);
 	}
 
-	if(isset($query['layout']))
-	{
-		$segments[] = $query['layout'];
-		unset($query['layout']);
-	}
-
 	if(isset($query['did']))
 	{
 		$segments[] = $query['did'];
@@ -54,7 +48,6 @@ function EventListBuildRoute(&$query)
 		unset($query['cid']);
 	};
 
-	//Deprecated
 	if(isset($query['categid']))
 	{
 		$segments[] = $query['categid'];
@@ -84,19 +77,6 @@ function EventListBuildRoute(&$query)
 		$segments[] = $query['returnview'];
 		unset($query['returnview']);
 	};
-/*
-	if(isset($query['pop']))
-	{
-		$segments[] = $query['pop'];
-		unset($query['pop']);
-	};
-
-	if(isset($query['tmpl']))
-	{
-		$segments[] = $query['tmpl'];
-		unset($query['tmpl']);
-	};
-*/
 
 	return $segments;
 }
