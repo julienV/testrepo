@@ -50,6 +50,9 @@ class EventListViewEventList extends JView
 		$item    	= $menu->getActive();
 		$params 	= & $mainframe->getPageParameters();
 
+		//print_r($params);
+		//$mainframe->close();
+
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );
 
@@ -58,8 +61,11 @@ class EventListViewEventList extends JView
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
 
 		// get variables
-		$limitstart		= JRequest::getInt('limitstart');
-		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0), 'int');
+	//	$limitstart		= JRequest::getInt('limitstart');
+	//	$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0), 'int');
+		$limitstart	= JRequest::getVar('limitstart', 0, '', 'int');
+		$limit		= JRequest::getVar('limit', $params->get('display_num'), '', 'int');
+
 		$pop			= JRequest::getBool('pop');
 		$pathway 		= & $mainframe->getPathWay();
 
