@@ -24,7 +24,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 
 <div id="eventlist" class="el_catdetails">
-<span class="buttons">
+<p class="buttons">
 	<?php
 		if ( !$this->params->get( 'popup' ) ) : //don't show in printpopup
 			echo ELOutput::submitbutton( $this->dellink, $this->params, 'categoriesdetailed' );
@@ -32,7 +32,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		endif;
 		echo ELOutput::printbutton( $this->print_link, $this->params );
 	?>
-</span>
+</p>
 
 <?php if ($this->params->get('show_page_title')) : ?>
 
@@ -85,13 +85,10 @@ echo $this->loadTemplate('table');
 
 endforeach;
 ?>
-</div>
-
 
 <!--pagination-->
 
 <?php if (( $this->page > 0 ) ) : ?>
-
 <p class="pageslinks">
 	<?php echo $this->pageNav->getPagesLinks($this->link); ?>
 </p>
@@ -107,3 +104,4 @@ endforeach;
 <p class="copyright">
 	<?php echo ELOutput::footer( ); ?>
 </p>
+</div> 
