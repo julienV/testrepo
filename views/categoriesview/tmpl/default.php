@@ -23,13 +23,13 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
-<div id="eventlist" class="el_catview">
-<span class="buttons">
+<div id="eventlist" class="el_categoriesview">
+<p class="buttons">
 	<?php
 		echo ELOutput::submitbutton( $this->dellink, $this->params, 'categoriesview' );
 		echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params, $this->task );
 	?>
-</span>
+</p>
 
 <?php if ($this->params->def( 'show_page_title', 1 )) : ?>
 	<h1 class="componentheading">
@@ -88,7 +88,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 </div>
 <?php endforeach; ?>
-</div>
 
 <!--pagination-->
 
@@ -109,3 +108,4 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <p class="copyright">
 	<?php echo ELOutput::footer( ); ?>
 </p>
+</div> 

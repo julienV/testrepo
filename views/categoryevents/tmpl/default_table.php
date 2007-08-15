@@ -35,7 +35,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	}
 </script>
 
-<form action="<?php echo JRoute::_('index.php') ?>" method="post" name="adminForm">
+<form class="table" action="<?php echo JRoute::_('index.php') ?>" method="post" name="adminForm">
 
 <?php if ($this->params->get('filter') || $this->params->get('display')) : ?>
 <table width="<?php echo $this->elsettings->tablewidth; ?>" border="0" cellspacing="0" cellpadding="0" summary="eventlist">

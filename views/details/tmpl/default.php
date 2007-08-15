@@ -23,24 +23,19 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
-
-<p class="buttons">
-		<?php echo ELOutput::mailbutton( $this->params ); ?>
-		<?php echo ELOutput::printbutton( $this->print_link, $this->params ); ?>
-</p>
+<div id="eventlist" class="event_id<?php echo $this->row->did; ?> el_details">
+	<p class="buttons">
+			<?php echo ELOutput::mailbutton( $this->params ); ?>
+			<?php echo ELOutput::printbutton( $this->print_link, $this->params ); ?>
+	</p>
 
 <?php if ($this->params->def( 'show_page_title', 1 )) : ?>
-
-	<h1 class="componentheading floattext">
-
+	<h1 class="componentheading">
 		<?php echo $this->params->get('page_title'); ?>
-
 	</h1>
-
 <?php endif; ?>
 
 <!-- Details EVENT -->
-<div id="eventlist" class="event_id<?php echo $this->row->did; ?> el_details">
 	<h2 class="eventlist">
 		<?php
     	echo JText::_( 'EVENT' );
@@ -196,8 +191,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	<?php endif; ?>
 
-</div>
-
 <p class="copyright">
 	<?php echo ELOutput::footer( ); ?>
 </p>
+</div> 

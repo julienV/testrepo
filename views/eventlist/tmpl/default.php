@@ -22,7 +22,7 @@
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
-
+<div id="eventlist" class="el_list">
 <p class="buttons">
 	<?php
 		if ( !$this->params->get( 'popup' ) ) : //don't show in printpopup
@@ -36,7 +36,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <?php if ($this->params->def( 'show_page_title', 1 )) : ?>
 
-    <h1 class='componentheading'>
+    <h1 class="componentheading">
 		<?php echo $this->params->get('page_title'); ?>
 	</h1>
 
@@ -75,3 +75,5 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <p class="copyright">
 	<?php echo ELOutput::footer( ); ?>
 </p>
+
+</div>

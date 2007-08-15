@@ -23,8 +23,8 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
-
-<span class="buttons">
+<div id="eventlist" class="el_venuesview">
+<p class="buttons">
 	<?php
 		if ( !$this->params->get( 'popup' ) ) : //don't show in printpopup
 			echo ELOutput::submitbutton( $this->dellink, $this->params, 'venueevents' );
@@ -32,17 +32,14 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 		echo ELOutput::printbutton( $this->print_link, $this->params );
 	?>
-</span>
+</p>
 
 <?php if ($this->params->def('show_page_title', 1)) : ?>
-
 	<h1 class='componentheading'>
 		<?php echo $this->params->get('page_title'); ?>
 	</h1>
-
 <?php endif; ?>
 
-<div id="eventlist" class="el_venue">
 <!--Venue-->
 
 <?php foreach($this->rows as $row) : ?>
@@ -129,7 +126,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<?php endif; ?>
 	</dl>
 	<?php endforeach; ?>
-</div>
 
 <!--pagination-->
 <?php if (( $this->page > 0 ) && ( !$this->params->get( 'popup' ) )) : ?>
@@ -146,3 +142,4 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <p class="copyright">
 	<?php echo ELOutput::footer( ); ?>
 </p>
+</div>

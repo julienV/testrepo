@@ -23,7 +23,7 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
-
+<div id="eventlist" class="el_categoryevents">
 <p class="buttons">
 	<?php
 		if ( !$this->params->get( 'popup' ) ) : //don't show in printpopup
@@ -44,29 +44,22 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	</h1>
 
 <?php endif; ?>
-
-<div class="clear"></div>
+<br class="clear" />
 
 <div class="catimg">
-
 	<?php if ($this->category->image != '') : ?>
 		<img src="<?php echo 'images/stories/'.$this->category->image ; ?>" name="image" width="<?php echo $this->elsettings->imagewidth; ?>" height="<?php echo $this->elsettings->imagehight; ?>" border="0" alt="<?php echo $this->category->catname; ?>" />
 	<?php else :
 		echo JHTML::_('image.site', 'noimage.png', '/components/com_eventlist/assets/images/', NULL, NULL, $category->catname );
 		endif;
 	?>
-
 </div>
 
 <div class="catdescription">
-
-		<?php echo $this->catdescription; ?>
-
+	<?php echo $this->catdescription; ?>
 </div>
 
-<div class="clear"></div>
-
-<br />
+<br class="clear" />
 
 <!--table-->
 
@@ -98,3 +91,4 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <p class="copyright">
 	<?php echo ELOutput::footer( ); ?>
 </p>
+</div>
