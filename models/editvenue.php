@@ -333,11 +333,8 @@ class EventListModelEditvenue extends JModel
 			//check datdescription --> wipe out code
 			$row->locdescription = strip_tags($row->locdescription, '<br />');
 
-			//convert all linebreaks in the linux \n (Mac \r, Win \r\n)
-			$row->locdescription = ereg_replace('(\r\n|\n|\r)', '\n', $row->locdescription);
-
-			//convert \n to <br />
-			$row->locdescription = nl2br($row->locdescription);
+			//convert the linux \n (Mac \r, Win \r\n) to <br /> linebreaks
+			$row->locdescription = str_replace(array("\r\n", "\r", "\n"), "<br />", $row->locdescription);
 
 			//cut too long words
 			$row->locdescription = wordwrap($row->locdescription, 75, " ", 1);

@@ -600,11 +600,8 @@ class EventListModelEditevent extends JModel
 			//check datdescription --> wipe out code
 			$row->datdescription = strip_tags($row->datdescription, '<br />');
 
-			//convert all linebreaks in the linux \n (Mac \r, Win \r\n)
-			$row->datdescription = ereg_replace('(\r\n|\n|\r)', '\n', $row->datdescription);
-
-			//convert \n to <br />
-			$row->datdescription = nl2br($row->datdescription);
+			//convert the linux \n (Mac \r, Win \r\n) to <br /> linebreaks
+			$row->datdescription = str_replace(array("\r\n", "\r", "\n"), "<br />", $row->datdescription);
 
 			// cut too long words
 			$row->datdescription = wordwrap($row->datdescription, 75, ' ', 1);
