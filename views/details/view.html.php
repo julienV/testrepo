@@ -227,7 +227,7 @@ class EventListViewDetails extends JView
         $document->setDescription( strip_tags($description_content) );
 
         //build the url
-        if(strtolower(substr($row->url, 0, 7)) != "http://") {
+        if(!empty($row->url) && strtolower(substr($row->url, 0, 7)) != "http://") {
         	$row->url = 'http://'.$row->url;
         }
 

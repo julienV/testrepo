@@ -135,7 +135,7 @@ class EventListViewVenueevents extends JView
 		}
 
 		//build the url
-        if(strtolower(substr($venue->url, 0, 7)) != "http://") {
+        if(!empty($venue->url) && strtolower(substr($venue->url, 0, 7)) != "http://") {
         	$venue->url = 'http://'.$venue->url;
         }
 

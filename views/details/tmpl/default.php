@@ -69,19 +69,19 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		    <dd class="where">
     		<?php if (($this->elsettings->showdetlinkvenue == 1) && (!empty($this->row->url))) : ?>
 
-			    <a href="<?php echo $this->row->url; ?>" target="_blank"> <?php echo $this->row->venue; ?></a>
+			    <a href="<?php echo $this->row->url; ?>" target="_blank"><?php echo $this->row->venue; ?></a> -
 
 			<?php elseif ($this->elsettings->showdetlinkvenue == 2) : ?>
 
-			    <a href="<?php echo JRoute::_( 'index.php?view=venueevents&locatid='.$this->row->venueslug ); ?>"><?php echo $this->row->venue; ?></a>
+			    <a href="<?php echo JRoute::_( 'index.php?view=venueevents&locatid='.$this->row->venueslug ); ?>"><?php echo $this->row->venue; ?></a> -
 
 			<?php elseif ($this->elsettings->showdetlinkvenue == 0) :
 
-				echo $this->row->venue;
+				echo $this->row->venue.' - ';
 
 			endif;
 
-			?> - <?php echo $this->row->city; ?>
+			echo $this->row->city; ?>
 
 			</dd>
 
@@ -194,4 +194,4 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <p class="copyright">
 	<?php echo ELOutput::footer( ); ?>
 </p>
-</div> 
+</div>
