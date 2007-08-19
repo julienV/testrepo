@@ -141,7 +141,7 @@ class EventListModelVenue extends JModel
 			$venue->state				= null;
 			$venue->country				= null;
 			$venue->locimage			= JText::_('SELECTIMAGE');
-			$venue->map					= 0;
+			$venue->map					= 1;
 			$venue->published			= 1;
 			$venue->locdescription		= null;
 			$venue->meta_keywords		= null;
