@@ -679,7 +679,7 @@ class EventListModelEditevent extends JModel
 		//create the mail for the site owner
 		if (($elsettings->mailinform == 1) || ($elsettings->mailinform == 3)) {
 
-			$mail = new JMail();
+			$mail = JFactory::getMailer();
 
 			$state 	= $row->published ? JText::sprintf('MAIL EVENT PUBLISHED', $link) : JText::_('MAIL EVENT UNPUBLISHED');
 
@@ -711,7 +711,7 @@ class EventListModelEditevent extends JModel
 		//create the mail for the user
 		if (($elsettings->mailinformuser == 1) || ($elsettings->mailinformuser == 3)) {
 
-			$usermail = new JMail();
+			$usermail = JFactory::getMailer();
 
 			$state 	= $row->published ? JText::sprintf('USER MAIL EVENT PUBLISHED', $link) : JText::_('USER MAIL EVENT UNPUBLISHED');
 

@@ -388,7 +388,7 @@ class EventListModelEditvenue extends JModel
 		//create mail
 		if (($elsettings->mailinform == 2) || ($elsettings->mailinform == 3)) {
 
-			$mail = new JMail();
+			$mail = JFactory::getMailer();
 
 			$state 	= $row->published ? JText::sprintf('MAIL VENUE PUBLISHED', $link) : JText::_('MAIL VENUE UNPUBLISHED');
 
@@ -419,7 +419,7 @@ class EventListModelEditvenue extends JModel
 		//create the mail for the user
 		if (($elsettings->mailinformuser == 2) || ($elsettings->mailinformuser == 3)) {
 
-			$usermail = new JMail();
+			$usermail = JFactory::getMailer();
 
 			$state 	= $row->published ? JText::sprintf('USER MAIL VENUE PUBLISHED', $link) : JText::_('USER MAIL VENUE UNPUBLISHED');
 
