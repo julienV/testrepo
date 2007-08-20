@@ -306,7 +306,61 @@ defined('_JEXEC') or die('Restricted access');
 	</table>
 	</fieldset>
 	<?php endif;//registration end ?>
+	<fieldset>
+	<legend><?php echo JText::_('RECURRENCE'); ?></legend>
+	<table width="100%">
+					<tr>
+						<td width="50%"><?php echo JText::_( 'RECURRENCE' ); ?>:</td>
+						<td width="50%">
+						  <select id="recurrence_select" name="recurrence_select" size="1">
+						    <option value="0"><?php echo JText::_( 'NOTHING' ); ?></option>
+						    <option value="1"><?php echo JText::_( 'DAYLY' ); ?></option>
+						    <option value="2"><?php echo JText::_( 'WEEKLY' ); ?></option>
+						    <option value="3"><?php echo JText::_( 'MONTHLY' ); ?></option>
+						    <option value="4"><?php echo JText::_( 'WEEKDAY' ); ?></option>
+						  </select>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" id="recurrence_output">&nbsp;</td>
+					</tr>
+					<tr id="counter_row" style="display:none;">
+						<td><?php echo JText::_( 'RECURRENCE COUNTER' ); ?>:</td>
+						<td>
+							<input class="inputbox" type="text" name="recurrence_counter" id="recurrence_counter" size="15" maxlength="10" value="<?php echo ($this->row->recurrence_counter)? $this->row->recurrence_counter: "0000-00-00"; ?>" />
+					        <a href="#" onclick="return showCalendar('recurrence_counter', 'y-mm-dd');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
+					        <span class="editlinktip hasTip" title="<?php echo JText::_('FORMAT DATE'); ?>::<?php echo JText::_('RECURRENCE COUNTER TIP'); ?>">
+								<?php echo $this->infoimage; ?>
+							</span>
+						</td>
+					<tr>
+					<tr>
+						<td><br/></td>
+					</tr>
+				</table>
+				<br/>
+			<input type="hidden" name="recurrence_number" id="recurrence_number" value="<?php echo $this->row->recurrence_number; ?>" />
+			<input type="hidden" name="recurrence_type" id="recurrence_type" value="<?php echo $this->row->recurrence_type; ?>" />
+			<script type="text/javascript">
+			<!--
+				var $select_output = new Array();
+				$select_output[1] = "<?php echo JText::_( 'OUTPUT DAY' ); ?>";
+				$select_output[2] = "<?php echo JText::_( 'OUTPUT WEEK' ); ?>";
+				$select_output[3] = "<?php echo JText::_( 'OUTPUT MONTH' ); ?>";
+				$select_output[4] = "<?php echo JText::_( 'OUTPUT WEEKDAY' ); ?>";
 
+				var $weekday = new Array();
+				$weekday[0] = "<?php echo JText::_( 'MONDAY' ); ?>";
+				$weekday[1] = "<?php echo JText::_( 'TUESDAY' ); ?>";
+				$weekday[2] = "<?php echo JText::_( 'WEDNESDAY' ); ?>";
+				$weekday[3] = "<?php echo JText::_( 'THURSDAY' ); ?>";
+				$weekday[4] = "<?php echo JText::_( 'FRIDAY' ); ?>";
+				$weekday[5] = "<?php echo JText::_( 'SATURDAY' ); ?>";
+				$weekday[6] = "<?php echo JText::_( 'SUNDAY' ); ?>";
+				start_recurrencescript();
+			-->
+			</script>
+		</fieldset>
 
 	<?php if (( $this->elsettings->imageenabled == 2 ) || ($this->elsettings->imageenabled == 1)) : ?>
 	<fieldset>
@@ -338,7 +392,6 @@ defined('_JEXEC') or die('Restricted access');
 		</table>
 		</fieldset>
 		<?php endif; ?>
-
 		<fieldset>
 		<legend><?php echo JText::_('DESCRIPTION'); ?></legend>
 
