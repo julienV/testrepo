@@ -122,15 +122,23 @@ class eventlist_events extends JTable
 			}
 		//}
 
-		if ($row->enddates != 0) {
-			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $row->enddates)) {
+		if (isset($this->enddates)) {
+			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $this->enddates)) {
 				$this->_error = JText::_( 'ENDDATE WRONG FORMAT');
 				JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
 				return false;
 			}
 		}
 
-		if (($elsettings->showtime == 1) || (!empty($this->times))) {
+		if (isset($this->recurrence_counter)) {
+			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $this->recurrence_counter)) {
+	 		     	$this->_error = JText::_( 'DATE WRONG' );
+	 		     	JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
+	 		     	return false;
+			}
+		}
+
+		if ($elsettings->showtime == 1 || !empty($this->times)) {
 			if (isset($this->times)) {
    				if (!preg_match("/^[0-2][0-9]:[0-5][0-9]$/", $this->times)) {
       				$this->_error = JText::_( 'TIME WRONG' );
@@ -139,12 +147,6 @@ class eventlist_events extends JTable
 	  			}
 			}
 		}
-
-		if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $this->recurrence_counter)) {
-	 	     	$this->_error = JText::_( 'DATE WRONG' );
-	 	     	JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
-	 	     	return false;
-			}
 
 		if ($this->endtimes != 0) {
    			if (!preg_match("/^[0-2][0-9]:[0-5][0-9]$/", $this->endtimes)) {
