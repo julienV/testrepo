@@ -148,7 +148,7 @@ class eventlist_events extends JTable
 			}
 		}
 
-		if ($this->endtimes != 0) {
+		if (isset($this->endtimes)) {
    			if (!preg_match("/^[0-2][0-9]:[0-5][0-9]$/", $this->endtimes)) {
       			$this->_error = JText::_( 'TIME WRONG' );
       			JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
