@@ -41,13 +41,6 @@ class EventListModelDetails extends JModel
 	 */
 	var $_details = null;
 
-	/**
-	 * Pics in array
-	 *
-	 * @var array
-	 */
-	var $_pics = null;
-
 
 	/**
 	 * registeres in array
@@ -175,10 +168,10 @@ class EventListModelDetails extends JModel
 		$userid		= (int) $user->get('id', 0);
 
 		//usercheck
-		$query = 'SELECT urname'
+		$query = 'SELECT uid'
 				. ' FROM #__eventlist_register'
 				. ' WHERE uid = '.$userid
-				. ' AND rdid = '.$this->_id
+				. ' AND event = '.$this->_id
 				;
 		$this->_db->setQuery( $query );
 		return $this->_db->loadResult();
@@ -188,43 +181,34 @@ class EventListModelDetails extends JModel
 	 * Method to get the registered users
 	 *
 	 * @access	public
-	 * @return	array
+	 * @return	object
 	 * @since	0.9
 	 */
 	function getRegisters()
 	{
-		//Register holen
-		$query = 'SELECT urname, uid'
-				. ' FROM #__eventlist_register'
-				. ' WHERE rdid = '.$this->_id
+		//avatars should be displayed
+		$elsettings = ELHelper::config();
+
+		if ($elsettings->comunoption == 1 && $elsettings->comunsolution == 1) {
+			$avatar = ', c.avatar';
+			$join	= ' LEFT JOIN #__comprofiler as c ON c.user_id = r.uid';
+		}
+
+		$name = $elsettings->regname ? 'u.name' : 'u.username';
+
+		//Get registered users
+		$query = 'SELECT '.$name.' AS name, r.uid'
+				. $avatar
+				. ' FROM #__eventlist_register AS r'
+				. ' LEFT JOIN #__users AS u ON u.id = r.uid'
+				. $join
+				. ' WHERE event = '.$this->_id
 				;
 		$this->_db->setQuery( $query );
 
 		$_registers = $this->_db->loadObjectList();
 
 		return $_registers;
-	}
-
-	/**
-	 * Method to get the avatars of the registered users
-	 *
-	 * @access	public
-	 * @return array
-	 * @since	0.9
-	 */
-	function getAvatars()
-	{
-		// Initialize variables
-		$_registers	= & $this->getRegisters();
-
-		//get avatars
-
-		foreach ($_registers as $register) {
-			$query_avatar = 'SELECT avatar FROM #__comprofiler WHERE user_id= '. $register->uid .' AND avatarapproved = 1';
-			$this->_db->setQuery( $query_avatar );
-			$_pics = $this->_db->loadObjectList();
-		}
-		return $_pics;
 	}
 
 	/**
@@ -243,9 +227,8 @@ class EventListModelDetails extends JModel
 		$user 		= & JFactory::getUser();
 		$tzoffset	= $mainframe->getCfg('offset');
 
-		$rdid 		= (int) $this->_id;
+		$event 		= (int) $this->_id;
 		$uid 		= (int) $user->get('id');
-		$urname 	= $user->get('username');
 
 		// Must be logged in
 		if ($uid < 1) {
@@ -258,8 +241,8 @@ class EventListModelDetails extends JModel
 		$uregdate 	= $date->toMySQL();
 		$uip 		= getenv('REMOTE_ADDR');
 
-		$query = "INSERT INTO #__eventlist_register ( rdid, uid, urname, uregdate, uip )" .
-					"\n VALUES ( $rdid, $uid, '$urname', '$uregdate', '$uip' )";
+		$query = "INSERT INTO #__eventlist_register ( event, uid, uregdate, uip )" .
+					"\n VALUES ( $event, $uid, '$uregdate', '$uip' )";
 		$this->_db->setQuery($query);
 
 		if (!$this->_db->query()) {
@@ -271,12 +254,15 @@ class EventListModelDetails extends JModel
 	/**
 	 * Deletes a registered user
 	 *
+	 * @access public
+	 * @return true on success
+	 * @since 0.7
 	 */
 	function delreguser()
 	{
 		$user 	= & JFactory::getUser();
 
-		$rdid 	= (int) $this->_id;
+		$event 	= (int) $this->_id;
 		$userid = $user->get('id');
 
 		// Must be logged in
@@ -285,7 +271,7 @@ class EventListModelDetails extends JModel
 			return;
 		}
 
-		$query = 'DELETE FROM #__eventlist_register WHERE rdid = '.$rdid.' AND uid= '.$userid;
+		$query = 'DELETE FROM #__eventlist_register WHERE event = '.$event.' AND uid= '.$userid;
 		$this->_db->SetQuery( $query );
 
 		if (!$this->_db->query()) {

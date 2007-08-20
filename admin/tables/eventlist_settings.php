@@ -172,6 +172,8 @@ class eventlist_settings extends JTable
 	var $statename 			= null;
 	/** @var string */
 	var $statewidth 		= null;
+	/** @var int */
+	var $regname	 		= null;
 	/** @var string */
 	var $lastupdate 		= null;
 	/** @var int */

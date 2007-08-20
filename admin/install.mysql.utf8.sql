@@ -83,13 +83,12 @@ PRIMARY KEY  (`id`)
 ) TYPE=MyISAM CHARACTER SET `utf8` COLLATE `utf8_general_ci`;
 
 CREATE TABLE `#__eventlist_register` (
-`rid` int(11) unsigned NOT NULL auto_increment,
-`rdid` int(11) NOT NULL default '0',
+`id` int(11) unsigned NOT NULL auto_increment,
+`event` int(11) NOT NULL default '0',
 `uid` int(11) NOT NULL default '0',
-`urname` varchar(20) NOT NULL default '0',
 `uregdate` varchar(50) NOT NULL default '',
 `uip` varchar(15) NOT NULL default '',
-PRIMARY KEY  (`rid`)
+PRIMARY KEY  (`id`)
 ) TYPE=MyISAM CHARACTER SET `utf8` COLLATE `utf8_general_ci`;
 
 CREATE TABLE `#__eventlist_groups` (
@@ -174,10 +173,11 @@ CREATE TABLE `#__eventlist_settings` (
   `showstate` tinyint(4) NOT NULL,
   `statename` varchar(100) NOT NULL,
   `statewidth` varchar(20) NOT NULL,
+  `regname` tinyint(4) NOT NULL,
   `lastupdate` varchar(20) NOT NULL default '',
   `checked_out` int(11) NOT NULL default '0',
   `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
   UNIQUE KEY `id` (`id`)
 ) TYPE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-INSERT INTO `#__eventlist_settings` VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '', '100%', '15%', '25%', '20%', '20%', 'Date', 'Title', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 0, 1, 1, 1, 1, 1, 1, -2, 0, 'example@example.com', 0, '1000', -2, -2, -2, 1, '20%', 'Type', 1, 1, 1, 1, '100', '100', '100', 0, 1, 0, 0, 1, 2, 2, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [catsid], [times]', 'The event titled [title] starts on [dates]!', 0, 'State', '', '1174491851', '', '');
+INSERT INTO `#__eventlist_settings` VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '', '100%', '15%', '25%', '20%', '20%', 'Date', 'Title', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 0, 1, 1, 1, 1, 1, 1, -2, 0, 'example@example.com', 0, '1000', -2, -2, -2, 1, '20%', 'Type', 1, 1, 1, 1, '100', '100', '100', 0, 1, 0, 0, 1, 2, 2, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [catsid], [times]', 'The event titled [title] starts on [dates]!', 0, 'State', 0, '', '1174491851', '', '');

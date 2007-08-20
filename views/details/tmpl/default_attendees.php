@@ -40,39 +40,31 @@ foreach ($this->registers as $register) :
 	if ($this->elsettings->comunsolution == 1) :
 
 		$thumb_path = 'images/comprofiler/tn';
-		$no_photo 	= ' alt="'.$register->urname.'" border=0';
+		$no_photo 	= ' alt="'.$register->name.'" border=0';
 
-		//avatars should be displayed
-		if (($this->elsettings->comunoption == 2) && ($this->elsettings->comunoption != 0)) :
+		if ($this->elsettings->comunoption == 1) :
+			//User has avatar
+			if(!empty($register->avatar)) :
+				echo "<li><a href='".JRoute::_('index.php?option=com_comprofiler&task=userProfile&user='.$register->uid )."'><img src=".$thumb_path.$register->avatar.$no_photo." alt='no photo' /><span class='username'>".$register->name."</span></a></li>";
 
-			foreach ($this->pics as $pic) :
-
-				//User has avatar
-				if(($pic->avatar!='') && ($register->uid!='0')) :
-					echo "<li><a href='".JRoute::_('index.php?option=com_comprofiler&task=userProfile&user='.$register->uid )."'><img src=".$thumb_path.$pic->avatar.$no_photo." alt='no photo' /><span class='username'>".$register->urname."</span></a></li>";
-
-				//User has no avatar
-				else :
-					echo "<li><a href='".JRoute::_( 'index.php?option=com_comprofiler&task=userProfile&user='.$register->uid )."'><img src=\"components/com_comprofiler/images/english/tnnophoto.jpg\" border=0 alt=\"no photo\" /><span class='username'>".$register->urname."</span></a></li>";
-				endif;
-
-			endforeach;
-
+			//User has no avatar
+			else :
+				echo "<li><a href='".JRoute::_( 'index.php?option=com_comprofiler&task=userProfile&user='.$register->uid )."'><img src=\"components/com_comprofiler/images/english/tnnophoto.jpg\" border=0 alt=\"no photo\" /><span class='username'>".$register->name."</span></a></li>";
+			endif;
 		endif;
 
-	//only show the username with link to profile
-	if ($this->elsettings->comunoption == 1) :
-		echo "<li><span class='username'><a href='".JRoute::_( 'index.php?option=com_comprofiler&amp;task=userProfile&amp;user='.$register->uid )."'>".$register->urname." </a></span></li>";
+		//only show the username with link to profile
+		if ($this->elsettings->comunoption == 0) :
+			echo "<li><span class='username'><a href='".JRoute::_( 'index.php?option=com_comprofiler&amp;task=userProfile&amp;user='.$register->uid )."'>".$register->name." </a></span></li>";
+		endif;
+
+	//if CB end - if not CB than only name
 	endif;
 
-
-//if CB end - if not CB than only name
-endif;
-
-//no communitycomponent is set so only show the username
-if (($this->elsettings->comunoption == 0) || ($this->elsettings->comunsolution == 0)) :
-	echo "<li><span class='username'>".$register->urname."</span></li>";
-endif;
+	//no communitycomponent is set so only show the username
+	if ($this->elsettings->comunsolution == 0) :
+		echo "<li><span class='username'>".$register->name."</span></li>";
+	endif;
 
 //end loop through attendees
 endforeach;

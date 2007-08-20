@@ -35,20 +35,18 @@ class eventlist_register extends JTable
 	 * Primary Key
 	 * @var int
 	 */
-	var $rid 		= null;
+	var $id 		= null;
 	/** @var int */
-	var $rdid 		= null;
+	var $event 		= null;
 	/** @var int */
 	var $uid 		= null;
-	/** @var string */
-	var $urname 	= null;
 	/** @var date */
 	var $uregdate 	= null;
 	/** @var string */
 	var $uip 		= null;
 
 	function eventlist_register(& $db) {
-		parent::__construct('#__eventlist_register', 'rid', $db);
+		parent::__construct('#__eventlist_register', 'id', $db);
 	}
 }
 ?>

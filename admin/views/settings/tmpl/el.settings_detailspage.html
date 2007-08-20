@@ -142,9 +142,25 @@
 			</fieldset>
 
 			<fieldset class="adminform">
-			<legend><?php echo JText::_( 'INTEGRATE' ); ?></legend>
+			<legend><?php echo JText::_( 'REGISTRATION' ); ?></legend>
 				<table class="admintable" cellspacing="1">
 				<tbody>
+					<tr>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'TYPE REG NAME' ); ?>::<?php echo JText::_('TYPE REG NAME TIP'); ?>">
+								<?php echo JText::_( 'TYPE REG NAME' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+       						<?php
+		   					$regname = array();
+							$regname[] = JHTML::_('select.option', '0', JText::_( 'USERNAME' ) );
+							$regname[] = JHTML::_('select.option', '1', JText::_( 'NAME' ) );
+							$nametype = JHTML::_('select.genericlist', $regname, 'regname', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->regname );
+							echo $nametype;
+        					?>
+       	 				</td>
+      				</tr>
 	  				<tr>
 	          			<td width="300" class="key">
 							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM SOL' ); ?>::<?php echo JText::_('COM SOL TIP'); ?>">
@@ -173,9 +189,8 @@
        					<td valign="top">
        						<?php
 		   					$comoption = array();
-							$comoption[] = JHTML::_('select.option', '0', JText::_( 'DISABLED' ) );
-							$comoption[] = JHTML::_('select.option', '1', JText::_( 'LINK PROFILE' ) );
-							$comoption[] = JHTML::_('select.option', '2', JText::_( 'LINK AVATAR' ) );
+							$comoption[] = JHTML::_('select.option', '0', JText::_( 'LINK PROFILE' ) );
+							$comoption[] = JHTML::_('select.option', '1', JText::_( 'LINK AVATAR' ) );
 							$comoptions = JHTML::_('select.genericlist', $comoption, 'comunoption', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->comunoption );
 							echo $comoptions;
         					?>

@@ -46,7 +46,6 @@ class EventListViewDetails extends JView
 		$document 	= & JFactory::getDocument();
 		$user		= & JFactory::getUser();
 		$elsettings = ELHelper::config();
-	//	$ELConfig	= &JComponentHelper::getParams('com_eventlist');
 
 		$row		= & $this->get('Details');
 		$registers	= & $this->get('Registers');
@@ -59,12 +58,6 @@ class EventListViewDetails extends JView
 		$menu		= & JMenu::getInstance();
 		$item    	= $menu->getActive();
 		$params 	= & $mainframe->getPageParameters('com_eventlist');
-
-		if ($elsettings->comunsolution == 1) {
-			$pics		= & $this->get('Avatars');
-		} else {
-			$pics = '';
-		}
 
 		//Check if the id exists
 		if ($row->did == 0)
@@ -249,7 +242,6 @@ class EventListViewDetails extends JView
 		$this->assignRef('eventdescription' , 		$eventdescription);
 		$this->assignRef('venuedescription' , 		$venuedescription);
 		$this->assignRef('registers' , 				$registers);
-		$this->assignRef('pics' , 					$pics);
 		$this->assignRef('formhandler',				$formhandler);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
