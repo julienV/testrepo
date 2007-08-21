@@ -120,4 +120,4 @@ div#eventlist .sectiontableheader img
 { vertical-align: middle; margin: 0 0 5px 5px; }
 
 div#eventlist form.table
-{ margin: 1em 0 0 0; }
+{ margin: 1em 0 0 0; width: 100%; }
