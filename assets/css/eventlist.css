@@ -58,7 +58,7 @@ div#eventlist dl /* definition list */
 { margin: 0 5px; }
 
 div#eventlist dt /* definition title */
-{ float:left; font-size: 11px; font-weight: bold; width: 11em; padding: 0.3em 0;}
+{ float:left; font-size: 0.9em; font-weight: bold; width: 11em; padding: 0.3em 0;}
 
 div#eventlist dd /* definition desription */
 { display: block; margin: 0 0 5px 12em; font-size: 0.9em; padding: 0.3em 0; }
@@ -106,13 +106,13 @@ div#eventlist .pageslinks, .pagescounter
 /* Categoryview
 **************************************************************************/
 div#eventlist .catimg
-{ float:left; width: 20%; text-align: center; }
+{ float:left; margin: 0 0.5em 0.5em 0; }
 
 div#eventlist .catimg p
 { font-size: 0.9em; }
 
 div#eventlist .catdescription
-{ width: 78%; float: right; }
+{ margin: 0 0 0.5em 0; }
 
 /* Eventlist Table
 **************************************************************************/
