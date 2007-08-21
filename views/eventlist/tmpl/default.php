@@ -42,7 +42,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <?php endif; ?>
 
-<div class="clear"></div>
 
 <?php if ($this->params->get('showintrotext')) : ?>
 	<p class="description">
