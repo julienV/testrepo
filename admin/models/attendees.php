@@ -171,9 +171,9 @@ class EventListModelAttendees extends JModel
 		$orderby	= $this->_buildContentOrderBy();
 		$where		= $this->_buildContentWhere();
 
-		$query = 'SELECT r.*, a.id, u.name, u.gid, u.email'
+		$query = 'SELECT r.*, u.username, u.name, a.id, u.gid, u.email'
 				. ' FROM #__eventlist_register AS r'
-				. ' LEFT JOIN #__eventlist_events AS a ON r.rdid = a.id'
+				. ' LEFT JOIN #__eventlist_events AS a ON r.event = a.id'
 				. ' LEFT JOIN #__users AS u ON r.uid = u.id'
 				. $where
 				. $orderby
@@ -193,7 +193,7 @@ class EventListModelAttendees extends JModel
 	{
 		global $mainframe, $option;
 
-		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.attendees.filter_order', 		'filter_order', 	'r.urname', 'cmd' );
+		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.attendees.filter_order', 		'filter_order', 	'u.username', 'cmd' );
 		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.attendees.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
 
 		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', u.name';
@@ -218,7 +218,7 @@ class EventListModelAttendees extends JModel
 
 		$where = array();
 
-		$where[] = 'r.rdid = '.$this->_id;
+		$where[] = 'r.event = '.$this->_id;
 
 		/*
 		* Search venues
@@ -231,7 +231,7 @@ class EventListModelAttendees extends JModel
 		* Search city
 		*/
 		if ($search && $filter == 2) {
-			$where[] = ' LOWER(r.urname) LIKE \'%'.$search.'%\' ';
+			$where[] = ' LOWER(u.username) LIKE \'%'.$search.'%\' ';
 		}
 
 		$where 		= ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '' );
@@ -268,7 +268,7 @@ class EventListModelAttendees extends JModel
 	{
 		$user = implode(',', $cid);
 
-		$query = 'DELETE FROM #__eventlist_register WHERE rid IN ('. $user .')';
+		$query = 'DELETE FROM #__eventlist_register WHERE event IN ('. $user .')';
 
 		$this->_db->setQuery( $query );
 

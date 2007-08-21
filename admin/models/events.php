@@ -233,9 +233,9 @@ class EventListModelEvents extends JModel
 		for ($i=0, $n=count($rows); $i < $n; $i++) {
 
 			// count registered users
-			$query = 'SELECT count(r.rdid)'
+			$query = 'SELECT count(r.event)'
 					. ' FROM #__eventlist_register AS r'
-					. ' WHERE r.rdid = '.$rows[$i]->id
+					. ' WHERE r.event = '.$rows[$i]->id
 					;
 			$this->_db->SetQuery( $query );
 
