@@ -114,13 +114,11 @@ class eventlist_events extends JTable
 			$this->alias = $alias;
 		}
 
-		//if (isset($this->dates)) {
-			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $this->dates)) {
-	 	     	$this->_error = JText::_( 'DATE WRONG' );
-	 	     	JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
-	 	     	return false;
-			}
-		//}
+		if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $this->dates)) {
+	      	$this->_error = JText::_( 'DATE WRONG' );
+	      	JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
+	      	return false;
+		}
 
 		if (isset($this->enddates)) {
 			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $this->enddates)) {
@@ -138,14 +136,12 @@ class eventlist_events extends JTable
 			}
 		}
 
-		if ($elsettings->showtime == 1 || !empty($this->times)) {
-			if (isset($this->times)) {
-   				if (!preg_match("/^[0-2][0-9]:[0-5][0-9]$/", $this->times)) {
-      				$this->_error = JText::_( 'TIME WRONG' );
-      				JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
-      				return false;
-	  			}
-			}
+		if (isset($this->times)) {
+   			if (!preg_match("/^[0-2][0-9]:[0-5][0-9]$/", $this->times)) {
+      			$this->_error = JText::_( 'TIME WRONG' );
+      			JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
+      			return false;
+	  		}
 		}
 
 		if (isset($this->endtimes)) {
