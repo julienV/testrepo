@@ -214,7 +214,7 @@ class ELOutput {
 				$output = '<a href="#" onclick="window.print();return false;">'.$text.'</a>';
 			} else {
 				//button in view
-				$attribs['title']   = '"'.JText::_( 'Print' ).'"';
+				$attribs['title']   = JText::_( 'Print' );
 				$attribs['onclick'] = "window.open(this.href,'win2','".$status."'); return false;";
 
 				$output = JHTML::_('link', $print_link, $text, $attribs);
@@ -245,7 +245,7 @@ class ELOutput {
 				$text = '&nbsp;'.JText::_( 'Email' );
 			}
 
-			$attribs['title']	= '"'.JText::_( 'Email' ).'"';
+			$attribs['title']	= JText::_( 'Email' );
 			$attribs['onclick'] = "window.open(this.href,'win2','".$status."'); return false;";
 
 			$output = JHTML::_('link', JRoute::_($url), $text, $attribs);
@@ -284,7 +284,7 @@ class ELOutput {
 			{
   				if ($settings->map24id) {
 
-				$url		= 'http://link2.map24.com/?lid='.$settings->map24id.'&maptype=JAVA&width0=2000&street0='.$data->street.'&zip0='.$data->plz.'&city0='.$data->city.'&country0='.$data->country.'&sym0=10280&description0='.$data->venue;
+				$url		= 'http://link2.map24.com/?lid='.$settings->map24id.'&amp;maptype=JAVA&amp;width0=2000&amp;street0='.$data->street.'&amp;zip0='.$data->plz.'&amp;city0='.$data->city.'&amp;country0='.$data->country.'&amp;sym0=10280&amp;description0='.$data->venue;
 				$output		= '<a class="map" title="'.JText::_( 'MAP' ).'" href="'.$url.'" target="_blank">'.$mapimage.'</a>';
 
   				}
