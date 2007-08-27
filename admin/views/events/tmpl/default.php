@@ -55,14 +55,15 @@ defined('_JEXEC') or die('Restricted access');
 				<th width="5"><?php echo JText::_( 'Num' ); ?></th>
 				<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
 				<th class="title"><?php echo JHTML::_('grid.sort', 'DATE', 'a.dates', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php echo JHTML::_('grid.sort', 'EVENT TIME', 'a.times', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th><?php echo JHTML::_('grid.sort', 'EVENT TIME', 'a.times', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<th class="title"><?php echo JHTML::_('grid.sort', 'EVENT TITLE', 'a.title', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php echo JHTML::_('grid.sort', 'VENUE', 'loc.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php echo JHTML::_('grid.sort', 'CITY', 'loc.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php echo JHTML::_('grid.sort', 'CATEGORY', 'cat.catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th><?php echo JHTML::_('grid.sort', 'VENUE', 'loc.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th><?php echo JHTML::_('grid.sort', 'CITY', 'loc.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th><?php echo JHTML::_('grid.sort', 'CATEGORY', 'cat.catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			    <th width="1%" nowrap="nowrap"><?php echo JText::_( 'PUBLISHED' ); ?></th>
 				<th class="title"><?php echo JText::_( 'CREATION' ); ?></th>
 				<th width="1%" nowrap="nowrap"><?php echo JText::_( 'REGISTERED USERS' ); ?></th>
+				<th width="1%" nowrap="nowrap"><?php echo JHTML::_('grid.sort', 'ID', 'a.id', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			</tr>
 			</thead>
 
@@ -89,6 +90,7 @@ defined('_JEXEC') or die('Restricted access');
 					$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
 					$displaytime = $time.' '.$this->elsettings->timename;
 				}
+
 				$link 			= 'index.php?option=com_eventlist&controller=events&task=edit&cid[]='.$row->id;
 				$catlink 		= 'index.php?option=com_eventlist&controller=categories&task=edit&cid[]='.$row->catsid;
 				$venuelink 		= 'index.php?option=com_eventlist&controller=venues&task=edit&cid[]='.$row->locid;
@@ -113,7 +115,12 @@ defined('_JEXEC') or die('Restricted access');
 					?>
 				</td>
 				<td><?php echo $displaytime; ?></td>
-				<td><?php echo htmlspecialchars($row->title, ENT_QUOTES) ? htmlspecialchars($row->title, ENT_QUOTES) : '-'; ?></td>
+				<td>
+					<a href="<?php echo $link; ?>" title="<?php echo JText::_( 'EDIT EVENT' ); ?>">
+						<?php echo htmlspecialchars($row->title, ENT_QUOTES) ? htmlspecialchars($row->title, ENT_QUOTES) : '-'; ?>
+					</a><br />
+					<?php echo /*JText::_( 'ALIAS' ).': '.*/$row->alias; ?>
+				</td>
 				<td>
 					<?php
 					if ($row->venue) {
@@ -176,13 +183,14 @@ defined('_JEXEC') or die('Restricted access');
 					}
 					?>
 				</td>
+				<td align="center"><?php echo $row->id; ?></td>
 			</tr>
 			<?php $k = 1 - $k;  } ?>
 
 			</tbody>
 
 			<tfoot>
-				<td colspan="11">
+				<td colspan="12">
 					<?php echo $this->pageNav->getListFooter(); ?>
 				</td>
 			</tfoot>

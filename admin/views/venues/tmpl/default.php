@@ -49,12 +49,14 @@ defined('_JEXEC') or die('Restricted access');
 		<tr>
 			<th width="5"><?php echo JText::_( 'Num' ); ?></th>
 			<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
-			<th align="left" class="title"><?php echo JHTML::_('grid.sort', 'VENUE', 'l.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-			<th align="left" class="title"><?php echo JText::_( 'WEBSITE' ); ?></th>
-			<th align="left" class="title"><?php echo JHTML::_('grid.sort', 'CITY', 'l.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th class="title"><?php echo JHTML::_('grid.sort', 'VENUE', 'l.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th width="20%"><?php echo JHTML::_('grid.sort', 'ALIAS', 'l.alias', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th><?php echo JText::_( 'WEBSITE' ); ?></th>
+			<th><?php echo JHTML::_('grid.sort', 'CITY', 'l.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="1%" nowrap="nowrap"><?php echo JText::_( 'PUBLISHED' ); ?></th>
-			<th class="title"><?php echo JText::_( 'CREATION' ); ?></th>
+			<th><?php echo JText::_( 'CREATION' ); ?></th>
 		    <th width="80" colspan="2"><?php echo JHTML::_('grid.sort', 'REORDER', 'l.ordering', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+		    <th width="1%" nowrap="nowrap"><?php echo JHTML::_('grid.sort', 'ID', 'l.id', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 		</tr>
 	</thead>
 
@@ -83,14 +85,15 @@ defined('_JEXEC') or die('Restricted access');
 				}
 				?>
 			</td>
+			<td><?php echo $row->alias; ?></td>
 			<td align="left">
 				<?php
 				if ($row->url) {
 				?>
 					<a href="<?php echo htmlspecialchars($row->url, ENT_QUOTES); ?>" target="_blank">
 						<?php
-						if (strlen(htmlspecialchars($row->url, ENT_QUOTES)) > 35) {
-							echo substr( htmlspecialchars($row->url, ENT_QUOTES), 0 , 35).'...';
+						if (strlen(htmlspecialchars($row->url, ENT_QUOTES)) > 25) {
+							echo substr( htmlspecialchars($row->url, ENT_QUOTES), 0 , 25).'...';
 						} else {
 							echo htmlspecialchars($row->url, ENT_QUOTES);
 						}
@@ -132,13 +135,14 @@ defined('_JEXEC') or die('Restricted access');
 				echo $this->pageNav->orderDownIcon( $i, $n, true, 'orderdown', 'Move Down', $this->ordering );
 				?>
 			</td>
+			<td align="center"><?php echo $row->id; ?></td>
 		</tr>
 		<?php $k = 1 - $k; } ?>
 
 	</tbody>
 
 	<tfoot>
-		<td colspan="9">
+		<td colspan="11">
 			<?php echo $this->pageNav->getListFooter(); ?>
 		</td>
 	</tfoot>
