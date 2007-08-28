@@ -32,7 +32,7 @@ div#eventlist *
 /* clearing >> do not edit if you don't know what you do <<
 **********************************************************************************/
 div#eventlist
-{  /* clearing for the beez template */ } 
+{ overflow: hidden; /* clearing for the beez template */ } 
 
 div#eventlist .clear
 {	border: 0;clear: both;float: none;font-size: 1px;height: 0;line-height: 1px;margin: 0;padding: 0;visibility: hidden;}
