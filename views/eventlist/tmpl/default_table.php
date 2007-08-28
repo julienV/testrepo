@@ -43,7 +43,7 @@ defined('_JEXEC') or die('Restricted access');
 		<?php if ($this->params->get('filter')) : ?>
 		<td align="left" width="100%" nowrap="nowrap">
 			<?php
-			echo JText::_('Filter').'&nbsp;';
+			echo '<label for="filter">'.JText::_('Filter').'</label>&nbsp;';
 			echo $this->lists['filter_type'].'&nbsp;';
 			?>
 			<input type="text" name="filter" id="filter" value="<?php echo $this->lists['filter'];?>" class="text_area" onchange="document.adminForm.submit();" />
@@ -54,7 +54,7 @@ defined('_JEXEC') or die('Restricted access');
 		<?php if ($this->params->get('display')) : ?>
 		<td align="right" width="100%" nowrap="nowrap">
 			<?php
-			echo '&nbsp;&nbsp;&nbsp;'.JText::_('Display Num').'&nbsp;';
+			echo '<label for="limit">'.JText::_('Display Num').'</label>&nbsp;';
 			echo $this->pageNav->getLimitBox();
 			?>
 		</td>
@@ -66,31 +66,31 @@ defined('_JEXEC') or die('Restricted access');
 
 <table width="<?php echo $this->elsettings->tablewidth; ?>" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
 			<tr>
-				<td width="<?php echo $this->elsettings->datewidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->datename, 'a.dates', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
+				<th width="<?php echo $this->elsettings->datewidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->datename, 'a.dates', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<?php
 				if ($this->elsettings->showtitle == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->titlewidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->titlename, 'a.title', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
+				<th width="<?php echo $this->elsettings->titlewidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->titlename, 'a.title', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<?php
 				endif;
 				if ($this->elsettings->showlocate == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->locationwidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->locationname, 'l.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
+				<th width="<?php echo $this->elsettings->locationwidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->locationname, 'l.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<?php
 				endif;
 				if ($this->elsettings->showcity == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->citywidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->cityname, 'l.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
+				<th width="<?php echo $this->elsettings->citywidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->cityname, 'l.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<?php
 				endif;
 				if ($this->elsettings->showstate == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->statewidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->statename, 'l.state', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
+				<th width="<?php echo $this->elsettings->statewidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->statename, 'l.state', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<?php
 				endif;
 				if ($this->elsettings->showcat == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->catfrowidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->catfroname, 'c.catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></td>
+				<th width="<?php echo $this->elsettings->catfrowidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->elsettings->catfroname, 'c.catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<?php
 				endif;
 				?>
@@ -111,7 +111,7 @@ defined('_JEXEC') or die('Restricted access');
 		?>
   			<tr class="sectiontableentry<?php echo ($row->odd +1 ) . $this->params->get( 'pageclass_sfx' ); ?>" >
     			<td width="<?php echo $this->elsettings->datewidth; ?>" align="left">
-    			<b><?php echo $row->displaydate; ?></b>
+    			<strong><?php echo $row->displaydate; ?></strong>
 				<?php
 				if ($this->elsettings->showtime == 1) :
 					echo $row->displaytime;

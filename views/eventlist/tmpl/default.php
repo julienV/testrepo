@@ -22,7 +22,7 @@
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
-<div id="eventlist" class="el_list">
+<div id="eventlist" class="el_eventlist">
 <p class="buttons">
 	<?php
 		if ( !$this->params->get( 'popup' ) ) : //don't show in printpopup
@@ -44,12 +44,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 
 <?php if ($this->params->get('showintrotext')) : ?>
-	<p class="description">
+	<div class="description no_space floattext">
 		<?php echo $this->params->get('introtext'); ?>
-	</p>
+	</div>
 <?php endif; ?>
-
-<br />
 
 <!--table-->
 

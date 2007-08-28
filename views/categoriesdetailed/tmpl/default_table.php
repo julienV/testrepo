@@ -25,44 +25,45 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 
 <table width="<?php echo $this->elsettings->tablewidth; ?>" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
+<thead>
 			<tr>
-				<td width="<?php echo $this->elsettings->datewidth; ?>" class="sectiontableheader" align="left"><?php echo $this->elsettings->datename; ?></td>
+				<th width="<?php echo $this->elsettings->datewidth; ?>" class="sectiontableheader" align="left"><?php echo $this->elsettings->datename; ?></th>
 				<?php
 				if ($this->elsettings->showtitle == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->titlewidth; ?>" class="sectiontableheader" align="left"><?php echo $this->elsettings->titlename; ?></td>
+				<th width="<?php echo $this->elsettings->titlewidth; ?>" class="sectiontableheader" align="left"><?php echo $this->elsettings->titlename; ?></th>
 				<?php
 				endif;
 				if ($this->elsettings->showlocate == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->locationwidth; ?>" class="sectiontableheader" align="left"><?php echo $this->elsettings->locationname; ?></td>
+				<th width="<?php echo $this->elsettings->locationwidth; ?>" class="sectiontableheader" align="left"><?php echo $this->elsettings->locationname; ?></th>
 				<?php
 				endif;
 				if ($this->elsettings->showcity == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->citywidth; ?>" class="sectiontableheader" align="left"><?php echo $this->elsettings->cityname; ?></td>
+				<th width="<?php echo $this->elsettings->citywidth; ?>" class="sectiontableheader" align="left"><?php echo $this->elsettings->cityname; ?></th>
 				<?php
 				endif;
 				if ($this->elsettings->showstate == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->statewidth; ?>" class="sectiontableheader" align="left"><?php echo $this->elsettings->statename; ?></td>
+				<th width="<?php echo $this->elsettings->statewidth; ?>" class="sectiontableheader" align="left"><?php echo $this->elsettings->statename; ?></th>
 				<?php
 				endif;
 				if ($this->elsettings->showcat == 1) :
 				?>
-				<td width="<?php echo $this->elsettings->catfrowidth; ?>" class="sectiontableheader" align="left"><?php echo $this->elsettings->catfroname; ?></td>
+				<th width="<?php echo $this->elsettings->catfrowidth; ?>" class="sectiontableheader" align="left"><?php echo $this->elsettings->catfroname; ?></th>
 				<?php
 				endif;
 				?>
 			</tr>
-	</table>
+</thead>
 
-	<table width="<?php echo $this->elsettings->tablewidth; ?>"  border="0" cellspacing="0" cellpadding="0" summary="eventlist">
+<tbody>
 	<?php
 	$this->rows = $this->getRows();
 	if (!$this->rows) :
 	?>
-		<tr align="center"><td><?php echo JText::_( 'NO EVENTS' ); ?></td></tr>
+		<tr class="no_events"><td><?php echo JText::_( 'NO EVENTS' ); ?></td></tr>
 		<?php
 	else :
 
@@ -70,7 +71,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		?>
   			<tr class="sectiontableentry<?php echo ($row->odd +1 ) . $this->params->get( 'pageclass_sfx' ); ?>" >
     			<td width="<?php echo $this->elsettings->datewidth; ?>" align="left">
-    			<b><?php echo $row->displaydate; ?></b>
+    			<strong><?php echo $row->displaydate; ?></strong>
 				<?php
 				if ($this->elsettings->showtime == 1) :
 					echo $row->displaytime;
@@ -138,5 +139,5 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		endforeach;
 		endif;
 		?>
+</tbody>
 </table>
-<br />

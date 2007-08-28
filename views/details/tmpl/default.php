@@ -39,7 +39,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<h2 class="eventlist">
 		<?php
     	echo JText::_( 'EVENT' );
-    	echo ELOutput::editbutton($this->item->id, $this->row->did, $this->params, $this->allowedtoeditevent, 'editevent' );
+    	echo '&nbsp;'.ELOutput::editbutton($this->item->id, $this->row->did, $this->params, $this->allowedtoeditevent, 'editevent' );
     	?>
 	</h2>
 
@@ -97,7 +97,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   	<?php if ($this->elsettings->showevdescription == 1) : ?>
 
   	    <h2 class="description"><?php echo JText::_( 'DESCRIPTION' ); ?></h2>
-  		<div class="description">
+  		<div class="description event_desc">
   			<?php echo $this->eventdescription; ?>
   		</div>
 
@@ -176,7 +176,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<?php if ($this->elsettings->showlocdescription == 1) :	?>
 
 			<h2 class="location_desc"><?php echo JText::_( 'DESCRIPTION' ); ?></h2>
-  			<div class="location_desc">
+  			<div class="description location_desc">
   				<?php echo $this->venuedescription;	?>
   			</div>
 

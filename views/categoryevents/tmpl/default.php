@@ -38,14 +38,12 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <?php if ($this->params->def( 'show_page_title', 1 )) : ?>
 
     <h1 class='componentheading'>
-		<?php
-		echo $this->category->catname;
-		?>
+		<?php echo $this->category->catname; ?>
 	</h1>
 
 <?php endif; ?>
-<br class="clear" />
 
+<div class="floattext">
 <div class="catimg">
 	<?php if ($this->category->image != '') : ?>
 		<img src="<?php echo 'images/stories/'.$this->category->image ; ?>" name="image" width="<?php echo $this->elsettings->imagewidth; ?>" height="<?php echo $this->elsettings->imagehight; ?>" border="0" alt="<?php echo $this->category->catname; ?>" />
@@ -58,9 +56,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <div class="catdescription">
 	<?php echo $this->catdescription; ?>
 </div>
-
-<br class="clear" />
-
+</div>
 <!--table-->
 
 <?php echo $this->loadTemplate('table'); ?>

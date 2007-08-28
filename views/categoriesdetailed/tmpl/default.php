@@ -23,7 +23,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 
-<div id="eventlist" class="el_catdetails">
+<div id="eventlist" class="el_categoriesdetailed">
 <p class="buttons">
 	<?php
 		if ( !$this->params->get( 'popup' ) ) : //don't show in printpopup
@@ -36,19 +36,20 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <?php if ($this->params->get('show_page_title')) : ?>
 
-	<h1 class="componentheading">
-	<?php echo $this->params->get('page_title'); ?>
-	</h1>
+<h1 class="componentheading">
+<?php echo $this->params->get('page_title'); ?>
+</h1>
 
 <?php endif;
 foreach($this->categories as $category) :
 ?>
-	<div class="floattext">
-	<h2 class="eventlist">
+	<h2 class="eventlist cat<?php echo $category->id; ?>">
 		<?php
     		echo $category->catname;
     	?>
 	</h2>
+
+<div class="cat<?php echo $category->id; ?> floattext">
 
 	<div class="catimg">
 	  	<?php
@@ -66,17 +67,18 @@ foreach($this->categories as $category) :
 		</p>
 	</div>
 
-	<div class="catdescription"><?php echo $category->catdescription ; ?>
+	<div class="catdescription"><?php echo $category->catdescription; ?>
 		<p>
 			<?php
 				echo "<a href='".JRoute::_('index.php?view=categoryevents&categid='.$category->slug)."'>".JText::_( 'SHOW EVENTS' )."</a>";
 			?>
 		</p>
 	</div>
+	<br class="clear" />
 
 </div>
+
 <!--table-->
-<br />
 <?php
 //TODO move out of template
 $this->rows		= & $this->model->getEventdata( $category->id );

@@ -97,11 +97,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   	if ($this->elsettings->showlocdescription == 1) :
 	?>
 
-		<h2 class="location_desc"><?php echo JText::_( 'DESCRIPTION' ); ?></h2>
-	  		<div class="location_desc">
-	  			<?php echo $this->venuedescription;	?>
-				<br /><br />
-			</div>
+		<h2 class="description"><?php echo JText::_( 'DESCRIPTION' ); ?></h2>
+	  	<div class="description no_space floattext">
+	  		<?php echo $this->venuedescription;	?>
+		</div>
 
 	<?php endif; ?>
 
