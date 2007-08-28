@@ -6,9 +6,8 @@
  * @copyright (C) 2005 - 2007 Christoph Lukes
  * @license GNU/GPL, see LICENCE.php
  * EventList is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
+ * modify it under the terms of the GNU General Public License 2
+ * as published by the Free Software Foundation.
 
  * EventList is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -108,4 +107,4 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <p class="copyright">
 	<?php echo ELOutput::footer( ); ?>
 </p>
-</div> 
+</div>
