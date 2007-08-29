@@ -36,17 +36,15 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <?php if ($this->params->get('show_page_title')) : ?>
 
 <h1 class="componentheading">
-<?php echo $this->params->get('page_title'); ?>
+	<?php echo $this->params->get('page_title'); ?>
 </h1>
 
 <?php endif;
 foreach($this->categories as $category) :
 ?>
-	<h2 class="eventlist cat<?php echo $category->id; ?>">
-		<?php
-    		echo $category->catname;
-    	?>
-	</h2>
+<h2 class="eventlist cat<?php echo $category->id; ?>">
+	<?php echo $category->catname; ?>
+</h2>
 
 <div class="cat<?php echo $category->id; ?> floattext">
 
@@ -79,8 +77,6 @@ foreach($this->categories as $category) :
 
 <!--table-->
 <?php
-//TODO move out of template
-$this->rows		= & $this->model->getEventdata( $category->id );
 //TODO move out of template
 $this->rows= & $this->model->getEventdata( $category->id );
 $this->categoryid = $category->id;

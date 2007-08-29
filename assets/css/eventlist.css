@@ -152,3 +152,14 @@ div#eventlist table tr.sectiontableentry2 td
 
 div#eventlist table tr:hover td
 { background: #E5E5E5 }
+
+/* Filter
+**************************************************************************/
+div#eventlist #el_filter
+{ margin: 1em 0 0.5em 0; padding: 0.5em; border: solid 1px #ddd; }
+
+div#eventlist .el_fleft
+{ float: left; }
+
+div#eventlist .el_fright
+{ float: right; }

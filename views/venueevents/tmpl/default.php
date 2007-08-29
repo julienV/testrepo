@@ -37,7 +37,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	</h1>
 <?php endif; ?>
 
-<!--Venue-->
+	<!--Venue-->
 	<?php //flyer
 	echo ELOutput::flyer( $this->venue, $this->elsettings, $this->limage );
 	echo ELOutput::mapicon( $this->venue, $this->elsettings );
