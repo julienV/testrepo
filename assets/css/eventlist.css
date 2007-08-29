@@ -23,10 +23,14 @@
 /******************************************************************************************
 !!! if you have problems with your layout, activate this 'reset command' for debugging. !!!
 ******************************************************************************************/
-/*
-div#eventlist *
-{ margin: 0; padding: 0; }
-*/
+/* reset all paddings/margins */
+/* div#eventlist * { margin: 0; padding: 0; } */
+
+/* border (red) around the eventlist component */
+/* div#eventlist { border: 1px solid red; } */
+
+/* border (blue) around all eventlist elements */
+/* div#eventlist * { border: 1px solid blue; } */
 
 /* clearing >> do not edit if you don't know what you do <<
 **********************************************************************************/
@@ -132,20 +136,19 @@ div#eventlist .catdescription
 /* Eventlist Table
 **************************************************************************/
 div#eventlist table
-{ margin: 1em 0 0 0; width: 100%; font-size: 1em; border: 1px solid #ddd; padding: 1px; }
+{ margin: 1em 0 0 0; width: 100%; font-size: 1em; font-size: 1.1em; border-collapse: collapse; }
+
+div#eventlist table th
+{ background: #AAAAAA; color: #fff; font-weight: normal; padding: 0.3em 0.2em; text-align: left; border-right: 1px solid #fff; }
 
 div#eventlist table th img
 { margin: 0 0 5px 5px; vertical-align: middle; }
 
-div#eventlist table .no_events /* if no events to display */
-{ text-align:center; width: 100%; }
-
-div#eventlist table th,
 div#eventlist table td
-{ padding: 0.3em 0.5em; border-right: 1px solid #fff; }
+{ padding: 0.5em 0.2em; border-bottom: 1px solid #ddd; vertical-align: top; }
 
-div#eventlist table td
-{ padding-bottom: 0.8em; }
+div#eventlist table tr.sectiontableentry2 td
+{ background: #eee; }
 
-div#eventlist table th
-{ background: #ddd; color: #000; }
+div#eventlist table tr:hover td
+{ background: #E5E5E5 }

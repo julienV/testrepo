@@ -81,6 +81,9 @@ foreach($this->categories as $category) :
 <?php
 //TODO move out of template
 $this->rows		= & $this->model->getEventdata( $category->id );
+//TODO move out of template
+$this->rows= & $this->model->getEventdata( $category->id );
+$this->categoryid = $category->id;
 
 echo $this->loadTemplate('table');
 
