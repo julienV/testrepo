@@ -130,7 +130,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				endif;
 				if ($this->elsettings->showlocate == 1) :
 				?>
-					<td headers="location" width="<?php echo $this->elsettings->locationwidth; ?>" align="left" valign="top">
+					<td headers="el_location" width="<?php echo $this->elsettings->locationwidth; ?>" align="left" valign="top">
 				<?php
 					if ($this->elsettings->showlinkvenue == 1 ) :
 							echo $row->locid != 0 ? "<a href='".JRoute::_('index.php?view=venueevents&locatid='.$row->venueslug)."'>".$row->venue."</a>" : '-';

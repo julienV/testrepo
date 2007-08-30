@@ -41,7 +41,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<?php if ($this->params->get('filter')) : ?>
 		<div class="el_fleft">
 			<?php
-			echo '<label for="filter_type">'.JText::_('Filter').'</label>&nbsp;';
+			echo '<label for="filter">'.JText::_('Filter').'</label>&nbsp;';
 			echo $this->lists['filter_type'].'&nbsp;';
 			?>
 			<input type="text" name="filter" id="filter" value="<?php echo $this->lists['filter'];?>" class="text_area" onchange="document.adminForm.submit();" />
@@ -130,7 +130,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				endif;
 				if ($this->elsettings->showlocate == 1) :
 				?>
-					<td headers="location" width="<?php echo $this->elsettings->locationwidth; ?>" align="left" valign="top">
+					<td headers="el_location" width="<?php echo $this->elsettings->locationwidth; ?>" align="left" valign="top">
 				<?php
 					if ($this->elsettings->showlinkvenue == 1 ) :
 							echo $row->locid != 0 ? "<a href='".JRoute::_('index.php?view=venueevents&locatid='.$row->venueslug)."'>".$row->venue."</a>" : '-';

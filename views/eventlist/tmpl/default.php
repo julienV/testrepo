@@ -59,9 +59,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <!--footer-->
 
 <?php if (( $this->page > 0 ) && ( !$this->params->get( 'popup' ) )) : ?>
-<p class="pageslinks">
+<div class="pageslinks">
 	<?php echo $this->pageNav->getPagesLinks(); ?>
-</p>
+</div>
 
 <p class="pagescounter">
 	<?php echo $this->pageNav->getPagesCounter(); ?>
