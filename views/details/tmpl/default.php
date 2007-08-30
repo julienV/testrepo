@@ -102,7 +102,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
   	<?php endif; ?>
 
-<!-- Venue -->
+<!--  	Venue  -->
 
 	<?php if ($this->row->locid != 0) : ?>
 
@@ -190,7 +190,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	<?php endif; ?>
 
-	<p class="copyright">
-		<?php echo ELOutput::footer( ); ?>
-	</p>
+<p class="copyright">
+	<?php echo ELOutput::footer( ); ?>
+</p>
 </div>

@@ -48,7 +48,7 @@ class EventListViewCategoriesview extends JView
 
 		//add css file
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
-		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
+		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');
 
 		//get menu information
 		$menu		= & JMenu::getInstance();

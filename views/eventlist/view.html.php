@@ -57,7 +57,7 @@ class EventListViewEventList extends JView
 
 		//add css file
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
-		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}</style><![endif]-->');
+		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');
 
 		// get variables
 	//	$limitstart		= JRequest::getInt('limitstart');
