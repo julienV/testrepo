@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <install type="component" version="1.5.0">
 <name>EventList</name>
-<creationDate>xx/xx/2007</creationDate>
+<creationDate>01/09/2007</creationDate>
 <author>Christoph Lukes</author>
 <copyright>This component is released under the GNU/GPL License</copyright>
 <authorEmail>schlu@schlu.net</authorEmail>
 <authorUrl>http://www.schlu.net</authorUrl>
 <version>0.9</version>
-<description>With EventList you can do Event listings.</description>
+<description>With EventList you can do Event listings. Development release!</description>
 
 <files>
 	<filename>index.html</filename>
@@ -76,6 +76,7 @@
 		<language tag="de-DE">languages/admin/de-DE.com_eventlist.ini</language>
 		<language tag="nl-NL">languages/admin/nl-NL.com_eventlist.ini</language>
 		<language tag="fr-FR">languages/admin/fr-FR.com_eventlist.ini</language>
+		<language tag="fi-FI">languages/admin/fi-FI.com_eventlist.ini</language>
 	</languages>
 
 </administration>
