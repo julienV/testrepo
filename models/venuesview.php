@@ -86,7 +86,7 @@ class EventListModelVenuesview extends JModel
 	{
 		global $mainframe;
 
-		$menu		=& JMenu::getInstance();
+		$menu		=& JSite::getMenu();
 		$item    	= $menu->getActive();
 		$params		=& $menu->getParams($item->id);
 

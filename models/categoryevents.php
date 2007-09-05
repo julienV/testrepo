@@ -247,7 +247,7 @@ class EventListModelCategoryevents extends JModel
 			if ($filter)
 			{
 				// clean filter variables
-				$filter 		= JString::strtolower($filter);
+				$filter			= $this->_db->getEscaped( trim(JString::strtolower( $filter ) ) );
 				$filter_type 	= JString::strtolower($filter_type);
 
 				switch ($filter_type)
