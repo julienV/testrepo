@@ -47,7 +47,7 @@ defined('_JEXEC') or die('Restricted access');
 			echo $this->editor->save( 'locdescription' );
 			?>
 			submitform( task );
-			window.parent.close();
+			//window.parent.close();
 		}
 	}
 </script>
@@ -72,7 +72,7 @@ $infoimage = JHTML::_('image.site', 'icon-16-hint.png', '../components/com_event
 			</div>
 
 			<div style="float: right;">
-				<button type="button" onclick="submitbutton('save')">
+				<button type="button" onclick="submitbutton('addvenue')">
 					<?php echo JText::_('SAVE') ?>
 				</button>
 				<button type="button" onclick="window.parent.close()" />

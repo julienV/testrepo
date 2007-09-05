@@ -236,5 +236,29 @@ class EventListControllerVenues extends EventListController
 
 		$this->setRedirect( $link, $msg );
 	}
+
+	/**
+	 * saves the venue in the database
+	 *
+	 * @access public
+	 * @return void
+	 * @since 0.9
+	 */
+	function addvenue()
+	{
+		// Sanitize
+		$post = JRequest::get( 'post' );
+		$post['locdescription'] = JRequest::getVar( 'locdescription', '', 'post', 'string', JREQUEST_ALLOWRAW );
+
+
+		$model = $this->getModel('venue');
+		$model->store($post);
+		$model->checkin();
+
+		$msg	= JText::_( 'VENUE SAVED');
+		$link 	= 'index.php?option=com_eventlist&view=event&layout=addvenue&tmpl=component';
+
+		$this->setRedirect( $link, $msg );
+	}
 }
 ?>
