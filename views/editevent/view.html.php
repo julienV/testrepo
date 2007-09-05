@@ -79,7 +79,7 @@ class EventListViewEditevent extends JView
 		$doc->setTitle($title);
 
 		// Get the menu object of the active menu item
-		$menu		= & JMenu::getInstance();
+		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
 		$params 	= & $mainframe->getPageParameters('com_eventlist');
 

@@ -44,7 +44,7 @@ class EventListViewVenueevents extends JView
 
 		//initialize variables
 		$document 	= & JFactory::getDocument();
-		$menu		= & JMenu::getInstance();
+		$menu		= & JSite::getMenu();
 		$elsettings = ELHelper::config();
 		$item    	= $menu->getActive();
 		$params 	= & $mainframe->getPageParameters('com_eventlist');

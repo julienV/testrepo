@@ -54,7 +54,7 @@ class EventListViewDetails extends JView
 		ELHelper::cleanevents( $elsettings->lastupdate );
 
 		//get menu information
-		$menu		= & JMenu::getInstance();
+		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
 		$params 	= & $mainframe->getPageParameters('com_eventlist');
 
