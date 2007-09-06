@@ -154,6 +154,9 @@ class EventListModelEditevent extends JModel
 			$this->_event->datdescription	= '';
 			$this->_event->registra			= 0;
 			$this->_event->unregistra		= 0;
+			$this->_event->recurrence_number	= 0;
+			$this->_event->recurrence_type		= 0;
+			$this->_event->recurrence_counter	= '0000-00-00';
 			$this->_event->sendername		= '';
 			$this->_event->sendermail		= '';
 			$this->_event->datimage			= '';
