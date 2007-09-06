@@ -208,9 +208,9 @@ class EventListModelDetails extends JModel
 				;
 		$this->_db->setQuery( $query );
 
-		$_registers = $this->_db->loadObjectList();
+		$this->_registers = $this->_db->loadObjectList();
 
-		return $_registers;
+		return $this->_registers;
 	}
 
 	/**
