@@ -188,6 +188,9 @@ class EventListModelDetails extends JModel
 		//avatars should be displayed
 		$elsettings = ELHelper::config();
 
+		$avatar	= '';
+		$join	= '';
+
 		if ($elsettings->comunoption == 1 && $elsettings->comunsolution == 1) {
 			$avatar = ', c.avatar';
 			$join	= ' LEFT JOIN #__comprofiler as c ON c.user_id = r.uid';
