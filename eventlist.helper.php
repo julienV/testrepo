@@ -65,7 +65,7 @@ class ELHelper {
 			$elsettings = ELHelper::config();
 
 			$nulldate = '0000-00-00';
-			$query = 'SELECT * FROM #__eventlist_events WHERE DATE_SUB(NOW(), INTERVAL '.$elsettings->minus.' DAY) > (IF (enddates <> '.$nulldate.', enddates, dates)) AND recurrence_number <> "0" AND recurrence_type <> "0"';
+			$query = 'SELECT * FROM #__eventlist_events WHERE DATE_SUB(NOW(), INTERVAL '.$elsettings->minus.' DAY) > (IF (enddates <> '.$nulldate.', enddates, dates)) AND recurrence_number <> "0" AND recurrence_type <> "0" AND `published` = 1';
 			$db->SetQuery( $query );
 			$recurrence_array = $db->loadAssocList();
 
@@ -116,14 +116,13 @@ class ELHelper {
 					$recurrence_row['dates'] =gmdate("Y-m-d", strtotime($recurrence_row['dates']." +".$recurrence_number." ".$recurrence_name." +1 day"));
 					if ($recurrence_row['enddates']) {
 						$recurrence_row['enddates'] = gmdate("Y-m-d", strtotime($recurrence_row['enddates']." +".$recurrence_number." ".$recurrence_name." +1 day"));
-					} else {
-						$recurrence_row['enddates'] = "null";
 					}
 				} else {
 					$dates = getdate(strtotime($recurrence_row['dates']));
 					$year = $dates['year'];
 					$month = $dates['mon'];
 
+					// generate the next month
 					if ($month == 12) {
 						$month = "01";
 						$year++;
@@ -133,6 +132,7 @@ class ELHelper {
 						}
 					}
 
+					// the new date
 					$new_date = gmdate("Y-m-d", strtotime($year."-".$month."-01 -1 day"));
 					$new_date =gmdate("Y-m-d", strtotime($new_date." next ".$recurrence_weekday));
 
@@ -140,8 +140,6 @@ class ELHelper {
 						$timediff = (strtotime($recurrence_row['enddates']) - strtotime($recurrence_row['dates']));
 						$days = strftime("%j",$timediff) - 1;
 						$recurrence_row['enddates'] = gmdate("Y-m-d", strtotime($new_date." +".((7 * ($recurrence_number - 1)) + $days + 2)." days"));
-					} else {
-						$recurrence_row['enddates'] = "null";
 					}
 
 					$recurrence_row['dates'] = gmdate("Y-m-d", strtotime($new_date." +".((7 * ($recurrence_number - 1)) + 2)." days"));
@@ -153,14 +151,15 @@ class ELHelper {
 					foreach ($recurrence_row as $key => $result) {
 						if ($key != 'id') {
 							if ($insert_keys != '') {
-								if (!(($result == "" || $result == "null") && $key == "enddates") && !(($result == "" || $result == "null") && $key == "endtimes")) {
-									$wherequery .= ' AND ';
-									$insert_keys .= ', ';
-									$insert_values .= ', ';
-								}
+								$wherequery .= ' AND ';
+								$insert_keys .= ', ';
+								$insert_values .= ', ';
 							}
-							if (!(($result == "" || $result == "null") && $key == "enddates") && !(($result == "" || $result == "null") && $key == "endtimes")) {
-								$insert_keys .= $key;
+							$insert_keys .= $key;
+							if (($key == "enddates" || $key == "times" || $key == "endtimes") && $result == "") {
+								$insert_values .= "NULL";
+								$wherequery .= '`'.$key.'` IS NULL';
+							} else {
 								$insert_values .= "'".$result."'";
 								$wherequery .= '`'.$key.'` = "'.$result.'"';
 							}
@@ -168,6 +167,7 @@ class ELHelper {
 					}
 
 					$query = 'SELECT id FROM #__eventlist_events WHERE '.$wherequery.';';
+
 					$db->SetQuery( $query );
 
 					if (count($db->loadAssocList()) == 0) {
