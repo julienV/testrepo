@@ -100,3 +100,8 @@ defined('_JEXEC') or die('Restricted access');
 <p class="copyright">
 	<?php echo ELAdmin::footer( ); ?>
 </p>
+
+<?php
+//keep session alive
+JHTML::_('behavior.keepalive');
+?>
