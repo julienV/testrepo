@@ -66,7 +66,7 @@ class EventListModelEventList extends JModel
 		global $mainframe;
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getParams('com_eventlist');
 
 		//get the number of events from database
 		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0), 'int');
@@ -200,7 +200,7 @@ class EventListModelEventList extends JModel
 		$gid		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getPageParameters();
+		$params 	= & $mainframe->getParams();
 
 		// First thing we need to do is to select only published events
 		$where = ' WHERE a.published = 1';

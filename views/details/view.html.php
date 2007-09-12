@@ -56,7 +56,7 @@ class EventListViewDetails extends JView
 		//get menu information
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getParams('com_eventlist');
 
 		//Check if the id exists
 		if ($row->did == 0)

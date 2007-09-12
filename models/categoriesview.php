@@ -66,7 +66,7 @@ class EventListModelCategoriesview extends JModel
 		global $mainframe;
 
 		// Get the paramaters of the active menu item
-		$params = & $mainframe->getPageParameters();
+		$params = & $mainframe->getParams();
 
 		//get the number of events from database
 		$limit			= JRequest::getInt('limit', $params->get('cat_num'));
@@ -138,7 +138,7 @@ class EventListModelCategoriesview extends JModel
 		$gid		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$params = & $mainframe->getPageParameters();
+		$params = & $mainframe->getParams();
 
 		// show/hide empty categories
 		$empty = null;

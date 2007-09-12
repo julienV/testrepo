@@ -76,7 +76,7 @@ class EventListModelVenueevents extends JModel
 		$this->setId((int)$id);
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getParams('com_eventlist');
 
 		//get the number of events from database
 		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.venueevents.limit', 'limit', $params->def('display_num', 0), 'int');
@@ -221,7 +221,7 @@ class EventListModelVenueevents extends JModel
 		$gid		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getParams('com_eventlist');
 
 		// First thing we need to do is to select only the requested events
 		$where = ' WHERE a.published = 1 && a.locid = '.$this->_id;

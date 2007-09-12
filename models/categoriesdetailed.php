@@ -73,7 +73,7 @@ class EventListModelCategoriesdetailed extends JModel
 		global $mainframe;
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getParams('com_eventlist');
 
 		//get the number of events from database
 		$limit			= JRequest::getInt('limit', $params->get('cat_num'));
@@ -93,7 +93,7 @@ class EventListModelCategoriesdetailed extends JModel
 	{
 		global $mainframe;
 
-		$params 	= & $mainframe->getPageParameters();
+		$params 	= & $mainframe->getParams();
 
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_categories))
@@ -175,7 +175,7 @@ class EventListModelCategoriesdetailed extends JModel
 	{
 		global $mainframe;
 
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getParams('com_eventlist');
 
 		// Lets load the content
 		$query = $this->_buildDataQuery( $id );
@@ -226,7 +226,7 @@ class EventListModelCategoriesdetailed extends JModel
 		$gid 		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getParams('com_eventlist');
 
 		// show/hide empty categories
 		$empty 	= null;

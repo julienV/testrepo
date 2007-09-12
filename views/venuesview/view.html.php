@@ -48,7 +48,7 @@ class EventListViewVenuesview extends JView
 		//get menu information
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getPageParameters();
+		$params 	= & $mainframe->getParams();
 
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );

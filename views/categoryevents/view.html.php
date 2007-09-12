@@ -47,7 +47,7 @@ class EventListViewCategoryevents extends JView
 		$menu		= & JSite::getMenu();
 		$elsettings = ELHelper::config();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getPageParameters();
+		$params 	= & $mainframe->getParams();
 
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );

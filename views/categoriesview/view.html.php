@@ -53,7 +53,7 @@ class EventListViewCategoriesview extends JView
 		//get menu information
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getParams('com_eventlist');
 
 		// Request variables
 		$limitstart		= JRequest::getInt('limitstart');

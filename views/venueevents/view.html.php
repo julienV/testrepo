@@ -47,7 +47,7 @@ class EventListViewVenueevents extends JView
 		$menu		= & JSite::getMenu();
 		$elsettings = ELHelper::config();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getParams('com_eventlist');
 
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );

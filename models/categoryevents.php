@@ -76,7 +76,7 @@ class EventListModelCategoryevents extends JModel
 		$this->setId((int)$id);
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getPageParameters();
+		$params 	= & $mainframe->getParams();
 
 		//get the number of events from database
 		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0), 'int');
@@ -221,7 +221,7 @@ class EventListModelCategoryevents extends JModel
 		$gid		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getPageParameters();
+		$params 	= & $mainframe->getParams();
 
 		$task 		= JRequest::getWord('task');
 

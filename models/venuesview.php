@@ -66,7 +66,7 @@ class EventListModelVenuesview extends JModel
 		global $mainframe;
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getPageParameters('com_eventlist');
+		$params 	= & $mainframe->getParams('com_eventlist');
 
 		//get the number of events from database
 		$limit			= JRequest::getInt('limit', $params->get('display_venues_num'));
