@@ -22,7 +22,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 //Require helperfile
-require_once (JPATH_COMPONENT_SITE.DS.'eventlist.helper.php');
+require_once (JPATH_COMPONENT_SITE.DS.'helpers'.DS.'helper.php');
 require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'user.class.php');
 require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'image.class.php');
 require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'output.class.php');

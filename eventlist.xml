@@ -13,11 +13,11 @@
 	<filename>index.html</filename>
 	<filename>eventlist.php</filename>
 	<filename>controller.php</filename>
-	<filename>eventlist.helper.php</filename>
 	<filename>router.php</filename>
 	<filename>LICENCE.php</filename>
-	<folder>classes</folder>
 	<folder>assets</folder>
+	<folder>classes</folder>
+	<folder>helpers</folder>
 	<folder>models</folder>
 	<folder>views</folder>
 </files>
