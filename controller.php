@@ -178,6 +178,9 @@ class EventListController extends JController
 			$msg 	= JText::_( 'VENUE SAVED' );
 			$link 	= JRoute::_('index.php?view=venueevents&locatid='.$returnid, false) ;
 
+			$cache = &JFactory::getCache('com_eventlist');
+			$cache->clean();
+
 		} else {
 
 			$msg 		= '';
@@ -218,6 +221,9 @@ class EventListController extends JController
 			$msg 	= JText::_( 'EVENT SAVED' );
 			$link 	= JRoute::_('index.php?view=details&did='.$returnid, false) ;
 
+			$cache = &JFactory::getCache('com_eventlist');
+			$cache->clean();
+
 		} else {
 
 			$msg 		= '';
@@ -254,6 +260,9 @@ class EventListController extends JController
 		$model->setId($id);
 		$model->userregister();
 
+		$cache = &JFactory::getCache('com_eventlist');
+		$cache->clean();
+
 		$msg = JText::_( 'REGISTERED SUCCESSFULL' );
 
 		$this->setRedirect(JRoute::_('index.php?view=details&did='.$id, false), $msg );
@@ -280,6 +289,9 @@ class EventListController extends JController
 
 		$model->setId($id);
 		$model->delreguser();
+
+		$cache = &JFactory::getCache('com_eventlist');
+		$cache->clean();
 
 		$msg = JText::_( 'UNREGISTERED SUCCESSFULL' );
 		$this->setRedirect( JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid, false), $msg );

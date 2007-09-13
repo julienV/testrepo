@@ -139,6 +139,9 @@ class EventListControllerVenues extends EventListController
 
 		$msg = $model->delete($cid);
 
+		$cache = &JFactory::getCache('com_eventlist');
+		$cache->clean();
+
 		$this->setRedirect( 'index.php?option=com_eventlist&view=venues', $msg );
 	}
 
@@ -224,6 +227,9 @@ class EventListControllerVenues extends EventListController
 					break;
 			}
 			$msg	= JText::_( 'VENUE SAVED');
+
+			$cache = &JFactory::getCache('com_eventlist');
+			$cache->clean();
 
 		} else {
 

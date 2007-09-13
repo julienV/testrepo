@@ -217,6 +217,9 @@ class EventListControllerEvents extends EventListController
 			}
 			$msg	= JText::_( 'EVENT SAVED');
 
+			$cache = &JFactory::getCache('com_eventlist');
+			$cache->clean();
+
 		} else {
 
 			$msg 	= '';
@@ -252,6 +255,9 @@ class EventListControllerEvents extends EventListController
 		}
 
 		$msg = $total.' '.JText::_( 'EVENTS DELETED');
+
+		$cache = &JFactory::getCache('com_eventlist');
+		$cache->clean();
 
 		$this->setRedirect( 'index.php?option=com_eventlist&view=events', $msg );
 	}

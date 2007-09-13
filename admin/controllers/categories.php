@@ -82,6 +82,9 @@ class EventListControllerCategories extends EventListController
 			}
 			$msg = JText::_( 'CATEGORY SAVED' );
 
+			$cache = &JFactory::getCache('com_eventlist');
+			$cache->clean();
+
 		} else {
 
 			$msg 	= '';
@@ -216,6 +219,9 @@ class EventListControllerCategories extends EventListController
 		$model = $this->getModel('categories');
 
 		$msg = $model->delete($cid);
+
+		$cache = &JFactory::getCache('com_eventlist');
+		$cache->clean();
 
 		$this->setRedirect( 'index.php?option='. $option .'&view=categories', $msg );
 	}

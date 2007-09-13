@@ -63,6 +63,9 @@ class EventListControllerAttendees extends EventListController
 			echo "<script> alert('".$model->getError()."'); window.history.go(-1); </script>\n";
 		}
 
+		$cache = &JFactory::getCache('com_eventlist');
+		$cache->clean();
+
 		$msg = $total.' '.JText::_( 'REGISTERED USERS DELETED');
 
 		$this->setRedirect( 'index.php?option='. $option .'&view=attendees&rcid='.$rcid, $msg );
