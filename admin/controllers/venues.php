@@ -203,8 +203,6 @@ class EventListControllerVenues extends EventListController
 	 */
 	function save()
 	{
-		global $option, $mainframe;
-
 		$task		= JRequest::getVar('task');
 
 		// Sanitize
@@ -219,11 +217,11 @@ class EventListControllerVenues extends EventListController
 			switch ($task)
 			{
 				case 'apply':
-					$link = 'index.php?option='.$option.'&view=venue&hidemainmenu=1&cid[]='.$returnid;
+					$link = 'index.php?option=com_eventlist&view=venue&hidemainmenu=1&cid[]='.$returnid;
 					break;
 
 				default:
-					$link = 'index.php?option='.$option.'&view=venues';
+					$link = 'index.php?option=com_eventlist&view=venues';
 					break;
 			}
 			$msg	= JText::_( 'VENUE SAVED');
@@ -234,7 +232,7 @@ class EventListControllerVenues extends EventListController
 		} else {
 
 			$msg 	= '';
-			$link 	= 'index.php?option='.$option.'&view=venue';
+			$link 	= 'index.php?option=com_eventlist&view=venue';
 
 		}
 

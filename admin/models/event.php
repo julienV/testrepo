@@ -266,7 +266,7 @@ class EventListModelEvent extends JModel
 	 */
 	function store($data)
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		jimport('joomla.utilities.date');
 

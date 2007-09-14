@@ -40,7 +40,7 @@ class EventListViewCategoriesdetailed extends JView
 	 */
 	function display( $tpl = null )
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		//initialise variables
 		$document 	= & JFactory::getDocument();
@@ -131,7 +131,7 @@ class EventListViewCategoriesdetailed extends JView
 	 */
 	function getRows()
 	{
-		global $mainframe, $Itemid;
+		global $mainframe;
 
 		if (!count( $this->rows ) ) {
 			return;

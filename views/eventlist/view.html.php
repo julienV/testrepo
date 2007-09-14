@@ -144,7 +144,7 @@ class EventListViewEventList extends JView
 	 */
 	function &getRows()
 	{
-		global $mainframe, $Itemid;
+		global $mainframe;
 
 		if (!count( $this->rows ) ) {
 			return;

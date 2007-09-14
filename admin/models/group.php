@@ -304,8 +304,6 @@ class EventListModelGroup extends JModel
 	 */
 	function store($data)
 	{
-		global $mainframe;
-
 		$row =& JTable::getInstance('eventlist_groups', '');
 
 		//Bind the form fields to the table

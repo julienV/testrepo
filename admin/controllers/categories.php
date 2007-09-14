@@ -58,8 +58,6 @@ class EventListControllerCategories extends EventListController
 	 */
 	function save()
 	{
-		global $option, $mainframe;
-
 		$task		= JRequest::getVar('task');
 
 		//Sanitize
@@ -73,11 +71,11 @@ class EventListControllerCategories extends EventListController
 			switch ($task)
 			{
 				case 'apply' :
-					$link = 'index.php?option='.$option.'&view=category&cid[]='.$returnid;
+					$link = 'index.php?option=com_eventlist&view=category&cid[]='.$returnid;
 					break;
 
 				default :
-					$link = 'index.php?option='.$option.'&view=categories';
+					$link = 'index.php?option=com_eventlist&view=categories';
 					break;
 			}
 			$msg = JText::_( 'CATEGORY SAVED' );
@@ -88,7 +86,7 @@ class EventListControllerCategories extends EventListController
 		} else {
 
 			$msg 	= '';
-			$link 	= 'index.php?option='.$option.'&view=category';
+			$link 	= 'index.php?option=com_eventlist&view=category';
 		}
 
 		$model->checkin();

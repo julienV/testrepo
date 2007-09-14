@@ -40,8 +40,6 @@ class EventListViewVenueevents extends JView
 	 */
 	function display( )
 	{
-		global $mainframe;
-
 		$doc 	= & JFactory::getDocument();
 
 		// Get some data from the model

@@ -301,10 +301,10 @@ defined('_JEXEC') or die('Restricted access');
 			?>
 			</td>
 		</tr>
-		<?php endif;//unregister end ?>
+		<?php endif; //unregister end ?>
 	</table>
 	</fieldset>
-	<?php endif;//registration end ?>
+	<?php endif; //registration end ?>
 	<fieldset>
 	<legend><?php echo JText::_('RECURRENCE'); ?></legend>
 	<table width="100%">

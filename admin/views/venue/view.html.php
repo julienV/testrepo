@@ -50,7 +50,6 @@ class EventListViewVenue extends JView {
 
 		//get vars
 		$cid 			= JRequest::getInt( 'cid' );
-		$url 			= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
 
 		//add css and js to document
 		$document->addScript('../includes/js/joomla/popup.js');

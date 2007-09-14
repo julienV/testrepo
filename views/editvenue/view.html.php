@@ -41,7 +41,7 @@ class EventListViewEditvenue extends JView
 	 */
 	function display( $tpl=null )
 	{
-		global $Itemid, $mainframe, $option;
+		global $mainframe;
 
 		$editor 	= & JFactory::getEditor();
 		$doc 		= & JFactory::getDocument();
@@ -67,7 +67,7 @@ class EventListViewEditvenue extends JView
 		// Get the menu object of the active menu item
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getParams('com_eventlist');
+//		$params 	= & $mainframe->getParams('com_eventlist');
 
 		$id ? $title = JText::_( 'EDIT VENUE' ) : $title = JText::_( 'ADD VENUE' );
 

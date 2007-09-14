@@ -37,6 +37,7 @@ defined('_JEXEC') or die('Restricted access');
 					<td>
 						<div id="cpanel">
 						<?php
+						global $option;
 
 						$link = 'index.php?option='.$option.'&amp;view=events';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-events.png', JText::_( 'EVENTS' ) );

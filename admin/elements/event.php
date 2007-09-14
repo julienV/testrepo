@@ -46,8 +46,6 @@ class JElementEvent extends JElement
 
 		$db			=& JFactory::getDBO();
 		$doc 		=& JFactory::getDocument();
-		$template 	= $mainframe->getTemplate();
-		$url 		= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
 		$fieldName	= $control_name.'['.$name.']';
 
 		JTable::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_eventlist'.DS.'tables');

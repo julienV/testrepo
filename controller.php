@@ -156,8 +156,6 @@ class EventListController extends JController
 	 */
 	function savevenue()
 	{
-		global $mainframe;
-
 		//check the token before we do anything else
 		$token	= JUtility::getToken();
 		if(!JRequest::getVar( $token, 0, 'post' )) {
@@ -252,7 +250,6 @@ class EventListController extends JController
 		}
 
 		$id 	= JRequest::getInt( 'rdid', 0, 'post' );
-		$Itemid = JRequest::getInt( 'Itemid', 0, 'post' );
 
 		// Get the model
 		$model = & $this->getModel('Details', 'EventListModel');
