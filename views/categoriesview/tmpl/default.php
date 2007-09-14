@@ -45,7 +45,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <?php foreach ($this->rows as $row) : ?>
 
 <div class="floattext">
-	<h2 class="eventlist cat<?php echo $category->id; ?>">
+	<h2 class="eventlist cat<?php echo $row->id; ?>">
 		<?php echo $row->catname; ?>
 	</h2>
 
@@ -73,7 +73,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		</p>
 	</div>
 
-	<div class="catdescription cat<?php echo $category->id; ?>"><?php echo $row->catdescription ; ?>
+	<div class="catdescription cat<?php echo $row->id; ?>"><?php echo $row->catdescription ; ?>
 	<p>
 		<?php
 		if ($this->task == 'archive') :
