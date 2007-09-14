@@ -85,6 +85,6 @@ class EventListViewEditcss extends JView {
 		$this->assignRef('filename'		, $filename);
 		$this->assignRef('path'			, $path);
 
-		parent::display();
+		parent::display($tpl);
 	}
 }

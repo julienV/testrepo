@@ -308,7 +308,6 @@ class EventListModelEvent extends JModel
 		// sanitise id field
 		$row->id = (int) $row->id;
 
-		$datenow 	= new JDate();
 		$nullDate	= $this->_db->getNullDate();
 
 		// Are we saving from an item edit?

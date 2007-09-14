@@ -253,7 +253,7 @@ class EventListViewDetails extends JView
 	 *
  	 * @since 0.9
 	 */
-	function keyword_switcher($keyword, &$row, $formattime, $formatdate) {
+	function keyword_switcher($keyword, $row, $formattime, $formatdate) {
 		switch ($keyword) {
 			case "catsid":
 				$content = $row->catname;

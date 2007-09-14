@@ -36,6 +36,8 @@ jimport('joomla.application.component.helper');
 class EventListHelperRoute
 {
 	/**
+	 * TODO: Rework if we haven't the time to cleanup the id mess
+	 *
 	 * @param	int	The route of the Event item
 	 */
 	function getEventRoute($id)
@@ -92,6 +94,7 @@ class EventListHelperRoute
 		return $link;
 	}
 
+	//TODO: Wait till router is fixed and can handle links without any itemid, than cleanup
 	function _findItem($needles, $type)
 	{
 		$component =& JComponentHelper::getComponent('com_eventlist');

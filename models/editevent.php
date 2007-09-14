@@ -452,7 +452,6 @@ class EventListModelEditevent extends JModel
 		jimport('joomla.utilities.date');
 
 		$user 		= & JFactory::getUser();
-		$acl		= & JFactory::getACL();
 		$elsettings = ELHelper::config();
 
 		//Get mailinformation

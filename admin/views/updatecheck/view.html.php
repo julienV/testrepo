@@ -53,6 +53,6 @@ class EventListViewUpdatecheck extends JView {
 		$this->assignRef('template'		, $template);
 		$this->assignRef('updatedata'	, $updatedata);
 
-		parent::display();
+		parent::display($tpl);
 	}
 }

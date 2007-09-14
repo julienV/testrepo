@@ -85,9 +85,6 @@ class EventListControllerGroups extends EventListController
 	{
 		global $option;
 
-		$cid 	= JRequest::getVar( 'cid', array(0), '', 'array' );
-		$id		= $cid[0];
-
 		JRequest::setVar( 'view', 'group' );
 		JRequest::setVar( 'hidemainmenu', 1 );
 

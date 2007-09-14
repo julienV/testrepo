@@ -165,11 +165,6 @@ class EventListControllerEvents extends EventListController
 	 */
 	function edit( )
 	{
-		global $option;
-
-		$cid 	= JRequest::getVar( 'cid', array(0), '', 'array' );
-		$id		= $cid[0];
-
 		JRequest::setVar( 'view', 'event' );
 		JRequest::setVar( 'hidemainmenu', 1 );
 
@@ -194,8 +189,6 @@ class EventListControllerEvents extends EventListController
 	 */
 	function save()
 	{
-		global $option;
-
 		$task		= JRequest::getVar('task');
 
 		$post = JRequest::get( 'post' );
@@ -208,11 +201,11 @@ class EventListControllerEvents extends EventListController
 			switch ($task)
 			{
 				case 'apply' :
-					$link = 'index.php?option='.$option.'&controller=events&view=event&hidemainmenu=1&cid[]='.$returnid;
+					$link = 'index.php?option=com_eventlist&controller=events&view=event&hidemainmenu=1&cid[]='.$returnid;
 					break;
 
 				default :
-					$link = 'index.php?option='.$option.'&view=events';
+					$link = 'index.php?option=com_eventlist&view=events';
 					break;
 			}
 			$msg	= JText::_( 'EVENT SAVED');
@@ -223,7 +216,7 @@ class EventListControllerEvents extends EventListController
 		} else {
 
 			$msg 	= '';
-			$link = 'index.php?option='.$option.'&view=events';
+			$link = 'index.php?option=com_eventlist&view=events';
 
 		}
 

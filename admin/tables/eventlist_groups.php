@@ -51,8 +51,6 @@ class eventlist_groups extends JTable
 	// overloaded check function
 	function check()
 	{
-		global $mainframe;
-
 		// Not typed in a category name?
 		if (trim( $this->name ) == '') {
 			$this->_error = JText::_( 'ADD GROUP NAME' );
