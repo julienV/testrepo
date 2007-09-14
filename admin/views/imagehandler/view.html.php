@@ -185,8 +185,6 @@ class EventListViewImagehandler extends JView  {
 	 */
 	function _displayuploadimage($tpl = null)
 	{
-		global $mainframe;
-
 		//initialise variables
 		$document	= & JFactory::getDocument();
 		$uri 		= & JFactory::getURI();

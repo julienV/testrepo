@@ -293,8 +293,6 @@ class EventListModelArchive extends JModel
 	 */
 	function delete($cid = array())
 	{
-		$result = false;
-
 		if (count( $cid ))
 		{
 			$cids = implode( ',', $cid );

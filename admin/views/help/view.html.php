@@ -34,8 +34,6 @@ class EventListViewHelp extends JView {
 
 	function display($tpl = null) {
 
-		global $mainframe;
-
 		//Load filesystem folder and pane behavior
 		jimport('joomla.html.pane');
 		jimport( 'joomla.filesystem.folder' );
@@ -85,7 +83,7 @@ class EventListViewHelp extends JView {
 		$this->assignRef('helpsearch'	, $helpsearch);
 		$this->assignRef('toc'			, $toc);
 
-		parent::display();
+		parent::display($tpl);
 	}
 
 	/**

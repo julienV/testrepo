@@ -74,8 +74,6 @@ class eventlist_categories extends JTable
 	// overloaded check function
 	function check()
 	{
-		global $mainframe;
-
 		// Not typed in a category name?
 		if (trim( $this->catname ) == '') {
 			$this->_error = JText::_( 'ADD NAME CATEGORY' );

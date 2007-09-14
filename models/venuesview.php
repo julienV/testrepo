@@ -119,7 +119,7 @@ class EventListModelVenuesview extends JModel
 				}
 
 				//build the url
-				if(!empty($row->url) && strtolower(substr($venue->url, 0, 7)) != "http://") {
+				if(!empty($venue->url) && strtolower(substr($venue->url, 0, 7)) != "http://") {
 					$venue->url = 'http://'.$venue->url;
     		    }
 

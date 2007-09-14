@@ -112,7 +112,7 @@ class EventListViewSettings extends JView {
 		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('globalparams'	, $globalparams);
 
-		parent::display();
+		parent::display($tpl);
 
 	}
 
