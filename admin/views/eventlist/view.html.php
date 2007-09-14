@@ -34,8 +34,6 @@ class EventListViewEventList extends JView {
 
 	function display($tpl = null)
 	{
-		global $mainframe, $option;
-
 		//Load pane behavior
 		jimport('joomla.html.pane');
 

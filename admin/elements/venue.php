@@ -42,9 +42,6 @@ class JElementVenue extends JElement
 
 	function fetchElement($name, $value, &$node, $control_name)
 	{
-		global $mainframe;
-
-		$db			=& JFactory::getDBO();
 		$doc 		=& JFactory::getDocument();
 		$fieldName	= $control_name.'['.$name.']';
 

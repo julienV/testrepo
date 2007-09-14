@@ -47,7 +47,6 @@ class EventListViewGroup extends JView {
 
 		//get vars
 		$template		= $mainframe->getTemplate();
-		$request_url 	= $uri->toString();
 		$cid 			= JRequest::getInt( 'cid' );
 
 		//add css

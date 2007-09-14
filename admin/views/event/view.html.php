@@ -186,9 +186,6 @@ class EventListViewEvent extends JView {
 		$uri 		= & JFactory::getURI();
 		$elsettings = ELAdmin::config();
 
-		//get vars
-		$url 			= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
-
 		//add css and js to document
 		JHTML::_('behavior.modal', 'a.modal');
 
