@@ -288,7 +288,8 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 		</tr>
 		<?php
-		endif;//register end
+		//register end
+		endif;
 
 		if ( $this->elsettings->showfrounregistra == 2 ) :
 		?>
@@ -301,10 +302,18 @@ defined('_JEXEC') or die('Restricted access');
 			?>
 			</td>
 		</tr>
-		<?php endif; //unregister end ?>
+		<?php
+		//unregister end
+		endif;
+		?>
 	</table>
 	</fieldset>
-	<?php endif; //registration end ?>
+
+	<?php
+	//registration end
+	endif;
+	?>
+
 	<fieldset>
 	<legend><?php echo JText::_('RECURRENCE'); ?></legend>
 	<table width="100%">

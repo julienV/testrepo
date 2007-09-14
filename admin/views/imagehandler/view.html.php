@@ -35,8 +35,6 @@ class EventListViewImagehandler extends JView  {
 
 	function display($tpl = null)
 	{
-		global $mainframe;
-
 		if($this->getLayout() == 'uploadimage') {
 			$this->_displayuploadimage($tpl);
 			return;

@@ -87,8 +87,6 @@ class EventListViewEventList extends JView {
 	 */
 	function quickiconButton( $link, $image, $text, $modal = 0 )
 	{
-		global $mainframe;
-
 		//initialise variables
 		$lang 		= & JFactory::getLanguage();
   		?>

@@ -55,7 +55,7 @@ class EventListControllerImageupload extends EventListController
 	 */
 	function uploadimage()
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		$elsettings = ELAdmin::config();
 		jimport('joomla.filesystem.file');

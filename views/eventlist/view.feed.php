@@ -40,8 +40,6 @@ class EventListViewEventList extends JView
 	 */
 	function display( )
 	{
-		global $mainframe;
-
 		$doc 		= & JFactory::getDocument();
 		$elsettings = ELHelper::config();
 

@@ -181,7 +181,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 		<?php endif; ?>
 
-	<?php endif; //row->locid !=0 end ?>
+	<?php
+	//row->locid !=0 end
+	endif;
+	?>
 
 	<?php if ($this->row->registra == 1) : ?>
 

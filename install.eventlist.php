@@ -28,10 +28,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
  */
 function com_install() {
 
-	global $mainframe;
-
-	$db 		= & JFactory::getDBO();
-
 	jimport( 'joomla.filesystem.folder' )
 ?>
 
@@ -52,38 +48,38 @@ function com_install() {
 			<code>Installation Status:<br />
 			<?php
 			// Check for existing /images/eventlist directory
-        	if ($direxists = JFolder::exists( JPATH_SITE.'/images/eventlist' )) {
-        		echo "<font color='green'>FINISHED:</font> Directory /images/eventlist exists. Skipping creation.<br />";
-       		} else {
-        		echo "<font color='orange'>Note:</font> The Directory /images/eventlist does NOT exist. EventList will try to create them.<br />";
+			if ($direxists = JFolder::exists( JPATH_SITE.'/images/eventlist' )) {
+				echo "<font color='green'>FINISHED:</font> Directory /images/eventlist exists. Skipping creation.<br />";
+			} else {
+				echo "<font color='orange'>Note:</font> The Directory /images/eventlist does NOT exist. EventList will try to create them.<br />";
 
-        		//Image folder creation
-        		if ($makedir1 = JFolder::create( JPATH_SITE.'/images/eventlist')) {
-        			echo "<font color='green'>FINISHED:</font> Directory /images/eventlist created.<br />";
-        		} else {
-        			echo "<font color='red'>ERROR:</font> Directory /images/eventlist NOT created.<br />";
-        		}
+				//Image folder creation
+				if ($makedir1 = JFolder::create( JPATH_SITE.'/images/eventlist')) {
+					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist created.<br />";
+				} else {
+					echo "<font color='red'>ERROR:</font> Directory /images/eventlist NOT created.<br />";
+				}
 
-        		if ($makedir2 = JFolder::create(JPATH_SITE.'/images/eventlist/events')) {
-        			echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/events created.<br />";
-        		} else {
-        			echo "<font color='red'>ERROR:</font> Directory /images/eventlist/events NOT created.<br />";
-        		}
-        		if ($makedir3 = JFolder::create( JPATH_SITE.'/images/eventlist/events/small')) {
-        			echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/events/small created.<br />";
-        		} else {
-        			echo "<font color='red'>ERROR:</font> Directory /images/eventlist/events/small NOT created.<br />";
-        		}
-        		if ($makedir4 = JFolder::create( JPATH_SITE.'/images/eventlist/venues')) {
-        			echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/venues created.<br />";
-        		} else {
-        			echo "<font color='red'>ERROR:</font> Directory /images/eventlist/venues NOT created.<br />";
-        		}
-        		if ($makedir5 = JFolder::create( JPATH_SITE.'/images/eventlist/venues/small')) {
-        			echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/venues/small created.<br />";
-        		} else {
-        			echo "<font color='red'>ERROR:</font> Directory /images/eventlist/venues/small NOT created.<br />";
-        		}
+				if (JFolder::create(JPATH_SITE.'/images/eventlist/events')) {
+					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/events created.<br />";
+				} else {
+					echo "<font color='red'>ERROR:</font> Directory /images/eventlist/events NOT created.<br />";
+				}
+				if (JFolder::create( JPATH_SITE.'/images/eventlist/events/small')) {
+					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/events/small created.<br />";
+				} else {
+					echo "<font color='red'>ERROR:</font> Directory /images/eventlist/events/small NOT created.<br />";
+				}
+				if (JFolder::create( JPATH_SITE.'/images/eventlist/venues')) {
+					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/venues created.<br />";
+				} else {
+					echo "<font color='red'>ERROR:</font> Directory /images/eventlist/venues NOT created.<br />";
+				}
+				if (JFolder::create( JPATH_SITE.'/images/eventlist/venues/small')) {
+					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/venues/small created.<br />";
+				} else {
+					echo "<font color='red'>ERROR:</font> Directory /images/eventlist/venues/small NOT created.<br />";
+				}
 			}
         	?>
 
