@@ -59,7 +59,6 @@ class EventListController extends JController
 	 */
 	function cancelevent()
 	{
-		$db 	= & JFactory::getDBO();
 		$user	= & JFactory::getUser();
 
 		$view	= JRequest::getWord( 'returnview' );
@@ -91,7 +90,6 @@ class EventListController extends JController
 	 */
 	function addvenue()
 	{
-		$db 	= & JFactory::getDBO();
 		$user	= & JFactory::getUser();
 
 		$view	= JRequest::getWord( 'returnview' );
@@ -121,7 +119,6 @@ class EventListController extends JController
 	 */
 	function cancelvenue()
 	{
-		$db 	= & JFactory::getDBO();
 		$user	= & JFactory::getUser();
 
 		$view	= JRequest::getWord( 'returnview' );
@@ -167,7 +164,6 @@ class EventListController extends JController
 		$post['locdescription'] = JRequest::getVar( 'locdescription', '', 'post', 'string', JREQUEST_ALLOWRAW );
 
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
-
 
 		$model = $this->getModel('editvenue');
 
