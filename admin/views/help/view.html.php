@@ -94,8 +94,6 @@ class EventListViewHelp extends JView {
  	*/
 	function getHelpTOC( $helpsearch )
 	{
-		global $mainframe;
-
 		$lang =& JFactory::getLanguage();
 		jimport( 'joomla.filesystem.folder' );
 

@@ -134,7 +134,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	</p>
 
 	<input type="hidden" name="boxchecked" value="0" />
-	<input type="hidden" name="option" value="<?php echo $option; ?>" />
+	<input type="hidden" name="option" value="com_eventlist" />
 	<input type="hidden" name="controller" value="categories" />
 	<input type="hidden" name="task" value="" />
 	<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
