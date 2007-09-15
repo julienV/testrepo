@@ -64,6 +64,8 @@ div#eventlist .buttons a
 div#eventlist h2
 { font-size: 1.2em; font-weight: bold; border-bottom: 2px solid #ddd; padding:0.5em 0.3em; margin: 0.8em 0; }
 
+div#eventlist h2 img
+{ border: none; }
 
 /* definition list (event details)
 **************************************************************************/

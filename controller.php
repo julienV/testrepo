@@ -309,12 +309,12 @@ class EventListController extends JController
 		global $mainframe;
 
 		$task 			= JRequest::getWord( 'task' );
-		$did 			= JRequest::getInt( 'id' );
+		$id 			= JRequest::getInt( 'id' );
 		$user_offset 	= $mainframe->getCfg( 'offset_user' );
 
 		//get Data from model
 		$model = & $this->getModel('Details', 'EventListModel');
-		$model->setId((int)$did);
+		$model->setId((int)$id);
 
 		$row = $model->getDetails();
 
