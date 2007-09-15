@@ -72,7 +72,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 			<?php elseif ($this->elsettings->showdetlinkvenue == 2) : ?>
 
-			    <a href="<?php echo JRoute::_( 'index.php?view=venueevents&locatid='.$this->row->venueslug ); ?>"><?php echo $this->row->venue; ?></a> -
+			    <a href="<?php echo JRoute::_( 'index.php?view=venueevents&id='.$this->row->venueslug ); ?>"><?php echo $this->row->venue; ?></a> -
 
 			<?php elseif ($this->elsettings->showdetlinkvenue == 0) :
 
@@ -119,7 +119,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<dl class="location floattext">
 			 <dt class="venue"><?php echo $this->elsettings->locationname.':'; ?></dt>
 				<dd class="venue">
-				<?php echo "<a href='".JRoute::_( 'index.php?view=venueevents&locatid='.$this->row->venueslug )."'>".$this->row->venue."</a>"; ?>
+				<?php echo "<a href='".JRoute::_( 'index.php?view=venueevents&id='.$this->row->venueslug )."'>".$this->row->venue."</a>"; ?>
 
 				<?php if (!empty($this->row->url)) : ?>
 					&nbsp; - &nbsp;

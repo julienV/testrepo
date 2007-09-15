@@ -111,7 +111,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
 	<input type="hidden" name="filter_order_Dir" value="" />
 	<input type="hidden" name="view" value="venueevents" />
-	<input type="hidden" name="locatid" value="<?php echo $this->locatid; ?>" />
+	<input type="hidden" name="id" value="<?php echo $this->locatid; ?>" />
 	<input type="hidden" name="Itemid" value="<?php echo $this->item->id;?>" />
 	</form>
 

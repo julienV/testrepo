@@ -34,13 +34,13 @@ function EventListBuildRoute(&$query)
 		$segments[] = $query['did'];
 		unset($query['did']);
 	};
-*/
+
 	if(isset($query['locatid']))
 	{
 		$segments[] = $query['locatid'];
 		unset($query['locatid']);
 	};
-
+*/
 	if(isset($query['cid']))
 	{
 		$segments[] = $query['cid'];
@@ -110,8 +110,8 @@ function EventListParseRoute($segments)
 
 		case 'venueevents':
 		{
-			$locatid = explode(':', $segments[1]);
-			$vars['locatid'] = $locatid[0];
+			$id = explode(':', $segments[1]);
+			$vars['id'] = $id[0];
 			$vars['view'] = 'venueevents';
 
 		} break;

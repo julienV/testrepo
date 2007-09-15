@@ -72,7 +72,7 @@ class EventListModelVenueevents extends JModel
 
 		global $mainframe;
 
-		$id = JRequest::getInt('locatid');
+		$id = JRequest::getInt('id');
 		$this->setId((int)$id);
 
 		// Get the paramaters of the active menu item

@@ -137,7 +137,7 @@ class EventListController extends JController
 			$row->load($id);
 			$row->checkin();
 
-			$this->setRedirect( JRoute::_('index.php?view=venueevents&locatid='.$id, false) );
+			$this->setRedirect( JRoute::_('index.php?view=venueevents&id='.$id, false) );
 
 		} else {
 		//	$view != '' ? $target = '&view='.$view : $target = '';
@@ -170,7 +170,7 @@ class EventListController extends JController
 		if ($returnid = $model->store($post, $file)) {
 
 			$msg 	= JText::_( 'VENUE SAVED' );
-			$link 	= JRoute::_('index.php?view=venueevents&locatid='.$returnid, false) ;
+			$link 	= JRoute::_('index.php?view=venueevents&id='.$returnid, false) ;
 
 			$cache = &JFactory::getCache('com_eventlist');
 			$cache->clean();

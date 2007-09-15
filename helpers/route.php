@@ -66,9 +66,9 @@ class EventListHelperRoute
 		);
 
 		//Create the link
-		$link = 'index.php?option=com_eventlist&view=venueevents&locatid='.$id;
+		$link = 'index.php?option=com_eventlist&view=venueevents&id='.$id;
 
-		if($item = EventListHelperRoute::_findItem($needles, 'locatid')) {
+		if($item = EventListHelperRoute::_findItem($needles, 'id')) {
 			$link .= '&Itemid='.$item->id;
 		};
 

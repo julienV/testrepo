@@ -59,7 +59,7 @@ class EventListViewVenueevents extends JView
 		// Request variables
 		$limitstart		= JRequest::getInt('limitstart');
 		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.venueevents.limit', 'limit', $params->def('display_num', 0), 'int');
-		$locatid		= JRequest::getInt('locatid');
+		$locatid		= JRequest::getInt('id');
 		$pop			= JRequest::getBool('pop');
 
 		//get data from model
@@ -89,7 +89,7 @@ class EventListViewVenueevents extends JView
 		$limage = ELImage::flyercreator($venue->locimage, $elsettings);
 
 		//add alternate feed link
-		$link    = 'index.php?option=com_eventlist&view=venueevents&format=feed&locatid='.$venue->id;
+		$link    = 'index.php?option=com_eventlist&view=venueevents&format=feed&id='.$venue->id;
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
 		$document->addHeadLink(JRoute::_($link.'&type=rss'), 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
@@ -103,7 +103,7 @@ class EventListViewVenueevents extends JView
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();
 		$pathway->setItemName(1, $item->name);
-		$pathway->addItem( $venue->venue, JRoute::_('index.php?option='.$option.'&view=venueevents&locatid='.$locatid));
+		$pathway->addItem( $venue->venue, JRoute::_('index.php?option='.$option.'&view=venueevents&id='.$locatid));
 
 		//Printfunction
 		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
@@ -113,7 +113,7 @@ class EventListViewVenueevents extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = JRoute::_('index.php?option=com_eventlist&view=venueevents&locatid='. $venue->id .'&pop=1&tmpl=component');
+		$print_link = JRoute::_('index.php?option=com_eventlist&view=venueevents&id='. $venue->id .'&pop=1&tmpl=component');
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();

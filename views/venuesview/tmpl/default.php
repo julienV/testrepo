@@ -45,7 +45,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 
 		<h2 class="eventlist">
-			<a href="<?php echo JRoute::_('index.php?view=venueevents&locatid='.$row->slug); ?>"><?php echo $row->venue; ?></a>
+			<a href="<?php echo JRoute::_('index.php?view=venueevents&id='.$row->slug); ?>"><?php echo $row->venue; ?></a>
 		</h2>
 
 			<?php

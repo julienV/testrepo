@@ -9,7 +9,7 @@
 		<name>VENUEEVENTS LAYOUT</name>
 		<description>VENUEEVENTS LAYOUT DESC</description>
 		<url addpath="/administrator/components/com_eventlist/elements">
-			<param name="locatid" type="venue" default="0" label="Select Venue" description="SELECTVENUE" />
+			<param name="id" type="venue" default="0" label="Select Venue" description="SELECTVENUE" />
 		</url>
 	</state>
 </metadata>
