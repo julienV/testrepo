@@ -79,7 +79,7 @@ class EventListViewArchive extends JView {
 
 		// Get data from the model
 		$rows      	= & $this->get( 'Data');
-		$total      = & $this->get( 'Total');
+		//$total      = & $this->get( 'Total');
 		$pageNav 	= & $this->get( 'Pagination' );
 
 		//search filter
