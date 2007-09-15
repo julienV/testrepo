@@ -88,7 +88,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 		<dt class="category"><?php echo JText::_( 'CATEGORY' ).':'; ?></dt>
     		<dd class="category">
-				<?php echo "<a href='".JRoute::_( 'index.php?view=categoryevents&categid='.$this->row->categoryslug )."'>".$this->row->catname."</a>";?>
+				<?php echo "<a href='".JRoute::_( 'index.php?view=categoryevents&id='.$this->row->categoryslug )."'>".$this->row->catname."</a>";?>
 			</dd>
 	</dl>
 

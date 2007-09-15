@@ -85,9 +85,9 @@ class EventListHelperRoute
 		);
 
 		//Create the link
-		$link = 'index.php?option=com_eventlist&view=categoryevents&categid='.$id;
+		$link = 'index.php?option=com_eventlist&view=categoryevents&id='.$id;
 
-		if($item = EventListHelperRoute::_findItem($needles, 'categid')) {
+		if($item = EventListHelperRoute::_findItem($needles, 'id')) {
 			$link .= '&Itemid='.$item->id;
 		};
 

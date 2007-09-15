@@ -61,7 +61,7 @@ class EventListViewCategoryevents extends JView
 		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0), 'int');
 		$task 			= JRequest::getWord('task');
 		$pop			= JRequest::getBool('pop');
-		$categid		= JRequest::getInt('categid');
+		$categid		= JRequest::getInt('id');
 
 		//get data from model
 		$rows 		= & $this->get('Data');
@@ -94,10 +94,10 @@ class EventListViewCategoryevents extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&categid='. $category->id .'&pop=1&tmpl=component');
+		$print_link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&id='. $category->id .'&pop=1&tmpl=component');
 
 		//add alternate feed link
-		$link    = 'index.php?option=com_eventlist&view=categoryevents&format=feed&categid='.$category->id;
+		$link    = 'index.php?option=com_eventlist&view=categoryevents&format=feed&id='.$category->id;
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
 		$document->addHeadLink(JRoute::_($link.'&type=rss'), 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
@@ -107,11 +107,11 @@ class EventListViewCategoryevents extends JView
 		if ($task == 'catarchive') {
 			$pathway 	= & $mainframe->getPathWay();
 			$pathway->setItemName(1, $item->name);
-			$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&task=catarchive&categid'.$categid));
+			$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&task=catarchive&id'.$categid));
 		} else {
 			$pathway 	= & $mainframe->getPathWay();
 			$pathway->setItemName(1, $item->name);
-			$pathway->addItem( $category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&categid'.$categid));
+			$pathway->addItem( $category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&id'.$categid));
 		}
 
 		//Check if the user has access to the form
@@ -128,9 +128,9 @@ class EventListViewCategoryevents extends JView
 
 		//create the form links
 		if ($task == 'catarchive') {
-			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&task=catarchive&categid='.$category->id );
+			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&task=catarchive&id='.$category->id );
 		} else {
-			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&categid='.$category->id );
+			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&id='.$category->id );
 		}
 
 

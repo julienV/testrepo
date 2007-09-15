@@ -46,13 +46,13 @@ function EventListBuildRoute(&$query)
 		$segments[] = $query['cid'];
 		unset($query['cid']);
 	};
-
+/*
 	if(isset($query['categid']))
 	{
 		$segments[] = $query['categid'];
 		unset($query['categid']);
 	};
-
+*/
 	if(isset($query['id']))
 	{
 		$segments[] = $query['id'];
@@ -89,8 +89,8 @@ function EventListParseRoute($segments)
 	{
 		case 'categoryevents':
 		{
-			$categid = explode(':', $segments[1]);
-			$vars['categid'] = $categid[0];
+			$id = explode(':', $segments[1]);
+			$vars['id'] = $id[0];
 			$vars['view'] = 'categoryevents';
 
 			$count = count($segments);

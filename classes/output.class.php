@@ -113,7 +113,7 @@ class ELOutput {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
 					$overlib 	= JText::_( 'SHOW EVENTS TIP' );
-					$link 		= JRoute::_( 'index.php?view=categoryevents&categid='.$categid );
+					$link 		= JRoute::_( 'index.php?view=categoryevents&id='.$categid );
 					$title 		= JText::_( 'SHOW EVENTS' );
 
 					break;

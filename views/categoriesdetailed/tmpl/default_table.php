@@ -121,7 +121,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 					if ($this->elsettings->catlinklist == 1) :
 					?>
 						<td headers="el_category_cat<?php echo $this->categoryid; ?>" width="<?php echo $this->elsettings->catfrowidth; ?>" align="left" valign="top">
-							<a href="<?php echo JRoute::_('index.php?view=categoryevents&categid='.$row->categoryslug) ; ?>">
+							<a href="<?php echo JRoute::_('index.php?view=categoryevents&id='.$row->categoryslug) ; ?>">
 								<?php echo $row->catname ? $row->catname : '-' ; ?>
 							</a>
 						</td>
