@@ -140,9 +140,7 @@ class EventListController extends JController
 			$this->setRedirect( JRoute::_('index.php?view=venueevents&id='.$id, false) );
 
 		} else {
-		//	$view != '' ? $target = '&view='.$view : $target = '';
 			$this->setRedirect( JRoute::_('index.php?view='.$view, false) );
-		//	$this->setRedirect( JRoute::_('index.php?'.$target) );
 		}
 	}
 

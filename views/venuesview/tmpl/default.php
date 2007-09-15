@@ -54,18 +54,12 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			?>
 
 			<dl class="location floattext">
+				<?php if (($this->elsettings->showdetlinkvenue == 1) && (!empty($row->url))) : ?>
 				<dt class="venue_website"><?php echo JText::_( 'WEBSITE' ).':'; ?></dt>
 	   			<dd class="venue_website">
-					<?php
-					if (($this->elsettings->showdetlinkvenue == 1) && (!empty($row->url))) :
-					?>
-						<a href="<?php echo $row->url; ?>" target="_blank"> <?php echo JText::_( 'WEBSITE' ); ?></a>
-					<?php
-					else :
-						echo JText::_( 'NO WEBSITE' );
-					endif;
-					?>
+					<a href="<?php echo $row->url; ?>" target="_blank"> <?php echo $row->urlclean; ?></a>
 				</dd>
+				<?php endif; ?>
 
 				<?php
 	  			if ( $this->elsettings->showdetailsadress == 1 ) :
@@ -108,7 +102,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	    		<dt class="venue_assignedevents"><?php echo JText::_( 'EVENTS' ).':'; ?></dt>
 	    		<dd class="venue_assignedevents">
-	    			<?php echo $row->assignedevents; ?>
+	    			<a href="<?php echo JRoute::_('index.php?view=venueevents&id='.$row->slug); ?>"><?php echo $row->assignedevents; ?></a>
 	    		</dd>
 			<?php
 			endif;

@@ -44,7 +44,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	?>
 
 	<dl class="location floattext">
-		<?php if (!empty($this->venue->url)) : ?>
+		<?php if (($this->elsettings->showdetlinkvenue == 1) && (!empty($this->venue->url))) : ?>
 		<dt class="venue"><?php echo JText::_( 'WEBSITE' ).':'; ?></dt>
 			<dd class="venue">
 					<a href="<?php echo $this->venue->url; ?>" target="_blank"> <?php echo $this->venue->urlclean; ?></a>
