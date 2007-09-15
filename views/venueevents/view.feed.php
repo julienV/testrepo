@@ -40,14 +40,14 @@ class EventListViewVenueevents extends JView
 	 */
 	function display( )
 	{
+		global $mainframe;
+
 		$doc 		= & JFactory::getDocument();
 		$elsettings = ELHelper::config();
 
 		// Get some data from the model
-		$rows 		= & $this->get('Data');
-		$limit 	= '10';
-
-		JRequest::setVar('limit', $limit);
+		JRequest::setVar('limit', $mainframe->getCfg('feed_limit'));
+		$rows = & $this->get('Data');
 
 		foreach ( $rows as $row )
 		{
