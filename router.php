@@ -29,28 +29,10 @@ function EventListBuildRoute(&$query)
 		unset($query['view']);
 	}
 /*
-	if(isset($query['did']))
-	{
-		$segments[] = $query['did'];
-		unset($query['did']);
-	};
-
-	if(isset($query['locatid']))
-	{
-		$segments[] = $query['locatid'];
-		unset($query['locatid']);
-	};
-*/
 	if(isset($query['cid']))
 	{
 		$segments[] = $query['cid'];
 		unset($query['cid']);
-	};
-/*
-	if(isset($query['categid']))
-	{
-		$segments[] = $query['categid'];
-		unset($query['categid']);
 	};
 */
 	if(isset($query['id']))

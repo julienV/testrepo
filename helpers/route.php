@@ -49,7 +49,7 @@ class EventListHelperRoute
 		//Create the link
 		$link = 'index.php?option=com_eventlist&view=details&id='. $id;
 
-		if($item = EventListHelperRoute::_findItem($needles, 'id')) {
+		if($item = EventListHelperRoute::_findItem($needles)) {
 			$link .= '&Itemid='.$item->id;
 		};
 
@@ -68,7 +68,7 @@ class EventListHelperRoute
 		//Create the link
 		$link = 'index.php?option=com_eventlist&view=venueevents&id='.$id;
 
-		if($item = EventListHelperRoute::_findItem($needles, 'id')) {
+		if($item = EventListHelperRoute::_findItem($needles)) {
 			$link .= '&Itemid='.$item->id;
 		};
 
@@ -87,7 +87,7 @@ class EventListHelperRoute
 		//Create the link
 		$link = 'index.php?option=com_eventlist&view=categoryevents&id='.$id;
 
-		if($item = EventListHelperRoute::_findItem($needles, 'id')) {
+		if($item = EventListHelperRoute::_findItem($needles)) {
 			$link .= '&Itemid='.$item->id;
 		};
 
@@ -95,7 +95,7 @@ class EventListHelperRoute
 	}
 
 	//TODO: Wait till router is fixed and can handle links without any itemid, than cleanup
-	function _findItem($needles, $type)
+	function _findItem($needles)
 	{
 		$component =& JComponentHelper::getComponent('com_eventlist');
 
@@ -106,7 +106,7 @@ class EventListHelperRoute
 		{
 			foreach($items as $item)
 			{
-				if ((@$item->query['view'] == $needle) && (@$item->query[$type] == $id)) {
+				if ((@$item->query['view'] == $needle) && (@$item->query['id'] == $id)) {
 					return $item;
 				}
 			}
