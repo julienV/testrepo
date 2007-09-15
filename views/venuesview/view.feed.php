@@ -31,7 +31,7 @@ jimport( 'joomla.application.component.view');
  * @subpackage EventList
  * @since 0.9
  */
-class EventListViewVenueevents extends JView
+class EventListViewVenuesview extends JView
 {
 	/**
 	 * Creates the Event Feed of the Venue
@@ -43,7 +43,7 @@ class EventListViewVenueevents extends JView
 		$doc 	= & JFactory::getDocument();
 
 		// Get some data from the model
-		$rows 		= & $this->get('Venuesview');
+		$rows 		= & $this->get('Data');
 		$limit 	= '10';
 
 		JRequest::setVar('limit', $limit);
@@ -56,7 +56,7 @@ class EventListViewVenueevents extends JView
 
 			// url link to article
 			// & used instead of &amp; as this is converted by feed creator
-			$link = JURI::base().'index.php?option=com_eventlist&view=venueevents&locid='. $row->id;
+			$link = JURI::base().'index.php?option=com_eventlist&view=venueevents&id='. $row->id;
 			$link = JRoute::_( $link );
 
 			// strip html from feed item description text
