@@ -113,7 +113,7 @@ class EventListHelperRoute
 		}
 
 		//return first match
-		return $items[0]->id;
+		return $items[0];
 	}
 }
 ?>
