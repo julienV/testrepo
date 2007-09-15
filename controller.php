@@ -77,7 +77,7 @@ class EventListController extends JController
 			$row->load($id);
 			$row->checkin();
 
-			$this->setRedirect( JRoute::_('index.php?view=details&did='.$id, false ) );
+			$this->setRedirect( JRoute::_('index.php?view=details&id='.$id, false ) );
 
 		} else {
 			$this->setRedirect( JRoute::_('index.php?view='.$view, false ) );
@@ -213,7 +213,7 @@ class EventListController extends JController
 		if ($returnid = $model->store($post, $file)) {
 
 			$msg 	= JText::_( 'EVENT SAVED' );
-			$link 	= JRoute::_('index.php?view=details&did='.$returnid, false) ;
+			$link 	= JRoute::_('index.php?view=details&id='.$returnid, false) ;
 
 			$cache = &JFactory::getCache('com_eventlist');
 			$cache->clean();
@@ -258,7 +258,7 @@ class EventListController extends JController
 
 		$msg = JText::_( 'REGISTERED SUCCESSFULL' );
 
-		$this->setRedirect(JRoute::_('index.php?view=details&did='.$id, false), $msg );
+		$this->setRedirect(JRoute::_('index.php?view=details&id='.$id, false), $msg );
 	}
 
 	/**
@@ -287,7 +287,7 @@ class EventListController extends JController
 		$cache->clean();
 
 		$msg = JText::_( 'UNREGISTERED SUCCESSFULL' );
-		$this->setRedirect( JRoute::_('index.php?view=details&did='.$id.'&Itemid='.$Itemid, false), $msg );
+		$this->setRedirect( JRoute::_('index.php?view=details&id='.$id.'&Itemid='.$Itemid, false), $msg );
 	}
 
 	function selectvenue()
@@ -309,7 +309,7 @@ class EventListController extends JController
 		global $mainframe;
 
 		$task 			= JRequest::getWord( 'task' );
-		$did 			= JRequest::getInt( 'did' );
+		$did 			= JRequest::getInt( 'id' );
 		$user_offset 	= $mainframe->getCfg( 'offset_user' );
 
 		//get Data from model

@@ -57,7 +57,7 @@ class EventListModelDetails extends JModel
 	{
 		parent::__construct();
 
-		$id = JRequest::getInt('did');
+		$id = JRequest::getInt('id');
 		$this->setId((int)$id);
 	}
 

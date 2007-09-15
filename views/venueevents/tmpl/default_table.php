@@ -116,7 +116,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				</td>
 				<?php
 				//Link to details
-				$detaillink = JRoute::_( 'index.php?view=details&did='. $row->slug );
+				$detaillink = JRoute::_( 'index.php?view=details&id='. $row->slug );
 				//title
 				if (($this->elsettings->showtitle == 1 ) && ($this->elsettings->showdetails == 1) ) :
 				?>

@@ -47,9 +47,9 @@ class EventListHelperRoute
 		);
 
 		//Create the link
-		$link = 'index.php?option=com_eventlist&view=details&did='. $id;
+		$link = 'index.php?option=com_eventlist&view=details&id='. $id;
 
-		if($item = EventListHelperRoute::_findItem($needles, 'did')) {
+		if($item = EventListHelperRoute::_findItem($needles, 'id')) {
 			$link .= '&Itemid='.$item->id;
 		};
 

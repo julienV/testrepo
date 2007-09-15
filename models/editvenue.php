@@ -382,7 +382,7 @@ class EventListModelEditvenue extends JModel
 
 		jimport('joomla.utilities.mail');
 
-		$link 	= JURI::base().JRoute::_('index.php?view=details&did='.$row->id, false);
+		$link 	= JURI::base().JRoute::_('index.php?view=details&id='.$row->id, false);
 
 		//create mail
 		if (($elsettings->mailinform == 2) || ($elsettings->mailinform == 3)) {
