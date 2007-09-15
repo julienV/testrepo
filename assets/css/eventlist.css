@@ -52,6 +52,9 @@ div#eventlist .floattext
 div#eventlist .buttons
 { float: right; }
 
+div#eventlist .buttons img
+{ border: none; }
+
 div#eventlist .buttons a
 { padding: 0 0 0 5px; height: 16px; line-height: 16px; }
 
@@ -142,7 +145,7 @@ div#eventlist table th
 { background: #AAAAAA; color: #fff; font-weight: normal; padding: 0.3em 0.2em; text-align: left; border-right: 1px solid #fff; }
 
 div#eventlist table th img
-{ margin: 0 0 5px 5px; vertical-align: middle; }
+{ margin: 0 0 5px 5px; vertical-align: middle; border: none; }
 
 div#eventlist table td
 { padding: 0.5em 0.2em; border-bottom: 1px solid #ddd; vertical-align: top; }
