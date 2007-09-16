@@ -167,7 +167,8 @@ class EventListModelGroup extends JModel
     	// get non selected members
     	$query = 'SELECT id AS value, username, name FROM #__users';
 
-    	if ($members) $query .= ' WHERE id NOT IN ('.$members.')' ;
+    	$query .= ' WHERE block = 0' ;
+    	if ($members) $query .= ' AND id NOT IN ('.$members.')' ;
     	$query .= ' ORDER BY name ASC';
     	$this->_db->setQuery($query);
 
