@@ -66,6 +66,8 @@ function EventListParseRoute($segments)
 {
 	$vars = array();
 
+	//var_dump($segments);
+
 	//Handle View and Identifier
 	switch($segments[0])
 	{

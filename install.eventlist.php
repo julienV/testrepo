@@ -54,7 +54,7 @@ function com_install() {
 				echo "<font color='orange'>Note:</font> The Directory /images/eventlist does NOT exist. EventList will try to create them.<br />";
 
 				//Image folder creation
-				if ($makedir1 = JFolder::create( JPATH_SITE.'/images/eventlist')) {
+				if ($makedir = JFolder::create( JPATH_SITE.'/images/eventlist')) {
 					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist created.<br />";
 				} else {
 					echo "<font color='red'>ERROR:</font> Directory /images/eventlist NOT created.<br />";
@@ -86,7 +86,7 @@ function com_install() {
 			<br />
 
 			<?php
-			if (($direxists) || ($makedir1)) {
+			if (($direxists) || ($makedir)) {
 			?>
 				<font color="green"><b>Joomla! EventList 0.9 ALPHA Installed Successfully!</b></font><br />
 				Ensure that EventList has write access to the directories shown above! Have Fun.
