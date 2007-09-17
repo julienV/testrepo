@@ -105,15 +105,7 @@ class EventListModelEventList extends JModel
 		$this->_db->SetQuery($query);
   		$nrevarchived = $this->_db->loadResult();
 
-		/*
-		* Get totalnr of events
-		*/
-		$query = 'SELECT count(*)'
-					. ' FROM #__eventlist_events'
-					;
-
-		$this->_db->SetQuery($query);
-  		$nrevtotal = $this->_db->loadResult();
+		$nrevtotal = $nrevpubl + $nrevunpubl + $nrevarchived;
 
 		$_events = array();
 		$_events[] = $nrevpubl;
@@ -154,15 +146,7 @@ class EventListModelEventList extends JModel
 		$this->_db->SetQuery($query);
   		$nrvenunpubl = $this->_db->loadResult();
 
-		/*
-		* Get totalnr of venues
-		*/
-		$query = 'SELECT count(*)'
-				. ' FROM #__eventlist_venues'
-					;
-
-		$this->_db->SetQuery($query);
-  		$nrventotal = $this->_db->loadResult();
+  		$nrventotal = $nrvenpubl + $nrvenunpubl;
 
 		$_venue = array();
 		$_venue[] = $nrvenpubl;
@@ -202,15 +186,7 @@ class EventListModelEventList extends JModel
 		$this->_db->SetQuery($query);
   		$nrcatunpubl = $this->_db->loadResult();
 
-		/*
-		* Get totalnr. of categories
-		*/
-		$query = 'SELECT count(*)'
-					. ' FROM #__eventlist_categories'
-					;
-
-		$this->_db->SetQuery($query);
-  		$nrcattotal = $this->_db->loadResult();
+  		$nrcattotal = $nrcatpubl + $nrcatunpubl;
 
 		$_category = array();
 		$_category[] = $nrcatpubl;
