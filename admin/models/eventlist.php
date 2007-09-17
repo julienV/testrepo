@@ -72,6 +72,8 @@ class EventListModelEventList extends JModel
 	 */
 	function getEventsdata()
 	{
+		$_events = array();
+
 		/*
 		* Get nr of all published events
 		*/
@@ -81,7 +83,7 @@ class EventListModelEventList extends JModel
 					;
 
 		$this->_db->SetQuery($query);
-  		$nrevpubl = $this->_db->loadResult();
+  		$_events[] = $this->_db->loadResult();
 
 		/*
 		* Get nr of all unpublished events
@@ -92,7 +94,7 @@ class EventListModelEventList extends JModel
 					;
 
 		$this->_db->SetQuery($query);
-  		$nrevunpubl = $this->_db->loadResult();
+  		$_events[] = $this->_db->loadResult();
 
 		/*
 		* Get nr of all archived events
@@ -103,15 +105,12 @@ class EventListModelEventList extends JModel
 					;
 
 		$this->_db->SetQuery($query);
-  		$nrevarchived = $this->_db->loadResult();
+  		$_events[] = $this->_db->loadResult();
 
-		$nrevtotal = $nrevpubl + $nrevunpubl + $nrevarchived;
-
-		$_events = array();
-		$_events[] = $nrevpubl;
-		$_events[] = $nrevunpubl;
-		$_events[] = $nrevarchived;
-		$_events[] = $nrevtotal;
+  		/*
+		* Get total nr of events
+		*/
+		$_events[] = array_sum($_events);
 
 		return $_events;
 	}
@@ -124,6 +123,8 @@ class EventListModelEventList extends JModel
 	 */
 	function getVenuesdata()
 	{
+		$_venue = array();
+
 		/*
 		* Get nr of all published venues
 		*/
@@ -133,7 +134,7 @@ class EventListModelEventList extends JModel
 					;
 
 		$this->_db->SetQuery($query);
-  		$nrvenpubl = $this->_db->loadResult();
+  		$_venue[] = $this->_db->loadResult();
 
 		/*
 		* Get nr of all unpublished venues
@@ -144,14 +145,12 @@ class EventListModelEventList extends JModel
 					;
 
 		$this->_db->SetQuery($query);
-  		$nrvenunpubl = $this->_db->loadResult();
+  		$_venue[] = $this->_db->loadResult();
 
-  		$nrventotal = $nrvenpubl + $nrvenunpubl;
-
-		$_venue = array();
-		$_venue[] = $nrvenpubl;
-		$_venue[] = $nrvenunpubl;
-		$_venue[] = $nrventotal;
+  		/*
+		* Get total nr of venues
+		*/
+  		$_venue[] = array_sum($_venue);
 
 		return $_venue;
 	}
@@ -164,6 +163,8 @@ class EventListModelEventList extends JModel
 	 */
 	function getCategoriesdata()
 	{
+		$_category = array();
+
 		/*
 		* Get nr of all published categories
 		*/
@@ -173,7 +174,7 @@ class EventListModelEventList extends JModel
 					;
 
 		$this->_db->SetQuery($query);
-  		$nrcatpubl = $this->_db->loadResult();
+  		$_category[] = $this->_db->loadResult();
 
 		/*
 		* Get nr of all unpublished categories
@@ -184,14 +185,12 @@ class EventListModelEventList extends JModel
 					;
 
 		$this->_db->SetQuery($query);
-  		$nrcatunpubl = $this->_db->loadResult();
+  		$_category[] = $this->_db->loadResult();
 
-  		$nrcattotal = $nrcatpubl + $nrcatunpubl;
-
-		$_category = array();
-		$_category[] = $nrcatpubl;
-		$_category[] = $nrcatunpubl;
-		$_category[] = $nrcattotal;
+  		/*
+		* Get total nr of categories
+		*/
+  		$_category[] = array_sum($_category);
 
 		return $_category;
 	}
