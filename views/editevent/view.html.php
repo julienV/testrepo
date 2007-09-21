@@ -70,7 +70,7 @@ class EventListViewEditevent extends JView
 		JHTML::_('behavior.calendar');
 
 		//add css file
-		$doc->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
+		$doc->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
 		$doc->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');
 
 		//Set page title

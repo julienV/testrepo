@@ -61,7 +61,7 @@ class EventListViewEditvenue extends JView
 		JHTML::_('behavior.tooltip');
 
 		//add css file
-		$doc->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
+		$doc->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
 		$doc->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');
 
 		// Get the menu object of the active menu item
