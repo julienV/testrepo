@@ -297,9 +297,9 @@ class ELOutput {
 
 					//TODO: move map into squeezebox
 
-					$document->addScript('components/com_eventlist/assets/js/gmapsoverlay.js');
+					$document->addScript($this->baseurl.'/components/com_eventlist/assets/js/gmapsoverlay.js');
 					$document->addScript('http://maps.google.com/maps?file=api&v=2&key='.trim($settings->gmapkey));
-  					$document->addStyleSheet('components/com_eventlist/assets/css/gmapsoverlay.css', 'text/css');
+  					$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/gmapsoverlay.css', 'text/css');
 
 					$url		= 'http://maps.google.com/maps?q='.str_replace(" ", "+", $data->street).', '.$data->plz.' '.str_replace(" ", "+", $data->city).', '.$data->country.'&venue='.$data->venue;
 					$attributes = ' rel="gmapsoverlay"';
@@ -363,13 +363,13 @@ class ELOutput {
 
 				}
 
-				$icon	= '<img src="'.$image['thumb'].'" width="'.$image['thumbwidth'].'" height="'.$image['thumbheight'].'" alt="'.$info.'" title="'.JText::_( 'CLICK TO ENLARGE' ).'" />';
+				$icon	= '<img src="'.$this->baseurl.'/'.$image['thumb'].'" width="'.$image['thumbwidth'].'" height="'.$image['thumbheight'].'" alt="'.$info.'" title="'.JText::_( 'CLICK TO ENLARGE' ).'" />';
 				$output	= '<a href="'.$url.'" '.$attributes.'>'.$icon.'</a>';
 
 			//No thumbnail? Then take the in the settings specified values for the original
 			} else {
 
-				$output	= '<img class="modal" src="'.$image['original'].'" width="'.$image['width'].'" height="'.$image['height'].'" alt="'.$info.'" />';
+				$output	= '<img class="modal" src="'.$this->baseurl.'/'.$image['original'].'" width="'.$image['width'].'" height="'.$image['height'].'" alt="'.$info.'" />';
 
 			}
 		}
@@ -391,7 +391,7 @@ class ELOutput {
         jimport('joomla.filesystem.file');
 
         if (JFile::exists(JPATH_COMPONENT_SITE.DS.'assets'.DS.'images'.DS.'flags'.DS.$country.'.gif')) {
-        	$countryimg = '<img src="components/com_eventlist/assets/images/flags/'.$country.'.gif" alt="'.JText::_( 'COUNTRY' ).': '.$country.'" width="16" height="11" />';
+        	$countryimg = '<img src="'.$this->baseurl.'/components/com_eventlist/assets/images/flags/'.$country.'.gif" alt="'.JText::_( 'COUNTRY' ).': '.$country.'" width="16" height="11" />';
 
         	return $countryimg;
         }
