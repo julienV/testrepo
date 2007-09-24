@@ -354,11 +354,11 @@ class ELOutput {
 				if ($settings->lightbox == 0) {
 
 					$url		= '#';
-					$attributes	= 'class="modal" onclick="window.open(\''.$image['original'].'\',\'Popup\',\'width='.$image['width'].',height='.$image['height'].',location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no\')"';
+					$attributes	= 'class="modal" onclick="window.open(\''.$this->baseurl.'/'.$image['original'].'\',\'Popup\',\'width='.$image['width'].',height='.$image['height'].',location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no\')"';
 
 				} else {
 
-					$url		= $image['original'];
+					$url		= $this->baseurl.'/'.$image['original'];
 					$attributes	= 'class="modal" title="'.$info.'"';
 
 				}
