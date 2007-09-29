@@ -45,7 +45,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <div class="floattext">
 <div class="catimg">
 	<?php if ($this->category->image != '') : ?>
-		<img src="<?php echo 'images/stories/'.$this->category->image ; ?>" name="image" width="<?php echo $this->elsettings->imagewidth; ?>" height="<?php echo $this->elsettings->imagehight; ?>" border="0" alt="<?php echo $this->category->catname; ?>" />
+		<img src="<?php echo $this->baseurl.'/images/stories/'.$this->category->image ; ?>" name="image" width="<?php echo $this->elsettings->imagewidth; ?>" height="<?php echo $this->elsettings->imagehight; ?>" border="0" alt="<?php echo $this->category->catname; ?>" />
 	<?php else :
 		echo JHTML::_('image.site', 'noimage.png', '/components/com_eventlist/assets/images/', NULL, NULL, $this->category->catname );
 		endif;

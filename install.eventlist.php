@@ -39,7 +39,7 @@ function com_install() {
 		</td>
 		<td valign="top" width="100%">
        	 	<strong>EventList</strong><br/>
-        	<font class="small">by Christoph Lukes <a href="http://www.schlu.net" target="_blank">schlu.net </a><br/>
+        	<font class="small">by <a href="http://www.schlu.net" target="_blank">schlu.net </a><br/>
         	Released under the terms and conditions of the <a href="http://www.gnu.org/licenses/gpl-2.0.html" target="_blank">GNU General Public License</a>.
 		</td>
 	</tr>
