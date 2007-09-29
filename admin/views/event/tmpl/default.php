@@ -166,8 +166,7 @@ defined('_JEXEC') or die('Restricted access');
 						</label>
 					</td>
 					<td>
-						<input class="inputbox" type="text" name="dates" id="dates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" />
-            			<a href="#" onclick="return showCalendar('dates', '%Y-%m-%d');" onblur="seo_switch()"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
+						<?php echo JHTML::_('calendar', $this->row->dates, "dates", "dates"); ?>
            			</td>
             		<td>
             			<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('FORMAT DATE'); ?>">
@@ -182,8 +181,7 @@ defined('_JEXEC') or die('Restricted access');
 						</label>
 					</td>
 					<td>
-						<input class="inputbox" type="text" name="enddates" id="enddates" size="15" maxlength="10" value="<?php echo $this->row->enddates; ?>" />
-            			<a href="#" onclick="return showCalendar('enddates', '%Y-%m-%d');" onblur="seo_switch()"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
+						<?php echo JHTML::_('calendar', $this->row->enddates, "enddates", "enddates"); ?>
            			</td>
           		 	<td>
 						<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('FORMAT DATE'); ?>">

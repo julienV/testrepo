@@ -222,8 +222,7 @@ defined('_JEXEC') or die('Restricted access');
 			<td><label for="dates"><?php echo JText::_( 'DATE' ).':'; ?></label>
 			</td>
 			<td>
-				<input class="inputbox required validate-date" type="text" name="dates" id="dates" size="15" maxlength="10" value="<?php echo $this->row->dates; ?>" />
-            	<a href="#" onclick="return showCalendar('dates', '%Y-%m-%d');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
+				<?php echo JHTML::_('calendar', $this->row->dates, "dates", "dates"); ?>
 				&nbsp;
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
 					<?php echo $this->infoimage; ?>
@@ -234,8 +233,7 @@ defined('_JEXEC') or die('Restricted access');
 			<td><?php echo JText::_( 'ENDDATE' ).':'; ?>
 			</td>
 			<td>
-				<input class="inputbox validate-date" type="text" name="enddates" id="enddates" size="15" maxlength="10" value="<?php echo $this->row->enddates; ?>" />
-            	<a href="#" onclick="return showCalendar('enddates', '%Y-%m-%d');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
+            	<?php echo JHTML::_('calendar', $this->row->enddates, "enddates", "enddates"); ?>
 				&nbsp;
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
 					<?php echo $this->infoimage; ?>
@@ -335,8 +333,7 @@ defined('_JEXEC') or die('Restricted access');
 					<tr id="counter_row" style="display:none;">
 						<td><?php echo JText::_( 'RECURRENCE COUNTER' ); ?>:</td>
 						<td>
-							<input class="inputbox" type="text" name="recurrence_counter" id="recurrence_counter" size="15" maxlength="10" value="<?php echo ($this->row->recurrence_counter)? $this->row->recurrence_counter: "0000-00-00"; ?>" />
-					        <a href="#" onclick="return showCalendar('recurrence_counter', '%Y-%m-%d');"><img class="calendar" src="images/blank.png" alt="calendar" /></a>
+					        <?php echo JHTML::_('calendar', ($this->row->recurrence_counter)? $this->row->recurrence_counter: "0000-00-00", "recurrence_counter", "recurrence_counter"); ?>
 					        <span class="editlinktip hasTip" title="<?php echo JText::_('FORMAT DATE'); ?>::<?php echo JText::_('RECURRENCE COUNTER TIP'); ?>">
 								<?php echo $this->infoimage; ?>
 							</span>
