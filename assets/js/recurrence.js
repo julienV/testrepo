@@ -19,57 +19,79 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 **/
 
-var $content;
+var $content;		// the content object
 var $select_value;
 
+/**
+ * start function for the javascript (onload isn't possible)
+ *
+ * @access public
+**/
 function start_recurrencescript() {
-	$content = $("recurrence_output");
+	$content = $("recurrence_output"); // get the object (position) of the output
 	var $type = parseInt($("recurrence_type").value);
-	if (!isNaN($type)) {
-		if ($type > 3) {
+	if (!isNaN($type)) {	// is the value of the type an integer?
+		if ($type > 3) {	// get the type
 			$("recurrence_select").value = 4;
 		} else {
 			$("recurrence_select").value = $type;
 		}
-		output_recurrencescript();
+		output_recurrencescript(); // start the output
 	}
-	$("recurrence_select").onchange = output_recurrencescript;
+	$("recurrence_select").onchange = output_recurrencescript; // additional event handler
 }
 
+/**
+ * the output of the script (a part of them is included in
+ * this function)
+ *
+ * @access public
+**/
 function output_recurrencescript() {
-	var $select_value = $("recurrence_select").value;
-	if ($select_value != 0) {
+	var $select_value = $("recurrence_select").value;	// the value of the select list
+	if ($select_value != 0) {	// want the user a recurrence
+		// create an element by the generate_output function
+		// ** $select_output is an array of all sentences of each type **
 		var $element = generate_output($select_output[$select_value], $select_value);
-		$content.replaceChild($element, $content.firstChild);
-		set_parameter();
+		$content.replaceChild($element, $content.firstChild);	// include the element
+		set_parameter();	// set the new parameter
 		$("counter_row").style.display = "table-row"; // show the counter
 	} else {
-		$("recurrence_number").value = 0;
+		$("recurrence_number").value = 0;	// set the parameter
 		$("recurrence_type").value = 0;
-		$nothing = document.createElement("span");
+		$nothing = document.createElement("span");	// create a new "empty" element
 		$nothing.appendChild(document.createTextNode(""));
-		$content.replaceChild($nothing, $content.firstChild);
+		$content.replaceChild($nothing, $content.firstChild);	// replace the old element by the new one
 		$("counter_row").style.display = "none"; // hide the counter
 	}
 
 }
 
+/**
+ * use the sentences of each type and include selectlist into this phrases
+ *
+ * @var array select_output
+ * @var integer select_value
+ * @return object the generated span element
+ * @access public
+**/
 function generate_output($select_output, $select_value) {
-	var $output_array = $select_output.split("[placeholder]");
-	var $span = document.createElement("span");
+	var $output_array = $select_output.split("[placeholder]");	// split the output into two parts
+	var $span = document.createElement("span");					// create a new element
 	for ($i = 0; $i < $output_array.length; $i++) {
-		$weekday_array = $output_array[$i].split("[placeholder_weekday]");
-		if ($weekday_array.length > 1) {
+		$weekday_array = $output_array[$i].split("[placeholder_weekday]");	// split by the weekday placeholder
+
+		if ($weekday_array.length > 1) {	// is the weekday placeholder set?
 			for ($k = 0; $k < $weekday_array.length; $k++) {
-				$span.appendChild(document.createTextNode($weekday_array[$k]));
-				if ($k == 0) {
+				$span.appendChild(document.createTextNode($weekday_array[$k]));	// include the the text snippets into span - element
+				if ($k == 0) {	// the first iteration get an extra weekday selectlist
 					$span.appendChild(generate_selectlist_weekday());
 				}
 			}
 		} else {
-			$span.appendChild(document.createTextNode($output_array[$i]));
+			$span.appendChild(document.createTextNode($output_array[$i]));	// include the text snippet
 		}
-		if ($i == 0) {
+		if ($i == 0) {	// first iteration get an extra selectlist
 			$span.appendChild(generate_selectlist($select_value));
 		}
 
@@ -77,56 +99,75 @@ function generate_output($select_output, $select_value) {
 	return $span;
 }
 
+/**
+ * this function generate the normal selectlist
+ *
+ * @var integer select_value
+ * @return object the generated selectlist
+ * @access public
+**/
 function generate_selectlist($select_value) {
-	var $selectlist = document.createElement("select");
-	$selectlist.name = "recurrence_selectlist";
+	var $selectlist = document.createElement("select");	// new select element
+	$selectlist.name = "recurrence_selectlist";	// add attributes
 	$selectlist.onchange = set_parameter;
 	switch($select_value) {
 		case "1":
-			$limit = 14;
+			$limit = 14;	// days
 			break;
 		case "2":
-			$limit = 8;
+			$limit = 8;		// weeks
 			break;
 		case "3":
-			$limit = 12;
+			$limit = 12;	// months
 			break;
 		default:
-			$limit = 4;
+			$limit = 4;		// weekdays
 			break;
 	}
 	for ($j = 0; $j < $limit; $j++) {
-		var $option = document.createElement("option");
-		if ($j == (parseInt($("recurrence_number").value) - 1)) {
+		var $option = document.createElement("option");	// create option element
+		if ($j == (parseInt($("recurrence_number").value) - 1)) {	// the selected - attribute
 			$option.selected = true;
 		}
 		$option.appendChild(document.createTextNode($j + 1)); // + 1 day because their is no recuring each "0" day
-		$selectlist.appendChild($option);
+		$selectlist.appendChild($option);	// include the option - element into the select - element
 	}
 	return $selectlist;
 }
 
+/**
+ * this function generate the weekday selectlist
+ *
+ * @return object the generated weekday selectlist
+ * @access public
+**/
 function generate_selectlist_weekday() {
-	var $selectlist = document.createElement("select");
-	$selectlist.name = "recurrence_selectlist_weekday";
+	var $selectlist = document.createElement("select");	// the new selectlist
+	$selectlist.name = "recurrence_selectlist_weekday";	// add attributes
 	$selectlist.onchange = set_parameter;
-	for ($j = 0; $j < 7; $j++) {
-		var $option = document.createElement("option");
-		if ($j == (parseInt($("recurrence_type").value) - 4)) {
+	for ($j = 0; $j < 7; $j++) {						// the 7 days
+		var $option = document.createElement("option");	// create the option - elements
+		if ($j == (parseInt($("recurrence_type").value) - 4)) {	// the selected - attribute
 			$option.selected = true;
 		}
-		$option.value = $j;
+		$option.value = $j;	// add the value
 		$option.appendChild(document.createTextNode($weekday[$j])); // + 1 day because their is no recuring each "0" day
-		$selectlist.appendChild($option);
+		$selectlist.appendChild($option);	// include the option - element into the select - element
 	}
 	return $selectlist;
 }
 
+/**
+ * set the value of the hidden input tags
+ *
+ * @access public
+**/
 function set_parameter() {
-	if ($("recurrence_select").value != 4) {
+	if ($("recurrence_select").value != 4) {	// include the value into the recurrence_type input tag
 		$("recurrence_type").value = $("recurrence_select").value;
 	} else {
 		$("recurrence_type").value = parseInt($("recurrence_select").value) + parseInt(document.getElementsByName("recurrence_selectlist_weekday")[0].value);
 	}
+	// include the value into the recurrence_number input tag
 	$("recurrence_number").value = document.getElementsByName("recurrence_selectlist")[0].value;
 }
