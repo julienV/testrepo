@@ -61,7 +61,7 @@ defined('_JEXEC') or die('Restricted access');
 		<tr class="<?php echo "row$k"; ?>">
 			<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
 			<td>
-				<a style="cursor:pointer" onclick="window.parent.elSelectEvent('<?php echo $row->id; ?>', '<?php echo str_replace( "'", "\\'", $row->title); ?>');">
+				<a style="cursor:pointer" onclick="window.parent.elSelectEvent('<?php echo $row->id; ?>', '<?php echo str_replace( array("'", "\""), array("\\'", ""), $row->title ); ?>');">
 					<?php echo htmlspecialchars($row->title, ENT_QUOTES); ?>
 				</a>
 			</td>

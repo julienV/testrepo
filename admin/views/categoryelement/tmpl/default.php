@@ -62,7 +62,7 @@ defined('_JEXEC') or die('Restricted access');
 		<tr class="<?php echo "row$k"; ?>">
 			<td width="7"><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
 			<td align="left">
-				<a style="cursor:pointer" onclick="window.parent.elSelectCategory('<?php echo $row->id; ?>', '<?php echo str_replace( "'", "\\'", $row->catname); ?>');">
+				<a style="cursor:pointer" onclick="window.parent.elSelectCategory('<?php echo $row->id; ?>', '<?php echo str_replace( array("'", "\""), array("\\'", ""), $row->catname ); ?>');">
 					<?php echo htmlspecialchars($row->catname, ENT_QUOTES); ?>
 				</a>
 			</td>
