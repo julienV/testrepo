@@ -40,28 +40,23 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 </h1>
 
 <?php endif;
+
 foreach($this->categories as $category) :
 ?>
 	<h2 class="eventlist cat<?php echo $category->id; ?>">
-		<?php
-    		echo $category->catname;
-    	?>
+		<?php echo $category->catname; ?>
 	</h2>
 
 <div class="cat<?php echo $category->id; ?> floattext">
 
 	<div class="catimg">
 	  	<?php
-		if ($category->image != '') :
-				echo "<a href='".JRoute::_('index.php?view=categoryevents&id='.$category->slug)."'><img src=".$this->baseurl."'/images/stories/".$category->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$category->catname."' /></a>";
-		else :
-			echo JHTML::_('image.site', 'noimage.png', '/components/com_eventlist/assets/images/', NULL, NULL, $category->catname );
-		endif;
+	  		echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$category->slug), $category->image);
 		?>
 		<p>
 			<?php
-			echo JText::_( 'EVENTS' ).': ';
-				echo "<a href='".JRoute::_('index.php?view=categoryevents&id='.$category->slug)."'>". $category->assignedevents."</a>";
+				echo JText::_( 'EVENTS' ).': ';
+				echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$category->slug), $category->assignedevents);
 			?>
 		</p>
 	</div>
@@ -69,7 +64,7 @@ foreach($this->categories as $category) :
 	<div class="catdescription"><?php echo $category->catdescription; ?>
 		<p>
 			<?php
-				echo "<a href='".JRoute::_('index.php?view=categoryevents&id='.$category->slug)."'>".JText::_( 'SHOW EVENTS' )."</a>";
+				echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$category->slug), JText::_( 'SHOW EVENTS' ));
 			?>
 		</p>
 	</div>

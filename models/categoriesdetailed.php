@@ -94,6 +94,7 @@ class EventListModelCategoriesdetailed extends JModel
 		global $mainframe;
 
 		$params 	= & $mainframe->getParams();
+		$elsettings = ELHelper::config();
 
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_categories))
@@ -102,7 +103,8 @@ class EventListModelCategoriesdetailed extends JModel
 			$this->_categories = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
 
 			$k = 0;
-			for($i = 0; $i <  count($this->_categories); $i++)
+			$count = count($this->_categories);
+			for($i = 0; $i < $count; $i++)
 			{
 				$category =& $this->_categories[$i];
 
@@ -116,6 +118,17 @@ class EventListModelCategoriesdetailed extends JModel
 					JPluginHelper::importPlugin('content');
 					$results = $mainframe->triggerEvent( 'onPrepareContent', array( &$category, &$params, 0 ));
 					$category->catdescription = $category->text;
+				}
+
+				if ($category->image != '') {
+
+					$attribs['width'] = $elsettings->imagewidth;
+					$attribs['height'] = $elsettings->imagehight;
+					$attribs['border'] = 0;
+
+					$category->image = JHTML::_('image', '/images/stories/'.$category->image, $category->catname, $attribs);
+				} else {
+					$category->image = JHTML::_('image', '/components/com_eventlist/assets/images/noimage.png', $category->catname);
 				}
 
 				//Get total of assigned events of each venue

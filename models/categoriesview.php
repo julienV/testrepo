@@ -84,6 +84,8 @@ class EventListModelCategoriesview extends JModel
 	 */
 	function &getData( )
 	{
+		$elsettings = ELHelper::config();
+
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_data))
 		{
@@ -91,9 +93,21 @@ class EventListModelCategoriesview extends JModel
 			$this->_data = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
 
 			$k = 0;
-			for($i = 0; $i <  count($this->_data); $i++)
+			$count = count($this->_data);
+			for($i = 0; $i < $count; $i++)
 			{
 				$category =& $this->_data[$i];
+
+				if ($category->image != '') {
+
+					$attribs['width'] = $elsettings->imagewidth;
+					$attribs['height'] = $elsettings->imagehight;
+					$attribs['border'] = 0;
+
+					$category->image = JHTML::_('image', '/images/stories/'.$category->image, $category->catname, $attribs);
+				} else {
+					$category->image = JHTML::_('image', '/components/com_eventlist/assets/images/noimage.png', $category->catname);
+				}
 
 				$category->assignedevents = $this->_countcatevents( $category->catid );
 

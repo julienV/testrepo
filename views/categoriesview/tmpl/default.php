@@ -51,23 +51,19 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	<div class="catimg">
 	  	<?php
-		if ($row->image != '') :
-			if ($this->task == 'archive') :
-				echo "<a href='".JRoute::_('index.php?view=categoryevents&task=catarchive&id='.$row->slug)."'><img src=".$this->baseurl."'/images/stories/".$row->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$row->catname."' /></a>";
-			else :
-				echo "<a href='".JRoute::_('index.php?view=categoryevents&id='.$row->slug)."'><img src=".$this->baseurl."'/images/stories/".$row->image."' width='".$this->elsettings->imagewidth."' height='".$this->elsettings->imagehight."' border='0' alt='".$row->catname."' /></a>";
-			endif;
+		if ($this->task == 'archive') :
+			echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&task=catarchive&id='.$row->slug), $row->image);
 		else :
-			echo JHTML::_('image.site', 'noimage.png', '/components/com_eventlist/assets/images/', NULL, NULL, $row->catname );
+			echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$row->slug), $row->image);
 		endif;
 		?>
 		<p>
 			<?php
 			echo JText::_( 'EVENTS' ).': ';
 			if ($this->task == 'archive') :
-				echo "<a href='".JRoute::_('index.php?view=categoryevents&task=catarchive&id='.$row->slug)."'>". $row->assignedevents."</a>";
+				echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&task=catarchive&id='.$row->slug), $row->assignedevents);
 			else :
-				echo "<a href='".JRoute::_('index.php?view=categoryevents&sid='.$row->slug)."'>". $row->assignedevents."</a>";
+				echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$row->slug), $row->assignedevents);
 			endif;
 			?>
 		</p>
@@ -77,9 +73,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<p>
 		<?php
 		if ($this->task == 'archive') :
-			echo "<a href='".JRoute::_('index.php?view=categoryevents&task=catarchive&id='.$row->slug)."'>".JText::_( 'SHOW ARCHIVE' )."</a>";
+			echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&task=catarchive&id='.$row->slug), JText::_( 'SHOW ARCHIVE' ));
 		else :
-			echo "<a href='".JRoute::_('index.php?view=categoryevents&id='.$row->slug)."'>".JText::_( 'SHOW EVENTS' )."</a>";
+			echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$row->slug), JText::_( 'SHOW EVENTS' ));
 		endif;
 		?>
 	</p>
