@@ -67,7 +67,6 @@ class EventListViewEditevent extends JView
 
 		JHTML::_('behavior.formvalidation');
 		JHTML::_('behavior.tooltip');
-		JHTML::_('behavior.calendar');
 
 		//add css file
 		$doc->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');

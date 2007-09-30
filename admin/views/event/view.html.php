@@ -44,7 +44,6 @@ class EventListViewEvent extends JView {
 		//Load behavior
 		jimport('joomla.html.pane');
 		JHTML::_('behavior.tooltip');
-		JHTML::_('behavior.calendar');
 
 		//initialise variables
 		$editor 	= & JFactory::getEditor();
