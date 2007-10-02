@@ -68,6 +68,13 @@ class EventListViewCategoriesview extends JView
 
 		if ( $task == 'archive' ) {
 			$pathway->addItem(JText::_( 'ARCHIVE' ), JRoute::_('index.php?view=categoriesview&task=archive') );
+			$navlink = JRoute::_('index.php?view=categoriesview&task=archive');
+			$pagetitle = $params->get('page_title').' - '.JText::_( 'ARCHIVE' );
+			$urlfragment = 'index.php?view=categoryevents&task=catarchive&id=';
+		} else {
+			$navlink = JRoute::_('index.php?view=categoriesview');
+			$pagetitle = $params->get('page_title');
+			$urlfragment = 'index.php?view=categoryevents&id=';
 		}
 
 		//Set Page title
@@ -97,21 +104,17 @@ class EventListViewCategoriesview extends JView
 
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
-		if ( $task == 'archive' ) {
-			$link = JRoute::_('index.php?view=categoriesview&task=archive');
-		} else {
-			$link = JRoute::_('index.php?view=categoriesview');
-		}
-
 		$this->assignRef('rows' , 					$rows);
 		$this->assignRef('task' , 					$task);
 		$this->assignRef('params' , 				$params);
 		$this->assignRef('dellink' , 				$dellink);
 		$this->assignRef('page' , 					$page);
 		$this->assignRef('pageNav' , 				$pageNav);
-		$this->assignRef('link' , 					$link);
+		$this->assignRef('navlink' , 				$navlink);
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('elsettings' , 			$elsettings);
+		$this->assignRef('pagetitle' , 				$pagetitle);
+		$this->assignRef('urlfragment' , 			$urlfragment);
 
 
 		parent::display($tpl);

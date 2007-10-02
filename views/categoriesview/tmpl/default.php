@@ -32,13 +32,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <?php if ($this->params->def( 'show_page_title', 1 )) : ?>
 	<h1 class="componentheading">
-	<?php
-	if ( $this->task == 'archive' ) :
-		echo $this->params->get('page_title').' - '.JText::_( 'ARCHIVE' );
-	else :
-		echo $this->params->get('page_title');
-	endif;
-	?>
+		<?php echo $this->pagetitle; ?>
 	</h1>
 <?php endif; ?>
 
@@ -51,20 +45,12 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	<div class="catimg">
 	  	<?php
-		if ($this->task == 'archive') :
-			echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&task=catarchive&id='.$row->slug), $row->image);
-		else :
-			echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$row->slug), $row->image);
-		endif;
+			echo JHTML::_('link', JRoute::_($this->urlfragment.$row->slug), $row->image);
 		?>
 		<p>
 			<?php
 			echo JText::_( 'EVENTS' ).': ';
-			if ($this->task == 'archive') :
-				echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&task=catarchive&id='.$row->slug), $row->assignedevents);
-			else :
-				echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$row->slug), $row->assignedevents);
-			endif;
+			echo JHTML::_('link', JRoute::_($this->urlfragment.$row->slug), $row->assignedevents);
 			?>
 		</p>
 	</div>
@@ -73,9 +59,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<p>
 		<?php
 		if ($this->task == 'archive') :
-			echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&task=catarchive&id='.$row->slug), JText::_( 'SHOW ARCHIVE' ));
+			echo JHTML::_('link', JRoute::_($this->urlfragment.$row->slug), JText::_( 'SHOW ARCHIVE' ));
 		else :
-			echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$row->slug), JText::_( 'SHOW EVENTS' ));
+			echo JHTML::_('link', JRoute::_($this->urlfragment.$row->slug), JText::_( 'SHOW EVENTS' ));
 		endif;
 		?>
 	</p>
@@ -89,7 +75,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <?php if (( $this->page > 0 ) ) : ?>
 
 <p class="pageslinks">
-	<?php echo $this->pageNav->getPagesLinks($this->link); ?>
+	<?php echo $this->pageNav->getPagesLinks($this->navlink); ?>
 </p>
 
 <p class="pagescounter">
