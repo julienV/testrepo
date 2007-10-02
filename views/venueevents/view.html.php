@@ -59,7 +59,6 @@ class EventListViewVenueevents extends JView
 		// Request variables
 		$limitstart		= JRequest::getInt('limitstart');
 		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.venueevents.limit', 'limit', $params->def('display_num', 0), 'int');
-		$locatid		= JRequest::getInt('id');
 		$pop			= JRequest::getBool('pop');
 
 		//get data from model
@@ -70,7 +69,7 @@ class EventListViewVenueevents extends JView
 		//does the venue exist?
 		if ($venue->id == 0)
 		{
-			return JError::raiseError( 404, JText::sprintf( 'Venue #%d not found', $locatid ) );
+			return JError::raiseError( 404, JText::sprintf( 'Venue #%d not found', $venue->id ) );
 		}
 
 		//are events available?
@@ -103,7 +102,7 @@ class EventListViewVenueevents extends JView
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();
 		$pathway->setItemName(1, $item->name);
-		$pathway->addItem( $venue->venue, JRoute::_('index.php?option='.$option.'&view=venueevents&id='.$locatid));
+		$pathway->addItem( $venue->venue, JRoute::_('index.php?option='.$option.'&view=venueevents&id='.$venue->id));
 
 		//Printfunction
 		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
@@ -168,7 +167,6 @@ class EventListViewVenueevents extends JView
 		$this->assignRef('dellink' , 				$dellink);
 		$this->assignRef('limage' , 				$limage);
 		$this->assignRef('venuedescription' , 		$venuedescription);
-		$this->assignRef('locatid' , 				$locatid);
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('page' , 					$page);
 		$this->assignRef('elsettings' , 			$elsettings);
@@ -187,12 +185,14 @@ class EventListViewVenueevents extends JView
 	{
 		global $mainframe;
 
-		if (!count( $this->rows ) ) {
+		$count = count($this->rows);
+
+		if (!$count) {
 			return;
 		}
 
 		$k = 0;
-		for($i = 0; $i <  count($this->rows); $i++)
+		for($i = 0; $i < $count; $i++)
 		{
 			//initialise
 			$displaydate = null;

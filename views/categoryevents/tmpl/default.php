@@ -60,7 +60,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <input type="hidden" name="filter_order_Dir" value="" />
 <input type="hidden" name="view" value="categoryevents" />
 <input type="hidden" name="task" value="<?php echo $this->task; ?>" />
-<input type="hidden" name="id" value="<?php echo $this->categid; ?>" />
+<input type="hidden" name="id" value="<?php echo $this->category->id; ?>" />
 <input type="hidden" name="Itemid" value="<?php echo $this->item->id;?>" />
 </form>
 

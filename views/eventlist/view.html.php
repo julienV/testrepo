@@ -60,8 +60,6 @@ class EventListViewEventList extends JView
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');
 
 		// get variables
-	//	$limitstart		= JRequest::getInt('limitstart');
-	//	$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0), 'int');
 		$limitstart	= JRequest::getVar('limitstart', 0, '', 'int');
 		$limit		= JRequest::getVar('limit', $params->get('display_num'), '', 'int');
 
@@ -146,12 +144,14 @@ class EventListViewEventList extends JView
 	{
 		global $mainframe;
 
-		if (!count( $this->rows ) ) {
+		$count = count($this->rows);
+
+		if (!$count) {
 			return;
 		}
 
 		$k = 0;
-		for($i = 0; $i <  count($this->rows); $i++)
+		for($i = 0; $i < $count; $i++)
 		{
 			//initialise
 			$displaydate = null;

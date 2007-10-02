@@ -61,7 +61,6 @@ class EventListViewCategoryevents extends JView
 		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0), 'int');
 		$task 			= JRequest::getWord('task');
 		$pop			= JRequest::getBool('pop');
-		$categid		= JRequest::getInt('id');
 
 		//get data from model
 		$rows 		= & $this->get('Data');
@@ -78,7 +77,7 @@ class EventListViewCategoryevents extends JView
 		//does the category exist
 		if ($category->id == 0)
 		{
-			return JError::raiseError( 404, JText::sprintf( 'Category #%d not found', $categid ) );
+			return JError::raiseError( 404, JText::sprintf( 'Category #%d not found', $category->id ) );
 		}
 
 		//Set Meta data
@@ -107,11 +106,13 @@ class EventListViewCategoryevents extends JView
 		if ($task == 'catarchive') {
 			$pathway 	= & $mainframe->getPathWay();
 			$pathway->setItemName(1, $item->name);
-			$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&task=catarchive&id'.$categid));
+			$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&task=catarchive&id='.$category->id));
+			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&task=catarchive&id='.$category->id );
 		} else {
 			$pathway 	= & $mainframe->getPathWay();
 			$pathway->setItemName(1, $item->name);
-			$pathway->addItem( $category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&id'.$categid));
+			$pathway->addItem( $category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&id='.$category->id));
+			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&id='.$category->id );
 		}
 
 		//Check if the user has access to the form
@@ -125,14 +126,6 @@ class EventListViewCategoryevents extends JView
 
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
-
-		//create the form links
-		if ($task == 'catarchive') {
-			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&task=catarchive&id='.$category->id );
-		} else {
-			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&id='.$category->id );
-		}
-
 
 		//Generate Categorydescription
 		if (empty ($category->catdescription)) {
@@ -170,7 +163,6 @@ class EventListViewCategoryevents extends JView
 		$this->assignRef('task' , 					$task);
 		$this->assignRef('catdescription' , 		$catdescription);
 		$this->assignRef('link' , 					$link);
-		$this->assignRef('categid' , 				$categid);
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('page' , 					$page);
 		$this->assignRef('elsettings' , 			$elsettings);
@@ -188,12 +180,14 @@ class EventListViewCategoryevents extends JView
 	{
 		global $mainframe;
 
-		if (!count( $this->rows ) ) {
+		$count = count($this->rows);
+
+		if (!$count) {
 			return;
 		}
 
 		$k = 0;
-		for($i = 0; $i <  count($this->rows); $i++)
+		for($i = 0; $i < $count; $i++)
 		{
 			//initialise
 			$displaydate = null;
