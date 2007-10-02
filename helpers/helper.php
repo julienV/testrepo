@@ -30,7 +30,13 @@ defined('_JEXEC') or die('Restricted access');
  */
 class ELHelper {
 
-	function config()
+	/**
+	 * Pulls settings from database
+	 *
+	 * @return object
+	 * @since 0.9
+	 */
+	function elconfig()
 	{
 		$db =& JFactory::getDBO();
 
@@ -42,10 +48,25 @@ class ELHelper {
 	}
 
 	/**
-   * Moves old events in the archive or delete them
-   *
-   * @since 0.9
-   */
+	 * Receives settings from session
+	 *
+	 * @return object
+	 * @since 0.9
+	 */
+	function config()
+	{
+		$session =& JFactory::getSession();
+
+		$config = $session->get('elsettings');
+
+		return $config;
+	}
+
+	/**
+   	* Moves old events in the archive or delete them
+   	*
+ 	* @since 0.9
+   	*/
 	function cleanevents($lastupdate)
 	{
 		$now = time();
