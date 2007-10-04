@@ -273,7 +273,6 @@ class EventListController extends JController
 		}
 
 		$id 	= JRequest::getInt( 'rdid', 0, 'post' );
-		$Itemid = JRequest::getInt( 'Itemid', 0, 'post' );
 
 		// Get/Create the model
 		$model = & $this->getModel('Details', 'EventListModel');
@@ -285,7 +284,7 @@ class EventListController extends JController
 		$cache->clean();
 
 		$msg = JText::_( 'UNREGISTERED SUCCESSFULL' );
-		$this->setRedirect( JRoute::_('index.php?view=details&id='.$id.'&Itemid='.$Itemid, false), $msg );
+		$this->setRedirect( JRoute::_('index.php?view=details&id='.$id, false), $msg );
 	}
 
 	function selectvenue()
