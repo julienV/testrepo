@@ -173,7 +173,7 @@ defined('_JEXEC') or die('Restricted access');
 					<label for="title">
 						<?php echo JText::_( 'TITLE' ).':'; ?>
 					</label>
-					<input class="inputbox required" type="text" id="title" name="title" value="<?php echo $this->row->title; ?>" size="65" maxlength="60" />
+					<input class="inputbox required" type="text" id="title" name="title" value="<?php echo $this->escape($this->row->title); ?>" size="65" maxlength="60" />
 					&nbsp;&nbsp;&nbsp;
 				</div>
 				<div style="float: right;">
@@ -375,11 +375,9 @@ defined('_JEXEC') or die('Restricted access');
 			<td>
 				<?php
 				if ($this->row->datimage) :
-						echo ELOutput::flyer( $this->row, $this->elsettings, $this->dimage, 'event' );
+					echo ELOutput::flyer( $this->row, $this->elsettings, $this->dimage, 'event' );
 				else :
-				?>
-					<img src="<?php echo 'images/cancel.png'; ?>" alt="no image"/>
-				<?php
+					echo JHTML::_('image', 'images/cancel.png', 'no image');
 				endif;
   			  	?>
 			</td>

@@ -93,6 +93,8 @@ class eventlist_events extends JTable
 	// overloaded check function
 	function check($elsettings)
 	{
+		jimport('joomla.filter.output');
+
 		// Check fields
 		if (empty($this->enddates)) {
 			$this->enddates = NULL;
@@ -106,7 +108,21 @@ class eventlist_events extends JTable
 			$this->endtimes = NULL;
 		}
 
-		jimport('joomla.filter.output');
+		$this->title = strip_tags(trim($this->title));
+		$titlelength = JString::strlen($this->title);
+
+		if ( $this->title == '' ) {
+			$this->_error = JText::_( 'ADD TITLE' );
+      		JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
+      		return false;
+		}
+
+		if ( $titlelength > 100 ) {
+      		$this->_error = JText::_( 'ERROR TITLE LONG' );
+      		JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
+      		return false;
+		}
+
 		$alias = JFilterOutput::stringURLSafe($this->title);
 
 		if(empty($this->alias) || $this->alias === $alias ) {
@@ -149,15 +165,6 @@ class eventlist_events extends JTable
       			JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
       			return false;
 	  		}
-		}
-
-		$this->title = strip_tags($this->title);
-		$titlelength = JString::strlen($this->title);
-
-		if ($titlelength > 100 || $this->title =='') {
-      		$this->_error = JText::_( 'ERROR TITLE LONG' );
-      		JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
-      		return false;
 		}
 
 		//No venue or category choosen?

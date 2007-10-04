@@ -116,7 +116,7 @@ defined('_JEXEC') or die('Restricted access');
 				<td><?php echo $displaytime; ?></td>
 				<td>
 					<a href="<?php echo $link; ?>" title="<?php echo JText::_( 'EDIT EVENT' ); ?>">
-						<?php echo htmlspecialchars($row->title, ENT_QUOTES) ? htmlspecialchars($row->title, ENT_QUOTES) : '-'; ?>
+						<?php echo htmlspecialchars($row->title, ENT_QUOTES); ?>
 					</a><br />
 					<?php echo /*JText::_( 'ALIAS' ).': '.*/$row->alias; ?>
 				</td>

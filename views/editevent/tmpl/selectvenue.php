@@ -74,10 +74,10 @@ defined('_JEXEC') or die('Restricted access');
 			<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
 			<td align="left">
 				<a style="cursor:pointer" onclick="window.parent.elSelectVenue('<?php echo $row->id; ?>', '<?php echo str_replace( "'", "\\'", $row->venue); ?>');">
-						<?php echo htmlspecialchars($row->venue, ENT_QUOTES); ?>
+						<?php echo $this->escape($row->venue); ?>
 				</a>
 			</td>
-			<td align="left"><?php echo $row->city; ?></td>
+			<td align="left"><?php echo $this->escape($row->city); ?></td>
 			<td align="left"><?php echo $row->country; ?></td>
 		</tr>
 		<?php $k = 1 - $k; } ?>

@@ -32,7 +32,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <?php if ($this->params->def( 'show_page_title', 1 )) : ?>
 	<h1 class="componentheading">
-		<?php echo $this->pagetitle; ?>
+		<?php echo $this->escape($this->pagetitle); ?>
 	</h1>
 <?php endif; ?>
 
@@ -40,7 +40,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <div class="floattext">
 	<h2 class="eventlist cat<?php echo $row->id; ?>">
-		<?php echo $row->catname; ?>
+		<?php echo $this->escape($row->catname); ?>
 	</h2>
 
 	<div class="catimg">

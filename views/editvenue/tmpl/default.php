@@ -116,7 +116,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 					<label for="venue">
 						<?php echo JText::_( 'VENUE' ).':'; ?>
 					</label>
-					<input class="inputbox required" type="text" name="venue" id="venue" value="<?php echo $this->row->venue; ?>" size="55" maxlength="50" />
+					<input class="inputbox required" type="text" name="venue" id="venue" value="<?php echo $this->escape($this->row->venue); ?>" size="55" maxlength="50" />
 					&nbsp;&nbsp;&nbsp;
 				</div>
 
@@ -140,20 +140,20 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<table class="adminform" width="100%">
 		  	<tr>
   				<td><label for="street"><?php echo JText::_( 'STREET' ).':'; ?></label></td>
-				<td><input class="inputbox validate-map" type="text" name="street" id="street" value="<?php echo $this->row->street; ?>" size="55" maxlength="50" /></td>
+				<td><input class="inputbox validate-map" type="text" name="street" id="street" value="<?php echo $this->escape($this->row->street); ?>" size="55" maxlength="50" /></td>
 		  	</tr>
   			<tr>
   			  	<td><label for="plz"><?php echo JText::_( 'ZIP' ).':'; ?></label></td>
-  			  	<td><input class="inputbox validate-map" type="text" name="plz" id="plz" value="<?php echo $this->row->plz; ?>" size="15" maxlength="10" /></td>
+  			  	<td><input class="inputbox validate-map" type="text" name="plz" id="plz" value="<?php echo $this->escape($this->row->plz); ?>" size="15" maxlength="10" /></td>
 		  	</tr>
   			<tr>
   				<td><label for="city"><?php echo JText::_( 'CITY' ).':'; ?></label></td>
-  				<td><input class="inputbox validate-map" type="text" name="city" id="city" value="<?php echo $this->row->city; ?>" size="55" maxlength="50" />
+  				<td><input class="inputbox validate-map" type="text" name="city" id="city" value="<?php echo $this->escape($this->row->city); ?>" size="55" maxlength="50" />
 				</td>
   			</tr>
   			<tr>
   				<td><?php echo JText::_( 'STATE' ).':'; ?></td>
-  				<td><input class="inputbox" type="text" name="state" id="state" value="<?php echo $this->row->state; ?>" size="55" maxlength="50" />
+  				<td><input class="inputbox" type="text" name="state" id="state" value="<?php echo $this->escape($this->row->state); ?>" size="55" maxlength="50" />
 				</td>
   			</tr>
   			<tr>
@@ -168,7 +168,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   			<tr>
     			<td><?php echo JText::_( 'WEBSITE' ).':'; ?></td>
     			<td>
-    				<input class="inputbox" name="url" id="url" type="text" value="<?php echo $this->row->url; ?>" size="55" maxlength="150" />&nbsp;
+    				<input class="inputbox" name="url" id="url" type="text" value="<?php echo $this->escape($this->row->url); ?>" size="55" maxlength="150" />&nbsp;
     				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('WEBSITE HINT'); ?>">
 						<?php echo $this->infoimage; ?>
 					</span>
@@ -208,9 +208,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				if ($this->row->locimage) :
 					echo ELOutput::flyer( $this->row, $this->elsettings, $this->limage );
 				 else :
-				 	?>
-					<img src="<?php echo 'images/cancel.png'; ?>" alt="no image"/>
-					<?php
+				 	echo JHTML::_('image', 'images/cancel.png', 'no image');
 				endif;
   			  	?>
 			</td>

@@ -33,7 +33,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 </p>
 <?php if ($this->params->def('show_page_title', 1)) : ?>
 	<h1 class='componentheading'>
-		<?php echo $this->venue->venue; ?>
+		<?php echo $this->escape($this->venue->venue); ?>
 	</h1>
 <?php endif; ?>
 
@@ -56,28 +56,28 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   			<?php if ( $this->venue->street ) : ?>
   			<dt class="venue_street"><?php echo JText::_( 'STREET' ).':'; ?></dt>
 			<dd class="venue_street">
-    			<?php echo $this->venue->street; ?>
+    			<?php echo $this->escape($this->venue->street); ?>
 			</dd>
 			<?php endif; ?>
 
 			<?php if ( $this->venue->plz ) : ?>
   			<dt class="venue_plz"><?php echo JText::_( 'ZIP' ).':'; ?></dt>
 			<dd class="venue_plz">
-    			<?php echo $this->venue->plz; ?>
+    			<?php echo $this->escape($this->venue->plz); ?>
 			</dd>
 			<?php endif; ?>
 
 			<?php if ( $this->venue->city ) : ?>
     		<dt class="venue_city"><?php echo JText::_( 'CITY' ).':'; ?></dt>
     		<dd class="venue_city">
-    			<?php echo $this->venue->city; ?>
+    			<?php echo $this->escape($this->venue->city); ?>
     		</dd>
     		<?php endif; ?>
 
     		<?php if ( $this->venue->state ) : ?>
 			<dt class="venue_state"><?php echo JText::_( 'STATE' ).':'; ?></dt>
 			<dd class="venue_state">
-    			<?php echo $this->venue->state; ?>
+    			<?php echo $this->escape($this->venue->state); ?>
 			</dd>
 			<?php endif; ?>
 

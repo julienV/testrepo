@@ -50,7 +50,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 		<?php if ($this->elsettings->showdetailstitle == 1) : ?>
 			<dt class="title"><?php echo JText::_( 'TITLE' ).':'; ?></dt>
-    		<dd class="title"><?php echo $this->row->title; ?></dd>
+    		<dd class="title"><?php echo $this->escape($this->row->title); ?></dd>
 		<?php
   		endif;
   		?>
@@ -68,7 +68,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		    <dd class="where">
     		<?php if (($this->elsettings->showdetlinkvenue == 1) && (!empty($this->row->url))) : ?>
 
-			    <a href="<?php echo $this->row->url; ?>" target="_blank"><?php echo $this->row->venue; ?></a> -
+			    <a href="<?php echo $this->row->url; ?>" target="_blank"><?php echo $this->escape($this->row->venue); ?></a> -
 
 			<?php elseif ($this->elsettings->showdetlinkvenue == 2) : ?>
 
@@ -76,11 +76,11 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 			<?php elseif ($this->elsettings->showdetlinkvenue == 0) :
 
-				echo $this->row->venue.' - ';
+				echo $this->escape($this->row->venue).' - ';
 
 			endif;
 
-			echo $this->row->city; ?>
+			echo $this->escape($this->row->city); ?>
 
 			</dd>
 
@@ -88,7 +88,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 		<dt class="category"><?php echo JText::_( 'CATEGORY' ).':'; ?></dt>
     		<dd class="category">
-				<?php echo "<a href='".JRoute::_( 'index.php?view=categoryevents&id='.$this->row->categoryslug )."'>".$this->row->catname."</a>";?>
+				<?php echo "<a href='".JRoute::_( 'index.php?view=categoryevents&id='.$this->row->categoryslug )."'>".$this->escape($this->row->catname)."</a>";?>
 			</dd>
 	</dl>
 
@@ -119,7 +119,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<dl class="location floattext">
 			 <dt class="venue"><?php echo $this->elsettings->locationname.':'; ?></dt>
 				<dd class="venue">
-				<?php echo "<a href='".JRoute::_( 'index.php?view=venueevents&id='.$this->row->venueslug )."'>".$this->row->venue."</a>"; ?>
+				<?php echo "<a href='".JRoute::_( 'index.php?view=venueevents&id='.$this->row->venueslug )."'>".$this->escape($this->row->venue)."</a>"; ?>
 
 				<?php if (!empty($this->row->url)) : ?>
 					&nbsp; - &nbsp;
@@ -136,28 +136,28 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   				<?php if ( $this->row->street ) : ?>
   				<dt class="venue_street"><?php echo JText::_( 'STREET' ).':'; ?></dt>
 				<dd class="venue_street">
-    				<?php echo $this->row->street; ?>
+    				<?php echo $this->escape($this->row->street); ?>
 				</dd>
 				<?php endif; ?>
 
 				<?php if ( $this->row->plz ) : ?>
   				<dt class="venue_plz"><?php echo JText::_( 'ZIP' ).':'; ?></dt>
 				<dd class="venue_plz">
-    				<?php echo $this->row->plz; ?>
+    				<?php echo $this->escape($this->row->plz); ?>
 				</dd>
 				<?php endif; ?>
 
 				<?php if ( $this->row->city ) : ?>
     			<dt class="venue_city"><?php echo JText::_( 'CITY' ).':'; ?></dt>
     			<dd class="venue_city">
-    				<?php echo $this->row->city; ?>
+    				<?php echo $this->escape($this->row->city); ?>
     			</dd>
     			<?php endif; ?>
 
     			<?php if ( $this->row->state ) : ?>
     			<dt class="venue_state"><?php echo JText::_( 'STATE' ).':'; ?></dt>
     			<dd class="venue_state">
-    				<?php echo $this->row->state; ?>
+    				<?php echo $this->escape($this->row->state); ?>
     			</dd>
 				<?php endif; ?>
 

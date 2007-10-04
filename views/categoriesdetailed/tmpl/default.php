@@ -44,7 +44,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 foreach($this->categories as $category) :
 ?>
 	<h2 class="eventlist cat<?php echo $category->id; ?>">
-		<?php echo $category->catname; ?>
+		<?php echo $this->escape($category->catname); ?>
 	</h2>
 
 <div class="cat<?php echo $category->id; ?> floattext">
