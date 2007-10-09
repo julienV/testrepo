@@ -93,7 +93,7 @@ class EventListModelUpdatecheck extends JModel
 			$_updatedata->changes 		= explode(';', $data[6]);
 			$_updatedata->failed 		= 0;
 
-			$_updatedata->current = version_compare( '0.9.0.0.dev', $_updatedata->version );
+			$_updatedata->current = version_compare( '0.9.0.0.dev2', $_updatedata->version );
 
 		}
 
