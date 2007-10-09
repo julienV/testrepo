@@ -116,16 +116,25 @@ defined('_JEXEC') or die('Restricted access');
 				<td><?php echo $displaytime; ?></td>
 				<td>
 					<a href="<?php echo $link; ?>" title="<?php echo JText::_( 'EDIT EVENT' ); ?>">
-						<?php echo htmlspecialchars($row->title, ENT_QUOTES); ?>
-					</a><br />
-					<?php echo /*JText::_( 'ALIAS' ).': '.*/$row->alias; ?>
+						<?php echo htmlspecialchars($row->title, ENT_QUOTES, 'UTF-8'); ?>
+					</a>
+
+					<br />
+
+					<?php
+					if (JString::strlen($row->alias) > 25) {
+						echo JString::substr( htmlspecialchars($row->alias, ENT_QUOTES, 'UTF-8'), 0 , 25).'...';
+					} else {
+						echo htmlspecialchars($row->alias, ENT_QUOTES, 'UTF-8');
+					}
+					?>
 				</td>
 				<td>
 					<?php
 					if ($row->venue) {
 					?>
 						<a href="<?php echo $venuelink; ?>" title="<?php echo JText::_( 'EDIT VENUE' ); ?>">
-							<?php echo htmlspecialchars($row->venue, ENT_QUOTES); ?>
+							<?php echo htmlspecialchars($row->venue, ENT_QUOTES, 'UTF-8'); ?>
 						</a>
 					<?php
 					} else {
@@ -133,13 +142,13 @@ defined('_JEXEC') or die('Restricted access');
 					}
 					?>
 				</td>
-				<td><?php echo htmlspecialchars($row->city, ENT_QUOTES) ? htmlspecialchars($row->city, ENT_QUOTES) : '-'; ?></td>
+				<td><?php echo $row->city ? htmlspecialchars($row->city, ENT_QUOTES, 'UTF-8') : '-'; ?></td>
 				<td>
 					<?php
 					if ($row->catname) {
 					?>
 						<a href="<?php echo $catlink; ?>" title="<?php echo JText::_( 'EDIT CATEGORY' ); ?>">
-							<?php echo htmlspecialchars($row->catname, ENT_QUOTES); ?>
+							<?php echo htmlspecialchars($row->catname, ENT_QUOTES, 'UTF-8'); ?>
 						</a>
 					<?php
 					} else {

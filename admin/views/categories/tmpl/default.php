@@ -79,18 +79,24 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<td align="left">
 				<?php
 				if ( $row->checked_out && ( $row->checked_out != $this->user->get('id') ) ) {
-					echo htmlspecialchars($row->catname, ENT_QUOTES);
+					echo htmlspecialchars($row->catname, ENT_QUOTES, 'UTF-8');
 				} else {
 				?>
 					<a href="<?php echo $link; ?>" title="<?php echo JText::_( 'EDIT CATEGORY' ); ?>">
-					<?php echo htmlspecialchars($row->catname, ENT_QUOTES); ?>
+					<?php echo htmlspecialchars($row->catname, ENT_QUOTES, 'UTF-8'); ?>
 					</a>
 				<?php
 				}
 				?>
 			</td>
 			<td>
-				<?php echo $row->alias; ?>
+				<?php
+				if (JString::strlen($row->alias) > 25) {
+					echo JString::substr( htmlspecialchars($row->alias, ENT_QUOTES, 'UTF-8'), 0 , 25).'...';
+				} else {
+					echo htmlspecialchars($row->alias, ENT_QUOTES, 'UTF-8');
+				}
+				?>
 			</td>
 			<td align="center">
 				<?php echo $published; ?>
@@ -101,7 +107,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<td align="center">
 				<?php if ($row->catgroup) {	?>
 					<a href="<?php echo $grouplink; ?>" title="<?php echo JText::_( 'EDIT GROUP' ); ?>">
-						<?php echo htmlspecialchars($row->catgroup, ENT_QUOTES); ?>
+						<?php echo htmlspecialchars($row->catgroup, ENT_QUOTES, 'UTF-8'); ?>
 					</a>
 				<?php
 				} else {

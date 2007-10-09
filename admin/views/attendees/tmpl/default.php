@@ -37,7 +37,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		  	<td>
 		  		<?php $datum = strftime($this->elsettings->formatdate,strtotime( $this->event->dates )); ?>
 				<b><?php echo JText::_( 'DATE' ).':'; ?></b>&nbsp;<?php echo $datum; ?><br />
-				<b><?php echo JText::_( 'EVENT TITLE' ).':'; ?></b>&nbsp;<?php echo $this->event->title; ?>
+				<b><?php echo JText::_( 'EVENT TITLE' ).':'; ?></b>&nbsp;<?php echo htmlspecialchars($this->event->title, ENT_QUOTES, 'UTF-8'); ?>
 			</td>
 		  </tr>
 	</table>

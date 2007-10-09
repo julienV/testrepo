@@ -74,27 +74,35 @@ defined('_JEXEC') or die('Restricted access');
 			<td align="left">
 				<?php
 				if ( $row->checked_out && ( $row->checked_out != $this->user->get('id') ) ) {
-					echo htmlspecialchars($row->venue, ENT_QUOTES);
+					echo htmlspecialchars($row->venue, ENT_QUOTES, 'UTF-8');
 				} else {
 					?>
 					<a href="<?php echo $link; ?>" title="<?php echo JText::_( 'EDIT VENUE' ); ?>">
-					<?php echo htmlspecialchars($row->venue, ENT_QUOTES); ?>
+					<?php echo htmlspecialchars($row->venue, ENT_QUOTES, 'UTF-8'); ?>
 					</a>
 				<?php
 				}
 				?>
 			</td>
-			<td><?php echo $row->alias; ?></td>
+			<td>
+				<?php
+				if (JString::strlen($row->alias) > 25) {
+					echo JString::substr( htmlspecialchars($row->alias, ENT_QUOTES, 'UTF-8'), 0 , 25).'...';
+				} else {
+					echo htmlspecialchars($row->alias, ENT_QUOTES, 'UTF-8');
+				}
+				?>
+			</td>
 			<td align="left">
 				<?php
 				if ($row->url) {
 				?>
-					<a href="<?php echo htmlspecialchars($row->url, ENT_QUOTES); ?>" target="_blank">
+					<a href="<?php echo htmlspecialchars($row->url, ENT_QUOTES, 'UTF-8'); ?>" target="_blank">
 						<?php
-						if (strlen(htmlspecialchars($row->url, ENT_QUOTES)) > 25) {
-							echo substr( htmlspecialchars($row->url, ENT_QUOTES), 0 , 25).'...';
+						if (JString::strlen($row->url) > 25) {
+							echo JString::substr( htmlspecialchars($row->url, ENT_QUOTES, 'UTF-8'), 0 , 25).'...';
 						} else {
-							echo htmlspecialchars($row->url, ENT_QUOTES);
+							echo htmlspecialchars($row->url, ENT_QUOTES, 'UTF-8');
 						}
 						?>
 					</a>
@@ -104,7 +112,7 @@ defined('_JEXEC') or die('Restricted access');
 				}
 				?>
 			</td>
-			<td align="left"><?php echo htmlspecialchars($row->city, ENT_QUOTES) ? htmlspecialchars($row->city, ENT_QUOTES) : '-'; ?></td>
+			<td align="left"><?php echo $row->city ? htmlspecialchars($row->city, ENT_QUOTES, 'UTF-8') : '-'; ?></td>
 			<td align="center"><?php echo $published;?></td>
 			<td>
 				<?php echo JText::_( 'AUTHOR' ).': '; ?><a href="<?php echo 'index.php?option=com_users&task=edit&hidemainmenu=1&cid[]='.$row->created_by; ?>"><?php echo $row->author; ?></a><br />

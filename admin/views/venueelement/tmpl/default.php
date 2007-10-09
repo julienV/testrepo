@@ -59,11 +59,11 @@ defined('_JEXEC') or die('Restricted access');
 			<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
 			<td align="left">
 				<a style="cursor:pointer" onclick="window.parent.elSelectVenue('<?php echo $row->id; ?>', '<?php echo str_replace( array("'", "\""), array("\\'", ""), $row->venue ); ?>');">
-				<?php echo htmlspecialchars($row->venue, ENT_QUOTES); ?>
+				<?php echo htmlspecialchars($row->venue, ENT_QUOTES, 'UTF-8'); ?>
 				</a>
 			</td>
-			<td align="left"><?php echo $row->city; ?></td>
-			<td align="left"><?php echo $row->country; ?></td>
+			<td align="left"><?php echo htmlspecialchars($row->city, ENT_QUOTES, 'UTF-8'); ?></td>
+			<td align="left"><?php echo htmlspecialchars($row->country, ENT_QUOTES, 'UTF-8'); ?></td>
 			<td>
 				<?php $img = $row->published ? 'tick.png' : 'publish_x.png'; ?>
 				<img src="images/<?php echo $img;?>" width="16" height="16" border="0" alt="" />

@@ -62,7 +62,7 @@ defined('_JEXEC') or die('Restricted access');
 			<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
 			<td>
 				<a style="cursor:pointer" onclick="window.parent.elSelectEvent('<?php echo $row->id; ?>', '<?php echo str_replace( array("'", "\""), array("\\'", ""), $row->title ); ?>');">
-					<?php echo htmlspecialchars($row->title, ENT_QUOTES); ?>
+					<?php echo htmlspecialchars($row->title, ENT_QUOTES, 'UTF-8'); ?>
 				</a>
 			</td>
 			<td>
@@ -91,9 +91,9 @@ defined('_JEXEC') or die('Restricted access');
 					echo $displaytime;
 				?>
 			</td>
-			<td><?php echo $row->venue ? $row->venue : '-'; ?></td>
-			<td><?php echo $row->city ? $row->city : '-'; ?></td>
-			<td><?php echo $row->catname ? $row->catname : '-'; ?></td>
+			<td><?php echo $row->venue ? htmlspecialchars($row->venue, ENT_QUOTES, 'UTF-8') : '-'; ?></td>
+			<td><?php echo $row->city ? htmlspecialchars($row->city, ENT_QUOTES, 'UTF-8') : '-'; ?></td>
+			<td><?php echo $row->catname ? htmlspecialchars($row->catname, ENT_QUOTES, 'UTF-8') : '-'; ?></td>
 			<td align="center">
 				<?php $img = $row->published ? 'tick.png' : 'publish_x.png'; ?>
 				<img src="images/<?php echo $img;?>" width="16" height="16" border="0" alt="" />

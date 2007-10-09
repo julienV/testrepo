@@ -67,15 +67,15 @@ defined('_JEXEC') or die('Restricted access');
 			<td>
 				<?php
 					if ( $row->checked_out && ( $row->checked_out != $this->user->get('id') ) ) {
-						echo htmlspecialchars($row->name);
+						echo htmlspecialchars($row->name, ENT_QUOTES, 'UTF-8');
 					} else {
 				?>
 				<a href="<?php echo $link; ?>" title="Edit Group">
-				<?php echo htmlspecialchars($row->name); ?>
+				<?php echo htmlspecialchars($row->name, ENT_QUOTES, 'UTF-8'); ?>
 				</a>
 				<?php } ?>
 			</td>
-			<td><?php echo htmlspecialchars($row->description); ?></td>
+			<td><?php echo htmlspecialchars($row->description, ENT_QUOTES, 'UTF-8'); ?></td>
 		</tr>
 		<?php $k = 1 - $k;  } ?>
 

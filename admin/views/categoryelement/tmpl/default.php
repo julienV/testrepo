@@ -63,7 +63,7 @@ defined('_JEXEC') or die('Restricted access');
 			<td width="7"><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
 			<td align="left">
 				<a style="cursor:pointer" onclick="window.parent.elSelectCategory('<?php echo $row->id; ?>', '<?php echo str_replace( array("'", "\""), array("\\'", ""), $row->catname ); ?>');">
-					<?php echo htmlspecialchars($row->catname, ENT_QUOTES); ?>
+					<?php echo htmlspecialchars($row->catname, ENT_QUOTES, 'UTF-8'); ?>
 				</a>
 			</td>
 			<td align="center"><?php echo $access; ?></td>

@@ -28,6 +28,7 @@
 	<language tag="nl-NL">languages/site/nl-NL.com_eventlist.ini</language>
 	<language tag="fr-FR">languages/site/fr-FR.com_eventlist.ini</language>
 	<language tag="fi-FI">languages/site/fi-FI.com_eventlist.ini</language>
+	<language tag="es-ES">languages/site/es-ES.com_eventlist.ini</language>
 </languages>
 
 <install>

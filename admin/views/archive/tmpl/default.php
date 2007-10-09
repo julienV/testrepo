@@ -85,10 +85,10 @@ defined('_JEXEC') or die('Restricted access'); ?>
 					<?php echo $displaydate; ?>
 				</td>
 				<td><?php echo $time; ?></td>
-				<td><?php echo htmlspecialchars($row->title, ENT_QUOTES) ? htmlspecialchars($row->title, ENT_QUOTES) : '-'; ?></td>
-				<td><?php echo htmlspecialchars($row->venue, ENT_QUOTES) ? htmlspecialchars($row->venue, ENT_QUOTES) : '-'; ?></td>
-				<td><?php echo htmlspecialchars($row->catname, ENT_QUOTES); ?></td>
-				<td><?php echo htmlspecialchars($row->city, ENT_QUOTES) ? htmlspecialchars($row->city, ENT_QUOTES) : '-'; ?></td>
+				<td><?php echo htmlspecialchars($row->title, ENT_QUOTES, 'UTF-8'); ?></td>
+				<td><?php echo $row->venue ? htmlspecialchars($row->venue, ENT_QUOTES, 'UTF-8') : '-'; ?></td>
+				<td><?php echo htmlspecialchars($row->catname, ENT_QUOTES, 'UTF-8'); ?></td>
+				<td><?php echo $row->city ? htmlspecialchars($row->city, ENT_QUOTES, 'UTF-8') : '-'; ?></td>
 				<td>
 					<?php echo JText::_( 'AUTHOR' ).': '; ?><a href="<?php echo 'index.php?option=com_users&task=edit&hidemainmenu=1&cid[]='.$row->created_by; ?>"><?php echo $row->author; ?></a><br />
 					<?php echo JText::_( 'EMAIL' ).': '; ?><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a><br />
