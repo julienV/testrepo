@@ -57,7 +57,7 @@ defined('_JEXEC') or die('Restricted access');
 
 <table class="adminlist">
 	<tr>
-		<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left"></td>
+		<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left" /></td>
 		<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;"><?php echo $this->row->id ? '::'.JText::_( 'EDIT VENUE' ).'::' : '::'.JText::_( 'Add Venue' ).'::';?></font></td>
 	</tr>
 </table>
@@ -77,7 +77,7 @@ defined('_JEXEC') or die('Restricted access');
 				<input class="inputbox" name="venue" id= "venue" value="<?php echo $this->row->venue; ?>" size="40" maxlength="100">
 			</td>
 			<td>
-				<label for="publish">
+				<label for="published">
 					<?php echo JText::_( 'PUBLISHED' ).':'; ?>
 				</label>
 			</td>
@@ -126,7 +126,7 @@ defined('_JEXEC') or die('Restricted access');
 				</label>
 			</td>
 			<td>
-				<input class="inputbox" name="street" value="<?php echo $this->row->street; ?>" size="35" maxlength="50">
+				<input class="inputbox" name="street" id="street" value="<?php echo $this->row->street; ?>" size="35" maxlength="50" />
 			</td>
 		</tr>
 		<tr>
@@ -136,7 +136,7 @@ defined('_JEXEC') or die('Restricted access');
 				</label>
 			</td>
 			<td>
-				<input class="inputbox" name="plz" value="<?php echo $this->row->plz; ?>" size="15" maxlength="10">
+				<input class="inputbox" name="plz" id="plz" value="<?php echo $this->row->plz; ?>" size="15" maxlength="10" />
 			</td>
 		</tr>
 		<tr>
@@ -146,7 +146,7 @@ defined('_JEXEC') or die('Restricted access');
 				</label>
 			</td>
 			<td>
-				<input class="inputbox" name="city" id="city" value="<?php echo $this->row->city; ?>" size="35" maxlength="50">
+				<input class="inputbox" name="city" id="city" value="<?php echo $this->row->city; ?>" size="35" maxlength="50" />
 			</td>
 		</tr>
 		<tr>
@@ -156,7 +156,7 @@ defined('_JEXEC') or die('Restricted access');
 				</label>
 			</td>
 			<td>
-				<input class="inputbox" name="state" id="state" value="<?php echo $this->row->state; ?>" size="35" maxlength="50">
+				<input class="inputbox" name="state" id="state" value="<?php echo $this->row->state; ?>" size="35" maxlength="50" />
 			</td>
 		</tr>
 		<tr>
@@ -166,7 +166,7 @@ defined('_JEXEC') or die('Restricted access');
 				</label>
 			</td>
 			<td>
-				<input class="inputbox" name="country" value="<?php echo $this->row->country; ?>" size="3" maxlength="2">&nbsp;
+				<input class="inputbox" name="country" value="<?php echo $this->row->country; ?>" size="3" maxlength="2" />&nbsp;
 
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('COUNTRY HINT'); ?>">
 					<?php echo $infoimage; ?>
@@ -180,7 +180,7 @@ defined('_JEXEC') or die('Restricted access');
 				</label>
 			</td>
 			<td>
-				<input class="inputbox" name="url" value="<?php echo $this->row->url; ?>" size="30" maxlength="150">&nbsp;
+				<input class="inputbox" name="url" id="url" value="<?php echo $this->row->url; ?>" size="30" maxlength="150" />&nbsp;
 
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('WEBSITE HINT'); ?>">
 					<?php echo $infoimage; ?>

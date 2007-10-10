@@ -26,7 +26,7 @@ defined('_JEXEC') or die('Restricted access');
 
 <table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 	<tr>
-		<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left"></td>
+		<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left" /></td>
 		<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">::<?php echo JText::_( 'GROUPS'); ?>::</font></td>
 	</tr>
 </table>
@@ -52,13 +52,21 @@ defined('_JEXEC') or die('Restricted access');
 		</tr>
 	</thead>
 
+	<tfoot>
+		<tr>
+			<td colspan="11">
+				<?php echo $this->pageNav->getListFooter(); ?>
+			</td>
+		</tr>
+	</tfoot>
+
 	<tbody>
 		<?php
 		$k = 0;
 		for($i=0, $n=count( $this->rows ); $i < $n; $i++) {
 			$row = &$this->rows[$i];
 
-			$link 		= 'index.php?option=com_eventlist&controller=groups&task=edit&cid[]='.$row->id;
+			$link 		= 'index.php?option=com_eventlist&amp;controller=groups&amp;task=edit&amp;cid[]='.$row->id;
 			$checked 	= JHTML::_('grid.checkedout', $row, $i );
    		?>
 		<tr class="<?php echo "row$k"; ?>">
@@ -81,13 +89,6 @@ defined('_JEXEC') or die('Restricted access');
 
 	</tbody>
 
-	<tfoot>
-		<tr>
-			<td colspan="11">
-				<?php echo $this->pageNav->getListFooter(); ?>
-			</td>
-		</tr>
-	</tfoot>
 </table>
 
 <p class="copyright">

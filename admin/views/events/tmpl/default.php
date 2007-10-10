@@ -24,15 +24,15 @@ defined('_JEXEC') or die('Restricted access');
 
 <form action="<?php echo $this->request_url; ?>" method="post" name="adminForm">
 
-		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
-			<tr>
-		  		<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left"></td>
-		  		<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">::<?php echo JText::_( 'EVENTS'); ?>::</font></td>
-			</tr>
-		</table>
+	<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
+		<tr>
+		  	<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left" /></td>
+		  	<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">::<?php echo JText::_( 'EVENTS'); ?>::</font></td>
+		</tr>
+	</table>
 
-		<table class="adminform">
-			<tr>
+	<table class="adminform">
+		<tr>
 			<td width="100%">
 				<?php
 				echo JText::_( 'SEARCH' );
@@ -45,11 +45,11 @@ defined('_JEXEC') or die('Restricted access');
 			<td nowrap="nowrap">
 				<?php echo $this->lists['state'];	?>
 			</td>
-			</tr>
-			</table>
+		</tr>
+	</table>
 
-			<table class="adminlist" cellspacing="1">
-			<thead>
+	<table class="adminlist" cellspacing="1">
+		<thead>
 			<tr>
 				<th width="5"><?php echo JText::_( 'Num' ); ?></th>
 				<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
@@ -64,9 +64,17 @@ defined('_JEXEC') or die('Restricted access');
 				<th width="1%" nowrap="nowrap"><?php echo JText::_( 'REGISTERED USERS' ); ?></th>
 				<th width="1%" nowrap="nowrap"><?php echo JHTML::_('grid.sort', 'ID', 'a.id', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			</tr>
-			</thead>
+		</thead>
 
-			<tbody>
+		<tfoot>
+			<tr>
+				<td colspan="12">
+					<?php echo $this->pageNav->getListFooter(); ?>
+				</td>
+			</tr>
+		</tfoot>
+
+		<tbody>
 			<?php
 			$k = 0;
 			for($i=0, $n=count( $this->rows ); $i < $n; $i++) {
@@ -90,9 +98,9 @@ defined('_JEXEC') or die('Restricted access');
 					$displaytime = $time.' '.$this->elsettings->timename;
 				}
 
-				$link 			= 'index.php?option=com_eventlist&controller=events&task=edit&cid[]='.$row->id;
-				$catlink 		= 'index.php?option=com_eventlist&controller=categories&task=edit&cid[]='.$row->catsid;
-				$venuelink 		= 'index.php?option=com_eventlist&controller=venues&task=edit&cid[]='.$row->locid;
+				$link 			= 'index.php?option=com_eventlist&amp;controller=events&amp;task=edit&amp;cid[]='.$row->id;
+				$catlink 		= 'index.php?option=com_eventlist&amp;controller=categories&amp;task=edit&amp;cid[]='.$row->catsid;
+				$venuelink 		= 'index.php?option=com_eventlist&amp;controller=venues&amp;task=edit&amp;cid[]='.$row->locid;
 
 				$checked 	= JHTML::_('grid.checkedout', $row, $i );
 				$published 	= JHTML::_('grid.published', $row, $i );
@@ -158,7 +166,7 @@ defined('_JEXEC') or die('Restricted access');
 				</td>
 				<td align="center"><?php echo $published; ?></td>
 				<td>
-					<?php echo JText::_( 'AUTHOR' ).': '; ?><a href="<?php echo 'index.php?option=com_users&task=edit&hidemainmenu=1&cid[]='.$row->created_by; ?>"><?php echo $row->author; ?></a><br />
+					<?php echo JText::_( 'AUTHOR' ).': '; ?><a href="<?php echo 'index.php?option=com_users&amp;task=edit&amp;hidemainmenu=1&amp;cid[]='.$row->created_by; ?>"><?php echo $row->author; ?></a><br />
 					<?php echo JText::_( 'EMAIL' ).': '; ?><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a><br />
 					<?php
 					$created	 	= JHTML::Date( $row->created, JText::_( 'DATE_FORMAT_LC2' ) );
@@ -178,7 +186,7 @@ defined('_JEXEC') or die('Restricted access');
 				<td align="center">
 					<?php
 					if ($row->registra == 1) {
-						$linkreg 	= 'index.php?option=com_eventlist&view=attendees&cid[]='.$row->id;
+						$linkreg 	= 'index.php?option=com_eventlist&amp;view=attendees&amp;cid[]='.$row->id;
 					?>
 						<a href="<?php echo $linkreg; ?>" title="Edit Users">
 						<?php echo $row->regCount; ?>
@@ -195,22 +203,17 @@ defined('_JEXEC') or die('Restricted access');
 			</tr>
 			<?php $k = 1 - $k;  } ?>
 
-			</tbody>
-
-			<tfoot>
-				<td colspan="12">
-					<?php echo $this->pageNav->getListFooter(); ?>
-				</td>
-			</tfoot>
-		</table>
+		</tbody>
+	</table>
 
 	<p class="copyright">
 		<?php echo ELAdmin::footer( ); ?>
 	</p>
-		<input type="hidden" name="boxchecked" value="0" />
-		<input type="hidden" name="option" value="com_eventlist" />
-		<input type="hidden" name="controller" value="events" />
-		<input type="hidden" name="task" value="" />
-		<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
-		<input type="hidden" name="filter_order_Dir" value="" />
-	</form>
+
+	<input type="hidden" name="boxchecked" value="0" />
+	<input type="hidden" name="option" value="com_eventlist" />
+	<input type="hidden" name="controller" value="events" />
+	<input type="hidden" name="task" value="" />
+	<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
+	<input type="hidden" name="filter_order_Dir" value="" />
+</form>

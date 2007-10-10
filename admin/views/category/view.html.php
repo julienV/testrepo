@@ -115,7 +115,7 @@ class EventListViewCategory extends JView {
 		//assign data to template
 		$this->assignRef('Lists'      	, $Lists);
 		$this->assignRef('row'      	, $row);
-		$this->assignRef('request_url'	, $uri->toString());
+		$this->assignRef('request_url'	, urlencode($uri->toString()));
 		$this->assignRef('editor'		, $editor);
 		$this->assignRef('pane'			, $pane);
 

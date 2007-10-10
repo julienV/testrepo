@@ -49,6 +49,14 @@ defined('_JEXEC') or die('Restricted access');
 		</tr>
 	</thead>
 
+	<tfoot>
+		<tr>
+			<td colspan="6">
+				<?php echo $this->pageNav->getListFooter(); ?>
+			</td>
+		</tr>
+	</tfoot>
+
 	<tbody>
 		<?php
 		$k = 0;
@@ -73,12 +81,6 @@ defined('_JEXEC') or die('Restricted access');
 		<?php $k = 1 - $k; } ?>
 
 	</tbody>
-
-	<tfoot>
-		<td colspan="6">
-			<?php echo $this->pageNav->getListFooter(); ?>
-		</td>
-	</tfoot>
 
 </table>
 

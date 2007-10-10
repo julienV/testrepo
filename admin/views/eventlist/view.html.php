@@ -97,7 +97,7 @@ class EventListViewEventList extends JView {
 				if ($modal == 1) {
 					JHTML::_('behavior.modal');
 				?>
-					<a href="<?php echo $link.'&tmpl=component'; ?>" style="cursor:pointer" class="modal" rel="{handler: 'iframe', size: {x: 650, y: 400}}">
+					<a href="<?php echo $link.'&amp;tmpl=component'; ?>" style="cursor:pointer" class="modal" rel="{handler: 'iframe', size: {x: 650, y: 400}}">
 				<?php
 				} else {
 				?>

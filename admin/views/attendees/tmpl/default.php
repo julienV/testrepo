@@ -25,7 +25,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 	<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 		<tr>
-		  	<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left"></td>
+		  	<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left" /></td>
 		  	<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">::<?php echo JText::_( 'REGISTERED USER' ); ?>::</font></td>
 		</tr>
 	</table>
@@ -70,6 +70,12 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			</tr>
 		</thead>
 
+		<tfoot>
+			<tr>
+				<td colspan="9"><?php echo $this->pageNav->getListFooter(); ?></td>
+			</tr>
+		</tfoot>
+
 		<tbody>
 			<?php
 			$k = 0;
@@ -92,11 +98,6 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<?php $k = 1 - $k;  } ?>
 		</tbody>
 
-		<tfoot>
-			<tr>
-				<td colspan="9"><?php echo $this->pageNav->getListFooter(); ?></td>
-			</tr>
-		</tfoot>
 	</table>
 
 	<p class="copyright">

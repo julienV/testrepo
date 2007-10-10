@@ -45,6 +45,15 @@ defined('_JEXEC') or die('Restricted access');
 			<th width="1%" nowrap="nowrap"><?php echo JText::_( 'PUBLISHED' ); ?></th>
 		</tr>
 	</thead>
+
+	<tfoot>
+		<tr>
+			<td colspan="4">
+				<?php echo $this->pageNav->getListFooter(); ?>
+			</td>
+		</tr>
+	</tfoot>
+
 	<tbody>
 		<?php
 		$k = 0;
@@ -76,12 +85,8 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 		</tr>
 			<?php $k = 1 - $k; } ?>
-	<tbody>
-	<tfoot>
-		<td colspan="4">
-			<?php echo $this->pageNav->getListFooter(); ?>
-		</td>
-	</tfoot>
+	</tbody>
+
 </table>
 
 <p class="copyright">

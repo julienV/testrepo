@@ -25,7 +25,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 	<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 		<tr>
-		  	<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left"></td>
+		  	<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left" /></td>
 		  	<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">::<?php echo JText::_( 'ARCHIVE' ); ?>::</font></td>
 		</tr>
 	</table>
@@ -55,6 +55,14 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				<th class="title"><?php echo JText::_( 'CREATION' ); ?></th>
 			</tr>
 		</thead>
+
+		<tfoot>
+			<tr>
+				<td colspan="9">
+					<?php echo $this->pageNav->getListFooter(); ?>
+				</td>
+			</tr>
+		</tfoot>
 
 		<tbody>
 			<?php
@@ -90,7 +98,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				<td><?php echo htmlspecialchars($row->catname, ENT_QUOTES, 'UTF-8'); ?></td>
 				<td><?php echo $row->city ? htmlspecialchars($row->city, ENT_QUOTES, 'UTF-8') : '-'; ?></td>
 				<td>
-					<?php echo JText::_( 'AUTHOR' ).': '; ?><a href="<?php echo 'index.php?option=com_users&task=edit&hidemainmenu=1&cid[]='.$row->created_by; ?>"><?php echo $row->author; ?></a><br />
+					<?php echo JText::_( 'AUTHOR' ).': '; ?><a href="<?php echo 'index.php?option=com_users&amp;task=edit&amp;hidemainmenu=1&amp;cid[]='.$row->created_by; ?>"><?php echo $row->author; ?></a><br />
 					<?php echo JText::_( 'EMAIL' ).': '; ?><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a><br />
 					<?php
 					$created = JHTML::Date( $row->created, JText::_( 'DATE_FORMAT_LC2' ) );
@@ -111,11 +119,6 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<?php $k = 1 - $k;  } ?>
 		</tbody>
 
-		<tfoot>
-				<td colspan="9">
-					<?php echo $this->pageNav->getListFooter(); ?>
-				</td>
-		</tfoot>
 	</table>
 
 	<p class="copyright">

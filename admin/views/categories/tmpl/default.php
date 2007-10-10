@@ -24,7 +24,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 <form action="<?php echo $this->request_url; ?>" method="post" name="adminForm">
 	<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 		<tr>
-		  	<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left"></td>
+		  	<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left" /></td>
 		  	<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">::<?php echo JText::_( 'CATEGORIES' ); ?>::</font></td>
 		</tr>
 	</table>
@@ -61,14 +61,22 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		</tr>
 	</thead>
 
+	<tfoot>
+		<tr>
+			<td colspan="10">
+				<?php echo $this->pageNav->getListFooter(); ?>
+			</td>
+		</tr>
+	</tfoot>
+
 	<tbody>
 		<?php
 		$k = 0;
 		for ($i=0, $n=count($this->rows); $i < $n; $i++) {
 			$row = $this->rows[$i];
 
-			$link 		= 'index.php?option=com_eventlist&controller=categories&task=edit&cid[]='. $row->id;
-			$grouplink 	= 'index.php?option=com_eventlist&controller=groups&task=edit&cid[]='. $row->groupid;
+			$link 		= 'index.php?option=com_eventlist&amp;controller=categories&amp;task=edit&amp;cid[]='. $row->id;
+			$grouplink 	= 'index.php?option=com_eventlist&amp;controller=groups&amp;task=edit&amp;cid[]='. $row->groupid;
 			$published 	= JHTML::_('grid.published', $row, $i );
 			$access 	= JHTML::_('grid.access', $row, $i );
 			$checked 	= JHTML::_('grid.checkedout', $row, $i );
@@ -127,12 +135,8 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<td align="center"><?php echo $row->id; ?></td>
 		</tr>
 		<?php $k = 1 - $k; } ?>
-	<tbody>
-	<tfoot>
-		<td colspan="10">
-			<?php echo $this->pageNav->getListFooter(); ?>
-		</td>
-	</tfoot>
+	</tbody>
+
 	</table>
 
 	<p class="copyright">
