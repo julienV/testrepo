@@ -116,7 +116,7 @@ defined('_JEXEC') or die('Restricted access');
 		echo $this->pane->startPanel( $title, 'address' );
 
 		//Set the info image
-		$infoimage = JHTML::_('image.site', 'icon-16-hint.png', '../components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'NOTES' ), JText::_( 'NOTES' ) );
+		$infoimage = JHTML::_('image', '/components/com_eventlist/assets/images/icon-16-hint.png', JText::_( 'NOTES' ) );
 		?>
 	<table>
 		<tr>
@@ -166,7 +166,7 @@ defined('_JEXEC') or die('Restricted access');
 				</label>
 			</td>
 			<td>
-				<input class="inputbox" name="country" value="<?php echo $this->row->country; ?>" size="3" maxlength="2" />&nbsp;
+				<input class="inputbox" name="country" id="country" value="<?php echo $this->row->country; ?>" size="3" maxlength="2" />&nbsp;
 
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('COUNTRY HINT'); ?>">
 					<?php echo $infoimage; ?>
