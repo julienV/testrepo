@@ -51,10 +51,8 @@ class EventListControllerAttendees extends EventListController
 	 */
 	function remove()
 	{
-		global $option;
-
 		$cid 	= JRequest::getVar('cid');
-		$rcid 	= JRequest::getVar('rcid');
+		$id 	= JRequest::getInt('id');
 		$total 	= count( $cid );
 
 		$model = $this->getModel('attendees');
@@ -68,7 +66,7 @@ class EventListControllerAttendees extends EventListController
 
 		$msg = $total.' '.JText::_( 'REGISTERED USERS DELETED');
 
-		$this->setRedirect( 'index.php?option='. $option .'&view=attendees&rcid='.$rcid, $msg );
+		$this->setRedirect( 'index.php?option=com_eventlist&view=attendees&id='.$id, $msg );
 	}
 }
 ?>

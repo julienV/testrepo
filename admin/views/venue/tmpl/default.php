@@ -53,7 +53,7 @@ defined('_JEXEC') or die('Restricted access');
 	}
 </script>
 
-<form action="<?php echo $this->request_url; ?>" method="post" name="adminForm" id="adminForm">
+<form action="index.php" method="post" name="adminForm" id="adminForm">
 
 <table class="adminlist">
 	<tr>
@@ -74,7 +74,7 @@ defined('_JEXEC') or die('Restricted access');
 				</label>
 			</td>
 			<td>
-				<input class="inputbox" name="venue" id= "venue" value="<?php echo $this->row->venue; ?>" size="40" maxlength="100">
+				<input class="inputbox" name="venue" id= "venue" value="<?php echo $this->row->venue; ?>" size="40" maxlength="100" />
 			</td>
 			<td>
 				<label for="published">
@@ -289,6 +289,7 @@ if ( $this->settings->showmapserv == 0 ) { ?>
 
 	<input type="hidden" name="option" value="com_eventlist" />
 	<input type="hidden" name="controller" value="venues" />
+	<input type="hidden" name="view" value="venue" />
 	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
 	<input type="hidden" name="created" value="<?php echo $this->row->created; ?>" />
 	<input type="hidden" name="author_ip" value="<?php echo $this->row->author_ip; ?>" />

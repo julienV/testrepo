@@ -39,7 +39,6 @@ class EventListViewArchive extends JView {
 		//initialise variables
 		$document	= & JFactory::getDocument();
 		$db			= & JFactory::getDBO();
-		$uri 		= & JFactory::getURI();
 		$user		= & JFactory::getUser();
 		$elsettings = ELAdmin::config();
 
@@ -101,7 +100,6 @@ class EventListViewArchive extends JView {
 		$this->assignRef('lists'      	, $lists);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);
-		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('elsettings'	, $elsettings);
 		$this->assignRef('template'		, $template);
 

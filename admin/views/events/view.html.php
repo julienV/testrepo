@@ -40,7 +40,6 @@ class EventListViewEvents extends JView {
 		$user 		= & JFactory::getUser();
 		$document	= & JFactory::getDocument();
 		$db  		= & JFactory::getDBO();
-		$uri 		= & JFactory::getURI();
 		$elsettings = ELAdmin::config();
 
 		//get vars
@@ -114,7 +113,6 @@ class EventListViewEvents extends JView {
 		$this->assignRef('lists'      	, $lists);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);
-		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('user'			, $user);
 		$this->assignRef('template'		, $template);
 		$this->assignRef('elsettings'	, $elsettings);

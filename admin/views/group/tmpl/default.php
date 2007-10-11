@@ -72,7 +72,7 @@ defined('_JEXEC') or die('Restricted access');
 	}
 </script>
 
-<form action="<?php echo $this->request_url; ?>" method="post" name="adminForm" id="adminForm">
+<form action="index.php" method="post" name="adminForm" id="adminForm">
 
 <table class="adminlist">
 	<tr>
@@ -144,6 +144,7 @@ defined('_JEXEC') or die('Restricted access');
 
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="controller" value="groups" />
+<input type="hidden" name="view" value="group" />
 <input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
 <input type="hidden" name="task" value="" />
 </form>

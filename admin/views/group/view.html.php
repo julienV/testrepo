@@ -41,7 +41,6 @@ class EventListViewGroup extends JView {
 
 		//initialise variables
 		$document	= & JFactory::getDocument();
-		$uri 		= & JFactory::getURI();
 		$pane 		= & JPane::getInstance('sliders');
 		$user 		= & JFactory::getUser();
 
@@ -104,7 +103,6 @@ class EventListViewGroup extends JView {
 		//assign data to template
 		$this->assignRef('row'      	, $row);
 		$this->assignRef('pane'      	, $pane);
-		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('template'		, $template);
 		$this->assignRef('lists'      	, $lists);
 

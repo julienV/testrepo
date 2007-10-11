@@ -21,7 +21,7 @@
 
 defined('_JEXEC') or die('Restricted access'); ?>
 
-<form action="<?php echo $this->request_url; ?>" method="post" name="adminForm">
+<form action="index.php" method="post" name="adminForm">
 
 	<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 		<tr>
@@ -35,8 +35,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<table class="adminlist" cellspacing="1">
 		<tr>
 		  	<td>
-		  		<?php $datum = strftime($this->elsettings->formatdate,strtotime( $this->event->dates )); ?>
-				<b><?php echo JText::_( 'DATE' ).':'; ?></b>&nbsp;<?php echo $datum; ?><br />
+				<b><?php echo JText::_( 'DATE' ).':'; ?></b>&nbsp;<?php echo $this->event->dates; ?><br />
 				<b><?php echo JText::_( 'EVENT TITLE' ).':'; ?></b>&nbsp;<?php echo htmlspecialchars($this->event->title, ENT_QUOTES, 'UTF-8'); ?>
 			</td>
 		  </tr>
@@ -84,7 +83,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
    			?>
 			<tr class="<?php echo "row$k"; ?>">
 				<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
-				<td><input type="checkbox" id="cb<?php echo $i;?>" name="cid[]" value="<?php echo $row->rid; ?>" onclick="isChecked(this.checked);" /></td>
+				<td><input type="checkbox" id="cb<?php echo $i;?>" name="cid[]" value="<?php echo $row->id; ?>" onclick="isChecked(this.checked);" /></td>
 				<td><a href="<?php echo JRoute::_( 'index.php?option=com_users&task=edit&cid[]='.$row->uid ); ?>"><?php echo $row->name; ?></a></td>
 				<td>
 					<a href="<?php echo JRoute::_( 'index.php?option=com_users&task=edit&cid[]='.$row->uid ); ?>"><?php echo $row->username; ?></a>
@@ -93,7 +92,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				<td><?php echo $row->uip; ?></td>
 				<td><?php echo JHTML::Date( $row->uregdate, JText::_( 'DATE_FORMAT_LC2' ) ); ?></td>
 				<td><?php echo $row->uid; ?></td>
-				<td><a href="javascript: void(0);" onclick="return listItemTask('cb<?php echo $i;?>','removeuser')"><img src="images/publish_x.png" width="16" height="16" border="0" alt="Delete" /></a></td>
+				<td><a href="javascript: void(0);" onclick="return listItemTask('cb<?php echo $i;?>','remove')"><img src="images/publish_x.png" width="16" height="16" border="0" alt="Delete" /></a></td>
 			</tr>
 			<?php $k = 1 - $k;  } ?>
 		</tbody>
@@ -107,8 +106,9 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<input type="hidden" name="boxchecked" value="0" />
 	<input type="hidden" name="option" value="com_eventlist" />
 	<input type="hidden" name="controller" value="attendees" />
+	<input type="hidden" name="view" value="attendees" />
 	<input type="hidden" name="task" value="" />
-	<input type="hidden" name="rcid" value="<?php echo $this->event->id; ?>" />
+	<input type="hidden" name="id" value="<?php echo $this->event->id; ?>" />
 	<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
 	<input type="hidden" name="filter_order_Dir" value="" />
 </form>

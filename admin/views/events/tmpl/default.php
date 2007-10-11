@@ -22,7 +22,7 @@
 defined('_JEXEC') or die('Restricted access');
 ?>
 
-<form action="<?php echo $this->request_url; ?>" method="post" name="adminForm">
+<form action="index.php" method="post" name="adminForm">
 
 	<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 		<tr>
@@ -186,7 +186,7 @@ defined('_JEXEC') or die('Restricted access');
 				<td align="center">
 					<?php
 					if ($row->registra == 1) {
-						$linkreg 	= 'index.php?option=com_eventlist&amp;view=attendees&amp;cid[]='.$row->id;
+						$linkreg 	= 'index.php?option=com_eventlist&amp;view=attendees&amp;id='.$row->id;
 					?>
 						<a href="<?php echo $linkreg; ?>" title="Edit Users">
 						<?php echo $row->regCount; ?>
@@ -212,6 +212,7 @@ defined('_JEXEC') or die('Restricted access');
 
 	<input type="hidden" name="boxchecked" value="0" />
 	<input type="hidden" name="option" value="com_eventlist" />
+	<input type="hidden" name="view" value="events" />
 	<input type="hidden" name="controller" value="events" />
 	<input type="hidden" name="task" value="" />
 	<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />

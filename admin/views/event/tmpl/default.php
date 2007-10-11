@@ -61,7 +61,7 @@ defined('_JEXEC') or die('Restricted access');
 	}
 </script>
 
-<form action="<?php echo $this->request_url; ?>" method="post" name="adminForm" id="adminForm">
+<form action="index.php" method="post" name="adminForm" id="adminForm">
 <table class="adminlist">
 	<tr>
 		<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left" /></td>
@@ -90,7 +90,7 @@ defined('_JEXEC') or die('Restricted access');
 						</label>
 					</td>
 					<td>
-						<input class="inputbox" name="title" value="<?php echo $this->row->title; ?>" size="50" maxlength="100" id="title">
+						<input class="inputbox" name="title" value="<?php echo $this->row->title; ?>" size="50" maxlength="100" id="title" />
 					</td>
 					<td>
 						<label for="published">
@@ -201,7 +201,7 @@ defined('_JEXEC') or die('Restricted access');
 							$this->row->times = substr($this->row->times, 0, 5);
 						}
 						?>
-						<input class="inputbox" name="times" value="<?php echo $this->row->times; ?>" size="15" maxlength="8" id="times">
+						<input class="inputbox" name="times" value="<?php echo $this->row->times; ?>" size="15" maxlength="8" id="times" />
 					</td>
 					<td>
 			  			<?php if ( $this->elsettings->showtime == 1 ) { ?>
@@ -227,7 +227,7 @@ defined('_JEXEC') or die('Restricted access');
 							$this->row->endtimes = substr($this->row->endtimes, 0, 5);
 						}
 						?>
-						<input class="inputbox" name="endtimes" value="<?php echo $this->row->endtimes; ?>" size="15" maxlength="8" id="endtimes">
+						<input class="inputbox" name="endtimes" value="<?php echo $this->row->endtimes; ?>" size="15" maxlength="8" id="endtimes" />
 					</td>
 					<td>
 			  			<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('FORMAT TIME OPTIONAL'); ?>">
@@ -424,6 +424,8 @@ defined('_JEXEC') or die('Restricted access');
 
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="controller" value="events" />
+<input type="hidden" name="view" value="event" />
+<input type="hidden" name="task" value="" />
 <?php if ($this->task == 'copy') { ?>
 	<input type="hidden" name="id" value="" />
 	<input type="hidden" name="created" value="" />
@@ -435,7 +437,6 @@ defined('_JEXEC') or die('Restricted access');
 	<input type="hidden" name="author_ip" value="<?php echo $this->row->author_ip; ?>" />
 	<input type="hidden" name="created_by" value="<?php echo $this->row->created_by; ?>" />
 <?php } ?>
-<input type="hidden" name="task" value="" />
 </form>
 
 <p class="copyright">

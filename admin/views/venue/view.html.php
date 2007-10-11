@@ -43,7 +43,6 @@ class EventListViewVenue extends JView {
 		//initialise variables
 		$editor 	= & JFactory::getEditor();
 		$document	= & JFactory::getDocument();
-		$uri 		= & JFactory::getURI();
 		$pane		= & JPane::getInstance('sliders');
 		$user 		= & JFactory::getUser();
 		$settings	= ELAdmin::config();
@@ -126,7 +125,6 @@ class EventListViewVenue extends JView {
 		$this->assignRef('editor'      	, $editor);
 		$this->assignRef('settings'     , $settings);
 		$this->assignRef('imageselect' 	, $imageselect);
-		$this->assignRef('request_url'	, $uri->toString());
 
 		parent::display($tpl);
 	}

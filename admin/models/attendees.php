@@ -85,8 +85,9 @@ class EventListModelAttendees extends JModel
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
 
-		$array = JRequest::getVar('cid',  0, '', 'array');
-		$this->setId((int)$array[0]);
+		$id = JRequest::getInt('id');
+		$this->setId($id);
+
 
 	}
 

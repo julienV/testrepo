@@ -41,7 +41,7 @@ function submitbutton(pressbutton) {
 </script>
 
 
-<form action="<?php $this->request_url; ?>" method="post" name="adminForm" id="adminForm">
+<form action="index.php" method="post" name="adminForm" id="adminForm">
 <table class="adminlist">
 	<tr>
   		<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left" /></td>
@@ -209,6 +209,7 @@ function submitbutton(pressbutton) {
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
 <input type="hidden" name="controller" value="categories" />
+<input type="hidden" name="view" value="category" />
 <input type="hidden" name="task" value="" />
 </form>
 

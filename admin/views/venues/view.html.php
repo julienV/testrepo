@@ -39,7 +39,6 @@ class EventListViewVenues extends JView {
 		//initialise variables
 		$user 		= & JFactory::getUser();
 		$db 		= & JFactory::getDBO();
-		$uri 		= & JFactory::getURI();
 		$document	= & JFactory::getDocument();
 
 		//get vars
@@ -108,7 +107,6 @@ class EventListViewVenues extends JView {
 		$this->assignRef('lists'      	, $lists);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);
-		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('ordering'		, $ordering);
 		$this->assignRef('user'			, $user);
 		$this->assignRef('template'		, $template);

@@ -38,7 +38,6 @@ class EventListViewAttendees extends JView {
 
 		//initialise variables
 		$db			= & JFactory::getDBO();
-		$uri 		= & JFactory::getURI();
 		$elsettings = ELAdmin::config();
 		$document	= & JFactory::getDocument();
 		$user		= & JFactory::getUser();
@@ -79,6 +78,8 @@ class EventListViewAttendees extends JView {
 		$pageNav 	= & $this->get( 'Pagination' );
 		$event 		= & $this->get( 'Event' );
 
+		$event->dates = strftime($elsettings->formatdate, strtotime( $event->dates ));
+
 		//build filter selectlist
 		$filters = array();
 		$filters[] = JHTML::_('select.option', '1', JText::_( 'NAME' ) );
@@ -97,8 +98,6 @@ class EventListViewAttendees extends JView {
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);
 		$this->assignRef('event'		, $event);
-		$this->assignRef('request_url'	, $uri->toString());
-		$this->assignRef('elsettings'	, $elsettings);
 
 		parent::display($tpl);
 	}

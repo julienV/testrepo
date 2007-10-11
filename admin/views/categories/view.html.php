@@ -40,7 +40,6 @@ class EventListViewCategories extends JView {
 		$user 		= & JFactory::getUser();
 		$db  		= & JFactory::getDBO();
 		$document	= & JFactory::getDocument();
-		$uri 		= & JFactory::getURI();
 
 		//get vars
 		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.categories.filter_order', 		'filter_order', 	'c.ordering', 'cmd' );
@@ -98,7 +97,6 @@ class EventListViewCategories extends JView {
 		$this->assignRef('lists'      	, $lists);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);
-		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('ordering'		, $ordering);
 		$this->assignRef('user'			, $user);
 

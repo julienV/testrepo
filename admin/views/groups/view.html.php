@@ -38,7 +38,6 @@ class EventListViewGroups extends JView {
 
 		//initialise variables
 		$document	= & JFactory::getDocument();
-		$uri 		= & JFactory::getURI();
 		$db			= & JFactory::getDBO();
 		$user 		= & JFactory::getUser();
 
@@ -92,7 +91,6 @@ class EventListViewGroups extends JView {
 		$this->assignRef('lists'      	, $lists);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);
-		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('user'			, $user);
 		$this->assignRef('template'		, $template);
 

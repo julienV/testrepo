@@ -22,7 +22,7 @@
 defined('_JEXEC') or die('Restricted access');
 ?>
 
-<form action="<?php echo $this->request_url; ?>" method="post" name="adminForm">
+<form action="index.php" method="post" name="adminForm">
 
 <table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 	<tr>
@@ -98,6 +98,7 @@ defined('_JEXEC') or die('Restricted access');
 <input type="hidden" name="boxchecked" value="0" />
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="controller" value="groups" />
+<input type="hidden" name="view" value="groups" />
 <input type="hidden" name="task" value="" />
 <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
 <input type="hidden" name="filter_order_Dir" value="" />
