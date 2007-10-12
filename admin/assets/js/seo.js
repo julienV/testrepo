@@ -36,10 +36,6 @@ function starter($msg) {			// Funktion, welche beim Starten der Seite aufgerufen
 	get_description();
 	switchstart();
 	$meta_error = $msg;
-	document.adminForm.onsubmit = function() {		// Das Formtag von Joomla wird angesprochen
-		$("meta_keywords").value = $keywords;
-		$("meta_description").value = $description;
-	};
 }
 
 function switchstart() {	// Diese Funktion uebergibt alle relevanten Feldern ein onchange

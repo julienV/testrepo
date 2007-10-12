@@ -61,6 +61,8 @@ class EventListViewEvent extends JView {
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 		$document->addScript($url.'administrator/components/com_eventlist/assets/js/seo.js');
 		$document->addScript($url.'components/com_eventlist/assets/js/recurrence.js');
+		// include the unlimited script
+		$document->addScript($url.'components/com_eventlist/assets/js/unlimited.js');
 
 		//build toolbar
 		if ( $cid ) {

@@ -327,14 +327,12 @@ defined('_JEXEC') or die('Restricted access');
 					<tr id="counter_row" style="display:none;">
 						<td><?php echo JText::_( 'RECURRENCE COUNTER' ); ?>:</td>
 						<td>
-					        <?php echo JHTML::_('calendar', $this->row->recurrence_counter, "recurrence_counter", "recurrence_counter"); ?>
-					        <span class="editlinktip hasTip" title="<?php echo JText::_('FORMAT DATE'); ?>::<?php echo JText::_('RECURRENCE COUNTER TIP'); ?>">
-								<?php echo $infoimage; ?>
-							</span>
+					        <?php echo JHTML::_('calendar', ($this->row->recurrence_counter <> 0000-00-00)? $this->row->recurrence_counter: JText::_( 'UNLIMITED' ), "recurrence_counter", "recurrence_counter"); ?>
+					        <a href="#" onclick="include_unlimited('<?php echo JText::_( 'UNLIMITED' ); ?>'); return false;"><img src="../components/com_eventlist/assets/images/unlimited.png" width="16" height="16" alt="<?php echo JText::_( 'UNLIMITED' ); ?>" /></a>
 						</td>
 					<tr>
 					<tr>
-						<td><br/></td>
+						<td><br/><br/><br/></td>
 					</tr>
 				</table>
 			<br/>
@@ -357,6 +355,8 @@ defined('_JEXEC') or die('Restricted access');
 				$weekday[5] = "<?php echo JText::_( 'SATURDAY' ); ?>";
 				$weekday[6] = "<?php echo JText::_( 'SUNDAY' ); ?>";
 				start_recurrencescript();
+
+				unlimited_starter();
 			-->
 			</script>
 			<?php
@@ -413,6 +413,13 @@ defined('_JEXEC') or die('Restricted access');
 		<script type="text/javascript">
 		<!--
 			starter("<?php echo JText::_( 'META ERROR' ); ?>");	// da window.onload schon belegt wurde, wird die Funktion 'manuell' aufgerufen
+
+			// the onsubmit - section
+			document.adminForm.onsubmit = function() {		// the form - tag get a onsubmit attribute
+				$("meta_keywords").value = $keywords;
+				$("meta_description").value = $description;
+				submit_unlimited();
+			};
 		-->
 		</script>
 		<?php

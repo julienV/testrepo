@@ -113,6 +113,8 @@ class EventListViewEditevent extends JView
 		JHTML::_('behavior.modal', 'a.modal');
 		// include the recurrence script
 		$doc->addScript($url.'components/com_eventlist/assets/js/recurrence.js');
+		// include the unlimited script
+		$doc->addScript($url.'components/com_eventlist/assets/js/unlimited.js');
 
 		$venueselect = "\n<div style=\"float: left;\"><input style=\"background: #ffffff;\" type=\"text\" id=\"a_name\" value=\"$row->venue\" disabled=\"disabled\" /></div>";
 		$venueselect .= "<div class=\"button2-left\"><div class=\"blank\"><a class=\"modal\" title=\"".JText::_('SELECT')."\" href=\"$link\" rel=\"{handler: 'iframe', size: {x: 650, y: 375}}\">".JText::_('SELECT')."</a></div></div>\n";
