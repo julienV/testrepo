@@ -355,8 +355,6 @@ defined('_JEXEC') or die('Restricted access');
 				$weekday[5] = "<?php echo JText::_( 'SATURDAY' ); ?>";
 				$weekday[6] = "<?php echo JText::_( 'SUNDAY' ); ?>";
 				start_recurrencescript();
-
-				unlimited_starter();
 			-->
 			</script>
 			<?php
