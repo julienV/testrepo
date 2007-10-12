@@ -24,7 +24,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.application.component.view');
 
 /**
- * View class for the EventList home screen
+ * View class for the EventList Help screen
  *
  * @package Joomla
  * @subpackage EventList
@@ -41,7 +41,6 @@ class EventListViewHelp extends JView {
 		//initialise variables
 		$document		= & JFactory::getDocument();
 		$lang 			= & JFactory::getLanguage();
-		$uri 			= & JFactory::getURI();
 		$pane 			= & JPane::getInstance('sliders');
 		$user			= & JFactory::getUser();
 
@@ -79,7 +78,6 @@ class EventListViewHelp extends JView {
 		//assign data to template
 		$this->assignRef('pane'			, $pane);
 		$this->assignRef('langTag'		, $langTag);
-		$this->assignRef('request_url'	, $uri->toString());
 		$this->assignRef('helpsearch'	, $helpsearch);
 		$this->assignRef('toc'			, $toc);
 

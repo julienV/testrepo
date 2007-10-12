@@ -31,7 +31,7 @@ defined('_JEXEC') or die('Restricted access');
 
 <br />
 
-<form action="<?php echo $this->request_url; ?>" method="post" name="adminForm">
+<form action="index.php" method="post" name="adminForm">
 <table border="1" class="adminform">
 	<tr>
 		<td colspan="2">
@@ -94,7 +94,10 @@ defined('_JEXEC') or die('Restricted access');
 		</td>
 	</tr>
 </table>
+<input type="hidden" name="option" value="com_eventlist" />
+<input type="hidden" name="view" value="help" />
 <input type="hidden" name="task" value="" />
+
 </form>
 
 <p class="copyright">
