@@ -133,7 +133,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <?php } ?>
 
 <input type="hidden" name="option" value="com_eventlist" />
-<input type="hidden" name="controller" value="imageupload" />
+<input type="hidden" name="controller" value="imagehandler" />
 <input type="hidden" name="task" value="<?php echo $this->task;?>" />
 </form>
 

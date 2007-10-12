@@ -22,8 +22,18 @@
 defined('_JEXEC') or die('Restricted access');
 ?>
 		<div class="item">
-			<a onclick="window.parent.elSelectImage('<?php echo $this->_tmp_img->name; ?>', '<?php echo $this->_tmp_img->name; ?>');">
-				<img src="../images/eventlist/<?php echo $this->folder; ?>/<?php echo $this->_tmp_img->name; ?>"  width="<?php echo $this->_tmp_img->width_60; ?>" height="<?php echo $this->_tmp_img->height_60; ?>" alt="<?php echo $this->_tmp_img->name; ?> - <?php echo $this->_tmp_img->size; ?>" />
-				<span><?php echo $this->escape( substr( $this->_tmp_img->name, 0, 10 ) . ( strlen( $this->_tmp_img->name ) > 10 ? '...' : '')); ?></span>
-			</a>
+				<div align="center" class="imgBorder">
+					<a onclick="window.parent.elSelectImage('<?php echo $this->_tmp_img->name; ?>', '<?php echo $this->_tmp_img->name; ?>');">
+						<div class="image">
+							<img src="../images/eventlist/<?php echo $this->folder; ?>/<?php echo $this->_tmp_img->name; ?>"  width="<?php echo $this->_tmp_img->width_60; ?>" height="<?php echo $this->_tmp_img->height_60; ?>" alt="<?php echo $this->_tmp_img->name; ?> - <?php echo $this->_tmp_img->size; ?>" />
+						</div>
+					</a>
+				</div>
+			<div class="controls">
+				<?php echo $this->_tmp_img->size; ?> -
+				<a class="delete-item" href="index.php?option=com_eventlist&amp;task=delete&amp;controller=imagehandler&amp;tmpl=component&amp;folder=<?php echo $this->folder; ?>&amp;rm[]=<?php echo $this->_tmp_img->name; ?>"><img src="components/com_media/images/remove.png" width="16" height="16" border="0" alt="<?php echo JText::_( 'DELETE' ); ?>" /></a>
+			</div>
+			<div class="imageinfo">
+				<?php echo $this->escape( substr( $this->_tmp_img->name, 0, 10 ) . ( strlen( $this->_tmp_img->name ) > 10 ? '...' : '')); ?>
+			</div>
 		</div>

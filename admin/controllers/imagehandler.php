@@ -22,15 +22,16 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 jimport('joomla.application.component.controller');
+jimport('joomla.filesystem.file');
 
 /**
- * EventList Component Imageupload Controller
+ * EventList Component Imagehandler Controller
  *
  * @package Joomla
  * @subpackage EventList
  * @since 0.9
  */
-class EventListControllerImageupload extends EventListController
+class EventListControllerImagehandler extends EventListController
 {
 	/**
 	 * Constructor
@@ -58,7 +59,6 @@ class EventListControllerImageupload extends EventListController
 		global $mainframe;
 
 		$elsettings = ELAdmin::config();
-		jimport('joomla.filesystem.file');
 
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
 		$task 		= JRequest::getVar( 'task' );
@@ -120,6 +120,46 @@ class EventListControllerImageupload extends EventListController
 		}
 
 	} //function uploadimage end
+
+	function delete()
+	{
+		global $mainframe;
+
+		// Set FTP credentials, if given
+		jimport('joomla.client.helper');
+		JClientHelper::setCredentialsFromRequest('ftp');
+
+		// Get some data from the request
+		$images	= JRequest::getVar( 'rm', array(), '', 'array' );
+		$folder = JRequest::getVar( 'folder');
+
+		if (count($images)) {
+			foreach ($images as $image)
+			{
+				if ($image !== JFilterInput::clean($image, 'path')) {
+					JError::raiseWarning(100, JText::_('UNABLE TO DELETE').htmlspecialchars($image, ENT_COMPAT, 'UTF-8'));
+					continue;
+				}
+
+				$fullPath = JPath::clean(JPATH_SITE.DS.'images'.DS.'eventlist'.DS.$folder.DS.$image);
+				$fullPaththumb = JPath::clean(JPATH_SITE.DS.'images'.DS.'eventlist'.DS.$folder.DS.'small'.DS.$image);
+				if (is_file($fullPath)) {
+					JFile::delete($fullPath);
+					if (is_file($fullPaththumb)) {
+						JFile::delete($fullPaththumb);
+					}
+				}
+			}
+		}
+
+		if ($folder == 'events') {
+			$task = 'selecteventimg';
+		} else {
+			$task = 'selectvenueimg';
+		}
+
+		$mainframe->redirect('index.php?option=com_eventlist&view=imagehandler&task='.$task.'&tmpl=component');
+	}
 
 } // Class end
 ?>
