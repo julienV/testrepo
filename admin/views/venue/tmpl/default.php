@@ -116,7 +116,7 @@ defined('_JEXEC') or die('Restricted access');
 		echo $this->pane->startPanel( $title, 'address' );
 
 		//Set the info image
-		$infoimage = JHTML::_('image', '/components/com_eventlist/assets/images/icon-16-hint.png', JText::_( 'NOTES' ) );
+		$infoimage = JHTML::image('components/com_eventlist/assets/images/icon-16-hint.png', JText::_( 'NOTES' ) );
 		?>
 	<table>
 		<tr>
