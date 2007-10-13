@@ -62,8 +62,6 @@ class EventListControllerImagehandler extends EventListController
 
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
 		$task 		= JRequest::getVar( 'task' );
-		$sizelimit 	= $elsettings->sizelimit*1024; //size limit in kb
-		$imagesize 	= $file['size'];
 
 		//set the target directory
 		if ($task == 'venueimgup') {
@@ -78,31 +76,11 @@ class EventListControllerImagehandler extends EventListController
 			$mainframe->close();
 		}
 
-		//check if the upload is an image...getimagesize will return false if not
-		if (!@getimagesize($file['tmp_name'])) {
-			echo "<script> alert('".JText::_( 'UPLOAD FAILED NOT AN IMAGE' )."'); window.history.go(-1); </script>\n";
-			$mainframe->close();
-		}
+		//check the image
+		$check = ELImage::check($file, $elsettings);
 
-		//check if the imagefiletype is valid
-		$fileext 	= JFile::getExt($file['name']);
-
-		$allowable 	= array ('gif', 'jpg', 'png');
-		if (in_array($fileext, $allowable)) {
-			$noMatch = true;
-		} else {
-			$noMatch = false;
-		}
-
-		if (!$noMatch) {
-			echo "<script> alert('".JText::_( 'WRONG IMAGE FILE TYPE' )."'); window.history.go(-1); </script>\n";
-			$mainframe->close();
-		}
-
-		//Check filesize
-		if ($imagesize > $sizelimit) {
-			echo "<script> alert('".JText::_( 'IMAGE FILE SIZE' )."'); window.history.go(-1); </script>\n";
-			$mainframe->close();
+		if ($check === false) {
+			$mainframe->redirect($_SERVER['HTTP_REFERER']);
 		}
 
 		//sanitize the image filename

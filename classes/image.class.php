@@ -234,6 +234,48 @@ class ELImage {
 		return false;
 	}
 
+	function check($file, $elsettings)
+	{
+		jimport('joomla.filesystem.file');
+
+		$sizelimit 	= $elsettings->sizelimit*1024; //size limit in kb
+		$imagesize 	= $file['size'];
+
+		//check if the upload is an image...getimagesize will return false if not
+		if (!getimagesize($file['tmp_name'])) {
+			JError::raiseWarning(100, JText::_('UPLOAD FAILED NOT AN IMAGE').': '.htmlspecialchars($file['name'], ENT_COMPAT, 'UTF-8'));
+			return false;
+		}
+
+		//check if the imagefiletype is valid
+		$fileext 	= JFile::getExt($file['name']);
+
+		$allowable 	= array ('gif', 'jpg', 'png');
+		if (!in_array($fileext, $allowable)) {
+			JError::raiseWarning(100, JText::_('WRONG IMAGE FILE TYPE').': '.htmlspecialchars($file['name'], ENT_COMPAT, 'UTF-8'));
+			return false;
+		}
+
+		//Check filesize
+		if ($imagesize > $sizelimit) {
+			JError::raiseWarning(100, JText::_('IMAGE FILE SIZE').': '.htmlspecialchars($file['name'], ENT_COMPAT, 'UTF-8'));
+			return false;
+		}
+
+		//XSS check
+		$xss_check =  JFile::read($file['tmp_name'],false,256);
+		$html_tags = array('abbr','acronym','address','applet','area','audioscope','base','basefont','bdo','bgsound','big','blackface','blink','blockquote','body','bq','br','button','caption','center','cite','code','col','colgroup','comment','custom','dd','del','dfn','dir','div','dl','dt','em','embed','fieldset','fn','font','form','frame','frameset','h1','h2','h3','h4','h5','h6','head','hr','html','iframe','ilayer','img','input','ins','isindex','keygen','kbd','label','layer','legend','li','limittext','link','listing','map','marquee','menu','meta','multicol','nobr','noembed','noframes','noscript','nosmartquotes','object','ol','optgroup','option','param','plaintext','pre','rt','ruby','s','samp','script','select','server','shadow','sidebar','small','spacer','span','strike','strong','style','sub','sup','table','tbody','td','textarea','tfoot','th','thead','title','tr','tt','ul','var','wbr','xml','xmp','!DOCTYPE', '!--');
+		foreach($html_tags as $tag) {
+			// A tag is '<tagname ', so we need to add < and a space or '<tagname>'
+			if(stristr($xss_check, '<'.$tag.' ') || stristr($xss_check, '<'.$tag.'>')) {
+				JError::raiseWarning(100, JText::_('WARN IE XSS'));
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	/**
 	* Sanitize the image file name and return an unique string
 	*

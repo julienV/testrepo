@@ -286,28 +286,13 @@ class EventListModelEditvenue extends JModel
 
 			jimport('joomla.filesystem.file');
 
-			$imagesize 	= $file['size'];
-			$sizelimit 	= $elsettings->sizelimit*1024; //size limit in kb
 			$base_Dir 	= JPATH_SITE.'/images/eventlist/venues/';
 
-			//check if the upload is an image...getimagesize will return false if not
-			if (!@getimagesize($file['tmp_name'])) {
-				$this->setError( JText::_( 'UPLOAD FAILED NOT AN IMAGE' ) );
-				return false;
-			}
+			//check the image
+			$check = ELImage::check($file, $elsettings);
 
-			if ($imagesize > $sizelimit) {
-				$this->setError( JText::_( 'IMAGE FILE SIZE' ) );
-				return false;
-			}
-
-			$format 	= JFile::getExt($file['name']);
-
-			$allowable 	= array ('bmp', 'gif', 'jpg', 'png');
-
-			if (!in_array($format, $allowable)) {
-				$this->setError( JText::_( 'WRONG IMAGE FILE TYPE' ) );
-				return false;
+			if ($check === false) {
+				$mainframe->redirect($_SERVER['HTTP_REFERER']);
 			}
 
 			//sanitize the image filename
@@ -339,8 +324,8 @@ class EventListModelEditvenue extends JModel
 			$row->locdescription = wordwrap($row->locdescription, 75, " ", 1);
 
 			//check length
-			$beschnitten = JString::strlen($row->locdescription);
-			if ($beschnitten > $elsettings->datdesclimit) {
+			$length = JString::strlen($row->locdescription);
+			if ($length > $elsettings->datdesclimit) {
 
 				// if required shorten it
 				$row->locdescription = JString::substr($row->locdescription, 0, $elsettings->datdesclimit);

@@ -557,27 +557,13 @@ class EventListModelEditevent extends JModel
 
 			jimport('joomla.filesystem.file');
 
-			$imagesize 		= $file['size'];
-			$sizelimit 		= $elsettings->sizelimit*1024; //size limit in kb
 			$base_Dir 		= JPATH_SITE.'/images/eventlist/events/';
 
-			//check if the upload is an image...getimagesize will return false if not
-			if (!@getimagesize($file['tmp_name'])) {
-				$this->setError( JText::_( 'UPLOAD FAILED NOT AN IMAGE' ) );
-				return false;
-			}
+			//check the image
+			$check = ELImage::check($file, $elsettings);
 
-			if ($imagesize > $sizelimit) {
-				$this->setError( JText::_( 'IMAGE FILE SIZE' ) );
-				return false;
-			}
-
-			$format 	= JFile::getExt($file['name']);
-			$allowable 	= array ('bmp', 'gif', 'jpg', 'png');
-
-			if (!in_array($format, $allowable)) {
-				$this->setError( JText::_( 'WRONG IMAGE FILE TYPE' ) );
-				return false;
+			if ($check === false) {
+				$mainframe->redirect($_SERVER['HTTP_REFERER']);
 			}
 
 			//sanitize the image filename
@@ -608,8 +594,8 @@ class EventListModelEditevent extends JModel
 			$row->datdescription = wordwrap($row->datdescription, 75, ' ', 1);
 
 			//check length
-			$beschnitten = JString::strlen($row->datdescription);
-			if ($beschnitten > $elsettings->datdesclimit) {
+			$length = JString::strlen($row->datdescription);
+			if ($length > $elsettings->datdesclimit) {
 				//too long then shorten datdescription
 				$row->datdescription = JString::substr($row->datdescription, 0, $elsettings->datdesclimit);
 				//add ...
