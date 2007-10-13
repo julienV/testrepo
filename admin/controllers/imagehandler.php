@@ -119,8 +119,15 @@ class EventListControllerImagehandler extends EventListController
 			$mainframe->close();
 		}
 
-	} //function uploadimage end
+	}
 
+	/**
+	 * logic to mass delete images
+	 *
+	 * @access public
+	 * @return void
+	 * @since 0.9
+	 */
 	function delete()
 	{
 		global $mainframe;
@@ -161,5 +168,5 @@ class EventListControllerImagehandler extends EventListController
 		$mainframe->redirect('index.php?option=com_eventlist&view=imagehandler&task='.$task.'&tmpl=component');
 	}
 
-} // Class end
+}
 ?>

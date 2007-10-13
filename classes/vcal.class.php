@@ -128,26 +128,28 @@ class vCal {
 	* @since 0.9
 	*/
 	function generateHTMLvCal() {
+
+		global $mainframe;
 		// header info for page
 //		header( 'Content-Type: text/x-vCalendar');
 		header( 'Content-Type: text/calendar');
 		header( 'Content-Disposition: inline; filename='.$this->filename.'.vcs');
 		?>
-		BEGIN:VCALENDAR
-		VERSION:1.0
-		PRODID:WebCalendar
-		TZ:<?php echo $this->properties['TIMEZONE']."\n" ?>
-		BEGIN:VEVENT
-		UID:1234567890<?php echo rand(1111111111,9999999999); ?>RBC
-		SUMMARY;ENCODING=QUOTED-PRINTABLE:<?php echo $this->properties['SUMMARY']."\n" ?>
-		DESCRIPTION;ENCODING=QUOTED-PRINTABLE:<?php echo $this->properties['DESCRIPTION']."\n" ?>
-		DTSTART:<?php echo $this->properties['STARTDATE']."\n" ?>
-		DTEND:<?php echo $this->properties['ENDDATE']."\n" ?>
-		LOCATION;ENCODING=QUOTED-PRINTABLE:<?php echo $this->properties['LOCATION']."\n" ?>
-		END:VEVENT
-		END:VCALENDAR
-		<?php
-		exit;
+BEGIN:VCALENDAR
+VERSION:1.0
+PRODID:WebCalendar
+TZ:<?php echo $this->properties['TIMEZONE']."\n" ?>
+BEGIN:VEVENT
+UID:1234567890<?php echo rand(1111111111,9999999999); ?>RBC
+SUMMARY;ENCODING=QUOTED-PRINTABLE:<?php echo $this->properties['SUMMARY']."\n" ?>
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:<?php echo $this->properties['DESCRIPTION']."\n" ?>
+DTSTART:<?php echo $this->properties['STARTDATE']."\n" ?>
+DTEND:<?php echo $this->properties['ENDDATE']."\n" ?>
+LOCATION;ENCODING=QUOTED-PRINTABLE:<?php echo $this->properties['LOCATION']."\n" ?>
+END:VEVENT
+END:VCALENDAR
+<?php
+		$mainframe->close();
 	}
 
 	/**
@@ -157,29 +159,32 @@ class vCal {
 	* @since 0.9
 	*/
 	function generateHTMLiCal() {
+
+		global $mainframe;
+
 		// header info for page
 		header( 'Content-Type: text/calendar');
 		header( 'Content-Disposition: inline; filename='.$this->filename.'.ics');
 		?>
-		BEGIN:VCALENDAR
-		VERSION:2.0
-		PRODID:WebCalendar
-		BEGIN:VEVENT
-		UID:1234567890<?php echo rand(1111111111,9999999999); ?>RBC
-		CATEGORIES:WEBCALNOTE
-		CLASS:PUBLIC
-		DTSTAMP:20070112T214206Z
-		CREATED:20070112T213639Z
-		SUMMARY;ENCODING=QUOTED-PRINTABLE:<?php echo $this->properties['SUMMARY']."\n" ?>
-		DESCRIPTION;ENCODING=QUOTED-PRINTABLE:<?php echo $this->properties['DESCRIPTION']."\n" ?>
-		LOCATION;ENCODING=QUOTED-PRINTABLE:<?php echo $this->properties['LOCATION']."\n" ?>
-		TRANSP:OPAQUE
-		DTSTART:<?php echo $this->properties['STARTDATE']."\n" ?>
-		DTEND:<?php echo $this->properties['ENDDATE']."\n" ?>
-		END:VEVENT
-		END:VCALENDAR
-		<?php
-		exit;
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:WebCalendar
+BEGIN:VEVENT
+UID:1234567890<?php echo rand(1111111111,9999999999); ?>RBC
+CATEGORIES:WEBCALNOTE
+CLASS:PUBLIC
+DTSTAMP:20070112T214206Z
+CREATED:20070112T213639Z
+SUMMARY;ENCODING=QUOTED-PRINTABLE:<?php echo $this->properties['SUMMARY']."\n" ?>
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE:<?php echo $this->properties['DESCRIPTION']."\n" ?>
+LOCATION;ENCODING=QUOTED-PRINTABLE:<?php echo $this->properties['LOCATION']."\n" ?>
+TRANSP:OPAQUE
+DTSTART:<?php echo $this->properties['STARTDATE']."\n" ?>
+DTEND:<?php echo $this->properties['ENDDATE']."\n" ?>
+END:VEVENT
+END:VCALENDAR
+<?php
+		$mainframe->close();
 	}
 }
 ?>

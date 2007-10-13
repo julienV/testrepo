@@ -102,24 +102,23 @@ defined('_JEXEC') or die('Restricted access');
 				</tr>
 			</table>
 
-		   <table class="adminform">
+			<table class="adminform">
 				<tr>
 					<td><b><?php echo JText::_( 'AVAILABLE USERS' ).':'; ?></b></td>
 					<td>&nbsp;</td>
 					<td><b><?php echo JText::_( 'MAINTAINERS' ).':'; ?></b></td>
 				</tr>
 				<tr>
-					<td><?php echo $this->lists['available_users']; ?></td>
-					<td>
+					<td width="260px"><?php echo $this->lists['available_users']; ?></td>
+					<td width="110px">
 						<input style="width: 50px" type="button" name="right" value="&gt;" onClick="moveOptions(document.adminForm['available_users'], document.adminForm['maintainers[]'])" />
 						<br /><br />
 						<input style="width: 50px" type="button" name="left" value="&lt;" onClick="moveOptions(document.adminForm['maintainers[]'], document.adminForm['available_users'])" />
-						<br />
-						<br />
 					</td>
-					<td><?php echo $this->lists['maintainers']; ?></td>
+					<td width="260px"><?php echo $this->lists['maintainers']; ?></td>
 				</tr>
 			</table>
+
 		</td>
 		<td valign="top" width="320px" style="padding: 7px 0 0 5px">
 			<?php

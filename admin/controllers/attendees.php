@@ -68,5 +68,52 @@ class EventListControllerAttendees extends EventListController
 
 		$this->setRedirect( 'index.php?option=com_eventlist&view=attendees&id='.$id, $msg );
 	}
+
+	function export()
+	{
+		global $mainframe;
+
+		$model = $this->getModel('attendees');
+
+		$datas = $model->getData();
+
+		header('Content-Type: text/x-csv');
+		header('Expires: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+		header('Content-Disposition: attachment; filename=attendees.csv');
+		header('Pragma: no-cache');
+
+		$k = 0;
+		$export = '';
+		$col = array();
+
+		for($i=0, $n=count( $datas ); $i < $n; $i++)
+		{
+			$data = &$datas[$i];
+
+    		$col[] = str_replace("\"", "\"\"", $data->name);
+    		$col[] = str_replace("\"", "\"\"", $data->username);
+    		$col[] = str_replace("\"", "\"\"", $data->email);
+    		$col[] = str_replace("\"", "\"\"", JHTML::Date( $data->uregdate, JText::_( 'DATE_FORMAT_LC2' ) ));
+    		$col[] = str_replace("\"", "\"\"", $data->uid);
+
+   	 		for($j = 0; $j < count($col); $j++)
+    		{
+        		$export .= "\"" . $col[$j] . "\"";
+
+        		if($j != count($col)-1)
+       	 		{
+            		$export .= ";";
+        		}
+    		}
+    		$export .= "\r\n";
+    		$col = '';
+
+			$k = 1 - $k;
+		}
+
+		echo $export;
+
+		$mainframe->close();
+	}
 }
 ?>

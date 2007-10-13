@@ -48,11 +48,18 @@ class EventListModelGroup extends JModel
 	var $_data = null;
 
 	/**
-	 * Members data array
+	 * Members data string
+	 *
+	 * @var string
+	 */
+	var $_members = null;
+
+	/**
+	 * available data array
 	 *
 	 * @var array
 	 */
-	var $_members = null;
+	var $_available = null;
 
 	/**
 	 * Constructor
@@ -160,36 +167,50 @@ class EventListModelGroup extends JModel
     	return $users;
 	}
 
+	/**
+	 * Method to get the available users
+	 *
+	 * @access	public
+	 * @return	mixed
+	 * @since	0.9
+	 */
 	function &getAvailable()
 	{
 		$members = $this->_members();
 
     	// get non selected members
     	$query = 'SELECT id AS value, username, name FROM #__users';
-
     	$query .= ' WHERE block = 0' ;
+
     	if ($members) $query .= ' AND id NOT IN ('.$members.')' ;
+
     	$query .= ' ORDER BY name ASC';
+
     	$this->_db->setQuery($query);
 
-    	$available = $this->_db->loadObjectList();
+    	$this->_available = $this->_db->loadObjectList();
 
     	$k = 0;
-		for($i=0, $n=count( $available ); $i < $n; $i++) {
-    		$item = &$available[$i];
+		for($i=0, $n=count( $this->_available ); $i < $n; $i++) {
+    		$item = &$this->_available[$i];
 
 			$item->text = $item->name.' ('.$item->username.')';
 
     		$k = 1 - $k;
 		}
 
-		return $available;
+		return $this->_available;
 	}
 
+	/**
+	 * Method to get the selected members
+	 *
+	 * @access	public
+	 * @return	string
+	 * @since	0.9
+	 */
 	function _members()
 	{
-		$_members 		= "";
-
     	//get selected members
 		if ($this->_id){
 			$query = 'SELECT member'
@@ -200,9 +221,9 @@ class EventListModelGroup extends JModel
 
 			$member_ids = $this->_db->loadResultArray();
 
-			if (is_array($member_ids)) $_members = implode(',', $member_ids);
+			if (is_array($member_ids)) $this->_members = implode(',', $member_ids);
 		}
-		return $_members;
+		return $this->_members;
 	}
 
 	/**

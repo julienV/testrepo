@@ -85,6 +85,9 @@ class EventListModelAttendees extends JModel
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
 
+		//set unlimited if export or print action | task=export or task=print
+		$this->setState('unlimited', JRequest::getString('task'));
+
 		$id = JRequest::getInt('id');
 		$this->setId($id);
 
@@ -116,7 +119,12 @@ class EventListModelAttendees extends JModel
 		if (empty($this->_data))
 		{
 			$query = $this->_buildQuery();
-			$this->_data = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit'));
+
+			if ($this->getState('unlimited') == '') {
+				$this->_data = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit'));
+			} else {
+				$this->_data = $this->_getList($query);
+			}
 		}
 
 		return $this->_data;

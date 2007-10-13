@@ -81,10 +81,10 @@ class EventListModelCleanup extends JModel
 	}
 
 	/**
-	 * Method to set the category identifier
+	 * Method to set the target
 	 *
 	 * @access	public
-	 * @param	int Category identifier
+	 * @param	string the target directory
 	 */
 	function settarget($target)
 	{
@@ -92,6 +92,13 @@ class EventListModelCleanup extends JModel
 		$this->_target	 = $target;
 	}
 
+	/**
+	 * Method to delete the images
+	 *
+	 * @access	public
+	 * @since 0.9
+	 * @return int
+	 */
 	function delete()
 	{
 		global $mainframe;
@@ -135,6 +142,13 @@ class EventListModelCleanup extends JModel
 		return $deleted;
 	}
 
+	/**
+	 * Method to determine the images to delete
+	 *
+	 * @access	private
+	 * @since 0.9
+	 * @return array
+	 */
 	function _getImages()
 	{
 		$this->_images = array_diff($this->_getavailable(), $this->_getassigned());
@@ -142,6 +156,13 @@ class EventListModelCleanup extends JModel
 		return $this->_images;
 	}
 
+	/**
+	 * Method to determine the assigned images
+	 *
+	 * @access	private
+	 * @since 0.9
+	 * @return array
+	 */
 	function _getassigned()
 	{
 		if ($this->_target == 'events') {
@@ -159,6 +180,13 @@ class EventListModelCleanup extends JModel
 		return $this->_assigned;
 	}
 
+	/**
+	 * Method to determine the unassigned images
+	 *
+	 * @access	private
+	 * @since 0.9
+	 * @return array
+	 */
 	function _getavailable()
 	{
 		// Initialize variables

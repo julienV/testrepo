@@ -36,6 +36,11 @@ class EventListViewAttendees extends JView {
 	{
 		global $mainframe, $option;
 
+		if($this->getLayout() == 'print') {
+			$this->_displayprint($tpl);
+			return;
+		}
+
 		//initialise variables
 		$db			= & JFactory::getDBO();
 		$elsettings = ELAdmin::config();
@@ -74,7 +79,6 @@ class EventListViewAttendees extends JView {
 
 		// Get data from the model
 		$rows      	= & $this->get( 'Data');
-		$total      = & $this->get( 'Total');
 		$pageNav 	= & $this->get( 'Pagination' );
 		$event 		= & $this->get( 'Event' );
 
@@ -87,16 +91,41 @@ class EventListViewAttendees extends JView {
 		$lists['filter'] = JHTML::_('select.genericlist', $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
 
 		// search filter
-		$lists['search']= $search;
+		$lists['search'] = $search;
 
 		// table ordering
 		$lists['order_Dir'] = $filter_order_Dir;
-		$lists['order'] = $filter_order;
+		$lists['order']		= $filter_order;
 
 		//assign to template
 		$this->assignRef('lists'      	, $lists);
 		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('pageNav' 		, $pageNav);
+		$this->assignRef('event'		, $event);
+
+		parent::display($tpl);
+	}
+
+	/**
+	 * Prepares the print screen
+	 *
+	 * @param $tpl
+	 *
+	 * @since 0.9
+	 */
+	function _displayprint($tpl = null)
+	{
+		$elsettings = ELAdmin::config();
+		$document	= & JFactory::getDocument();
+		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
+
+		$rows      	= & $this->get( 'Data');
+		$event 		= & $this->get( 'Event' );
+
+		$event->dates = strftime($elsettings->formatdate, strtotime( $event->dates ));
+
+		//assign data to template
+		$this->assignRef('rows'      	, $rows);
 		$this->assignRef('event'		, $event);
 
 		parent::display($tpl);
