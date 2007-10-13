@@ -21,8 +21,6 @@
 
 defined('_JEXEC') or die('Restricted access');
 ?>
-
-<form action="index.php" method="post" name="adminForm" id="adminForm">
 	<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 		<tr>
 		  	<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left" /></td>
@@ -73,6 +71,9 @@ defined('_JEXEC') or die('Restricted access');
 
 							$link = 'index.php?option='.$option.'&amp;view=editcss';
 							EventListViewEventList::quickiconButton( $link, 'icon-48-cssedit.png', JText::_( 'EDIT CSS' ) );
+
+							$link = 'index.php?option='.$option.'&amp;view=cleanup';
+							EventListViewEventList::quickiconButton( $link, 'icon-48-housekeeping.png', JText::_( 'CLEANUP' ) );
 						}
 
 						$link = 'index.php?option='.$option.'&amp;view=help';
@@ -80,7 +81,6 @@ defined('_JEXEC') or die('Restricted access');
 
 						$link = 'index.php?option='.$option.'&amp;view=updatecheck';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-update.png', JText::_( 'UPDATE CHECK' ), 1 );
-
 						?>
 						</div>
 					</td>
@@ -205,5 +205,3 @@ defined('_JEXEC') or die('Restricted access');
 	<p class="copyright">
 		<?php echo ELAdmin::footer( ); ?>
 	</p>
-
-	</form>

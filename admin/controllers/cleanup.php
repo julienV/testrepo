@@ -19,19 +19,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-// no direct access
-defined('_JEXEC') or die('Restricted access');
+defined( '_JEXEC' ) or die( 'Restricted access' );
 
-jimport('joomla.application.component.model');
+jimport('joomla.application.component.controller');
 
 /**
- * EventList Component Help Model
+ * EventList Component Cleanup Controller
  *
  * @package Joomla
  * @subpackage EventList
- * @since		0.9
+ * @since 0.9
  */
-class EventListModelHelp extends JModel
+class EventListControllerCleanup extends EventListController
 {
 	/**
 	 * Constructor
@@ -41,6 +40,38 @@ class EventListModelHelp extends JModel
 	function __construct()
 	{
 		parent::__construct();
+
+		// Register Extra task
+		$this->registerTask( 'cleaneventimg', 	'delete' );
+		$this->registerTask( 'cleanvenueimg', 	'delete' );
 	}
+
+	/**
+	 * logic to massdelete unassigned images
+	 *
+	 * @access public
+	 * @return void
+	 * @since 0.9
+	 */
+	function delete()
+	{
+		$task = JRequest::getCmd('task');
+
+		if ($task == 'cleaneventimg') {
+			$type = JText::_('EVENT');
+		} else {
+			$type = JText::_('VENUE');
+		}
+
+		$model = $this->getModel('cleanup');
+
+		$total = $model->delete();
+
+		$link = 'index.php?option=com_eventlist&view=cleanup';
+
+		$msg = $total.' '.$type.' '.JText::_( 'IMAGES DELETED');
+
+		$this->setRedirect( $link, $msg );
+ 	}
 }
 ?>
