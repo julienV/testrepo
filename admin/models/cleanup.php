@@ -101,8 +101,6 @@ class EventListModelCleanup extends JModel
 	 */
 	function delete()
 	{
-		global $mainframe;
-
 		// Set FTP credentials, if given
 		jimport('joomla.client.helper');
 		JClientHelper::setCredentialsFromRequest('ftp');

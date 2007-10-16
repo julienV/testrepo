@@ -31,7 +31,9 @@ defined('_JEXEC') or die('Restricted access');
 				</div>
 			<div class="controls">
 				<?php echo $this->_tmp_img->size; ?> -
-				<a class="delete-item" href="index.php?option=com_eventlist&amp;task=delete&amp;controller=imagehandler&amp;tmpl=component&amp;folder=<?php echo $this->folder; ?>&amp;rm[]=<?php echo $this->_tmp_img->name; ?>"><img src="components/com_media/images/remove.png" width="16" height="16" border="0" alt="<?php echo JText::_( 'DELETE' ); ?>" /></a>
+				<a class="delete-item" href="index.php?option=com_eventlist&amp;task=delete&amp;controller=imagehandler&amp;tmpl=component&amp;folder=<?php echo $this->folder; ?>&amp;rm[]=<?php echo $this->_tmp_img->name; ?>">
+					<img src="images/publish_x.png" width="16" height="16" border="0" alt="<?php echo JText::_( 'DELETE' ); ?>" />
+				</a>
 			</div>
 			<div class="imageinfo">
 				<?php echo $this->escape( substr( $this->_tmp_img->name, 0, 10 ) . ( strlen( $this->_tmp_img->name ) > 10 ? '...' : '')); ?>

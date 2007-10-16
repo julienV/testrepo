@@ -34,6 +34,8 @@ class EventListViewCleanup extends JView {
 
 	function display($tpl = null) {
 
+		global $mainframe;
+
 		//initialise variables
 		$document		= & JFactory::getDocument();
 		$user			= & JFactory::getUser();
