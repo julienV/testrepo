@@ -123,9 +123,17 @@ defined('_JEXEC') or die('Restricted access');
 				</td>
 				<td><?php echo $displaytime; ?></td>
 				<td>
-					<a href="<?php echo $link; ?>" title="<?php echo JText::_( 'EDIT EVENT' ); ?>">
-						<?php echo htmlspecialchars($row->title, ENT_QUOTES, 'UTF-8'); ?>
-					</a>
+					<?php
+					if ( $row->checked_out && ( $row->checked_out != $this->user->get('id') ) ) {
+						echo htmlspecialchars($row->title, ENT_QUOTES, 'UTF-8');
+					} else {
+						?>
+						<a href="<?php echo $link; ?>" title="<?php echo JText::_( 'EDIT EVENT' ); ?>">
+							<?php echo htmlspecialchars($row->title, ENT_QUOTES, 'UTF-8'); ?>
+						</a>
+						<?php
+					}
+					?>
 
 					<br />
 
@@ -140,11 +148,15 @@ defined('_JEXEC') or die('Restricted access');
 				<td>
 					<?php
 					if ($row->venue) {
+						if ( $row->vchecked_out && ( $row->vchecked_out != $this->user->get('id') ) ) {
+							echo htmlspecialchars($row->venue, ENT_QUOTES, 'UTF-8');
+						} else {
 					?>
 						<a href="<?php echo $venuelink; ?>" title="<?php echo JText::_( 'EDIT VENUE' ); ?>">
 							<?php echo htmlspecialchars($row->venue, ENT_QUOTES, 'UTF-8'); ?>
 						</a>
 					<?php
+						}
 					} else {
 						echo '-';
 					}
@@ -154,11 +166,15 @@ defined('_JEXEC') or die('Restricted access');
 				<td>
 					<?php
 					if ($row->catname) {
+							if ( $row->cchecked_out && ( $row->cchecked_out != $this->user->get('id') ) ) {
+							echo htmlspecialchars($row->catname, ENT_QUOTES, 'UTF-8');
+						} else {
 					?>
 						<a href="<?php echo $catlink; ?>" title="<?php echo JText::_( 'EDIT CATEGORY' ); ?>">
 							<?php echo htmlspecialchars($row->catname, ENT_QUOTES, 'UTF-8'); ?>
 						</a>
 					<?php
+						}
 					} else {
 						echo '-';
 					}

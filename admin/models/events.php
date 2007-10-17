@@ -140,7 +140,7 @@ class EventListModelEvents extends JModel
 		$where		= $this->_buildContentWhere();
 		$orderby	= $this->_buildContentOrderBy();
 
-		$query = 'SELECT a.*, loc.venue, loc.city, cat.catname, u.email, u.name AS author'
+		$query = 'SELECT a.*, loc.venue, loc.city, loc.checked_out AS vchecked_out, cat.checked_out AS cchecked_out, cat.catname, u.email, u.name AS author'
 					. ' FROM #__eventlist_events AS a'
 					. ' LEFT JOIN #__eventlist_venues AS loc ON loc.id = a.locid'
 					. ' LEFT JOIN #__eventlist_categories AS cat ON cat.id = a.catsid'
