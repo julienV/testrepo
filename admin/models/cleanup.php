@@ -128,7 +128,7 @@ class EventListModelCleanup extends JModel
 
 				if (is_file($fullPath)) {
 					JFile::delete($fullPath);
-					if (is_file($fullPaththumb)) {
+					if (JFile::exists($fullPaththumb)) {
 						JFile::delete($fullPaththumb);
 					}
 				}

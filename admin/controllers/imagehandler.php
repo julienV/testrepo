@@ -130,7 +130,7 @@ class EventListControllerImagehandler extends EventListController
 				$fullPaththumb = JPath::clean(JPATH_SITE.DS.'images'.DS.'eventlist'.DS.$folder.DS.'small'.DS.$image);
 				if (is_file($fullPath)) {
 					JFile::delete($fullPath);
-					if (is_file($fullPaththumb)) {
+					if (JFile::exists($fullPaththumb)) {
 						JFile::delete($fullPaththumb);
 					}
 				}
