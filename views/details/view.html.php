@@ -73,11 +73,6 @@ class EventListViewDetails extends JView
 		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');
 
-		// Add needed scripts if the lightbox effect is enabled
-		if ($elsettings->lightbox == 1) {
-			JHTML::_('behavior.modal');
-		}
-
 		//Print
 		$pop	= JRequest::getBool('pop');
 

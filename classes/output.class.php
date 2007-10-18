@@ -265,7 +265,7 @@ class ELOutput {
 	function mapicon($data, $settings)
 	{
 		//Link to map
-		$mapimage = JHTML::_('image.site', 'mapsicon.png', '/components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'MAP' ), JText::_( 'MAP' ) );
+		$mapimage = JHTML::image('components/com_eventlist/assets/images/mapsicon.png', JText::_( 'MAP' ) );
 
 		//set var
 		$output 	= null;
@@ -294,6 +294,7 @@ class ELOutput {
 				if($settings->gmapkey) {
 
 					$document 	= & JFactory::getDocument();
+					JHTML::_('behavior.mootools');
 
 					//TODO: move map into squeezebox
 
@@ -352,6 +353,8 @@ class ELOutput {
 			if (file_exists(JPATH_SITE.'/images/eventlist/'.$folder.'/small/'.$imagefile)) {
 
 				if ($settings->lightbox == 0) {
+
+					JHTML::_('behavior.modal');
 
 					$url		= '#';
 					$attributes	= 'class="modal" onclick="window.open(\''.$this->baseurl.'/'.$image['original'].'\',\'Popup\',\'width='.$image['width'].',height='.$image['height'].',location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no\')"';
