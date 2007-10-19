@@ -354,12 +354,12 @@ class ELOutput {
 
 				if ($settings->lightbox == 0) {
 
-					JHTML::_('behavior.modal');
-
 					$url		= '#';
 					$attributes	= 'class="modal" onclick="window.open(\''.$this->baseurl.'/'.$image['original'].'\',\'Popup\',\'width='.$image['width'].',height='.$image['height'].',location=no,menubar=no,scrollbars=no,status=no,toolbar=no,resizable=no\')"';
 
 				} else {
+
+					JHTML::_('behavior.modal');
 
 					$url		= $this->baseurl.'/'.$image['original'];
 					$attributes	= 'class="modal" title="'.$info.'"';
