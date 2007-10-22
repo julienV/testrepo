@@ -361,6 +361,10 @@ defined('_JEXEC') or die('Restricted access');
 				$weekday[4] = "<?php echo JText::_( 'FRIDAY' ); ?>";
 				$weekday[5] = "<?php echo JText::_( 'SATURDAY' ); ?>";
 				$weekday[6] = "<?php echo JText::_( 'SUNDAY' ); ?>";
+
+				var $before_last = "<?php echo JText::_( 'BEFORE LAST' ); ?>";
+				var $last = "<?php echo JText::_( 'LAST' ); ?>";
+
 				start_recurrencescript();
 
 				unlimited_starter();

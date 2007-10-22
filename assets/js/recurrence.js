@@ -121,7 +121,7 @@ function generate_selectlist($select_value) {
 			$limit = 12;	// months
 			break;
 		default:
-			$limit = 4;		// weekdays
+			$limit = 6;		// weekdays
 			break;
 	}
 	for ($j = 0; $j < $limit; $j++) {
@@ -129,7 +129,21 @@ function generate_selectlist($select_value) {
 		if ($j == (parseInt($("recurrence_number").value) - 1)) {	// the selected - attribute
 			$option.selected = true;
 		}
-		$option.appendChild(document.createTextNode($j + 1)); // + 1 day because their is no recuring each "0" day
+		if (($j >= 4) && ($select_value == 4)) {	// get the word for "last" and "before last" in the weekday section
+			var $name_value = "";
+			switch($j) {
+				case 4:
+					$name_value = $last;
+					break;
+				case 5:
+					$name_value = $before_last;
+					break;
+			}
+			$option.appendChild(document.createTextNode($name_value)); 	// insert the name
+			$option.value = $j+1;										// and the value
+		} else {
+			$option.appendChild(document.createTextNode($j + 1)); // + 1 day because their is no recuring each "0" day
+		}
 		$selectlist.appendChild($option);	// include the option - element into the select - element
 	}
 	return $selectlist;

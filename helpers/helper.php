@@ -99,73 +99,7 @@ class ELHelper {
 				$recurrence_number = $recurrence_row['recurrence_number'];
 				$recurrence_type = $recurrence_row['recurrence_type'];
 
-				switch ($recurrence_type) {
-					case "1": // dayly
-						$recurrence_name = "days";
-						break;
-					case "2": //weekly
-						$recurrence_name = "weeks";
-						break;
-					case "3": // monthly
-						$recurrence_name = "months";
-						break;
-					case "4": // weekday
-						$recurrence_weekday = "Monday";
-						break;
-					case "5":
-						$recurrence_weekday = "Tuesday";
-						break;
-					case "6":
-						$recurrence_weekday = "Wednesday";
-						break;
-					case "7":
-						$recurrence_weekday = "Thursday";
-						break;
-					case "8":
-						$recurrence_weekday = "Friday";
-						break;
-					case "9":
-						$recurrence_weekday = "Saturday";
-						break;
-					case "10":
-						$recurrence_weekday = "Sunday";
-						break;
-				}
-
-				// dayly, weekly and monthly recurrences have the same solution
-				if ($recurrence_type < 4) {
-					$recurrence_row['dates'] =gmdate("Y-m-d", strtotime($recurrence_row['dates']." +".$recurrence_number." ".$recurrence_name." +1 day"));
-					if ($recurrence_row['enddates']) {
-						$recurrence_row['enddates'] = gmdate("Y-m-d", strtotime($recurrence_row['enddates']." +".$recurrence_number." ".$recurrence_name." +1 day"));
-					}
-				} else {
-					$dates = getdate(strtotime($recurrence_row['dates']));
-					$year = $dates['year'];
-					$month = $dates['mon'];
-
-					// generate the next month
-					if ($month == 12) {
-						$month = "01";
-						$year++;
-					} else {
-						if (++$month < 10) {
-							$month = "0".$month;
-						}
-					}
-
-					// the new date
-					$new_date = gmdate("Y-m-d", strtotime($year."-".$month."-01 -1 day"));
-					$new_date =gmdate("Y-m-d", strtotime($new_date." next ".$recurrence_weekday));
-
-					if ($recurrence_row['enddates']) {
-						$timediff = (strtotime($recurrence_row['enddates']) - strtotime($recurrence_row['dates']));
-						$days = strftime("%j",$timediff) - 1;
-						$recurrence_row['enddates'] = gmdate("Y-m-d", strtotime($new_date." +".((7 * ($recurrence_number - 1)) + $days + 2)." days"));
-					}
-
-					$recurrence_row['dates'] = gmdate("Y-m-d", strtotime($new_date." +".((7 * ($recurrence_number - 1)) + 2)." days"));
-
-				}
+				$recurrence_row = ELHelper::calculate_recurrence($recurrence_row);
 				if (($recurrence_row['dates'] <= $recurrence_row['recurrence_counter']) || ($recurrence_row['recurrence_counter'] == "0000-00-00")) {
 
 					// create the INSERT query
@@ -215,6 +149,92 @@ class ELHelper {
 			$db->SetQuery( $query );
 			$db->Query();
 		}
+	}
+
+	/**
+	 * this methode calculate the next date
+	 */
+	function calculate_recurrence($recurrence_row) {
+		// get the recurrence information
+		$recurrence_number = $recurrence_row['recurrence_number'];
+		$recurrence_type = $recurrence_row['recurrence_type'];
+
+		$day_time = 86400;	// 60 sec. * 60 min. * 24 h
+		$week_time = 604800;// $day_time * 7days
+		$date_array = ELHelper::generate_date($recurrence_row['dates'], $recurrence_row['enddates']);
+
+
+		switch($recurrence_type) {
+			case "1":
+				// +1 hour for the Summer to Winter clock change
+				$start_day = mktime(1,0,0,$date_array["month"],$date_array["day"],$date_array["year"]);
+				$start_day = $start_day + ($recurrence_number * $day_time);
+				break;
+			case "2":
+				// +1 hour for the Summer to Winter clock change
+				$start_day = mktime(1,0,0,$date_array["month"],$date_array["day"],$date_array["year"]);
+				$start_day = $start_day + ($recurrence_number * $week_time);
+				break;
+			case "3":
+				$start_day = mktime(1,0,0,($date_array["month"] + $recurrence_number),$date_array["day"],$date_array["year"]);;
+				break;
+			default:
+				$weekday_must = ($recurrence_row['recurrence_type'] - 3);	// the 'must' weekday
+				if ($recurrence_number < 5) {	// 1. - 4. week in a month
+					// the first day in the new month
+					$start_day = mktime(1,0,0,($date_array["month"] + 1),1,$date_array["year"]);
+					$weekday_is = date("w",$start_day);							// get the weekday of the first day in this month
+
+					// calculate the day difference between these days
+					if ($weekday_is <= $weekday_must) {
+						$day_diff = $weekday_must - $weekday_is;
+					} else {
+						$day_diff = ($weekday_must + 7) - $weekday_is;
+					}
+					$start_day = ($start_day + ($day_diff * $day_time)) + ($week_time * ($recurrence_number - 1));
+				} else {	// the last or the before last week in a month
+					// the last day in the new month
+					$start_day = mktime(1,0,0,($date_array["month"] + 2),1,$date_array["year"]) - $day_time;
+					$weekday_is = date("w",$start_day);
+					// calculate the day difference between these days
+					if ($weekday_is >= $weekday_must) {
+						$day_diff = $weekday_is - $weekday_must;
+					} else {
+						$day_diff = ($weekday_is - $weekday_must) + 7;
+					}
+					$start_day = ($start_day - ($day_diff * $day_time));
+					if ($recurrence_number == 6) {	// before last?
+						$start_day = $start_day - $week_time;
+					}
+				}
+				break;
+		}
+		$recurrence_row['dates'] = date("Y-m-d", $start_day);
+		if ($recurrence_row['enddates']) {
+			$recurrence_row['enddates'] = date("Y-m-d", $start_day + $date_array["day_diff"]);
+		}
+		return $recurrence_row;
+	}
+
+	/**
+	 * this method generate the date string to a date array
+	 *
+	 * @var string the date string
+	 * @return array the date informations
+	 * @access public
+	 */
+	function generate_date($startdate, $enddate) {
+		$startdate = explode("-",$startdate);
+		$date_array = array("year" => $startdate[0],
+							"month" => $startdate[1],
+							"day" => $startdate[2],
+							"weekday" => date("w",mktime(1,0,0,$startdate[1],$startdate[2],$startdate[0])));
+		if ($enddate) {
+			$enddate = explode("-", $enddate);
+			$day_diff = (mktime(1,0,0,$enddate[1],$enddate[2],$enddate[0]) - mktime(1,0,0,$startdate[1],$startdate[2],$startdate[0]));
+			$date_array["day_diff"] = $day_diff;
+		}
+		return $date_array;
 	}
 }
 ?>
