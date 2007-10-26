@@ -36,18 +36,23 @@ jimport('joomla.application.component.helper');
 class EventListHelperRoute
 {
 	/**
-	 * TODO: Rework if we haven't the time to cleanup the id mess
+	 * Determines an EventList Link
 	 *
-	 * @param	int	The route of the Event item
+	 * @param int The id of an EventList item
+	 * @param string The view
+	 * @since 0.9
+	 *
+	 * @return string determined Link
 	 */
-	function getEventRoute($id)
+	function getRoute($id, $view = 'details')
 	{
+		//Not needed currently but kept because of a possible hierarchic link structure in future
 		$needles = array(
-			'details'  => (int) $id
+			$view  => (int) $id
 		);
 
 		//Create the link
-		$link = 'index.php?option=com_eventlist&view=details&id='. $id;
+		$link = 'index.php?option=com_eventlist&view='.$view.'&id='. $id;
 
 		if($item = EventListHelperRoute::_findItem($needles)) {
 			$link .= '&Itemid='.$item->id;
@@ -57,63 +62,47 @@ class EventListHelperRoute
 	}
 
 	/**
-	 * @param	int	The route of the Venue item
+	 * Determines the Itemid
+	 *
+	 * searches if a menuitem for this item exists
+	 * if not the first match will be returned
+	 *
+	 * @param array The id and view
+	 * @since 0.9
+	 *
+	 * @return int Itemid
 	 */
-	function getVenueRoute($id)
-	{
-		$needles = array(
-			'venueevents' => (int) $id
-		);
-
-		//Create the link
-		$link = 'index.php?option=com_eventlist&view=venueevents&id='.$id;
-
-		if($item = EventListHelperRoute::_findItem($needles)) {
-			$link .= '&Itemid='.$item->id;
-		};
-
-		return $link;
-	}
-
-	/**
-	 * @param	int	The route of the Category item
-	 */
-	function getCategoryRoute($id)
-	{
-		$needles = array(
-			'categoryevents' => (int) $id,
-		);
-
-		//Create the link
-		$link = 'index.php?option=com_eventlist&view=categoryevents&id='.$id;
-
-		if($item = EventListHelperRoute::_findItem($needles)) {
-			$link .= '&Itemid='.$item->id;
-		};
-
-		return $link;
-	}
-
-	//TODO: Wait till router is fixed and can handle links without any itemid, than cleanup
 	function _findItem($needles)
 	{
 		$component =& JComponentHelper::getComponent('com_eventlist');
 
-		$menus	=& JSite::getMenu();
+		$menus	= & JSite::getMenu();
 		$items	= $menus->getItems('componentid', $component->id);
+		$user 	= & JFactory::getUser();
+		$access = (int)$user->get('aid');
 
+		//Not needed currently but kept because of a possible hierarchic link structure in future
 		foreach($needles as $needle => $id)
 		{
 			foreach($items as $item)
 			{
-				if ((@$item->query['view'] == $needle) && (@$item->query['id'] == $id)) {
+
+				if ((@$item->query['view'] == $needle) && (@$item->query['id'] == $id) && ($item->published == 1) && ($item->access <= $access)) {
 					return $item;
 				}
 			}
+
+			//no menuitem exists -> return first possible match
+			foreach($items as $item)
+			{
+				if ($item->published == 1 && $item->access <= $access) {
+					return $item;
+				}
+			}
+
 		}
 
-		//return first match
-		return $items[0];
+		return false;
 	}
 }
 ?>
