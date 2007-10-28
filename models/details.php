@@ -227,6 +227,7 @@ class EventListModelDetails extends JModel
 		jimport('joomla.utilities.date');
 
 		$user 		= & JFactory::getUser();
+		$elsettings = ELHelper::config();
 		$tzoffset	= $mainframe->getCfg('offset');
 
 		$event 		= (int) $this->_id;
@@ -241,7 +242,7 @@ class EventListModelDetails extends JModel
 		//IP+time of registration
 		$date 		= new JDate('now', $tzoffset);
 		$uregdate 	= $date->toMySQL();
-		$uip 		= getenv('REMOTE_ADDR');
+		$uip 		= $elsettings->storeip ? getenv('REMOTE_ADDR') : 'DISABLED';
 
 		$query = "INSERT INTO #__eventlist_register ( event, uid, uregdate, uip )" .
 					"\n VALUES ( $event, $uid, '$uregdate', '$uip' )";

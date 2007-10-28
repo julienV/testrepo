@@ -526,7 +526,7 @@ class EventListModelEditevent extends JModel
 			$date 				= new JDate($row->created, $tzoffset);
 			$row->created 		= $date->toMySQL();
 
-			$row->author_ip 	= getenv('REMOTE_ADDR');
+			$row->author_ip 	= $elsettings->storeip ? getenv('REMOTE_ADDR') : 'DISABLED';
 			$row->created_by 	= $user->get('id');
 
 			//Set owneredit to false

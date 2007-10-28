@@ -53,6 +53,18 @@
 							<input type="text" name="timename" value="<?php echo $this->elsettings->timename; ?>" size="15" maxlength="10" />
        	 				</td>
       				</tr>
+      				<tr>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'STORE IP' ); ?>::<?php echo JText::_('STORE IP TIP'); ?>">
+								<?php echo JText::_( 'STORE IP' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+							<?php
+								echo JHTML::_('select.booleanlist', 'storeip', 'class="inputbox"', $this->elsettings->storeip );
+        					?>
+       	 				</td>
+      				</tr>
 				</tbody>
 			</table>
 		  </fieldset>

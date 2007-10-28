@@ -173,6 +173,8 @@ class eventlist_settings extends JTable
 	var $statewidth 		= null;
 	/** @var int */
 	var $regname	 		= null;
+	/** @var int */
+	var $storeip	 		= null;
 	/** @var string */
 	var $lastupdate 		= null;
 	/** @var int */
