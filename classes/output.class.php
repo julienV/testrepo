@@ -349,8 +349,10 @@ class ELOutput {
 
 		} else {
 
+			jimport('joomla.filesystem.file');
+
 			//does a thumbnail exist?
-			if (file_exists(JPATH_SITE.'/images/eventlist/'.$folder.'/small/'.$imagefile)) {
+			if (JFile::exists(JPATH_SITE.DS.'images'.DS.'eventlist'.DS.$folder.DS.'small'.DS.$imagefile)) {
 
 				if ($settings->lightbox == 0) {
 
