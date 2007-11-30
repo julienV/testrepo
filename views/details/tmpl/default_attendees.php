@@ -83,7 +83,7 @@ switch ($this->formhandler) {
 	break;
 
 	case 2:
-		echo JText::_( 'LOGIN' );
+		echo JText::_( 'LOGIN FOR REGISTER' );
 	break;
 
 	case 3:
