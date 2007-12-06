@@ -97,7 +97,7 @@ class EventListModelEditvenue extends JModel
 			//access check
 			$owner = $this->getOwner();
 
-			$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $owner->created_by, $user->get('id'), $elsettings->venueeditrec, $elsettings->venueedit);
+			$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $owner->created_by, $elsettings->venueeditrec, $elsettings->venueedit);
 
 			if ($allowedtoeditvenue == 0) {
 
