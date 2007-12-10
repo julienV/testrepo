@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout hidden="true" />
+	<layout title="Day Layout">
+		<message>
+			<![CDATA[DAY LAYOUT DESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>DAY LAYOUT</name>
+		<description>DAY LAYOUT DESC</description>
+		<params>
+			<param name="days" type="text" default="0" label="DAYS FIELD" description="DAYS FIELD TIP"/>
+		</params>
+	</state>
 </metadata>

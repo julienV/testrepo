@@ -46,6 +46,13 @@ class EventListModelDay extends JModel
 	 * @var integer
 	 */
 	var $_total = null;
+	
+	/**
+	 * Date
+	 *
+	 * @var string
+	 */
+	var $_date = null;
 
 	/**
 	 * Pagination object
@@ -78,6 +85,59 @@ class EventListModelDay extends JModel
 		// Get the filter request variables
 		$this->setState('filter_order', JRequest::getCmd('filter_order', 'a.dates'));
 		$this->setState('filter_order_dir', JRequest::getCmd('filter_order_Dir', 'ASC'));
+			
+		$rawday = JRequest::getInt('id', 0, 'request');
+		$this->setDate($rawday);
+	}
+
+	/**
+	 * Method to set the date
+	 *
+	 * @access	public
+	 * @param	string
+	 */
+	function setDate($date)
+	{
+		global $mainframe;
+
+		// Get the paramaters of the active menu item
+		$params 	= & $mainframe->getParams('com_eventlist');
+		
+		//0 means we have a direct request from a menuitem and without any parameters (eg: calendar module)
+		if ($date == 0) {
+			
+			$dayoffset	= $params->get('days');
+			$timestamp	= mktime(0, 0, 0, date("m"), date("d") + $dayoffset, date("Y"));
+			$date		= strftime('%Y-%m-%d', $timestamp);
+			
+		//a valid date  has 8 characters
+		} elseif (strlen($date) == 8) {
+			
+			$year 	= substr($date, 0, -4);
+			$month	= substr($date, 4, -2);
+			$tag	= substr($date, 6);
+			
+			//check if date is valid
+			if (checkdate($month, $tag, $year)) {
+				
+				$date = $year.'-'.$month.'-'.$tag;
+				
+			} else {
+				
+				//date isn't valid raise notice and use current date
+				$date = date('Ymd');
+				JError::raiseNotice( 'SOME_ERROR_CODE', JText::_('INVALID DATE REQUESTED USING CURRENT') );
+				
+			}
+			
+		} else {
+			//date isn't valid raise notice and use current date
+			$date = date('Ymd');
+			JError::raiseNotice( 'SOME_ERROR_CODE', JText::_('INVALID DATE REQUESTED USING CURRENT') );
+			
+		}
+
+		$this->_date = $date;
 	}
 
 	/**
@@ -199,8 +259,6 @@ class EventListModelDay extends JModel
 		$user		= & JFactory::getUser();
 		$gid		= (int) $user->get('aid');
 		$nulldate 	= '0000-00-00';
-		
-		$day = $this->getDay();
 
 		// Get the paramaters of the active menu item
 		$params 	= & $mainframe->getParams();
@@ -213,7 +271,7 @@ class EventListModelDay extends JModel
 		
 		// Third is to only select events of the specified day
 		//$where .= ' AND \''.$day.'\' = a.dates';
-		$where .= ' AND DAYOFMONTH(\''.$day.'\') BETWEEN DAYOFMONTH(a.dates) AND (IF (a.enddates >= DAYOFMONTH(now()), DAYOFMONTH(a.enddates), \''.$nulldate.'\')) OR \''.$day.'\' = a.dates';
+		$where .= ' AND DAYOFMONTH(\''.$this->_date.'\') BETWEEN DAYOFMONTH(a.dates) AND (IF (a.enddates >= DAYOFMONTH(now()), DAYOFMONTH(a.enddates), \''.$nulldate.'\')) OR \''.$this->_date.'\' = a.dates';
 
 		/*
 		 * If we have a filter, and this is enabled... lets tack the AND clause
@@ -250,22 +308,14 @@ class EventListModelDay extends JModel
 	}
 	
 	/**
-	 * Transform to MySQL date
+	 * Return date
 	 *
 	 * @access public
 	 * @return string
 	 */
 	function getDay()
 	{
-		$rawday 	= JRequest::getInt('id', '', 'request');
-		
-		$year 	= substr($rawday, 0, -4);
-		$month	= substr($rawday, 4, -2);
-		$tag	= substr($rawday, 6);
-		
-		$day = $year.'-'.$month.'-'.$tag;
-		
-		return $day;
+		return $this->_date;
 	}
 }
 ?>
