@@ -54,6 +54,7 @@ defined('_JEXEC') or die('Restricted access');
 		</div>
 		<div class="clr"></div>
 
+		<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
 		<input type="hidden" name="task" value="">
 		<input type="hidden" name="id" value="1">
 		<input type="hidden" name="lastupdate" value="<?php echo $this->elsettings->lastupdate; ?>">

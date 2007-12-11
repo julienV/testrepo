@@ -223,6 +223,7 @@ $infoimage = JHTML::_('image.site', 'icon-16-hint.png', '../components/com_event
 	<?php echo ELAdmin::footer( ); ?>
 </p>
 
+<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="controller" value="venues" />
 <input type="hidden" name="id" value="" />

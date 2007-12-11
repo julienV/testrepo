@@ -92,7 +92,11 @@ class EventListControllerSettings extends EventListController
 	 */
 	function save()
 	{
-		global $option;
+		// Check for request forgeries.
+		$token = JUtility::getToken();
+		if (!JRequest::getInt($token, 0, 'post')) {
+			JError::raiseError(403, 'Request Forbidden');
+		}
 
 		// Sanitize
 		$task	= JRequest::getVar('task');
@@ -106,11 +110,11 @@ class EventListControllerSettings extends EventListController
 		switch ($task)
 		{
 			case 'apply':
-				$link = 'index.php?option='.$option.'&controller=settings&task=edit';
+				$link = 'index.php?option=com_eventlist&controller=settings&task=edit';
 				break;
 
 			default:
-				$link = 'index.php?option='.$option.'&view=eventlist';
+				$link = 'index.php?option=com_eventlist&view=eventlist';
 				break;
 		}
 		$msg	= JText::_( 'SETTINGS SAVE');

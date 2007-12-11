@@ -203,6 +203,12 @@ class EventListControllerVenues extends EventListController
 	 */
 	function save()
 	{
+		// Check for request forgeries.
+		$token = JUtility::getToken();
+		if (!JRequest::getInt($token, 0, 'post')) {
+			JError::raiseError(403, 'Request Forbidden');
+		}
+		
 		$task		= JRequest::getVar('task');
 
 		// Sanitize

@@ -206,6 +206,7 @@ function submitbutton(pressbutton) {
 	</tr>
 </table>
 
+<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
 <input type="hidden" name="controller" value="categories" />

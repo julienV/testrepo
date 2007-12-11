@@ -111,7 +111,11 @@ class EventListControllerGroups extends EventListController
 	 */
 	function save()
 	{
-		global $option;
+		// Check for request forgeries.
+		$token = JUtility::getToken();
+		if (!JRequest::getInt($token, 0, 'post')) {
+			JError::raiseError(403, 'Request Forbidden');
+		}
 
 		$post = JRequest::get( 'post' );
 
@@ -119,12 +123,12 @@ class EventListControllerGroups extends EventListController
 
 		if ($model->store($post)) {
 
-			$link 	= 'index.php?option='.$option.'&view=groups';
+			$link 	= 'index.php?option=com_eventlist&view=groups';
 			$msg	= JText::_( 'GROUP SAVED');
 
 		} else {
 
-			$link 	= 'index.php?option='.$option.'&view=group';
+			$link 	= 'index.php?option=com_eventlist&view=group';
 			$msg	= '';
 
 		}
