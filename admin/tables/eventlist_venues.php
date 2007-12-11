@@ -108,6 +108,12 @@ class eventlist_venues extends JTable
 				return false;
 			}
 		}
+		
+		if (JFilterInput::checkAttribute(array ('href', $this->url))) {
+			$this->_error = JText::_( 'ERROR URL WRONG FORMAT' );
+			JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
+			return false;
+		}
 
 		if (trim($this->url)) {
 			$this->url = strip_tags($this->url);
@@ -164,6 +170,16 @@ class eventlist_venues extends JTable
      	 	$this->_error = JText::_( 'ERROR COUNTRY LONG' );
      	 	JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
      	 	return false;
+		}
+		
+		/** check for existing name */
+		$query = 'SELECT id FROM #__eventlist_venues WHERE venue = '.$this->_db->Quote($this->venue);
+		$this->_db->setQuery($query);
+
+		$xid = intval($this->_db->loadResult());
+		if ($xid && $xid != intval($this->id)) {
+			JError::raiseWarning('SOME_ERROR_CODE', JText::sprintf('VENUE NAME ALREADY EXIST', $this->venue));
+			return false;
 		}
 
 		return true;

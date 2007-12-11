@@ -57,6 +57,16 @@ class eventlist_groups extends JTable
 			JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
 			return false;
 		}
+		
+		/** check for existing name */
+		$query = 'SELECT id FROM #__eventlist_groups WHERE name = '.$this->_db->Quote($this->name);
+		$this->_db->setQuery($query);
+
+		$xid = intval($this->_db->loadResult());
+		if ($xid && $xid != intval($this->id)) {
+			JError::raiseWarning('SOME_ERROR_CODE', JText::sprintf('GROUP NAME ALREADY EXIST', $this->name));
+			return false;
+		}
 
 		return true;
 	}

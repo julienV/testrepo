@@ -87,17 +87,17 @@ class eventlist_categories extends JTable
 		if(empty($this->alias) || $this->alias === $alias ) {
 			$this->alias = $alias;
 		}
-/*
-		// check for existing name
-		$query = 'SELECT id FROM #__eventlist_categories WHERE catname = "' .$this->catname. '"';
+
+		/** check for existing name */
+		$query = 'SELECT id FROM #__eventlist_categories WHERE catname = '.$this->_db->Quote($this->catname);
 		$this->_db->setQuery($query);
 
-		$xid = (int)$this->_db->loadResult();
-		if ($xid && ($xid != (int)$this->id)) {
-			$this->_error = JText::_( 'CATEGORY NAME ALREADY EXIST' );
+		$xid = intval($this->_db->loadResult());
+		if ($xid && $xid != intval($this->id)) {
+			JError::raiseWarning('SOME_ERROR_CODE', JText::sprintf('CATEGORY NAME ALREADY EXIST', $this->catname));
 			return false;
 		}
-*/
+
 		return true;
 	}
 }
