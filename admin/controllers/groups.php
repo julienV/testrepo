@@ -51,13 +51,17 @@ class EventListControllerGroups extends EventListController
 	 */
 	function cancel()
 	{
-		global $option;
+		// Check for request forgeries.
+		$token = JUtility::getToken();
+		if (!JRequest::getInt($token, 0, 'post')) {
+			JError::raiseError(403, 'Request Forbidden');
+		}
+		
+		$group = & JTable::getInstance('eventlist_groups', '');
+		$group->bind(JRequest::get('post'));
+		$group->checkin();
 
-		$model = $this->getModel('group');
-
-		$model->checkin();
-
-		$this->setRedirect( 'index.php?option='.$option.'&view=groups' );
+		$this->setRedirect( 'index.php?option=com_eventlist&view=groups' );
 	}
 
 	/**

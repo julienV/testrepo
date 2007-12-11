@@ -183,11 +183,8 @@ class EventListModelCategory extends JModel
 	{
 		if ($this->_id)
 		{
-			$item = & $this->getTable('eventlist_categories', '');
-			if(! $item->checkin($this->_id)) {
-				$this->setError($this->_db->getErrorMsg());
-				return false;
-			}
+			$category = & JTable::getInstance('eventlist_categories', '');
+			return $category->checkin($this->_id);
 		}
 		return false;
 	}
@@ -204,19 +201,14 @@ class EventListModelCategory extends JModel
 	{
 		if ($this->_id)
 		{
-			// Make sure we have a user id to checkout the category with
+			// Make sure we have a user id to checkout the group with
 			if (is_null($uid)) {
 				$user	=& JFactory::getUser();
 				$uid	= $user->get('id');
 			}
 			// Lets get to it and checkout the thing...
-			$item = & $this->getTable('eventlist_categories', '');
-			if(!$item->checkout($uid, $this->_id)) {
-				$this->setError($this->_db->getErrorMsg());
-				return false;
-			}
-
-			return true;
+			$category = & JTable::getInstance('eventlist_categories', '');
+			return $category->checkout($uid, $this->_id);
 		}
 		return false;
 	}
@@ -238,6 +230,11 @@ class EventListModelCategory extends JModel
 			} else {
 				return $this->_data->checked_out;
 			}
+		} elseif ($this->_id < 1) {
+			return false;
+		} else {
+			JError::raiseWarning( 0, 'Unable to Load Data');
+			return false;
 		}
 	}
 

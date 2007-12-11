@@ -109,13 +109,17 @@ class EventListControllerVenues extends EventListController
 	 */
 	function cancel()
 	{
-		global $option;
+		// Check for request forgeries.
+		$token = JUtility::getToken();
+		if (!JRequest::getInt($token, 0, 'post')) {
+			JError::raiseError(403, 'Request Forbidden');
+		}
+		
+		$venue = & JTable::getInstance('eventlist_venues', '');
+		$venue->bind(JRequest::get('post'));
+		$venue->checkin();
 
-		$model = $this->getModel('venue');
-
-		$model->checkin();
-
-		$this->setRedirect( 'index.php?option='.$option.'&view=venues' );
+		$this->setRedirect( 'index.php?option=com_eventlist&view=venues' );
 	}
 
 	/**

@@ -199,11 +199,8 @@ class EventListModelEvent extends JModel
 	{
 		if ($this->_id)
 		{
-			$item = & $this->getTable('eventlist_events', '');
-			if(! $item->checkin($this->_id)) {
-				$this->setError($this->_db->getErrorMsg());
-				return false;
-			}
+			$event = & JTable::getInstance('eventlist_events', '');
+			return $event->checkin($this->_id);
 		}
 		return false;
 	}
@@ -220,19 +217,14 @@ class EventListModelEvent extends JModel
 	{
 		if ($this->_id)
 		{
-			// Make sure we have a user id to checkout the article with
+			// Make sure we have a user id to checkout the event with
 			if (is_null($uid)) {
 				$user	=& JFactory::getUser();
 				$uid	= $user->get('id');
 			}
 			// Lets get to it and checkout the thing...
-			$item = & $this->getTable('eventlist_events', '');
-			if(!$item->checkout($uid, $this->_id)) {
-				$this->setError($this->_db->getErrorMsg());
-				return false;
-			}
-
-			return true;
+			$event = & JTable::getInstance('eventlist_events', '');
+			return $event->checkout($uid, $this->_id);
 		}
 		return false;
 	}
@@ -254,6 +246,11 @@ class EventListModelEvent extends JModel
 			} else {
 				return $this->_data->checked_out;
 			}
+		} elseif ($this->_id < 1) {
+			return false;
+		} else {
+			JError::raiseWarning( 0, 'Unable to Load Data');
+			return false;
 		}
 	}
 

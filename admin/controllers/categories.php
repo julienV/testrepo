@@ -239,13 +239,17 @@ class EventListControllerCategories extends EventListController
 	 */
 	function cancel()
 	{
-		global $option;
+		// Check for request forgeries.
+		$token = JUtility::getToken();
+		if (!JRequest::getInt($token, 0, 'post')) {
+			JError::raiseError(403, 'Request Forbidden');
+		}
+		
+		$category = & JTable::getInstance('eventlist_categories', '');
+		$category->bind(JRequest::get('post'));
+		$category->checkin();
 
-		$model = $this->getModel('category');
-
-		$model->checkin();
-
-		$this->setRedirect( 'index.php?option='.$option.'&view=categories' );
+		$this->setRedirect( 'index.php?option=com_eventlist&view=categories' );
 	}
 
 	/**
