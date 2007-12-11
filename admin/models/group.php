@@ -125,6 +125,7 @@ class EventListModelGroup extends JModel
 			$this->_data = $this->_db->loadObject();
 
 			return (boolean) $this->_data;
+			
 		}
 		return true;
 	}

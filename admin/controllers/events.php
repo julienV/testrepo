@@ -172,13 +172,18 @@ class EventListControllerEvents extends EventListController
 		JRequest::setVar( 'view', 'event' );
 		JRequest::setVar( 'hidemainmenu', 1 );
 
-		$model = $this->getModel('event');
-
-		$task 	= JRequest::getVar( 'task' );
+		$model 	= $this->getModel('event');
+		$task 	= JRequest::getVar('task');
 
 		if ($task == 'copy') {
 			JRequest::setVar( 'task', $task );
 		} else {
+			
+			$user	=& JFactory::getUser();
+			// Error if checkedout by another administrator
+			if ($model->isCheckedOut( $user->get('id') )) {
+				$this->setRedirect( 'index.php?option=com_eventlist&view=events', JText::_( 'EDITED BY ANOTHER ADMIN' ) );
+			}
 			$model->checkout();
 		}
 		parent::display();

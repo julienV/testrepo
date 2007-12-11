@@ -87,19 +87,16 @@ class EventListControllerGroups extends EventListController
 	 */
 	function edit( )
 	{
-		global $option;
-
 		JRequest::setVar( 'view', 'group' );
 		JRequest::setVar( 'hidemainmenu', 1 );
 
 		$model = $this->getModel('group');
+		$user	=& JFactory::getUser();
 
-		/* Error if checkedout by another administrator
+		// Error if checkedout by another administrator
 		if ($model->isCheckedOut( $user->get('id') )) {
-			$this->setRedirect( 'index.php?option='.$option.'&task=categories', JText::_( 'THE CATEGORY' ).' '.$row->catname.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ) );
+			$this->setRedirect( 'index.php?option=com_eventlist&view=groups', JText::_( 'EDITED BY ANOTHER ADMIN' ) );
 		}
-
-		*/
 
 		$model->checkout();
 
@@ -121,20 +118,20 @@ class EventListControllerGroups extends EventListController
 			JError::raiseError(403, 'Request Forbidden');
 		}
 
-		$post = JRequest::get( 'post' );
-
+		$post 	= JRequest::get( 'post' );
+				
 		$model = $this->getModel('group');
 
 		if ($model->store($post)) {
 
 			$link 	= 'index.php?option=com_eventlist&view=groups';
 			$msg	= JText::_( 'GROUP SAVED');
-
+			
 		} else {
 
 			$link 	= 'index.php?option=com_eventlist&view=group';
 			$msg	= '';
-
+	
 		}
 
 		$model->checkin();

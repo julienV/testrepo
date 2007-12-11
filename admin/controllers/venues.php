@@ -191,11 +191,17 @@ class EventListControllerVenues extends EventListController
 		JRequest::setVar( 'view', 'venue' );
 		JRequest::setVar( 'hidemainmenu', 1 );
 
-		parent::display();
+		$model 	= $this->getModel('venue');
+		$user	=& JFactory::getUser();
 
-		$model = $this->getModel('venue');
+		// Error if checkedout by another administrator
+		if ($model->isCheckedOut( $user->get('id') )) {
+			$this->setRedirect( 'index.php?option=com_eventlist&view=venues', JText::_( 'EDITED BY ANOTHER ADMIN' ) );
+		}
 
 		$model->checkout();
+		
+		parent::display();
 	}
 
 	/**

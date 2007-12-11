@@ -293,17 +293,16 @@ class EventListControllerCategories extends EventListController
 		JRequest::setVar( 'view', 'category' );
 		JRequest::setVar( 'hidemainmenu', 1 );
 
-		parent::display();
+		$model 	= $this->getModel('category');
+		$user	=& JFactory::getUser();
 
-		$model = $this->getModel('category');
-
-		/* Error if checkedout by another administrator
+		// Error if checkedout by another administrator
 		if ($model->isCheckedOut( $user->get('id') )) {
-			$this->setRedirect( 'index.php?option='.$option.'&task=categories', JText::_( 'THE CATEGORY' ).' '.$row->catname.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ) );
+			$this->setRedirect( 'index.php?option=com_eventlist&view=categories', JText::_( 'EDITED BY ANOTHER ADMIN' ) );
 		}
 
-		*/
-
 		$model->checkout();
+		
+		parent::display();
 	}
 }
