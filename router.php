@@ -144,9 +144,9 @@ function EventListParseRoute($segments)
 
 		} break;
 
-		case 'categoriesview':
+		case 'categories':
 		{
-			$vars['view'] = 'categoriesview';
+			$vars['view'] = 'categories';
 
 			$count = count($segments);
 			if($count == 2) {
@@ -155,9 +155,9 @@ function EventListParseRoute($segments)
 
 		} break;
 
-		case 'venuesview':
+		case 'venues':
 		{
-			$vars['view'] = 'venuesview';
+			$vars['view'] = 'venues';
 
 		} break;
 

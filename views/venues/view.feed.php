@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.9 $Id$
+ * @version 0.9 $Id: view.feed.php 391 2007-09-15 15:09:22Z schlu $
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
@@ -31,7 +31,7 @@ jimport( 'joomla.application.component.view');
  * @subpackage EventList
  * @since 0.9
  */
-class EventListViewVenuesview extends JView
+class EventListViewVenues extends JView
 {
 	/**
 	 * Creates the Event Feed of the Venue

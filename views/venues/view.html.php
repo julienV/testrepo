@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.9 $Id$
+ * @version 0.9 $Id: view.html.php 407 2007-09-21 16:03:39Z schlu $
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
@@ -25,13 +25,13 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.application.component.view');
 
 /**
- * HTML View class for the Venuesview View
+ * HTML View class for the Venues View
  *
  * @package Joomla
  * @subpackage EventList
  * @since 0.9
  */
-class EventListViewVenuesview extends JView
+class EventListViewVenues extends JView
 {
 	/**
 	 * Creates the Venuesview
@@ -71,7 +71,7 @@ class EventListViewVenuesview extends JView
 		}
 
 		//add alternate feed link
-		$link    = 'index.php?option=com_eventlist&view=venuesview&format=feed';
+		$link    = 'index.php?option=com_eventlist&view=venues&format=feed';
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
 		$document->addHeadLink(JRoute::_($link.'&type=rss'), 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
@@ -100,7 +100,7 @@ class EventListViewVenuesview extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = JRoute::_('index.php?view=venuesview&pop=1&tmpl=component');
+		$print_link = JRoute::_('index.php?view=venues&pop=1&tmpl=component');
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
@@ -112,7 +112,7 @@ class EventListViewVenuesview extends JView
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
-		$link = 'index.php?option=com_eventlist&view=venuesview';
+		$link = 'index.php?option=com_eventlist&view=venues';
 		$page = $total - $limit;
 
 		$this->assignRef('rows' , 					$rows);

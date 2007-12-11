@@ -126,7 +126,7 @@ class ELOutput {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW ARCHIVE' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
 					$overlib 	= JText::_( 'SHOW ARCHIVE TIP' );
-					$link		= JRoute::_('index.php?view=categoriesview&task=archive');
+					$link		= JRoute::_('index.php?view=categories&task=archive');
 					$title 		= JText::_( 'SHOW ARCHIVE' );
 
 					break;

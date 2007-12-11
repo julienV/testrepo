@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.9 $Id$
+ * @version 0.9 $Id: default.php 428 2007-10-04 14:18:57Z schlu $
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
@@ -26,7 +26,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<p class="buttons">
 		<?php
 			if ( !$this->params->get( 'popup' ) ) : //don't show in printpopup
-				echo ELOutput::submitbutton( $this->dellink, $this->params, 'venuesview' );
+				echo ELOutput::submitbutton( $this->dellink, $this->params, 'venues' );
 			endif;
 
 			echo ELOutput::printbutton( $this->print_link, $this->params );

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.9 $Id$
+ * @version 0.9 $Id: categoriesview.php 447 2007-10-13 16:36:15Z schlu $
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
@@ -25,13 +25,13 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.model');
 
 /**
- * EventList Component Categoriesview Model
+ * EventList Component Categories Model
  *
  * @package Joomla
  * @subpackage EventList
  * @since		0.9
  */
-class EventListModelCategoriesview extends JModel
+class EventListModelCategories extends JModel
 {
 	/**
 	 * Categories data array

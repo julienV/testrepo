@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.9 $Id$
+ * @version 0.9 $Id: default.php 428 2007-10-04 14:18:57Z schlu $
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
@@ -25,7 +25,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <div id="eventlist" class="el_categoriesview">
 <p class="buttons">
 	<?php
-		echo ELOutput::submitbutton( $this->dellink, $this->params, 'categoriesview' );
+		echo ELOutput::submitbutton( $this->dellink, $this->params, 'categories' );
 		echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params, $this->task );
 	?>
 </p>

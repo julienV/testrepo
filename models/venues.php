@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.9 $Id$
+ * @version 0.9 $Id: venuesview.php 396 2007-09-15 23:26:07Z schlu $
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
@@ -25,13 +25,13 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.model');
 
 /**
- * EventList Component Venuesview Model
+ * EventList Component Venues Model
  *
  * @package Joomla
  * @subpackage EventList
  * @since		0.9
  */
-class EventListModelVenuesview extends JModel
+class EventListModelVenues extends JModel
 {
 	/**
 	 * Venues data array

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.9 $Id$
+ * @version 0.9 $Id: view.html.php 422 2007-10-02 12:37:35Z schlu $
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2007 Christoph Lukes
@@ -25,13 +25,13 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.application.component.view');
 
 /**
- * HTML View class for the Categoriesview View
+ * HTML View class for the Categories View
  *
  * @package Joomla
  * @subpackage EventList
  * @since 0.9
  */
-class EventListViewCategoriesview extends JView
+class EventListViewCategories extends JView
 {
 	function display( $tpl=null )
 	{
@@ -67,12 +67,12 @@ class EventListViewCategoriesview extends JView
 		$pathway->setItemName(1, $item->name);
 
 		if ( $task == 'archive' ) {
-			$pathway->addItem(JText::_( 'ARCHIVE' ), JRoute::_('index.php?view=categoriesview&task=archive') );
-			$navlink = JRoute::_('index.php?view=categoriesview&task=archive');
+			$pathway->addItem(JText::_( 'ARCHIVE' ), JRoute::_('index.php?view=categories&task=archive') );
+			$navlink = JRoute::_('index.php?view=categories&task=archive');
 			$pagetitle = $params->get('page_title').' - '.JText::_( 'ARCHIVE' );
 			$urlfragment = 'index.php?view=categoryevents&task=catarchive&id=';
 		} else {
-			$navlink = JRoute::_('index.php?view=categoriesview');
+			$navlink = JRoute::_('index.php?view=categories');
 			$pagetitle = $params->get('page_title');
 			$urlfragment = 'index.php?view=categoryevents&id=';
 		}
