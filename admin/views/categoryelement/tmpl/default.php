@@ -71,9 +71,10 @@ defined('_JEXEC') or die('Restricted access');
 		<tr class="<?php echo "row$k"; ?>">
 			<td width="7"><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
 			<td align="left">
+				<span class="editlinktip hasTip" title="<?php echo JText::_( 'SELECT' );?>::<?php echo $row->catname; ?>">
 				<a style="cursor:pointer" onclick="window.parent.elSelectCategory('<?php echo $row->id; ?>', '<?php echo str_replace( array("'", "\""), array("\\'", ""), $row->catname ); ?>');">
 					<?php echo htmlspecialchars($row->catname, ENT_QUOTES, 'UTF-8'); ?>
-				</a>
+				</a></span>
 			</td>
 			<td align="center"><?php echo $access; ?></td>
 			<td align="center">

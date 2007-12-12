@@ -91,7 +91,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				} else {
 				?>
 					<span class="editlinktip hasTip" title="<?php echo JText::_( 'EDIT CATEGORY' );?>::<?php echo $row->catname; ?>">
-					<a href="<?php echo $link; ?>" title="<?php echo JText::_( 'EDIT CATEGORY' ); ?>">
+					<a href="<?php echo $link; ?>">
 					<?php echo htmlspecialchars($row->catname, ENT_QUOTES, 'UTF-8'); ?>
 					</a></span>
 				<?php
@@ -116,7 +116,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<td align="center">
 				<?php if ($row->catgroup) {	?>
 					<span class="editlinktip hasTip" title="<?php echo JText::_( 'EDIT GROUP' );?>::<?php echo $row->catgroup; ?>">
-					<a href="<?php echo $grouplink; ?>" title="<?php echo JText::_( 'EDIT GROUP' ); ?>">
+					<a href="<?php echo $grouplink; ?>">
 						<?php echo htmlspecialchars($row->catgroup, ENT_QUOTES, 'UTF-8'); ?>
 					</a></span>
 				<?php

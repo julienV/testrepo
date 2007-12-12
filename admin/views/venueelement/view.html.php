@@ -39,6 +39,8 @@ class EventListViewVenueelement extends JView {
 		//initialise variables
 		$db			= & JFactory::getDBO();
 		$document	= & JFactory::getDocument();
+		
+		JHTML::_('behavior.tooltip');
 
 		//get vars
 		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.venueelement.filter_order', 'filter_order', 'l.ordering', 'cmd' );

@@ -40,6 +40,8 @@ class EventListViewEventelement extends JView {
 		$db			= & JFactory::getDBO();
 		$elsettings = ELAdmin::config();
 		$document	= & JFactory::getDocument();
+		
+		JHTML::_('behavior.tooltip');
 
 		//get var
 		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.eventelement.filter_order', 'filter_order', 'a.dates', 'cmd' );
