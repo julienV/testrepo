@@ -94,7 +94,6 @@ class eventlist_venues extends JTable
 	       	return false;
 		}
 
-		jimport('joomla.filter.output');
 		$alias = JFilterOutput::stringURLSafe($this->venue);
 
 		if(empty($this->alias) || $this->alias === $alias ) {

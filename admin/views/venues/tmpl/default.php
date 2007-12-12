@@ -85,9 +85,10 @@ defined('_JEXEC') or die('Restricted access');
 					echo htmlspecialchars($row->venue, ENT_QUOTES, 'UTF-8');
 				} else {
 					?>
+					<span class="editlinktip hasTip" title="<?php echo JText::_( 'EDIT VENUE' );?>::<?php echo $row->venue; ?>">
 					<a href="<?php echo $link; ?>" title="<?php echo JText::_( 'EDIT VENUE' ); ?>">
 					<?php echo htmlspecialchars($row->venue, ENT_QUOTES, 'UTF-8'); ?>
-					</a>
+					</a></span>
 				<?php
 				}
 				?>

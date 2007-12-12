@@ -93,8 +93,6 @@ class eventlist_events extends JTable
 	// overloaded check function
 	function check($elsettings)
 	{
-		jimport('joomla.filter.output');
-
 		// Check fields
 		if (empty($this->enddates)) {
 			$this->enddates = NULL;

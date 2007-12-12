@@ -94,7 +94,6 @@ class EventListViewCategory extends JView {
 		}
 
 		//clean data
-		jimport('joomla.filter.output');
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES, 'catdescription' );
 
 		//build selectlists

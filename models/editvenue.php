@@ -334,7 +334,6 @@ class EventListModelEditvenue extends JModel
 			}
 		}
 
-		jimport('joomla.filter.output');
 		$row->venue = trim( JFilterOutput::ampReplace( $row->venue ) );
 
 		//Autopublish

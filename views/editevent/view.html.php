@@ -62,7 +62,6 @@ class EventListViewEditevent extends JView
 		$returnview			= JRequest::getWord('returnview');
 
 		//Clean output
-		jimport('joomla.filter.output');
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES, 'datdescription' );
 
 		JHTML::_('behavior.formvalidation');

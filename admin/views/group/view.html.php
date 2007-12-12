@@ -66,7 +66,6 @@ class EventListViewGroup extends JView {
 		}
 
 		//make data safe
-		jimport('joomla.filter.output');
 		JFilterOutput::objectHTMLSafe( $row );
 
 		//build toolbar

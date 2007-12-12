@@ -603,7 +603,6 @@ class EventListModelEditevent extends JModel
 			}
 		}
 
-		jimport('joomla.filter.output');
 		$row->title = trim( JFilterOutput::ampReplace( $row->title ) );
 
 		//set registration regarding the el settings

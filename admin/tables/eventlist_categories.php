@@ -81,7 +81,6 @@ class eventlist_categories extends JTable
 			return false;
 		}
 
-		jimport('joomla.filter.output');
 		$alias = JFilterOutput::stringURLSafe($this->catname);
 
 		if(empty($this->alias) || $this->alias === $alias ) {

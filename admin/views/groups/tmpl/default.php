@@ -46,9 +46,9 @@ defined('_JEXEC') or die('Restricted access');
 	<thead>
 		<tr>
 			<th width="5"><?php echo JText::_( 'Num' ); ?></th>
-			<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
-			<th width="20%" class="title"><?php echo JHTML::_('grid.sort', 'GROUP NAME', 'name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-			<th class="title"><?php echo JText::_( 'DESCRIPTION' ); ?></th>
+			<th width="20"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
+			<th width="30%" class="title"><?php echo JHTML::_('grid.sort', 'GROUP NAME', 'name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th><?php echo JText::_( 'DESCRIPTION' ); ?></th>
 		</tr>
 	</thead>
 
@@ -78,9 +78,10 @@ defined('_JEXEC') or die('Restricted access');
 						echo htmlspecialchars($row->name, ENT_QUOTES, 'UTF-8');
 					} else {
 				?>
-				<a href="<?php echo $link; ?>" title="Edit Group">
+				<span class="editlinktip hasTip" title="<?php echo JText::_( 'EDIT GROUP' );?>::<?php echo $row->name; ?>">
+				<a href="<?php echo $link; ?>" title="<?php echo JText::_( 'EDIT GROUP' ); ?>">
 				<?php echo htmlspecialchars($row->name, ENT_QUOTES, 'UTF-8'); ?>
-				</a>
+				</a></span>
 				<?php } ?>
 			</td>
 			<td><?php echo htmlspecialchars($row->description, ENT_QUOTES, 'UTF-8'); ?></td>

@@ -40,6 +40,8 @@ class EventListViewCategories extends JView {
 		$user 		= & JFactory::getUser();
 		$db  		= & JFactory::getDBO();
 		$document	= & JFactory::getDocument();
+		
+		JHTML::_('behavior.tooltip');
 
 		//get vars
 		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.categories.filter_order', 		'filter_order', 	'c.ordering', 'cmd' );
