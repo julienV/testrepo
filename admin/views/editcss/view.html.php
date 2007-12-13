@@ -39,7 +39,7 @@ class EventListViewEditcss extends JView {
 		//initialise variables
 		$document	= & JFactory::getDocument();
 		$user 		= & JFactory::getUser();
-
+		
 		//only admins have access to this view
 		if ($user->get('gid') < 24) {
 			JError::raiseWarning( 'SOME_ERROR_CODE', JText::_( 'ALERTNOTAUTH'));
@@ -49,8 +49,8 @@ class EventListViewEditcss extends JView {
 		//get vars
 		$option		= JRequest::getVar('option');
 		$filename	= 'eventlist.css';
-		$path		= JPATH_SITE.'/components/com_eventlist/assets/css/';
-		$css_path	= $path . $filename;
+		$path		= JPATH_SITE.DS.'components'.DS.'com_eventlist'.DS.'assets'.DS.'css';
+		$css_path	= $path.DS.$filename;
 
 		//create the toolbar
 		JToolBarHelper::title( JText::_( 'EDIT CSS' ), 'cssedit' );
@@ -61,21 +61,26 @@ class EventListViewEditcss extends JView {
 		JToolBarHelper::cancel();
 		JToolBarHelper::spacer();
 		JToolBarHelper::help( 'el.editcss', true );
+		
+		JRequest::setVar( 'hidemainmenu', 1 );
 
 		//add css to document
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
 		//read the the stylesheet
 		jimport('joomla.filesystem.file');
-		$content = JFile::read($path.$filename);
+		$content = JFile::read($css_path);
+		
+		jimport('joomla.client.helper');
+		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
 
 		if ($content !== false)
 		{
-			$content = htmlspecialchars($content);
+			$content = htmlspecialchars($content, ENT_COMPAT, 'UTF-8');
 		}
 		else
 		{
-			$msg = sprintf(JText::_('Operation Failed Could not open'), $path.$filename);
+			$msg = JText::sprintf('FAILED TO OPEN FILE FOR WRITING', $css_path);
 			$mainframe->redirect('index.php?option='.$option, $msg);
 		}
 
@@ -83,7 +88,8 @@ class EventListViewEditcss extends JView {
 		$this->assignRef('css_path'		, $css_path);
 		$this->assignRef('content'		, $content);
 		$this->assignRef('filename'		, $filename);
-		$this->assignRef('path'			, $path);
+		$this->assignRef('ftp'			, $ftp);
+		
 
 		parent::display($tpl);
 	}

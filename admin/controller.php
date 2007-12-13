@@ -56,19 +56,43 @@ class EventListController extends JController
 	function savecss()
 	{
 		global $mainframe;
+		
+		// Check for request forgeries.
+		$token = JUtility::getToken();
+		if (!JRequest::getInt($token, 0, 'post')) {
+			JError::raiseError(403, 'Request Forbidden');
+		}
 
 		// Initialize some variables
 		$option			= JRequest::getVar('option');
-		$filename		= JRequest::getVar('filename');
-		$path			= JRequest::getVar('path');
+		$filename		= JRequest::getVar('filename', '', 'post', 'cmd');
 		$filecontent	= JRequest::getVar('filecontent', '', '', '', JREQUEST_ALLOWRAW);
 
 		if (!$filecontent) {
-			$mainframe->redirect('index.php?option='.$option, JText::_('Operation Failed').': '.JText::_('Content empty.'));
+			$mainframe->redirect('index.php?option='.$option, JText::_('OPERATION FAILED').': '.JText::_('CONTENT EMPTY'));
+		}	
+		
+		// Set FTP credentials, if given
+		jimport('joomla.client.helper');
+		JClientHelper::setCredentialsFromRequest('ftp');
+		$ftp = JClientHelper::getCredentials('ftp');
+		
+		$file = JPATH_SITE.DS.'components'.DS.'com_eventlist'.DS.'assets'.DS.'css'.DS.$filename;
+		
+		// Try to make the css file writeable
+		if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0755')) {
+			JError::raiseNotice('SOME_ERROR_CODE', 'COULD NOT MAKE CSS FILE WRITABLE');
 		}
 
 		jimport('joomla.filesystem.file');
-		if (JFile::write($path.$filename, $filecontent))
+		$return = JFile::write($file, $filecontent);
+
+		// Try to make the css file unwriteable
+		if (!$ftp['enabled'] && JPath::isOwner($file) && !JPath::setPermissions($file, '0555')) {
+			JError::raiseNotice('SOME_ERROR_CODE', 'COULD NOT MAKE CSS FILE UNWRITABLE');
+		}
+		
+		if ($return)
 		{
 			$task = JRequest::getVar('task');
 			switch($task)
@@ -83,7 +107,7 @@ class EventListController extends JController
 					break;
 			}
 		} else {
-			$mainframe->redirect('index.php?option='.$option, JText::_('Operation Failed').': '.JText::_('Failed to open file for writing.'));
+			$mainframe->redirect('index.php?option='.$option, JText::_('OPERATION FAILED').': '.JText::sprintf('FAILED TO OPEN FILE FOR WRITING', $file));
 		}
 	}
 
