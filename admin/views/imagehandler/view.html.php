@@ -112,11 +112,15 @@ class EventListViewImagehandler extends JView  {
 
 		//add css
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
+		
+		jimport('joomla.client.helper');
+		$ftp =& JClientHelper::setCredentialsFromRequest('ftp');
 
 		//assign data to template
 		$this->assignRef('task'      	, $task);
 		$this->assignRef('elsettings'  	, $elsettings);
 		$this->assignRef('request_url'	, $uri->toString());
+		$this->assignRef('ftp'			, $ftp);
 
 		parent::display($tpl);
 	}

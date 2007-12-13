@@ -57,11 +57,22 @@ class EventListControllerImagehandler extends EventListController
 	function uploadimage()
 	{
 		global $mainframe;
+		
+		// Check for request forgeries.
+		$token = JUtility::getToken();
+		if (!JRequest::getInt($token, 0, 'post')) {
+			JError::raiseError(403, 'Request Forbidden');
+		}
 
 		$elsettings = ELAdmin::config();
 
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
 		$task 		= JRequest::getVar( 'task' );
+		
+		// Set FTP credentials, if given
+		jimport('joomla.client.helper');
+		JClientHelper::setCredentialsFromRequest('ftp');
+		//$ftp = JClientHelper::getCredentials('ftp');
 
 		//set the target directory
 		if ($task == 'venueimgup') {

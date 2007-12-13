@@ -34,6 +34,39 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <table class="noshow">
   	<tr>
 		<td width="50%" valign="top">
+		
+				<?php if($this->ftp): ?>
+				<fieldset class="adminform">
+					<legend><?php echo JText::_('FTP TITLE'); ?></legend>
+
+					<?php echo JText::_('FTP DESC'); ?>
+					
+					<?php if(JError::isError($this->ftp)): ?>
+						<p><?php echo JText::_($this->ftp->message); ?></p>
+					<?php endif; ?>
+
+					<table class="adminform nospace">
+						<tbody>
+							<tr>
+								<td width="120">
+									<label for="username"><?php echo JText::_('USERNAME'); ?>:</label>
+								</td>
+								<td>
+									<input type="text" id="username" name="username" class="input_box" size="70" value="" />
+								</td>
+							</tr>
+							<tr>
+								<td width="120">
+									<label for="password"><?php echo JText::_('PASSWORD'); ?>:</label>
+								</td>
+								<td>
+									<input type="password" id="password" name="password" class="input_box" size="70" value="" />
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</fieldset>
+			<?php endif; ?>
 
 			<fieldset class="adminform">
 			<legend><?php echo JText::_( 'SELECT IMAGE UPLOAD' ); ?></legend>
@@ -132,6 +165,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <?php } ?>
 
+<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="controller" value="imagehandler" />
 <input type="hidden" name="task" value="<?php echo $this->task;?>" />
