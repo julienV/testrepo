@@ -32,17 +32,7 @@ defined('_JEXEC') or die('Restricted access');
 
 		<br />
 
-	<table cellpadding="1" cellspacing="1" border="0" width="100%" class="adminlist">
-		<tr>
-			<td width="260">
-				<span class="componentheading"><?php echo JText::_( 'CSSFILE IS' ); ?> :
-				<b><?php echo is_writable($this->css_path) ? '<font color="green"> '. JText::_( 'Writeable' ) .'</font>' : '<font color="red"> '. JText::_( 'Unwriteable' ) .'</font>' ?></b>
-				</span>
-			</td>
-		</tr>
 		<?php if($this->ftp): ?>
-		<tr>
-			<td>
 				<fieldset class="adminform">
 					<legend><?php echo JText::_('FTP TITLE'); ?></legend>
 
@@ -73,10 +63,7 @@ defined('_JEXEC') or die('Restricted access');
 						</tbody>
 					</table>
 				</fieldset>
-			</td>
-		</tr>
 		<?php endif; ?>
-	</table>
 
 		<table class="adminform">
 		<tr>
