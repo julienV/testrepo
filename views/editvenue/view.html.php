@@ -65,7 +65,7 @@ class EventListViewEditvenue extends JView
 		// Get the menu object of the active menu item
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
-//		$params 	= & $mainframe->getParams('com_eventlist');
+		$params 	= & $mainframe->getParams('com_eventlist');
 
 		$id ? $title = JText::_( 'EDIT VENUE' ) : $title = JText::_( 'ADD VENUE' );
 
@@ -94,6 +94,7 @@ class EventListViewEditvenue extends JView
 		$this->assignRef('returnview' ,				$returnview);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
+		$this->assignRef('params' , 				$params);
 
 		parent::display($tpl);
 
