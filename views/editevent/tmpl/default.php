@@ -188,8 +188,6 @@ defined('_JEXEC') or die('Restricted access');
 
     		<legend><?php echo JText::_('NORMAL INFO'); ?></legend>
 
-
-
             <div class="el_title floattext">
                 <label for="title">
                     <?php echo JText::_( 'TITLE' ).':'; ?>
@@ -201,17 +199,17 @@ defined('_JEXEC') or die('Restricted access');
                 <label for="a_name">
                     <?php echo JText::_( 'VENUE' ).':'; ?>
                 </label>
-                <input type="text" id="a_name" value="<?php echo $row->venue; ?>" disabled="disabled" />
+                <input type="text" id="a_name" value="<?php echo $this->row->venue; ?>" disabled="disabled" />
 
                 <div class='el_buttons floattext'>
-                    <a class="el_venue_select" title="<?php echo JText::_('SELECT'); ?>" href="<?php echo $link; ?>" rel="{handler: 'iframe', size: {x: 650, y: 375}}">
+                    <a class="el_venue_select modal" title="<?php echo JText::_('SELECT'); ?>" href="<?php echo JRoute::_('index.php?view=editevent&layout=selectvenue&tmpl=component'); ?>" rel="{handler: 'iframe', size: {x: 650, y: 375}}">
                         <span><?php echo JText::_('SELECT')?></span>
                     </a>
-                    <input class="inputbox required validate-venue" type="hidden" id="a_id" name="locid" value="<?php echo $row->locid; ?>" />
-        		    <button type="button" onclick="elSelectVenue(0,'<?php echo JText::_('NO VENUE'); ?>');"><?php  echo JText::_('NO VENUE'); ?></button>
-        		    <?php if ( $this->delloclink == 1 && !$this->row->id ) : //show location submission link ?>
-        		    <button type="button" onclick="submitbutton('addvenue');"><?php echo JText::_( 'DELIVER NEW VENUE' ); ?></button>
-        			<?php endif; ?>
+                    <input class="inputbox required validate-venue" type="hidden" id="a_id" name="locid" value="<?php echo $this->row->locid; ?>" />
+              		  <button type="button" onclick="elSelectVenue(0,'<?php echo JText::_('NO VENUE'); ?>');"><?php  echo JText::_('NO VENUE'); ?></button>
+            		    <?php if ( $this->delloclink == 1 && !$this->row->id ) : //show location submission link ?>
+            		    <button type="button" onclick="submitbutton('addvenue');"><?php echo JText::_( 'DELIVER NEW VENUE' ); ?></button>
+              			<?php endif; ?>
                 </div>
 
             </div>
