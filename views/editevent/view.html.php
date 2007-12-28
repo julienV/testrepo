@@ -66,6 +66,7 @@ class EventListViewEditevent extends JView
 
 		JHTML::_('behavior.formvalidation');
 		JHTML::_('behavior.tooltip');
+		JHTML::_('behavior.modal', 'a.modal');
 
 		//add css file
 		$doc->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
@@ -106,19 +107,11 @@ class EventListViewEditevent extends JView
 			document.getElementById('sbox-window').close();
 		}";
 
-		$link = JRoute::_('index.php?view=editevent&layout=selectvenue&tmpl=component');
 		$doc->addScriptDeclaration($js);
-
-		JHTML::_('behavior.modal', 'a.modal');
 		// include the recurrence script
 		$doc->addScript($url.'components/com_eventlist/assets/js/recurrence.js');
 		// include the unlimited script
 		$doc->addScript($url.'components/com_eventlist/assets/js/unlimited.js');
-
-		$venueselect = "\n<div style=\"float: left;\"><input style=\"background: #ffffff;\" type=\"text\" id=\"a_name\" value=\"$row->venue\" disabled=\"disabled\" /></div>";
-		$venueselect .= "<div class=\"button2-left\"><div class=\"blank\"><a class=\"modal\" title=\"".JText::_('SELECT')."\" href=\"$link\" rel=\"{handler: 'iframe', size: {x: 650, y: 375}}\">".JText::_('SELECT')."</a></div></div>\n";
-		$venueselect .= "\n<input class=\"inputbox required validate-venue\" type=\"hidden\" id=\"a_id\" name=\"locid\" value=\"$row->locid\" />";
-
 
 		$this->assignRef('row' , 					$row);
 		$this->assignRef('categories' , 			$categories);
@@ -127,7 +120,6 @@ class EventListViewEditevent extends JView
 		$this->assignRef('infoimage' , 				$infoimage);
 		$this->assignRef('delloclink' , 			$delloclink);
 		$this->assignRef('editoruser' , 			$editoruser);
-		$this->assignRef('venueselect' , 			$venueselect);
 		$this->assignRef('returnview' , 			$returnview);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
