@@ -210,7 +210,7 @@ class EventListModelEventList extends JModel
 
 		/*
 		 * If we have a filter, and this is enabled... lets tack the AND clause
-		 * for the filter onto the WHERE clause of the content item query.
+		 * for the filter onto the WHERE clause of the item query.
 		 */
 		if ($params->get('filter'))
 		{
@@ -235,6 +235,10 @@ class EventListModelEventList extends JModel
 
 					case 'city' :
 						$where .= ' AND LOWER( l.city ) LIKE "%'.$filter.'%"';
+						break;
+						
+					case 'type' :
+						$where .= ' AND LOWER( c.catname ) LIKE "%'.$filter.'%"';
 						break;
 				}
 			}
