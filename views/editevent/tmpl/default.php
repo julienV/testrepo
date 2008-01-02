@@ -3,7 +3,7 @@
  * @version 0.9 $Id$
  * @package Joomla
  * @subpackage EventList
- * @copyright (C) 2005 - 2007 Christoph Lukes
+ * @copyright (C) 2005 - 2008 Christoph Lukes
  * @license GNU/GPL, see LICENCE.php
  * EventList is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License 2
@@ -21,7 +21,6 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-//TODO: Add reoccuring events
 ?>
 
 <script language="javascript" type="text/javascript">
@@ -228,7 +227,7 @@ defined('_JEXEC') or die('Restricted access');
                 <label for="dates">
                     <?php echo JText::_( 'DATE' ).':'; ?>
                 </label>
-                <?php echo JHTML::_('calendar', $this->row->dates, "dates", "dates"); ?>
+                <?php echo JHTML::_('calendar', $this->row->dates, 'dates', 'dates', '%Y-%m-%d', array('class' => 'inputbox required validate-date')); ?>
                 <small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
         		    <?php echo $this->infoimage; ?>
         		</small>
@@ -238,7 +237,7 @@ defined('_JEXEC') or die('Restricted access');
                 <label for="enddates">
                     <?php echo JText::_( 'ENDDATE' ).':'; ?>
                 </label>
-                <?php echo JHTML::_('calendar', $this->row->enddates, "enddates", "enddates"); ?>
+                <?php echo JHTML::_('calendar', $this->row->enddates, 'enddates', 'enddates', '%Y-%m-%d', array('class' => 'inputbox validate-date')); ?>
     			<small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
     			    <?php echo $this->infoimage; ?>
     			</small>
@@ -326,7 +325,7 @@ defined('_JEXEC') or die('Restricted access');
         	<div id="recurrence_output">&nbsp;</div>
             <div id="counter_row" style="display:none;">
                 <?php echo JText::_( 'RECURRENCE COUNTER' ); ?>:
-                <div class="el_date>"><?php echo JHTML::_('calendar', ($this->row->recurrence_counter <> 0000-00-00)? $this->row->recurrence_counter: JText::_( 'UNLIMITED' ), "recurrence_counter", "recurrence_counter"); ?>
+                <div class="el_date>"><?php echo JHTML::_('calendar', ($this->row->recurrence_counter <> 0000-00-00) ? $this->row->recurrence_counter : JText::_( 'UNLIMITED' ), "recurrence_counter", "recurrence_counter"); ?>
             	    <a href="#" onclick="include_unlimited('<?php echo JText::_( 'UNLIMITED' ); ?>'); return false;"><img src="components/com_eventlist/assets/images/unlimited.png" width="16" height="16" alt="<?php echo JText::_( 'UNLIMITED' ); ?>" /></a>
             	</div>
             </div>
@@ -369,7 +368,7 @@ defined('_JEXEC') or die('Restricted access');
             if ($this->row->datimage) :
     		    echo ELOutput::flyer( $this->row, $this->elsettings, $this->dimage, 'event' );
     		else :
-    		    echo JHTML::_('image', 'components/com_eventlist/assets/images/no_photo.png', 'no image', 'class="modal"');
+    		    echo JHTML::_('image', 'components/com_eventlist/assets/images/noimage.png', JText::_('NO IMAGE'), array('class' => 'modal'));
     		endif;
       		?>
             <label for="userfile"><?php echo JText::_('IMAGE'); ?></label>
