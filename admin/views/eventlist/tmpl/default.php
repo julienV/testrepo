@@ -81,6 +81,9 @@ defined('_JEXEC') or die('Restricted access');
 
 						$link = 'index.php?option='.$option.'&amp;view=updatecheck';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-update.png', JText::_( 'UPDATE CHECK' ), 1 );
+						
+						$link = 'index.php?option='.$option.'&amp;controller=sampledata&amp;task=load';
+						EventListViewEventList::quickiconButton( $link, 'icon-48-sampledata.png', JText::_( 'LOAD SAMPLE DATA' ) );
 						?>
 						</div>
 					</td>
