@@ -103,7 +103,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 					<?php
 					$created = JHTML::Date( $row->created, JText::_( 'DATE_FORMAT_LC2' ) );
 					$edited	 = JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
-					$image 		= JHTML::_('image.site', 'icon-16-info.png', '/templates/'. $this->template .'/images/menu/', NULL, NULL, 'info' );
+					$image 		= JHTML::_('image', '/templates/'. $this->template .'/images/menu/icon-16-info.png', JText::_( 'NOTES' ) );
 					$overlib 	= JText::_( 'CREATED AT' ).': '.$created.'<br />';
 					$overlib	.= JText::_( 'WITH IP' ).': '.$row->author_ip.'<br />';
 					if ($row->modified != '0000-00-00 00:00:00') {

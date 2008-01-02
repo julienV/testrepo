@@ -95,7 +95,7 @@ class EventListViewEditevent extends JView
 		$dimage = ELImage::flyercreator($row->datimage, $elsettings, 'event');
 
 		//Set the info image
-		$infoimage = JHTML::_('image.site', 'icon-16-hint.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'NOTES' ), JText::_( 'NOTES' ) );
+		$infoimage = JHTML::_('image', 'components/com_eventlist/assets/images/icon-16-hint.png', JText::_( 'NOTES' ) );
 
 		//Create the stuff required for the venueselect functionality
 		$url	= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();

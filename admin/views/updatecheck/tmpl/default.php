@@ -28,11 +28,11 @@ if ($this->updatedata->failed == 0) {
 		  		<td>
 		  		<?php
 		  			if ($this->updatedata->current == 0 ) {
-		  				echo JHTML::_('image.administrator', 'icon-48-checkin.png', '/templates/'. $this->template .'/images/header/', NULL, NULL);
+		  				echo JHTML::_('image', 'administrator/templates/'. $this->template .'/images/header/icon-48-checkin.png', NULL);
 		  			} elseif( $this->updatedata->current == -1 ) {
-		  				echo JHTML::_('image.administrator', 'icon-48-help_header.png', '/templates/'. $this->template .'/images/header/', NULL, NULL);
+		  				echo JHTML::_('image', 'administrator/templates/'. $this->template .'/images/header/icon-48-help_header.png', NULL);
 		  			} else {
-		  				echo JHTML::_('image.administrator', 'icon-48-help_header.png', '/templates/'. $this->template .'/images/header/', NULL, NULL);
+		  				echo JHTML::_('image', 'administrator/templates/'. $this->template .'/images/header/icon-48-help_header.png', NULL);
 		  			}
 		  		?>
 		  		</td>
@@ -107,7 +107,7 @@ if ($this->updatedata->failed == 0) {
 			<tr>
 		  		<td>
 		  		<?php
-		  			echo JHTML::_('image.administrator', 'icon-48-help_header.png', '/templates/'. $this->template .'/images/header/', NULL, NULL);
+		  			echo JHTML::_('image', 'administrator/templates/'. $this->template .'/images/header/icon-48-help_header.png', NULL);
 		  		?>
 		  		</td>
 		  		<td>

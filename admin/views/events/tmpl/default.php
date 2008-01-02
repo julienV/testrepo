@@ -192,7 +192,7 @@ defined('_JEXEC') or die('Restricted access');
 					$created	 	= JHTML::Date( $row->created, JText::_( 'DATE_FORMAT_LC2' ) );
 					$edited 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
 					$ip				= $row->author_ip == 'DISABLED' ? JText::_( 'DISABLED' ) : $row->author_ip;
-					$image 			= JHTML::_('image.administrator', 'icon-16-info.png', '/templates/'. $this->template .'/images/menu/', NULL, NULL, 'info' );
+					$image 			= JHTML::_('image', 'administrator/templates/'. $this->template .'/images/menu/icon-16-info.png', JText::_('NOTES') );
 					$overlib 		= JText::_( 'CREATED AT' ).': '.$created.'<br />';
 					$overlib		.= JText::_( 'WITH IP' ).': '.$ip.'<br />';
 					if ($row->modified != '0000-00-00 00:00:00') {

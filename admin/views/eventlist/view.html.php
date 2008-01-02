@@ -105,7 +105,7 @@ class EventListViewEventList extends JView {
 				<?php
 				}
 
-					echo JHTML::_('image.site', $image, '/components/com_eventlist/assets/images/', NULL, NULL, $text );
+					echo JHTML::_('image', 'administrator/components/com_eventlist/assets/images/'.$image, $text );
 				?>
 					<span><?php echo $text; ?></span>
 				</a>
