@@ -4,7 +4,7 @@
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2008 Christoph Lukes
- * @license GNU/GPL, see LICENCE.php
+ * @license GNU/GPL, see LICENSE.php
  * EventList is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License 2
  * as published by the Free Software Foundation.
@@ -55,7 +55,7 @@ defined('_JEXEC') or die('Restricted access');
 						|
 						<a href="<?php echo 'components/com_eventlist/help/'.$this->langTag.'/helpsite/el.changelog.html'; ?>" target='helpFrame'><?php echo JText::_( 'CHANGELOG' ); ?></a>
 						|
-						<?php echo JHTML::_('link', 'http://www.gnu.org/licenses/gpl-2.0.html', JText::_( 'LICENCE' ), array('target' => 'helpFrame')) ?>
+						<?php echo JHTML::_('link', 'http://www.gnu.org/licenses/gpl-2.0.html', JText::_( 'LICENSE' ), array('target' => 'helpFrame')) ?>
 					</td>
 				</tr>
 			</table>

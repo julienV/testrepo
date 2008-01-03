@@ -4,7 +4,7 @@
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2008 Christoph Lukes
- * @license GNU/GPL, see LICENCE.php
+ * @license GNU/GPL, see LICENSE.php
  * EventList is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License 2
  * as published by the Free Software Foundation.
@@ -35,13 +35,12 @@ jimport('joomla.application.component.model');
  */
 class EventListModelSampledata extends JModel
 {
-	
 	/**
 	 * files data array
 	 *
 	 * @var array
 	 */
-	var $_retval = null;
+	var $_filelist = array();
 	
 	/**
 	 * Constructor
@@ -51,6 +50,13 @@ class EventListModelSampledata extends JModel
 	function __construct()
 	{
 		parent::__construct();
+		
+		if ($this->_check()) {
+			JError::raiseWarning('SOME ERROR CODE', JText::_('DATA ALREADY INSTALLED'));
+			return false;
+		}
+		
+		$this->_filelist = $this->_unpack();
 	}
 	
 	 /**
@@ -62,24 +68,17 @@ class EventListModelSampledata extends JModel
 	 */
 	function loaddata()
 	{	
-		if ($this->_check()) {
-			JError::raiseWarning('SOME ERROR CODE', JText::_('DATA ALREADY INSTALLED'));
-			return false;
-		}
-		
-		$filelist = $this->_unpack();
-		
 		//determine sql file
-		foreach ($filelist['files'] as $key => $file)
+		foreach ($this->_filelist['files'] as $key => $file)
 		{
 			if (JFile::getExt($file) == 'sql') {
 				$scriptfile = $file;
-				unset($filelist['files'][$key]);
+				unset($this->_filelist['files'][$key]);
 			}
 		}
 		
 		//load sql file
-		if( !($buffer = file_get_contents($filelist['folder'].DS.$scriptfile)) )
+		if( !($buffer = file_get_contents($this->_filelist['folder'].DS.$scriptfile)) )
 		{
 			return false;
 		}
@@ -87,6 +86,7 @@ class EventListModelSampledata extends JModel
 		//extract queries out of sql file
 		$queries = $this->_splitSql($buffer);
 
+		//Process queries
 		foreach ($queries as $query)
 		{
 			$query = trim($query);
@@ -98,10 +98,13 @@ class EventListModelSampledata extends JModel
 		}
 		
 		//move images in proper directory
-		$this->_moveimages($filelist);
+		$this->_moveimages();
+
 		
 		//delete temporary extraction folder
-		$this->_deletetmp($filelist['folder']);
+		if(!$this->_deletetmp()) {
+			JError::raiseWarning('SOME ERROR CODE', JText::_('UNABLE TO DELETE TMP FOLDER'));
+		}
 		
 		return true;
 	}
@@ -117,27 +120,25 @@ class EventListModelSampledata extends JModel
 	{
 		jimport('joomla.filesystem.archive');
 		
-		$filename	 = 'sampledata.tar.gz';
-		$archivename = JPATH_COMPONENT_ADMINISTRATOR.DS.'assets'.DS.$filename;
+		$filename	= 'sampledata.tar.gz';
+		$archive 	= JPATH_COMPONENT_ADMINISTRATOR.DS.'assets'.DS.$filename;
 		
 		// Temporary folder to extract the archive into
 		$tmpdir = uniqid('sample_');
 
-
 		// Clean the paths to use for archive extraction
-		$extractdir 	= JPath::clean(dirname($archivename).DS.$tmpdir);
-		$archivename 	= JPath::clean($archivename);
+		$extractdir = JPath::clean(JPATH_ROOT.DS.'tmp'.DS.$tmpdir);
+		$archive 	= JPath::clean($archive);
 
 		//extract archive
-		$result = JArchive::extract( $archivename, $extractdir);
+		$result = JArchive::extract( $archive, $extractdir);
 
 		if ( $result === false ) {
+			JError::raiseWarning('SOME ERROR CODE', JText::_('UNABLE TO EXTRACT ARCHIVE'));
 			return false;
 		}
 
-		/*
-		 * return the files found in the extract folder and also folder name
-		 */
+		//return the files found in the extract folder and also folder name
 		$files = array();
 		
 		if ($handle = opendir( $extractdir ))
@@ -152,10 +153,10 @@ class EventListModelSampledata extends JModel
 			}
 			closedir($handle);
 		}
-		$_retval['files'] = $files;
-		$_retval['folder'] = $extractdir;
+		$_filelist['files'] 	= $files;
+		$_filelist['folder'] 	= $extractdir;
 		
-		return $_retval;
+		return $_filelist;
 	}
 	
 	/**
@@ -210,13 +211,13 @@ class EventListModelSampledata extends JModel
 	 * @return true on success
 	 * @since 0.9
 	 */
-	function _moveimages($data)
+	function _moveimages()
 	{
 		$imagebase = JPATH_ROOT.DS.'images'.DS.'eventlist';
-		foreach ($data['files'] as $file)
+		foreach ($this->_filelist['files'] as $file)
 		{
-			JFile::copy($data['folder'].DS.$file, $imagebase.DS.'venues'.DS.$file);
-			JFile::copy($data['folder'].DS.$file, $imagebase.DS.'events'.DS.$file);
+			JFile::copy($this->_filelist['folder'].DS.$file, $imagebase.DS.'venues'.DS.$file);
+			JFile::copy($this->_filelist['folder'].DS.$file, $imagebase.DS.'events'.DS.$file);
 		}
 		
 		return true;
@@ -229,10 +230,11 @@ class EventListModelSampledata extends JModel
 	 * @return true on success
 	 * @since 0.9
 	 */
-	function _deletetmp($folder)
+	function _deletetmp()
 	{
-		JFolder::delete(JPath::clean($folder));
-		
+		if (!JFolder::delete(JPath::clean($this->_filelist['folder']))) {
+			return false;
+		}
 		return true;
 	}
 	
