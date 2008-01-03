@@ -109,11 +109,8 @@ class EventListControllerVenues extends EventListController
 	 */
 	function cancel()
 	{
-		// Check for request forgeries.
-		$token = JUtility::getToken();
-		if (!JRequest::getInt($token, 0, 'post')) {
-			JError::raiseError(403, 'Request Forbidden');
-		}
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
 		
 		$venue = & JTable::getInstance('eventlist_venues', '');
 		$venue->bind(JRequest::get('post'));
@@ -213,11 +210,8 @@ class EventListControllerVenues extends EventListController
 	 */
 	function save()
 	{
-		// Check for request forgeries.
-		$token = JUtility::getToken();
-		if (!JRequest::getInt($token, 0, 'post')) {
-			JError::raiseError(403, 'Request Forbidden');
-		}
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
 		
 		$task		= JRequest::getVar('task');
 

@@ -58,11 +58,8 @@ class EventListControllerImagehandler extends EventListController
 	{
 		global $mainframe;
 		
-		// Check for request forgeries.
-		$token = JUtility::getToken();
-		if (!JRequest::getInt($token, 0, 'post')) {
-			JError::raiseError(403, 'Request Forbidden');
-		}
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
 
 		$elsettings = ELAdmin::config();
 

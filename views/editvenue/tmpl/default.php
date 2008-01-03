@@ -277,7 +277,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<input type="hidden" name="returnview" value="<?php echo $this->returnview; ?>" />
 	<input type="hidden" name="created" value="<?php echo $this->row->created; ?>" />
 	<input type="hidden" name="curimage" value="<?php echo $this->row->locimage; ?>" />
-	<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
+	<?php echo JHTML::_( 'form.token' ); ?>
 	<input type="hidden" name="task" value="" />
 </form>
 

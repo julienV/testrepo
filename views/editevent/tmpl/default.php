@@ -415,7 +415,7 @@ defined('_JEXEC') or die('Restricted access');
     	<input type="hidden" name="author_ip" value="<?php echo $this->row->author_ip; ?>" />
     	<input type="hidden" name="created_by" value="<?php echo $this->row->created_by; ?>" />
     	<input type="hidden" name="curimage" value="<?php echo $this->row->datimage; ?>" />
-    	<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
+    	<?php echo JHTML::_( 'form.token' ); ?>
     	<input type="hidden" name="task" value="" />
     </form>
 

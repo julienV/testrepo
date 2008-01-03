@@ -58,11 +58,8 @@ class EventListControllerCategories extends EventListController
 	 */
 	function save()
 	{
-		// Check for request forgeries.
-		$token = JUtility::getToken();
-		if (!JRequest::getInt($token, 0, 'post')) {
-			JError::raiseError(403, 'Request Forbidden');
-		}
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
 		
 		$task		= JRequest::getVar('task');
 
@@ -239,11 +236,8 @@ class EventListControllerCategories extends EventListController
 	 */
 	function cancel()
 	{
-		// Check for request forgeries.
-		$token = JUtility::getToken();
-		if (!JRequest::getInt($token, 0, 'post')) {
-			JError::raiseError(403, 'Request Forbidden');
-		}
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
 		
 		$category = & JTable::getInstance('eventlist_categories', '');
 		$category->bind(JRequest::get('post'));

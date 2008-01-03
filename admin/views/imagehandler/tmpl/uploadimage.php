@@ -165,7 +165,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <?php } ?>
 
-<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
+<?php echo JHTML::_( 'form.token' ); ?>
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="controller" value="imagehandler" />
 <input type="hidden" name="task" value="<?php echo $this->task;?>" />

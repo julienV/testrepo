@@ -100,7 +100,7 @@ switch ($this->formhandler) {
 			?>
 			<form name="Eventlist" action="<?php echo JRoute::_('index.php'); ?>" method="post">
 			<input type="hidden" name="rdid" value="<?php echo $this->row->did; ?>">
-			<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
+			<?php echo JHTML::_( 'form.token' ); ?>
 			<input type="hidden" name="task" value="delreguser">
 
 			<?php echo JText::_( 'UNREGISTER BOX' ); ?>
@@ -130,7 +130,7 @@ switch ($this->formhandler) {
 		?>
 		<form name="Eventlist" action="<?php echo JRoute::_('index.php'); ?>" method="post">
 		<input type="hidden" name="rdid" value="<?php echo $this->row->did; ?>">
-		<input type="hidden" name="<?php echo JUtility::getToken(); ?>" value="1" />
+		<?php echo JHTML::_( 'form.token' ); ?>
 		<input type="hidden" name="task" value="userregister">
 
 		<?php echo JText::_( 'I WILL GO' ).':'; ?>

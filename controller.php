@@ -151,11 +151,8 @@ class EventListController extends JController
 	 */
 	function savevenue()
 	{
-		//check the token before we do anything else
-		$token	= JUtility::getToken();
-		if(!JRequest::getVar( $token, 0, 'post' )) {
-			JError::raiseError(403, 'Request Forbidden');
-		}
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
 
 		//Sanitize
 		$post = JRequest::get( 'post' );
@@ -196,12 +193,9 @@ class EventListController extends JController
 	 */
 	function saveevent()
 	{
-		//check the token before we do anything else
-		$token	= JUtility::getToken();
-		if(!JRequest::getVar( $token, 0, 'post' )) {
-			JError::raiseError(403, 'Request Forbidden');
-		}
-
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
+		
 		//get image
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
 		$post 		= JRequest::get( 'post' );
@@ -237,11 +231,8 @@ class EventListController extends JController
 	 */
 	function userregister()
 	{
-		//check the token before we do anything else
-		$token	= JUtility::getToken();
-		if(!JRequest::getVar( $token, 0, 'post' )) {
-			JError::raiseError(403, 'Request Forbidden');
-		}
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
 
 		$id 	= JRequest::getInt( 'rdid', 0, 'post' );
 
@@ -266,11 +257,8 @@ class EventListController extends JController
 	 */
 	function delreguser()
 	{
-		//check the token before we do anything else
-		$token	= JUtility::getToken();
-		if(!JRequest::getVar( $token, 0, 'post' )) {
-			JError::raiseError(403, 'Request Forbidden');
-		}
+		// Check for request forgeries
+		JRequest::checkToken() or die( 'Invalid Token' );
 
 		$id 	= JRequest::getInt( 'rdid', 0, 'post' );
 
