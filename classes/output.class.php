@@ -275,6 +275,8 @@ class ELOutput {
 		if (!$data->map) {
 			return $output;
 		}
+		
+		$data->country = JString::strtoupper($data->country);
 
 		//google or map24
 		switch ($settings->showmapserv)
