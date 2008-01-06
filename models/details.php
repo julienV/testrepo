@@ -243,14 +243,13 @@ class EventListModelDetails extends JModel
 		$date 		= new JDate('now', $tzoffset);
 		$uregdate 	= $date->toMySQL();
 		$uip 		= $elsettings->storeip ? getenv('REMOTE_ADDR') : 'DISABLED';
-
-		$query = "INSERT INTO #__eventlist_register ( event, uid, uregdate, uip )" .
-					"\n VALUES ( $event, $uid, '$uregdate', '$uip' )";
-		$this->_db->setQuery($query);
-
-		if (!$this->_db->query()) {
-				JError::raiseError( 500, $this->_db->stderr());
-		}
+		
+		$obj = new stdClass();
+		$obj->event 	= (int)$event;
+		$obj->uid   	= (int)$uid;
+		$obj->uregdate 	= $uregdate;
+		$obj->uip   	= $uip;
+		$this->_db->insertObject('#__eventlist_register', $obj);
 
 		return true;
 	}

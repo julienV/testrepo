@@ -214,12 +214,20 @@
        					<td valign="top">
        		 				<?php
 							$config			= &JFactory::getConfig();
+							$legacy			= $config->getValue('config.legacy');
 							$checkjcomment 	= file_exists(JPATH_SITE.DS.'components'.DS.'com_jcomments'.DS.'jcomments.php');
+							$checkjomcomment= file_exists(JPATH_SITE.DS.'plugins'.DS.'content'.DS.'jom_comment_bot.php');
 							
-							if ($config->getValue('config.legacy') && $checkjcomment){
-								echo '<strong>'.JText::_( 'JCOMMENTS' ).': </strong><font color="green">'.JText::_( 'AVAILABLE' ).'</font>';
+							if ( $legacy && $checkjcomment){
+								echo '<strong>'.JText::_( 'JCOMMENTS' ).': </strong><font color="green">'.JText::_( 'AVAILABLE' ).'</font><br />';
 							} else {
-								echo '<strong>'.JText::_( 'JCOMMENTS' ).': </strong><font color="red">'.JText::_( 'UNAVAILABLE' ).'</font>';
+								echo '<strong>'.JText::_( 'JCOMMENTS' ).': </strong><font color="red">'.JText::_( 'UNAVAILABLE' ).'</font><br />';
+							}
+							
+							if ( $legacy && $checkjomcomment){
+								echo '<strong>'.JText::_( 'JOMCOMMENT' ).': </strong><font color="green">'.JText::_( 'AVAILABLE' ).'</font><br />';
+							} else {
+								echo '<strong>'.JText::_( 'JOMCOMMENT' ).': </strong><font color="red">'.JText::_( 'UNAVAILABLE' ).'</font><br />';
 							}
 							?>
        	 				</td>
@@ -235,8 +243,11 @@
 		   					$commentsystem = array();
 							$commentsystem[] = JHTML::_('select.option', '0', JText::_( 'NO COMMENTS' ) );
 							
-							if ($config->getValue('config.legacy') && $checkjcomment){
+							if ( $legacy && $checkjcomment ){
 								$commentsystem[] = JHTML::_('select.option', '1', JText::_( 'JCOMMENTS' ) );
+							}
+							if ( $legacy && $checkjomcomment ){
+								$commentsystem[] = JHTML::_('select.option', '2', JText::_( 'JOMCOMMENT' ) );
 							}
 							$commentoptions = JHTML::_('select.genericlist', $commentsystem, 'commentsystem', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->commentsystem );
 							echo $commentoptions;

@@ -193,15 +193,11 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	<?php endif; ?>
 	
-	<?php if ($this->elsettings->commentsystem == 1) :	?>
-		<div class="elcomments">
-			<?php
-  			if (file_exists(JPATH_SITE.DS.'components'.DS.'com_jcomments'.DS.'jcomments.php')) {
-    			require_once(JPATH_SITE.DS.'components'.DS.'com_jcomments'.DS.'jcomments.php');
-    			echo JComments::showComments($this->row->did, 'com_eventlist', $this->escape($this->row->title));
-  			}
-  			?>
-  		</div>
+	<?php if ($this->elsettings->commentsystem != 0) :	?>
+	
+		<!-- Comments -->
+		<?php echo $this->loadTemplate('comments'); ?>
+		
   	<?php endif; ?>
 
 <p class="copyright">
