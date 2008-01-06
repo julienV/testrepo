@@ -1,6 +1,51 @@
 	<table class="noshow">
       <tr>
         <td width="50%">
+        
+        	<fieldset class="adminform">
+			<legend><?php echo JText::_( 'EVENTS' ); ?></legend>
+				<table class="admintable" cellspacing="1">
+				<tbody>
+	  				<tr>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'DISPLAY TIME' ); ?>::<?php echo JText::_('DISPLAY TIME TIP'); ?>">
+								<?php echo JText::_( 'DISPLAY TIME' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+							<?php
+          						echo JHTML::_('select.booleanlist', 'showtimedetails', 'class="inputbox"', $this->elsettings->showtimedetails );
+       						?>
+       	 				</td>
+      				</tr>
+					<tr>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'DISPLAY EVENT DESCRIPT' ); ?>::<?php echo JText::_('DISPLAY EVENT DESCRIPT TIP'); ?>">
+								<?php echo JText::_( 'DISPLAY EVENT DESCRIPT' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+		 					<?php
+          						echo JHTML::_('select.booleanlist', 'showevdescription', 'class="inputbox"', $this->elsettings->showevdescription );
+       						?>
+       	 				</td>
+      				</tr>
+					<tr>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'DISPLAY EVENT TITLE' ); ?>::<?php echo JText::_('DISPLAY EVENT TITLE TIP'); ?>">
+								<?php echo JText::_( 'DISPLAY EVENT TITLE' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+		 					<?php
+          						echo JHTML::_('select.booleanlist', 'showdetailstitle', 'class="inputbox"', $this->elsettings->showdetailstitle );
+       						?>
+       	 				</td>
+      				</tr>
+				</tbody>
+			</table>
+			</fieldset>
+        
 			<fieldset class="adminform">
 			<legend><?php echo JText::_( 'VENUES' ); ?></legend>
 				<table class="admintable" cellspacing="1">
@@ -97,50 +142,6 @@
 		</td>
         <td width="50%">
 
-		<fieldset class="adminform">
-			<legend><?php echo JText::_( 'EVENTS' ); ?></legend>
-				<table class="admintable" cellspacing="1">
-				<tbody>
-	  				<tr>
-	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'DISPLAY TIME' ); ?>::<?php echo JText::_('DISPLAY TIME TIP'); ?>">
-								<?php echo JText::_( 'DISPLAY TIME' ); ?>
-							</span>
-						</td>
-       					<td valign="top">
-							<?php
-          						echo JHTML::_('select.booleanlist', 'showtimedetails', 'class="inputbox"', $this->elsettings->showtimedetails );
-       						?>
-       	 				</td>
-      				</tr>
-					<tr>
-	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'DISPLAY EVENT DESCRIPT' ); ?>::<?php echo JText::_('DISPLAY EVENT DESCRIPT TIP'); ?>">
-								<?php echo JText::_( 'DISPLAY EVENT DESCRIPT' ); ?>
-							</span>
-						</td>
-       					<td valign="top">
-		 					<?php
-          						echo JHTML::_('select.booleanlist', 'showevdescription', 'class="inputbox"', $this->elsettings->showevdescription );
-       						?>
-       	 				</td>
-      				</tr>
-					<tr>
-	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'DISPLAY EVENT TITLE' ); ?>::<?php echo JText::_('DISPLAY EVENT TITLE TIP'); ?>">
-								<?php echo JText::_( 'DISPLAY EVENT TITLE' ); ?>
-							</span>
-						</td>
-       					<td valign="top">
-		 					<?php
-          						echo JHTML::_('select.booleanlist', 'showdetailstitle', 'class="inputbox"', $this->elsettings->showdetailstitle );
-       						?>
-       	 				</td>
-      				</tr>
-				</tbody>
-			</table>
-			</fieldset>
-
 			<fieldset class="adminform">
 			<legend><?php echo JText::_( 'REGISTRATION' ); ?></legend>
 				<table class="admintable" cellspacing="1">
@@ -193,6 +194,52 @@
 							$comoption[] = JHTML::_('select.option', '1', JText::_( 'LINK AVATAR' ) );
 							$comoptions = JHTML::_('select.genericlist', $comoption, 'comunoption', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->comunoption );
 							echo $comoptions;
+        					?>
+       	 				</td>
+      				</tr>
+				</tbody>
+			</table>
+		</fieldset>
+		
+		<fieldset class="adminform">
+			<legend><?php echo JText::_( 'COMMENTS' ); ?></legend>
+				<table class="admintable" cellspacing="1">
+				<tbody>
+					<tr>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'SUPPORTED COMMENT SOLUTIONS' ); ?>::<?php echo JText::_('SUPPORTED COMMENT SOLUTIONS TIP'); ?>">
+								<?php echo JText::_( 'SUPPORTED COMMENT SOLUTIONS' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+       		 				<?php
+							$config			= &JFactory::getConfig();
+							$checkjcomment 	= file_exists(JPATH_SITE.DS.'components'.DS.'com_jcomments'.DS.'jcomments.php');
+							
+							if ($config->getValue('config.legacy') && $checkjcomment){
+								echo '<strong>'.JText::_( 'JCOMMENTS' ).': </strong><font color="green">'.JText::_( 'AVAILABLE' ).'</font>';
+							} else {
+								echo '<strong>'.JText::_( 'JCOMMENTS' ).': </strong><font color="red">'.JText::_( 'UNAVAILABLE' ).'</font>';
+							}
+							?>
+       	 				</td>
+      				</tr>
+					<tr>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'SELECT 3PD COMMENT COMP' ); ?>::<?php echo JText::_('SELECT 3PD COMMENT COMP TIP'); ?>">
+								<?php echo JText::_( 'SELECT 3PD COMMENT COMP' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+       						<?php
+		   					$commentsystem = array();
+							$commentsystem[] = JHTML::_('select.option', '0', JText::_( 'NO COMMENTS' ) );
+							
+							if ($config->getValue('config.legacy') && $checkjcomment){
+								$commentsystem[] = JHTML::_('select.option', '1', JText::_( 'JCOMMENTS' ) );
+							}
+							$commentoptions = JHTML::_('select.genericlist', $commentsystem, 'commentsystem', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->commentsystem );
+							echo $commentoptions;
         					?>
        	 				</td>
       				</tr>

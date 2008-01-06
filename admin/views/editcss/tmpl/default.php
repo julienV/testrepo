@@ -86,4 +86,9 @@ defined('_JEXEC') or die('Restricted access');
 		<input type="hidden" name="filename" value="<?php echo $this->filename; ?>" />
 		<input type="hidden" name="option" value="com_eventlist" />
 		<input type="hidden" name="task" value="" />
-		</form>
+</form>
+		
+<?php
+//keep session alive while editing
+JHTML::_('behavior.keepalive');
+?>
