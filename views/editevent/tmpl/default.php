@@ -281,11 +281,15 @@ defined('_JEXEC') or die('Restricted access');
 
           <?php if ( $this->elsettings->showfroregistra == 2 ) : ?>
           <div class="el_register floattext">
-        			<label for=""><?php echo JText::_( 'SUBMIT REGISTER' ).':'; ?></label>
-        			<?php
-        			$html = JHTML::_('select.booleanlist', 'registra', 'class="inputbox"', $this->row->registra );
-        				echo $html;
-        			?>
+              <p><strong><?php echo JText::_( 'SUBMIT REGISTER' ).':'; ?></strong></p>
+
+              <label for="registra0">no</label>
+        			<input type="radio" name="registra" id="registra0" value="0" checked="checked" />
+
+        			<br class="clear" />
+
+              <label for="registra1">yes</label>
+            	<input type="radio" name="registra" id="registra1" value="1" />
           </div>
       		<?php
       		//register end
@@ -294,11 +298,15 @@ defined('_JEXEC') or die('Restricted access');
       		if ( $this->elsettings->showfrounregistra == 2 ) :
       		?>
       		<div class="el_unregister floattext">
-        			<label for=""><?php echo JText::_( 'SUBMIT UNREGISTER' ).':'; ?></label>
-        			<?php
-        			$html = JHTML::_('select.booleanlist', 'unregistra', 'class="inputbox"', $this->row->unregistra );
-        			echo $html;
-        			?>
+        			<p><strong><?php echo JText::_( 'SUBMIT UNREGISTER' ).':'; ?></strong></p>
+
+            	<label for="unregistra0">no</label>
+        			<input type="radio" name="unregistra" id="unregistra0" value="0" checked="checked" />
+
+        			<br class="clear" />
+
+            	<label for="unregistra1">yes</label>
+            	<input type="radio" name="unregistra" id="unregistra1" value="1" />
       		</div>
       		<?php
       		//unregister end
@@ -317,17 +325,17 @@ defined('_JEXEC') or die('Restricted access');
 
           <div class="recurrence_select floattext">
               <label for="recurrence_select"><?php echo JText::_( 'RECURRENCE' ); ?>:</label>
-          	<select id="recurrence_select" name="recurrence_select" size="1">
-          	    <option value="0"><?php echo JText::_( 'NOTHING' ); ?></option>
-          		<option value="1"><?php echo JText::_( 'DAYLY' ); ?></option>
-          		<option value="2"><?php echo JText::_( 'WEEKLY' ); ?></option>
-          		<option value="3"><?php echo JText::_( 'MONTHLY' ); ?></option>
-          		<option value="4"><?php echo JText::_( 'WEEKDAY' ); ?></option>
-          	</select>
+            	<select id="recurrence_select" name="recurrence_select" size="1">
+            	  <option value="0"><?php echo JText::_( 'NOTHING' ); ?></option>
+            		<option value="1"><?php echo JText::_( 'DAYLY' ); ?></option>
+            		<option value="2"><?php echo JText::_( 'WEEKLY' ); ?></option>
+            		<option value="3"><?php echo JText::_( 'MONTHLY' ); ?></option>
+            		<option value="4"><?php echo JText::_( 'WEEKDAY' ); ?></option>
+            	</select>
           </div>
 
           <div class="recurrence_output floattext">
-          	<label id="recurrence_output">&nbsp;</label>
+            	<label id="recurrence_output">&nbsp;</label>
               <div id="counter_row" style="display:none;">
                   <label for="recurrence_counter"><?php echo JText::_( 'RECURRENCE COUNTER' ); ?>:</label>
                   <div class="el_date>"><?php echo JHTML::_('calendar', ($this->row->recurrence_counter <> 0000-00-00) ? $this->row->recurrence_counter : JText::_( 'UNLIMITED' ), "recurrence_counter", "recurrence_counter"); ?>
