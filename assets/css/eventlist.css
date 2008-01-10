@@ -253,27 +253,36 @@ float: right;
  *
  */
 
-div.el_editevent form fieldset {
+div.el_editevent form fieldset,
+div.el_editvenue form fieldset {
 margin: 0 0 1em 0;
 padding: 1em;
 border: 1px solid #ddd;
 }
 
-    div.el_editevent form legend {
+    div.el_editevent form legend,
+    div.el_editvenue form legend {
     padding: 0.3em;
     font-weight: bold;
     }
 
-    div.el_editevent form label {
+    div.el_editevent form label,
+    div.el_editvenue form label {
     width: 9em;
     margin: 0; padding: 0;
     float: left; display: block;
     vertical-align: top;
     }
 
-    div.el_editevent form input,
+    div.el_editevent form input, /* event */
     div.el_editevent form button,
-    div.el_editevent form select {
+    div.el_editevent form select,
+    div.el_editevent form textarea,
+    
+    div.el_editvenue form input, /* venue */
+    div.el_editvenue form button,
+    div.el_editvenue form select,
+    div.el_editvenue form textarea {
     margin: 0 0 0.5em 0; padding: 0.2em;
     border: 1px solid #ddd;
     cursor: pointer;
@@ -284,7 +293,8 @@ border: 1px solid #ddd;
     float: left;
     }
 
-    div.el_editevent form img {
+    div.el_editevent form img,
+    div.el_editvenue form img {
     border: 0;
     margin: 0 0 0 5px;
     vertical-align: baseline;
@@ -348,6 +358,17 @@ div.el_editevent form div.el_unregister,
 div.el_editevent form div.el_register {
 width: 35%; float: left;
 margin: 0 1em 0 0;
+}
+
+
+div.el_box_left,
+div.el_box_right {
+width: 45%;
+float: left;
+}
+
+div.el_box_right {
+float: right;
 }
 
 
