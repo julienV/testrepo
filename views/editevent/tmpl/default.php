@@ -4,7 +4,7 @@
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2008 Christoph Lukes
- * @license GNU/GPL, see LICENSE.php
+ * @license GNU/GPL, see LICENCE.php
  * EventList is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License 2
  * as published by the Free Software Foundation.
@@ -185,89 +185,91 @@ defined('_JEXEC') or die('Restricted access');
 
     	<fieldset class="el_fldst_details">
 
-    		<legend><?php echo JText::_('NORMAL INFO'); ?></legend>
+        	<legend><?php echo JText::_('NORMAL INFO'); ?></legend>
 
-            <div class="el_title floattext">
-                <label for="title">
-                    <?php echo JText::_( 'TITLE' ).':'; ?>
-                </label>
-                <input class="inputbox required" type="text" id="title" name="title" value="<?php echo $this->escape($this->row->title); ?>" size="65" maxlength="60" />
-            </div>
+          <div class="el_title floattext">
+              <label for="title">
+                  <?php echo JText::_( 'TITLE' ).':'; ?>
+              </label>
 
-            <div class="el_venue floattext">
-                <label for="a_name">
-                    <?php echo JText::_( 'VENUE' ).':'; ?>
-                </label>
-                <input type="text" id="a_name" value="<?php echo $this->row->venue; ?>" disabled="disabled" />
+              <input class="inputbox required" type="text" id="title" name="title" value="<?php echo $this->escape($this->row->title); ?>" size="65" maxlength="60" />
+          </div>
 
-                <div class='el_buttons floattext'>
-                    <a class="el_venue_select modal" title="<?php echo JText::_('SELECT'); ?>" href="<?php echo JRoute::_('index.php?view=editevent&layout=selectvenue&tmpl=component'); ?>" rel="{handler: 'iframe', size: {x: 650, y: 375}}">
-                        <span><?php echo JText::_('SELECT')?></span>
-                    </a>
-                    <input class="inputbox required validate-venue" type="hidden" id="a_id" name="locid" value="<?php echo $this->row->locid; ?>" />
-              		  <button type="button" onclick="elSelectVenue(0,'<?php echo JText::_('NO VENUE'); ?>');"><?php  echo JText::_('NO VENUE'); ?></button>
-            		    <?php if ( $this->delloclink == 1 && !$this->row->id ) : //show location submission link ?>
-            		    <button type="button" onclick="submitbutton('addvenue');"><?php echo JText::_( 'DELIVER NEW VENUE' ); ?></button>
-              			<?php endif; ?>
-                </div>
+          <div class="el_venue floattext">
+              <label for="a_name">
+                  <?php echo JText::_( 'VENUE' ).':'; ?>
+              </label>
 
-            </div>
+              <input type="text" id="a_name" value="<?php echo $this->row->venue; ?>" disabled="disabled" />
 
-            <div class="el_category floattext">
-        		<label for="catsid" class="catsid">
-                    <?php echo JText::_( 'CATEGORY' ).':';?>
-                </label>
-        		<?php
-            	$html = JHTML::_('select.genericlist', $this->categories, 'catsid','size="1" class="inputbox required validate-catsid"', 'value', 'text', $this->row->catsid );
-            	echo $html;
-        		?>
-            </div>
+              <div class='el_buttons floattext'>
 
-            <div class="el_startdate floattext">
-                <label for="dates">
-                    <?php echo JText::_( 'DATE' ).':'; ?>
-                </label>
-                <?php echo JHTML::_('calendar', $this->row->dates, 'dates', 'dates', '%Y-%m-%d', array('class' => 'inputbox required validate-date')); ?>
-                <small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
-        		    <?php echo $this->infoimage; ?>
-        		</small>
-    		</div>
+                	<button type="button" onclick="elSelectVenue(0,'<?php echo JText::_('NO VENUE'); ?>');"><?php  echo JText::_('NO VENUE'); ?></button>
+                  <?php if ( $this->delloclink == 1 && !$this->row->id ) : //show location submission link ?>
+              		<button type="button" onclick="submitbutton('addvenue');"><?php echo JText::_( 'DELIVER NEW VENUE' ); ?></button>
+                	<?php endif; ?>
+                  <a class="el_venue_select modal" title="<?php echo JText::_('SELECT'); ?>" href="<?php echo JRoute::_('index.php?view=editevent&layout=selectvenue&tmpl=component'); ?>" rel="{handler: 'iframe', size: {x: 650, y: 375}}">
+                      <span><?php echo JText::_('SELECT')?></span>
+                  </a>
+                  <input class="inputbox required validate-venue" type="hidden" id="a_id" name="locid" value="<?php echo $this->row->locid; ?>" />
+              </div>
+          </div>
 
-    		<div class="el_enddate floattext">
-                <label for="enddates">
-                    <?php echo JText::_( 'ENDDATE' ).':'; ?>
-                </label>
-                <?php echo JHTML::_('calendar', $this->row->enddates, 'enddates', 'enddates', '%Y-%m-%d', array('class' => 'inputbox validate-date')); ?>
-    			<small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
-    			    <?php echo $this->infoimage; ?>
-    			</small>
-    		</div>
+          <div class="el_category floattext">
+          		<label for="catsid" class="catsid">
+                  <?php echo JText::_( 'CATEGORY' ).':';?>
+              </label>
+          		<?php
+                	$html = JHTML::_('select.genericlist', $this->categories, 'catsid','size="1" class="inputbox required validate-catsid"', 'value', 'text', $this->row->catsid );
+                	echo $html;
+          		?>
+          </div>
 
-            <div class="el_date el_starttime floattext">
-                <label for="el_starttime">
-                    <?php echo JText::_( 'TIME' ).':'; ?>
-                </label>
-    			<input class="inputbox validate-time" id="el_starttime" name="el_starttime" value="<?php echo substr($this->row->times, 0, 5); ?>" size="15" maxlength="8" />
-    			<?php if ( $this->elsettings->showtime == 1 ) : ?>
-    			<small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('TIME HINT'); ?>">
-    			    <?php echo $this->infoimage; ?>
-    			</small>
-    			<?php else : ?>
-    			<small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('ENDTIME HINT'); ?>">
-    			    <?php echo $this->infoimage; ?>
-    			</small>
-    			<?php endif;?>
-    		</div>
+          <div class="el_startdate floattext">
+              <label for="dates">
+                  <?php echo JText::_( 'DATE' ).':'; ?>
+              </label>
+              <?php echo JHTML::_('calendar', $this->row->dates, 'dates', 'dates', '%Y-%m-%d', array('class' => 'inputbox required validate-date')); ?>
+              <small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
+      		    <?php echo $this->infoimage; ?>
+          		</small>
+      		</div>
 
-            <div class="el_date el_endtime floattext">
-                <label for="el_endtime">
-                    <?php echo JText::_( 'ENDTIME' ).':'; ?>
-                </label>
-                <input class="inputbox validate-time" id="el_endtime" name="el_endtime" value="<?php echo substr($this->row->endtimes, 0, 5); ?>" size="15" maxlength="8" />&nbsp;
-    			<small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('ENDTIME HINT'); ?>">
-    			    <?php echo $this->infoimage; ?>
-    			</small>
-    		</div>
+      		<div class="el_enddate floattext">
+              <label for="enddates">
+                  <?php echo JText::_( 'ENDDATE' ).':'; ?>
+              </label>
+              <?php echo JHTML::_('calendar', $this->row->enddates, 'enddates', 'enddates', '%Y-%m-%d', array('class' => 'inputbox validate-date')); ?>
+        			<small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('DATE HINT'); ?>">
+        			    <?php echo $this->infoimage; ?>
+        			</small>
+      		</div>
+
+          <div class="el_date el_starttime floattext">
+              <label for="el_starttime">
+                        <?php echo JText::_( 'TIME' ).':'; ?>
+              </label>
+        			<input class="inputbox validate-time" id="el_starttime" name="el_starttime" value="<?php echo substr($this->row->times, 0, 5); ?>" size="15" maxlength="8" />
+        			<?php if ( $this->elsettings->showtime == 1 ) : ?>
+        			<small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('TIME HINT'); ?>">
+        			    <?php echo $this->infoimage; ?>
+        			</small>
+        			<?php else : ?>
+        			<small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('ENDTIME HINT'); ?>">
+        			    <?php echo $this->infoimage; ?>
+        			</small>
+        			<?php endif;?>
+      		</div>
+
+          <div class="el_date el_endtime floattext">
+              <label for="el_endtime">
+                  <?php echo JText::_( 'ENDTIME' ).':'; ?>
+              </label>
+              <input class="inputbox validate-time" id="el_endtime" name="el_endtime" value="<?php echo substr($this->row->endtimes, 0, 5); ?>" size="15" maxlength="8" />&nbsp;
+        			<small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('ENDTIME HINT'); ?>">
+        			    <?php echo $this->infoimage; ?>
+        			</small>
+      		</div>
 
         </fieldset>
 
@@ -275,33 +277,33 @@ defined('_JEXEC') or die('Restricted access');
     	<?php if ( $this->elsettings->showfroregistra == 2 ) : ?>
     	<fieldset class="el_fldst_registration">
 
-            <legend><?php echo JText::_('REGISTRATION'); ?></legend>
+          <legend><?php echo JText::_('REGISTRATION'); ?></legend>
 
-            <?php if ( $this->elsettings->showfroregistra == 2 ) : ?>
-            <div class="el_register floattext">
-    			<label for=""><?php echo JText::_( 'SUBMIT REGISTER' ).':'; ?></label>
-    			<?php
-    			$html = JHTML::_('select.booleanlist', 'registra', 'class="inputbox"', $this->row->registra );
-    				echo $html;
-    			?>
-            </div>
-    		<?php
-    		//register end
-    		endif;
+          <?php if ( $this->elsettings->showfroregistra == 2 ) : ?>
+          <div class="el_register floattext">
+        			<label for=""><?php echo JText::_( 'SUBMIT REGISTER' ).':'; ?></label>
+        			<?php
+        			$html = JHTML::_('select.booleanlist', 'registra', 'class="inputbox"', $this->row->registra );
+        				echo $html;
+        			?>
+          </div>
+      		<?php
+      		//register end
+      		endif;
 
-    		if ( $this->elsettings->showfrounregistra == 2 ) :
-    		?>
-    		<div class="el_unregister floattext">
-    			<label for=""><?php echo JText::_( 'SUBMIT UNREGISTER' ).':'; ?></label>
-    			<?php
-    			$html = JHTML::_('select.booleanlist', 'unregistra', 'class="inputbox"', $this->row->unregistra );
-    			echo $html;
-    			?>
-    		</div>
-    		<?php
-    		//unregister end
-    		endif;
-    		?>
+      		if ( $this->elsettings->showfrounregistra == 2 ) :
+      		?>
+      		<div class="el_unregister floattext">
+        			<label for=""><?php echo JText::_( 'SUBMIT UNREGISTER' ).':'; ?></label>
+        			<?php
+        			$html = JHTML::_('select.booleanlist', 'unregistra', 'class="inputbox"', $this->row->unregistra );
+        			echo $html;
+        			?>
+      		</div>
+      		<?php
+      		//unregister end
+      		endif;
+      		?>
     	</fieldset>
 
     	<?php
@@ -311,31 +313,35 @@ defined('_JEXEC') or die('Restricted access');
 
     	<fieldset class="el_fldst_recurrence">
 
-            <legend><?php echo JText::_('RECURRENCE'); ?></legend>
+          <legend><?php echo JText::_('RECURRENCE'); ?></legend>
 
-            <label for="recurrence_select"><?php echo JText::_( 'RECURRENCE' ); ?>:</label>
-        	<select id="recurrence_select" name="recurrence_select" size="1">
-        	    <option value="0"><?php echo JText::_( 'NOTHING' ); ?></option>
-        		<option value="1"><?php echo JText::_( 'DAYLY' ); ?></option>
-        		<option value="2"><?php echo JText::_( 'WEEKLY' ); ?></option>
-        		<option value="3"><?php echo JText::_( 'MONTHLY' ); ?></option>
-        		<option value="4"><?php echo JText::_( 'WEEKDAY' ); ?></option>
-        	</select>
+          <div class="recurrence_select floattext">
+              <label for="recurrence_select"><?php echo JText::_( 'RECURRENCE' ); ?>:</label>
+          	<select id="recurrence_select" name="recurrence_select" size="1">
+          	    <option value="0"><?php echo JText::_( 'NOTHING' ); ?></option>
+          		<option value="1"><?php echo JText::_( 'DAYLY' ); ?></option>
+          		<option value="2"><?php echo JText::_( 'WEEKLY' ); ?></option>
+          		<option value="3"><?php echo JText::_( 'MONTHLY' ); ?></option>
+          		<option value="4"><?php echo JText::_( 'WEEKDAY' ); ?></option>
+          	</select>
+          </div>
 
-        	<div id="recurrence_output">&nbsp;</div>
-            <div id="counter_row" style="display:none;">
-                <?php echo JText::_( 'RECURRENCE COUNTER' ); ?>:
-                <div class="el_date>"><?php echo JHTML::_('calendar', ($this->row->recurrence_counter <> 0000-00-00) ? $this->row->recurrence_counter : JText::_( 'UNLIMITED' ), "recurrence_counter", "recurrence_counter"); ?>
-            	    <a href="#" onclick="include_unlimited('<?php echo JText::_( 'UNLIMITED' ); ?>'); return false;"><img src="components/com_eventlist/assets/images/unlimited.png" width="16" height="16" alt="<?php echo JText::_( 'UNLIMITED' ); ?>" /></a>
-            	</div>
-            </div>
+          <div class="recurrence_output floattext">
+          	<label id="recurrence_output">&nbsp;</label>
+              <div id="counter_row" style="display:none;">
+                  <label for="recurrence_counter"><?php echo JText::_( 'RECURRENCE COUNTER' ); ?>:</label>
+                  <div class="el_date>"><?php echo JHTML::_('calendar', ($this->row->recurrence_counter <> 0000-00-00) ? $this->row->recurrence_counter : JText::_( 'UNLIMITED' ), "recurrence_counter", "recurrence_counter"); ?>
+              	    <a href="#" onclick="include_unlimited('<?php echo JText::_( 'UNLIMITED' ); ?>'); return false;"><img src="components/com_eventlist/assets/images/unlimited.png" width="16" height="16" alt="<?php echo JText::_( 'UNLIMITED' ); ?>" /></a>
+              	</div>
+              </div>
+          </div>
 
         	<input type="hidden" name="recurrence_number" id="recurrence_number" value="<?php echo $this->row->recurrence_number; ?>" />
         	<input type="hidden" name="recurrence_type" id="recurrence_type" value="<?php echo $this->row->recurrence_type; ?>" />
 
-            <script type="text/javascript">
+          <script type="text/javascript">
         	<!--
-        	    var $select_output = new Array();
+        	  var $select_output = new Array();
         		$select_output[1] = "<?php echo JText::_( 'OUTPUT DAY' ); ?>";
         		$select_output[2] = "<?php echo JText::_( 'OUTPUT WEEK' ); ?>";
         		$select_output[3] = "<?php echo JText::_( 'OUTPUT MONTH' ); ?>";
@@ -363,51 +369,50 @@ defined('_JEXEC') or die('Restricted access');
 
     	<?php if (( $this->elsettings->imageenabled == 2 ) || ($this->elsettings->imageenabled == 1)) : ?>
     	<fieldset class="el_fldst_image">
-    	    <legend><?php echo JText::_('IMAGE'); ?></legend>
-    		<?php
-            if ($this->row->datimage) :
-    		    echo ELOutput::flyer( $this->row, $this->elsettings, $this->dimage, 'event' );
-    		else :
-    		    echo JHTML::_('image', 'components/com_eventlist/assets/images/noimage.png', JText::_('NO IMAGE'), array('class' => 'modal'));
-    		endif;
-      		?>
-            <label for="userfile"><?php echo JText::_('IMAGE'); ?></label>
-    		<input class="inputbox <?php echo $this->elsettings->imageenabled == 2 ? 'required' : ''; ?>" name="userfile" id="userfile" type="file" />
-    		<small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('MAX IMAGE FILE SIZE').' '.$this->elsettings->sizelimit.' kb'; ?>">
-    		    <?php echo $this->infoimage; ?>
-    		</small>
-    		<div class="el_cur_image"><?php echo JText::_( 'CURRENT IMAGE' ); ?></div>
-    		<div class="el_sel_image"><?php echo JText::_( 'SELECTED IMAGE' ); ?></div>
+      	  <legend><?php echo JText::_('IMAGE'); ?></legend>
+      		<?php
+          if ($this->row->datimage) :
+      		    echo ELOutput::flyer( $this->row, $this->elsettings, $this->dimage, 'event' );
+      		else :
+      		    echo JHTML::_('image', 'components/com_eventlist/assets/images/noimage.png', JText::_('NO IMAGE'), array('class' => 'modal'));
+      		endif;
+        	?>
+          <label for="userfile"><?php echo JText::_('IMAGE'); ?></label>
+      		<input class="inputbox <?php echo $this->elsettings->imageenabled == 2 ? 'required' : ''; ?>" name="userfile" id="userfile" type="file" />
+      		<small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('MAX IMAGE FILE SIZE').' '.$this->elsettings->sizelimit.' kb'; ?>">
+      		    <?php echo $this->infoimage; ?>
+      		</small>
+              <!--<div class="el_cur_image"><?php echo JText::_( 'CURRENT IMAGE' ); ?></div>
+      		<div class="el_sel_image"><?php echo JText::_( 'SELECTED IMAGE' ); ?></div>-->
     	</fieldset>
     	<?php endif; ?>
 
 
-    	<fieldset>
+    	<fieldset class="description">
+      		<legend><?php echo JText::_('DESCRIPTION'); ?></legend>
 
-    		<legend><?php echo JText::_('DESCRIPTION'); ?></legend>
-
-    		<?php
-    		//if usertyp min editor then editor else textfield
-    		if ($this->editoruser) :
-    			echo $this->editor->display('datdescription', $this->row->datdescription, '100%', '400', '70', '15', array('pagebreak', 'readmore') );
-    		else :
-    		?>
-    		<textarea style="width:100%;" rows="10" name="datdescription" class="inputbox" wrap="virtual" onkeyup="berechne(this.form)"><?php echo $this->row->datdescription; ?></textarea><br />
-    		<?php echo JText::_( 'NO HTML' ); ?><br />
-    		<input disabled value="<?php echo $this->elsettings->datdesclimit; ?>" size="4" name="zeige" /><?php echo JText::_( 'AVAILABLE' ); ?><br />
-    		<a href="javascript:rechne(document.adminForm);"><?php echo JText::_( 'REFRESH' ); ?></a>
-    		<?php endif; ?>
+      		<?php
+      		//if usertyp min editor then editor else textfield
+      		if ($this->editoruser) :
+      			echo $this->editor->display('datdescription', $this->row->datdescription, '100%', '400', '70', '15', array('pagebreak', 'readmore') );
+      		else :
+      		?>
+      		<textarea style="width:100%;" rows="10" name="datdescription" class="inputbox" wrap="virtual" onkeyup="berechne(this.form)"><?php echo $this->row->datdescription; ?></textarea><br />
+      		<?php echo JText::_( 'NO HTML' ); ?><br />
+      		<input disabled value="<?php echo $this->elsettings->datdesclimit; ?>" size="4" name="zeige" /><?php echo JText::_( 'AVAILABLE' ); ?><br />
+      		<a href="javascript:rechne(document.adminForm);"><?php echo JText::_( 'REFRESH' ); ?></a>
+      		<?php endif; ?>
     	</fieldset>
 
-        <div class="el_save_buttons floattext">
-            <button type="submit" class="submit" onclick="return submitbutton('saveevent')">
+      <div class="el_save_buttons floattext">
+          <button type="submit" class="submit" onclick="return submitbutton('saveevent')">
         	    <?php echo JText::_('SAVE') ?>
         	</button>
         	<button type="reset" class="button cancel" onclick="submitbutton('cancelevent')">
         	    <?php echo JText::_('CANCEL') ?>
         	</button>
-        </div>
-        <br class="clear" />
+      </div>
+      <br class="clear" />
 
     	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
     	<input type="hidden" name="returnview" value="<?php echo $this->returnview; ?>" />
