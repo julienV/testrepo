@@ -27,12 +27,11 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	Window.onDomReady(function(){
 		document.formvalidator.setHandler('map',
 			function (field) {
-				var map = document.adminForm.getElementById('map1');
+				var map = document.adminForm.getElementById('map1');			
 				if(field=="" && map.checked) {
 					return false;
-				} else {
-					return true
 				}
+				return true;
 			}
 		);
 	});
@@ -160,7 +159,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
             <div class="el_country floattext">
                 <label for="country"><?php echo JText::_( 'COUNTRY' ).':'; ?></label>
-                <input class="inputbox validate-map" type="text" name="country" id="country" value="<?php echo $this->row->country; ?>" size="4" maxlength="3" />
+                <input class="inputbox validate-map" type="text" name="country" id="country" value="<?php echo $this->row->country; ?>" size="3" maxlength="2" />
                 <span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('COUNTRY HINT'); ?>">
                 		<?php echo $this->infoimage; ?>
                 </span>
@@ -183,11 +182,11 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
                     </span>
                 </p>
 
-                <label for="map0">No</label>
-                <input type="radio" name="map" id="map0" value="0" class="inputbox" />
+                <label for="map0"><?php echo JText::_( 'no' ); ?></label>
+                <input type="radio" name="map" id="map0" value="0" <?php echo $this->row->map ? 'checked="checked"' : ''; ?> class="inputbox" />
                 <br class="clear" />
-              	<label for="map1">Yes</label>
-              	<input type="radio" name="map" id="map1" value="1" checked="checked" class="inputbox" />
+              	<label for="map1"><?php echo JText::_( 'yes' ); ?></label>
+              	<input type="radio" name="map" id="map1" value="1" <?php echo $this->row->map ? 'checked="checked"' : ''; ?> class="inputbox" />
             </div>
             <?php endif; ?>
 

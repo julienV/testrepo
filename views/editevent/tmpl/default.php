@@ -283,12 +283,12 @@ defined('_JEXEC') or die('Restricted access');
           <div class="el_register floattext">
               <p><strong><?php echo JText::_( 'SUBMIT REGISTER' ).':'; ?></strong></p>
 
-              <label for="registra0">no</label>
+              <label for="registra0"><?php echo JText::_( 'no' ); ?></label>
         			<input type="radio" name="registra" id="registra0" value="0" checked="checked" />
 
         			<br class="clear" />
 
-              <label for="registra1">yes</label>
+              <label for="registra1"><?php echo JText::_( 'yes' ); ?></label>
             	<input type="radio" name="registra" id="registra1" value="1" />
           </div>
       		<?php
@@ -300,12 +300,12 @@ defined('_JEXEC') or die('Restricted access');
       		<div class="el_unregister floattext">
         			<p><strong><?php echo JText::_( 'SUBMIT UNREGISTER' ).':'; ?></strong></p>
 
-            	<label for="unregistra0">no</label>
+            	<label for="unregistra0"><?php echo JText::_( 'no' ); ?></label>
         			<input type="radio" name="unregistra" id="unregistra0" value="0" checked="checked" />
 
         			<br class="clear" />
 
-            	<label for="unregistra1">yes</label>
+            	<label for="unregistra1"><?php echo JText::_( 'yes' ); ?></label>
             	<input type="radio" name="unregistra" id="unregistra1" value="1" />
       		</div>
       		<?php

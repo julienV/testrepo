@@ -47,6 +47,8 @@ class EventListController extends JController
 
 	/**
 	 * Display the view
+	 * 
+	 * @since 0.9
 	 */
 	function display()
 	{
@@ -55,7 +57,8 @@ class EventListController extends JController
 
 	/**
 	 * Logic for canceling an event edit task
-	 *
+	 * 
+	 * @since 0.9
 	 */
 	function cancelevent()
 	{
@@ -86,7 +89,8 @@ class EventListController extends JController
 
 	/**
 	 * Logic for canceling an event and proceed to add a venue
-	 *
+	 * 
+	 * @since 0.9
 	 */
 	function addvenue()
 	{
@@ -115,7 +119,7 @@ class EventListController extends JController
 	/**
 	 * Logic for canceling a venue edit task
 	 *
-	 * @param string $option
+	 * @since 0.9
 	 */
 	function cancelvenue()
 	{
@@ -275,6 +279,11 @@ class EventListController extends JController
 		$this->setRedirect( JRoute::_('index.php?view=details&id='.$id, false), $msg );
 	}
 
+	/**
+	 * Display the select venue modal popup
+	 *
+	 * @since 0.9
+	 */
 	function selectvenue()
 	{
 		JRequest::setVar('view', 'editevent');
@@ -285,6 +294,8 @@ class EventListController extends JController
 
 	/**
 	 * offers the vcal/ical functonality
+	 * 
+	 * @todo Not yet working
 	 *
 	 * @author Lybegard Karl-Olof
 	 * @since 0.9
