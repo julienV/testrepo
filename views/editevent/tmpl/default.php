@@ -104,7 +104,7 @@ defined('_JEXEC') or die('Restricted access');
    				form.dates.focus();
    				return false;
   			} else if ( validator.validate(form.enddates) === false ) {
-  				alert(validator.validate(form.enddates));
+  				//alert(validator.validate(form.enddates));
   				alert("<?php echo JText::_( 'DATE WRONG', true ); ?>");
     			validator.handleResponse(false,form.enddates);
   				form.enddates.focus();
@@ -119,7 +119,7 @@ defined('_JEXEC') or die('Restricted access');
     			validator.handleResponse(false,form.endtimes);
   				form.endtimes.focus();
   				return false;
-			} else if ( validator.validate(form.catsid ) === false ) {
+			} else if ( validator.validate(form.catsid) === false ) {
     			alert("<?php echo JText::_( 'SELECT CATEGORY', true ); ?>");
     			validator.handleResponse(false,form.catsid);
     			form.catsid.focus();
@@ -249,7 +249,7 @@ defined('_JEXEC') or die('Restricted access');
               <label for="el_starttime">
                         <?php echo JText::_( 'TIME' ).':'; ?>
               </label>
-        			<input class="inputbox validate-time" id="el_starttime" name="el_starttime" value="<?php echo substr($this->row->times, 0, 5); ?>" size="15" maxlength="8" />
+        			<input class="inputbox validate-time" id="el_starttime" name="times" value="<?php echo substr($this->row->times, 0, 5); ?>" size="15" maxlength="8" />
         			<?php if ( $this->elsettings->showtime == 1 ) : ?>
         			<small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('TIME HINT'); ?>">
         			    <?php echo $this->infoimage; ?>
@@ -265,7 +265,7 @@ defined('_JEXEC') or die('Restricted access');
               <label for="el_endtime">
                   <?php echo JText::_( 'ENDTIME' ).':'; ?>
               </label>
-              <input class="inputbox validate-time" id="el_endtime" name="el_endtime" value="<?php echo substr($this->row->endtimes, 0, 5); ?>" size="15" maxlength="8" />&nbsp;
+              <input class="inputbox validate-time" id="el_endtime" name="endtimes" value="<?php echo substr($this->row->endtimes, 0, 5); ?>" size="15" maxlength="8" />&nbsp;
         			<small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('ENDTIME HINT'); ?>">
         			    <?php echo $this->infoimage; ?>
         			</small>
