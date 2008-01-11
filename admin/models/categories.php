@@ -109,6 +109,17 @@ class EventListModelCategories extends JModel
 		{
 			$query = $this->_buildQuery();
 			$this->_data = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit'));
+			
+			$k = 0;
+			$count = count($this->_data);
+			for($i = 0; $i < $count; $i++)
+			{
+				$category =& $this->_data[$i];
+
+				$category->assignedevents = $this->_countcatevents( $category->id );
+
+				$k = 1 - $k;
+			}
 		}
 
 		return $this->_data;
@@ -233,7 +244,7 @@ class EventListModelCategories extends JModel
 	 *
 	 * @access	public
 	 * @return	boolean	True on success
-	 * @since	1.5
+	 * @since	0.9
 	 */
 	function publish($cid = array(), $publish = 1)
 	{
@@ -262,7 +273,7 @@ class EventListModelCategories extends JModel
 	 *
 	 * @access	public
 	 * @return	boolean	True on success
-	 * @since	1.5
+	 * @since	0.9
 	 */
 	function move($direction)
 	{
@@ -286,7 +297,7 @@ class EventListModelCategories extends JModel
 	 *
 	 * @access	public
 	 * @return	boolean	True on success
-	 * @since	1.5
+	 * @since	0.9
 	 */
 	function saveorder($cid = array(), $order)
 	{
@@ -309,6 +320,26 @@ class EventListModelCategories extends JModel
 
 		return true;
 	}
+	/**
+	 * Method to count the nr of assigned events to the category
+	 *
+	 * @access	public
+	 * @return	boolean	True on success
+	 * @since	0.9
+	 */
+	function _countcatevents($id)
+	{
+		$query = 'SELECT COUNT( e.id )'
+				.' FROM #__eventlist_events AS e'
+				.' WHERE e.catsid = ' . (int)$id
+				;
+					
+		$this->_db->setQuery($query);
+		$number = $this->_db->loadResult();
+    	
+    	return $number;
+	}
+	
 
 	/**
 	 * Method to remove a event

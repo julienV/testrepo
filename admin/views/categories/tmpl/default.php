@@ -52,9 +52,10 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
 			<th class="title"><?php echo JHTML::_('grid.sort', 'CATEGORY', 'catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="20%"><?php echo JHTML::_('grid.sort', 'ALIAS', 'c.alias', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th width="15%"><?php echo JHTML::_('grid.sort', 'GROUP', 'gr.name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th width="1%" nowrap="nowrap"><?php echo JText::_( 'EVENTS' ); ?></th>
 			<th width="1%" nowrap="nowrap"><?php echo JText::_( 'PUBLISHED' ); ?></th>
 			<th width="7%"><?php echo JHTML::_('grid.sort', 'ACCESS', 'c.access', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-			<th width="15%"><?php echo JHTML::_('grid.sort', 'GROUP', 'gr.name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="80"><?php echo JHTML::_('grid.sort', 'REORDER', 'c.ordering', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="1%"><?php echo JHTML::_('grid.order', $this->rows, 'filesave.png', 'saveordercat' ); ?></th>
 			<th width="1%" nowrap="nowrap"><?php echo JHTML::_('grid.sort', 'ID', 'c.id', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
@@ -63,7 +64,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 	<tfoot>
 		<tr>
-			<td colspan="10">
+			<td colspan="11">
 				<?php echo $this->pageNav->getListFooter(); ?>
 			</td>
 		</tr>
@@ -106,13 +107,6 @@ defined('_JEXEC') or die('Restricted access'); ?>
 					echo htmlspecialchars($row->alias, ENT_QUOTES, 'UTF-8');
 				}
 				?>
-			</td>
-			<td align="center">
-				<?php echo $published; ?>
-			</td>
-			<td align="center">
-				<?php echo $access; ?>
-			</td>
 			<td align="center">
 				<?php if ($row->catgroup) {	?>
 					<span class="editlinktip hasTip" title="<?php echo JText::_( 'EDIT GROUP' );?>::<?php echo $row->catgroup; ?>">
@@ -124,6 +118,16 @@ defined('_JEXEC') or die('Restricted access'); ?>
 					echo '-';
 				}
 				?>
+			</td>
+			<td align="center">
+				<?php echo $row->assignedevents; ?>
+			</td>
+			</td>
+			<td align="center">
+				<?php echo $published; ?>
+			</td>
+			<td align="center">
+				<?php echo $access; ?>
 			</td>
 			<td class="order" colspan="2">
 				<span><?php echo $this->pageNav->orderUpIcon( $i, true, 'orderup', 'Move Up', $this->ordering ); ?></span>

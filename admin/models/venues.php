@@ -255,19 +255,28 @@ class EventListModelVenues extends JModel
 		/*
 		* Get editor name
 		*/
-		for ($i=0, $n=count($rows); $i < $n; $i++) {
+		$count = count($rows);
+		
+		for ($i=0, $n=$count; $i < $n; $i++) {
 
-		$query = 'SELECT name'
+			$query = 'SELECT name'
 				. ' FROM #__users'
 				. ' WHERE id = '.$rows[$i]->modified_by
 				;
 
-		$this->_db->SetQuery( $query );
-
-		$editor = $this->_db->loadResult();
-
-		$rows[$i]->editor = $editor;
-
+			$this->_db->setQuery( $query );
+			$rows[$i]->editor = $this->_db->loadResult();
+			
+			/*
+			* Get nr of assigned events
+			*/
+			$query = 'SELECT COUNT( id )'
+				.' FROM #__eventlist_events'
+				.' WHERE locid = ' . (int)$rows[$i]->id
+				;
+					
+			$this->_db->setQuery($query);
+			$rows[$i]->assignedevents = $this->_db->loadResult();
 		}
 
 		return $rows;
