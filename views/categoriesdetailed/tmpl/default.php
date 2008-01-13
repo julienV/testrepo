@@ -85,7 +85,6 @@ endforeach;
 
 <!--pagination-->
 
-<?php if (( $this->page > 0 ) ) : ?>
 <div class="pageslinks">
 	<?php echo $this->pageNav->getPagesLinks($this->link); ?>
 </div>
@@ -93,8 +92,6 @@ endforeach;
 <p class="pagescounter">
 	<?php echo $this->pageNav->getPagesCounter(); ?>
 </p>
-
-<?php endif; ?>
 
 <!--copyright-->
 

@@ -194,29 +194,31 @@ class ELOutput {
 	 * @param string $print_link
 	 * @param array $params
 	 * @since 0.9
-	 */
+	 */	
 	function printbutton( $print_link, &$params )
 	{
 		if ($params->get( 'show_print_icon' )) {
+
+			JHTML::_('behavior.tooltip');
 
 			$status = 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no';
 
 			// checks template image directory for image, if non found default are loaded
 			if ( $params->get( 'icons' ) ) {
-				$text = JHTML::_('image', 'images/M_images/printButton.png', JText::_( 'Print' ) );
+				$image = JHTML::_('image', 'images/M_images/printButton.png', JText::_( 'Print' ) );
 			} else {
-				$text = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'Print' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
+				$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'Print' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 			}
 
-			if ($params->get( 'popup' )) {
+			if (JRequest::getInt('pop')) {
 				//button in popup
-				$output = '<a href="#" onclick="window.print();return false;">'.$text.'</a>';
+				$output = '<a href="#" onclick="window.print();return false;">'.$image.'</a>';
 			} else {
 				//button in view
-				$attribs['title']   = JText::_( 'Print' );
-				$attribs['onclick'] = "window.open(this.href,'win2','".$status."'); return false;";
+				$overlib = JText::_( 'PRINT TIP' );
+				$text = JText::_( 'Print' );
 
-				$output = JHTML::_('link', $print_link, $text, $attribs);
+				$output	= '<a href="'. JRoute::_($print_link) .'" class="editlinktip hasTip" onclick="window.open(this.href,\'win2\',\''.$status.'\'); return false;" title="'.$text.'::'.$overlib.'">'.$image.'</a>';
 			}
 
 			return $output;
@@ -233,21 +235,23 @@ class ELOutput {
 	 */
 	function mailbutton($params)
 	{
-		if ($params->get('show_email_icon')) 	{
+		if ($params->get('show_email_icon')) {
+
+			JHTML::_('behavior.tooltip');
 
 			$url 	= 'index.php?option=com_mailto&tmpl=component&link='.base64_encode( JRequest::getURI() );
 			$status = 'width=400,height=300,menubar=yes,resizable=yes';
 
 			if ($params->get('icons')) 	{
-				$text = JHTML::_('image', 'images/M_images/emailButton.png', JText::_( 'Email' ));
+				$image = JHTML::_('image', 'images/M_images/emailButton.png', JText::_( 'Email' ));
 			} else {
-				$text = '&nbsp;'.JText::_( 'Email' );
+				$image = '&nbsp;'.JText::_( 'Email' );
 			}
 
-			$attribs['title']	= JText::_( 'Email' );
-			$attribs['onclick'] = "window.open(this.href,'win2','".$status."'); return false;";
+			$overlib = JText::_( 'EMAIL TIP' );
+			$text = JText::_( 'Email' );
 
-			$output = JHTML::_('link', JRoute::_($url), $text, $attribs);
+			$output	= '<a href="'. JRoute::_($url) .'" class="editlinktip hasTip" onclick="window.open(this.href,\'win2\',\''.$status.'\'); return false;" title="'.$text.'::'.$overlib.'">'.$image.'</a>';
 
 			return $output;
 		}

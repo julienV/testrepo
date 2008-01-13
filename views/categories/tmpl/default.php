@@ -30,7 +30,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	?>
 </p>
 
-<?php if ($this->params->def( 'show_page_title', 1 )) : ?>
+<?php if ($this->params->def( 'show_pagepage_title', 1 )) : ?>
 	<h1 class="componentheading">
 		<?php echo $this->escape($this->pagetitle); ?>
 	</h1>
@@ -71,9 +71,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <?php endforeach; ?>
 
 <!--pagination-->
-
-<?php if (( $this->page > 0 ) ) : ?>
-
 <p class="pageslinks">
 	<?php echo $this->pageNav->getPagesLinks($this->navlink); ?>
 </p>
@@ -81,8 +78,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <p class="pagescounter">
 	<?php echo $this->pageNav->getPagesCounter(); ?>
 </p>
-
-<?php endif; ?>
 
 <!--copyright-->
 

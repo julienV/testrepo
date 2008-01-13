@@ -122,8 +122,6 @@ class EventListViewCategoryevents extends JView
 		if ($maintainer || $genaccess ) $dellink = 1;
 
 		// Create the pagination object
-		$page = $total - $limit;
-
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
@@ -164,7 +162,6 @@ class EventListViewCategoryevents extends JView
 		$this->assignRef('catdescription' , 		$catdescription);
 		$this->assignRef('link' , 					$link);
 		$this->assignRef('pageNav' , 				$pageNav);
-		$this->assignRef('page' , 					$page);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
 

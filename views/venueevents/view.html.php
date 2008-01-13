@@ -153,8 +153,6 @@ class EventListViewVenueevents extends JView
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
-		$page = $total - $limit;
-
 		//create select lists
 		$lists	= $this->_buildSortLists();
 		$this->assign('lists'     , $lists);
@@ -168,7 +166,6 @@ class EventListViewVenueevents extends JView
 		$this->assignRef('limage' , 				$limage);
 		$this->assignRef('venuedescription' , 		$venuedescription);
 		$this->assignRef('pageNav' , 				$pageNav);
-		$this->assignRef('page' , 					$page);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
 

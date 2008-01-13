@@ -119,7 +119,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<?php endforeach; ?>
 
 	<!--pagination-->
-	<?php if (( $this->page > 0 ) && ( !$this->params->get( 'popup' ) )) : ?>
 	<p class="pageslinks">
 		<?php echo $this->pageNav->getPagesLinks($this->link); ?>
 	</p>
@@ -127,7 +126,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<p class="pagescounter">
 		<?php echo $this->pageNav->getPagesCounter(); ?>
 	</p>
-	<?php endif; ?>
 
 	<!--copyright-->
 	<p class="copyright">

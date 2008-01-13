@@ -109,8 +109,6 @@ class EventListViewEventList extends JView
 		$document->addHeadLink(JRoute::_($link.'&type=atom'), 'alternate', 'rel', $attribs);
 
 		// Create the pagination object
-		$page = $total - $limit;
-
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
@@ -125,7 +123,6 @@ class EventListViewEventList extends JView
 		$this->assignRef('params' , 				$params);
 		$this->assignRef('dellink' , 				$dellink);
 		$this->assignRef('pageNav' , 				$pageNav);
-		$this->assignRef('page' , 					$page);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('lists' , 					$lists);
 

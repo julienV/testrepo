@@ -58,7 +58,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <!--footer-->
 
-<?php if (( $this->page > 0 ) && ( !$this->params->get( 'popup' ) )) : ?>
 <div class="pageslinks">
 	<?php echo $this->pageNav->getPagesLinks(); ?>
 </div>
@@ -66,7 +65,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <p class="pagescounter">
 	<?php echo $this->pageNav->getPagesCounter(); ?>
 </p>
-<?php endif; ?>
 
 <p class="copyright">
 	<?php echo ELOutput::footer( ); ?>

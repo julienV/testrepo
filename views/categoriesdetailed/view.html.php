@@ -104,7 +104,6 @@ class EventListViewCategoriesdetailed extends JView
 		// Create the pagination object
 		jimport('joomla.html.pagination');
 
-		$page = $total - $limit;
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
 		$link = 'index.php?option=com_eventlist&Itemid='.$item->id.'&view=categoriesdetailed';
@@ -116,7 +115,6 @@ class EventListViewCategoriesdetailed extends JView
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('model' , 					$model);
 		$this->assignRef('pageNav' , 				$pageNav);
-		$this->assignRef('page' , 					$page);
 		$this->assignRef('link' , 					$link);
 		$this->assignRef('elsettings' , 			$elsettings);
 
