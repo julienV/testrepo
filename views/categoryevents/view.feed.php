@@ -25,7 +25,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.application.component.view');
 
 /**
- * EventList Component Venueevents Model
+ * EventList Component Category Feed
  *
  * @package Joomla
  * @subpackage EventList

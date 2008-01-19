@@ -57,11 +57,7 @@ class EventListController extends JController
 	{
 		global $mainframe;
 		
-		// Check for request forgeries.
-		$token = JUtility::getToken();
-		if (!JRequest::getInt($token, 0, 'post')) {
-			JError::raiseError(403, 'Request Forbidden');
-		}
+		JRequest::checkToken() or die( 'Invalid Token' );
 
 		// Initialize some variables
 		$option			= JRequest::getVar('option');
