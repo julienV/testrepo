@@ -41,6 +41,7 @@ class EventListViewCategoryelement extends JView {
 		$db			= & JFactory::getDBO();
 		
 		JHTML::_('behavior.tooltip');
+		JHTML::_('behavior.modal');
 
 		//get vars
 		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.categoryelement.filter_order', 'filter_order', 'c.ordering', 'cmd' );
@@ -51,9 +52,7 @@ class EventListViewCategoryelement extends JView {
 		$template 			= $mainframe->getTemplate();
 
 		//prepare document
-		$document->setTitle(JText::_( 'SELECT CATEGORY'));
-		$document->addScript(JPATH_SITE.'includes/js/joomla/modal.js');
-		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');
+		$document->setTitle(JText::_( 'SELECT CATEGORY'));;
 		$document->addStyleSheet('templates/'.$template.'/css/general.css');
 
 		// Get data from the model

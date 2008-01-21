@@ -41,6 +41,7 @@ class EventListViewVenueelement extends JView {
 		$document	= & JFactory::getDocument();
 		
 		JHTML::_('behavior.tooltip');
+		JHTML::_('behavior.modal');
 
 		//get vars
 		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.venueelement.filter_order', 'filter_order', 'l.ordering', 'cmd' );
@@ -53,8 +54,6 @@ class EventListViewVenueelement extends JView {
 
 		//prepare document
 		$document->setTitle(JText::_( 'SELECTVENUE' ));
-		$document->addScript(JPATH_SITE.'includes/js/joomla/modal.js');
-		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');
 		$document->addStyleSheet("templates/$template/css/general.css");
 
 		// Get data from the model

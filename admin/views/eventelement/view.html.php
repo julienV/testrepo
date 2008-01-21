@@ -42,6 +42,7 @@ class EventListViewEventelement extends JView {
 		$document	= & JFactory::getDocument();
 		
 		JHTML::_('behavior.tooltip');
+		JHTML::_('behavior.modal');
 
 		//get var
 		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.eventelement.filter_order', 'filter_order', 'a.dates', 'cmd' );
@@ -54,8 +55,6 @@ class EventListViewEventelement extends JView {
 
 		//prepare the document
 		$document->setTitle(JText::_( 'SELECTEVENT' ));
-		$document->addScript(JPATH_SITE.'includes/js/joomla/modal.js');
-		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');
 		$document->addStyleSheet('templates/'.$template.'/css/general.css');
 
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
