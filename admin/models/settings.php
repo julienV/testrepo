@@ -168,7 +168,7 @@ class EventListModelSettings extends JModel
 			return false;
 		}
 
-    	return;
+    	return true;
 	}
 }
 ?>

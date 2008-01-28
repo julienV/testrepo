@@ -102,7 +102,11 @@ class EventListControllerSettings extends EventListController
 		//get model
 		$model 	= $this->getModel('settings');
 
-		$model->store($post);
+		if ($model->store($post)) {
+			$msg	= JText::_( 'SETTINGS SAVE');
+		} else {
+			$msg	= JText::_( 'SAVE SETTINGS FAILED');
+		}
 
 		switch ($task)
 		{
@@ -114,8 +118,6 @@ class EventListControllerSettings extends EventListController
 				$link = 'index.php?option=com_eventlist&view=eventlist';
 				break;
 		}
-		$msg	= JText::_( 'SETTINGS SAVE');
-
 		$model->checkin();
 
 		$this->setRedirect( $link, $msg );
