@@ -44,6 +44,7 @@ class EventListViewDetails extends JView
 
 		$document 	= & JFactory::getDocument();
 		$user		= & JFactory::getUser();
+		$dispatcher = & JDispatcher::getInstance();
 		$elsettings = ELHelper::config();
 
 		$row		= & $this->get('Details');
@@ -158,7 +159,7 @@ class EventListViewDetails extends JView
 			$row->text	= $row->datdescription;
 			//$row->title = $row->title;
 			JPluginHelper::importPlugin('content');
-			$results = $mainframe->triggerEvent( 'onPrepareContent', array( &$row, &$params, 0 ));
+			$results = $dispatcher->trigger('onPrepareContent', array (& $row, & $params, 0));
 			$eventdescription = $row->text;
 		}
 
@@ -170,7 +171,7 @@ class EventListViewDetails extends JView
 			$row->text	=	$row->locdescription;
 			//$row->title = $row->venue;
 			JPluginHelper::importPlugin('content');
-			$results = $mainframe->triggerEvent( 'onPrepareContent', array( &$row, &$params, 0 ));
+			$results = $dispatcher->trigger('onPrepareContent', array (& $row, & $params, 0));
 			$venuedescription = $row->text;
 		}
 
