@@ -186,6 +186,7 @@ class EventListViewEvent extends JView {
 
 		//add css and js to document
 		JHTML::_('behavior.modal', 'a.modal');
+		JHTML::_('behavior.tooltip');
 
 		//Build the image select functionality
 		$js = "

@@ -54,7 +54,7 @@ defined('_JEXEC') or die('Restricted access');
 
 <?php
 //Set the info image
-$infoimage = JHTML::_('image', '../components/com_eventlist/assets/images/icon-16-hint.png', JText::_( 'NOTES' ) );
+$infoimage = JHTML::image('components/com_eventlist/assets/images/icon-16-hint.png', JText::_( 'NOTES' ) );
 ?>
 
 <form action="<?php echo $this->request_url; ?>" method="post" name="adminForm" id="adminForm">
@@ -115,15 +115,14 @@ $infoimage = JHTML::_('image', '../components/com_eventlist/assets/images/icon-1
 		<td>
 		</td>
 		<td>
-			<script language="javascript" type="text/javascript">
-			if (document.forms[0].a_imagename.value!=''){
-				var imname = document.forms[0].a_imagename.value;
-				jsimg='../images/eventlist/venues/' + imname;
-			} else {
-				jsimg='../images/M_images/blank.png';
-			}
-			document.write('<img src=' + jsimg + ' name="imagelib" width="80" height="80" border="2" alt="Preview" />');
-			</script>
+				<img src="../images/M_images/blank.png" name="imagelib" id="imagelib" width="80" height="80" border="2" alt="Preview" />
+				<script language="javascript" type="text/javascript">
+				if (document.forms[0].a_imagename.value!=''){
+					var imname = document.forms[0].a_imagename.value;
+					jsimg='../images/eventlist/venues/' + imname;
+					document.getElementById('imagelib').src= jsimg;
+				}
+				</script>
 			<br />
 			<br />
 		</td>
@@ -219,13 +218,19 @@ $infoimage = JHTML::_('image', '../components/com_eventlist/assets/images/icon-1
 	</table>
 </fieldset>
 
-<p class="copyright">
-	<?php echo ELAdmin::footer( ); ?>
-</p>
-
+<?php
+if ( $this->elsettings->showmapserv == 0 ) { ?>
+	<input type="hidden" name="map" value="0" />
+<?php
+}
+?>
 <?php echo JHTML::_( 'form.token' ); ?>
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="controller" value="venues" />
 <input type="hidden" name="id" value="" />
 <input type="hidden" name="task" value="" />
 </form>
+
+<p class="copyright">
+	<?php echo ELAdmin::footer( ); ?>
+</p>
