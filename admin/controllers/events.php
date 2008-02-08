@@ -202,6 +202,7 @@ class EventListControllerEvents extends EventListController
 
 		$post = JRequest::get( 'post' );
 		$post['datdescription'] = JRequest::getVar( 'datdescription', '', 'post','string', JREQUEST_ALLOWRAW );
+		$post['datdescription']	= str_replace( '<br>', '<br />', $post['datdescription'] );
 
 		$model = $this->getModel('event');
 

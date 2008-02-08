@@ -218,6 +218,7 @@ class EventListControllerVenues extends EventListController
 		// Sanitize
 		$post = JRequest::get( 'post' );
 		$post['locdescription'] = JRequest::getVar( 'locdescription', '', 'post', 'string', JREQUEST_ALLOWRAW );
+		$post['locdescription']	= str_replace( '<br>', '<br />', $post['locdescription'] );
 
 
 		$model = $this->getModel('venue');

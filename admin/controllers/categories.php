@@ -66,6 +66,7 @@ class EventListControllerCategories extends EventListController
 		//Sanitize
 		$post = JRequest::get( 'post' );
 		$post['catdescription'] = JRequest::getVar( 'catdescription', '', 'post', 'string', JREQUEST_ALLOWRAW );
+		$post['catdescription']	= str_replace( '<br>', '<br />', $post['catdescription'] );
 
 		$model = $this->getModel('category');
 

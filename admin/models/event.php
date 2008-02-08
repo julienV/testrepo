@@ -63,9 +63,6 @@ class EventListModelEvent extends JModel
 	{
 		parent::__construct();
 
-	//	$array = JRequest::getVar('cid',  0, '', 'array');
-	//	$this->setId((int)$array[0]);
-
 		$cid = JRequest::getVar( 'cid', array(0), '', 'array' );
 		JArrayHelper::toInteger($cid, array(0));
 		$this->setId($cid[0]);

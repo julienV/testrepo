@@ -23,8 +23,11 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 
 <script language="javascript" type="text/javascript">
-function submitbutton(pressbutton) {
+function submitbutton(pressbutton)
+{
 	var form = document.adminForm;
+	var catdescription = <?php echo $this->editor->getContent( 'catdescription' ); ?>
+	
 	if (pressbutton == 'cancel') {
 		submitform( pressbutton );
 		return;

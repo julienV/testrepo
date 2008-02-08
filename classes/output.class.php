@@ -46,7 +46,6 @@ class ELOutput {
 	* @author Christoph Lukes
 	* @since 0.9
 	*
-	* @param int $Itemid The Itemid of the Component
 	* @param int $dellink Access of user
 	* @param array $params needed params
 	* @param string $view the view the user will redirected to

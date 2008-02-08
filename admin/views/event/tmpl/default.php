@@ -27,6 +27,7 @@ defined('_JEXEC') or die('Restricted access');
 	{
 
 		var form = document.adminForm;
+		var datdescription = <?php echo $this->editor->getContent( 'datdescription' ); ?>
 
 		if (task == 'cancel') {
 			submitform( task );

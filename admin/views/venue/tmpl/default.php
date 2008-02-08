@@ -26,6 +26,7 @@ defined('_JEXEC') or die('Restricted access');
 	function submitbutton(task)
 	{
 		var form = document.adminForm;
+		var locdescription = <?php echo $this->editor->getContent( 'locdescription' ); ?>
 
 		if (task == 'cancel') {
 			submitform( task );
