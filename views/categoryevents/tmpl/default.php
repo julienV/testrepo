@@ -66,7 +66,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <!--pagination-->
 
-<?php if (( $this->page > 0 ) && ( !$this->params->get( 'popup' ) )) : ?>
+<?php if (!$this->params->get( 'popup' ) ) : ?>
 <div class="pageslinks">
 	<?php echo $this->pageNav->getPagesLinks($this->link); ?>
 </div>
