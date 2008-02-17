@@ -51,12 +51,12 @@ class EventListViewVenues extends JView
 		foreach ( $rows as $row )
 		{
 			// strip html from feed item title
-			$title = htmlspecialchars( $row->venue );
+			$title = $this->escape( $row->venue );
 			$title = html_entity_decode( $title );
 
 			// url link to article
 			// & used instead of &amp; as this is converted by feed creator
-			$link = JURI::base().'index.php?option=com_eventlist&view=venueevents&id='. $row->id;
+			$link = 'index.php?option=com_eventlist&view=venueevents&id='. $row->id;
 			$link = JRoute::_( $link );
 
 			// strip html from feed item description text

@@ -52,11 +52,11 @@ class EventListViewCategoryevents extends JView
 		foreach ( $rows as $row )
 		{
 			// strip html from feed item title
-			$title = htmlspecialchars( $row->title );
+			$title = $this->escape( $row->title );
 			$title = html_entity_decode( $title );
 
 			// strip html from feed item category
-			$category = htmlspecialchars( $row->catname );
+			$category = $this->escape( $row->catname );
 			$category = html_entity_decode( $category );
 
 			//Format date
@@ -82,7 +82,7 @@ class EventListViewCategoryevents extends JView
 
 			// url link to article
 			// & used instead of &amp; as this is converted by feed creator
-			$link = JURI::base().'index.php?option=com_eventlist&view=details&id='. $row->id;
+			$link = 'index.php?option=com_eventlist&view=details&id='. $row->id;
 			$link = JRoute::_( $link );
 
 			// feed item description text
