@@ -57,7 +57,7 @@ class ELOutput {
 			JHTML::_('behavior.tooltip');
 
 			if ( $params->get('icons') ) {
-				$image = JHTML::_('image', 'components/com_eventlist/assets/images/submitevent.png', JText::_( 'DELIVER NEW EVENT' ) );
+				$image = JHTML::_('image.site', 'submitevent.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'DELIVER NEW EVENT' ));
 			} else {
 				$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'DELIVER NEW EVENT' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 			}
@@ -94,7 +94,7 @@ class ELOutput {
 				case 'archive':
 
 					if ( $params->get('icons') ) {
-						$image = JHTML::_('image', 'components/com_eventlist/assets/images/eventlist.png', JText::_( 'SHOW EVENTS' ) );
+						$image = JHTML::_('image.site', 'eventlist.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW EVENTS' ));
 					} else {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
@@ -107,7 +107,7 @@ class ELOutput {
 				case 'catarchive':
 
 					if ( $params->get('icons') ) {
-						$image = JHTML::_('image', 'components/com_eventlist/assets/images/eventlist.png', JText::_( 'SHOW EVENTS' ) );
+						$image = JHTML::_('image.site', 'eventlist.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW EVENTS' ));
 					} else {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
@@ -120,7 +120,7 @@ class ELOutput {
 				default:
 
 					if ( $params->get('icons') ) {
-						$image = JHTML::_('image', 'components/com_eventlist/assets/images/archive_front.png', JText::_( 'SHOW ARCHIVE' ) );
+						$image = JHTML::_('image.site', 'archive_front.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW ARCHIVE' ));
 					} else {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW ARCHIVE' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
@@ -159,7 +159,7 @@ class ELOutput {
 			{
 				case 'editevent':
 					if ( $params->get('icons') ) {
-						$image = JHTML::_('image', 'components/com_eventlist/assets/images/calendar_edit.png', JText::_( 'EDIT EVENT' ) );
+						$image = JHTML::_('image.site', 'calendar_edit.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'EDIT EVENT' ));
 					} else {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'EDIT EVENT' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
@@ -169,7 +169,7 @@ class ELOutput {
 
 				case 'editvenue':
 					if ( $params->get('icons') ) {
-						$image = JHTML::_('image', 'components/com_eventlist/assets/images/calendar_edit.png', JText::_( 'EDIT EVENT' ) );
+						$image = JHTML::_('image.site', 'calendar_edit.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'EDIT EVENT' ));
 					} else {
 						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'EDIT VENUE' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 					}
@@ -204,7 +204,7 @@ class ELOutput {
 
 			// checks template image directory for image, if non found default are loaded
 			if ( $params->get( 'icons' ) ) {
-				$image = JHTML::_('image', 'images/M_images/printButton.png', JText::_( 'Print' ) );
+				$image = JHTML::_('image.site', 'printButton.png', 'images/M_images/', NULL, NULL, JText::_( 'Print' ));
 			} else {
 				$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'Print' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 			}
@@ -242,7 +242,7 @@ class ELOutput {
 			$status = 'width=400,height=300,menubar=yes,resizable=yes';
 
 			if ($params->get('icons')) 	{
-				$image = JHTML::_('image', 'images/M_images/emailButton.png', JText::_( 'Email' ));
+				$image = JHTML::_('image.site', 'emailButton.png', 'images/M_images/', NULL, NULL, JText::_( 'Email' ));
 			} else {
 				$image = '&nbsp;'.JText::_( 'Email' );
 			}
@@ -268,7 +268,7 @@ class ELOutput {
 	function mapicon($data, $settings)
 	{
 		//Link to map
-		$mapimage = JHTML::_('image', 'components/com_eventlist/assets/images/mapsicon.png', JText::_( 'MAP' ) );
+		$mapimage = JHTML::_('image.site', 'mapsicon.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'MAP' ));
 
 		//set var
 		$output 	= null;
@@ -310,7 +310,6 @@ class ELOutput {
 					$url		= 'http://maps.google.com/maps?q='.str_replace(" ", "+", $data->street).', '.$data->plz.' '.str_replace(" ", "+", $data->city).', '.$data->country.'&amp;venue='.$data->venue;
 					$attributes = ' rel="gmapsoverlay"';
 				} else {
-
 					$url		= 'http://maps.google.com/maps?q='.str_replace(" ", "+", $data->street).', '.$data->plz.' '.str_replace(" ", "+", $data->city).', '.$data->country;
 				}
 
