@@ -97,7 +97,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 					<td headers="el_location_cat<?php echo $this->categoryid; ?>" width="<?php echo $this->elsettings->locationwidth; ?>" align="left" valign="top">
 				<?php
 					if ($this->elsettings->showlinkvenue == 1 ) :
-							echo $row->locid != 0 ? "<a href='".JRoute::_("index.php?view=venueevents&sid=$row->venueslug")."'>".$this->escape($row->venue)."</a>" : '-';
+							echo $row->locid != 0 ? "<a href='".JRoute::_("index.php?view=venueevents&id=$row->venueslug")."'>".$this->escape($row->venue)."</a>" : '-';
 						else :
 							echo $row->locid ? $this->escape($row->venue) : '-';
 						endif;

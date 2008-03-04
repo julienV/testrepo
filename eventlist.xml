@@ -90,6 +90,7 @@
 		<language tag="nl-NL">languages/admin/nl-NL.com_eventlist.ini</language>
 		<language tag="fr-FR">languages/admin/fr-FR.com_eventlist.ini</language>
 		<language tag="fi-FI">languages/admin/fi-FI.com_eventlist.ini</language>
+		<language tag="hu-HU">languages/admin/hu-HU.com_eventlist.ini</language>
 	</languages>
 
 </administration>
