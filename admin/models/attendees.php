@@ -180,12 +180,12 @@ class EventListModelAttendees extends JModel
 		$where		= $this->_buildContentWhere();
 
 		$query = 'SELECT r.*, u.username, u.name, a.id, u.gid, u.email'
-				. ' FROM #__eventlist_register AS r'
-				. ' LEFT JOIN #__eventlist_events AS a ON r.event = a.id'
-				. ' LEFT JOIN #__users AS u ON r.uid = u.id'
-				. $where
-				. $orderby
-				;
+		. ' FROM #__eventlist_register AS r'
+		. ' LEFT JOIN #__eventlist_events AS a ON r.event = a.id'
+		. ' LEFT JOIN #__users AS u ON r.uid = u.id'
+		. $where
+		. $orderby
+		;
 
 		return $query;
 	}
@@ -229,14 +229,14 @@ class EventListModelAttendees extends JModel
 		$where[] = 'r.event = '.$this->_id;
 
 		/*
-		* Search venues
+		* Search name
 		*/
 		if ($search && $filter == 1) {
 			$where[] = ' LOWER(u.name) LIKE \'%'.$search.'%\' ';
 		}
 
 		/*
-		* Search city
+		* Search username
 		*/
 		if ($search && $filter == 2) {
 			$where[] = ' LOWER(u.username) LIKE \'%'.$search.'%\' ';
@@ -260,7 +260,7 @@ class EventListModelAttendees extends JModel
 
 		$this->_db->setQuery( $query );
 
-  		$_event = $this->_db->loadObject();
+		$_event = $this->_db->loadObject();
 
 		return $_event;
 	}
@@ -272,19 +272,22 @@ class EventListModelAttendees extends JModel
 	 * @return true on success
 	 * @since 0.9
 	 */
-	function remove($cid)
+	function remove($cid = array(), $event)
 	{
-		$user = implode(',', $cid);
+		if (count( $cid ))
+		{
+			$user = implode(',', $cid);
+			$event = (int)$event;
+			
+			$query = 'DELETE FROM #__eventlist_register WHERE uid IN ('. $user .') AND event = '.$event;
 
-		$query = 'DELETE FROM #__eventlist_register WHERE event IN ('. $user .')';
+			$this->_db->setQuery( $query );
 
-		$this->_db->setQuery( $query );
-
-		if (!$this->_db->query()) {
-			JError::raiseError( 1001, $this->_db->getErrorMsg() );
-  		}
-
-  		return true;
+			if (!$this->_db->query()) {
+				JError::raiseError( 1001, $this->_db->getErrorMsg() );
+			}
+		}
+		return true;
 	}
 }
 ?>

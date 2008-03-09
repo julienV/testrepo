@@ -87,7 +87,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
    			?>
 			<tr class="<?php echo "row$k"; ?>">
 				<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
-				<td><input type="checkbox" id="cb<?php echo $i;?>" name="cid[]" value="<?php echo $row->id; ?>" onclick="isChecked(this.checked);" /></td>
+				<td><input type="checkbox" id="cb<?php echo $i;?>" name="cid[]" value="<?php echo $row->uid; ?>" onclick="isChecked(this.checked);" /></td>
 				<td><a href="<?php echo JRoute::_( 'index.php?option=com_users&task=edit&cid[]='.$row->uid ); ?>"><?php echo $row->name; ?></a></td>
 				<td>
 					<a href="<?php echo JRoute::_( 'index.php?option=com_users&task=edit&cid[]='.$row->uid ); ?>"><?php echo $row->username; ?></a>
@@ -105,14 +105,14 @@ defined('_JEXEC') or die('Restricted access'); ?>
 
 	<p class="copyright">
 		<?php echo ELAdmin::footer( ); ?>
-	</p>
 
-	<input type="hidden" name="boxchecked" value="0" />
-	<input type="hidden" name="option" value="com_eventlist" />
-	<input type="hidden" name="controller" value="attendees" />
-	<input type="hidden" name="view" value="attendees" />
-	<input type="hidden" name="task" value="" />
-	<input type="hidden" name="id" value="<?php echo $this->event->id; ?>" />
-	<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
-	<input type="hidden" name="filter_order_Dir" value="" />
+		<input type="hidden" name="boxchecked" value="0" />
+		<input type="hidden" name="option" value="com_eventlist" />
+		<input type="hidden" name="controller" value="attendees" />
+		<input type="hidden" name="view" value="attendees" />
+		<input type="hidden" name="task" value="" />
+		<input type="hidden" name="id" value="<?php echo $this->event->id; ?>" />
+		<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
+		<input type="hidden" name="filter_order_Dir" value="" />
+	</p>
 </form>

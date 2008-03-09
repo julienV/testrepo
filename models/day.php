@@ -270,8 +270,7 @@ class EventListModelDay extends JModel
 		$where .= ' AND c.access <= '.$gid;
 		
 		// Third is to only select events of the specified day
-		//$where .= ' AND \''.$day.'\' = a.dates';
-		$where .= ' AND DAYOFMONTH(\''.$this->_date.'\') BETWEEN DAYOFMONTH(a.dates) AND (IF (a.enddates >= DAYOFMONTH(now()), DAYOFMONTH(a.enddates), \''.$nulldate.'\')) OR \''.$this->_date.'\' = a.dates';
+		$where .= ' AND \''.$this->_date.'\' BETWEEN (a.dates) AND (IF (a.enddates >= now(), a.enddates, \''.$nulldate.'\')) OR \''.$this->_date.'\' = a.dates';
 
 		/*
 		 * If we have a filter, and this is enabled... lets tack the AND clause

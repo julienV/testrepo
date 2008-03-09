@@ -51,13 +51,17 @@ class EventListControllerAttendees extends EventListController
 	 */
 	function remove()
 	{
-		$cid 	= JRequest::getVar('cid');
+		$cid = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 		$id 	= JRequest::getInt('id');
 		$total 	= count( $cid );
 
 		$model = $this->getModel('attendees');
+		
+		if (!is_array( $cid ) || count( $cid ) < 1) {
+			JError::raiseError(500, JText::_( 'Select an item to delete' ) );
+		}
 
-		if(!$model->remove($cid)) {
+		if(!$model->remove($cid, $id)) {
 			echo "<script> alert('".$model->getError()."'); window.history.go(-1); </script>\n";
 		}
 
