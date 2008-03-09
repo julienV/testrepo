@@ -160,6 +160,17 @@ function EventListParseRoute($segments)
 			$vars['view'] = 'venues';
 
 		} break;
+		
+		case 'day':
+		{
+			$vars['view'] = 'day';
+			
+			$count = count($segments);
+			if($count == 2) {
+				$vars['id'] = $segments[1];
+			}
+
+		} break;
 
 	}
 
