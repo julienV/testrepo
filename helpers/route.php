@@ -31,7 +31,7 @@ jimport('joomla.application.component.helper');
  * @static
  * @package		Joomla
  * @subpackage	EventList
- * @since 1.5
+ * @since 0.9
  */
 class EventListHelperRoute
 {
