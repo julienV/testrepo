@@ -212,11 +212,11 @@ class EventListViewEventList extends JView
 		$filter_type		= JRequest::getString('filter_type');
 
 		$sortselects = array();
-		$sortselects[]	= JHTML::_('select.option', 'title', $elsettings->titlename );
-		$sortselects[] 	= JHTML::_('select.option', 'venue', $elsettings->locationname );
-		$sortselects[] 	= JHTML::_('select.option', 'city', $elsettings->cityname );
+		$sortselects[]	= JHTML::_('select.option', 'title', JText::_($elsettings->titlename) );
+		$sortselects[] 	= JHTML::_('select.option', 'venue', JText::_($elsettings->locationname) );
+		$sortselects[] 	= JHTML::_('select.option', 'city', JText::_($elsettings->cityname) );
 		if ($elsettings->showcat) {
-			$sortselects[] 	= JHTML::_('select.option', 'type', $elsettings->catfroname );
+			$sortselects[] 	= JHTML::_('select.option', 'type', JText::_($elsettings->catfroname) );
 		}
 		$sortselect 	= JHTML::_('select.genericlist', $sortselects, 'filter_type', 'size="1" class="inputbox"', 'value', 'text', $filter_type );
 
