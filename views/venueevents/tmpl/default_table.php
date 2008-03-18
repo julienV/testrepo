@@ -34,25 +34,25 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	}
 </script>
 
-<form action="<?php echo JRoute::_('index.php') ?>" method="post" name="adminForm">
+<form action="<?php echo $this->action; ?>" method="post" name="adminForm">
 
 <?php if ($this->params->get('filter') || $this->params->get('display')) : ?>
 <div id="el_filter" class="floattext">
 		<?php if ($this->params->get('filter')) : ?>
 		<div class="el_fleft">
 			<?php
-			echo '<label for="filter_type">'.JText::_('Filter').'</label>&nbsp;';
+			echo '<label for="filter_type">'.JText::_('FILTER').'</label>&nbsp;';
 			echo $this->lists['filter_type'].'&nbsp;';
 			?>
 			<input type="text" name="filter" id="filter" value="<?php echo $this->lists['filter'];?>" class="text_area" onchange="document.adminForm.submit();" />
-			<button onclick="document.adminForm.submit();"><?php echo JText::_( 'Go' ); ?></button>
-			<button onclick="document.getElementById('filter').value='';document.adminForm.submit();"><?php echo JText::_( 'Reset' ); ?></button>
+			<button onclick="document.adminForm.submit();"><?php echo JText::_( 'GO' ); ?></button>
+			<button onclick="document.getElementById('filter').value='';document.adminForm.submit();"><?php echo JText::_( 'RESET' ); ?></button>
 		</div>
 		<?php endif; ?>
 		<?php if ($this->params->get('display')) : ?>
 		<div class="el_fright">
 			<?php
-			echo '<label for="limit">'.JText::_('Display Num').'</label>&nbsp;';
+			echo '<label for="limit">'.JText::_('DISPLAY NUM').'</label>&nbsp;';
 			echo $this->pageNav->getLimitBox();
 			?>
 		</div>

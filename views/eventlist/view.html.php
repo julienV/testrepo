@@ -48,9 +48,7 @@ class EventListViewEventList extends JView
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
 		$params 	= & $mainframe->getParams();
-
-		//print_r($params);
-		//$mainframe->close();
+		$uri 		= & JFactory::getURI();
 
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );
@@ -61,7 +59,7 @@ class EventListViewEventList extends JView
 
 		// get variables
 		$limitstart	= JRequest::getVar('limitstart', 0, '', 'int');
-		$limit		= JRequest::getVar('limit', $params->get('display_num'), '', 'int');
+		$limit		= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0), 'int');
 
 		$pop			= JRequest::getBool('pop');
 		$pathway 		= & $mainframe->getPathWay();
@@ -107,15 +105,27 @@ class EventListViewEventList extends JView
 		$document->addHeadLink(JRoute::_($link.'&type=rss'), 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
 		$document->addHeadLink(JRoute::_($link.'&type=atom'), 'alternate', 'rel', $attribs);
+		
+		//create select lists
+		$lists	= $this->_buildSortLists($elsettings);
+		
+		if (JRequest::getString('filter', '', 'post')) {
+			$uri->setVar('filter', JRequest::getString('filter'));
+			$uri->setVar('filter_type', JRequest::getString('filter_type'));
+		} else {
+			$uri->delVar('filter');
+			$uri->delVar('filter_type');
+		}
 
 		// Create the pagination object
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
-
-		//create select lists
-		$lists	= $this->_buildSortLists($elsettings);
+		
+		//$mainframe->getUserStateFromRequest('com_eventlist.eventlist.filter', 'filter', '', 'string');
 
 		$this->assign('lists' , 					$lists);
+		$this->assign('total',						$total);
+		$this->assign('action', 					$uri->toString());
 
 		$this->assignRef('rows' , 					$rows);
 		$this->assignRef('noevents' , 				$noevents);
@@ -140,7 +150,7 @@ class EventListViewEventList extends JView
 	function &getRows()
 	{
 		global $mainframe;
-
+		
 		$count = count($this->rows);
 
 		if (!$count) {
@@ -223,7 +233,7 @@ class EventListViewEventList extends JView
 		$lists['order_Dir'] 	= $filter_order_Dir;
 		$lists['order'] 		= $filter_order;
 		$lists['filter'] 		= $filter;
-		$lists['filter_type'] 	= $sortselect;
+		$lists['filter_types'] 	= $sortselect;
 
 		return $lists;
 	}

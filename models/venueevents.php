@@ -240,9 +240,10 @@ class EventListModelVenueevents extends JModel
 			if ($filter)
 			{
 				// clean filter variables
-				$filter	= $this->_db->getEscaped( trim(JString::strtolower( $filter ) ) );
+				$filter 		= JString::strtolower($filter);
+				$filter			= $this->_db->Quote( '%'.$this->_db->getEscaped( $filter, true ).'%', false );
 
-				$where .= ' AND LOWER( a.title ) LIKE "%'.$filter.'%"';
+				$where .= ' AND LOWER( a.title ) LIKE '.$filter;
 
 			}
 		}

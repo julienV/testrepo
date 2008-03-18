@@ -48,6 +48,7 @@ class EventListViewCategoryevents extends JView
 		$elsettings = ELHelper::config();
 		$item    	= $menu->getActive();
 		$params 	= & $mainframe->getParams();
+		$uri 		= & JFactory::getURI();
 
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );
@@ -150,7 +151,8 @@ class EventListViewCategoryevents extends JView
 
 		//create select lists
 		$lists	= $this->_buildSortLists($elsettings);
-		$this->assign('lists'     , $lists);
+		$this->assign('lists', 						$lists);
+		$this->assign('action', 					$uri->toString());
 
 		$this->assignRef('rows' , 					$rows);
 		$this->assignRef('noevents' , 				$noevents);
@@ -160,7 +162,6 @@ class EventListViewCategoryevents extends JView
 		$this->assignRef('dellink' , 				$dellink);
 		$this->assignRef('task' , 					$task);
 		$this->assignRef('catdescription' , 		$catdescription);
-		$this->assignRef('link' , 					$link);
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);

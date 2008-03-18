@@ -48,6 +48,7 @@ class EventListViewVenueevents extends JView
 		$elsettings = ELHelper::config();
 		$item    	= $menu->getActive();
 		$params 	= & $mainframe->getParams('com_eventlist');
+		$uri 		= & JFactory::getURI();
 
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );
@@ -155,7 +156,8 @@ class EventListViewVenueevents extends JView
 
 		//create select lists
 		$lists	= $this->_buildSortLists();
-		$this->assign('lists'     , $lists);
+		$this->assign('lists', 						$lists);
+		$this->assign('action', 					$uri->toString());
 
 		$this->assignRef('rows' , 					$rows);
 		$this->assignRef('noevents' , 				$noevents);

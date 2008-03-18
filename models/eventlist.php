@@ -220,25 +220,26 @@ class EventListModelEventList extends JModel
 			if ($filter)
 			{
 				// clean filter variables
-				$filter			= $this->_db->getEscaped( trim(JString::strtolower( $filter ) ) );
+				$filter 		= JString::strtolower($filter);
+				$filter			= $this->_db->Quote( '%'.$this->_db->getEscaped( $filter, true ).'%', false );
 				$filter_type 	= JString::strtolower($filter_type);
 
 				switch ($filter_type)
 				{
 					case 'title' :
-						$where .= ' AND LOWER( a.title ) LIKE "%'.$filter.'%"';
+						$where .= ' AND LOWER( a.title ) LIKE '.$filter;
 						break;
 
 					case 'venue' :
-						$where .= ' AND LOWER( l.venue ) LIKE "%'.$filter.'%"';
+						$where .= ' AND LOWER( l.venue ) LIKE '.$filter;
 						break;
 
 					case 'city' :
-						$where .= ' AND LOWER( l.city ) LIKE "%'.$filter.'%"';
+						$where .= ' AND LOWER( l.city ) LIKE '.$filter;
 						break;
 						
 					case 'type' :
-						$where .= ' AND LOWER( c.catname ) LIKE "%'.$filter.'%"';
+						$where .= ' AND LOWER( c.catname ) LIKE '.$filter;
 						break;
 				}
 			}

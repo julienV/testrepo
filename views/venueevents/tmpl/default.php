@@ -116,7 +116,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	</form>
 
 <!--pagination-->
-
+<?php if (!$this->params->get( 'popup' ) ) : ?>
 <div class="pageslinks">
 	<?php echo $this->pageNav->getPagesLinks(); ?>
 </div>
@@ -124,7 +124,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <p class="pagescounter">
 	<?php echo $this->pageNav->getPagesCounter(); ?>
 </p>
-
+<?php endif; ?>
 <!--copyright-->
 
 <p class="copyright">
