@@ -59,7 +59,8 @@ class EventListViewSettings extends JView {
 		}
 
 		JHTML::_('behavior.tooltip');
-
+		JHTML::_('behavior.switcher');
+		
 		//Build submenu
 		$contents = '';
 		ob_start();
@@ -68,7 +69,7 @@ class EventListViewSettings extends JView {
 		ob_end_clean();
 
 		//add css, js and submenu to document
-		$document->setBuffer($contents, 'module', 'submenu');
+		$document->setBuffer($contents, 'modules', 'submenu');
 		$document->addScript( JURI::base().'components/com_eventlist/assets/js/settings.js' );
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
