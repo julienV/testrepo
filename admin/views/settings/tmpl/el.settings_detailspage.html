@@ -224,7 +224,7 @@
 								echo '<strong>'.JText::_( 'JCOMMENTS' ).': </strong><font color="red">'.JText::_( 'UNAVAILABLE' ).'</font><br />';
 							}
 							
-							if ( $legacy && $checkjomcomment){
+							if ( $checkjomcomment){
 								echo '<strong>'.JText::_( 'JOMCOMMENT' ).': </strong><font color="green">'.JText::_( 'AVAILABLE' ).'</font><br />';
 							} else {
 								echo '<strong>'.JText::_( 'JOMCOMMENT' ).': </strong><font color="red">'.JText::_( 'UNAVAILABLE' ).'</font><br />';
@@ -246,7 +246,7 @@
 							if ( $legacy && $checkjcomment ){
 								$commentsystem[] = JHTML::_('select.option', '1', JText::_( 'JCOMMENTS' ) );
 							}
-							if ( $legacy && $checkjomcomment ){
+							if ( $checkjomcomment ){
 								$commentsystem[] = JHTML::_('select.option', '2', JText::_( 'JOMCOMMENT' ) );
 							}
 							$commentoptions = JHTML::_('select.genericlist', $commentsystem, 'commentsystem', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->commentsystem );
