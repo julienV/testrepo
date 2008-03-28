@@ -449,8 +449,6 @@ class EventListModelEditevent extends JModel
 	{
 		global $mainframe;
 
-		jimport('joomla.utilities.date');
-
 		$user 		= & JFactory::getUser();
 		$elsettings = ELHelper::config();
 
@@ -495,8 +493,7 @@ class EventListModelEditevent extends JModel
 				JError::raiseError( 403, JText::_( 'NO ACCESS' ) );
 			}
 
-			$date 				= new JDate($row->modified, $tzoffset);
-			$row->modified 		= $date->toMySQL();
+			$row->modified 		= gmdate('Y-m-d H:i:s');
 			$row->modified_by 	= $user->get('id');
 
 			/*
@@ -523,8 +520,7 @@ class EventListModelEditevent extends JModel
 			}
 
 			//get IP, time and userid
-			$date 				= new JDate($row->created, $tzoffset);
-			$row->created 		= $date->toMySQL();
+			$row->created 		= gmdate('Y-m-d H:i:s');
 
 			$row->author_ip 	= $elsettings->storeip ? getenv('REMOTE_ADDR') : 'DISABLED';
 			$row->created_by 	= $user->get('id');

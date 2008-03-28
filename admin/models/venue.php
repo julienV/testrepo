@@ -235,8 +235,6 @@ class EventListModelVenue extends JModel
 
 		$tzoffset 	= $config->getValue('config.offset');
 
-		jimport('joomla.utilities.date');
-
 		$row  =& $this->getTable('eventlist_venues', '');
 
 		// bind it to the table
@@ -263,16 +261,14 @@ class EventListModelVenue extends JModel
 
 		// Are we saving from an item edit?
 		if ($row->id) {
-			$date 				= new JDate($row->modified, $tzoffset);
-			$row->modified 		= $date->toMySQL();
+			$row->modified 		= gmdate('Y-m-d H:i:s');
 			$row->modified_by 	= $user->get('id');
 		} else {
 			$row->modified 		= $nullDate;
 			$row->modified_by 	= '';
 
 			//get IP, time and userid
-			$date 					= new JDate($row->created, $tzoffset);
-			$row->created 			= $date->toMySQL();
+			$row->created 			= gmdate('Y-m-d H:i:s');
 
 			$row->author_ip 		= $elsettings->storeip ? getenv('REMOTE_ADDR') : 'DISABLED';
 			$row->created_by		= $user->get('id');
