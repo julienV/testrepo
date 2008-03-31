@@ -156,28 +156,30 @@ class EventListModelCategories extends JModel
 
 		// show/hide empty categories
 		$empty = null;
+		$eventstate = null;
+		
 		if (!$params->get('empty_cat'))
 		{
-			$empty = ' HAVING COUNT( a.id ) > 0';
-		}
-
-		//check archive task and ensure that only categories get selected if they contain a publishes/arcived event
-		$task 		= JRequest::getVar('task', '', '', 'string');
-		if($task == 'archive') {
-			$eventstate = ' AND a.published = -1';
-		} else {
-			$eventstate = ' AND a.published = 1';
+			$empty = ' HAVING numitems > 0';
+			
+			//check archive task and ensure that only categories get selected if they contain a publishes/arcived event
+			$task 	= JRequest::getVar('task', '', '', 'string');
+			if($task == 'archive') {
+				$eventstate = ' AND a.published = -1';
+			} else {
+				$eventstate = ' AND a.published = 1';
+			}
 		}
 
 		//get categories
-		$query = 'SELECT c.*, c.id AS catid,'
+		$query = 'SELECT c.*, c.id AS catid, COUNT( a.id ) AS numitems,'
 				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as slug'
 				. ' FROM #__eventlist_categories AS c'
 				. ' LEFT JOIN #__eventlist_events AS a ON a.catsid = c.id'
 				. ' WHERE c.published = 1'
 				. ' AND c.access <= '.$gid
 				. $eventstate
-				. ' GROUP BY c.id '.$empty
+				. ' GROUP BY c.id'.$empty
 				. ' ORDER BY c.ordering'
 				;
 
