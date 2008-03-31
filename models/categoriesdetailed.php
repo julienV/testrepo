@@ -131,9 +131,6 @@ class EventListModelCategoriesdetailed extends JModel
 					$category->image = JHTML::image('components/com_eventlist/assets/images/noimage.png', $category->catname);
 				}
 
-				//Get total of assigned events of each venue
-				$category->assignedevents = $this->_assignedevents( $category->id );
-
 				$k = 1 - $k;
 			}
 
@@ -243,50 +240,24 @@ class EventListModelCategoriesdetailed extends JModel
 
 		// show/hide empty categories
 		$empty 	= null;
-		$publ	= null;
 		if (!$params->get('empty_cat'))
 		{
-			$empty 	= ' HAVING COUNT( a.id ) > 0';
-			$publ	= ' AND a.published = 1';
+			$empty 	= ' HAVING assignedevents > 0';
 		}
 
 		//Get Categories
-		$query = 'SELECT c.*,'
+		$query = 'SELECT c.*, COUNT( a.id ) AS assignedevents,'
 				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as slug'
 				. ' FROM #__eventlist_categories AS c'
 				. ' LEFT JOIN #__eventlist_events AS a ON a.catsid = c.id'
 				. ' WHERE c.published = 1'
 				. ' AND c.access <= '.$gid
-				. $publ
+				. ' AND a.published = 1'
 				. ' GROUP BY c.id '.$empty
 				. ' ORDER BY c.ordering'
 				;
 
 		return $query;
-	}
-
-	/**
-	 * Method to get the total number
-	 *
-	 * @access private
-	 * @return integer
-	 */
-	function _assignedevents( $id )
-	{
-		$user		= & JFactory::getUser();
-		$gid 		= (int) $user->get('aid');
-		$id			= (int) $id;
-
-		//Count Events
-		$query = 'SELECT COUNT(a.id)'
-				. ' FROM #__eventlist_events AS a'
-				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
-				. ' WHERE a.published = 1 && a.catsid = '.$id
-				. ' AND c.access <= '.$gid
-				;
-		$this->_db->setQuery( $query );
-
-		return $this->_db->loadResult();
 	}
 }
 ?>

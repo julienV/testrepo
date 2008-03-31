@@ -136,7 +136,7 @@ class EventListModelVenues extends JModel
 				}
 
 				//Get total of assigned events of each venue
-				$venue->assignedevents = $this->_assignedevents( $venue->id );
+				//$venue->assignedevents = $this->_assignedevents( $venue->id );
 
 			$k = 1 - $k;
 			}
@@ -191,11 +191,13 @@ class EventListModelVenues extends JModel
 	function _buildQuery()
 	{
 		//get categories
-		$query = 'SELECT *,'
-				. ' CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug'
-				. ' FROM #__eventlist_venues'
-				. ' WHERE published = 1'
-				. ' ORDER BY venue'
+		$query = 'SELECT v.*, COUNT( a.id ) AS assignedevents,'
+				. ' CASE WHEN CHAR_LENGTH(v.alias) THEN CONCAT_WS(\':\', v.id, v.alias) ELSE v.id END as slug'
+				. ' FROM #__eventlist_venues as v'
+				. ' LEFT JOIN #__eventlist_events AS a ON a.locid = v.id'
+				. ' WHERE v.published = 1'
+				. ' GROUP BY v.id'
+				. ' ORDER BY v.venue'
 				;
 
 		return $query;

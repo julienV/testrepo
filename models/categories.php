@@ -109,8 +109,6 @@ class EventListModelCategories extends JModel
 					$category->image = JHTML::image('components/com_eventlist/assets/images/noimage.png', $category->catname);
 				}
 
-				$category->assignedevents = $this->_countcatevents( $category->catid );
-
 				$k = 1 - $k;
 			}
 
@@ -160,7 +158,7 @@ class EventListModelCategories extends JModel
 		
 		if (!$params->get('empty_cat'))
 		{
-			$empty = ' HAVING numitems > 0';
+			$empty = ' HAVING assignedevents > 0';
 			
 			//check archive task and ensure that only categories get selected if they contain a publishes/arcived event
 			$task 	= JRequest::getVar('task', '', '', 'string');
@@ -170,9 +168,9 @@ class EventListModelCategories extends JModel
 				$eventstate = ' AND a.published = 1';
 			}
 		}
-
+		
 		//get categories
-		$query = 'SELECT c.*, c.id AS catid, COUNT( a.id ) AS numitems,'
+		$query = 'SELECT c.*, c.id AS catid, COUNT( a.id ) AS assignedevents,'
 				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as slug'
 				. ' FROM #__eventlist_categories AS c'
 				. ' LEFT JOIN #__eventlist_events AS a ON a.catsid = c.id'
@@ -184,38 +182,6 @@ class EventListModelCategories extends JModel
 				;
 
 		return $query;
-	}
-
-	/**
-	 * Method to get the total number
-	 *
-	 * @access private
-	 * @return integer
-	 */
-	function _countcatevents( $id )
-	{
-		//initialize some vars
-		$user		= & JFactory::getUser();
-		$gid		= (int) $user->get('aid');
-		$id			= (int) $id;
-
-		$task 		= JRequest::getString('task');
-
-		if($task == 'archive') {
-			$where = ' WHERE a.published = -1 && a.catsid = '.$id;
-		} else {
-			$where = ' WHERE a.published = 1 && a.catsid = '.$id;
-		}
-
-		$query = 'SELECT COUNT(a.id)'
-				. ' FROM #__eventlist_events AS a'
-				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
-				. $where
-				. ' AND c.access <= '.$gid
-				;
-		$this->_db->setQuery( $query );
-
-  		return $this->_db->loadResult();
 	}
 }
 ?>
