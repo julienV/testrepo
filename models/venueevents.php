@@ -236,14 +236,25 @@ class EventListModelVenueevents extends JModel
 		if ($params->get('filter'))
 		{
 			$filter 		= JRequest::getString('filter');
+			$filter_type 	= JRequest::getWord('filter_type', '', 'request');
 
 			if ($filter)
 			{
 				// clean filter variables
 				$filter 		= JString::strtolower($filter);
 				$filter			= $this->_db->Quote( '%'.$this->_db->getEscaped( $filter, true ).'%', false );
+				$filter_type 	= JString::strtolower($filter_type);
 
-				$where .= ' AND LOWER( a.title ) LIKE '.$filter;
+				switch ($filter_type)
+				{
+					case 'title' :
+						$where .= ' AND LOWER( a.title ) LIKE '.$filter;
+						break;
+					
+					case 'type' :
+						$where .= ' AND LOWER( c.catname ) LIKE '.$filter;
+						break;
+				}
 
 			}
 		}

@@ -155,7 +155,7 @@ class EventListViewVenueevents extends JView
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
 		//create select lists
-		$lists	= $this->_buildSortLists();
+		$lists	= $this->_buildSortLists($elsettings);
 		$this->assign('lists', 						$lists);
 		$this->assign('action', 					$uri->toString());
 
@@ -239,21 +239,26 @@ class EventListViewVenueevents extends JView
 		return $this->rows;
 	}
 
-	function _buildSortLists()
+	function _buildSortLists($elsettings)
 	{
 		// Table ordering values
 		$filter_order		= JRequest::getCmd('filter_order', 'a.dates');
 		$filter_order_Dir	= JRequest::getWord('filter_order_Dir', 'ASC');
 
 		$filter				= JRequest::getString('filter');
-		//$filter_type		= JRequest::getString('filter_type');
+		$filter_type		= JRequest::getString('filter_type');
 
-		$html= '';
+		$sortselects = array();
+		$sortselects[]	= JHTML::_('select.option', 'title', $elsettings->titlename );
+		if ($elsettings->showcat) {
+			$sortselects[] 	= JHTML::_('select.option', 'type', $elsettings->catfroname );
+		}
+		$sortselect 	= JHTML::_('select.genericlist', $sortselects, 'filter_type', 'size="1" class="inputbox"', 'value', 'text', $filter_type );
 
 		$lists['order_Dir'] 	= $filter_order_Dir;
 		$lists['order'] 		= $filter_order;
 		$lists['filter'] 		= $filter;
-		$lists['filter_type'] 	= $html;
+		$lists['filter_types'] 	= $sortselect;
 
 		return $lists;
 	}

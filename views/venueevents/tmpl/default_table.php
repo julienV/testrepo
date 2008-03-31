@@ -42,7 +42,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<div class="el_fleft">
 			<?php
 			echo '<label for="filter_type">'.JText::_('FILTER').'</label>&nbsp;';
-			echo $this->lists['filter_type'].'&nbsp;';
+			echo $this->lists['filter_types'].'&nbsp;';
 			?>
 			<input type="text" name="filter" id="filter" value="<?php echo $this->lists['filter'];?>" class="text_area" onchange="document.adminForm.submit();" />
 			<button onclick="document.adminForm.submit();"><?php echo JText::_( 'GO' ); ?></button>
