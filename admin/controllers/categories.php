@@ -189,16 +189,17 @@ class EventListControllerCategories extends EventListController
 	 * @return void
 	 * @since 0.9
 	 */
-	function saveorder()
+	function saveordercat()
 	{
 		$cid 	= JRequest::getVar( 'cid', array(0), 'post', 'array' );
 		$order 	= JRequest::getVar( 'order', array(0), 'post', 'array' );
+		JArrayHelper::toInteger($order, array(0));
 
 		$model = $this->getModel('categories');
 		$model->saveorder($cid, $order);
 
 		$msg = 'New ordering saved';
-		$this->setRedirect( 'index.php?option=com_com_eventlist&view=categories', $msg );
+		$this->setRedirect( 'index.php?option=com_eventlist&view=categories', $msg );
 	}
 
 	/**

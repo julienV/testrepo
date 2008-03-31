@@ -152,13 +152,13 @@ class EventListModelCategories extends JModel
 		$gid		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$params = & $mainframe->getParams();
+		$params 	= & $mainframe->getParams('com_eventlist');
 
 		// show/hide empty categories
 		$empty = null;
 		if (!$params->get('empty_cat'))
 		{
-			$empty = "\n HAVING COUNT( a.id ) > 0";
+			$empty = ' HAVING COUNT( a.id ) > 0';
 		}
 
 		//check archive task and ensure that only categories get selected if they contain a publishes/arcived event
