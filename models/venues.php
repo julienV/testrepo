@@ -135,10 +135,7 @@ class EventListModelVenues extends JModel
 					$venue->countryimg = ELOutput::getFlag( $venue->country );
 				}
 
-				//Get total of assigned events of each venue
-				//$venue->assignedevents = $this->_assignedevents( $venue->id );
-
-			$k = 1 - $k;
+				$k = 1 - $k;
 			}
 
 		}
@@ -201,26 +198,6 @@ class EventListModelVenues extends JModel
 				;
 
 		return $query;
-	}
-
-	/**
-	 * Method to get the total number
-	 *
-	 * @access public
-	 * @return integer
-	 */
-	function _assignedevents( $id )
-	{
-		$id 	= (int) $id;
-
-		$query = 'SELECT COUNT(a.id)'
-		. ' FROM #__eventlist_events AS a'
-		. ' LEFT JOIN #__eventlist_venues AS v ON v.id = a.locid'
-		. ' WHERE a.published = 1 && a.locid = '.$id
-		;
-		$this->_db->setQuery( $query );
-
-		return $this->_db->loadResult();
 	}
 }
 ?>
