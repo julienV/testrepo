@@ -60,7 +60,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 </div>
 <?php endif; ?>
 
-<table width="<?php echo $this->elsettings->tablewidth; ?>" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
+<table class="eventtable" width="<?php echo $this->elsettings->tablewidth; ?>" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
 	<thead>
 			<tr>
 				<th id="el_date" width="<?php echo $this->elsettings->datewidth; ?>" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->escape($this->elsettings->datename), 'a.dates', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>

@@ -23,7 +23,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 
-<table width="<?php echo $this->elsettings->tablewidth; ?>" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
+<table class="eventtable" width="<?php echo $this->elsettings->tablewidth; ?>" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
 <thead>
 			<tr>
 				<th id="el_date_cat<?php echo $this->categoryid; ?>" width="<?php echo $this->elsettings->datewidth; ?>" class="sectiontableheader" align="left"><?php echo $this->escape($this->elsettings->datename); ?></th>
