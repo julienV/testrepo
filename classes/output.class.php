@@ -50,7 +50,7 @@ class ELOutput {
 	* @param array $params needed params
 	* @param string $view the view the user will redirected to
 	**/
-	function submitbutton( $dellink, &$params, $view )
+	function submitbutton( $dellink, &$params )
 	{
 		if ($dellink == 1) {
 
@@ -62,7 +62,7 @@ class ELOutput {
 				$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'DELIVER NEW EVENT' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
 			}
 
-			$link 		= 'index.php?view=editevent&returnview='.$view;
+			$link 		= 'index.php?view=editevent';
 			$overlib 	= JText::_( 'SUBMIT EVENT TIP' );
 			$output		= '<a href="'.JRoute::_($link).'" class="editlinktip hasTip" title="'.JText::_( 'DELIVER NEW EVENT' ).'::'.$overlib.'">'.$image.'</a>';
 

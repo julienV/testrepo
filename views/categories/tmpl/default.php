@@ -25,7 +25,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <div id="eventlist" class="el_categoriesview">
 <p class="buttons">
 	<?php
-		echo ELOutput::submitbutton( $this->dellink, $this->params, 'categories' );
+		echo ELOutput::submitbutton( $this->dellink, $this->params );
 		echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params, $this->task );
 	?>
 </p>

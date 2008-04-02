@@ -59,7 +59,6 @@ class EventListViewEditevent extends JView
 
 		//Get requests
 		$id					= JRequest::getInt('id');
-		$returnview			= JRequest::getWord('returnview');
 
 		//Clean output
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES, 'datdescription' );
@@ -120,7 +119,6 @@ class EventListViewEditevent extends JView
 		$this->assignRef('infoimage' , 				$infoimage);
 		$this->assignRef('delloclink' , 			$delloclink);
 		$this->assignRef('editoruser' , 			$editoruser);
-		$this->assignRef('returnview' , 			$returnview);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('params' , 				$params);

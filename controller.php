@@ -63,8 +63,6 @@ class EventListController extends JController
 	function cancelevent()
 	{
 		$user	= & JFactory::getUser();
-
-		$view	= JRequest::getWord( 'returnview' );
 		$id		= JRequest::getInt( 'id');
 
 		// Must be logged in
@@ -83,7 +81,8 @@ class EventListController extends JController
 			$this->setRedirect( JRoute::_('index.php?view=details&id='.$id, false ) );
 
 		} else {
-			$this->setRedirect( JRoute::_('index.php?view='.$view, false ) );
+			$link = JRequest::getString('referer', JURI::base(), 'post');
+			$this->setRedirect($link);
 		}
 	}
 
@@ -95,8 +94,6 @@ class EventListController extends JController
 	function addvenue()
 	{
 		$user	= & JFactory::getUser();
-
-		$view	= JRequest::getWord( 'returnview' );
 		$id		= JRequest::getInt( 'id');
 
 		// Must be logged in
@@ -113,7 +110,7 @@ class EventListController extends JController
 			$row->checkin();
 		}
 
-		$this->setRedirect( JRoute::_('index.php?view=editvenue&returnview='.$view, false ) );
+		$this->setRedirect( JRoute::_('index.php?view=editvenue', false ) );
 	}
 
 	/**
@@ -124,8 +121,6 @@ class EventListController extends JController
 	function cancelvenue()
 	{
 		$user	= & JFactory::getUser();
-
-		$view	= JRequest::getWord( 'returnview' );
 		$id		= JRequest::getInt( 'id' );
 
 		// Must be logged in
@@ -144,7 +139,8 @@ class EventListController extends JController
 			$this->setRedirect( JRoute::_('index.php?view=venueevents&id='.$id, false) );
 
 		} else {
-			$this->setRedirect( JRoute::_('index.php?view='.$view, false) );
+			$link = JRequest::getString('referer', JURI::base(), 'post');
+			$this->setRedirect($link);
 		}
 	}
 
@@ -177,8 +173,7 @@ class EventListController extends JController
 		} else {
 
 			$msg 		= '';
-			$returnview	= JRequest::getVar('returnview', '', '', 'string');
-			$link 		= JRoute::_('index.php?view='.$returnview, false) ;
+			$link = JRequest::getString('referer', JURI::base(), 'post');
 
 			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
 		}
@@ -217,8 +212,7 @@ class EventListController extends JController
 		} else {
 
 			$msg 		= '';
-			$returnview	= JRequest::getVar('returnview', '', '', 'string');
-			$link 		= JRoute::_('index.php?view='.$returnview, false) ;
+			$link = JRequest::getString('referer', JURI::base(), 'post');
 
 			JError::raiseWarning('SOME_ERROR_CODE', $model->getError() );
 		}

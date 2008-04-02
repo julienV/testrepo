@@ -423,7 +423,7 @@ defined('_JEXEC') or die('Restricted access');
       <br class="clear" />
 
     	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
-    	<input type="hidden" name="returnview" value="<?php echo $this->returnview; ?>" />
+    	<input type="hidden" name="referer" value="<?php echo @$_SERVER['HTTP_REFERER']; ?>" />
     	<input type="hidden" name="created" value="<?php echo $this->row->created; ?>" />
     	<input type="hidden" name="author_ip" value="<?php echo $this->row->author_ip; ?>" />
     	<input type="hidden" name="created_by" value="<?php echo $this->row->created_by; ?>" />
