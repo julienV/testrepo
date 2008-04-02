@@ -199,7 +199,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
     				<?php
             if ($this->row->locimage) :
-    					echo ELOutput::flyer( $this->row, $this->elsettings, $this->limage );
+    					echo ELOutput::flyer( $this->row, $this->limage );
     				else :
       		    echo JHTML::_('image', 'components/com_eventlist/assets/images/noimage.png', JText::_('NO IMAGE'), array('class' => 'modal'));
     				endif;

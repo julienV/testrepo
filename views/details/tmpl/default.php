@@ -43,7 +43,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	</h2>
 
 	<?php //flyer
-	echo ELOutput::flyer( $this->row, $this->elsettings, $this->dimage, 'event' );
+	echo ELOutput::flyer( $this->row, $this->dimage, 'event' );
 	?>
 
 	<dl class="event_info floattext">
@@ -112,8 +112,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		</h2>
 
 		<?php //flyer
-		echo ELOutput::flyer( $this->row, $this->elsettings, $this->limage );
-		echo ELOutput::mapicon( $this->row, $this->elsettings );
+		echo ELOutput::flyer( $this->row, $this->limage );
+		echo ELOutput::mapicon( $this->row );
 		?>
 
 		<dl class="location floattext">

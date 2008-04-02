@@ -90,8 +90,8 @@ class EventListViewDetails extends JView
 		$pathway->addItem( JText::_( 'DETAILS' ). ' - '.$row->title, JRoute::_('index.php?view=details&id='.$row->slug));
 
 		//Get images
-		$dimage = ELImage::flyercreator($row->datimage, $elsettings, 'event');
-		$limage = ELImage::flyercreator($row->locimage, $elsettings);
+		$dimage = ELImage::flyercreator($row->datimage, 'event');
+		$limage = ELImage::flyercreator($row->locimage);
 
 		//Check user if he can edit
 		$allowedtoeditevent = ELUser::editaccess($elsettings->eventowner, $row->created_by, $elsettings->eventeditrec, $elsettings->eventedit);

@@ -91,7 +91,7 @@ class EventListViewEditevent extends JView
 		$delloclink = ELUser::validate_user( $elsettings->locdelrec, $elsettings->deliverlocsyes );
 
 		//Get image information
-		$dimage = ELImage::flyercreator($row->datimage, $elsettings, 'event');
+		$dimage = ELImage::flyercreator($row->datimage, 'event');
 
 		//Set the info image
 		$infoimage = JHTML::_('image', 'components/com_eventlist/assets/images/icon-16-hint.png', JText::_( 'NOTES' ) );

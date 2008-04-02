@@ -267,8 +267,10 @@ class ELOutput {
 	 *
 	 * @since 0.9
 	 */
-	function mapicon($data, $settings)
+	function mapicon($data)
 	{
+		$settings = & ELHelper::config();
+		
 		//Link to map
 		$mapimage = JHTML::_('image.site', 'mapsicon.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'MAP' ));
 
@@ -333,8 +335,9 @@ class ELOutput {
 	 *
 	 * @since 0.9
 	 */
-	function flyer( $data, $settings, $image, $type = 'venue' )
+	function flyer( $data, $image, $type = 'venue' )
 	{
+		$settings = & ELHelper::config();
 
 		//define the environment based on the type
 		if ($type == 'event') {

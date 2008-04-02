@@ -171,8 +171,10 @@ class ELImage {
 	*
 	* @return imagedata if available
 	*/
-	function flyercreator($image, $settings, $type= 'venue')
+	function flyercreator($image, $type= 'venue')
 	{
+		$settings = & ELHelper::config();
+		
 		jimport('joomla.filesystem.file');
 
 		//define the environment based on the type

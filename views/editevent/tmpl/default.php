@@ -380,7 +380,7 @@ defined('_JEXEC') or die('Restricted access');
       	  <legend><?php echo JText::_('IMAGE'); ?></legend>
       		<?php
           if ($this->row->datimage) :
-      		    echo ELOutput::flyer( $this->row, $this->elsettings, $this->dimage, 'event' );
+      		    echo ELOutput::flyer( $this->row, $this->dimage, 'event' );
       		else :
       		    echo JHTML::_('image', 'components/com_eventlist/assets/images/noimage.png', JText::_('NO IMAGE'), array('class' => 'modal'));
       		endif;

@@ -39,8 +39,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	<!--Venue-->
 	<?php //flyer
-	echo ELOutput::flyer( $this->venue, $this->elsettings, $this->limage );
-	echo ELOutput::mapicon( $this->venue, $this->elsettings );
+	echo ELOutput::flyer( $this->venue, $this->limage );
+	echo ELOutput::mapicon( $this->venue );
 	?>
 
 	<dl class="location floattext">

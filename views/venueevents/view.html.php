@@ -86,7 +86,7 @@ class EventListViewVenueevents extends JView
 		}
 
 		//Get image
-		$limage = ELImage::flyercreator($venue->locimage, $elsettings);
+		$limage = ELImage::flyercreator($venue->locimage);
 
 		//add alternate feed link
 		$link    = 'index.php?option=com_eventlist&view=venueevents&format=feed&id='.$venue->id;

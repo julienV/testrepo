@@ -104,7 +104,7 @@ class EventListModelVenues extends JModel
 				$venue =& $this->_data[$i];
 
 				//Create image information
-				$venue->limage = ELImage::flyercreator($venue->locimage, $elsettings);
+				$venue->limage = ELImage::flyercreator($venue->locimage);
 
 				//Generate Venuedescription
 				if (empty ($venue->locdescription)) {
