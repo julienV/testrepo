@@ -43,7 +43,7 @@ class EventListViewVenueevents extends JView
 		global $mainframe;
 
 		$doc 		= & JFactory::getDocument();
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 
 		// Get some data from the model
 		JRequest::setVar('limit', $mainframe->getCfg('feed_limit'));

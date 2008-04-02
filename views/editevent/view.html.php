@@ -51,7 +51,7 @@ class EventListViewEditevent extends JView
 		// Initialize variables
 		$editor 	= & JFactory::getEditor();
 		$doc 		= & JFactory::getDocument();
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 
 		//Get Data from the model
 		$row 		= $this->Get('Event');

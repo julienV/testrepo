@@ -43,7 +43,7 @@ class EventListViewVenues extends JView
 		global $mainframe;
 
 		$document 	= & JFactory::getDocument();
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 
 		//get menu information
 		$menu		= & JSite::getMenu();

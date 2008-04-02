@@ -90,7 +90,7 @@ class EventListModelVenues extends JModel
 		$item    	= $menu->getActive();
 		$params		=& $menu->getParams($item->id);
 
-		$elsettings 	=  ELHelper::config();
+		$elsettings 	=  & ELHelper::config();
 
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_data))

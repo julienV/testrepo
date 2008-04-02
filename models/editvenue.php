@@ -76,7 +76,7 @@ class EventListModelEditvenue extends JModel
 
 		// Initialize variables
 		$user		= & JFactory::getUser();
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 
 		$view		= JRequest::getWord('view');
 
@@ -207,7 +207,7 @@ class EventListModelEditvenue extends JModel
 		global $mainframe;
 
 		$user 		= & JFactory::getUser();
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 
 		//Get mailinformation
 		$SiteName 		= $mainframe->getCfg('sitename');

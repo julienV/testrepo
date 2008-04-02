@@ -30,13 +30,6 @@ require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'output.class.php');
 // Set the table directory
 JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
 
-//pull the setings data out of database and put it in the session
-$session =& JFactory::getSession();
-if (!$session->has('elsettings')) {
-	$elsettings = ELHelper::elconfig();
-	$session->set('elsettings', $elsettings);
-}
-
 // Require the controller
 require_once (JPATH_COMPONENT.DS.'controller.php');
 

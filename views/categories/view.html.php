@@ -38,7 +38,7 @@ class EventListViewCategories extends JView
 		global $mainframe;
 
 		$document 	= & JFactory::getDocument();
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 
 		$rows 		= & $this->get('Data');
 		$total 		= & $this->get('Total');

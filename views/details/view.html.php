@@ -45,7 +45,7 @@ class EventListViewDetails extends JView
 		$document 	= & JFactory::getDocument();
 		$user		= & JFactory::getUser();
 		$dispatcher = & JDispatcher::getInstance();
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 
 		$row		= & $this->get('Details');
 		$registers	= & $this->get('Registers');

@@ -45,7 +45,7 @@ class EventListViewEditvenue extends JView
 
 		$editor 	= & JFactory::getEditor();
 		$doc 		= & JFactory::getDocument();
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 
 		// Get requests
 		$id				= JRequest::getInt('id');

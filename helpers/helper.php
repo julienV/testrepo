@@ -29,35 +29,24 @@ defined('_JEXEC') or die('Restricted access');
  * @subpackage EventList
  */
 class ELHelper {
-
+	
 	/**
-	 * Pulls settings from database
+	 * Pulls settings from database and stores in an static object
 	 *
 	 * @return object
 	 * @since 0.9
 	 */
-	function elconfig()
+	function &config()
 	{
-		$db =& JFactory::getDBO();
-
-		$sql = 'SELECT * FROM #__eventlist_settings WHERE id = 1';
-		$db->setQuery($sql);
-		$config = $db->loadObject();
-
-		return $config;
-	}
-
-	/**
-	 * Receives settings from session
-	 *
-	 * @return object
-	 * @since 0.9
-	 */
-	function config()
-	{
-		$session =& JFactory::getSession();
-
-		$config = $session->get('elsettings');
+		static $config;
+		
+		if (!is_object($config))
+		{
+			$db 	= & JFactory::getDBO();
+			$sql 	= 'SELECT * FROM #__eventlist_settings WHERE id = 1';
+			$db->setQuery($sql);
+			$config = $db->loadObject();
+		}
 
 		return $config;
 	}
@@ -83,7 +72,7 @@ class ELHelper {
 		if ( $nrdaysnow > $nrdaysupdate ) {
 
 			$db			= & JFactory::getDBO();
-			$elsettings = ELHelper::config();
+			$elsettings = & ELHelper::config();
 
 			$nulldate = '0000-00-00';
 			$query = 'SELECT * FROM #__eventlist_events WHERE DATE_SUB(NOW(), INTERVAL '.$elsettings->minus.' DAY) > (IF (enddates <> '.$nulldate.', enddates, dates)) AND recurrence_number <> "0" AND recurrence_type <> "0" AND `published` = 1';

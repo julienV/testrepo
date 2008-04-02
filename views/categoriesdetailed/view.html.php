@@ -44,7 +44,7 @@ class EventListViewCategoriesdetailed extends JView
 
 		//initialise variables
 		$document 	= & JFactory::getDocument();
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 		$model 		= $this->getModel();
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();

@@ -94,7 +94,7 @@ class EventListModelCategoriesdetailed extends JModel
 		global $mainframe;
 
 		$params 	= & $mainframe->getParams();
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_categories))

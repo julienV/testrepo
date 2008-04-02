@@ -84,7 +84,7 @@ class EventListModelEditevent extends JModel
 
 		// Initialize variables
 		$user		= & JFactory::getUser();
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 
 		$view		= JRequest::getWord('view');
 
@@ -201,7 +201,7 @@ class EventListModelEditevent extends JModel
 	function getCategories( )
 	{
 		$user		= & JFactory::getUser();
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 		$userid		= (int) $user->get('id');
 		$gid		= (int) $user->get('aid');
 		$superuser	= ELUser::superuser();
@@ -450,7 +450,7 @@ class EventListModelEditevent extends JModel
 		global $mainframe;
 
 		$user 		= & JFactory::getUser();
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 
 		//Get mailinformation
 		$SiteName 		= $mainframe->getCfg('sitename');

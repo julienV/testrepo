@@ -44,7 +44,7 @@ class EventListViewDay extends JView
 
 		//initialize variables
 		$document 	= & JFactory::getDocument();
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
 		$params 	= & $mainframe->getParams();

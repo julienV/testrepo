@@ -186,7 +186,7 @@ class EventListModelDetails extends JModel
 	function getRegisters()
 	{
 		//avatars should be displayed
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 
 		$avatar	= '';
 		$join	= '';
@@ -225,7 +225,7 @@ class EventListModelDetails extends JModel
 		global $mainframe;
 
 		$user 		= & JFactory::getUser();
-		$elsettings = ELHelper::config();
+		$elsettings = & ELHelper::config();
 		$tzoffset	= $mainframe->getCfg('offset');
 
 		$event 		= (int) $this->_id;
