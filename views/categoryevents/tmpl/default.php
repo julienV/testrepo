@@ -27,7 +27,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<?php
 		if ( !$this->params->get( 'popup' ) ) : //don't show in printpopup
 			echo ELOutput::submitbutton( $this->dellink, $this->params );
-			echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params, $this->task, $this->category->slug );
+			echo ELOutput::archivebutton( $this->params, $this->task, $this->category->slug );
 		endif;
 		echo ELOutput::mailbutton( $this->category->slug, 'categoryevents', $this->params );
 		echo ELOutput::printbutton( $this->print_link, $this->params );
@@ -37,7 +37,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <?php if ($this->params->def( 'show_page_title', 1 )) : ?>
 
     <h1 class='componentheading'>
-		<?php echo $this->escape($this->category->catname); ?>
+		<?php echo $this->task == 'archive' ? $this->escape($this->category->catname.' - '.JText::_('ARCHIVE')) : $this->escape($this->category->catname); ?>
 	</h1>
 
 <?php endif; ?>

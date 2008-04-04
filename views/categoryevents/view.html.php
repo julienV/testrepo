@@ -49,6 +49,7 @@ class EventListViewCategoryevents extends JView
 		$item    	= $menu->getActive();
 		$params 	= & $mainframe->getParams();
 		$uri 		= & JFactory::getURI();
+		$pathway 	= & $mainframe->getPathWay();
 
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );
@@ -104,16 +105,14 @@ class EventListViewCategoryevents extends JView
 		$document->addHeadLink(JRoute::_($link.'&type=atom', 'alternate', 'rel'), $attribs);
 
 		//create the pathway
-		if ($task == 'catarchive') {
-			$pathway 	= & $mainframe->getPathWay();
-			$pathway->setItemName(1, $item->name);
-			$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&task=catarchive&id='.$category->id));
-			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&task=catarchive&id='.$category->id );
+		$pathway->setItemName(1, $item->name);
+		
+		if ($task == 'archive') {
+			$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&task=archive&id='.$category->slug));
+			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&task=archive&id='.$category->slug );
 		} else {
-			$pathway 	= & $mainframe->getPathWay();
-			$pathway->setItemName(1, $item->name);
-			$pathway->addItem( $category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&id='.$category->id));
-			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&id='.$category->id );
+			$pathway->addItem( $category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&id='.$category->slug));
+			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&id='.$category->slug );
 		}
 
 		//Check if the user has access to the form

@@ -187,12 +187,21 @@ class EventListModelVenues extends JModel
 	 */
 	function _buildQuery()
 	{
+		//check archive task
+		$task 	= JRequest::getVar('task', '', '', 'string');
+		if($task == 'archive') {
+			$eventstate = ' AND a.published = -1';
+		} else {
+			$eventstate = ' AND a.published = 1';
+		}
+		
 		//get categories
 		$query = 'SELECT v.*, COUNT( a.id ) AS assignedevents,'
 				. ' CASE WHEN CHAR_LENGTH(v.alias) THEN CONCAT_WS(\':\', v.id, v.alias) ELSE v.id END as slug'
 				. ' FROM #__eventlist_venues as v'
 				. ' LEFT JOIN #__eventlist_events AS a ON a.locid = v.id'
 				. ' WHERE v.published = 1'
+				. $eventstate
 				. ' GROUP BY v.id'
 				. ' ORDER BY v.venue'
 				;

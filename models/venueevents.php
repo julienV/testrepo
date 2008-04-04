@@ -222,10 +222,16 @@ class EventListModelVenueevents extends JModel
 
 		// Get the paramaters of the active menu item
 		$params 	= & $mainframe->getParams('com_eventlist');
+		
+		$task 		= JRequest::getWord('task');
 
 		// First thing we need to do is to select only the requested events
-		$where = ' WHERE a.published = 1 && a.locid = '.$this->_id;
-
+		if ($task == 'archive') {
+			$where = ' WHERE a.published = -1 && a.locid = '.$this->_id;
+		} else {
+			$where = ' WHERE a.published = 1 && a.locid = '.$this->_id;
+		}
+		
 		// Second is to only select events assigned to category the user has access to
 		$where .= ' AND c.access <= '.$gid;
 

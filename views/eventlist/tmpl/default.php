@@ -26,7 +26,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<?php
 		if ( !$this->params->get( 'popup' ) ) : //don't show in printpopup
 			echo ELOutput::submitbutton( $this->dellink, $this->params );
-			echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params );
+			echo ELOutput::archivebutton( $this->params, $this->task );
 		endif;
 
 		echo ELOutput::printbutton( $this->print_link, $this->params );
@@ -36,7 +36,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <?php if ($this->params->def( 'show_page_title', 1 )) : ?>
 
     <h1 class="componentheading">
-		<?php echo $this->params->get('page_title'); ?>
+		<?php echo $this->escape($this->pagetitle); ?>
 	</h1>
 
 <?php endif; ?>

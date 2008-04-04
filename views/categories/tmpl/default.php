@@ -26,7 +26,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <p class="buttons">
 	<?php
 		echo ELOutput::submitbutton( $this->dellink, $this->params );
-		echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params, $this->task );
+		echo ELOutput::archivebutton( $this->params, $this->task );
 	?>
 </p>
 
@@ -72,7 +72,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <!--pagination-->
 <p class="pageslinks">
-	<?php echo $this->pageNav->getPagesLinks($this->navlink); ?>
+	<?php echo $this->pageNav->getPagesLinks(); ?>
 </p>
 
 <p class="pagescounter">

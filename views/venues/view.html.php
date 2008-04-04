@@ -61,6 +61,7 @@ class EventListViewVenues extends JView
 		$limitstart		= JRequest::getInt('limitstart');
 		$limit			= JRequest::getVar('limit', $params->get('display_num'), '', 'int');
 		$pop			= JRequest::getBool('pop', 0, '', 'int');
+		$task 			= JRequest::getWord('task');
 
 		$rows 		= & $this->get('Data');
 		$total 		= & $this->get('Total');
@@ -77,24 +78,26 @@ class EventListViewVenues extends JView
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
 		$document->addHeadLink(JRoute::_($link.'&type=atom'), 'alternate', 'rel', $attribs);
 
-		$params->def( 'page_title', $item->name);
-
-		//set Page title
-		$document->setTitle( $params->get('page_title') );
-		$document->setMetadata('keywords', $params->get('page_title') );
-
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();
 		$pathway->setItemName(1, $item->name);
+		
+		if ( $task == 'archive' ) {
+			$pathway->addItem(JText::_( 'ARCHIVE' ), JRoute::_('index.php?view=venues&task=archive') );
+			$pagetitle = $params->get('page_title').' - '.JText::_( 'ARCHIVE' );
+		} else {
+			$pagetitle = $params->get('page_title');
+		}
+		
+		//Set Page title
+		$mainframe->setPageTitle( $pagetitle );
+   		$mainframe->addMetaTag( 'title' , $pagetitle );
+   		$document->setMetadata('keywords', $pagetitle );
 
 
 		//Printfunction
 		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
 		$params->def( 'icons', $mainframe->getCfg( 'icons' ) );
-
-		if ($params->def('page_title', 1)) {
-			$params->def('header', $item->name);
-		}
 
 		if ( $pop ) {
 			$params->set( 'popup', 1 );
@@ -124,6 +127,8 @@ class EventListViewVenues extends JView
 		$this->assignRef('total' , 					$total);
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('elsettings' , 			$elsettings);
+		$this->assignRef('task' , 					$task);
+		$this->assignRef('pagetitle' , 				$pagetitle);
 
 		parent::display($tpl);
 	}

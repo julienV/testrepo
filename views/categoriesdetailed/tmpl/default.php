@@ -27,7 +27,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<?php
 		if ( !$this->params->get( 'popup' ) ) : //don't show in printpopup
 			echo ELOutput::submitbutton( $this->dellink, $this->params );
-			echo ELOutput::archivebutton( $this->elsettings->oldevent, $this->params );
+			echo ELOutput::archivebutton( $this->params, $this->task );
 		endif;
 		echo ELOutput::printbutton( $this->print_link, $this->params );
 	?>
@@ -36,7 +36,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <?php if ($this->params->get('show_page_title')) : ?>
 
 <h1 class="componentheading">
-<?php echo $this->params->get('page_title'); ?>
+<?php echo $this->escape($this->pagetitle); ?>
 </h1>
 
 <?php endif;
@@ -56,7 +56,11 @@ foreach($this->categories as $category) :
 		<p>
 			<?php
 				echo JText::_( 'EVENTS' ).': ';
-				echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$category->slug), $category->assignedevents);
+				if ($this->task == 'archive') :
+					echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$category->slug.'&task=archive'), $category->assignedevents);
+				else:
+					echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$category->slug), $category->assignedevents);
+				endif;
 			?>
 		</p>
 	</div>
@@ -64,7 +68,11 @@ foreach($this->categories as $category) :
 	<div class="catdescription"><?php echo $category->catdescription; ?>
 		<p>
 			<?php
-				echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$category->slug), JText::_( 'SHOW EVENTS' ));
+				if ($this->task == 'archive') :
+					echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$category->slug.'&task=archive'), JText::_( 'SHOW ARCHIVE' ));
+				else:
+					echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$category->slug), JText::_( 'SHOW EVENTS' ));
+				endif;
 			?>
 		</p>
 	</div>
@@ -74,7 +82,7 @@ foreach($this->categories as $category) :
 
 <!--table-->
 <?php
-//TODO move out of template
+//TODO: move out of template
 $this->rows		= & $this->model->getEventdata( $category->id );
 $this->categoryid = $category->id;
 
@@ -86,7 +94,7 @@ endforeach;
 <!--pagination-->
 
 <div class="pageslinks">
-	<?php echo $this->pageNav->getPagesLinks($this->link); ?>
+	<?php echo $this->pageNav->getPagesLinks(); ?>
 </div>
 
 <p class="pagescounter">

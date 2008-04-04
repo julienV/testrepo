@@ -205,6 +205,15 @@ class EventListModelCategoriesdetailed extends JModel
 		$user		= & JFactory::getUser();
 		$aid		= (int) $user->get('aid');
 		$id			= (int) $id;
+		
+		$task 		= JRequest::getWord('task');
+
+		// First thing we need to do is to select only the requested events
+		if ($task == 'archive') {
+			$where = ' WHERE a.published = -1 && a.catsid = '.$id;
+		} else {
+			$where = ' WHERE a.published = 1 && a.catsid = '.$id;
+		}
 
 		//Get Events from Category
 		$query = 'SELECT a.*, l.venue, l.city, l.state, l.url, c.catname, c.id AS catid,'
@@ -214,7 +223,7 @@ class EventListModelCategoriesdetailed extends JModel
 				. ' FROM #__eventlist_events AS a'
 				. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
 				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
-				. ' WHERE a.published = 1 && a.catsid = '.$id
+				. $where
 				. ' AND c.access <= '.$aid
 				. ' ORDER BY a.dates, a.times'
 				;
@@ -237,9 +246,17 @@ class EventListModelCategoriesdetailed extends JModel
 
 		// Get the paramaters of the active menu item
 		$params 	= & $mainframe->getParams('com_eventlist');
+		
+		//check archive task and ensure that only categories get selected if they contain a publishes/arcived event
+		$task 	= JRequest::getVar('task', '', '', 'string');
+		if($task == 'archive') {
+			$eventstate = ' AND a.published = -1';
+		} else {
+			$eventstate = ' AND a.published = 1';
+		}
 
 		// show/hide empty categories
-		$empty 	= null;
+		$empty 	= null;		
 		if (!$params->get('empty_cat'))
 		{
 			$empty 	= ' HAVING assignedevents > 0';
@@ -252,7 +269,7 @@ class EventListModelCategoriesdetailed extends JModel
 				. ' LEFT JOIN #__eventlist_events AS a ON a.catsid = c.id'
 				. ' WHERE c.published = 1'
 				. ' AND c.access <= '.$gid
-				. ' AND a.published = 1'
+				. $eventstate
 				. ' GROUP BY c.id '.$empty
 				. ' ORDER BY c.ordering'
 				;

@@ -83,53 +83,50 @@ class ELOutput {
 	* @param string $task The current task
 	* @param int $categid The cat id
 	*/
-	function archivebutton( $oldevent, &$params, $task = NULL, $categid = NULL )
+	function archivebutton( &$params, $task = NULL, $id = NULL )
 	{
 
-		if ( $oldevent == 2 ) {
+		$settings = & ELHelper::config();
+		
+		if ( $settings->oldevent == 2 ) {
 
 			JHTML::_('behavior.tooltip');
-
-			switch ($task) {
-				case 'archive':
-
-					if ( $params->get('icons') ) {
-						$image = JHTML::_('image.site', 'eventlist.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW EVENTS' ));
-					} else {
-						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
-					}
-					$overlib 	= JText::_( 'SHOW EVENTS TIP' );
-					$link 		= JRoute::_( 'index.php' );
-					$title 		= JText::_( 'SHOW EVENTS' );
-
-					break;
-
-				case 'catarchive':
-
-					if ( $params->get('icons') ) {
-						$image = JHTML::_('image.site', 'eventlist.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW EVENTS' ));
-					} else {
-						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
-					}
-					$overlib 	= JText::_( 'SHOW EVENTS TIP' );
-					$link 		= JRoute::_( 'index.php?view=categoryevents&id='.$categid );
-					$title 		= JText::_( 'SHOW EVENTS' );
-
-					break;
-
-				default:
-
-					if ( $params->get('icons') ) {
-						$image = JHTML::_('image.site', 'archive_front.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW ARCHIVE' ));
-					} else {
-						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW ARCHIVE' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
-					}
-					$overlib 	= JText::_( 'SHOW ARCHIVE TIP' );
-					$link		= JRoute::_('index.php?view=categories&task=archive');
-					$title 		= JText::_( 'SHOW ARCHIVE' );
-
-					break;
+			
+			$view = JRequest::getWord('view');
+			
+			if ($task == 'archive') {
+				
+				if ( $params->get('icons') ) {
+					$image = JHTML::_('image.site', 'eventlist.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW EVENTS' ));
+				} else {
+					$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
+				}
+				$overlib 	= JText::_( 'SHOW EVENTS TIP' );
+				$title 		= JText::_( 'SHOW EVENTS' );
+				
+				if ($id) {
+						$link 		= JRoute::_( 'index.php?view='.$view.'&id='.$id );
+				} else {
+						$link 		= JRoute::_( 'index.php' );
+				}
+				
+			} else {
+				
+				if ( $params->get('icons') ) {
+					$image = JHTML::_('image.site', 'archive_front.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW ARCHIVE' ));
+				} else {
+					$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW ARCHIVE' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
+				}
+				$overlib 	= JText::_( 'SHOW ARCHIVE TIP' );
+				$title 		= JText::_( 'SHOW ARCHIVE' );
+					
+				if ($id) {
+					$link 		= JRoute::_( 'index.php?view='.$view.'&id='.$id.'&task=archive' );
+				} else {
+					$link		= JRoute::_('index.php?view='.$view.'&task=archive');
+				}
 			}
+
 			$output = '<a href="'.$link.'" class="editlinktip hasTip" title="'.$title.'::'.$overlib.'">'.$image.'</a>';
 
 			return $output;

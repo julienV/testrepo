@@ -55,6 +55,7 @@ class EventListViewCategoriesdetailed extends JView
 		$limit			= JRequest::getInt('limit', $params->get('cat_num'));
 		$pathway 		= & $mainframe->getPathWay();
 		$pop			= JRequest::getBool('pop');
+		$task 			= JRequest::getWord('task');
 
 		//Get data from the model
 		$categories	= & $this->get('Data');
@@ -71,11 +72,17 @@ class EventListViewCategoriesdetailed extends JView
 
 		//pathway
 		$pathway->setItemName(1, $item->name);
-
+		
+		if ( $task == 'archive' ) {
+			$pathway->addItem(JText::_( 'ARCHIVE' ), JRoute::_('index.php?view=categoriesdetailed&task=archive') );
+			$pagetitle = $params->get('page_title').' - '.JText::_( 'ARCHIVE' );
+		} else {
+			$pagetitle = $params->get('page_title');
+		}
 		//set Page title
-		$mainframe->setPageTitle( $params->get('page_title') );
-		$mainframe->addMetaTag( 'title' , $params->get('page_title') );
-		$document->setMetadata( 'keywords' , $params->get('page_title') );
+		$mainframe->setPageTitle( $pagetitle );
+		$mainframe->addMetaTag( 'title' , $pagetitle );
+		$document->setMetadata( 'keywords' , $pagetitle );
 
 		//Print
 		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
@@ -106,8 +113,6 @@ class EventListViewCategoriesdetailed extends JView
 
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
-		$link = 'index.php?option=com_eventlist&Itemid='.$item->id.'&view=categoriesdetailed';
-
 		$this->assignRef('categories' , 			$categories);
 		$this->assignRef('print_link' , 			$print_link);
 		$this->assignRef('params' , 				$params);
@@ -115,8 +120,10 @@ class EventListViewCategoriesdetailed extends JView
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('model' , 					$model);
 		$this->assignRef('pageNav' , 				$pageNav);
-		$this->assignRef('link' , 					$link);
 		$this->assignRef('elsettings' , 			$elsettings);
+		$this->assignRef('task' , 					$task);
+		$this->assignRef('pagetitle' , 				$pagetitle);
+		
 
 		parent::display($tpl);
 

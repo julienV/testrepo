@@ -27,6 +27,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<?php
 			if ( !$this->params->get( 'popup' ) ) : //don't show in printpopup
 				echo ELOutput::submitbutton( $this->dellink, $this->params );
+				echo ELOutput::archivebutton( $this->params, $this->task );
 			endif;
 
 			echo ELOutput::printbutton( $this->print_link, $this->params );
@@ -35,17 +36,24 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	<?php if ($this->params->def('show_page_title', 1)) : ?>
 		<h1 class='componentheading'>
-			<?php echo $this->params->get('page_title'); ?>
+			<?php echo $this->escape($this->pagetitle); ?>
 		</h1>
 	<?php endif; ?>
 
 	<!--Venue-->
 
 	<?php foreach($this->rows as $row) : ?>
-
+		
+		<?php 
+		if ($this->task == 'archive') {
+			$target = JRoute::_('index.php?view=venueevents&id='.$row->slug.'&task=archive');
+		} else {
+			$target = JRoute::_('index.php?view=venueevents&id='.$row->slug);
+		}
+		?>
 
 		<h2 class="eventlist">
-			<a href="<?php echo JRoute::_('index.php?view=venueevents&id='.$row->slug); ?>"><?php echo $this->escape($row->venue); ?></a>
+			<a href="<?php echo $target; ?>"><?php echo $this->escape($row->venue); ?></a>
 		</h2>
 
 			<?php
@@ -102,7 +110,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	    		<dt class="venue_assignedevents"><?php echo JText::_( 'EVENTS' ).':'; ?></dt>
 	    		<dd class="venue_assignedevents">
-	    			<a href="<?php echo JRoute::_('index.php?view=venueevents&id='.$row->slug); ?>"><?php echo $row->assignedevents; ?></a>
+	    			<a href="<?php echo $target; ?>"><?php echo $row->assignedevents; ?></a>
 	    		</dd>
 			<?php
 			endif;

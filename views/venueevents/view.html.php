@@ -61,6 +61,7 @@ class EventListViewVenueevents extends JView
 		$limitstart		= JRequest::getInt('limitstart');
 		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.venueevents.limit', 'limit', $params->def('display_num', 0), 'int');
 		$pop			= JRequest::getBool('pop');
+		$task 			= JRequest::getWord('task');
 
 		//get data from model
 		$rows 		= & $this->get('Data');
@@ -95,15 +96,26 @@ class EventListViewVenueevents extends JView
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
 		$document->addHeadLink(JRoute::_($link.'&type=atom'), 'alternate', 'rel', $attribs);
 
-		//set Page title
-		$document->setTitle( $item->name.' - '.$venue->venue );
-		$document->setMetadata('keywords', $venue->meta_keywords );
-		$document->setDescription( strip_tags($venue->meta_description) );
-
 		//pathway
 		$pathway 	= & $mainframe->getPathWay();
 		$pathway->setItemName(1, $item->name);
-		$pathway->addItem( $venue->venue, JRoute::_('index.php?option='.$option.'&view=venueevents&id='.$venue->id));
+		
+		//create the pathway
+		if ($task == 'archive') {
+			$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$venue->venue, JRoute::_('index.php?option='.$option.'&view=venueevents&task=archive&id='.$venue->slug));
+			$link = JRoute::_( 'index.php?option=com_eventlist&view=venueevents&task=archive&id='.$venue->slug );
+			$pagetitle = $venue->venue.' - '.JText::_( 'ARCHIVE' );
+		} else {
+			$pathway->addItem( $venue->venue, JRoute::_('index.php?option='.$option.'&view=venueevents&id='.$venue->slug));
+			$link = JRoute::_( 'index.php?option=com_eventlist&view=venueevents&id='.$venue->slug );
+			$pagetitle = $venue->venue;
+		}
+		
+		//set Page title
+		$mainframe->setPageTitle( $pagetitle );
+   		$mainframe->addMetaTag( 'title' , $pagetitle );
+		$document->setMetadata('keywords', $venue->meta_keywords );
+		$document->setDescription( strip_tags($venue->meta_description) );
 
 		//Printfunction
 		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
@@ -113,7 +125,7 @@ class EventListViewVenueevents extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = JRoute::_('index.php?option=com_eventlist&view=venueevents&id='. $venue->id .'&pop=1&tmpl=component');
+		$print_link = JRoute::_('index.php?option=com_eventlist&view=venueevents&id='. $venue->slug .'&pop=1&tmpl=component');
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
@@ -170,6 +182,8 @@ class EventListViewVenueevents extends JView
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
+		$this->assignRef('pagetitle' , 				$pagetitle);
+		$this->assignRef('task' , 					$task);
 
 
 		parent::display($tpl);

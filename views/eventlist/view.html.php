@@ -49,6 +49,7 @@ class EventListViewEventList extends JView
 		$item    	= $menu->getActive();
 		$params 	= & $mainframe->getParams();
 		$uri 		= & JFactory::getURI();
+		$pathway 	= & $mainframe->getPathWay();
 
 		//cleanup events
 		ELHelper::cleanevents( $elsettings->lastupdate );
@@ -60,9 +61,8 @@ class EventListViewEventList extends JView
 		// get variables
 		$limitstart	= JRequest::getVar('limitstart', 0, '', 'int');
 		$limit		= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0), 'int');
-
-		$pop			= JRequest::getBool('pop');
-		$pathway 		= & $mainframe->getPathWay();
+		$task 		= JRequest::getWord('task');
+		$pop		= JRequest::getBool('pop');
 
 		//get data from model
 		$rows 	= & $this->get('Data');
@@ -86,12 +86,17 @@ class EventListViewEventList extends JView
 
 		//pathway
 		$pathway->setItemName( 1, $item->name );
-
-		//Set Page title
-		if (!$item->name) {
-			$document->setTitle($params->get('page_title'));
-			$document->setMetadata( 'keywords' , $params->get('page_title') );
+		
+		if ( $task == 'archive' ) {
+			$pathway->addItem(JText::_( 'ARCHIVE' ), JRoute::_('index.php?view=eventlist&task=archive') );
+			$pagetitle = $params->get('page_title').' - '.JText::_( 'ARCHIVE' );
+		} else {
+			$pagetitle = $params->get('page_title');
 		}
+		
+		//Set Page title
+		$mainframe->setPageTitle( $pagetitle );
+   		$mainframe->addMetaTag( 'title' , $pagetitle );
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
@@ -128,6 +133,7 @@ class EventListViewEventList extends JView
 		$this->assign('action', 					$uri->toString());
 
 		$this->assignRef('rows' , 					$rows);
+		$this->assignRef('task' , 					$task);
 		$this->assignRef('noevents' , 				$noevents);
 		$this->assignRef('print_link' , 			$print_link);
 		$this->assignRef('params' , 				$params);
@@ -135,6 +141,7 @@ class EventListViewEventList extends JView
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('lists' , 					$lists);
+		$this->assignRef('pagetitle' , 				$pagetitle);
 
 		parent::display($tpl);
 

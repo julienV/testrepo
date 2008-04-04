@@ -152,21 +152,20 @@ class EventListModelCategories extends JModel
 		// Get the paramaters of the active menu item
 		$params 	= & $mainframe->getParams('com_eventlist');
 
+		//check archive task and ensure that only categories get selected if they contain a publishes/arcived event
+		$task 	= JRequest::getVar('task', '', '', 'string');
+		if($task == 'archive') {
+			$eventstate = ' AND a.published = -1';
+		} else {
+			$eventstate = ' AND a.published = 1';
+		}
+		
 		// show/hide empty categories
 		$empty = null;
-		$eventstate = null;
 		
 		if (!$params->get('empty_cat'))
 		{
 			$empty = ' HAVING assignedevents > 0';
-			
-			//check archive task and ensure that only categories get selected if they contain a publishes/arcived event
-			$task 	= JRequest::getVar('task', '', '', 'string');
-			if($task == 'archive') {
-				$eventstate = ' AND a.published = -1';
-			} else {
-				$eventstate = ' AND a.published = 1';
-			}
 		}
 		
 		//get categories

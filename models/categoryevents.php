@@ -226,7 +226,7 @@ class EventListModelCategoryevents extends JModel
 		$task 		= JRequest::getWord('task');
 
 		// First thing we need to do is to select only the requested events
-		if ($task == 'catarchive') {
+		if ($task == 'archive') {
 			$where = ' WHERE a.published = -1 && a.catsid = '.$this->_id;
 		} else {
 			$where = ' WHERE a.published = 1 && a.catsid = '.$this->_id;

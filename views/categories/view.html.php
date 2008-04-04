@@ -58,7 +58,7 @@ class EventListViewCategories extends JView
 		// Request variables
 		$limitstart		= JRequest::getInt('limitstart');
 		$limit			= JRequest::getInt('limit', $params->get('cat_num'));
-		$task			= JRequest::getWord('task', '', '', 'string');
+		$task			= JRequest::getWord('task');
 
 		$params->def( 'page_title', $item->name);
 
@@ -68,18 +68,16 @@ class EventListViewCategories extends JView
 
 		if ( $task == 'archive' ) {
 			$pathway->addItem(JText::_( 'ARCHIVE' ), JRoute::_('index.php?view=categories&task=archive') );
-			$navlink = JRoute::_('index.php?view=categories&task=archive');
 			$pagetitle = $params->get('page_title').' - '.JText::_( 'ARCHIVE' );
-			$urlfragment = 'index.php?view=categoryevents&task=catarchive&id=';
+			$urlfragment = 'index.php?view=categoryevents&task=archive&id=';
 		} else {
-			$navlink = JRoute::_('index.php?view=categories');
 			$pagetitle = $params->get('page_title');
 			$urlfragment = 'index.php?view=categoryevents&id=';
 		}
 
 		//Set Page title
-		$mainframe->setPageTitle( $params->get('page_title') );
-   		$mainframe->addMetaTag( 'title' , $params->get('page_title') );
+		$mainframe->setPageTitle( $pagetitle );
+   		$mainframe->addMetaTag( 'title' , $pagetitle );
 
 		//get icon settings
 		$params->def( 'icons', $mainframe->getCfg( 'icons' ) );
@@ -107,7 +105,6 @@ class EventListViewCategories extends JView
 		$this->assignRef('params' , 				$params);
 		$this->assignRef('dellink' , 				$dellink);
 		$this->assignRef('pageNav' , 				$pageNav);
-		$this->assignRef('navlink' , 				$navlink);
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('pagetitle' , 				$pagetitle);

@@ -83,6 +83,10 @@ function EventListParseRoute($segments)
 			$id = explode(':', $segments[1]);
 			$vars['id'] = $id[0];
 			$vars['view'] = 'venueevents';
+			$count = count($segments);
+			if($count > 2) {
+				$vars['task'] = $segments[2];
+			}
 
 		} break;
 
@@ -115,12 +119,22 @@ function EventListParseRoute($segments)
 		case 'eventlist':
 		{
 			$vars['view'] = 'eventlist';
+			
+			$count = count($segments);
+			if($count == 2) {
+				$vars['task'] = $segments[1];
+			}
 
 		} break;
 
 		case 'categoriesdetailed':
 		{
 			$vars['view'] = 'categoriesdetailed';
+			
+			$count = count($segments);
+			if($count == 2) {
+				$vars['task'] = $segments[1];
+			}
 
 		} break;
 
@@ -129,7 +143,6 @@ function EventListParseRoute($segments)
 			$vars['view'] = 'categories';
 
 			$count = count($segments);
-			
 			if($count == 2) {
 				$vars['task'] = $segments[1];
 			}
@@ -139,6 +152,11 @@ function EventListParseRoute($segments)
 		case 'venues':
 		{
 			$vars['view'] = 'venues';
+			
+			$count = count($segments);
+			if($count == 2) {
+				$vars['task'] = $segments[1];
+			}
 
 		} break;
 		
