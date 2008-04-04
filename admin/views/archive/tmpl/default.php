@@ -26,7 +26,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 		<tr>
 		  	<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left" /></td>
-		  	<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">::<?php echo JText::_( 'ARCHIVE' ); ?>::</font></td>
+		  	<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">::<?php echo JText::_( 'ARCHIVESCREEN' ); ?>::</font></td>
 		</tr>
 	</table>
 

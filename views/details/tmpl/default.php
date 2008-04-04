@@ -24,7 +24,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 <div id="eventlist" class="event_id<?php echo $this->row->did; ?> el_details">
 	<p class="buttons">
-			<?php echo ELOutput::mailbutton( $this->params ); ?>
+			<?php echo ELOutput::mailbutton( $this->row->slug, 'details', $this->params ); ?>
 			<?php echo ELOutput::printbutton( $this->print_link, $this->params ); ?>
 	</p>
 
@@ -57,8 +57,20 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   		<dt class="when"><?php echo JText::_( 'WHEN' ).':'; ?></dt>
 		<dd class="when">
 			<?php
-			echo $this->displaydate;
-			echo $this->displaytime;
+			echo ELOutput::formatdate($this->row->dates, $this->row->times);
+    					
+    		if ($this->row->enddates) :
+    			echo ' - '.ELOutput::formatdate($this->row->enddates, $this->row->endtimes);
+    		endif;
+    		
+    		if ($this->elsettings->showtimedetails == 1) :
+    	
+				echo '&nbsp;'.ELOutput::formattime($this->row->dates, $this->row->times);
+						
+				if ($this->row->endtimes) :
+					echo ' - '.ELOutput::formattime($this->row->enddates, $this->row->endtimes);
+				endif;
+			endif;
 			?>
 		</dd>
   		<?php

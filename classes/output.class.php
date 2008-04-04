@@ -228,18 +228,18 @@ class ELOutput {
 	/**
 	 * Creates the email button
 	 *
-	 * @param string $print_link
+	 * @param object $slug
 	 * @param array $params
 	 * @since 0.9
 	 */
-	function mailbutton($params)
+	function mailbutton($slug, $view, $params)
 	{
 		if ($params->get('show_email_icon')) {
 
 			JHTML::_('behavior.tooltip');
 			$uri    =& JURI::getInstance();
 			$base  	= $uri->toString( array('scheme', 'host', 'port'));
-			$link   = $base.JRoute::_( JRequest::getURI(), false );
+			$link 	= $base.JRoute::_( 'index.php?view='.$view.'&id='.$slug, false );
 			$url	= 'index.php?option=com_mailto&tmpl=component&link='.base64_encode( $link );
 			$status = 'width=400,height=300,menubar=yes,resizable=yes';
 
@@ -411,6 +411,59 @@ class ELOutput {
         }
 
         return null;
+	}
+	
+	/**
+	 * Formats date
+	 *
+	 * @param string $date
+	 * @param string $time
+	 * 
+	 * @return string $formatdate
+	 *
+	 * @since 0.9
+	 */
+	function formatdate($date, $time)
+	{
+		$settings = & ELHelper::config();
+		
+		if(!$date) {
+			return;
+		}
+		
+		if(!$time) {
+			$time = '00:00:00';
+		}
+		
+		//Format date
+		$formatdate = strftime( $settings->formatdate, strtotime( $date.' '.$time ));
+		
+		return $formatdate;
+	}
+	
+	/**
+	 * Formats time
+	 *
+	 * @param string $date
+	 * @param string $time
+	 * 
+	 * @return string $formattime
+	 *
+	 * @since 0.9
+	 */
+	function formattime($date, $time)
+	{
+		$settings = & ELHelper::config();
+		
+		if(!$time) {
+			return;
+		}
+		
+		//Format time
+		$formattime = strftime( $settings->formattime, strtotime( $date.' '.$time ));
+		$formattime .= ' '.$settings->timename;
+		
+		return $formattime;
 	}
 }
 ?>

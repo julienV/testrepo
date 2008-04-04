@@ -138,7 +138,7 @@ class EventListViewEventList extends JView
 
 		parent::display($tpl);
 
-	}//function ListEvents end
+	}
 
 	/**
 	 * Manipulate Data
@@ -149,57 +149,18 @@ class EventListViewEventList extends JView
 	 */
 	function &getRows()
 	{
-		global $mainframe;
-		
 		$count = count($this->rows);
 
 		if (!$count) {
 			return;
 		}
-
+		
 		$k = 0;
-		for($i = 0; $i < $count; $i++)
+		foreach($this->rows as $key => $row)
 		{
-			//initialise
-			$displaydate = null;
-			$displaytime = null;
-
-			$row =& $this->rows[$i];
-
-			//Format date
-			$date = strftime( $this->elsettings->formatdate, strtotime( $row->dates ));
-			if (!$row->enddates) {
-				$displaydate = $date;
-			} else {
-				$enddate 	= strftime( $this->elsettings->formatdate, strtotime( $row->enddates ));
-				$displaydate = $date.' - '.$enddate;
-			}
-
-			//Format time
-			if ($this->elsettings->showtime == 1) {
-				if ($row->times) {
-					$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
-					$time = $time.' '.$this->elsettings->timename;
-					$displaytime = '<br />'.$time;
-
-				}
-				if ($row->endtimes) {
-					$endtime = strftime( $this->elsettings->formattime, strtotime( $row->endtimes ));
-					$endtime = $endtime.' '.$this->elsettings->timename;
-					$displaytime = '<br />'.$time.' - '.$endtime;
-
-				}
-			}
-
-			if ($displaytime) {
-				$row->displaytime = $displaytime;
-			} else {
-				//$row->displaytime = '<br />-';
-				$row->displaytime = '';
-			}
-
-			$row->displaydate = $displaydate;
 			$row->odd   = $k;
+			
+			$this->rows[$key] = $row;
 			$k = 1 - $k;
 		}
 

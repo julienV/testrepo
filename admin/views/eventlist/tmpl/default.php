@@ -62,7 +62,7 @@ defined('_JEXEC') or die('Restricted access');
 						EventListViewEventList::quickiconButton( $link, 'icon-48-groupedit.png', JText::_( 'ADD GROUP' ) );
 
 						$link = 'index.php?option='.$option.'&amp;view=archive';
-						EventListViewEventList::quickiconButton( $link, 'icon-48-archive.png', JText::_( 'ARCHIVE' ) );
+						EventListViewEventList::quickiconButton( $link, 'icon-48-archive.png', JText::_( 'ARCHIVESCREEN' ) );
 
 						//only admins should be able to see this items
 						if ($this->user->get('gid') > 24) {

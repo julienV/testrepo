@@ -28,13 +28,7 @@ function EventListBuildRoute(&$query)
 		$segments[] = $query['view'];
 		unset($query['view']);
 	}
-/*
-	if(isset($query['cid']))
-	{
-		$segments[] = $query['cid'];
-		unset($query['cid']);
-	};
-*/
+
 	if(isset($query['id']))
 	{
 		$segments[] = $query['id'];
@@ -53,20 +47,12 @@ function EventListBuildRoute(&$query)
 		unset($query['returnid']);
 	};
 
-	if(isset($query['returnview']))
-	{
-		$segments[] = $query['returnview'];
-		unset($query['returnview']);
-	};
-
 	return $segments;
 }
 
 function EventListParseRoute($segments)
 {
 	$vars = array();
-
-	//var_dump($segments);
 
 	//Handle View and Identifier
 	switch($segments[0])
@@ -103,14 +89,12 @@ function EventListParseRoute($segments)
 		case 'editevent':
 		{
 			$count = count($segments);
+			
+			$vars['view'] = 'editevent';
 
 			if($count == 3) {
-				$vars['view'] = 'editevent';
 				$vars['id'] = $segments[1];
 				$vars['returnid'] = $segments[2];
-			} else {
-				$vars['view'] = 'editevent';
-				$vars['returnview'] = $segments[1];
 			}
 
 		} break;
@@ -119,15 +103,11 @@ function EventListParseRoute($segments)
 		{
 			$count = count($segments);
 
+			$vars['view'] = 'editvenue';
+			
 			if($count == 3) {
-
-				$vars['view'] = 'editvenue';
 				$vars['id'] = $segments[1];
 				$vars['returnid'] = $segments[2];
-
-			} else {
-				$vars['view'] = 'editvenue';
-				$vars['returnview'] = $segments[1];
 			}
 
 		} break;
@@ -149,6 +129,7 @@ function EventListParseRoute($segments)
 			$vars['view'] = 'categories';
 
 			$count = count($segments);
+			
 			if($count == 2) {
 				$vars['task'] = $segments[1];
 			}

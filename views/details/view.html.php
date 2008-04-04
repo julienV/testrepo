@@ -96,34 +96,7 @@ class EventListViewDetails extends JView
 		//Check user if he can edit
 		$allowedtoeditevent = ELUser::editaccess($elsettings->eventowner, $row->created_by, $elsettings->eventeditrec, $elsettings->eventedit);
 		$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $row->venueowner, $elsettings->venueeditrec, $elsettings->venueedit);
-
-		//Generate Date
-		$date 	= strftime( $elsettings->formatdate ,strtotime( $row->dates ));
-
-		if ($row->times) {
-			$time 	= strftime( $elsettings->formattime ,strtotime( $row->times ));
-		}
-
-		if (!$row->enddates) {
-			$displaydate = $date.'<br />';
-		} else {
-			$enddate 	= strftime( $elsettings->formatdate, strtotime( $row->enddates ));
-			$displaydate = $date.' - '.$enddate.'<br />';
-		}
-
-		//Generate Time
-		if (( $elsettings->showtimedetails == 1 ) && ($row->times)) {
-			$starttime = $time.' '.$elsettings->timename;
-
-			if ($row->endtimes) {
-				$endtime = strftime( $elsettings->formattime ,strtotime( $row->endtimes ));
-				$endtime = ' - '.$endtime.' '.$elsettings->timename;
-				$displaytime = $starttime.$endtime;
-			} else {
-				$displaytime = $starttime;
-			}
-		}
-
+		
 		//Timecheck for registration
 		$jetzt = date("Y-m-d");
 		$now = strtotime($jetzt);
@@ -157,7 +130,7 @@ class EventListViewDetails extends JView
 		} else {
 			//Execute Plugins
 			$row->text	= $row->datdescription;
-			//$row->title = $row->title;
+
 			JPluginHelper::importPlugin('content');
 			$results = $dispatcher->trigger('onPrepareContent', array (& $row, & $params, 0));
 			$eventdescription = $row->text;
@@ -169,7 +142,7 @@ class EventListViewDetails extends JView
 		} else {
 			//execute plugins
 			$row->text	=	$row->locdescription;
-			//$row->title = $row->venue;
+			
 			JPluginHelper::importPlugin('content');
 			$results = $dispatcher->trigger('onPrepareContent', array (& $row, & $params, 0));
 			$venuedescription = $row->text;

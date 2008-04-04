@@ -270,7 +270,10 @@ class EventListModelVenueevents extends JModel
 	function getVenue( )
 	{
 		//Location holen
-		$query = 'SELECT * FROM #__eventlist_venues WHERE id ='. $this->_id;
+		$query = 'SELECT *,'
+				.' CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug'
+				.' FROM #__eventlist_venues'
+				.' WHERE id ='. $this->_id;
 
 		$this->_db->setQuery( $query );
 

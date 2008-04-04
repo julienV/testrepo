@@ -59,7 +59,7 @@ class EventListViewArchive extends JView {
 		JSubMenuHelper::addEntry( JText::_( 'EVENTS' ), 'index.php?option=com_eventlist&view=events');
 		JSubMenuHelper::addEntry( JText::_( 'VENUES' ), 'index.php?option=com_eventlist&view=venues');
 		JSubMenuHelper::addEntry( JText::_( 'CATEGORIES' ), 'index.php?option=com_eventlist&view=categories');
-		JSubMenuHelper::addEntry( JText::_( 'ARCHIVE' ), 'index.php?option=com_eventlist&view=archive', true);
+		JSubMenuHelper::addEntry( JText::_( 'ARCHIVESCREEN' ), 'index.php?option=com_eventlist&view=archive', true);
 		JSubMenuHelper::addEntry( JText::_( 'GROUPS' ), 'index.php?option=com_eventlist&view=groups');
 		JSubMenuHelper::addEntry( JText::_( 'HELP' ), 'index.php?option=com_eventlist&view=help');
 		if ($user->get('gid') > 24) {
@@ -69,7 +69,7 @@ class EventListViewArchive extends JView {
 		JHTML::_('behavior.tooltip');
 
 		//create the toolbar
-		JToolBarHelper::title( JText::_( 'ARCHIVE' ), 'archive' );
+		JToolBarHelper::title( JText::_( 'ARCHIVESCREEN' ), 'archive' );
 		JToolBarHelper::unarchiveList();
 		JToolBarHelper::spacer();
 		JToolBarHelper::deleteList();

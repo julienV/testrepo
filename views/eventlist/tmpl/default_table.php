@@ -108,10 +108,26 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   			<tr class="sectiontableentry<?php echo ($row->odd +1 ) . $this->params->get( 'pageclass_sfx' ); ?>" >
 
     			<td headers="el_date" width="<?php echo $this->elsettings->datewidth; ?>" align="left">
-    				<strong><?php echo $row->displaydate; ?></strong>
+    				<strong>
+    					<?php echo ELOutput::formatdate($row->dates, $row->times); ?>
+    					
+    					<?php
+    					if ($row->enddates) :
+    						echo ' - '.ELOutput::formatdate($row->enddates, $row->endtimes);
+    					endif;
+    					?>
+    				</strong>
+    				
 					<?php
 					if ($this->elsettings->showtime == 1) :
-						echo $row->displaytime;
+					?>
+						<br />
+						<?php
+						echo ELOutput::formattime($row->dates, $row->times);
+						
+						if ($row->endtimes) :
+							echo ' - '.ELOutput::formattime($row->enddates, $row->endtimes);
+						endif;
 					endif;
 					?>
 				</td>
