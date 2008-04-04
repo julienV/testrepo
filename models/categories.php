@@ -143,31 +143,18 @@ class EventListModelCategories extends JModel
 	 */
 	function _buildQuery()
 	{
-		global $mainframe;
-
 		//initialize some vars
 		$user		= & JFactory::getUser();
 		$gid		= (int) $user->get('aid');
 
-		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getParams('com_eventlist');
-
-		//check archive task and ensure that only categories get selected if they contain a publishes/arcived event
+		//check archive task and ensure that only categories get selected if they contain a published/archived event
 		$task 	= JRequest::getVar('task', '', '', 'string');
 		if($task == 'archive') {
 			$eventstate = ' AND a.published = -1';
 		} else {
 			$eventstate = ' AND a.published = 1';
 		}
-		
-		// show/hide empty categories
-		$empty = null;
-		
-		if (!$params->get('empty_cat'))
-		{
-			$empty = ' HAVING assignedevents > 0';
-		}
-		
+				
 		//get categories
 		$query = 'SELECT c.*, c.id AS catid, COUNT( a.id ) AS assignedevents,'
 				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as slug'
@@ -176,7 +163,7 @@ class EventListModelCategories extends JModel
 				. ' WHERE c.published = 1'
 				. ' AND c.access <= '.$gid
 				. $eventstate
-				. ' GROUP BY c.id'.$empty
+				. ' GROUP BY c.id'
 				. ' ORDER BY c.ordering'
 				;
 

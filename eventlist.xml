@@ -29,7 +29,6 @@
 <params>
 	<param name="display_num" default="15" />
 	<param name="cat_num" default="4" />
-	<param name="empty_cat" default="0" />
 	<param name="filter" default="1" />
 	<param name="display" default="1" />
 	<param name="icons" default="1" />
