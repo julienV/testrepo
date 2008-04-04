@@ -82,15 +82,15 @@ class EventListViewEventList extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = JRoute::_('index.php?view=eventlist&tmpl=component&pop=1');
-
 		//pathway
 		$pathway->setItemName( 1, $item->name );
 		
 		if ( $task == 'archive' ) {
 			$pathway->addItem(JText::_( 'ARCHIVE' ), JRoute::_('index.php?view=eventlist&task=archive') );
+			$print_link = JRoute::_('index.php?view=eventlist&task=archive&tmpl=component&pop=1');
 			$pagetitle = $params->get('page_title').' - '.JText::_( 'ARCHIVE' );
 		} else {
+			$print_link = JRoute::_('index.php?view=eventlist&tmpl=component&pop=1');
 			$pagetitle = $params->get('page_title');
 		}
 		

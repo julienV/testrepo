@@ -95,8 +95,6 @@ class EventListViewCategoryevents extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&id='. $category->id .'&pop=1&tmpl=component');
-
 		//add alternate feed link
 		$link    = 'index.php?option=com_eventlist&view=categoryevents&format=feed&id='.$category->id;
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
@@ -110,9 +108,11 @@ class EventListViewCategoryevents extends JView
 		if ($task == 'archive') {
 			$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&task=archive&id='.$category->slug));
 			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&task=archive&id='.$category->slug );
+			$print_link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&id='. $category->id .'&task=archive&pop=1&tmpl=component');
 		} else {
 			$pathway->addItem( $category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&id='.$category->slug));
 			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&id='.$category->slug );
+			$print_link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&id='. $category->id .'&pop=1&tmpl=component');
 		}
 
 		//Check if the user has access to the form

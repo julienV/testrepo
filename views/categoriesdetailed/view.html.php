@@ -75,8 +75,10 @@ class EventListViewCategoriesdetailed extends JView
 		
 		if ( $task == 'archive' ) {
 			$pathway->addItem(JText::_( 'ARCHIVE' ), JRoute::_('index.php?view=categoriesdetailed&task=archive') );
+			$print_link = JRoute::_( 'index.php?option=com_eventlist&view=categoriesdetailed&task=archive&pop=1&tmpl=component' );
 			$pagetitle = $params->get('page_title').' - '.JText::_( 'ARCHIVE' );
 		} else {
+			$print_link = JRoute::_( 'index.php?option=com_eventlist&view=categoriesdetailed&pop=1&tmpl=component' );
 			$pagetitle = $params->get('page_title');
 		}
 		//set Page title
@@ -91,8 +93,6 @@ class EventListViewCategoriesdetailed extends JView
 		if ( $pop ) {
 			$params->set( 'popup', 1 );
 		}
-
-		$print_link = JRoute::_( 'index.php?option=com_eventlist&view=categoriesdetailed&pop=1&tmpl=component' );
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();

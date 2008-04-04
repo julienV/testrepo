@@ -85,8 +85,10 @@ class EventListViewVenues extends JView
 		if ( $task == 'archive' ) {
 			$pathway->addItem(JText::_( 'ARCHIVE' ), JRoute::_('index.php?view=venues&task=archive') );
 			$pagetitle = $params->get('page_title').' - '.JText::_( 'ARCHIVE' );
+			$print_link = JRoute::_('index.php?view=venues&task=archive&pop=1&tmpl=component');
 		} else {
 			$pagetitle = $params->get('page_title');
+			$print_link = JRoute::_('index.php?view=venues&pop=1&tmpl=component');
 		}
 		
 		//Set Page title
@@ -102,8 +104,6 @@ class EventListViewVenues extends JView
 		if ( $pop ) {
 			$params->set( 'popup', 1 );
 		}
-
-		$print_link = JRoute::_('index.php?view=venues&pop=1&tmpl=component');
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();

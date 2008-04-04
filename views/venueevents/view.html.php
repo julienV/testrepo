@@ -103,11 +103,13 @@ class EventListViewVenueevents extends JView
 		//create the pathway
 		if ($task == 'archive') {
 			$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$venue->venue, JRoute::_('index.php?option='.$option.'&view=venueevents&task=archive&id='.$venue->slug));
-			$link = JRoute::_( 'index.php?option=com_eventlist&view=venueevents&task=archive&id='.$venue->slug );
+			$link = JRoute::_( 'index.php?option=com_eventlist&view=venueevents&id='.$venue->slug.'&task=archive' );
+			$print_link = JRoute::_('index.php?option=com_eventlist&view=venueevents&id='. $venue->slug .'&task=archive&pop=1&tmpl=component');
 			$pagetitle = $venue->venue.' - '.JText::_( 'ARCHIVE' );
 		} else {
 			$pathway->addItem( $venue->venue, JRoute::_('index.php?option='.$option.'&view=venueevents&id='.$venue->slug));
 			$link = JRoute::_( 'index.php?option=com_eventlist&view=venueevents&id='.$venue->slug );
+			$print_link = JRoute::_('index.php?option=com_eventlist&view=venueevents&id='. $venue->slug .'&pop=1&tmpl=component');
 			$pagetitle = $venue->venue;
 		}
 		
@@ -124,8 +126,6 @@ class EventListViewVenueevents extends JView
 		if ( $pop ) {
 			$params->set( 'popup', 1 );
 		}
-
-		$print_link = JRoute::_('index.php?option=com_eventlist&view=venueevents&id='. $venue->slug .'&pop=1&tmpl=component');
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
@@ -184,7 +184,6 @@ class EventListViewVenueevents extends JView
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('pagetitle' , 				$pagetitle);
 		$this->assignRef('task' , 					$task);
-
 
 		parent::display($tpl);
 	}
