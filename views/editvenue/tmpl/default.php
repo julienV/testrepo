@@ -56,7 +56,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	function submitbutton( pressbutton ) {
 
 		if (pressbutton == 'cancelvenue') {
-			submitform( pressbutton );
+			elsubmitform( pressbutton );
 			return;
 		}
 
@@ -106,11 +106,23 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			// JavaScript for extracting editor text
 			echo $this->editor->save( 'locdescription' );
 			?>
-			submitform(pressbutton);
+			elsubmitform(pressbutton);
 
 			return true;
 		}
 	}
+	
+	function elsubmitform(pressbutton){
+			
+			var form = document.getElementById('adminForm');
+			if (pressbutton) {
+				form.task.value=pressbutton;
+			}
+			if (typeof form.onsubmit == "function") {
+				form.onsubmit();
+			}
+			form.submit();
+		}
 
 
 	var tastendruck = false
@@ -143,7 +155,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
     </h1>
     <?php endif; ?>
 
-    <form enctype="multipart/form-data" name="adminForm" id="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" class="form-validate">
+    <form enctype="multipart/form-data" id="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" class="form-validate">
 
         <div class="el_save_buttons floattext">
   			<button type="button" onclick="return submitbutton('savevenue')">
