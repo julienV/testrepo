@@ -22,19 +22,19 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
 
 	function tableOrdering( order, dir, view )
 	{
-		var form = document.adminForm;
+		var form = document.getElementById("adminForm");
 
 		form.filter_order.value 	= order;
 		form.filter_order_Dir.value	= dir;
-		document.adminForm.submit( view );
+		document.getElementById("adminForm").submit( view );
 	}
 </script>
 
-<form action="<?php echo $this->action; ?>" method="post" name="adminForm">
+<form action="<?php echo $this->action; ?>" method="post" id="adminForm">
 
 <?php if ($this->params->get('filter') || $this->params->get('display')) : ?>
 <div id="el_filter" class="floattext">
@@ -44,9 +44,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			echo '<label for="filter_type">'.JText::_('FILTER').'</label>&nbsp;';
 			echo $this->lists['filter_type'].'&nbsp;';
 			?>
-			<input type="text" name="filter" id="filter" value="<?php echo $this->lists['filter'];?>" class="text_area" onchange="document.adminForm.submit();" />
-			<button onclick="document.adminForm.submit();"><?php echo JText::_( 'GO' ); ?></button>
-			<button onclick="document.getElementById('filter').value='';document.adminForm.submit();"><?php echo JText::_( 'RESET' ); ?></button>
+			<input type="text" name="filter" id="filter" value="<?php echo $this->lists['filter'];?>" class="text_area" onchange="document.getElementById('adminForm').submit();" />
+			<button onclick="document.getElementById('adminForm').submit();"><?php echo JText::_( 'GO' ); ?></button>
+			<button onclick="document.getElementById('filter').value='';document.getElementById('adminForm').submit();"><?php echo JText::_( 'RESET' ); ?></button>
 		</div>
 		<?php endif; ?>
 		<?php if ($this->params->get('display')) : ?>
@@ -213,4 +213,3 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	</tbody>
 </table>
-<br />

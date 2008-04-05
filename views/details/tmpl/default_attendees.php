@@ -23,13 +23,13 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 <h2 class="register"><?php echo JText::_( 'REGISTERED USERS' ).':'; ?></h2>
+
+<div class="register">
 <?php
 //only set style info if users allready have registered
 if ($this->registers) :
 ?>
 	<ul class="user floattext">
-<?php endif; ?>
-
 
 <?php
 //loop through attendees
@@ -39,7 +39,7 @@ foreach ($this->registers as $register) :
 	if ($this->elsettings->comunsolution == 1) :
 
 		$thumb_path = 'images/comprofiler/tn';
-		$no_photo 	= ' alt="'.$register->name.'" border=0';
+		$no_photo 	= ' alt="'.$register->name.'"';
 
 		if ($this->elsettings->comunoption == 1) :
 			//User has avatar
@@ -48,7 +48,7 @@ foreach ($this->registers as $register) :
 
 			//User has no avatar
 			else :
-				echo "<li><a href='".JRoute::_( 'index.php?option=com_comprofiler&task=userProfile&user='.$register->uid )."'><img src=\"components/com_comprofiler/images/english/tnnophoto.jpg\" border=0 alt=\"no photo\" /><span class='username'>".$register->name."</span></a></li>";
+				echo "<li><a href='".JRoute::_( 'index.php?option=com_comprofiler&task=userProfile&user='.$register->uid )."'><img src=\"components/com_comprofiler/images/english/tnnophoto.jpg\" alt=\"no photo\" /><span class='username'>".$register->name."</span></a></li>";
 			endif;
 		endif;
 
@@ -69,9 +69,6 @@ foreach ($this->registers as $register) :
 endforeach;
 ?>
 
-<?php
-//only set style info if users already have registered
-if ($this->registers) : ?>
 	</ul>
 <?php endif; ?>
 
@@ -88,7 +85,7 @@ switch ($this->formhandler) {
 
 	case 3:
 
-		//the user is already registered. Let's check if he can unregister from the event
+		//the user is allready registered. Let's check if he can unregister from the event
 		if ($this->row->unregistra == 0) :
 
 			//no he is not allowed to unregister
@@ -98,27 +95,20 @@ switch ($this->formhandler) {
 
 			//he is allowed to unregister -> display form
 			?>
-			<form name="Eventlist" action="<?php echo JRoute::_('index.php'); ?>" method="post">
-			<input type="hidden" name="rdid" value="<?php echo $this->row->did; ?>">
-			<?php echo JHTML::_( 'form.token' ); ?>
-			<input type="hidden" name="task" value="delreguser">
-
-			<?php echo JText::_( 'UNREGISTER BOX' ); ?>
-
-			<input type="checkbox" name="reg_check" onClick="check(this, document.Eventlist.senden)">
-			<br /><br />
-			<input type="submit" name="senden" value="<?php echo JText::_( 'UNREGISTER' ); ?>" disabled>
+			<form id="Eventlist" action="<?php echo JRoute::_('index.php'); ?>" method="post">
+				<p>
+					<?php echo JText::_( 'UNREGISTER BOX' ).': '; ?>
+					<input type="checkbox" name="reg_check" onclick="check(this, document.getElementById('Eventlist').senden)" />
+				</p>
+				<p>
+					<input type="submit" name="senden" value="<?php echo JText::_( 'UNREGISTER' ); ?>" disabled="disabled" />
+				</p>
+				<p>
+					<input type="hidden" name="rdid" value="<?php echo $this->row->did; ?>" />
+					<?php echo JHTML::_( 'form.token' ); ?>
+					<input type="hidden" name="task" value="delreguser" />
+				</p>
 			</form>
-
-			<script language="JavaScript">
-			function check(checkbox, senden) {
-				if(checkbox.checked==true){
-					senden.disabled = false;
-				} else {
-					senden.disabled = true;
-				}
-			}
-			</script>
 			<?php
 		endif;
 
@@ -126,30 +116,24 @@ switch ($this->formhandler) {
 
 	case 4:
 
-		//the user is not registered already -> display registration form
+		//the user is not registered allready -> display registration form
 		?>
-		<form name="Eventlist" action="<?php echo JRoute::_('index.php'); ?>" method="post">
-		<input type="hidden" name="rdid" value="<?php echo $this->row->did; ?>">
-		<?php echo JHTML::_( 'form.token' ); ?>
-		<input type="hidden" name="task" value="userregister">
-
-		<?php echo JText::_( 'I WILL GO' ).':'; ?>
-
-		<input type="checkbox" name="reg_check" onClick="check(this, document.Eventlist.senden)">
-		<br /><br />
-		<input type="submit" name="senden" value="<?php echo JText::_( 'REGISTER' ); ?>" disabled>
+		<form id="Eventlist" action="<?php echo JRoute::_('index.php'); ?>" method="post">
+			<p>
+				<?php echo JText::_( 'I WILL GO' ).': '; ?>
+				<input type="checkbox" name="reg_check" onclick="check(this, document.getElementById('Eventlist').senden)" />
+			</p>
+		<p>
+			<input type="submit" name="senden" value="<?php echo JText::_( 'REGISTER' ); ?>" disabled="disabled" />
+		</p>
+		<p>
+			<input type="hidden" name="rdid" value="<?php echo $this->row->did; ?>" />
+			<?php echo JHTML::_( 'form.token' ); ?>
+			<input type="hidden" name="task" value="userregister" />
+		</p>
 		</form>
-
-		<script language="JavaScript">
-		function check(checkbox, senden) {
-			if(checkbox.checked==true){
-				senden.disabled = false;
-			} else {
-				senden.disabled = true;
-			}
-		}
-		</script>
 		<?php
 	break;
 }
 ?>
+</div>

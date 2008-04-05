@@ -52,8 +52,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <?php echo $this->loadTemplate('table'); ?>
 
+<p>
 <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
 <input type="hidden" name="filter_order_Dir" value="" />
+</p>
 </form>
 
 <!--footer-->

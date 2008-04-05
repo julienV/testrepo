@@ -1,7 +1,7 @@
 
 
 function unlimited_starter() {
-	document.adminForm.onsubmit = submit_unlimited;
+	document.getElementById('adminForm').onsubmit = submit_unlimited;
 }
 
 function include_unlimited($unlimited_name) {

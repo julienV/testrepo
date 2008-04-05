@@ -51,16 +51,12 @@ foreach($this->categories as $category) :
 
 	<div class="catimg">
 	  	<?php
-	  		echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$category->slug), $category->image);
+	  		echo JHTML::_('link', JRoute::_($category->linktarget), $category->image);
 		?>
 		<p>
 			<?php
 				echo JText::_( 'EVENTS' ).': ';
-				if ($this->task == 'archive') :
-					echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$category->slug.'&task=archive'), $category->assignedevents);
-				else:
-					echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$category->slug), $category->assignedevents);
-				endif;
+				echo JHTML::_('link', JRoute::_($category->linktarget), $category->assignedevents);
 			?>
 		</p>
 	</div>
@@ -68,11 +64,7 @@ foreach($this->categories as $category) :
 	<div class="catdescription"><?php echo $category->catdescription; ?>
 		<p>
 			<?php
-				if ($this->task == 'archive') :
-					echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$category->slug.'&task=archive'), JText::_( 'SHOW ARCHIVE' ));
-				else:
-					echo JHTML::_('link', JRoute::_('index.php?view=categoryevents&id='.$category->slug), JText::_( 'SHOW EVENTS' ));
-				endif;
+				echo JHTML::_('link', JRoute::_($category->linktarget), $category->linktext);
 			?>
 		</p>
 	</div>

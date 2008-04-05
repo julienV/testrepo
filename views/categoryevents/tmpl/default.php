@@ -54,7 +54,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <!--table-->
 
 <?php echo $this->loadTemplate('table'); ?>
-
+<p>
 <input type="hidden" name="option" value="com_eventlist" />
 <input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
 <input type="hidden" name="filter_order_Dir" value="" />
@@ -62,6 +62,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <input type="hidden" name="task" value="<?php echo $this->task; ?>" />
 <input type="hidden" name="id" value="<?php echo $this->category->id; ?>" />
 <input type="hidden" name="Itemid" value="<?php echo $this->item->id;?>" />
+</p>
 </form>
 
 <!--pagination-->

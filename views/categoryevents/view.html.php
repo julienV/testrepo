@@ -141,7 +141,6 @@ class EventListViewCategoryevents extends JView
 
 			$imgattribs['width'] = $elsettings->imagewidth;
 			$imgattribs['height'] = $elsettings->imagehight;
-			$imgattribs['border'] = 0;
 
 			$category->image = JHTML::image('images/stories/'.$category->image, $category->catname, $imgattribs);
 		} else {

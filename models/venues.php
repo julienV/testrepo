@@ -134,7 +134,16 @@ class EventListModelVenues extends JModel
 				if ($venue->country) {
 					$venue->countryimg = ELOutput::getFlag( $venue->country );
 				}
+				
+				//create target link
+				$task 	= JRequest::getVar('task', '', '', 'string');
 
+				if ($task == 'archive') {
+					$venue->targetlink = JRoute::_('index.php?view=venueevents&id='.$venue->slug.'&task=archive');
+				} else {
+					$venue->targetlink = JRoute::_('index.php?view=venueevents&id='.$venue->slug);
+				}
+		
 				$k = 1 - $k;
 			}
 

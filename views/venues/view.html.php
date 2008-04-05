@@ -115,13 +115,10 @@ class EventListViewVenues extends JView
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
-		$link = 'index.php?option=com_eventlist&view=venues';
-
 		$this->assignRef('rows' , 					$rows);
 		$this->assignRef('print_link' , 			$print_link);
 		$this->assignRef('params' , 				$params);
 		$this->assignRef('dellink' , 				$dellink);
-		$this->assignRef('link' , 					$link);
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('limit' , 					$limit);
 		$this->assignRef('total' , 					$total);

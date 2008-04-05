@@ -154,6 +154,11 @@ padding:1px;
  * @section registered user list
  *
  */
+ 
+div#eventlist div.register {
+margin: 5px 0; padding: 0 5px;
+}
+
 div#eventlist ul.user {
 margin:5px; padding:0;
 list-style:none;

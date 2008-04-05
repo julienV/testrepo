@@ -45,12 +45,12 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	<div class="catimg">
 	  	<?php
-			echo JHTML::_('link', JRoute::_($this->urlfragment.$row->slug), $row->image);
+			echo JHTML::_('link', JRoute::_($row->linktarget), $row->image);
 		?>
 		<p>
 			<?php
 			echo JText::_( 'EVENTS' ).': ';
-			echo JHTML::_('link', JRoute::_($this->urlfragment.$row->slug), $row->assignedevents);
+			echo JHTML::_('link', JRoute::_($row->linktarget), $row->assignedevents);
 			?>
 		</p>
 	</div>
@@ -58,11 +58,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<div class="catdescription cat<?php echo $row->id; ?>"><?php echo $row->catdescription ; ?>
 	<p>
 		<?php
-		if ($this->task == 'archive') :
-			echo JHTML::_('link', JRoute::_($this->urlfragment.$row->slug), JText::_( 'SHOW ARCHIVE' ));
-		else :
-			echo JHTML::_('link', JRoute::_($this->urlfragment.$row->slug), JText::_( 'SHOW EVENTS' ));
-		endif;
+			echo JHTML::_('link', JRoute::_($row->linktarget), $row->linktext);
 		?>
 	</p>
 	</div>

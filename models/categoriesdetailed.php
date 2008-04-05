@@ -124,11 +124,21 @@ class EventListModelCategoriesdetailed extends JModel
 
 					$attribs['width'] = $elsettings->imagewidth;
 					$attribs['height'] = $elsettings->imagehight;
-					$attribs['border'] = 0;
 
 					$category->image = JHTML::image('images/stories/'.$category->image, $category->catname, $attribs);
 				} else {
 					$category->image = JHTML::image('components/com_eventlist/assets/images/noimage.png', $category->catname);
+				}
+				
+				//create target link
+				$task 	= JRequest::getWord('task');
+				
+				$category->linktext = $task == 'archive' ? JText::_( 'SHOW ARCHIVE' ) : JText::_( 'SHOW EVENTS' );
+
+				if ($task == 'archive') {
+					$category->linktarget = JRoute::_('index.php?view=categoryevents&id='.$category->slug.'&task=archive');
+				} else {
+					$category->linktarget = JRoute::_('index.php?view=categoryevents&id='.$category->slug);
 				}
 
 				$k = 1 - $k;
@@ -243,7 +253,7 @@ class EventListModelCategoriesdetailed extends JModel
 		$gid 		= (int) $user->get('aid');
 		
 		//check archive task and ensure that only categories get selected if they contain a published/archived event
-		$task 	= JRequest::getVar('task', '', '', 'string');
+		$task 	= JRequest::getWord('task');
 		if($task == 'archive') {
 			$eventstate = ' AND a.published = -1';
 		} else {

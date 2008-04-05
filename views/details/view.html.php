@@ -123,6 +123,16 @@ class EventListViewDetails extends JView
 		if ( !$user->get('id') ) {
 			$formhandler = 2;
 		}
+		
+		if ($formhandler >= 3) {
+			$js = "function check(checkbox, senden) {
+				if(checkbox.checked==true){
+					senden.disabled = false;
+				} else {
+					senden.disabled = true;
+				}}";
+			$document->addScriptDeclaration($js);
+		}
 
 		//Generate Eventdescription
 		if (($row->datdescription == '') || ($row->datdescription == '<br />')) {

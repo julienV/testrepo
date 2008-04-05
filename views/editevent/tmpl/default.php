@@ -23,7 +23,7 @@
 defined('_JEXEC') or die('Restricted access');
 ?>
 
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
 		Window.onDomReady(function(){
 			document.formvalidator.setHandler('date',
 				function (value) {
@@ -83,7 +83,7 @@ defined('_JEXEC') or die('Restricted access');
 				return;
 			}
 
-			var form = document.adminForm;
+			var form = document.getElementById('adminForm');
 			var validator = document.formvalidator;
 			var title = $(form.title).getValue();
 			title.replace(/\s/g,'');
@@ -172,7 +172,7 @@ defined('_JEXEC') or die('Restricted access');
     </h1>
     <?php endif; ?>
 
-    <form enctype="multipart/form-data" name="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" class="form-validate">
+    <form enctype="multipart/form-data" id="adminForm" name="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" class="form-validate">
         <div class="el_save_buttons floattext">
             <button type="submit" class="submit" onclick="return submitbutton('saveevent')">
         	    <?php echo JText::_('SAVE') ?>
@@ -422,6 +422,7 @@ defined('_JEXEC') or die('Restricted access');
       </div>
       <br class="clear" />
 
+		<p>
     	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
     	<input type="hidden" name="referer" value="<?php echo @$_SERVER['HTTP_REFERER']; ?>" />
     	<input type="hidden" name="created" value="<?php echo $this->row->created; ?>" />
@@ -430,6 +431,7 @@ defined('_JEXEC') or die('Restricted access');
     	<input type="hidden" name="curimage" value="<?php echo $this->row->datimage; ?>" />
     	<?php echo JHTML::_( 'form.token' ); ?>
     	<input type="hidden" name="task" value="" />
+    	</p>
     </form>
 
     <p class="copyright">

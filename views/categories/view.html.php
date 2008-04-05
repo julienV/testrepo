@@ -69,10 +69,8 @@ class EventListViewCategories extends JView
 		if ( $task == 'archive' ) {
 			$pathway->addItem(JText::_( 'ARCHIVE' ), JRoute::_('index.php?view=categories&task=archive') );
 			$pagetitle = $params->get('page_title').' - '.JText::_( 'ARCHIVE' );
-			$urlfragment = 'index.php?view=categoryevents&task=archive&id=';
 		} else {
 			$pagetitle = $params->get('page_title');
-			$urlfragment = 'index.php?view=categoryevents&id=';
 		}
 
 		//Set Page title
@@ -108,8 +106,6 @@ class EventListViewCategories extends JView
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('pagetitle' , 				$pagetitle);
-		$this->assignRef('urlfragment' , 			$urlfragment);
-
 
 		parent::display($tpl);
 	}

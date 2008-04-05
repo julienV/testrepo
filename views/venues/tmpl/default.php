@@ -44,16 +44,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	<?php foreach($this->rows as $row) : ?>
 		
-		<?php 
-		if ($this->task == 'archive') {
-			$target = JRoute::_('index.php?view=venueevents&id='.$row->slug.'&task=archive');
-		} else {
-			$target = JRoute::_('index.php?view=venueevents&id='.$row->slug);
-		}
-		?>
-
 		<h2 class="eventlist">
-			<a href="<?php echo $target; ?>"><?php echo $this->escape($row->venue); ?></a>
+			<a href="<?php echo $row->targetlink; ?>"><?php echo $this->escape($row->venue); ?></a>
 		</h2>
 
 			<?php
@@ -110,7 +102,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	    		<dt class="venue_assignedevents"><?php echo JText::_( 'EVENTS' ).':'; ?></dt>
 	    		<dd class="venue_assignedevents">
-	    			<a href="<?php echo $target; ?>"><?php echo $row->assignedevents; ?></a>
+	    			<a href="<?php echo $row->targetlink; ?>"><?php echo $row->assignedevents; ?></a>
 	    		</dd>
 			<?php
 			endif;
@@ -128,7 +120,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	<!--pagination-->
 	<p class="pageslinks">
-		<?php echo $this->pageNav->getPagesLinks($this->link); ?>
+		<?php echo $this->pageNav->getPagesLinks(); ?>
 	</p>
 
 	<p class="pagescounter">

@@ -102,11 +102,21 @@ class EventListModelCategories extends JModel
 
 					$attribs['width'] = $elsettings->imagewidth;
 					$attribs['height'] = $elsettings->imagehight;
-					$attribs['border'] = 0;
 
 					$category->image = JHTML::image('images/stories/'.$category->image, $category->catname, $attribs);
 				} else {
 					$category->image = JHTML::image('components/com_eventlist/assets/images/noimage.png', $category->catname);
+				}
+				
+				//create target link
+				$task 	= JRequest::getWord('task');
+				
+				$category->linktext = $task == 'archive' ? JText::_( 'SHOW ARCHIVE' ) : JText::_( 'SHOW EVENTS' );
+
+				if ($task == 'archive') {
+					$category->linktarget = JRoute::_('index.php?view=categoryevents&id='.$category->slug.'&task=archive');
+				} else {
+					$category->linktarget = JRoute::_('index.php?view=categoryevents&id='.$category->slug);
 				}
 
 				$k = 1 - $k;

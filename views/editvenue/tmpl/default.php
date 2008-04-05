@@ -23,18 +23,34 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
 	Window.onDomReady(function(){
-		document.formvalidator.setHandler('map',
-			function (field) {
-				var map = document.adminForm.getElementById('map1');			
-				if(field=="" && map.checked) {
-					return false;
-				}
-				return true;
-			}
-		);
+		var map = form.getElementById('map1');
+		
+		if(map.checked) {
+			addrequired();
+		}
 	});
+	
+	function addrequired() {
+		
+		var form = document.getElementById('adminForm');
+		
+		$(form.street).addClass('required');
+		$(form.plz).addClass('required');
+		$(form.city).addClass('required');
+		$(form.country).addClass('required');
+	}
+	
+	function removerequired() {
+		
+		var form = document.getElementById('adminForm');
+		
+		$(form.street).removeClass('required');
+		$(form.plz).removeClass('required');
+		$(form.city).removeClass('required');
+		$(form.country).removeClass('required');
+	}
 
 	function submitbutton( pressbutton ) {
 
@@ -43,10 +59,21 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			return;
 		}
 
-		var form = document.adminForm;
+		var form = document.getElementById('adminForm');
 		var validator = document.formvalidator;
 		var venue = $(form.venue).getValue();
 		venue.replace(/\s/g,'');
+		
+		var map = form.getElementById('map1');
+		var streetcheck = $(form.street).hasClass('required');
+		
+		if(map.checked && !streetcheck) {
+			addrequired();
+		}
+		
+		if(!map.checked && streetcheck) {
+			removerequired();
+		}
 
 		if ( venue.length==0 ) {
    			alert("<?php echo JText::_( 'ERROR ADD VENUE', true ); ?>");
@@ -118,15 +145,15 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
     <form enctype="multipart/form-data" name="adminForm" id="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" class="form-validate">
 
         <div class="el_save_buttons floattext">
-  				<button type="button" onclick="return submitbutton('savevenue')">
-  					<?php echo JText::_('SAVE') ?>
-  				</button>
-  				<button type="reset" onclick="return submitbutton('cancelvenue')">
-  					<?php echo JText::_('CANCEL') ?>
-  				</button>
-				</div>
+  			<button type="button" onclick="return submitbutton('savevenue')">
+  				<?php echo JText::_('SAVE') ?>
+  			</button>
+  			<button type="reset" onclick="return submitbutton('cancelvenue')">
+  				<?php echo JText::_('CANCEL') ?>
+  			</button>
+		</div>
 
-				<br class="clear" />
+		<br class="clear" />
 
       	<fieldset class="el_fldst_address">
 
@@ -139,17 +166,17 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
             <div class="el_street floattext">
                 <label for="street"><?php echo JText::_( 'STREET' ).':'; ?></label>
-                <input class="inputbox validate-map" type="text" name="street" id="street" value="<?php echo $this->escape($this->row->street); ?>" size="55" maxlength="50" />
+                <input class="inputbox" type="text" name="street" id="street" value="<?php echo $this->escape($this->row->street); ?>" size="55" maxlength="50" />
             </div>
 
             <div class="el_plz floattext">
                 <label for="plz"><?php echo JText::_( 'ZIP' ).':'; ?></label>
-                <input class="inputbox validate-map" type="text" name="plz" id="plz" value="<?php echo $this->escape($this->row->plz); ?>" size="15" maxlength="10" />
+                <input class="inputbox" type="text" name="plz" id="plz" value="<?php echo $this->escape($this->row->plz); ?>" size="15" maxlength="10" />
             </div>
 
             <div class="el_city floattext">
                 <label for="city"><?php echo JText::_( 'CITY' ).':'; ?></label>
-                <input class="inputbox validate-map" type="text" name="city" id="city" value="<?php echo $this->escape($this->row->city); ?>" size="55" maxlength="50" />
+                <input class="inputbox" type="text" name="city" id="city" value="<?php echo $this->escape($this->row->city); ?>" size="55" maxlength="50" />
             </div>
 
             <div class="el_state floattext">
@@ -159,7 +186,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
             <div class="el_country floattext">
                 <label for="country"><?php echo JText::_( 'COUNTRY' ).':'; ?></label>
-                <input class="inputbox validate-map" type="text" name="country" id="country" value="<?php echo $this->row->country; ?>" size="3" maxlength="2" />
+                <input class="inputbox" type="text" name="country" id="country" value="<?php echo $this->row->country; ?>" size="3" maxlength="2" />
                 <span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('COUNTRY HINT'); ?>">
                 		<?php echo $this->infoimage; ?>
                 </span>
@@ -183,10 +210,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
                 </p>
 
                 <label for="map0"><?php echo JText::_( 'no' ); ?></label>
-                <input type="radio" name="map" id="map0" value="0" <?php echo $this->row->map ? 'checked="checked"' : ''; ?> class="inputbox" />
+                <input type="radio" name="map" id="map0" onchange="removerequired();" value="0" <?php echo $this->row->map == 0 ? 'checked="checked"' : ''; ?> class="inputbox" />
                 <br class="clear" />
               	<label for="map1"><?php echo JText::_( 'yes' ); ?></label>
-              	<input type="radio" name="map" id="map1" value="1" <?php echo $this->row->map ? 'checked="checked"' : ''; ?> class="inputbox" />
+              	<input type="radio" name="map" id="map1" onchange="addrequired();" value="1" <?php echo $this->row->map == 1 ? 'checked="checked"' : ''; ?> class="inputbox" />
             </div>
             <?php endif; ?>
 
@@ -197,18 +224,18 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
             <legend><?php echo JText::_('IMAGE'); ?></legend>
 
-    				<?php
+    		<?php
             if ($this->row->locimage) :
-    					echo ELOutput::flyer( $this->row, $this->limage );
-    				else :
+    				echo ELOutput::flyer( $this->row, $this->limage );
+    		else :
       		    echo JHTML::_('image', 'components/com_eventlist/assets/images/noimage.png', JText::_('NO IMAGE'), array('class' => 'modal'));
-    				endif;
-      			?>
+    		endif;
+      		?>
 
             <label for="userfile"><?php echo JText::_('IMAGE'); ?></label>
       			<input class="inputbox <?php echo $this->elsettings->imageenabled == 2 ? 'required' : ''; ?>" name="userfile" id="userfile" type="file" />
       			<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('MAX IMAGE FILE SIZE').' '.$this->elsettings->sizelimit.' kb'; ?>">
-      					<?php echo $this->infoimage; ?>
+      				<?php echo $this->infoimage; ?>
       			</span>
 
       			<!--<?php echo JText::_( 'CURRENT IMAGE' );	?>
@@ -229,7 +256,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
         		?>
       			<textarea style="width:100%;" rows="10" name="locdescription" class="inputbox" wrap="virtual" onkeyup="berechne(this.form)"></textarea><br />
       			<?php echo JText::_('NO HTML'); ?><br />
-      			<input disabled value="<?php echo $this->elsettings->datdesclimit; ?>" size="4" name="zeige" /><?php echo JText::_('AVAILABLE')." "; ?><br />
+      			<input disabled="disabled" value="<?php echo $this->elsettings->datdesclimit; ?>" size="4" name="zeige" /><?php echo JText::_('AVAILABLE')." "; ?><br />
       			<a href="javascript:rechne(document.adminForm);"><?php echo JText::_('REFRESH'); ?></a>
 
         		<?php	endif; ?>
@@ -242,29 +269,32 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
             <div class="el_box_left">
               	<label for="metadesc"><?php echo JText::_( 'META DESCRIPTION' ); ?></label>
-          			<textarea class="inputbox" cols="40" rows="5" name="meta_description" id="metadesc" style="width:300px;"></textarea>
+          		<textarea class="inputbox" cols="40" rows="5" name="meta_description" id="metadesc" style="width:250px;"></textarea>
             </div>
 
             <div class="el_box_right">
-        				<label for="metakey"><?php echo JText::_( 'META KEYWORDS' ); ?></label>
-        				<textarea class="inputbox" cols="40" rows="5" name="meta_keywords" id="metakey" style="width:300px;"></textarea>
+        		<label for="metakey"><?php echo JText::_( 'META KEYWORDS' ); ?></label>
+        		<textarea class="inputbox" cols="40" rows="5" name="meta_keywords" id="metakey" style="width:250px;"></textarea>
             </div>
 
             <br class="clear" />
-    				<input type="button" class="button el_fright" value="<?php echo JText::_( 'ADD VENUE CITY' ); ?>" onclick="f=document.adminForm;f.metakey.value=f.venue.value+', '+f.city.value+f.metakey.value;" />
+            
+    		<input type="button" class="button el_fright" value="<?php echo JText::_( 'ADD VENUE CITY' ); ?>" onclick="f=document.getElementById('adminForm');f.metakey.value=f.venue.value+', '+f.city.value+f.metakey.value;" />
 
       	</fieldset>
 
       	<div class="el_save_buttons floattext">
-    				<button type="button" onclick="return submitbutton('savevenue')">
-    					<?php echo JText::_('SAVE') ?>
-    				</button>
-    				<button type="reset" onclick="return submitbutton('cancelvenue')">
-    					<?php echo JText::_('CANCEL') ?>
-    				</button>
-				</div>
-				<br class="clear" />
-
+    		<button type="button" onclick="return submitbutton('savevenue')">
+    			<?php echo JText::_('SAVE') ?>
+    		</button>
+    		<button type="reset" onclick="return submitbutton('cancelvenue')">
+    			<?php echo JText::_('CANCEL') ?>
+    		</button>
+		</div>
+		
+		<br class="clear" />
+		
+		<p>
       	<input type="hidden" name="option" value="com_eventlist" />
       	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
       	<input type="hidden" name="referer" value="<?php echo @$_SERVER['HTTP_REFERER']; ?>" />
@@ -272,6 +302,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
       	<input type="hidden" name="curimage" value="<?php echo $this->row->locimage; ?>" />
       	<?php echo JHTML::_( 'form.token' ); ?>
       	<input type="hidden" name="task" value="" />
+      	</p>
 
     </form>
 

@@ -80,7 +80,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		    <dd class="where">
     		<?php if (($this->elsettings->showdetlinkvenue == 1) && (!empty($this->row->url))) : ?>
 
-			    <a href="<?php echo $this->row->url; ?>" target="_blank"><?php echo $this->escape($this->row->venue); ?></a> -
+			    <a href="<?php echo $this->row->url; ?>"><?php echo $this->escape($this->row->venue); ?></a> -
 
 			<?php elseif ($this->elsettings->showdetlinkvenue == 2) : ?>
 
@@ -135,7 +135,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 				<?php if (!empty($this->row->url)) : ?>
 					&nbsp; - &nbsp;
-					<a href="<?php echo $this->row->url; ?>" target="_blank"> <?php echo JText::_( 'WEBSITE' ); ?></a>
+					<a href="<?php echo $this->row->url; ?>"> <?php echo JText::_( 'WEBSITE' ); ?></a>
 				<?php
 				endif;
 				?>
