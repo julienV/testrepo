@@ -25,6 +25,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <script type="text/javascript">
 	Window.onDomReady(function(){
+		var form = document.getElementById('adminForm');
 		var map = form.getElementById('map1');
 		
 		if(map.checked) {
