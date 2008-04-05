@@ -67,13 +67,19 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		
 		var map = form.getElementById('map1');
 		var streetcheck = $(form.street).hasClass('required');
-		
-		if(map.checked && !streetcheck) {
-			addrequired();
+	
+		//workaround cause validate strict doesn't allow and operator
+		//and ie doesn't understand CDATA properly
+		if (map.checked) {
+			if(!streetcheck) {  
+				addrequired();
+			}
 		}
-		
-		if(!map.checked && streetcheck) {
-			removerequired();
+
+		if (!map.checked) {
+			if(streetcheck) {  
+				removerequired();
+			}
 		}
 
 		if ( venue.length==0 ) {
@@ -112,6 +118,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		}
 	}
 	
+	//joomla submitform needs form name
 	function elsubmitform(pressbutton){
 			
 			var form = document.getElementById('adminForm');

@@ -140,6 +140,7 @@ defined('_JEXEC') or die('Restricted access');
 			}
 		}
 		
+		//joomla submitform needs form name
 		function elsubmitform(pressbutton){
 			
 			var form = document.getElementById('adminForm');
