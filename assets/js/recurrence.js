@@ -50,8 +50,8 @@ function start_recurrencescript() {
 function output_recurrencescript() {
 	var $select_value = $("recurrence_select").value;	// the value of the select list
 	if ($select_value != 0) {	// want the user a recurrence
-		// create an element by the generate_output function
-		// ** $select_output is an array of all sentences of each type **
+								// create an element by the generate_output function
+								// ** $select_output is an array of all sentences of each type **
 		var $element = generate_output($select_output[$select_value], $select_value);
 		$content.replaceChild($element, $content.firstChild);	// include the element
 		set_parameter();	// set the new parameter

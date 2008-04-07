@@ -57,6 +57,10 @@ defined('_JEXEC') or die('Restricted access');
 			<?php
 			echo $this->editor->save( 'datdescription' );
 			?>
+			$("meta_keywords").value = $keywords;
+			$("meta_description").value = $description;
+			submit_unlimited();
+
 			submitform( task );
 		}
 	}
@@ -328,8 +332,7 @@ defined('_JEXEC') or die('Restricted access');
 					<tr id="counter_row" style="display:none;">
 						<td><?php echo JText::_( 'RECURRENCE COUNTER' ); ?>:</td>
 						<td>
-					        <?php echo JHTML::_('calendar', ($this->row->recurrence_counter <> 0000-00-00)? $this->row->recurrence_counter: JText::_( 'UNLIMITED' ), "recurrence_counter", "recurrence_counter"); ?>
-					        <a href="#" onclick="include_unlimited('<?php echo JText::_( 'UNLIMITED' ); ?>'); return false;"><img src="../components/com_eventlist/assets/images/unlimited.png" width="16" height="16" alt="<?php echo JText::_( 'UNLIMITED' ); ?>" /></a>
+					        <?php echo JHTML::_('calendar', ($this->row->recurrence_counter <> 0000-00-00)? $this->row->recurrence_counter: JText::_( 'UNLIMITED' ), "recurrence_counter", "recurrence_counter"); ?><a href="#" onclick="include_unlimited('<?php echo JText::_( 'UNLIMITED' ); ?>'); return false;"><img src="../components/com_eventlist/assets/images/unlimited.png" width="16" height="16" alt="<?php echo JText::_( 'UNLIMITED' ); ?>" /></a>
 						</td>
 					<tr>
 					<tr>
@@ -416,13 +419,6 @@ defined('_JEXEC') or die('Restricted access');
 		<script type="text/javascript">
 		<!--
 			starter("<?php echo JText::_( 'META ERROR' ); ?>");	// da window.onload schon belegt wurde, wird die Funktion 'manuell' aufgerufen
-
-			// the onsubmit - section
-			document.adminForm.onsubmit = function() {		// the form - tag get a onsubmit attribute
-				$("meta_keywords").value = $keywords;
-				$("meta_description").value = $description;
-				submit_unlimited();
-			};
 		-->
 		</script>
 		<?php

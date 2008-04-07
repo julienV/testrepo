@@ -134,7 +134,13 @@ defined('_JEXEC') or die('Restricted access');
 			// JavaScript for extracting editor text
 				echo $this->editor->save( 'datdescription' );
 			?>
+<<<<<<< .mine
+				submit_unlimited();
+
+				submitform(pressbutton);
+=======
 				elsubmitform(pressbutton);
+>>>>>>> .r598
 
 				return true;
 			}
@@ -381,8 +387,6 @@ defined('_JEXEC') or die('Restricted access');
         		var $last = "<?php echo JText::_( 'LAST' ); ?>";
 
         		start_recurrencescript();
-
-        		unlimited_starter();
         	-->
             </script>
 
