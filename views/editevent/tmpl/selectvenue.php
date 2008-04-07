@@ -23,6 +23,20 @@
 defined('_JEXEC') or die('Restricted access');
 ?>
 
+<script type="text/javascript">
+
+	function tableOrdering( order, dir, view )
+	{
+		var form = document.getElementById("adminForm");
+
+		form.filter_order.value 	= order;
+		form.filter_order_Dir.value	= dir;
+		document.getElementById("adminForm").submit( view );
+	}
+</script>
+
+<div id="eventlist" class="el_selectvenue">
+
 <h1 class='componentheading'>
 	<?php
 		echo JText::_('SELECTVENUE');
@@ -31,30 +45,28 @@ defined('_JEXEC') or die('Restricted access');
 
 <div class="clear"></div>
 
-<form action="<?php echo JRoute::_('index.php') ?>" method="post" name="adminForm">
+<form action="<?php echo JRoute::_('index.php') ?>" method="post" id="adminForm">
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
-	<tr>
-		<td align="left" width="100%" nowrap="nowrap">
-			<?php echo JText::_( 'SEARCH' );
-			echo $this->searchfilter;
-			?>
-				<input type="text" name="filter" id="filter" value="<?php echo $this->filter;?>" class="text_area" onchange="document.adminForm.submit();" />
-				<button onclick="document.adminForm.submit();"><?php echo JText::_( 'Go' ); ?></button>
-				<button onclick="document.getElementById('filter').value='';document.adminForm.submit();"><?php echo JText::_( 'Reset' ); ?></button>
-		</td>
-		<td align="right" width="100%" nowrap="nowrap">
+<div id="el_filter" class="floattext">
+		<div class="el_fleft">
 			<?php
-				echo '&nbsp;&nbsp;&nbsp;'.JText::_('Display Num').'&nbsp;';
-				echo $this->pageNav->getLimitBox();
+			echo '<label for="filter_type">'.JText::_('FILTER').'</label>&nbsp;';
+			echo $this->searchfilter.'&nbsp;';
 			?>
-		</td>
-	</tr>
-</table>
+			<input type="text" name="filter" id="filter" value="<?php echo $this->filter;?>" class="text_area" onchange="document.getElementById('adminForm').submit();" />
+			<button onclick="document.getElementById('adminForm').submit();"><?php echo JText::_( 'Go' ); ?></button>
+			<button onclick="document.getElementById('filter').value='';document.getElementById('adminForm').submit();"><?php echo JText::_( 'Reset' ); ?></button>
+		</div>
+		<div class="el_fright">
+			<?php
+			echo '<label for="limit">'.JText::_('DISPLAY NUM').'</label>&nbsp;';
+			echo $this->pageNav->getLimitBox();
+			?>
+		</div>
 
-<br />
+</div>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
+<table class="eventtable" width="100%" border="0" cellspacing="0" cellpadding="0" summary="eventlist">
 	<thead>
 		<tr>
 			<th width="7" class="sectiontableheader" align="left"><?php echo JText::_( 'Num' ); ?></th>
@@ -84,7 +96,14 @@ defined('_JEXEC') or die('Restricted access');
 	</tbody>
 </table>
 
-<br /><br />
+<p>
+<input type="hidden" name="task" value="selectvenue" />
+<input type="hidden" name="option" value="com_eventlist" />
+<input type="hidden" name="tmpl" value="component" />
+<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
+<input type="hidden" name="filter_order_Dir" value="" />
+</p>
+</form>
 
 <p class="pageslinks">
 	<?php echo $this->pageNav->getPagesLinks(); ?>
@@ -95,12 +114,6 @@ defined('_JEXEC') or die('Restricted access');
 </p>
 
 <p class="copyright">
-<?php echo ELOutput::footer( );	?>
+<?php echo ELOutput::footer();	?>
 </p>
-
-<input type="hidden" name="task" value="selectvenue" />
-<input type="hidden" name="option" value="com_eventlist" />
-<input type="hidden" name="tmpl" value="component" />
-<input type="hidden" name="filter_order" value="<?php echo $this->lists['order']; ?>" />
-<input type="hidden" name="filter_order_Dir" value="" />
-</form>
+</div>

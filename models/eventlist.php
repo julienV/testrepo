@@ -70,8 +70,8 @@ class EventListModelEventList extends JModel
 
 		//get the number of events from database
 		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0), 'int');
-		$limitstart		= JRequest::getInt('limitstart');
-
+		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
+			
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
 

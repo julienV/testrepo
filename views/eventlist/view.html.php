@@ -112,10 +112,12 @@ class EventListViewEventList extends JView
 		$document->addHeadLink(JRoute::_($link.'&type=atom'), 'alternate', 'rel', $attribs);
 		
 		//create select lists
-		$lists	= $this->_buildSortLists($elsettings);
+		$lists	= $this->_buildSortLists();
 		
-		if (JRequest::getString('filter', '', 'post')) {
-			$uri->setVar('filter', JRequest::getString('filter'));
+		if ($lists['filter']) {
+			//$uri->setVar('filter', JRequest::getString('filter'));
+			//$filter		= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.filter', 'filter', '', 'string');
+			$uri->setVar('filter', $lists['filter']);
 			$uri->setVar('filter_type', JRequest::getString('filter_type'));
 		} else {
 			$uri->delVar('filter');
@@ -125,8 +127,6 @@ class EventListViewEventList extends JView
 		// Create the pagination object
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
-		
-		//$mainframe->getUserStateFromRequest('com_eventlist.eventlist.filter', 'filter', '', 'string');
 
 		$this->assign('lists' , 					$lists);
 		$this->assign('total',						$total);
@@ -140,7 +140,6 @@ class EventListViewEventList extends JView
 		$this->assignRef('dellink' , 				$dellink);
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('elsettings' , 			$elsettings);
-		$this->assignRef('lists' , 					$lists);
 		$this->assignRef('pagetitle' , 				$pagetitle);
 
 		parent::display($tpl);
@@ -161,7 +160,7 @@ class EventListViewEventList extends JView
 		if (!$count) {
 			return;
 		}
-		
+				
 		$k = 0;
 		foreach($this->rows as $key => $row)
 		{
@@ -181,8 +180,10 @@ class EventListViewEventList extends JView
 	 * @return array
 	 * @since 0.9
 	 */
-	function _buildSortLists($elsettings)
+	function _buildSortLists()
 	{
+		$elsettings = & ELHelper::config();
+		
 		$filter_order		= JRequest::getCmd('filter_order', 'a.dates');
 		$filter_order_Dir	= JRequest::getWord('filter_order_Dir', 'ASC');
 

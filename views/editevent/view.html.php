@@ -138,9 +138,10 @@ class EventListViewEditevent extends JView
 		global $mainframe;
 
 		$document	= & JFactory::getDocument();
+		$params 	= & $mainframe->getParams();
 
-		$limit				= JRequest::getInt('limit', $mainframe->getCfg('list_limit'));
-		$limitstart			= JRequest::getInt('limitstart');
+		$limitstart			= JRequest::getVar('limitstart', 0, '', 'int');
+		$limit				= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0), 'int');
 		$filter_order		= JRequest::getCmd('filter_order', 'l.venue');
 		$filter_order_Dir	= JRequest::getWord('filter_order_Dir', 'ASC');;
 		$filter				= JRequest::getString('filter');
@@ -149,6 +150,8 @@ class EventListViewEditevent extends JView
 		// Get/Create the model
 		$rows 	= $this->get('Venues');
 		$total 	= $this->get('Countitems');
+		
+		JHTML::_('behavior.modal', 'a.modal');
 
 		// Create the pagination object
 		jimport('joomla.html.pagination');
@@ -159,10 +162,7 @@ class EventListViewEditevent extends JView
 		$lists['order'] 		= $filter_order;
 
 		$document->setTitle(JText::_( 'SELECTVENUE' ));
-		$document->addScript(JPATH_SITE.'includes/js/joomla/modal.js');
-		$document->addStyleSheet(JPATH_SITE.'includes/js/joomla/modal.css');
-
-		$document->addStyleSheet('components/com_eventlist/assets/css/eventlist.css');
+		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
 
 		$filters = array();
 		$filters[] = JHTML::_('select.option', '1', JText::_( 'VENUE' ) );
