@@ -76,7 +76,8 @@ class EventListModelEditevent extends JModel
 	 *
 	 * @access public
 	 * @since	0.9
-	 * @return array
+	 * 
+	 * @return object
 	 */
 	function &getEvent(  )
 	{
@@ -110,8 +111,7 @@ class EventListModelEditevent extends JModel
 			/*
 			* access check
 			*/
-			$owner = $this->getOwner();
-			$editaccess	= ELUser::editaccess($elsettings->eventowner, $owner->created_by, $elsettings->eventeditrec, $elsettings->eventedit);			
+			$editaccess	= ELUser::editaccess($elsettings->eventowner, $this->_event->created_by, $elsettings->eventeditrec, $elsettings->eventedit);			
 			$maintainer = ELUser::ismaintainer();
 
 			if ($maintainer || $editaccess ) $allowedtoeditevent = 1;
@@ -172,7 +172,7 @@ class EventListModelEditevent extends JModel
 	 * logic to get the event
 	 *
 	 * @access private
-	 * @return array
+	 * @return object
 	 */
 	function _loadEvent(  )
 	{
@@ -196,7 +196,7 @@ class EventListModelEditevent extends JModel
 	 * logic to get the categories
 	 *
 	 * @access public
-	 * @return array
+	 * @return void
 	 */
 	function getCategories( )
 	{
@@ -222,6 +222,8 @@ class EventListModelEditevent extends JModel
 
 			//build ids query
 			if ($categories) {
+				//check if user is allowed to submit events in general, if yes allow to submit into categories
+				//which aren't assigned to a group. Otherwise restrict submission into maintained categories only 
 				if (ELUser::validate_user($elsettings->evdelrec, $elsettings->delivereventsyes)) {
 					$where .= ' AND c.groupid = 0 OR c.groupid = '.$categories;
 				} else {
@@ -252,23 +254,6 @@ class EventListModelEditevent extends JModel
 		$this->_categories = array_merge( $this->_category, $this->_db->loadObjectList() );
 
 		return $this->_categories;
-	}
-
-	/**
-	 * logic to get the owner
-	 *
-	 * @access public
-	 * @return integer
-	 */
-	function getOwner( )
-	{
-		$query = 'SELECT a.created_by'
-				. ' FROM #__eventlist_events AS a'
-				. ' WHERE a.id = '.(int)$this->_id
-				;
-		$this->_db->setQuery( $query );
-
-		return $this->_db->loadObject();
 	}
 
 	/**
@@ -483,8 +468,7 @@ class EventListModelEditevent extends JModel
 		if ($row->id) {
 
 			//check if user is allowed to edit events
-			$owner = ELUser::isOwner($row->id, 'events');
-			$editaccess	= & ELUser::editaccess($elsettings->eventowner, $owner, $elsettings->eventeditrec, $elsettings->eventedit);
+			$editaccess	= ELUser::editaccess($elsettings->eventowner, $row->created_by, $elsettings->eventeditrec, $elsettings->eventedit);
 			$maintainer = ELUser::ismaintainer();
 
 			if ($maintainer || $editaccess ) $allowedtoeditevent = 1;
@@ -501,7 +485,7 @@ class EventListModelEditevent extends JModel
 			* This extra Check is needed to make it possible
 			* that the venue is published after an edit from an owner
 			*/
-			if ($elsettings->venueowner == 1 && $owner == $user->get('id')) {
+			if ($elsettings->venueowner == 1 && $row->created_by == $user->get('id')) {
 				$owneredit = 1;
 			} else {
 				$owneredit = 0;

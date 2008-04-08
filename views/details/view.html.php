@@ -143,11 +143,11 @@ class EventListViewDetails extends JView
 
 			JPluginHelper::importPlugin('content');
 			$results = $dispatcher->trigger('onPrepareContent', array (& $row, & $params, 0));
-			$eventdescription = $row->text;
+			$row->datdescription = $row->text;
 		}
 
 		//Generate Venuedescription
-		if (empty ($row->locdescription)) {
+		if (($row->locdescription == '') || ($row->locdescription == '<br />')) {
 			$venuedescription = JText::_( 'NO DESCRIPTION' );
 		} else {
 			//execute plugins
@@ -155,7 +155,7 @@ class EventListViewDetails extends JView
 			
 			JPluginHelper::importPlugin('content');
 			$results = $dispatcher->trigger('onPrepareContent', array (& $row, & $params, 0));
-			$venuedescription = $row->text;
+			$row->locdescription = $row->text;
 		}
 
 		// generate Metatags
@@ -214,11 +214,7 @@ class EventListViewDetails extends JView
 		$this->assignRef('allowedtoeditvenue' , 	$allowedtoeditvenue);
 		$this->assignRef('dimage' , 				$dimage);
 		$this->assignRef('limage' , 				$limage);
-		$this->assignRef('displaytime' , 			$displaytime);
-		$this->assignRef('displaydate' , 			$displaydate);
 		$this->assignRef('print_link' , 			$print_link);
-		$this->assignRef('eventdescription' , 		$eventdescription);
-		$this->assignRef('venuedescription' , 		$venuedescription);
 		$this->assignRef('registers' , 				$registers);
 		$this->assignRef('formhandler',				$formhandler);
 		$this->assignRef('elsettings' , 			$elsettings);

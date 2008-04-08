@@ -109,7 +109,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
   	    <h2 class="description"><?php echo JText::_( 'DESCRIPTION' ); ?></h2>
   		<div class="description event_desc">
-  			<?php echo $this->eventdescription; ?>
+  			<?php echo $this->row->datdescription; ?>
   		</div>
 
   	<?php endif; ?>
@@ -188,7 +188,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 			<h2 class="location_desc"><?php echo JText::_( 'DESCRIPTION' ); ?></h2>
   			<div class="description location_desc">
-  				<?php echo $this->venuedescription;	?>
+  				<?php echo $this->row->locdescription;	?>
   			</div>
 
 		<?php endif; ?>

@@ -95,9 +95,7 @@ class EventListModelEditvenue extends JModel
 			}
 
 			//access check
-			$owner = $this->getOwner();
-
-			$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $owner->created_by, $elsettings->venueeditrec, $elsettings->venueedit);
+			$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $this->_venue->created_by, $elsettings->venueeditrec, $elsettings->venueedit);
 
 			if ($allowedtoeditvenue == 0) {
 
@@ -160,22 +158,6 @@ class EventListModelEditvenue extends JModel
 	}
 
 	/**
-	 * Logic to get the owner
-	 *
-	 * @return integer
-	 */
-	function getOwner( )
-	{
-		$query = 'SELECT l.created_by'
-				. ' FROM #__eventlist_venues AS l'
-				. ' WHERE l.id = '.(int)$this->_id
-				;
-		$this->_db->setQuery( $query );
-
-    	return $this->_db->loadObject();
-	}
-
-	/**
 	 * Method to checkin/unlock the item
 	 *
 	 * @access	public
@@ -226,10 +208,8 @@ class EventListModelEditvenue extends JModel
 		//Are we saving from an item edit?
 		if ($row->id) {
 
-			$owner = ELUser::isOwner($row->id, 'venues');
-
 			//check if user is allowed to edit venues
-			$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $owner, $elsettings->venueeditrec, $elsettings->venueedit);
+			$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $row->created_by, $elsettings->venueeditrec, $elsettings->venueedit);
 
 			if ($allowedtoeditvenue == 0) {
 				$row->checkin();
@@ -244,7 +224,7 @@ class EventListModelEditvenue extends JModel
 			//Is editor the owner of the venue
 			//This extra Check is needed to make it possible
 			//that the venue is published after an edit from an owner
-			if ($elsettings->venueowner == 1 && $owner == $user->get('id')) {
+			if ($elsettings->venueowner == 1 && $row->created_by == $user->get('id')) {
 				$owneredit = 1;
 			} else {
 				$owneredit = 0;
