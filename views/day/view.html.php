@@ -49,9 +49,6 @@ class EventListViewDay extends JView
 		$item    	= $menu->getActive();
 		$params 	= & $mainframe->getParams();
 
-		//cleanup events
-		ELHelper::cleanevents( $elsettings->lastupdate );
-
 		//add css file
 		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');

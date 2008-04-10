@@ -43,9 +43,6 @@ class EventListViewCategories extends JView
 		$rows 		= & $this->get('Data');
 		$total 		= & $this->get('Total');
 
-		//cleanup events
-		ELHelper::cleanevents( $elsettings->lastupdate );
-
 		//add css file
 		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');

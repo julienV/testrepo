@@ -59,7 +59,7 @@ class ELOutput {
 			if ( $params->get('icons') ) {
 				$image = JHTML::_('image.site', 'submitevent.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'DELIVER NEW EVENT' ));
 			} else {
-				$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'DELIVER NEW EVENT' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
+				$image = JText::_( 'DELIVER NEW EVENT' );
 			}
 
 			$link 		= 'index.php?view=editevent';
@@ -99,7 +99,7 @@ class ELOutput {
 				if ( $params->get('icons') ) {
 					$image = JHTML::_('image.site', 'eventlist.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW EVENTS' ));
 				} else {
-					$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW EVENTS' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
+					$image = JText::_( 'SHOW EVENTS' );
 				}
 				$overlib 	= JText::_( 'SHOW EVENTS TIP' );
 				$title 		= JText::_( 'SHOW EVENTS' );
@@ -115,7 +115,7 @@ class ELOutput {
 				if ( $params->get('icons') ) {
 					$image = JHTML::_('image.site', 'archive_front.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'SHOW ARCHIVE' ));
 				} else {
-					$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'SHOW ARCHIVE' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
+					$image = JText::_( 'SHOW ARCHIVE' );
 				}
 				$overlib 	= JText::_( 'SHOW ARCHIVE TIP' );
 				$title 		= JText::_( 'SHOW ARCHIVE' );
@@ -158,7 +158,7 @@ class ELOutput {
 					if ( $params->get('icons') ) {
 						$image = JHTML::_('image.site', 'calendar_edit.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'EDIT EVENT' ));
 					} else {
-						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'EDIT EVENT' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
+						$image = JText::_( 'EDIT EVENT' );
 					}
 					$overlib = JText::_( 'EDIT EVENT TIP' );
 					$text = JText::_( 'EDIT EVENT' );
@@ -168,7 +168,7 @@ class ELOutput {
 					if ( $params->get('icons') ) {
 						$image = JHTML::_('image.site', 'calendar_edit.png', 'components/com_eventlist/assets/images/', NULL, NULL, JText::_( 'EDIT EVENT' ));
 					} else {
-						$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'EDIT VENUE' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
+						$image = JText::_( 'EDIT VENUE' );
 					}
 					$overlib = JText::_( 'EDIT VENUE TIP' );
 					$text = JText::_( 'EDIT VENUE' );
@@ -203,7 +203,7 @@ class ELOutput {
 			if ( $params->get( 'icons' ) ) {
 				$image = JHTML::_('image.site', 'printButton.png', 'images/M_images/', NULL, NULL, JText::_( 'Print' ));
 			} else {
-				$image = JText::_( 'ICON_SEP' ) .'&nbsp;'. JText::_( 'Print' ) .'&nbsp;'. JText::_( 'ICON_SEP' );
+				$image = JText::_( 'Print' );
 			}
 
 			if (JRequest::getInt('pop')) {
@@ -243,7 +243,7 @@ class ELOutput {
 			if ($params->get('icons')) 	{
 				$image = JHTML::_('image.site', 'emailButton.png', 'images/M_images/', NULL, NULL, JText::_( 'Email' ));
 			} else {
-				$image = '&nbsp;'.JText::_( 'Email' );
+				$image = JText::_( 'Email' );
 			}
 
 			$overlib = JText::_( 'EMAIL TIP' );

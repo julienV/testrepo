@@ -27,6 +27,9 @@ require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'user.class.php');
 require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'image.class.php');
 require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'output.class.php');
 
+//perform cleanup if it wasn't done today (archive, delete, recurrence)
+ELHelper::cleanup();
+
 // Set the table directory
 JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
 

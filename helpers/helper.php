@@ -52,13 +52,19 @@ class ELHelper {
 	}
 
 	/**
-   	* Moves old events in the archive or delete them
+   	* Performs dayly scheduled cleanups
+   	* 
+   	* Currently it archives and removes outdated events
+   	* and takes care of the recurrence of events
    	*
  	* @since 0.9
    	*/
-	function cleanevents($lastupdate)
+	function cleanup()
 	{
-		$now = time();
+		$elsettings = & ELHelper::config();
+		
+		$now 		= time();
+		$lastupdate = $elsettings->lastupdate;
 
 		//last update later then 24h?
 		//$difference = $now - $lastupdate;
@@ -72,7 +78,6 @@ class ELHelper {
 		if ( $nrdaysnow > $nrdaysupdate ) {
 
 			$db			= & JFactory::getDBO();
-			$elsettings = & ELHelper::config();
 
 			$nulldate = '0000-00-00';
 			$query = 'SELECT * FROM #__eventlist_events WHERE DATE_SUB(NOW(), INTERVAL '.$elsettings->minus.' DAY) > (IF (enddates <> '.$nulldate.', enddates, dates)) AND recurrence_number <> "0" AND recurrence_type <> "0" AND `published` = 1';
@@ -122,18 +127,21 @@ class ELHelper {
 				}
 			}
 
+			//delete outdated events
 			if ($elsettings->oldevent == 1) {
 				$query = 'DELETE FROM #__eventlist_events WHERE DATE_SUB(NOW(), INTERVAL '.$elsettings->minus.' DAY) > (IF (enddates <> '.$nulldate.', enddates, dates))';
 				$db->SetQuery( $query );
 				$db->Query();
 			}
 
+			//Set state archived of outdated events
 			if ($elsettings->oldevent == 2) {
 				$query = 'UPDATE #__eventlist_events SET published = -1 WHERE DATE_SUB(NOW(), INTERVAL '.$elsettings->minus.' DAY) > (IF (enddates <> '.$nulldate.', enddates, dates))';
 				$db->SetQuery( $query );
 				$db->Query();
 			}
 
+			//Set timestamp of last cleanup
 			$query = 'UPDATE #__eventlist_settings SET lastupdate = '.time().' WHERE id = 1';
 			$db->SetQuery( $query );
 			$db->Query();

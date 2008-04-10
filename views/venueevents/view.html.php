@@ -50,9 +50,6 @@ class EventListViewVenueevents extends JView
 		$params 	= & $mainframe->getParams('com_eventlist');
 		$uri 		= & JFactory::getURI();
 
-		//cleanup events
-		ELHelper::cleanevents( $elsettings->lastupdate );
-
 		//add css file
 		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');

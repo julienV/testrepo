@@ -51,9 +51,6 @@ class EventListViewDetails extends JView
 		$registers	= & $this->get('Registers');
 		$regcheck	= & $this->get('Usercheck');
 
-		//cleanup events
-		ELHelper::cleanevents( $elsettings->lastupdate );
-
 		//get menu information
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();

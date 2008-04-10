@@ -51,9 +51,6 @@ class EventListViewEventList extends JView
 		$uri 		= & JFactory::getURI();
 		$pathway 	= & $mainframe->getPathWay();
 
-		//cleanup events
-		ELHelper::cleanevents( $elsettings->lastupdate );
-
 		//add css file
 		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');
