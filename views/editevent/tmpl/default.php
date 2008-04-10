@@ -134,13 +134,8 @@ defined('_JEXEC') or die('Restricted access');
 			// JavaScript for extracting editor text
 				echo $this->editor->save( 'datdescription' );
 			?>
-<<<<<<< .mine
 				submit_unlimited();
-
-				submitform(pressbutton);
-=======
 				elsubmitform(pressbutton);
->>>>>>> .r598
 
 				return true;
 			}
@@ -200,10 +195,11 @@ defined('_JEXEC') or die('Restricted access');
         	    <?php echo JText::_('CANCEL') ?>
         	</button>
         </div>
-        <br class="clear" />
 
+        <p class="clear"></p>
+        
     	<fieldset class="el_fldst_details">
-
+    	
         	<legend><?php echo JText::_('NORMAL INFO'); ?></legend>
 
           <div class="el_title floattext">
@@ -437,9 +433,8 @@ defined('_JEXEC') or die('Restricted access');
         	    <?php echo JText::_('CANCEL') ?>
         	</button>
       </div>
-      <br class="clear" />
-
-		<p>
+      
+		<p class="clear">
     	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
     	<input type="hidden" name="referer" value="<?php echo @$_SERVER['HTTP_REFERER']; ?>" />
     	<input type="hidden" name="created" value="<?php echo $this->row->created; ?>" />

@@ -173,7 +173,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   			</button>
 		</div>
 
-		<br class="clear" />
+		 <p class="clear"></p>
 
       	<fieldset class="el_fldst_address">
 
@@ -214,7 +214,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
             <div class="el_url floattext">
                 <label for="url"><?php echo JText::_( 'WEBSITE' ).':'; ?></label>
-                <input class="inputbox" name="url" id="url" type="text" value="<?php echo $this->escape($this->row->url); ?>" size="55" maxlength="150" />&nbsp;
+                <input class="inputbox" name="url" id="url" type="text" value="<?php echo $this->escape($this->row->url); ?>" size="55" maxlength="199" />&nbsp;
                 <span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('WEBSITE HINT'); ?>">
                 		<?php echo $this->infoimage; ?>
                 </span>
@@ -312,9 +312,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
     		</button>
 		</div>
 		
-		<br class="clear" />
-		
-		<p>
+		<p class="clear">
       	<input type="hidden" name="option" value="com_eventlist" />
       	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
       	<input type="hidden" name="referer" value="<?php echo @$_SERVER['HTTP_REFERER']; ?>" />

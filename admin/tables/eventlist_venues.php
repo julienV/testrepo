@@ -118,7 +118,7 @@ class eventlist_venues extends JTable
 			$this->url = strip_tags($this->url);
 			$urllength = strlen($this->url);
 
-			if ($urllength > 150) {
+			if ($urllength > 199) {
       			$this->_error = JText::_( 'ERROR URL LONG' );
       			JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
       			return false;

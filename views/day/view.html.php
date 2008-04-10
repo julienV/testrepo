@@ -81,7 +81,7 @@ class EventListViewDay extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = JRoute::_('index.php?view=eventlist&tmpl=component&pop=1');
+		$print_link = JRoute::_('index.php?view=day&tmpl=component&pop=1');
 
 		//pathway
 		$pathway->setItemName( 1, $item->name );
@@ -112,7 +112,7 @@ class EventListViewDay extends JView
 		$pageNav = new JPagination($total, $limitstart, $limit);
 
 		//create select lists
-		$lists	= $this->_buildSortLists($elsettings);
+		$lists	= $this->_buildSortLists();
 
 		$this->assign('lists' , 					$lists);
 
@@ -140,57 +140,18 @@ class EventListViewDay extends JView
 	 */
 	function &getRows()
 	{
-		global $mainframe;
-
 		$count = count($this->rows);
 
 		if (!$count) {
 			return;
 		}
-
+				
 		$k = 0;
-		for($i = 0; $i < $count; $i++)
+		foreach($this->rows as $key => $row)
 		{
-			//initialise
-			$displaydate = null;
-			$displaytime = null;
-
-			$row =& $this->rows[$i];
-
-			//Format date
-			$date = strftime( $this->elsettings->formatdate, strtotime( $row->dates ));
-			if (!$row->enddates) {
-				$displaydate = $date;
-			} else {
-				$enddate 	= strftime( $this->elsettings->formatdate, strtotime( $row->enddates ));
-				$displaydate = $date.' - '.$enddate;
-			}
-
-			//Format time
-			if ($this->elsettings->showtime == 1) {
-				if ($row->times) {
-					$time = strftime( $this->elsettings->formattime, strtotime( $row->times ));
-					$time = $time.' '.$this->elsettings->timename;
-					$displaytime = '<br />'.$time;
-
-				}
-				if ($row->endtimes) {
-					$endtime = strftime( $this->elsettings->formattime, strtotime( $row->endtimes ));
-					$endtime = $endtime.' '.$this->elsettings->timename;
-					$displaytime = '<br />'.$time.' - '.$endtime;
-
-				}
-			}
-
-			if ($displaytime) {
-				$row->displaytime = $displaytime;
-			} else {
-				//$row->displaytime = '<br />-';
-				$row->displaytime = '';
-			}
-
-			$row->displaydate = $displaydate;
 			$row->odd   = $k;
+			
+			$this->rows[$key] = $row;
 			$k = 1 - $k;
 		}
 
@@ -204,8 +165,10 @@ class EventListViewDay extends JView
 	 * @return array
 	 * @since 0.9
 	 */
-	function _buildSortLists($elsettings)
+	function _buildSortLists()
 	{
+		$elsettings = & ELHelper::config();
+		
 		$filter_order		= JRequest::getCmd('filter_order', 'a.dates');
 		$filter_order_Dir	= JRequest::getWord('filter_order_Dir', 'ASC');
 
