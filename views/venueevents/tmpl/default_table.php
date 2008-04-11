@@ -30,7 +30,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 		form.filter_order.value 	= order;
 		form.filter_order_Dir.value	= dir;
-		document.getElementById("adminForm").submit( view );
+		form.submit( view );
 	}
 </script>
 
