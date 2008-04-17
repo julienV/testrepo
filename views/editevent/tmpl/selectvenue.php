@@ -31,7 +31,7 @@ defined('_JEXEC') or die('Restricted access');
 
 		form.filter_order.value 	= order;
 		form.filter_order_Dir.value	= dir;
-		document.getElementById("adminForm").submit( view );
+		form.submit( view );
 	}
 </script>
 
@@ -85,7 +85,7 @@ defined('_JEXEC') or die('Restricted access');
 		<tr class="<?php echo "row$k"; ?>">
 			<td><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
 			<td align="left">
-				<a style="cursor:pointer" onclick="window.parent.elSelectVenue('<?php echo $row->id; ?>', '<?php echo str_replace( "'", "\\'", $row->venue); ?>');">
+				<a style="cursor:pointer" onclick="window.parent.elSelectVenue('<?php echo $row->id; ?>', '<?php echo str_replace( array("'", "\""), array("\\'", ""), $row->venue); ?>');">
 						<?php echo $this->escape($row->venue); ?>
 				</a>
 			</td>
