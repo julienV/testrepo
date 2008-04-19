@@ -233,5 +233,15 @@ class ELHelper {
 		}
 		return $date_array;
 	}
+	/**
+	 * transforms <br /> and <br> back to \r\n
+	 *
+	 * @param string $string
+	 * @return string
+	 */
+	function br2break($string)
+	{
+		return preg_replace("=<br(>|([\s/][^>]*)>)\r?\n?=i", "\r\n", $string);
+	}
 }
 ?>

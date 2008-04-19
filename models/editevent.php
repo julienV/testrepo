@@ -320,6 +320,8 @@ class EventListModelEditevent extends JModel
 		$filter 			= $this->_db->getEscaped( trim(JString::strtolower( $filter ) ) );
 
 		$where = array();
+		
+		$where[] = 'l.published = 1';
 
 		if ($filter && $filter_type == 1) {
 			$where[] = 'LOWER(l.venue) LIKE "%'.$filter.'%"';
@@ -565,7 +567,7 @@ class EventListModelEditevent extends JModel
 
 		if (!$editoruser) {
 			//check datdescription --> wipe out code
-			$row->datdescription = strip_tags($row->datdescription, '<br />');
+			$row->datdescription = strip_tags($row->datdescription, '<br><br/>');
 
 			//convert the linux \n (Mac \r, Win \r\n) to <br /> linebreaks
 			$row->datdescription = str_replace(array("\r\n", "\r", "\n"), "<br />", $row->datdescription);

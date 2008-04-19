@@ -78,6 +78,11 @@ class EventListViewEditvenue extends JView
 
 		//editor user
 		$editoruser = ELUser::editoruser();
+		
+		//transform <br /> and <br> back to \r\n for non editorusers
+		if (!$editoruser) {
+			$row->locdescription = ELHelper::br2break($row->locdescription);
+		}
 
 		//Get image
 		$limage = ELImage::flyercreator($row->locimage);

@@ -47,7 +47,6 @@ class EventListViewEditevent extends JView
 			return;
 		}
 
-
 		// Initialize variables
 		$editor 	= & JFactory::getEditor();
 		$doc 		= & JFactory::getDocument();
@@ -89,6 +88,11 @@ class EventListViewEditevent extends JView
 		//Has the user access to the editor and the add venue screen
 		$editoruser = ELUser::editoruser();
 		$delloclink = ELUser::validate_user( $elsettings->locdelrec, $elsettings->deliverlocsyes );
+		
+		//transform <br /> and <br> back to \r\n for non editorusers
+		if (!$editoruser) {
+			$row->datdescription = ELHelper::br2break($row->datdescription);
+		}
 
 		//Get image information
 		$dimage = ELImage::flyercreator($row->datimage, 'event');

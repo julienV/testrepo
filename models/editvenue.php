@@ -290,8 +290,8 @@ class EventListModelEditvenue extends JModel
 		$editoruser = ELUser::editoruser();
 
 		if (!$editoruser) {
-			//check datdescription --> wipe out code
-			$row->locdescription = strip_tags($row->locdescription, '<br />');
+			//check description --> wipe out code
+			$row->locdescription = strip_tags($row->locdescription, '<br><br/>');
 
 			//convert the linux \n (Mac \r, Win \r\n) to <br /> linebreaks
 			$row->locdescription = str_replace(array("\r\n", "\r", "\n"), "<br />", $row->locdescription);
