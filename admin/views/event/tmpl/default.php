@@ -315,8 +315,8 @@ defined('_JEXEC') or die('Restricted access');
 
 				<table width="100%">
 					<tr>
-						<td width="50%"><?php echo JText::_( 'RECURRENCE' ); ?>:</td>
-						<td width="50%">
+						<td width="40%"><?php echo JText::_( 'RECURRENCE' ); ?>:</td>
+						<td width="60%">
 						  <select id="recurrence_select" name="recurrence_select" size="1">
 						    <option value="0"><?php echo JText::_( 'NOTHING' ); ?></option>
 						    <option value="1"><?php echo JText::_( 'DAYLY' ); ?></option>
@@ -336,7 +336,7 @@ defined('_JEXEC') or die('Restricted access');
 						</td>
 					<tr>
 					<tr>
-						<td><br/><br/><br/></td>
+						<td><br/><br/></td>
 					</tr>
 				</table>
 			<br/>

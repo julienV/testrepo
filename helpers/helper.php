@@ -29,7 +29,7 @@ defined('_JEXEC') or die('Restricted access');
  * @subpackage EventList
  */
 class ELHelper {
-	
+
 	/**
 	 * Pulls settings from database and stores in an static object
 	 *
@@ -39,7 +39,7 @@ class ELHelper {
 	function &config()
 	{
 		static $config;
-		
+
 		if (!is_object($config))
 		{
 			$db 	= & JFactory::getDBO();
@@ -53,7 +53,7 @@ class ELHelper {
 
 	/**
    	* Performs dayly scheduled cleanups
-   	* 
+   	*
    	* Currently it archives and removes outdated events
    	* and takes care of the recurrence of events
    	*
@@ -62,7 +62,7 @@ class ELHelper {
 	function cleanup()
 	{
 		$elsettings = & ELHelper::config();
-		
+
 		$now 		= time();
 		$lastupdate = $elsettings->lastupdate;
 
@@ -100,7 +100,9 @@ class ELHelper {
 					foreach ($recurrence_row as $key => $result) {
 						if ($key != 'id') {
 							if ($insert_keys != '') {
-								$wherequery .= ' AND ';
+								if (ELHelper::where_table_rows($key)) {
+									$wherequery .= ' AND ';
+								}
 								$insert_keys .= ', ';
 								$insert_values .= ', ';
 							}
@@ -110,13 +112,15 @@ class ELHelper {
 								$wherequery .= '`'.$key.'` IS NULL';
 							} else {
 								$insert_values .= "'".$result."'";
-								$wherequery .= '`'.$key.'` = "'.$result.'"';
+								if (ELHelper::where_table_rows($key)) {
+									$wherequery .= '`'.$key.'` = "'.$result.'"';
+								}
+
 							}
 						}
 					}
 
 					$query = 'SELECT id FROM #__eventlist_events WHERE '.$wherequery.';';
-
 					$db->SetQuery( $query );
 
 					if (count($db->loadAssocList()) == 0) {
@@ -242,6 +246,27 @@ class ELHelper {
 	function br2break($string)
 	{
 		return preg_replace("=<br(>|([\s/][^>]*)>)\r?\n?=i", "\r\n", $string);
+	}
+
+	/**
+	 * use only some importent keys of the eventlist_events - database table for the where query
+	 *
+	 * @param string $key
+	 * @return boolean
+	 */
+	function where_table_rows($key) {
+		if ($key == 'locid' ||
+			$key == 'catsid' ||
+			$key == 'dates' ||
+			$key == 'enddates' ||
+			$key == 'times' ||
+			$key == 'endtimes' ||
+			$key == 'alias' ||
+			$key == 'created_by') {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 ?>
