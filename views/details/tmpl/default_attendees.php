@@ -98,10 +98,10 @@ switch ($this->formhandler) {
 			<form id="Eventlist" action="<?php echo JRoute::_('index.php'); ?>" method="post">
 				<p>
 					<?php echo JText::_( 'UNREGISTER BOX' ).': '; ?>
-					<input type="checkbox" name="reg_check" onclick="check(this, document.getElementById('Eventlist').senden)" />
+					<input type="checkbox" name="reg_check" onclick="check(this, document.getElementById('el_send_attend'))" />
 				</p>
 				<p>
-					<input type="submit" name="senden" value="<?php echo JText::_( 'UNREGISTER' ); ?>" disabled="disabled" />
+					<input type="submit" id="el_send_attend" name="el_send_attend" value="<?php echo JText::_( 'UNREGISTER' ); ?>" disabled="disabled" />
 				</p>
 				<p>
 					<input type="hidden" name="rdid" value="<?php echo $this->row->did; ?>" />
@@ -121,10 +121,10 @@ switch ($this->formhandler) {
 		<form id="Eventlist" action="<?php echo JRoute::_('index.php'); ?>" method="post">
 			<p>
 				<?php echo JText::_( 'I WILL GO' ).': '; ?>
-				<input type="checkbox" name="reg_check" onclick="check(this, document.getElementById('Eventlist').senden)" />
+				<input type="checkbox" name="reg_check" onclick="check(this, document.getElementById('el_send_attend'))" />
 			</p>
 		<p>
-			<input type="submit" name="senden" value="<?php echo JText::_( 'REGISTER' ); ?>" disabled="disabled" />
+			<input type="submit" id="el_send_attend" name="el_send_attend" value="<?php echo JText::_( 'REGISTER' ); ?>" disabled="disabled" />
 		</p>
 		<p>
 			<input type="hidden" name="rdid" value="<?php echo $this->row->did; ?>" />

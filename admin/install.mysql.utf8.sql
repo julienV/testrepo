@@ -1,13 +1,4 @@
-DROP TABLE IF EXISTS
-`#__eventlist_events`,
-`#__eventlist_venues`,
-`#__eventlist_categories`,
-`#__eventlist_groups`,
-`#__eventlist_groupmembers`,
-`#__eventlist_settings`,
-`#__eventlist_register`;
-
-CREATE TABLE `#__eventlist_events` (
+CREATE TABLE IF NOT EXISTS `#__eventlist_events` (
 `id` int(11) unsigned NOT NULL auto_increment,
 `locid` int(11) unsigned NOT NULL default '0',
 `catsid` int(11) unsigned NOT NULL default '0',
@@ -37,7 +28,7 @@ CREATE TABLE `#__eventlist_events` (
 PRIMARY KEY  (`id`)
 ) TYPE=MyISAM CHARACTER SET `utf8` COLLATE `utf8_general_ci`;
 
-CREATE TABLE `#__eventlist_venues` (
+CREATE TABLE IF NOT EXISTS `#__eventlist_venues` (
 `id` int(11) unsigned NOT NULL auto_increment,
 `venue` varchar(50) NOT NULL default '',
 `alias` varchar(100) NOT NULL default '',
@@ -64,7 +55,7 @@ CREATE TABLE `#__eventlist_venues` (
 PRIMARY KEY  (`id`)
 ) TYPE=MyISAM CHARACTER SET `utf8` COLLATE `utf8_general_ci`;
 
-CREATE TABLE `#__eventlist_categories` (
+CREATE TABLE IF NOT EXISTS `#__eventlist_categories` (
 `id` int(11) unsigned NOT NULL auto_increment,
 `parent_id` int(11) unsigned NOT NULL default '0',
 `catname` varchar(100) NOT NULL default '',
@@ -82,7 +73,7 @@ CREATE TABLE `#__eventlist_categories` (
 PRIMARY KEY  (`id`)
 ) TYPE=MyISAM CHARACTER SET `utf8` COLLATE `utf8_general_ci`;
 
-CREATE TABLE `#__eventlist_register` (
+CREATE TABLE IF NOT EXISTS `#__eventlist_register` (
 `id` int(11) unsigned NOT NULL auto_increment,
 `event` int(11) NOT NULL default '0',
 `uid` int(11) NOT NULL default '0',
@@ -91,7 +82,7 @@ CREATE TABLE `#__eventlist_register` (
 PRIMARY KEY  (`id`)
 ) TYPE=MyISAM CHARACTER SET `utf8` COLLATE `utf8_general_ci`;
 
-CREATE TABLE `#__eventlist_groups` (
+CREATE TABLE IF NOT EXISTS `#__eventlist_groups` (
 `id` int(11) unsigned NOT NULL auto_increment,
 `name` varchar(150) NOT NULL default '',
 `description` mediumtext NOT NULL,
@@ -100,12 +91,12 @@ CREATE TABLE `#__eventlist_groups` (
 PRIMARY KEY  (`id`)
 ) TYPE=MyISAM CHARACTER SET `utf8` COLLATE `utf8_general_ci`;
 
-CREATE TABLE `#__eventlist_groupmembers` (
+CREATE TABLE IF NOT EXISTS `#__eventlist_groupmembers` (
 `group_id` INT( 11 ) NOT NULL DEFAULT '0',
 `member` INT( 11 ) NOT NULL DEFAULT '0'
 ) TYPE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-CREATE TABLE `#__eventlist_settings` (
+CREATE TABLE IF NOT EXISTS `#__eventlist_settings` (
   `id` int(11) NOT NULL,
   `oldevent` tinyint(4) NOT NULL,
   `minus` tinyint(4) NOT NULL,
