@@ -122,7 +122,6 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<td align="center">
 				<?php echo $row->assignedevents; ?>
 			</td>
-			</td>
 			<td align="center">
 				<?php echo $published; ?>
 			</td>
