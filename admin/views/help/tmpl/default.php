@@ -53,8 +53,6 @@ defined('_JEXEC') or die('Restricted access');
 						|
 						<a href="<?php echo 'components/com_eventlist/help/'.$this->langTag.'/helpsite/el.credits.html'; ?>" target='helpFrame'><?php echo JText::_( 'CREDITS' ); ?></a>
 						|
-						<a href="<?php echo 'components/com_eventlist/help/'.$this->langTag.'/helpsite/el.changelog.html'; ?>" target='helpFrame'><?php echo JText::_( 'CHANGELOG' ); ?></a>
-						|
 						<?php echo JHTML::_('link', 'http://www.gnu.org/licenses/gpl-2.0.html', JText::_( 'LICENSE' ), array('target' => 'helpFrame')) ?>
 					</td>
 				</tr>
