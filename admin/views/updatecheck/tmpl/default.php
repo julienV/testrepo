@@ -87,7 +87,7 @@ if ($this->updatedata->failed == 0) {
 			<tr>
 		  		<td><b><?php echo JText::_( 'FILES' ).':'; ?></b></td>
 		  		<td>
-					<a href="<?php echo $this->updatedata->download; ?>" target="_blank">Download new release or upgradepack</a>
+					<a href="<?php echo $this->updatedata->download; ?>" target="_blank">Download upgradepack</a>
 		  		</td>
 			</tr>
 			<tr>
