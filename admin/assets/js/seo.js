@@ -25,7 +25,7 @@
 // Variablen werden als global definiert, da sie ueber mehrere Funktion hinweg genutzt werden
 var $keyword;			// Array - aufgeschlitete Variablen, welche einem HTML-Tag zugeordnet werden kann
 var $keywords;			// String - Verbindungsvariable zur noch nicht umgeschriebenen Variante der Keywords
-var $manual_keywords = "";	// String - Speichert alle manuell eingef�gen Keywords ab
+var $manual_keywords = "";	// String - Speichert alle manuell eingefuegen Keywords ab
 var $description;		// String - die Beschreibung
 var $description_vars;	// Array - HTML - Tags, die mit einem onchange versehen werden
 var $inputbox = "";		// String - es wird mit Hilfe dieser Variable ermittel, ob der User Beschreibung bzw. Keywords angeklickt hat
@@ -131,7 +131,7 @@ function include_keyword() {
 				}
 		if($($keyword[i]).tagName == "SELECT") {	// es wird unterschieden zwischen normalen Inputfeld und Selectfeld
 			if ($($keyword[i]).value != 0) {		// um auch korrekt abspeichern zu koennen wird das Komma richtig gesetzt
-				$keywords += $($keyword[i]).options[$($keyword[i]).value].text;	// Auslesen des Wertes aus dem Selectfeld
+				$keywords += get_selected_option($keyword[i]); // Auslesen des Wertes aus dem Selectfeld
 			} else {
 				$keywords += "["+$keyword[i]+"]";
 			}
@@ -157,7 +157,7 @@ function include_description() {
 		desc_value = "["+$description_vars[i]+"]";	// Der Wert wird auf Default gesetzt, damit er ausgegeben werden kann, falls ein deafulteinstellung gewaehlt wird
 		if ($($description_vars[i]).tagName == "SELECT") {	// es wird wieder unterschieden zwischen Select und Inputfeld
 			if ($($description_vars[i]).value != 0) {
-				desc_value = $($description_vars[i]).options[$($description_vars[i]).value].text;
+				desc_value = get_selected_option($description_vars[i]);
 			}
 		} else {
 			if ($($description_vars[i]).value != "") {
@@ -176,6 +176,7 @@ function include_description() {
 	}
 	$("meta_description").value = desc_output;
 }
+
 
 function insert_keyword($keyword) {
 	try {
@@ -212,4 +213,15 @@ function get_inputbox($input) {
 		$($input).value = $description;
 	}
 	$inputbox = $input;
+}
+
+function get_selected_option($selectfield) {
+	var $buffer;
+	for(i= 0; i < $($selectfield).length; i++) {
+		if($($selectfield).options[i].value == $($selectfield).value) {
+			$buffer = $($selectfield).options[i].text;
+			break;
+		}
+	}
+	return $buffer;
 }
