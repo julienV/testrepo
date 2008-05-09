@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.9 $Id: default.php 428 2007-10-04 14:18:57Z schlu $
+ * @version 1.1 $Id: default.php 428 2007-10-04 14:18:57Z schlu $
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2008 Christoph Lukes

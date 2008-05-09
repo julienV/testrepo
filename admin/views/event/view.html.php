@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.9 $Id$
+ * @version 1.1 $Id$
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2008 Christoph Lukes
@@ -65,7 +65,10 @@ class EventListViewEvent extends JView {
 		$document->addScript($url.'components/com_eventlist/assets/js/unlimited.js');
 
 		//build toolbar
-		if ( $cid ) {
+		
+		if ($task == 'copy') {
+		  	JToolBarHelper::title( JText::_( 'COPY EVENT'), 'eventedit');		
+		} elseif ( $cid ) {
 			JToolBarHelper::title( JText::_( 'EDIT EVENT' ), 'eventedit' );
 		} else {
 			JToolBarHelper::title( JText::_( 'ADD EVENT' ), 'eventedit' );

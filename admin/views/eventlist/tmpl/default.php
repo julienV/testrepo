@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.9 $Id$
+ * @version 1.1 $Id$
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2008 Christoph Lukes
@@ -21,12 +21,6 @@
 
 defined('_JEXEC') or die('Restricted access');
 ?>
-	<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
-		<tr>
-		  	<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left" /></td>
-		</tr>
-	</table>
-	<br />
 	<table cellspacing="0" cellpadding="0" border="0" width="100%">
 		<tr>
 			<td valign="top">

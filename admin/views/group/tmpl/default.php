@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.9 $Id$
+ * @version 1.1 $Id$
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2008 Christoph Lukes
@@ -73,17 +73,6 @@ defined('_JEXEC') or die('Restricted access');
 </script>
 
 <form action="index.php" method="post" name="adminForm" id="adminForm">
-
-<table class="adminlist">
-	<tr>
-		  <td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left" /></td>
-		  <td class="sectionname" align="right" width="100%">
-		  	<font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">
-		  		<?php echo $this->row->id ? '::'.JText::_( 'EDIT GROUP').'::' : '::'.JText::_( 'ADD GROUP').'::'; ?>
-			</font>
-		</td>
-	</tr>
-</table>
 
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
 	<tr>

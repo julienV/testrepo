@@ -1,5 +1,5 @@
 /**
- * @version 0.9 $Id$
+ * @version 1.1 $Id$
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2008 Christoph Lukes

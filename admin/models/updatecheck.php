@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.9 $Id$
+ * @version 1.1 $Id$
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2008 Christoph Lukes
@@ -93,7 +93,7 @@ class EventListModelUpdatecheck extends JModel
 			$_updatedata->changes 		= explode(';', $data[6]);
 			$_updatedata->failed 		= 0;
 
-			$_updatedata->current = version_compare( '0.9.3.alpha', $_updatedata->version );
+			$_updatedata->current = version_compare( '1.1', $_updatedata->version );
 
 		}
 

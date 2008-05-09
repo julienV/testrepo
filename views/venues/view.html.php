@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.9 $Id: view.html.php 407 2007-09-21 16:03:39Z schlu $
+ * @version 1.1 $Id: view.html.php 407 2007-09-21 16:03:39Z schlu $
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2008 Christoph Lukes

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 0.9 $Id$
+ * @version 1.1 $Id$
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2008 Christoph Lukes
@@ -22,15 +22,6 @@
 defined('_JEXEC') or die('Restricted access'); ?>
 
 <form action="index.php" method="post" name="adminForm">
-
-	<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
-		<tr>
-		  	<td><img src="components/com_eventlist/assets/images/evlogo.png" height="108" width="250" alt="Event List Logo" align="left" /></td>
-		  	<td class="sectionname" align="right" width="100%"><font style="color: #C24733; font-size : 18px; font-weight: bold; text-align: left;">::<?php echo JText::_( 'REGISTERED USER' ); ?>::</font></td>
-		</tr>
-	</table>
-
-	<br />
 
 	<table class="adminlist" cellspacing="1">
 		<tr>
