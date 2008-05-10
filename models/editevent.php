@@ -440,7 +440,7 @@ class EventListModelEditevent extends JModel
 
 		$user 		= & JFactory::getUser();
 		$elsettings = & ELHelper::config();
-
+	
 		//Get mailinformation
 		$SiteName 		= $mainframe->getCfg('sitename');
 		$MailFrom	 	= $mainframe->getCfg('mailfrom');
@@ -461,12 +461,16 @@ class EventListModelEditevent extends JModel
 			$data['meta_keywords'] = substr($data['meta_keywords'],0,199);
 		}
 
+		$curimage = JRequest::getVar( 'curimage', '', 'post','string' );
+		
 		//bind it to the table
 		if (!$row->bind($data)) {
 			JError::raiseError( 500, $this->_db->stderr() );
 			return false;
 		}
-
+		
+		
+		
 		//Are we saving from an item edit?
 		if ($row->id) {
 
@@ -535,6 +539,8 @@ class EventListModelEditevent extends JModel
 			$this->setError( JText::_( 'IMAGE EMPTY' ) );
 			return false;
 		}
+		
+		
 
 		if ( ( $elsettings->imageenabled == 2 || $elsettings->imageenabled == 1 ) && ( !empty($file['name'])  ) )  {
 
@@ -561,7 +567,7 @@ class EventListModelEditevent extends JModel
 			}
 		} else {
 			//keep image if edited and left blank
-			$row->datimage = $row->curimage;
+			$row->datimage = $curimage;
 		}//end image if
 
 		$editoruser = ELUser::editoruser();
