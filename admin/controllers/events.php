@@ -264,5 +264,42 @@ class EventListControllerEvents extends EventListController
 
 		$this->setRedirect( 'index.php?option=com_eventlist&view=events', $msg );
 	}
+	
+	/**
+	 * Fetch hit count of the event
+	 *
+	 * @access public
+	 * @return void
+	 * @since 1.1
+	 */
+	function gethits()
+	{
+		$id 	= JRequest::getInt('id', 0);
+		$model 	= $this->getModel('event');
+		$hits 	= $model->gethits($id);
+
+		if ($hits) {
+			echo $hits;
+		} else {
+			echo 0;
+		}
+	}
+	
+	/**
+	 * Reset hit count of the event
+	 *
+	 * @access public
+	 * @return void
+	 * @since 1.1
+	 */	
+	function resethits()
+	{
+		$id		= JRequest::getInt( 'id', 0 );
+		$model = $this->getModel('event');
+
+		$model->resetHits($id);
+
+		echo 0;
+	}
 }
 ?>

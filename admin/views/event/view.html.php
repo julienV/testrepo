@@ -47,25 +47,28 @@ class EventListViewEvent extends JView {
 
 		//initialise variables
 		$editor 	= & JFactory::getEditor();
+		$db 		= & JFactory::getDBO();
 		$document	= & JFactory::getDocument();
 		$pane 		= & JPane::getInstance('sliders');
 		$user 		= & JFactory::getUser();
 		$elsettings = ELAdmin::config();
+		
+		$nullDate 		= $db->getNullDate();
 
 		//get vars
 		$cid		= JRequest::getVar( 'cid' );
 		$task		= JRequest::getVar('task');
 		$url 		= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
 
-		//add the custom stylesheet and the seo javascript
+		//add the custom stylesheet and the javascript
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
+		$document->addScript($url.'administrator/components/com_eventlist/assets/js/eventscreen.js' );
 		$document->addScript($url.'administrator/components/com_eventlist/assets/js/seo.js');
 		$document->addScript($url.'components/com_eventlist/assets/js/recurrence.js');
 		// include the unlimited script
 		$document->addScript($url.'components/com_eventlist/assets/js/unlimited.js');
 
 		//build toolbar
-		
 		if ($task == 'copy') {
 		  	JToolBarHelper::title( JText::_( 'COPY EVENT'), 'eventedit');		
 		} elseif ( $cid ) {
@@ -166,6 +169,7 @@ class EventListViewEvent extends JView {
 		$this->assignRef('editor'		, $editor);
 		$this->assignRef('pane'			, $pane);
 		$this->assignRef('task'			, $task);
+		$this->assignRef('nullDate'		, $nullDate);
 		$this->assignRef('elsettings'	, $elsettings);
 
 		parent::display($tpl);

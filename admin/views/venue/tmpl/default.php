@@ -103,7 +103,68 @@ defined('_JEXEC') or die('Restricted access');
 				</tr>
 				</table>
 			</td>
-			<td valign="top" width="320px" style="padding: 7px 0 0 5px">
+	
+	<td valign="top" width="320px" style="padding: 7px 0 0 5px">
+			
+		<table width="100%"	style="border: 1px dashed silver; padding: 5px; margin-bottom: 10px;">
+			<?php if ($this->row->id) { ?>
+			<tr>
+				<td>
+					<strong><?php echo JText::_ ( 'ID' ); ?>:</strong>
+				</td>
+				<td>
+					<?php echo $this->row->id; ?>
+				</td>
+			</tr>
+			<?php } ?>
+			<tr>
+				<td>
+					<strong><?php echo JText::_ ( 'STATE' ); ?></strong>
+				</td>
+				<td>
+					<?php
+					echo $this->row->published > 0 ? JText::_ ( 'PUBLISHED' ) : ($this->row->published < 0 ? JText::_ ( 'ARCHIVED' ) : JText::_ ( 'DRAFT UNPUBLISHED' ));
+					?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<strong><?php echo JText::_ ( 'REVISED' ); ?></strong>
+				</td>
+				<td>
+					<?php echo $this->row->version . ' ' . JText::_ ( 'TIMES' ); ?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<strong><?php echo JText::_ ( 'CREATED AT' );?></strong>
+				</td>
+				<td>
+					<?php
+					if ($this->row->created == $this->nullDate) {
+						echo JText::_ ( 'NEW EVENT' );
+					} else {
+						echo JHTML::_ ( 'date', $this->row->created, JText::_ ( 'DATE_FORMAT_LC2' ) );
+					}
+					?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<strong><?php echo JText::_ ( 'EDITED AT' ); ?></strong>
+				</td>
+				<td>
+					<?php
+					if ($this->row->modified == $this->nullDate) {
+						echo JText::_ ( 'NOT MODIFIED' );
+					} else {
+						echo JHTML::_ ( 'date', $this->row->modified, JText::_ ( 'DATE_FORMAT_LC2' ) );
+					}
+					?>
+				</td>
+			</tr>
+		</table>
+		
 		<?php
 		$title = JText::_( 'ADDRESS' );
 		echo $this->pane->startPane('det-pane');
@@ -288,6 +349,7 @@ if ( $this->settings->showmapserv == 0 ) { ?>
 	<input type="hidden" name="created" value="<?php echo $this->row->created; ?>" />
 	<input type="hidden" name="author_ip" value="<?php echo $this->row->author_ip; ?>" />
 	<input type="hidden" name="created_by" value="<?php echo $this->row->created_by; ?>" />
+	<input type="hidden" name="version" value="<?php echo $this->row->version;?>" />
 	<input type="hidden" name="task" value="" />
 </form>
 

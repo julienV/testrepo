@@ -57,6 +57,8 @@ class eventlist_events extends JTable
 	var $modified 			= 0;
 	/** @var int */
 	var $modified_by 		= null;
+	/** @var int */
+	var $version	 		= 0;
 	/** @var string */
 	var $datdescription 	= null;
 	/** @var string */
@@ -81,6 +83,8 @@ class eventlist_events extends JTable
 	var $registra 			= null;
 	/** @var int */
 	var $unregistra 		= null;
+	/** @var int */
+	var $hits				= 0;
 	/** @var int */
 	var $checked_out 		= null;
 	/** @var date */

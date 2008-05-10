@@ -45,7 +45,10 @@ class EventListViewVenue extends JView {
 		$document	= & JFactory::getDocument();
 		$pane		= & JPane::getInstance('sliders');
 		$user 		= & JFactory::getUser();
+		$db 		= & JFactory::getDBO();
 		$settings	= ELAdmin::config();
+		
+		$nullDate 		= $db->getNullDate();
 
 		//get vars
 		$cid 			= JRequest::getInt( 'cid' );
@@ -123,6 +126,7 @@ class EventListViewVenue extends JView {
 		$this->assignRef('pane'      	, $pane);
 		$this->assignRef('editor'      	, $editor);
 		$this->assignRef('settings'     , $settings);
+		$this->assignRef('nullDate'		, $nullDate);
 		$this->assignRef('imageselect' 	, $imageselect);
 
 		parent::display($tpl);

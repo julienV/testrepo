@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_events` (
 `created_by` int(11) unsigned NOT NULL default '0',
 `modified` datetime NOT NULL,
 `modified_by` int(11) unsigned NOT NULL default '0',
+`version` int(11) unsigned NOT NULL default '0',
 `author_ip` varchar(45) NOT NULL default '',
 `created` datetime NOT NULL,
 `datdescription` mediumtext NOT NULL,
@@ -24,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_events` (
 `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
 `registra` tinyint(1) NOT NULL default '0',
 `unregistra` tinyint(1) NOT NULL default '0',
+`hits` int(11) unsigned NOT NULL default '0',
 `published` tinyint(1) NOT NULL default '0',
 PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
@@ -48,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_venues` (
 `created` datetime NOT NULL,
 `modified` datetime NOT NULL,
 `modified_by` int(11) unsigned NOT NULL default '0',
+`version` int(11) unsigned NOT NULL default '0',
 `published` tinyint(1) NOT NULL default '0',
 `checked_out` int(11) NOT NULL default '0',
 `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',

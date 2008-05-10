@@ -160,6 +160,8 @@ class EventListModelEditevent extends JModel
 			$this->_event->sendername		= '';
 			$this->_event->sendermail		= '';
 			$this->_event->datimage			= '';
+			$this->_event->hits					= 0;
+			$this->_event->version					= 0;
 			$this->_event->venue			= JText::_('SELECTVENUE');
 
 		}
@@ -443,7 +445,6 @@ class EventListModelEditevent extends JModel
 		$SiteName 		= $mainframe->getCfg('sitename');
 		$MailFrom	 	= $mainframe->getCfg('mailfrom');
 		$FromName 		= $mainframe->getCfg('fromname');
-		$tzoffset 		= $mainframe->getCfg('offset');
 
 		$row 	= & JTable::getInstance('eventlist_events', '');
 
@@ -630,6 +631,8 @@ class EventListModelEditevent extends JModel
 		//is this an edited event or not?
 		//after store we allways have an id
 		$edited = $row->id ? $row->id : false;
+		
+		$row->version++;
 
 		//store it in the db
 		if (!$row->store(true)) {
@@ -701,7 +704,7 @@ class EventListModelEditevent extends JModel
 			$usermail->setSender( array( $MailFrom, $FromName ) );
 			$usermail->setBody( $mailbody );
 
-			$sent = $usermail->Send();
+			$usermail->Send();
 		}
 
 		return $row->id;

@@ -129,3 +129,10 @@ div.image {
 /* other */
 .copyright
 { font-size: 0.85em; text-align: center; margin: 1em 0; color: #aaa; }
+
+.el_centerimg {
+	text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
+}

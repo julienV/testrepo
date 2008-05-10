@@ -155,6 +155,8 @@ class EventListModelEvent extends JModel
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_data))
 		{
+			$createdate = & JFactory::getDate();
+			
 			$event = new stdClass();
 			$event->id					= 0;
 			$event->locid				= 0;
@@ -165,7 +167,7 @@ class EventListModelEvent extends JModel
 			$event->endtimes			= null;
 			$event->title				= null;
 			$event->alias				= null;
-			$event->created				= null;
+			$event->created				= $createdate->toUnix();
 			$event->author_ip			= null;
 			$event->created_by			= null;
 			$event->published			= 1;
@@ -179,6 +181,9 @@ class EventListModelEvent extends JModel
 			$event->recurrence_counter	= '0000-00-00';
 			$event->datimage			= JText::_('SELECTIMAGE');
 			$event->venue				= JText::_('SELECTVENUE');
+			$event->hits				= 0;
+			$event->version				= 0;
+			$event->modified			= $this->_db->getNullDate();
 			$this->_data				= $event;
 			return (boolean) $this->_data;
 		}
@@ -316,6 +321,8 @@ class EventListModelEvent extends JModel
 			$row->author_ip 		= $elsettings->storeip ? getenv('REMOTE_ADDR') : 'DISABLED';
 			$row->created_by		= $user->get('id');
 		}
+		
+		$row->version++;
 
 		// Make sure the data is valid
 		if (!$row->check($elsettings)) {
@@ -329,6 +336,37 @@ class EventListModelEvent extends JModel
 			return false;
 		}
 
+		return $row->id;
+	}
+	
+	/**
+	 * Fetch event hits
+	 *
+	 * @param int $id
+	 * @return int
+	 */
+	function gethits($id)
+	{
+		$query = 'SELECT hits FROM #__eventlist_events WHERE id = '.(int)$id;
+		$this->_db->setQuery($query);
+		$hits = $this->_db->loadResult();
+		
+		return $hits;
+	}
+	
+	/**
+	 * Reset hitcount
+	 *
+	 * @param int $id
+	 * @return int
+	 */
+	function resetHits($id)
+	{
+		$row  =& $this->getTable('eventlist_events', '');
+		$row->load($id);
+		$row->hits = 0;
+		$row->store();
+		$row->checkin();
 		return $row->id;
 	}
 }

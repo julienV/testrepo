@@ -129,6 +129,8 @@ class EventListModelVenue extends JModel
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_data))
 		{
+			$createdate = & JFactory::getDate();
+			
 			$venue = new stdClass();
 			$venue->id					= 0;
 			$venue->venue				= null;
@@ -145,9 +147,11 @@ class EventListModelVenue extends JModel
 			$venue->locdescription		= null;
 			$venue->meta_keywords		= null;
 			$venue->meta_description	= null;
-			$venue->created				= null;
+			$venue->created				= $createdate->toUnix();
+			$venue->modified			= $this->_db->getNullDate();
 			$venue->author_ip			= null;
 			$venue->created_by			= null;
+			$venue->version				= 0;
 			$this->_data				= $venue;
 			return (boolean) $this->_data;
 		}
@@ -284,6 +288,8 @@ class EventListModelVenue extends JModel
 			$row->ordering = $row->getNextOrder();
 		}
 
+		$row->version++;
+		
 		// Make sure the data is valid
 		if (!$row->check($elsettings)) {
 			$this->setError($row->getError());

@@ -128,6 +128,7 @@ class EventListModelEditvenue extends JModel
 			$this->_venue->map				= $elsettings->showmapserv ? 1 : 0;
 			$this->_venue->created			= '';
 			$this->_venue->created_by		= '';
+			$this->_venue->version			= 0;
 			$this->_venue->author_ip		= '';
 			$this->_venue->locimage			= '';
 			$this->_venue->meta_keywords	= '';
@@ -324,6 +325,8 @@ class EventListModelEditvenue extends JModel
 			$row->published = 0 ;
 		}
 
+		$row->version++;
+		
 		//Make sure the data is valid
 		if (!$row->check($elsettings)) {
 			$this->setError($row->getError());

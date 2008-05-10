@@ -103,6 +103,22 @@ class EventListModelDetails extends JModel
 			}
 
 		}
+		
+		//check session if uservisit already recorded
+		$session 	=& JFactory::getSession();
+		$hitcheck = false;
+		if ($session->has('hit', 'eventlist')) {
+			$hitcheck 	= $session->get('hit', 0, 'eventlist');
+			$hitcheck 	= in_array($this->_details->did, $hitcheck);
+		}
+		if (!$hitcheck) {
+			//record hit
+			$this->hit();
+
+			$stamp = array();
+			$stamp[] = $this->_details->did;
+			$session->set('hit', $stamp, 'eventlist');
+		}
 
 		return $this->_details;
 	}
@@ -152,6 +168,25 @@ class EventListModelDetails extends JModel
 
 		return $where;
 	}
+	
+	/**
+	 * Method to increment the hit counter for the item
+	 *
+	 * @access	public
+	 * @return	boolean	True on success
+	 * @since	1.1
+	 */
+	function hit()
+	{
+		if ($this->_id)
+		{
+			$item = & JTable::getInstance('eventlist_events', '');
+			$item->hit($this->_id);
+			return true;
+		}
+		return false;
+	}
+	
 
 	/**
 	 * Method to check if the user is allready registered
