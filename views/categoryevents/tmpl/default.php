@@ -43,16 +43,24 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <?php endif; ?>
 
 <div class="floattext">
-<div class="catimg">
-	<?php echo $this->category->image; ?>
-</div>
+	<div class="catimg">
+		<?php echo $this->category->image; ?>
+	</div>
 
-<div class="catdescription">
-	<?php echo $this->catdescription; ?>
+	<div class="catdescription">
+		<?php echo $this->catdescription; ?>
+	</div>
 </div>
-</div>
+<!--subcategories-->
+<?php 
+//only show this part if subcategries are available
+if (count($this->categories) && $this->category->id > 0) :
+?>
+
+<?php echo $this->loadTemplate('subcategories'); ?>
+
+<?php endif; ?>
 <!--table-->
-
 <?php echo $this->loadTemplate('table'); ?>
 <p>
 <input type="hidden" name="option" value="com_eventlist" />

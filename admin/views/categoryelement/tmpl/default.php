@@ -57,8 +57,9 @@ defined('_JEXEC') or die('Restricted access');
 	<tbody>
 		<?php
 		$k = 0;
-		for ($i=0, $n=count($this->rows); $i < $n; $i++) {
-			$row = $this->rows[$i];
+		$i = 0;
+		$n = count($this->rows);
+		foreach ($this->rows as $row) {
 
 			if (!$row->access) {
 				$access = 'Public';
@@ -72,6 +73,7 @@ defined('_JEXEC') or die('Restricted access');
 			<td width="7"><?php echo $this->pageNav->getRowOffset( $i ); ?></td>
 			<td align="left">
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'SELECT' );?>::<?php echo $row->catname; ?>">
+				<?php echo $row->treename; ?>
 				<a style="cursor:pointer" onclick="window.parent.elSelectCategory('<?php echo $row->id; ?>', '<?php echo str_replace( array("'", "\""), array("\\'", ""), $row->catname ); ?>');">
 					<?php echo htmlspecialchars($row->catname, ENT_QUOTES, 'UTF-8'); ?>
 				</a></span>
@@ -85,7 +87,11 @@ defined('_JEXEC') or die('Restricted access');
 				<img src="images/<?php echo $img;?>" width="16" height="16" border="0" alt="<?php echo $alt;?>" />
 			</td>
 		</tr>
-			<?php $k = 1 - $k; } ?>
+		<?php 
+		$k = 1 - $k;
+        $i++;
+		}
+		?>
 	</tbody>
 
 </table>

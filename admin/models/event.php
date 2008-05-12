@@ -48,13 +48,6 @@ class EventListModelEvent extends JModel
 	var $_data = null;
 
 	/**
-	 * Categories data array
-	 *
-	 * @var array
-	 */
-	var $_categories = null;
-
-	/**
 	 * Constructor
 	 *
 	 * @since 0.9
@@ -120,27 +113,6 @@ class EventListModelEvent extends JModel
 			return (boolean) $this->_data;
 		}
 		return true;
-	}
-
-	/**
-	 * Method to get the category data
-	 *
-	 * @access	public
-	 * @return	boolean	True on success
-	 * @since	0.9
-	 */
-	function &getCategories()
-	{
-		$query = 'SELECT id AS value, catname AS text'
-				. ' FROM #__eventlist_categories'
-				. ' WHERE published = 1'
-				. ' ORDER BY ordering'
-				;
-		$this->_db->setQuery( $query );
-
-		$this->_categories = $this->_db->loadObjectList();
-
-		return $this->_categories;
 	}
 
 	/**
@@ -270,7 +242,7 @@ class EventListModelEvent extends JModel
 		$elsettings = ELAdmin::config();
 		$user		= & JFactory::getUser();
 
-		$tzoffset 	= $mainframe->getCfg('offset');
+		$cats 		= JRequest::getVar( 'cid', array(), 'post', 'array');
 
 		$row =& JTable::getInstance('eventlist_events', '');
 
@@ -335,6 +307,18 @@ class EventListModelEvent extends JModel
 			$this->setError($this->_db->getErrorMsg());
 			return false;
 		}
+		
+		//store cat relation
+		$query = 'DELETE FROM #__eventlist_cats_event_relations WHERE itemid = '.$row->id;
+		$this->_db->setQuery($query);
+		$this->_db->query();
+			
+		foreach($cats as $cat)
+		{
+			$query = 'INSERT INTO #__eventlist_cats_event_relations (`catid`, `itemid`) VALUES(' . $cat . ',' . $row->id . ')';
+			$this->_db->setQuery($query);
+			$this->_db->query();
+		}
 
 		return $row->id;
 	}
@@ -368,6 +352,19 @@ class EventListModelEvent extends JModel
 		$row->store();
 		$row->checkin();
 		return $row->id;
+	}
+	
+	/**
+	 * Get assigned cats
+	 *
+	 * @return array
+	 */
+	function getCatsselected()
+	{
+		$query = 'SELECT DISTINCT catid FROM #__eventlist_cats_event_relations WHERE itemid = ' . (int)$this->_id;
+		$this->_db->setQuery($query);
+		$used = $this->_db->loadResultArray();
+		return $used;
 	}
 }
 ?>

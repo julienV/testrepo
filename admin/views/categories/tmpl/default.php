@@ -44,7 +44,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		<tr>
 			<th width="5"><?php echo JText::_( 'Num' ); ?></th>
 			<th width="5"><input type="checkbox" name="toggle" value="" onClick="checkAll(<?php echo count( $this->rows ); ?>);" /></th>
-			<th class="title"><?php echo JHTML::_('grid.sort', 'CATEGORY', 'catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+			<th class="title"><?php echo JHTML::_('grid.sort', 'CATEGORY', 'c.catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="20%"><?php echo JHTML::_('grid.sort', 'ALIAS', 'c.alias', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="15%"><?php echo JHTML::_('grid.sort', 'GROUP', 'gr.name', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 			<th width="1%" nowrap="nowrap"><?php echo JText::_( 'EVENTS' ); ?></th>
@@ -67,9 +67,9 @@ defined('_JEXEC') or die('Restricted access'); ?>
 	<tbody>
 		<?php
 		$k = 0;
-		for ($i=0, $n=count($this->rows); $i < $n; $i++) {
-			$row = $this->rows[$i];
-
+		$i = 0;
+		$n = count($this->rows);
+		foreach ($this->rows as $row) {
 			$link 		= 'index.php?option=com_eventlist&amp;controller=categories&amp;task=edit&amp;cid[]='. $row->id;
 			$grouplink 	= 'index.php?option=com_eventlist&amp;controller=groups&amp;task=edit&amp;cid[]='. $row->groupid;
 			$published 	= JHTML::_('grid.published', $row, $i );
@@ -82,10 +82,11 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			<td align="left">
 				<?php
 				if ( $row->checked_out && ( $row->checked_out != $this->user->get('id') ) ) {
-					echo htmlspecialchars($row->catname, ENT_QUOTES, 'UTF-8');
+					echo htmlspecialchars($row->treename.$row->catname, ENT_QUOTES, 'UTF-8');
 				} else {
 				?>
 					<span class="editlinktip hasTip" title="<?php echo JText::_( 'EDIT CATEGORY' );?>::<?php echo $row->catname; ?>">
+					<?php echo $row->treename.' ';?>
 					<a href="<?php echo $link; ?>">
 					<?php echo htmlspecialchars($row->catname, ENT_QUOTES, 'UTF-8'); ?>
 					</a></span>
@@ -133,7 +134,11 @@ defined('_JEXEC') or die('Restricted access'); ?>
 			</td>
 			<td align="center"><?php echo $row->id; ?></td>
 		</tr>
-		<?php $k = 1 - $k; } ?>
+		<?php 
+		$k = 1 - $k;
+        $i++;
+		}
+		?>
 	</tbody>
 
 	</table>

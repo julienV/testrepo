@@ -56,15 +56,15 @@ class EventListViewCategoryevents extends JView
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');
 
 		// Request variables
-		$limitstart		= JRequest::getInt('limitstart');
-		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0), 'int');
+	//	$limitstart		= JRequest::getInt('limitstart');
+	//	$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0), 'int');
 		$task 			= JRequest::getWord('task');
 		$pop			= JRequest::getBool('pop');
 
 		//get data from model
 		$rows 		= & $this->get('Data');
 		$category 	= & $this->get('Category');
-		$total 		= & $this->get('Total');
+		$categories	= & $this->get('Childs');
 
 		//are events available?
 		if (!$rows) {
@@ -100,16 +100,17 @@ class EventListViewCategoryevents extends JView
 		$document->addHeadLink(JRoute::_($link.'&type=atom', 'alternate', 'rel'), $attribs);
 
 		//create the pathway
-		$pathway->setItemName(1, $item->name);
+		$cats		= new eventlist_cats($category->id);
+		$parents	= $cats->getParentlist();
+
+		foreach($parents as $parent) {
+			$pathway->addItem( $this->escape($parent->catname), JRoute::_('index.php?view=categoryevents&id='.$parent->categoryslug));
+		}
 		
 		if ($task == 'archive') {
-			$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&task=archive&id='.$category->slug));
+			$pathway->addItem( JText::_( 'ARCHIVE' ), JRoute::_('index.php?option='.$option.'&view=categoryevents&task=archive&id='.$category->slug));
 			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&task=archive&id='.$category->slug );
 			$print_link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&id='. $category->id .'&task=archive&pop=1&tmpl=component');
-		} else {
-			$pathway->addItem( $category->catname, JRoute::_('index.php?option='.$option.'&view=categoryevents&id='.$category->slug));
-			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&id='.$category->slug );
-			$print_link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&id='. $category->id .'&pop=1&tmpl=component');
 		}
 
 		//Check if the user has access to the form
@@ -118,9 +119,8 @@ class EventListViewCategoryevents extends JView
 
 		if ($maintainer || $genaccess ) $dellink = 1;
 
-		// Create the pagination object
-		jimport('joomla.html.pagination');
-		$pageNav = new JPagination($total, $limitstart, $limit);
+		// Create the pagination object		
+		$pageNav = & $this->get('Pagination');
 
 		//Generate Categorydescription
 		if (empty ($category->catdescription)) {
@@ -160,6 +160,7 @@ class EventListViewCategoryevents extends JView
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
+		$this->assignRef('categories' , 			$categories);
 
 		parent::display($tpl);
 	}

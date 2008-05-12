@@ -87,6 +87,16 @@ class EventListModelEvents extends JModel
 			$query = $this->_buildQuery();
 			$this->_data = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit'));
 			$this->_data = $this->_additionals($this->_data);
+			
+			$k = 0;
+			$count = count($this->_data);
+			for($i = 0; $i < $count; $i++)
+			{
+				$item =& $this->_data[$i];
+				$item->categories = $this->getCategories($item->id);
+				
+				$k = 1 - $k;
+			}
 		}
 
 		return $this->_data;
@@ -140,10 +150,9 @@ class EventListModelEvents extends JModel
 		$where		= $this->_buildContentWhere();
 		$orderby	= $this->_buildContentOrderBy();
 
-		$query = 'SELECT a.*, loc.venue, loc.city, loc.checked_out AS vchecked_out, cat.checked_out AS cchecked_out, cat.catname, u.email, u.name AS author'
+		$query = 'SELECT a.*, loc.venue, loc.city, loc.checked_out AS vchecked_out, u.email, u.name AS author'
 					. ' FROM #__eventlist_events AS a'
 					. ' LEFT JOIN #__eventlist_venues AS loc ON loc.id = a.locid'
-					. ' LEFT JOIN #__eventlist_categories AS cat ON cat.id = a.catsid'
 					. ' LEFT JOIN #__users AS u ON u.id = a.created_by'
 					. $where
 					. $orderby
@@ -210,11 +219,11 @@ class EventListModelEvents extends JModel
 		if ($search && $filter == 3) {
 			$where[] = ' LOWER(loc.city) LIKE \'%'.$search.'%\' ';
 		}
-
+/*
 		if ($search && $filter == 4) {
 			$where[] = ' LOWER(cat.catname) LIKE \'%'.$search.'%\' ';
 		}
-
+*/
 		$where 		= ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '' );
 
 		return $where;
@@ -293,7 +302,7 @@ class EventListModelEvents extends JModel
 	 */
 	function delete($cid = array())
 	{
-		$result = false;
+		//$result = false;
 
 		if (count( $cid ))
 		{
@@ -308,9 +317,46 @@ class EventListModelEvents extends JModel
 				$this->setError($this->_db->getErrorMsg());
 				return false;
 			}
+			
+			//remove assigned category references
+			$query = 'DELETE FROM #__eventlist_cats_event_relations'
+					.' WHERE itemid IN ('. $cids .')'
+					;
+			$this->_db->setQuery($query);
+
+			if(!$this->_db->query()) {
+				$this->setError($this->_db->getErrorMsg());
+				return false;
+			}
 		}
 
 		return true;
 	}
-}//Class end
+	
+	function getCategories($id)
+	{
+		$query = 'SELECT DISTINCT c.id, c.catname, c.checked_out AS cchecked_out'
+				. ' FROM #__eventlist_categories AS c'
+				. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.catid = c.id'
+				. ' WHERE rel.itemid = '.(int)$id
+				;
+	
+		$this->_db->setQuery( $query );
+
+		$this->_cats = $this->_db->loadObjectList();
+		
+		$k = 0;
+		$count = count($this->_cats);
+		for($i = 0; $i < $count; $i++)
+		{
+			$item =& $this->_cats[$i];
+			$cats = new eventlist_cats($item->id);
+			$item->parentcats = $cats->getParentlist();
+				
+			$k = 1 - $k;
+		}
+		
+		return $this->_cats;
+	}
+}
 ?>

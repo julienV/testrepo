@@ -54,10 +54,10 @@ class EventListViewCategoryelement extends JView {
 		//prepare document
 		$document->setTitle(JText::_( 'SELECT CATEGORY'));;
 		$document->addStyleSheet('templates/'.$template.'/css/general.css');
+		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
 		// Get data from the model
 		$rows      	= & $this->get( 'Data');
-//		$total      = & $this->get( 'Total');
 		$pageNav 	= & $this->get( 'Pagination' );
 
 		//publish unpublished filter

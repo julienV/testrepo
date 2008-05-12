@@ -77,8 +77,14 @@ function submitbutton(pressbutton)
 								<?php echo JText::_( 'Alias' ).':'; ?>
 							</label>
 						</td>
-						<td colspan="3">
+						<td>
 							<input class="inputbox" type="text" name="alias" id="alias" size="50" maxlength="100" value="<?php echo $this->row->alias; ?>" />
+						</td>
+						<td>
+							<?php echo JText::_( 'PARENT CATEGORY' ).':'; ?>
+						</td>
+						<td>
+							<?php echo $this->Lists['parent_id']; ?>
 						</td>
 					</tr>
 				</table>

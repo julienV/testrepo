@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS `#__eventlist_events` (
 `id` int(11) unsigned NOT NULL auto_increment,
 `locid` int(11) unsigned NOT NULL default '0',
-`catsid` int(11) unsigned NOT NULL default '0',
 `dates` date NOT NULL default '0000-00-00',
 `enddates` date NULL default NULL,
 `times` time NULL default NULL,
@@ -74,6 +73,15 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_categories` (
 `groupid` int(11) NOT NULL default '0',
 `ordering` int(11) NOT NULL default '0',
 PRIMARY KEY  (`id`)
+) TYPE=MyISAM CHARACTER SET `utf8` COLLATE `utf8_general_ci`;
+
+CREATE TABLE IF NOT EXISTS `#__eventlist_cats_event_relations` (
+`catid` int(11) NOT NULL default '0',
+`itemid` int(11) NOT NULL default '0',
+`ordering` tinyint(11) NOT NULL,
+PRIMARY KEY  (`catid`,`itemid`),
+KEY `catid` (`catid`),
+KEY `itemid` (`itemid`)
 ) TYPE=MyISAM CHARACTER SET `utf8` COLLATE `utf8_general_ci`;
 
 CREATE TABLE IF NOT EXISTS `#__eventlist_register` (

@@ -98,7 +98,9 @@ class EventListViewEvent extends JView {
 
 		//get data from model
 		$model		= & $this->getModel();
-		$row     	= & $this->get( 'Data');
+		$row     	= & $this->get( 'Data' );
+		$categories = eventlist_cats::getCategoriesTree();
+		$selectedcats = & $this->get( 'Catsselected' );
 
 		// fail if checked out not by 'me'
 		if ($row->id) {
@@ -111,16 +113,10 @@ class EventListViewEvent extends JView {
 		//make data safe
 		JFilterOutput::objectHTMLSafe( $row, ENT_QUOTES, 'datdescription' );
 
-		//Create category list
-		$categories = & $this->get( 'Categories');
-
-		$catlist 	= array();
-		$catlist[] 	= JHTML::_('select.option', '0', JText::_( 'SELECT CATEGORY' ) );
-		$catlist 	= array_merge( $catlist, $categories );
-
+		//build selectlists
 		$Lists = array();
-		$Lists['category'] = JHTML::_('select.genericlist', $catlist, 'catsid', 'size="1" class="inputbox"', 'value', 'text', $row->catsid );
-
+		$Lists['category'] = eventlist_cats::buildcatselect($categories, 'cid[]', $selectedcats, 0, 'multiple="multiple" size="8"');
+		
 		//build venue select js and load the view
 		$js = "
 		function elSelectVenue(id, venue) {

@@ -48,13 +48,6 @@ class EventListModelCategoryevents extends JModel
 	var $_category = null;
 
 	/**
-	 * Events total
-	 *
-	 * @var integer
-	 */
-	var $_total = null;
-
-	/**
 	 * Pagination object
 	 *
 	 * @var object
@@ -124,26 +117,45 @@ class EventListModelCategoryevents extends JModel
 				$this->_data = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
 			}
 		}
+		
+			$k = 0;
+			$count = count($this->_data);
+			for($i = 0; $i < $count; $i++)
+			{
+				$item =& $this->_data[$i];
+				$item->categories = $this->getCategories($item->id);
+				
+				//remove events without categories (users have no access to them)
+				if (empty($item->categories)) {
+					unset($this->_data[$i]);
+				} else {
+					//otherwise loop through the category hirarchy to create the pathinfo
+					foreach ($item->categories as $key => $category) {
+						
+						$category->catname = htmlspecialchars($category->catname, ENT_QUOTES, 'UTF-8');
+						if (JString::strlen($category->catname) > 20) {
+							$category->catname = JString::substr( $category->catname , 0 , 20).'...';
+						}
+						
+						$path = '';
+						$pnr = count($category->parentcats);
+						$pix = 0;
+						
+						foreach ($category->parentcats as $key => $parentcats) {
+						$path .= $parentcats->catname;
+						$pix++;
+						if ($pix != $pnr) :
+							$path .= ' » ';
+						endif;
+						}
+						$category->path = $path;
+					}
+				}
+				
+				$k = 1 - $k;
+			}
 
 		return $this->_data;
-	}
-
-	/**
-	 * Total nr of events
-	 *
-	 * @access public
-	 * @return integer
-	 */
-	function getTotal()
-	{
-		// Lets load the total nr if it doesn't already exist
-		if (empty($this->_total))
-		{
-			$query = $this->_buildQuery();
-			$this->_total = $this->_getListCount($query);
-		}
-
-		return $this->_total;
 	}
 
 	/**
@@ -163,6 +175,24 @@ class EventListModelCategoryevents extends JModel
 
 		return $this->_pagination;
 	}
+	
+	/**
+	 * Total nr of Categories
+	 *
+	 * @access public
+	 * @return integer
+	 */
+	function getTotal()
+	{
+		// Lets load the total nr if it doesn't already exist
+		if (empty($this->_total))
+		{
+			$query = $this->_buildQuery();
+			$this->_total = $this->_getListCount($query);
+		}
+
+		return $this->_total;
+	}
 
 	/**
 	 * Build the query
@@ -177,13 +207,13 @@ class EventListModelCategoryevents extends JModel
 		$orderby	= $this->_buildCategoryOrderBy();
 
 		//Get Events from Database
-		$query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.venue, l.city, l.state, l.url, c.catname, c.id AS catid, '
+		$query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.venue, l.city, l.state, l.url,'
 				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
-				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug,'
-				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as categoryslug'
+				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
 				. ' FROM #__eventlist_events AS a'
 				. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
-				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
+				. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = a.id'
+				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = '.$this->_id
 				. $where
 				. $orderby
 				;
@@ -227,9 +257,9 @@ class EventListModelCategoryevents extends JModel
 
 		// First thing we need to do is to select only the requested events
 		if ($task == 'archive') {
-			$where = ' WHERE a.published = -1 && a.catsid = '.$this->_id;
+			$where = ' WHERE a.published = -1 && rel.catid = '.$this->_id;
 		} else {
-			$where = ' WHERE a.published = 1 && a.catsid = '.$this->_id;
+			$where = ' WHERE a.published = 1 && rel.catid = '.$this->_id;
 		}
 
 		// Second is to only select events assigned to category the user has access to
@@ -269,6 +299,92 @@ class EventListModelCategoryevents extends JModel
 		}
 		return $where;
 	}
+		
+	 /**
+	 * Method to get the childs of a category
+	 *
+	 * @access private
+	 * @return array
+	 */
+	function getChilds()
+	{
+		$this->_childs = $this->_getsubs($this->_id);
+
+		$k = 0;
+		$count = count($this->_childs);
+		for($i = 0; $i < $count; $i++)
+		{
+			$category =& $this->_childs[$i];
+
+			$category->assignedevents = $this->_countcatevents( $category->id );
+	//		$category->subcats		= $this->_getsubs( $category->id );
+
+			$k = 1 - $k;
+		}
+
+		return $this->_childs;
+	}
+	
+	 /**
+	 * Method to build the Categories query
+	 * todo: see above and merge
+	 *
+	 * @access private
+	 * @return array
+	 */
+	function _getsubs($id)
+	{
+		$user 		= &JFactory::getUser();
+		$gid		= (int) $user->get('aid');
+		$ordering	= 'ordering ASC';
+
+		$query = 'SELECT *,'
+				. ' CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug'
+				. ' FROM #__eventlist_categories'
+				. ' WHERE published = 1'
+				. ' AND parent_id = '. (int)$id
+				. ' AND access <= '.$gid
+				. ' ORDER BY '.$ordering
+				;
+
+		$this->_db->setQuery($query);
+		$this->_subs = $this->_db->loadObjectList();
+		
+		return $this->_subs;
+	}
+	
+	/**
+	 * Method to get the total number of assigned item to a category
+	 *
+	 * @access private
+	 * @return integer
+	 */
+	function _countcatevents( $id )
+	{
+		//initialize some vars
+		$user		= & JFactory::getUser();
+		$gid		= (int) $user->get('aid');
+
+		$where 	= ' WHERE rel.catid = '.(int)$id;
+		$where .= ' AND c.access <= '.$gid;
+		
+		$task 		= JRequest::getWord('task');
+		if ($task == 'archive') {
+			$where .= ' AND e.published = -1';
+		} else {
+			$where .= ' AND e.published = 1';
+		}
+		
+		$query = 'SELECT COUNT(DISTINCT e.id)'
+				. ' FROM #__eventlist_events AS e'
+				. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = e.id'
+				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = rel.catid'
+				.$where;
+		;
+		$this->_db->setQuery( $query );
+
+		return $this->_db->loadResult();
+	}
 
 	/**
 	 * Method to get the Category
@@ -288,6 +404,38 @@ class EventListModelCategoryevents extends JModel
 		$_category = $this->_db->loadObject();
 
 		return $_category;
+	}
+
+	function getCategories($id)
+	{
+		$user		= & JFactory::getUser();
+		$gid		= (int) $user->get('aid');
+		
+		$query = 'SELECT DISTINCT c.id, c.catname, c.access, c.checked_out AS cchecked_out,'
+				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug'
+				. ' FROM #__eventlist_categories AS c'
+				. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.catid = c.id'
+				. ' WHERE rel.itemid = '.(int)$id
+				. ' AND c.published = 1'
+				. ' AND c.access  <= '.$gid;
+				;
+	
+		$this->_db->setQuery( $query );
+
+		$this->_cats = $this->_db->loadObjectList();
+		
+		$k = 0;
+		$count = count($this->_cats);
+		for($i = 0; $i < $count; $i++)
+		{
+			$item =& $this->_cats[$i];
+			$cats = new eventlist_cats($item->id);
+			$item->parentcats = $cats->getParentlist();
+				
+			$k = 1 - $k;
+		}
+		
+		return $this->_cats;
 	}
 }
 ?>

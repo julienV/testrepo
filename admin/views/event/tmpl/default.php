@@ -47,45 +47,27 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 		if (task == 'cancel') {
 			submitform( task );
 		} else if (form.dates.value == ""){
-			alert( "<?php
-			echo JText::_ ( 'ADD DATE' );
-			?>" );
+			alert( "<?php echo JText::_ ( 'ADD DATE' );	?>" );
 		} else if (form.title.value == ""){
-			alert( "<?php
-			echo JText::_ ( 'ADD TITLE' );
-			?>" );
+			alert( "<?php echo JText::_ ( 'ADD TITLE' ); ?>" );
 			form.title.focus();
 		} else if (!form.dates.value.match(/[0-9]{4}-[0-1][0-9]-[0-3][0-9]/gi)) {
-			alert("<?php
-			echo JText::_ ( 'DATE WRONG' );
-			?>");
+			alert("<?php echo JText::_ ( 'DATE WRONG' ); ?>");
 		} else if (form.enddates.value !="" && !form.enddates.value.match(/[0-9]{4}-[0-1][0-9]-[0-3][0-9]/gi)) {
-			alert("<?php
-			echo JText::_ ( 'ENDDATE WRONG' );
-			?>");
+			alert("<?php echo JText::_ ( 'ENDDATE WRONG' );	?>");
 		} else if (form.times.value == "" && form.endtimes.value != "") {
-			alert("<?php
-			echo JText::_ ( 'ADD TIME' );
-			?>");
+			alert("<?php echo JText::_ ( 'ADD TIME' ); ?>");
 			form.times.focus();
 		} else if (form.times.value != "" && !form.times.value.match(/[0-2][0-9]:[0-5][0-9]/gi)) {
-			alert("<?php
-			echo JText::_ ( 'TIME WRONG' );
-			?>");
+			alert("<?php echo JText::_ ( 'TIME WRONG' ); ?>");
 			form.times.focus();
 		} else if (form.endtimes.value != "" && !form.endtimes.value.match(/[0-2][0-9]:[0-5][0-9]/gi)) {
-			alert("<?php
-			echo JText::_ ( 'TIME WRONG' );
-			?>");
+			alert("<?php echo JText::_ ( 'TIME WRONG' ); ?>");
 			form.endtimes.focus();
-		} else if (form.catsid.value == "0"){
-			alert( "<?php
-			echo JText::_ ( 'CHOOSE CATEGORY' );
-			?>" );
+		} else if (form.cid.selectedIndex == -1) {
+			alert( "<?php echo JText::_ ( 'CHOOSE CATEGORY' );?>" );
 		} else if (form.locid.value == ""){
-			alert( "<?php
-			echo JText::_ ( 'CHOOSE VENUE' );
-			?>" );
+			alert( "<?php echo JText::_ ( 'CHOOSE VENUE' );	?>" );
 		} else {
 			<?php
 			echo $this->editor->save ( 'datdescription' );
@@ -98,6 +80,10 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 		}
 	}
 </script>
+<?php
+//Set the info image
+$infoimage = JHTML::image ( 'components/com_eventlist/assets/images/icon-16-hint.png', JText::_ ( 'NOTES' ) );
+?>
 
 <form action="index.php" method="post" name="adminForm" id="adminForm">
 
@@ -134,14 +120,8 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 				<td>
 					<label for="venueid"><?php echo JText::_ ( 'VENUE' ) . ':'; ?></label>
 				</td>
-				<td>
+				<td colspan="3">
 					<?php echo $this->venueselect; ?>
-				</td>
-				<td>
-					<label for="catid"><?php echo JText::_ ( 'CATEGORY' ) . ':'; ?></label>
-				</td>
-				<td>
-					<?php echo $this->Lists ['category']; ?>
 				</td>
 			</tr>
 		</table>
@@ -241,10 +221,13 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 		<table width="100%"	style="border: 1px dashed silver; padding: 5px; margin-bottom: 10px;">
 			<tr>
 				<td>
-					<strong><?php echo JText::_ ( 'CATEGORY' ); ?></strong>
+					<strong><?php echo JText::_ ( 'CATEGORIES' ); ?></strong>
+					<span class="editlinktip hasTip" title="<?php echo JText::_ ( 'NOTES' ); ?>::<?php echo JText::_ ( 'CATEGORIES NOTES' );?>">
+						<?php echo $infoimage; ?>
+					</span>
 				</td>
 				<td>
-					<?php // echo $this->lists['cid']; ?>PLACEHOLDER
+						<?php echo $this->Lists ['category']; ?>
 				</td>
 			</tr>
 		</table>
@@ -253,9 +236,6 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 		$title = JText::_ ( 'DETAILS' );
 		echo $this->pane->startPane ( "det-pane" );
 		echo $this->pane->startPanel ( $title, 'date' );
-			
-		//Set the info image
-		$infoimage = JHTML::image ( 'components/com_eventlist/assets/images/icon-16-hint.png', JText::_ ( 'NOTES' ) );
 		?>
 		<table>
 			<tr>

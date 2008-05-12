@@ -103,7 +103,7 @@ class EventListViewEvents extends JView {
 		$filters[] = JHTML::_('select.option', '1', JText::_( 'EVENT TITLE' ) );
 		$filters[] = JHTML::_('select.option', '2', JText::_( 'VENUE' ) );
 		$filters[] = JHTML::_('select.option', '3', JText::_( 'CITY' ) );
-		$filters[] = JHTML::_('select.option', '4', JText::_( 'CATEGORY' ) );
+	//	$filters[] = JHTML::_('select.option', '4', JText::_( 'CATEGORY' ) );
 		$lists['filter'] = JHTML::_('select.genericlist', $filters, 'filter', 'size="1" class="inputbox"', 'value', 'text', $filter );
 
 		// search filter

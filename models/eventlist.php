@@ -41,13 +41,6 @@ class EventListModelEventList extends JModel
 	var $_data = null;
 
 	/**
-	 * Events total
-	 *
-	 * @var integer
-	 */
-	var $_total = null;
-
-	/**
 	 * Pagination object
 	 *
 	 * @var object
@@ -100,27 +93,46 @@ class EventListModelEventList extends JModel
 			} else {
 				$this->_data = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
 			}
+			
+			$k = 0;
+			$count = count($this->_data);
+			for($i = 0; $i < $count; $i++)
+			{
+				$item =& $this->_data[$i];
+				$item->categories = $this->getCategories($item->id);
+				
+				//remove events without categories (users have no access to them)
+				if (empty($item->categories)) {
+					unset($this->_data[$i]);
+				} else {
+					//otherwise loop through the category hirarchy to create the pathinfo
+					foreach ($item->categories as $key => $category) {
+						
+						$category->catname = htmlspecialchars($category->catname, ENT_QUOTES, 'UTF-8');
+						if (JString::strlen($category->catname) > 20) {
+							$category->catname = JString::substr( $category->catname , 0 , 20).'...';
+						}
+						
+						$path = '';
+						$pnr = count($category->parentcats);
+						$pix = 0;
+						
+						foreach ($category->parentcats as $key => $parentcats) {
+						$path .= $parentcats->catname;
+						$pix++;
+						if ($pix != $pnr) :
+							$path .= ' » ';
+						endif;
+						}
+						$category->path = $path;
+					}
+				}
+				
+				$k = 1 - $k;
+			}
 		}
 
 		return $this->_data;
-	}
-
-	/**
-	 * Total nr of events
-	 *
-	 * @access public
-	 * @return integer
-	 */
-	function getTotal()
-	{
-		// Lets load the total nr if it doesn't already exist
-		if (empty($this->_total))
-		{
-			$query = $this->_buildQuery();
-			$this->_total = $this->_getListCount($query);
-		}
-
-		return $this->_total;
 	}
 
 	/**
@@ -154,15 +166,12 @@ class EventListModelEventList extends JModel
 		$orderby	= $this->_buildEventListOrderBy();
 
 		//Get Events from Database
-		$query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.created, a.locid, a.datdescription,'
+		$query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.created, a.locid, a.datdescription,'
 				. ' l.venue, l.city, l.state, l.url,'
-				. ' c.catname, c.id AS catid,'
 				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
-				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug,'
-				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as categoryslug'
+				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
 				. ' FROM #__eventlist_events AS a'
 				. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
-				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
 				. $where
 				. $orderby
 				;
@@ -196,9 +205,6 @@ class EventListModelEventList extends JModel
 	{
 		global $mainframe;
 
-		$user		= & JFactory::getUser();
-		$gid		= (int) $user->get('aid');
-
 		// Get the paramaters of the active menu item
 		$params 	= & $mainframe->getParams();
 
@@ -210,9 +216,6 @@ class EventListModelEventList extends JModel
 		} else {
 			$where = ' WHERE a.published = 1';
 		}
-				
-		// Second is to only select events assigned to category the user has access to
-		$where .= ' AND c.access <= '.$gid;
 
 		/*
 		 * If we have a filter, and this is enabled... lets tack the AND clause
@@ -243,14 +246,47 @@ class EventListModelEventList extends JModel
 					case 'city' :
 						$where .= ' AND LOWER( l.city ) LIKE '.$filter;
 						break;
-						
+/*						
 					case 'type' :
 						$where .= ' AND LOWER( c.catname ) LIKE '.$filter;
 						break;
+*/
 				}
 			}
 		}
 		return $where;
+	}
+	
+	function getCategories($id)
+	{
+		$user		= & JFactory::getUser();
+		$gid		= (int) $user->get('aid');
+		
+		$query = 'SELECT DISTINCT c.id, c.catname, c.access, c.checked_out AS cchecked_out,'
+				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug'
+				. ' FROM #__eventlist_categories AS c'
+				. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.catid = c.id'
+				. ' WHERE rel.itemid = '.(int)$id
+				. ' AND c.published = 1'
+				. ' AND c.access  <= '.$gid;
+				;
+	
+		$this->_db->setQuery( $query );
+
+		$this->_cats = $this->_db->loadObjectList();
+		
+		$k = 0;
+		$count = count($this->_cats);
+		for($i = 0; $i < $count; $i++)
+		{
+			$item =& $this->_cats[$i];
+			$cats = new eventlist_cats($item->id);
+			$item->parentcats = $cats->getParentlist();
+				
+			$k = 1 - $k;
+		}
+		
+		return $this->_cats;
 	}
 }
 ?>

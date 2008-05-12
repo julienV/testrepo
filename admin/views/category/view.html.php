@@ -84,6 +84,7 @@ class EventListViewCategory extends JView {
 		$model		= & $this->getModel();
 		$row     	= & $this->get( 'Data' );
 		$groups 	= & $this->get( 'Groups' );
+		$categories = eventlist_cats::getCategoriesTree();
 
 		// fail if checked out not by 'me'
 		if ($row->id) {
@@ -101,6 +102,7 @@ class EventListViewCategory extends JView {
 		$javascript = "onchange=\"javascript:if (document.forms[0].image.options[selectedIndex].value!='') {document.imagelib.src='../images/stories/' + document.forms[0].image.options[selectedIndex].value} else {document.imagelib.src='../images/blank.png'}\"";
 		$Lists['imagelist'] 		= JHTML::_('list.images', 'image', $row->image, $javascript, '/images/stories/' );
 		$Lists['access'] 			= JHTML::_('list.accesslevel', $row );
+		$Lists['parent_id'] 		= eventlist_cats::buildcatselect($categories, 'parent_id', $row->parent_id, 1);
 
 
 		//build grouplist

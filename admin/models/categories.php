@@ -34,20 +34,6 @@ jimport('joomla.application.component.model');
 class EventListModelCategories extends JModel
 {
 	/**
-	 * Category data array
-	 *
-	 * @var array
-	 */
-	var $_data = null;
-
-	/**
-	 * Category total
-	 *
-	 * @var integer
-	 */
-	var $_total = null;
-
-	/**
 	 * Pagination object
 	 *
 	 * @var object
@@ -70,14 +56,6 @@ class EventListModelCategories extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe, $option;
-
-		$limit		= $mainframe->getUserStateFromRequest( $option.'.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
-		$limitstart = $mainframe->getUserStateFromRequest( $option.'.limitstart', 'limitstart', 0, 'int' );
-
-		$this->setState('limit', $limit);
-		$this->setState('limitstart', $limitstart);
-
 		$array = JRequest::getVar('cid',  0, '', 'array');
 		$this->setId((int)$array[0]);
 
@@ -91,9 +69,8 @@ class EventListModelCategories extends JModel
 	 */
 	function setId($id)
 	{
-		// Set id and wipe data
+		// Set id
 		$this->_id	 = $id;
-		$this->_data = null;
 	}
 
 	/**
@@ -104,124 +81,25 @@ class EventListModelCategories extends JModel
 	 */
 	function getData()
 	{
-		// Lets load the content if it doesn't already exist
-		if (empty($this->_data))
-		{
-			$query = $this->_buildQuery();
-			$this->_data = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit'));
-			
-			$k = 0;
-			$count = count($this->_data);
-			for($i = 0; $i < $count; $i++)
-			{
-				$category =& $this->_data[$i];
+		global $mainframe;
+		
+		static $items;
 
-				$category->assignedevents = $this->_countcatevents( $category->id );
-
-				$k = 1 - $k;
-			}
+		if (isset($items)) {
+			return $items;
 		}
-
-		return $this->_data;
-	}
-
-	/**
-	 * Method to get the total nr of the categories
-	 *
-	 * @access public
-	 * @return integer
-	 */
-	function getTotal()
-	{
-		// Lets load the content if it doesn't already exist
-		if (empty($this->_total))
-		{
-			$query = $this->_buildQuery();
-			$this->_total = $this->_getListCount($query);
-		}
-
-		return $this->_total;
-	}
-
-	/**
-	 * Method to get a pagination object for the categories
-	 *
-	 * @access public
-	 * @return integer
-	 */
-	function getPagination()
-	{
-		// Lets load the content if it doesn't already exist
-		if (empty($this->_pagination))
-		{
-			jimport('joomla.html.pagination');
-			$this->_pagination = new JPagination( $this->getTotal(), $this->getState('limitstart'), $this->getState('limit') );
-		}
-
-		return $this->_pagination;
-	}
-
-	/**
-	 * Method to build the query for the categories
-	 *
-	 * @access private
-	 * @return integer
-	 * @since 0.9
-	 */
-	function _buildQuery()
-	{
-		// Get the WHERE and ORDER BY clauses for the query
-		$where		= $this->_buildContentWhere();
-		$orderby	= $this->_buildContentOrderBy();
-
-		$query = 'SELECT c.*, c.catname AS catname, c.access, c.groupid, u.name AS editor, g.name AS groupname, gr.name AS catgroup'
-					. ' FROM #__eventlist_categories AS c'
-					. ' LEFT JOIN #__groups AS g ON g.id = c.access'
-					. ' LEFT JOIN #__users AS u ON u.id = c.checked_out'
-					. ' LEFT JOIN #__eventlist_groups AS gr ON gr.id = c.groupid'
-					. $where
-					. $orderby
-					;
-
-		return $query;
-	}
-
-	/**
-	 * Method to build the orderby clause of the query for the categories
-	 *
-	 * @access private
-	 * @return string
-	 * @since 0.9
-	 */
-	function _buildContentOrderBy()
-	{
-		global $mainframe, $option;
-
-		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.categories.filter_order', 		'filter_order', 	'c.ordering', 'cmd' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.categories.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
-
-		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', c.ordering';
-
-		return $orderby;
-	}
-
-	/**
-	 * Method to build the where clause of the query for the categories
-	 *
-	 * @access private
-	 * @return string
-	 * @since 0.9
-	 */
-	function _buildContentWhere()
-	{
-		global $mainframe, $option;
-
-		$filter_state 		= $mainframe->getUserStateFromRequest( $option.'.categories.filter_state', 'filter_state', '', 'word' );
-		$search 			= $mainframe->getUserStateFromRequest( $option.'.categories.search', 'search', '', 'string' );
+		
+		$limit				= $mainframe->getUserStateFromRequest( 'com_eventlist.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
+		$limitstart 		= $mainframe->getUserStateFromRequest( 'com_eventlist.limitstart', 'limitstart', 0, 'int' );
+		$filter_order		= $mainframe->getUserStateFromRequest( 'com_eventlist.categories.filter_order', 		'filter_order', 	'c.ordering', 'cmd' );
+		$filter_order_Dir	= $mainframe->getUserStateFromRequest( 'com_eventlist.categories.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
+		$filter_state 		= $mainframe->getUserStateFromRequest( 'com_eventlist.categories.filter_state', 'filter_state', '', 'word' );
+		$search 			= $mainframe->getUserStateFromRequest( 'com_eventlist.categories.search', 'search', '', 'string' );
 		$search 			= $this->_db->getEscaped( trim(JString::strtolower( $search ) ) );
-
+		
+		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', c.ordering';
+		
 		$where = array();
-
 		if ( $filter_state ) {
 			if ( $filter_state == 'P' ) {
 				$where[] = 'c.published = 1';
@@ -229,14 +107,89 @@ class EventListModelCategories extends JModel
 				$where[] = 'c.published = 0';
 			}
 		}
+		
+		$where 		= ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '' );
+		
+		//select the records
+		//note, since this is a tree we have to do the limits code-side
+		if ($search) {			
+			
+			
+			$query = 'SELECT c.id'
+					. ' FROM #__eventlist_categories AS c'
+					. ' WHERE LOWER(c.catname) LIKE '.$this->_db->Quote( '%'.$this->_db->getEscaped( $search, true ).'%', false )
+					. $where
+					;
+			$this->_db->setQuery( $query );
+			$search_rows = $this->_db->loadResultArray();					
+		}
+		
+		$query = 'SELECT c.*, u.name AS editor, g.name AS groupname, gr.name AS catgroup'
+					. ' FROM #__eventlist_categories AS c'
+					. ' LEFT JOIN #__groups AS g ON g.id = c.access'
+					. ' LEFT JOIN #__users AS u ON u.id = c.checked_out'
+					. ' LEFT JOIN #__eventlist_groups AS gr ON gr.id = c.groupid'
+					. $where
+					. $orderby
+					;
+		$this->_db->setQuery( $query );
+		$rows = $this->_db->loadObjectList();
+				
+		//establish the hierarchy of the categories
+		$children = array();
+		
+		//first pass - collect children
+		//set depth limit
+		$levellimit = 10;
 
+    	foreach ($rows as $child) {
+        	$parent = $child->parent_id;
+       		$list 	= @$children[$parent] ? $children[$parent] : array();
+        	array_push($list, $child);
+        	$children[$parent] = $list;
+    	}
+    	
+    	//second pass - get an indent list of the items
+    	$list = eventlist_cats::treerecurse(0, '', array(), $children, false, max(0, $levellimit-1));
+    	
+    	//eventually only pick out the searched items.
 		if ($search) {
-			$where[] = ' LOWER(c.catname) LIKE \'%'.$search.'%\' ';
+			$list1 = array();
+
+			foreach ($search_rows as $sid )
+			{
+				foreach ($list as $item)
+				{
+					if ($item->id == $sid) {
+						$list1[] = $item;
+					}
+				}
+			}
+			// replace full list with found items
+			$list = $list1;
+		}
+		
+    	$total = count( $list );
+
+		jimport('joomla.html.pagination');
+		$this->_pagination = new JPagination( $total, $limitstart, $limit );
+
+		// slice out elements based on limits
+		$list = array_slice( $list, $this->_pagination->limitstart, $this->_pagination->limit );
+    	
+		foreach ($list as $category)	{
+			$category->assignedevents = $this->_countcatevents( $category->id );
 		}
 
-		$where 		= ( count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '' );
-
-		return $where;
+		return $list;
+	}
+	
+	function &getPagination()
+	{
+		if ($this->_pagination == null) {
+			$this->getItems();
+		}
+		return $this->_pagination;
 	}
 
 	/**
@@ -284,29 +237,40 @@ class EventListModelCategories extends JModel
 			return false;
 		}
 
-		if (!$row->move( $direction )) {
+		if (!$row->move( $direction, 'parent_id = '.$row->parent_id )) {
 			$this->setError($this->_db->getErrorMsg());
 			return false;
 		}
 
 		return true;
 	}
-
 	/**
-	 * Method to order categories
+
 	 *
 	 * @access	public
 	 * @return	boolean	True on success
 	 * @since	0.9
 	 */
+	/**
+	 * Method to order categories
+	 *
+	 * @access	public
+	 * @return	boolean	True on success
+	 * @since	1.0
+	 */
 	function saveorder($cid = array(), $order)
 	{
 		$row =& JTable::getInstance('eventlist_categories', '');
+		
+		$groupings = array();
 
 		// update ordering values
 		for( $i=0; $i < count($cid); $i++ )
 		{
 			$row->load( (int) $cid[$i] );
+			
+			// track categories
+			$groupings[] = $row->parent_id;
 
 			if ($row->ordering != $order[$i])
 			{
@@ -317,9 +281,16 @@ class EventListModelCategories extends JModel
 				}
 			}
 		}
+		
+		// execute updateOrder for each parent group
+		$groupings = array_unique( $groupings );
+		foreach ($groupings as $group){
+			$row->reorder('parent_id = '.$group);
+		}
 
 		return true;
 	}
+	
 	/**
 	 * Method to count the nr of assigned events to the category
 	 *
@@ -329,9 +300,11 @@ class EventListModelCategories extends JModel
 	 */
 	function _countcatevents($id)
 	{
-		$query = 'SELECT COUNT( e.id )'
+		$query = 'SELECT COUNT(DISTINCT e.id )'
 				.' FROM #__eventlist_events AS e'
-				.' WHERE e.catsid = ' . (int)$id
+				.' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = e.id'
+				.' LEFT JOIN #__eventlist_categories AS c ON c.id = rel.catid'
+				.' WHERE rel.catid = ' . (int)$id
 				;
 					
 		$this->_db->setQuery($query);
@@ -354,7 +327,7 @@ class EventListModelCategories extends JModel
 
 		$query = 'SELECT c.id, c.catname, COUNT( e.catsid ) AS numcat'
 				. ' FROM #__eventlist_categories AS c'
-				. ' LEFT JOIN #__eventlist_events AS e ON e.catsid = c.id'
+				. ' LEFT JOIN #__eventlist_cats_event_relations AS e ON e.catid = c.id'
 				. ' WHERE c.id IN ('. $cids .')'
 				. ' GROUP BY c.id'
 				;

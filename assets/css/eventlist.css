@@ -211,6 +211,15 @@ div#eventlist .catdescription {
 margin: 0 0 0.5em 0;
 }
 
+div#eventlist .subcategories {
+/* font-size: 1.2em; font-weight: bold; */
+border-bottom: 2px solid #ddd;
+padding:0.5em 0.3em; margin: 0.8em 0;
+}
+div#eventlist .subcategorieslist {
+margin: 1em 0 0.5em 0; padding: 0.5em;
+}
+
 /**
  * @section Eventlist Table
  *
