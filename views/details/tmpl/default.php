@@ -96,14 +96,26 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 			</dd>
 
-		<?php endif; ?>
+		<?php endif; 
+		$n = count($this->categories);
+		?>
 
-		<dt class="category"><?php echo JText::_( 'CATEGORY' ).':'; ?></dt>
+		<dt class="category"><?php echo $n < 2 ? JText::_( 'CATEGORY' ) : JText::_( 'CATEGORIES' ); ?>:</dt>
     		<dd class="category">
-				<?php echo "<a href='".JRoute::_( 'index.php?view=categoryevents&id='.$this->row->categoryslug )."'>".$this->escape($this->row->catname)."</a>";?>
+    			<?php
+				$i = 0;
+    			foreach ($this->categories as $category) :
+    			?>
+					<a href="<?php echo JRoute::_( 'index.php?view=categoryevents&id='. $category->slug ); ?>"><?php echo $this->escape($category->catname); ?></a>
+				<?php 
+					$i++;
+					if ($i != $n) :
+						echo ',';
+					endif;
+				endforeach;
+    			?>
 			</dd>
 	</dl>
-
 
   	<?php if ($this->elsettings->showevdescription == 1) : ?>
 

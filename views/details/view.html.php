@@ -48,6 +48,7 @@ class EventListViewDetails extends JView
 		$elsettings = & ELHelper::config();
 
 		$row		= & $this->get('Details');
+		$categories	= & $this->get('Categories');
 		$registers	= & $this->get('Registers');
 		$regcheck	= & $this->get('Usercheck');
 
@@ -66,6 +67,8 @@ class EventListViewDetails extends JView
 		if ($elsettings->showdetails == 0) {
 			return JError::raiseError( 403, JText::_( 'NO ACCESS' ) );
 		}
+		
+		$cid		= JRequest::getInt('cid', 0);
 
 		//add css file
 		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
@@ -80,12 +83,18 @@ class EventListViewDetails extends JView
 			$params->set( 'popup', 1 );
 		}
 
-		$print_link = JRoute::_('index.php?view=details&id='.$row->slug.'&pop=1&tmpl=component');
+		$print_link = JRoute::_('index.php?view=details&cid='.$cid.'&id='.$row->slug.'&pop=1&tmpl=component');
 
 		//pathway
+		$cats		= new eventlist_cats($cid);
+        $parents	= $cats->getParentlist();
 		$pathway 	= & $mainframe->getPathWay();
-		$pathway->addItem( JText::_( 'DETAILS' ). ' - '.$row->title, JRoute::_('index.php?view=details&id='.$row->slug));
-
+		$pathway->setItemName( 1, $item->name );
+		foreach($parents as $parent) {
+			$pathway->addItem( $this->escape($parent->catname), JRoute::_('index.php?view=categoryevents&id='.$parent->categoryslug));
+		}
+		$pathway->addItem( $this->escape($row->title), JRoute::_('index.php?view=details&cid='.$cid.'&id='.$row->slug));
+		
 		//Get images
 		$dimage = ELImage::flyercreator($row->datimage, 'event');
 		$limage = ELImage::flyercreator($row->locimage);
@@ -211,6 +220,7 @@ class EventListViewDetails extends JView
 
 		//assign vars to jview
 		$this->assignRef('row', 					$row);
+		$this->assignRef('categories' ,				$categories);
 		$this->assignRef('params' , 				$params);
 		$this->assignRef('allowedtoeditevent' , 	$allowedtoeditevent);
 		$this->assignRef('allowedtoeditvenue' , 	$allowedtoeditvenue);
@@ -232,18 +242,17 @@ class EventListViewDetails extends JView
 	 */
 	function keyword_switcher($keyword, $row, $formattime, $formatdate) {
 		switch ($keyword) {
-			case "catsid":
-				$content = $row->catname;
-				break;
+//			case "catsid":
+//				$content = $row->catname;
+//				break;
 			case "a_name":
 				$content = $row->venue;
 				break;
 			case "times":
 			case "endtimes":
+				$content = '';
 				if ($row->$keyword) {
 					$content = strftime( $formattime ,strtotime( $row->$keyword ) );
-				} else {
-					$content = '';
 				}
 				break;
 			case "dates":

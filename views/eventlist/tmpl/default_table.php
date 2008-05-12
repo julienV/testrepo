@@ -153,8 +153,13 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				</td>
 
 				<?php
+				//fetch first categoryid
+				foreach ($row->categories as $key => $category) :
+					$cid = $category->catslug;
+					break;
+				endforeach;
 				//Link to details
-				$detaillink = JRoute::_( 'index.php?view=details&id='. $row->slug );
+				$detaillink = JRoute::_( 'index.php?view=details&cid='.$cid.'&id='. $row->slug );
 				//title
 				if (($this->elsettings->showtitle == 1 ) && ($this->elsettings->showdetails == 1) ) :
 				?>

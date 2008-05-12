@@ -112,7 +112,7 @@ class EventListModelEventList extends JModel
 						if (JString::strlen($category->catname) > 20) {
 							$category->catname = JString::substr( $category->catname , 0 , 20).'...';
 						}
-						
+												
 						$path = '';
 						$pnr = count($category->parentcats);
 						$pix = 0;

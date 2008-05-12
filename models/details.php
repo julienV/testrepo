@@ -91,17 +91,16 @@ class EventListModelDetails extends JModel
 			$user	= & JFactory::getUser();
 
 			// Is the category published?
-			if (!$this->_details->published && $this->_details->catsid)
+			if (!$this->_details->published && $this->_details->catid)
 			{
 				JError::raiseError( 404, JText::_("CATEGORY NOT PUBLISHED") );
 			}
 
 			// Do we have access to the category?
-			if (($this->_details->access > $user->get('aid')) && $this->_details->catsid)
+			if (($this->_details->cataccess > $user->get('aid')) && $this->_details->catid)
 			{
 				JError::raiseError( 403, JText::_("ALERTNOTAUTH") );
 			}
-
 		}
 		
 		//check session if uservisit already recorded
@@ -137,15 +136,16 @@ class EventListModelDetails extends JModel
 			// Get the WHERE clause
 			$where	= $this->_buildDetailsWhere();
 
-			$query = 'SELECT a.id AS did, a.dates, a.enddates, a.title, a.times, a.endtimes, a.datdescription, a.meta_keywords, a.meta_description, a.datimage, a.registra, a.unregistra, a.locid, a.catsid, a.created_by,'
+			$query = 'SELECT DISTINCT a.id AS did, a. published, a.dates, a.enddates, a.title, a.times, a.endtimes, a.datdescription, a.meta_keywords, a.meta_description, a.datimage, a.registra, a.unregistra, a.locid, a.created_by,'
 					. ' l.id AS locid, l.venue, l.city, l.state, l.url, l.locdescription, l.locimage, l.city, l.plz, l.street, l.country, l.map, l.created_by AS venueowner,'
-					. ' c.catname, c.published, c.access,'
+					. ' c.access AS cataccess, c.id AS catid, c.published AS catpublished,'
 					. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
-					. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug,'
-					. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as categoryslug'
+					. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
+//					. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as categoryslug'
 					. ' FROM #__eventlist_events AS a'
 					. ' LEFT JOIN #__eventlist_venues AS l ON a.locid = l.id'
-					. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
+					. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = a.id'
+					. ' LEFT JOIN #__eventlist_categories AS c ON c.id = rel.catid'
 					. $where
 					;
     		$this->_db->setQuery($query);
@@ -167,6 +167,29 @@ class EventListModelDetails extends JModel
 		$where = ' WHERE a.id = '.$this->_id;
 
 		return $where;
+	}
+	
+	/**
+	 * Method to get the categories
+	 *
+	 * @access	public
+	 * @return	object
+	 * @since	1.1
+	 */
+	function getCategories()
+	{
+		$query = 'SELECT DISTINCT c.id, c.catname,'
+		. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as slug'
+		. ' FROM #__eventlist_categories AS c'
+		. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.catid = c.id'
+		. ' WHERE rel.itemid = '.$this->_id
+		;
+
+		$this->_db->setQuery( $query );
+
+		$this->_cats = $this->_db->loadObjectList();
+
+		return $this->_cats;
 	}
 	
 	/**
