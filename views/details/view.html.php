@@ -93,7 +93,7 @@ class EventListViewDetails extends JView
 		//Check user if he can edit
 		$allowedtoeditevent = ELUser::editaccess($elsettings->eventowner, $row->created_by, $elsettings->eventeditrec, $elsettings->eventedit);
 		$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $row->venueowner, $elsettings->venueeditrec, $elsettings->venueedit);
-		
+
 		//Timecheck for registration
 		$jetzt = date("Y-m-d");
 		$now = strtotime($jetzt);
@@ -120,7 +120,7 @@ class EventListViewDetails extends JView
 		if ( !$user->get('id') ) {
 			$formhandler = 2;
 		}
-		
+
 		if ($formhandler >= 3) {
 			$js = "function check(checkbox, senden) {
 				if(checkbox.checked==true){
@@ -149,7 +149,7 @@ class EventListViewDetails extends JView
 		} else {
 			//execute plugins
 			$row->text	=	$row->locdescription;
-			
+
 			JPluginHelper::importPlugin('content');
 			$results = $dispatcher->trigger('onPrepareContent', array (& $row, & $params, 0));
 			$row->locdescription = $row->text;
@@ -165,7 +165,12 @@ class EventListViewDetails extends JView
 				}
 				if (ereg("[/[/]",$keyword)) {
 					$keyword = trim(str_replace("[","",str_replace("]","",$keyword)));
-					$meta_keywords_content .= $this->keyword_switcher($keyword, $row, $elsettings->formattime, $elsettings->formatdate);
+					$buffer = $this->keyword_switcher($keyword, $row, $elsettings->formattime, $elsettings->formatdate);
+					if ($buffer != "") {
+						$meta_keywords_content .= $buffer;
+					} else {
+						$meta_keywords_content = substr($meta_keywords_content,0,strlen($meta_keywords_content) - 2);	// remove the comma and the white space
+					}
 				} else {
 					$meta_keywords_content .= $keyword;
 				}
