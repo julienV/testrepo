@@ -244,18 +244,49 @@ class EventListModelEditevent extends JModel
 
 		//get the maintained categories and the categories whithout any group
 		//or just get all if somebody have edit rights
-		$query = 'SELECT c.id AS value, c.catname AS text, c.groupid'
+		$query = 'SELECT c.*'
 				. ' FROM #__eventlist_categories AS c'
 				. $where
 				. ' ORDER BY c.ordering'
 				;
 		$this->_db->setQuery( $query );
 
-		$this->_category = array();
-		$this->_category[] = JHTML::_('select.option', '0', JText::_( 'SELECT CATEGORY' ) );
-		$this->_categories = array_merge( $this->_category, $this->_db->loadObjectList() );
+	//	$this->_category = array();
+	//	$this->_category[] = JHTML::_('select.option', '0', JText::_( 'SELECT CATEGORY' ) );
+	//	$this->_categories = array_merge( $this->_category, $this->_db->loadObjectList() );
+	
+		$rows = $this->_db->loadObjectList();
+		
+		//set depth limit
+		$levellimit = 10;
+		
+		//get children
+    	$children = array();  	
+    	foreach ($rows as $child) {
+        	$parent = $child->parent_id;
+       		$list = @$children[$parent] ? $children[$parent] : array();
+        	array_push($list, $child);
+        	$children[$parent] = $list;
+    	}
+    	//get list of the items
+    	$this->_categories = eventlist_cats::treerecurse(0, '', array(), $children, true, max(0, $levellimit-1));
 
 		return $this->_categories;
+	}
+	
+	/**
+	 * Method to get the categories an item is assigned to
+	 *
+	 * @access	public
+	 * @return	boolean	True on success
+	 * @since	1.0
+	 */
+	function getCatsselected()
+	{
+		$query = 'SELECT DISTINCT catid FROM #__eventlist_cats_event_relations WHERE itemid = ' . (int)$this->_id;
+		$this->_db->setQuery($query);
+		$used = $this->_db->loadResultArray();
+		return $used;
 	}
 
 	/**
@@ -446,7 +477,8 @@ class EventListModelEditevent extends JModel
 		$MailFrom	 	= $mainframe->getCfg('mailfrom');
 		$FromName 		= $mainframe->getCfg('fromname');
 
-		$row 	= & JTable::getInstance('eventlist_events', '');
+		$cats 		= JRequest::getVar( 'cid', array(), 'post', 'array');
+		$row 		= & JTable::getInstance('eventlist_events', '');
 
 		//Sanitize
 		$data['datdescription'] = JRequest::getVar( 'datdescription', '', 'post','string', JREQUEST_ALLOWRAW );
@@ -644,6 +676,18 @@ class EventListModelEditevent extends JModel
 		if (!$row->store(true)) {
 			JError::raiseError( 500, $this->_db->stderr() );
 			return false;
+		}
+		
+		//store cat relation
+		$query = 'DELETE FROM #__eventlist_cats_event_relations WHERE itemid = '.$row->id;
+		$this->_db->setQuery($query);
+		$this->_db->query();
+			
+		foreach($cats as $cat)
+		{
+			$query = 'INSERT INTO #__eventlist_cats_event_relations (`catid`, `itemid`) VALUES(' . $cat . ',' . $row->id . ')';
+			$this->_db->setQuery($query);
+			$this->_db->query();
 		}
 
 		$this->_db->setQuery('SELECT * FROM #__eventlist_venues WHERE id = '.(int)$row->locid);

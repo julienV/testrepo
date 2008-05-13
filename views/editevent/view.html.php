@@ -53,9 +53,12 @@ class EventListViewEditevent extends JView
 		$elsettings = & ELHelper::config();
 
 		//Get Data from the model
-		$row 		= $this->Get('Event');
-		$categories	= $this->Get('Categories');
-
+		$row 			= $this->Get('Event');
+		$categories		= $this->Get('Categories');
+		$selectedcats 	= & $this->get( 'Catsselected' );
+		
+		//build selectlists
+		$categories = eventlist_cats::buildcatselect($categories, 'cid[]', $selectedcats, 0, 'multiple="multiple" size="8 class="inputbox required validate-cid"');
 		//Get requests
 		$id					= JRequest::getInt('id');
 
@@ -126,7 +129,7 @@ class EventListViewEditevent extends JView
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('params' , 				$params);
-
+		
 		parent::display($tpl);
 
 	}

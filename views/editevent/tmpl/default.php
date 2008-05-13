@@ -60,9 +60,9 @@ defined('_JEXEC') or die('Restricted access');
 					return regexp[time].test(value);
 				}
 			);
-			document.formvalidator.setHandler('catsid',
+			document.formvalidator.setHandler('cid',
 				function (value) {
-					if(value=="") {
+					if(value == -1) {
 						return true;
 					} else {
 						timer = new Date();
@@ -119,10 +119,9 @@ defined('_JEXEC') or die('Restricted access');
     			validator.handleResponse(false,form.endtimes);
   				form.endtimes.focus();
   				return false;
-			} else if ( validator.validate(form.catsid) === false ) {
+			} else if ( form.cid.selectedIndex == -1 ) {
     			alert("<?php echo JText::_( 'SELECT CATEGORY', true ); ?>");
-    			validator.handleResponse(false,form.catsid);
-    			form.catsid.focus();
+    			form.cid.focus();
     			return false;
   			} else if ( validator.validate(form.locid) === false ) {
     			alert("<?php echo JText::_( 'SELECT VENUE', true ); ?>");
@@ -231,12 +230,13 @@ defined('_JEXEC') or die('Restricted access');
           </div>
 
           <div class="el_category floattext">
-          		<label for="catsid" class="catsid">
+          		<label for="cid" class="cid">
                   <?php echo JText::_( 'CATEGORY' ).':';?>
               </label>
           		<?php
-                	$html = JHTML::_('select.genericlist', $this->categories, 'catsid','size="1" class="inputbox required validate-catsid"', 'value', 'text', $this->row->catsid );
-                	echo $html;
+          		echo $this->categories;
+                //	$html = JHTML::_('select.genericlist', $this->categories, 'catsid','size="1" class="inputbox required validate-catsid"', 'value', 'text', $this->row->catsid );
+                //	echo $html;
           		?>
           </div>
 
