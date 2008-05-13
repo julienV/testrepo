@@ -93,7 +93,7 @@ class EventListModelEventList extends JModel
 			} else {
 				$this->_data = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
 			}
-			
+
 			$k = 0;
 			$count = count($this->_data);
 			for($i = 0; $i < $count; $i++)
@@ -104,7 +104,9 @@ class EventListModelEventList extends JModel
 				//remove events without categories (users have no access to them)
 				if (empty($item->categories)) {
 					unset($this->_data[$i]);
-				} else {
+				} 
+				
+			/*	else {
 					//otherwise loop through the category hirarchy to create the pathinfo
 					foreach ($item->categories as $key => $category) {
 						
@@ -127,7 +129,7 @@ class EventListModelEventList extends JModel
 						$category->path = $path;
 					}
 				}
-				
+			*/	
 				$k = 1 - $k;
 			}
 		}
@@ -274,7 +276,7 @@ class EventListModelEventList extends JModel
 		$this->_db->setQuery( $query );
 
 		$this->_cats = $this->_db->loadObjectList();
-		
+	/*	
 		$k = 0;
 		$count = count($this->_cats);
 		for($i = 0; $i < $count; $i++)
@@ -285,7 +287,7 @@ class EventListModelEventList extends JModel
 				
 			$k = 1 - $k;
 		}
-		
+	*/	
 		return $this->_cats;
 	}
 }

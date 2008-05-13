@@ -218,11 +218,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 						if ($this->elsettings->catlinklist == 1) :
 						?>
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'CATEGORY' );?>::<?php echo $category->path; ?>">
 								<a href="<?php echo JRoute::_('index.php?view=categoryevents&id='.$category->catslug); ?>">
 									<?php echo $category->catname; ?>
 								</a>
-							</span>
 						<?php else : ?>
 
 							<?php echo $category->catname; ?>
