@@ -124,6 +124,43 @@ class EventListModelVenueevents extends JModel
 				$this->_data = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
 			}
 		}
+		
+			$k = 0;
+			$count = count($this->_data);
+			for($i = 0; $i < $count; $i++)
+			{
+				$item =& $this->_data[$i];
+				$item->categories = $this->getCategories($item->id);
+				
+				//remove events without categories (users have no access to them)
+				if (empty($item->categories)) {
+					unset($this->_data[$i]);
+				} else {
+					//otherwise loop through the category hirarchy to create the pathinfo
+					foreach ($item->categories as $key => $category) {
+						
+						$category->catname = htmlspecialchars($category->catname, ENT_QUOTES, 'UTF-8');
+						if (JString::strlen($category->catname) > 20) {
+							$category->catname = JString::substr( $category->catname , 0 , 20).'...';
+						}
+						
+						$path = '';
+						$pnr = count($category->parentcats);
+						$pix = 0;
+						
+						foreach ($category->parentcats as $key => $parentcats) {
+						$path .= $parentcats->catname;
+						$pix++;
+						if ($pix != $pnr) :
+							$path .= ' » ';
+						endif;
+						}
+						$category->path = $path;
+					}
+				}
+				
+				$k = 1 - $k;
+			}
 
 		return $this->_data;
 	}
@@ -173,17 +210,17 @@ class EventListModelVenueevents extends JModel
 	function _buildQuery()
 	{
 		// Get the WHERE and ORDER BY clauses for the query
-		$where		= $this->_buildContentWhere();
-		$orderby	= $this->_buildContentOrderBy();
+		$where		= $this->_buildVenueWhere();
+		$orderby	= $this->_buildVenueOrderBy();
 
 		//Get Events from Database
-		$query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.venue, l.city, l.state, l.url, c.catname, c.id AS catid,'
+		$query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.venue, l.city, l.state, l.url,'
 				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
-				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug,'
-				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as categoryslug'
+				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
 				. ' FROM #__eventlist_events AS a'
 				. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
-				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
+				. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = a.id'
+				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = '.$this->_id
 				. $where
 				. $orderby
 				;
@@ -197,7 +234,7 @@ class EventListModelVenueevents extends JModel
 	 * @access private
 	 * @return string
 	 */
-	function _buildContentOrderBy()
+	function _buildVenueOrderBy()
 	{
 		$filter_order		= $this->getState('filter_order');
 		$filter_order_dir	= $this->getState('filter_order_dir');
@@ -213,7 +250,7 @@ class EventListModelVenueevents extends JModel
 	 * @access private
 	 * @return array
 	 */
-	function _buildContentWhere( )
+	function _buildVenueWhere( )
 	{
 		global $mainframe;
 
@@ -286,6 +323,38 @@ class EventListModelVenueevents extends JModel
 		$_venue = $this->_db->loadObject();
 
 		return $_venue;
+	}
+	
+	function getCategories($id)
+	{
+		$user		= & JFactory::getUser();
+		$gid		= (int) $user->get('aid');
+		
+		$query = 'SELECT DISTINCT c.id, c.catname, c.access, c.checked_out AS cchecked_out,'
+				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug'
+				. ' FROM #__eventlist_categories AS c'
+				. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.catid = c.id'
+				. ' WHERE rel.itemid = '.(int)$id
+				. ' AND c.published = 1'
+				. ' AND c.access  <= '.$gid;
+				;
+	
+		$this->_db->setQuery( $query );
+
+		$this->_cats = $this->_db->loadObjectList();
+		
+		$k = 0;
+		$count = count($this->_cats);
+		for($i = 0; $i < $count; $i++)
+		{
+			$item =& $this->_cats[$i];
+			$cats = new eventlist_cats($item->id);
+			$item->parentcats = $cats->getParentlist();
+				
+			$k = 1 - $k;
+		}
+		
+		return $this->_cats;
 	}
 }
 ?>
