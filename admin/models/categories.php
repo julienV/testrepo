@@ -325,7 +325,7 @@ class EventListModelCategories extends JModel
 	{
 		$cids = implode( ',', $cid );
 
-		$query = 'SELECT c.id, c.catname, COUNT( e.catsid ) AS numcat'
+		$query = 'SELECT c.id, c.catname, COUNT( e.catid ) AS numcat'
 				. ' FROM #__eventlist_categories AS c'
 				. ' LEFT JOIN #__eventlist_cats_event_relations AS e ON e.catid = c.id'
 				. ' WHERE c.id IN ('. $cids .')'
