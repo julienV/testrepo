@@ -65,6 +65,8 @@ class EventListModelCategories extends JModel
 
 		global $mainframe;
 
+		$cid			= JRequest::getInt('cid', 0);
+		
 		// Get the paramaters of the active menu item
 		$params = & $mainframe->getParams();
 
@@ -72,8 +74,22 @@ class EventListModelCategories extends JModel
 		$limit			= JRequest::getInt('limit', $params->get('cat_num'));
 		$limitstart		= JRequest::getInt('limitstart');
 
+		$this->setId((int)$cid);
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
+	}
+	
+	/**
+	 * Method to set the category id
+	 *
+	 * @access	public
+	 * @param	int	category ID number
+	 */
+	function setId($cid)
+	{
+		// Set new category ID and wipe data
+		$this->_id			= $cid;
+		//$this->_data		= null;
 	}
 
 	/**
@@ -164,7 +180,7 @@ class EventListModelCategories extends JModel
 		} else {
 			$eventstate = ' AND a.published = 1';
 		}
-				
+		/*		
 		//get categories
 		$query = 'SELECT c.*, c.id AS catid, COUNT( a.id ) AS assignedevents,'
 				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as slug'
@@ -173,6 +189,21 @@ class EventListModelCategories extends JModel
 				. ' WHERE c.published = 1'
 				. ' AND c.access <= '.$gid
 				. $eventstate
+				. ' GROUP BY c.id'
+				. ' ORDER BY c.ordering'
+				;
+		*/	
+		$query = 'SELECT DISTINCT c.id AS catid, c.*, COUNT( a.id ) AS assignedevents,'
+				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as slug'
+				. ' FROM #__eventlist_events AS a'
+		//		. ' LEFT JOIN #__eventlist_events AS a ON a.catsid = c.id'
+				. ' LEFT JOIN #__eventlist_categories AS c ON c.parent_id = '. $this->_id
+				. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.catid = c.id'
+		//		. ' WHERE rel.itemid = '.(int)$id
+		//		. ' AND c.published = 1'
+				. ' WHERE c.published = 1'
+				. $eventstate
+				. ' AND c.access  <= '.$gid
 				. ' GROUP BY c.id'
 				. ' ORDER BY c.ordering'
 				;

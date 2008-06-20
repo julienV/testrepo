@@ -45,7 +45,7 @@ defined('_JEXEC') or die('Restricted access');
 
 <div class="clear"></div>
 
-<form action="<?php echo JRoute::_('index.php') ?>" method="post" id="adminForm">
+<form action="index.php?option=com_eventlist&amp;view=editevent&amp;layout=selectvenue&amp;tmpl=component" method="post" id="adminForm">
 
 <div id="el_filter" class="floattext">
 		<div class="el_fleft">

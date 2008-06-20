@@ -297,10 +297,14 @@ class EventListModelEditevent extends JModel
 	 */
 	function getVenues( )
 	{
+		global $mainframe;
+		
+		$params 	= & $mainframe->getParams();
+		
 		$where		= $this->_buildVenuesWhere(  );
 		$orderby	= $this->_buildVenuesOrderBy(  );
 
-		$limit			= JRequest::getInt('limit');
+		$limit			= $mainframe->getUserStateFromRequest('com_eventlist.selectvenue.limit', 'limit', $params->def('display_num', 0), 'int');
 		$limitstart		= JRequest::getInt('limitstart');
 
 		$query = 'SELECT l.id, l.venue, l.city, l.country, l.published'
