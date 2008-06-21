@@ -21,7 +21,17 @@
 
 defined('_JEXEC') or die('Restricted access');
 ?>
-<div class="imagelist">
+<form action="index.php" method="post" name="adminForm">
+<div class="imghead">
+
+	<?php echo JText::_( 'SEARCH' ).' '; ?>
+	<input type="text" name="search" id="search" value="<?php echo $this->search; ?>" class="text_area" onChange="document.adminForm.submit();" />
+	<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
+	<button onclick="this.form.getElementById('search').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
+
+</div>
+
+<div class="imglist">
 
 		<?php
 		for ($i = 0, $n = count($this->images); $i < $n; $i++) :
@@ -29,5 +39,14 @@ defined('_JEXEC') or die('Restricted access');
 			echo $this->loadTemplate('image');
 		endfor;
 		?>
-
 </div>
+
+<div class="clear"></div>
+		
+<div class="pnav"><?php echo $this->pageNav->getListFooter(); ?></div>
+
+	<input type="hidden" name="option" value="com_eventlist" />
+	<input type="hidden" name="view" value="imagehandler" />
+	<input type="hidden" name="tmpl" value="component" />
+	<input type="hidden" name="task" value="<?php echo $this->task; ?>" />
+</form>

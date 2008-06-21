@@ -35,6 +35,36 @@ jimport('joomla.filesystem.file');
  */
 class EventListModelImagehandler extends JModel
 {
+	/**
+	 * Pagination object
+	 *
+	 * @var object
+	 */
+	var $_pagination = null;
+
+	/**
+	 * Constructor
+	 *
+	 * @since 0.9
+	 */
+	function __construct()
+	{
+		parent::__construct();
+
+		global $mainframe, $option;
+
+		$task 		= JRequest::getVar( 'task' );
+		$limit		= $mainframe->getUserStateFromRequest( $option.'imageselect'.$task.'limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
+		$limitstart = $mainframe->getUserStateFromRequest( $option.'imageselect'.$task.'limitstart', 'limitstart', 0, 'int' );
+		$search 	= $mainframe->getUserStateFromRequest( $option.'.search', 'search', '', 'string' );
+		$search 	= trim(JString::strtolower( $search ) );
+		
+		$this->setState('limit', $limit);
+		$this->setState('limitstart', $limitstart);
+		$this->setState('search', $search);
+
+	}
+	
 	function getState($property = null)
 	{
 		static $set;
@@ -57,7 +87,37 @@ class EventListModelImagehandler extends JModel
 	function getImages()
 	{
 		$list = $this->getList();
-		return $list;
+	
+		$listimg = array();
+		
+		$s = $this->getState('limitstart')+1;
+		
+		for ( $i = ($s - 1); $i < $s + $this->getState('limit'); $i++ ) {
+			if ($i+1 <= $this->getState('total') ) {
+				
+					$list[$i]->size = $this->_parseSize(filesize($list[$i]->path));
+
+					$info = @getimagesize($list[$i]->path);
+					$list[$i]->width		= @$info[0];
+					$list[$i]->height	= @$info[1];
+					//$list[$i]->type		= @$info[2];
+					//$list[$i]->mime		= @$info['mime'];
+
+					if (($info[0] > 60) || ($info[1] > 60)) {
+						$dimensions = $this->_imageResize($info[0], $info[1], 60);
+						$list[$i]->width_60 = $dimensions[0];
+						$list[$i]->height_60 = $dimensions[1];
+					} else {
+						$list[$i]->width_60 = $list[$i]->width;
+						$list[$i]->height_60 = $list[$i]->height;
+					}
+				
+				
+    			$listimg[] = $list[$i];
+			}
+		}
+				
+		return $listimg;
 	}
 
 	/**
@@ -77,10 +137,11 @@ class EventListModelImagehandler extends JModel
 
 		// Get folder from request
 		$folder = $this->getState('folder');
+		$search = $this->getState('search');
 
 		// Initialize variables
 		$basePath = JPATH_SITE.DS.'images'.DS.'eventlist'.DS.$folder;
-
+		
 		$images 	= array ();
 
 		// Get the list of files and folders from the given folder
@@ -91,37 +152,50 @@ class EventListModelImagehandler extends JModel
 			foreach ($fileList as $file)
 			{
 				if (is_file($basePath.DS.$file) && substr($file, 0, 1) != '.' && strtolower($file) !== 'index.html') {
-					$tmp = new JObject();
-					$tmp->name = $file;
-					$tmp->path = JPath::clean($basePath.DS.$file);
-					$tmp->size = $this->_parseSize(filesize($tmp->path));
 
-					$info = @getimagesize($tmp->path);
-					$tmp->width		= @$info[0];
-					$tmp->height	= @$info[1];
-					//$tmp->type		= @$info[2];
-					//$tmp->mime		= @$info['mime'];
-
-					if (($info[0] > 60) || ($info[1] > 60)) {
-						$dimensions = $this->_imageResize($info[0], $info[1], 60);
-						$tmp->width_60 = $dimensions[0];
-						$tmp->height_60 = $dimensions[1];
-					} else {
-						$tmp->width_60 = $tmp->width;
-						$tmp->height_60 = $tmp->height;
+					if ( $search == '') {
+						$tmp = new JObject();
+						$tmp->name = $file;
+						$tmp->path = JPath::clean($basePath.DS.$file);
+						
+						$images[] = $tmp;
+						
+					} elseif(stristr( $file, $search)) {
+						$tmp = new JObject();
+						$tmp->name = $file;
+						$tmp->path = JPath::clean($basePath.DS.$file);
+							
+						$images[] = $tmp;
+					
 					}
-
-					$images[] = $tmp;
-
 				}
 			}
 		}
 
 		$list = $images;
-
+		
+		$this->setState('total', count($list));
+		
 		return $list;
 	}
 
+	/**
+	 * Method to get a pagination object for the images
+	 *
+	 * @access public
+	 * @return integer
+	 */
+	function getPagination()
+	{
+		if (empty($this->_pagination))
+		{
+			jimport('joomla.html.pagination');
+			$this->_pagination = new JPagination( $this->getState('total'), $this->getState('limitstart'), $this->getState('limit') );
+		}
+
+		return $this->_pagination;
+	}
+	
 	/**
 	 * Build display size
 	 *

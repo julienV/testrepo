@@ -40,6 +40,8 @@ class EventListViewImagehandler extends JView  {
 	 */
 	function display($tpl = null)
 	{
+		global $mainframe, $option;
+		
 		$document =& JFactory::getDocument();
 
 		if($this->getLayout() == 'uploadimage') {
@@ -49,14 +51,18 @@ class EventListViewImagehandler extends JView  {
 
 		//get vars
 		$task = JRequest::getVar( 'task' );
+		$search 	= $mainframe->getUserStateFromRequest( $option.'.search', 'search', '', 'string' );
+		$search 	= trim(JString::strtolower( $search ) );
 
 		//set variables
 		if ($task == 'selecteventimg') {
 			$folder = 'events';
 			$task 	= 'eventimg';
+			$redi	= 'selecteventimg';
 		} else {
 			$folder	= 'venues';
 			$task	= 'venueimg';
+			$redi 	= 'selectvenueimg';
 		}
 		JRequest::setVar( 'folder', $folder );
 
@@ -67,12 +73,16 @@ class EventListViewImagehandler extends JView  {
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
 		//get images
-		$images = $this->get('images');
-
-		if (count($images) > 0 ) {
-			$this->assignRef('images', $images);
-			$this->assignRef('folder', $folder);
-			$this->assignRef('state', $this->get('state'));
+		$images 	= $this->get('Images');
+		$pageNav 	= & $this->get( 'Pagination' );
+		
+		if (count($images) > 0 || $search) {
+			$this->assignRef('images', 	$images);
+			$this->assignRef('folder', 	$folder);
+			$this->assignRef('task', 	$redi);
+			$this->assignRef('search', 	$search);
+			$this->assignRef('state', 	$this->get('state'));
+			$this->assignRef('pageNav', $pageNav);
 			parent::display($tpl);
 		} else {
 			//no images in the folder, redirect to uploadscreen and raise notice

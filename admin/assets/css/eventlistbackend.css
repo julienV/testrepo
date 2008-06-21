@@ -125,10 +125,25 @@ div.imageinfo {
 div.image {
 /*	padding-top: 10px; removed because of the button icons */
 }
+div.pnav {
+	padding: 5px;
+	text-align: center;
+	background: #f3f3f3;
+	border: 1px solid #ccc;
+	overflow: hidden;
+}
+
+div.imghead {
+	padding: 3px;
+	border: 1px solid #ccc;
+}
 
 /* other */
 .copyright
 { font-size: 0.85em; text-align: center; margin: 1em 0; color: #aaa; }
+
+div.clear
+{ border: 0; clear: both; float: none; height: 1px; line-height: 1px; }
 
 .el_centerimg {
 	text-align: center;
