@@ -81,13 +81,13 @@ if ($this->updatedata->failed == 0) {
 			<tr>
 		  		<td><b><?php echo JText::_( 'INFORMATION' ).':'; ?></b></td>
 		  		<td>
-					<a href="<?php echo $this->updatedata->info; ?>" target="_blank">Click for more information</a>
+					<a href="<?php echo $this->updatedata->info; ?>" target="_blank"><?php echo JText::_( 'CLICK FOR INFORMATION' ); ?></a>
 		  		</td>
 			</tr>
 			<tr>
 		  		<td><b><?php echo JText::_( 'FILES' ).':'; ?></b></td>
 		  		<td>
-					<a href="<?php echo $this->updatedata->download; ?>" target="_blank">Download upgradepack</a>
+					<a href="<?php echo $this->updatedata->download; ?>" target="_blank"><?php echo JText::_( 'DOWNLOAD UPGRADEPACK' ); ?></a>
 		  		</td>
 			</tr>
 			<tr>
