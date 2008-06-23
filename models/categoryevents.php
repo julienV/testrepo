@@ -133,9 +133,6 @@ class EventListModelCategoryevents extends JModel
 					foreach ($item->categories as $key => $category) {
 						
 						$category->catname = htmlspecialchars($category->catname, ENT_QUOTES, 'UTF-8');
-						if (JString::strlen($category->catname) > 20) {
-							$category->catname = JString::substr( $category->catname , 0 , 20).'...';
-						}
 						
 						$path = '';
 						$pnr = count($category->parentcats);
