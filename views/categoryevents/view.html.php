@@ -163,7 +163,10 @@ class EventListViewCategoryevents extends JView
 		$this->assignRef('categories' , 			$categories);
 
 	  if($this->getLayout() == 'calendar') 
-	  {
+	  {	  	
+	    //add css for calendar
+	    $document->addStyleSheet('components/com_eventlist/assets/css/eventlistcalendar.css');
+	    
 	  	$year  = intval( JRequest::getVar('yearID', strftime( "%Y" ) ));
       $month = intval( JRequest::getVar('monthID', strftime( "%m" ) ));
       $day   = intval( JRequest::getVar('dayID', strftime( "%d" ) ));
