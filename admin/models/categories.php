@@ -124,7 +124,7 @@ class EventListModelCategories extends JModel
 			$search_rows = $this->_db->loadResultArray();					
 		}
 		
-		$query = 'SELECT c.*, u.name AS editor, g.name AS groupname, gr.name AS catgroup'
+		$query = 'SELECT c.*, c.catname AS name, c.parent_id AS parent, u.name AS editor, g.name AS groupname, gr.name AS catgroup'
 					. ' FROM #__eventlist_categories AS c'
 					. ' LEFT JOIN #__groups AS g ON g.id = c.access'
 					. ' LEFT JOIN #__users AS u ON u.id = c.checked_out'
@@ -137,10 +137,23 @@ class EventListModelCategories extends JModel
 				
 		//establish the hierarchy of the categories
 		$children = array();
-		
+    //set depth limit
+    $levellimit = 10;
+    
+    /*
+		// first pass - collect children
+    foreach ($rows as $v )
+    {
+      $pt = $v->parent;
+      $list = @$children[$pt] ? $children[$pt] : array();
+      array_push( $list, $v );
+      $children[$pt] = $list;
+    }
+    
+    // second pass - get an indent list of the items
+    $list = JHTML::_('menu.treerecurse', 0, '', array(), $children, max( 0, $levellimit-1 ) );
+    /*/
 		//first pass - collect children
-		//set depth limit
-		$levellimit = 10;
 
     	foreach ($rows as $child) {
         	$parent = $child->parent_id;
@@ -151,7 +164,7 @@ class EventListModelCategories extends JModel
     	
     	//second pass - get an indent list of the items
     	$list = eventlist_cats::treerecurse(0, '', array(), $children, false, max(0, $levellimit-1));
-    	
+    
     	//eventually only pick out the searched items.
 		if ($search) {
 			$list1 = array();

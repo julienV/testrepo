@@ -41,6 +41,13 @@ class EventListModelCategories extends JModel
 	var $_data = null;
 
 	/**
+   * Top category
+   *
+   * @var array
+   */
+  var $_id = null;
+  
+	/**
 	 * Categories total
 	 *
 	 * @var integer
@@ -65,11 +72,26 @@ class EventListModelCategories extends JModel
 
 		global $mainframe;
 
-		$cid			= JRequest::getInt('cid', 0);
+		// commenting out Christoph use of cid...
+		// $cid			= JRequest::getInt('cid', 0);
 		
 		// Get the paramaters of the active menu item
 		$params = & $mainframe->getParams();
 
+		// if usecat is set, use category value specified in menu item parameters
+		if ( $params->get('usecat') ) {
+			$cid = JRequest::getInt('cid', intval( $params->get('catid') ) );
+		}
+		else {
+			$cid     = JRequest::getInt('cid', 0);
+		}
+		
+		/*
+    if ( intval( JRequest::getInt('catid') ) ) {
+      $this->setId(intval( JRequest::getInt('catid') ));    	
+    }
+    */
+		
 		//get the number of events from database
 		$limit			= JRequest::getInt('limit', $params->get('cat_num'));
 		$limitstart		= JRequest::getInt('limitstart');
@@ -143,6 +165,68 @@ class EventListModelCategories extends JModel
 		return $this->_data;
 	}
 
+  /**
+   * Returns the category list, filtering the results from the request?
+   *
+   * @param string The query
+   * @param int Offset
+   * @param int The number of records
+   * @return  array
+   * @access  protected
+   * @since 1.5
+   */
+  function &_getList( $query, $limitstart=0, $limit=0 )
+  {
+    $this->_db->setQuery( $query );
+    $rows = $this->_db->loadObjectList();
+
+    // if no category selected, print them all
+    if (! $this->_id) {
+    	$this->_total = count($rows);
+    	return ( array_slice($rows, $limitstart, $limit) );
+    }
+    
+    // filter categories if a top category was specified    
+    // establish the hierarchy of the categories
+    $children = array();
+    
+    // first pass - collect direct children
+    foreach ($rows as $v )
+    {
+      $pt = $v->parent_id;
+      $list = @$children[$pt] ? $children[$pt] : array();
+      array_push( $list, $v );
+      $children[$pt] = $list;
+    }
+    $list = $this->getAllChildren( $children, $this->_id);
+    // update the total number of rows.
+    $this->_total = count($list);
+    
+    return ( array_slice($list, $limitstart, $limit) );
+  }
+  
+  /**
+   * Recursive function to get all categories belonging to subtree of a category.
+   *
+   * @param unknown_type $children
+   * @param unknown_type $catid
+   * @return unknown
+   */
+  function getAllChildren( &$children, $catid ) 
+  {
+  	$childs = array();
+  	if (count($children[$catid])) 
+  	{
+  		//$childs = $children[$catid];
+  		foreach ($children[$catid] AS $child)
+  		{
+  			$childs[] = $child;
+  			$childs = array_merge($childs, $this->getAllChildren($children, $child->id));
+  		}
+  	}
+  	return $childs;
+  }
+  
 	/**
 	 * Total nr of Venues
 	 *
@@ -176,23 +260,24 @@ class EventListModelCategories extends JModel
 		//check archive task and ensure that only categories get selected if they contain a published/archived event
 		$task 	= JRequest::getVar('task', '', '', 'string');
 		if($task == 'archive') {
-			$eventstate = ' AND a.published = -1';
+			$eventstate = ' AND e.published = -1';
 		} else {
-			$eventstate = ' AND a.published = 1';
+			$eventstate = ' AND e.published = 1';
 		}
-		/*		
+						
 		//get categories
-		$query = 'SELECT c.*, c.id AS catid, COUNT( a.id ) AS assignedevents,'
-				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as slug'
-				. ' FROM #__eventlist_categories AS c'
-				. ' LEFT JOIN #__eventlist_events AS a ON a.catsid = c.id'
-				. ' WHERE c.published = 1'
-				. ' AND c.access <= '.$gid
-				. $eventstate
-				. ' GROUP BY c.id'
-				. ' ORDER BY c.ordering'
-				;
-		*/	
+		$query = 'SELECT c.*, c.id AS catid, COUNT(*) AS assignedevents,'
+					. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as slug'
+					. ' FROM #__eventlist_categories AS c'
+					. ' LEFT JOIN #__eventlist_cats_event_relations AS a ON a.catid = c.id'
+	        . ' LEFT JOIN #__eventlist_events AS e ON e.id = a.itemid'
+					. ' WHERE c.published = 1'
+					. ' AND c.access <= '.$gid
+					. $eventstate
+					. ' GROUP BY c.id'
+					. ' ORDER BY c.ordering'
+					;
+		/*	
 		$query = 'SELECT DISTINCT c.id AS catid, c.*, COUNT( a.id ) AS assignedevents,'
 				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as slug'
 				. ' FROM #__eventlist_events AS a'
@@ -207,7 +292,7 @@ class EventListModelCategories extends JModel
 				. ' GROUP BY c.id'
 				. ' ORDER BY c.ordering'
 				;
-
+*/
 		return $query;
 	}
 }

@@ -8,5 +8,12 @@
 	<state>
 		<name>CATEGORIES LAYOUT</name>
 		<description>CATEGORIES LAYOUT DESC</description>
+		<params addpath="/administrator/components/com_eventlist/elements">		  
+      <param name="usecat" type="radio" default="1" label="DISPLAYALL" description="DISPLAYALLDESC">
+			  <option value="0">Yes</option>
+			  <option value="1">No</option>
+			</param>
+		  <param name="catid" label="SELECTTOPCAT" default="" type="categories" description="SELECTTOPCATDESC" />
+		</params>
 	</state>
 </metadata>

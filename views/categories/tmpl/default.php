@@ -45,7 +45,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 	<div class="catimg">
 	  	<?php
-			echo JHTML::_('link', JRoute::_($row->linktarget), $row->image);
+	  	if ( $this->params->get('icons') ) {
+			 echo JHTML::_('link', JRoute::_($row->linktarget), $row->image);
+	  	}
 		?>
 		<p>
 			<?php
