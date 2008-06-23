@@ -162,6 +162,15 @@ class EventListViewCategoryevents extends JView
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('categories' , 			$categories);
 
+	  if($this->getLayout() == 'calendar') 
+	  {
+	  	$year  = intval( JRequest::getVar('yearID', strftime( "%Y" ) ));
+      $month = intval( JRequest::getVar('monthID', strftime( "%m" ) ));
+      $day   = intval( JRequest::getVar('dayID', strftime( "%d" ) ));
+      $this->assignRef('year' ,           $year);
+      $this->assignRef('month' ,           $month);
+      $this->assignRef('day' ,           $day);
+    }
 		parent::display($tpl);
 	}
 
