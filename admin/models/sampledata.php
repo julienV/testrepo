@@ -232,10 +232,13 @@ class EventListModelSampledata extends JModel
 	 */
 	function _deletetmp()
 	{
-		if (!JFolder::delete(JPath::clean($this->_filelist['folder']))) {
-			return false;
+		if ($this->_filelist['folder']) {
+			if (!JFolder::delete($this->_filelist['folder'])) {
+				return false;
+			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	/**
