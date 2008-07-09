@@ -76,8 +76,28 @@ class ELImage {
 			* Image is typ gif
 			*/
 			$imgA = imagecreatefromgif($file);
-			$imgB = imagecreatetruecolor($iNewW,$iNewH);
-			imagecopyresampled($imgB, $imgA, 0, 0, 0, 0, $iNewW, $iNewH, $infos[0], $infos[1]);
+			$imgB = imagecreate($iNewW,$iNewH);
+			
+       		//keep gif transparent color if possible
+          	if(function_exists('imagecolorsforindex') && function_exists('imagecolortransparent')) {
+            	$transcolorindex = imagecolortransparent($imgA);
+            		//transparent color exists
+            		if($transcolorindex >= 0 ) {
+             			$transcolor = imagecolorsforindex($imgA, $transcolorindex);
+              			$transcolorindex = imagecolorallocate($imgB, $transcolor['red'], $transcolor['green'], $transcolor['blue']);
+              			imagefill($imgB, 0, 0, $transcolorindex);
+              			imagecolortransparent($imgB, $transcolorindex);
+              		//fill white
+            		} else {
+              			$whitecolorindex = @imagecolorallocate($imgB, 255, 255, 255);
+              			imagefill($imgB, 0, 0, $whitecolorindex);
+            		}
+            //fill white
+          	} else {
+            	$whitecolorindex = imagecolorallocate($imgB, 255, 255, 255);
+            	imagefill($imgB, 0, 0, $whitecolorindex);
+          	}
+          	imagecopyresampled($imgB, $imgA, 0, 0, 0, 0, $iNewW, $iNewH, $infos[0], $infos[1]);
 			imagegif($imgB, $save);
 
 		} elseif($infos[2] == 2) {
