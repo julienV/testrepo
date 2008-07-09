@@ -303,9 +303,9 @@ class ELOutput {
 					JHTML::_('behavior.mootools');
 
 					//TODO: move map into squeezebox
-
+					//TODO: temporary fix (v=2.115) for the gmaps issue caused by a bug in the gmaps api..set back when google finaly was able to fix this
 					$document->addScript($this->baseurl.'/components/com_eventlist/assets/js/gmapsoverlay.js');
-					$document->addScript('http://maps.google.com/maps?file=api&amp;v=2&amp;key='.trim($settings->gmapkey));
+					$document->addScript('http://maps.google.com/maps?file=api&amp;v=2.115&amp;key='.trim($settings->gmapkey));
   					$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/gmapsoverlay.css', 'text/css');
 
 					$url		= 'http://maps.google.com/maps?q='.str_replace(" ", "+", $data->street).', '.$data->plz.' '.str_replace(" ", "+", $data->city).', '.$data->country.'&amp;venue='.$data->venue;
