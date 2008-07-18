@@ -137,24 +137,11 @@ class EventListModelCategories extends JModel
 				
 		//establish the hierarchy of the categories
 		$children = array();
-    //set depth limit
-    $levellimit = 10;
-    
-    /*
-		// first pass - collect children
-    foreach ($rows as $v )
-    {
-      $pt = $v->parent;
-      $list = @$children[$pt] ? $children[$pt] : array();
-      array_push( $list, $v );
-      $children[$pt] = $list;
-    }
-    
-    // second pass - get an indent list of the items
-    $list = JHTML::_('menu.treerecurse', 0, '', array(), $children, max( 0, $levellimit-1 ) );
-    /*/
-		//first pass - collect children
+		
+    	//set depth limit
+    	$levellimit = 10;
 
+		//first pass - collect children
     	foreach ($rows as $child) {
         	$parent = $child->parent_id;
        		$list 	= @$children[$parent] ? $children[$parent] : array();
@@ -218,6 +205,20 @@ class EventListModelCategories extends JModel
 
 		if (count( $cid ))
 		{
+			if (!$publish) {
+				// Add all children to the list
+				foreach ($cid as $id)
+				{
+					$this->_addCategories($id, $cid);
+				}
+			} else {
+				// Add all parents to the list
+				foreach ($cid as $id)
+				{
+					$this->_addCategories($id, $cid, 'parents');
+				}
+			}
+			
 			$cids = implode( ',', $cid );
 
 			$query = 'UPDATE #__eventlist_categories'
@@ -328,14 +329,21 @@ class EventListModelCategories extends JModel
 	
 
 	/**
-	 * Method to remove a event
-	 *
+	 * Method to remove a category
+	 * TODO: Cancel delete action if subs exist
+	 * 
 	 * @access	public
 	 * @return	string $msg
 	 * @since	0.9
 	 */
 	function delete($cid)
 	{
+		// Add all children to the list
+		foreach ($cids as $id)
+		{
+			$this->_addCategories($id, $cids);
+		}
+		
 		$cids = implode( ',', $cid );
 
 		$query = 'SELECT c.id, c.catname, COUNT( e.catid ) AS numcat'
@@ -361,7 +369,7 @@ class EventListModelCategories extends JModel
 			}
 		}
 
-		if (count( $cid ))
+		if (count( $cid ) && count($err) == 0)
 		{
 			$cids = implode( ',', $cid );
 			$query = 'DELETE FROM #__eventlist_categories'
@@ -384,6 +392,51 @@ class EventListModelCategories extends JModel
 			$msg 	= $total.' '.JText::_('CATEGORIES DELETED');
 			return $msg;
 		}
+	}
+	
+	function _addCategories($id, &$list, $type = 'children')
+	{
+		// Initialize variables
+		$return = true;
+		
+		if ($type == 'children') {
+			$get = 'id';
+			$source = 'parent_id';
+		} else {
+			$get = 'parent_id';
+			$source = 'id';
+		}
+
+		// Get all rows with parent of $id
+		$query = 'SELECT '.$get.
+				' FROM #__eventlist_categories' .
+				' WHERE '.$source.' = '.(int) $id;
+		$this->_db->setQuery( $query );
+		$rows = $this->_db->loadObjectList();
+
+		// Make sure there aren't any errors
+		if ($this->_db->getErrorNum()) {
+			$this->setError($this->_db->getErrorMsg());
+			return false;
+		}
+		
+		// Recursively iterate through all children
+		foreach ($rows as $row)
+		{
+			$found = false;
+			foreach ($list as $idx)
+			{
+				if ($idx == $row->$get) {
+					$found = true;
+					break;
+				}
+			}
+			if (!$found) {
+				$list[] = $row->$get;
+			}
+			$return = $this->_addCategories($row->$get, $list, $type);
+		}
+		return $return;
 	}
 }
 ?>
