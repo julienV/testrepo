@@ -43,7 +43,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				<th class="title"><?php echo JHTML::_('grid.sort', 'Start', 'a.times', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<th class="title"><?php echo JHTML::_('grid.sort', 'EVENT TITLE', 'a.title', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<th class="title"><?php echo JHTML::_('grid.sort', 'VENUE', 'loc.venue', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
-				<th class="title"><?php echo JHTML::_('grid.sort', 'CATEGORY', 'cat.catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th class="title"><?php echo JText::_( 'CATEGORY' ); ?></th>
 				<th class="title"><?php echo JHTML::_('grid.sort', 'CITY', 'loc.city', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<th class="title"><?php echo JText::_( 'CREATION' ); ?></th>
 			</tr>
@@ -88,7 +88,48 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				<td><?php echo $time; ?></td>
 				<td><?php echo htmlspecialchars($row->title, ENT_QUOTES, 'UTF-8'); ?></td>
 				<td><?php echo $row->venue ? htmlspecialchars($row->venue, ENT_QUOTES, 'UTF-8') : '-'; ?></td>
-				<td><?php echo htmlspecialchars($row->catname, ENT_QUOTES, 'UTF-8'); ?></td>
+				<td>
+					<?php
+				$nr = count($row->categories);
+				$ix = 0;
+				foreach ($row->categories as $key => $category) :				
+					$catlink	= 'index.php?option=com_eventlist&amp;controller=categories&amp;task=edit&amp;cid[]='. $category->id;
+					$title = htmlspecialchars($category->catname, ENT_QUOTES, 'UTF-8');
+					if (JString::strlen($title) > 20) {
+						$title = JString::substr( $title , 0 , 20).'...';
+					}
+					
+					$path = '';
+					$pnr = count($category->parentcats);
+					$pix = 0;
+					foreach ($category->parentcats as $key => $parentcats) :
+					
+						$path .= $parentcats->catname;
+						
+						$pix++;
+						if ($pix != $pnr) :
+							$path .= ' » ';
+						endif;	
+					endforeach;
+					
+					if ( $category->cchecked_out && ( $category->cchecked_out != $this->user->get('id') ) ) {
+							echo $title;
+					} else { 
+					?>
+						<span class="editlinktip hasTip" title="<?php echo JText::_( 'EDIT CATEGORY' );?>::<?php echo $path; ?>">
+						<a href="<?php echo $catlink; ?>">
+							<?php echo $title; ?>
+						</a>
+						</span>
+					<?php
+					}
+					$ix++;
+					if ($ix != $nr) :
+						echo ', ';
+					endif;
+				endforeach;
+				?>				
+				</td>
 				<td><?php echo $row->city ? htmlspecialchars($row->city, ENT_QUOTES, 'UTF-8') : '-'; ?></td>
 				<td>
 					<?php echo JText::_( 'AUTHOR' ).': '; ?><a href="<?php echo 'index.php?option=com_users&amp;task=edit&amp;hidemainmenu=1&amp;cid[]='.$row->created_by; ?>"><?php echo $row->author; ?></a><br />
