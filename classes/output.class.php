@@ -241,13 +241,13 @@ class ELOutput {
 			$status = 'width=400,height=300,menubar=yes,resizable=yes';
 
 			if ($params->get('icons')) 	{
-				$image = JHTML::_('image.site', 'emailButton.png', 'images/M_images/', NULL, NULL, JText::_( 'Email' ));
+				$image = JHTML::_('image.site', 'emailButton.png', 'images/M_images/', NULL, NULL, JText::_( 'EMAIL' ));
 			} else {
-				$image = JText::_( 'Email' );
+				$image = JText::_( 'EMAIL' );
 			}
 
 			$overlib = JText::_( 'EMAIL TIP' );
-			$text = JText::_( 'Email' );
+			$text = JText::_( 'EMAIL' );
 
 			$output	= '<a href="'. JRoute::_($url) .'" class="editlinktip hasTip" onclick="window.open(this.href,\'win2\',\''.$status.'\'); return false;" title="'.$text.'::'.$overlib.'">'.$image.'</a>';
 
