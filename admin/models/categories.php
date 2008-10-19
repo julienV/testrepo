@@ -336,7 +336,7 @@ class EventListModelCategories extends JModel
 	 * @return	string $msg
 	 * @since	0.9
 	 */
-	function delete($cid)
+	function delete($cids)
 	{
 		// Add all children to the list
 		foreach ($cids as $id)
@@ -344,7 +344,7 @@ class EventListModelCategories extends JModel
 			$this->_addCategories($id, $cids);
 		}
 		
-		$cids = implode( ',', $cid );
+		$cids = implode( ',', $cids );
 
 		$query = 'SELECT c.id, c.catname, COUNT( e.catid ) AS numcat'
 				. ' FROM #__eventlist_categories AS c'
@@ -361,8 +361,10 @@ class EventListModelCategories extends JModel
 
 		$err = array();
 		$cid = array();
+		
+		//TODO: Categories and its childs without assigned items will not be deleted if another tree has any item entry 
 		foreach ($rows as $row) {
-			if ($row->numcat == 0) {
+			if ($row->numcat == 0) {				
 				$cid[] = $row->id;
 			} else {
 				$err[] = $row->catname;

@@ -211,12 +211,10 @@ class EventListControllerCategories extends EventListController
 	 */
 	function remove()
 	{
-		global $option;
-
 		$cid		= JRequest::getVar( 'cid', array(0), 'post', 'array' );
 
 		if (!is_array( $cid ) || count( $cid ) < 1) {
-			JError::raiseError(500, JText::_( 'Select an item to delete' ) );
+			JError::raiseWarning(500, JText::_( 'Select an item to delete' ) );
 		}
 
 		$model = $this->getModel('categories');
@@ -226,7 +224,7 @@ class EventListControllerCategories extends EventListController
 		$cache = &JFactory::getCache('com_eventlist');
 		$cache->clean();
 
-		$this->setRedirect( 'index.php?option='. $option .'&view=categories', $msg );
+		$this->setRedirect( 'index.php?option=com_eventlist&view=categories', $msg );
 	}
 
 	/**
