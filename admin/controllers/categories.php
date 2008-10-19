@@ -256,11 +256,12 @@ class EventListControllerCategories extends EventListController
 	 * @since 0.9
 	 */
 	function access( )
-	{
-		global $option;
-
+	{		
+		// Check for request forgeries
+		JRequest::checkToken() or jexit( 'Invalid Token' );
+		
 		$cid		= JRequest::getVar( 'cid', array(0), 'post', 'array' );
-		$id			= $cid[0];
+		$id			= (int)$cid[0];
 		$task		= JRequest::getVar( 'task' );
 
 		if ($task == 'accesspublic') {
@@ -271,10 +272,10 @@ class EventListControllerCategories extends EventListController
 			$access = 2;
 		}
 
-		$model = $this->getModel('category');
+		$model = $this->getModel('categories');
 		$model->access( $id, $access );
 
-		$this->setRedirect('index.php?option='. $option .'&view=categories' );
+		$this->setRedirect('index.php?option=com_eventlist&view=categories' );
 	}
 
 	/**

@@ -273,31 +273,5 @@ class EventListModelCategory extends JModel
 
 		return $row->id;
 	}
-
-	/**
-	 * Method to set the access level of the category
-	 *
-	 * @access	public
-	 * @param integer id of the category
-	 * @param integer access level
-	 * @return	boolean	True on success
-	 * @since	1.5
-	 */
-	function access($id, $access)
-	{
-		$row  =& $this->getTable('eventlist_categories', '');
-
-		$row->load( $id );
-		$row->access = $access;
-
-		if ( !$row->check() ) {
-			return $row->getError();
-		}
-		if ( !$row->store() ) {
-			return $row->getError();
-		}
-
-		return true;
-	}
 }
 ?>

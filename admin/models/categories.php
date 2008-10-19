@@ -394,6 +394,86 @@ class EventListModelCategories extends JModel
 		}
 	}
 	
+		/**
+	 * Method to set the access level of the category
+	 *
+	 * @access	public
+	 * @param integer id of the category
+	 * @param integer access level
+	 * @return	boolean	True on success
+	 * @since	1.0
+	 */
+	function access($id, $access)
+	{				
+		$category  =& $this->getTable('eventlist_categories', '');
+		
+		//handle childs
+		$cids = array();
+		$cids[] = $id;
+		$this->_addCategories($id, $cids);
+		
+		foreach ($cids as $cid) {
+			
+			$category->load( (int)$cid );
+			
+			if ($category->access < $access) {				
+				$category->access = $access;
+			} else {
+				$category->load( $id );
+				$category->access = $access;
+			}
+			
+			if ( !$category->check() ) {
+				$this->setError($this->_db->getErrorMsg());
+				return false;
+			}
+			if ( !$category->store() ) {
+				$this->setError($this->_db->getErrorMsg());
+				return false;
+			}
+			
+		}
+
+		//handle parents
+		$pcids = array();
+		$this->_addCategories($id, $pcids, 'parents');
+				
+		foreach ($pcids as $pcid) {
+			
+			if($pcid == 0 || $pcid == $id) {
+				continue;
+			}
+			
+			$category->load( (int)$pcid );
+			
+			if ($category->access > $access) {	
+
+				$category->access = $access;
+				
+				if ( !$category->check() ) {
+					$this->setError($this->_db->getErrorMsg());
+					return false;
+				}
+				if ( !$category->store() ) {
+					$this->setError($this->_db->getErrorMsg());
+					return false;
+				}
+				
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Method to add children/parents to a specific category
+	 *
+	 * @param int $id
+	 * @param array $list
+	 * @param string $type
+	 * @return oject
+	 * 
+	 * @since 1.1
+	 */
 	function _addCategories($id, &$list, $type = 'children')
 	{
 		// Initialize variables
