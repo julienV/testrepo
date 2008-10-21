@@ -31,7 +31,7 @@ $i = 0;
 ?>
 <div class="subcategorieslist">
 	<?php foreach ($this->categories as $sub) : ?>
-		<strong><a href="<?php echo JRoute::_( 'index.php?view=categoryevents&id='. $sub->slug ); ?>"><?php echo $this->escape($sub->catname); ?></a></strong> (<?php echo $sub->assignedevents; ?>)
+		<strong><a href="<?php echo JRoute::_( 'index.php?view=categoryevents&id='. $sub->slug ); ?>"><?php echo $this->escape($sub->catname); ?></a></strong> (<?php echo $sub->assignedevents != null ? $sub->assignedevents : 0; ?>)
 		<?php 
 		$i++;
 		if ($i != $n) :

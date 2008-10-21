@@ -43,7 +43,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <?php endif; ?>
 
 <div class="floattext">
-  <?php if ($this->params->def( 'icons', 1 )) : ?>
+  <?php if ($this->category->image) : ?>
 	<div class="catimg">
 		<?php echo $this->category->image; ?>
 	</div>

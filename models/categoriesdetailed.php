@@ -124,16 +124,6 @@ class EventListModelCategoriesdetailed extends JModel
 					$results = $mainframe->triggerEvent( 'onPrepareContent', array( &$category, &$params, 0 ));
 					$category->catdescription = $category->text;
 				}
-
-				if ($category->image != '') {
-
-					$attribs['width'] = $elsettings->imagewidth;
-					$attribs['height'] = $elsettings->imagehight;
-
-					$category->image = JHTML::image('images/stories/'.$category->image, $category->catname, $attribs);
-				} else {
-					$category->image = JHTML::image('components/com_eventlist/assets/images/noimage.png', $category->catname);
-				}
 				
 				//create target link
 				$task 	= JRequest::getWord('task');

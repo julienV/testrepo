@@ -44,14 +44,15 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 foreach($this->categories as $category) :
 ?>
 	<h2 class="eventlist cat<?php echo $category->id; ?>">
-		<?php echo $this->escape($category->catname); ?>
+		<?php echo JHTML::_('link', JRoute::_($category->linktarget), $this->escape($category->catname)); ?>
 	</h2>
 
 <div class="cat<?php echo $category->id; ?> floattext">
 
+<?php if ($category->image) : ?>
 	<div class="catimg">
 	  	<?php
-	  		echo JHTML::_('link', JRoute::_($category->linktarget), $category->image);
+	  		echo JHTML::_('link', JRoute::_($category->linktarget), JHTML::image('images/stories/'.$category->image, $category->catname));
 		?>
 		<p>
 			<?php
@@ -60,11 +61,12 @@ foreach($this->categories as $category) :
 			?>
 		</p>
 	</div>
+<?php endif; ?>
 
 	<div class="catdescription"><?php echo $category->catdescription; ?>
 		<p>
 			<?php
-				echo JHTML::_('link', JRoute::_($category->linktarget), $category->linktext);
+				echo JHTML::_('link', JRoute::_($category->linktarget), $category->linktext).'('.$category->assignedevents.')';
 			?>
 		</p>
 	</div>

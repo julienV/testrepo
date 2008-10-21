@@ -135,13 +135,7 @@ class EventListViewCategoryevents extends JView
 		}
 
 		if ($category->image != '') {
-
-			$imgattribs['width'] = $elsettings->imagewidth;
-			$imgattribs['height'] = $elsettings->imagehight;
-
-			$category->image = JHTML::image('images/stories/'.$category->image, $category->catname, $imgattribs);
-		} else {
-			$category->image = JHTML::image('components/com_eventlist/assets/images/noimage.png', $category->catname);
+			$category->image = JHTML::image('images/stories/'.$category->image, $category->catname);
 		}
 
 		//create select lists

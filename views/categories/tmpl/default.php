@@ -40,14 +40,13 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <div class="floattext">
 	<h2 class="eventlist cat<?php echo $row->id; ?>">
-		<?php echo $this->escape($row->catname); ?>
+		<?php echo JHTML::_('link', JRoute::_($row->linktarget), $this->escape($row->catname)); ?>
 	</h2>
 
+<?php if ($row->image) : ?>
 	<div class="catimg">
-	  	<?php
-	  	if ( $this->params->get('icons') ) {
-			 echo JHTML::_('link', JRoute::_($row->linktarget), $row->image);
-	  	}
+	  	<?php  		
+			 echo JHTML::_('link', JRoute::_($row->linktarget), JHTML::image('images/stories/'.$row->image, $row->catname));
 		?>
 		<p>
 			<?php
@@ -55,12 +54,14 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			echo JHTML::_('link', JRoute::_($row->linktarget), $row->assignedevents);
 			?>
 		</p>
+
 	</div>
+<?php endif; ?>
 
 	<div class="catdescription cat<?php echo $row->id; ?>"><?php echo $row->catdescription ; ?>
 	<p>
 		<?php
-			echo JHTML::_('link', JRoute::_($row->linktarget), $row->linktext);
+			echo JHTML::_('link', JRoute::_($row->linktarget), $row->linktext).'('.$row->assignedevents.')';
 		?>
 	</p>
 	</div>
