@@ -107,6 +107,11 @@ class EventListModelCategoriesdetailed extends JModel
 			for($i = 0; $i < $count; $i++)
 			{
 				$category =& $this->_categories[$i];
+				
+				//child categories
+				$query	= $this->_buildQuery( $category->id );
+				$this->_db->setQuery($query);
+				$category->subcats = $this->_db->loadObjectList();
 
 				//Generate description
 				if (empty ($category->catdescription)) {
@@ -265,7 +270,7 @@ class EventListModelCategoriesdetailed extends JModel
 	 * @access private
 	 * @return array
 	 */
-	function _buildQuery( )
+	function _buildQuery( $parent_id = 0 )
 	{
 		$user 		= &JFactory::getUser();
 		$gid		= (int) $user->get('aid');
@@ -299,7 +304,7 @@ class EventListModelCategoriesdetailed extends JModel
 					. ' AS assignedevents'
 				. ' FROM #__eventlist_categories AS c'
 				. ' WHERE c.published = 1'
-				. ' AND c.parent_id = 0'
+				. ' AND c.parent_id = '.$parent_id
 				. ' AND c.access <= '.$gid
 				. ' ORDER BY '.$ordering
 				;

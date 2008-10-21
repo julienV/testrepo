@@ -72,6 +72,31 @@ foreach($this->categories as $category) :
 
 </div>
 
+<?php 
+//only show this part if subcategries are available
+if (count($category->subcats)) :
+?>
+
+<div class="subcategories">
+<?php echo JText::_('SUBCATEGORIES'); ?>
+</div>
+<?php
+$n = count($category->subcats);
+$i = 0;
+?>
+<div class="subcategorieslist">
+	<?php foreach ($category->subcats as $sub) : ?>
+		<strong><a href="<?php echo JRoute::_( 'index.php?view=categoryevents&cid='. $sub->slug ); ?>"><?php echo $this->escape($sub->catname); ?></a></strong> (<?php echo $sub->assignedevents != null ? $sub->assignedevents : 0; ?>)
+		<?php 
+		$i++;
+		if ($i != $n) :
+			echo ',';
+		endif;
+	endforeach; ?>
+</div>
+
+<?php endif; ?>
+
 <!--table-->
 <?php
 //TODO: move out of template
