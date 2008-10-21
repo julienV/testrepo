@@ -140,7 +140,7 @@ class EventListModelCategoriesdetailed extends JModel
 				} else {
 					$category->linktarget = JRoute::_('index.php?view=categoryevents&id='.$category->slug);
 				}
-
+				
 				$k = 1 - $k;
 			}
 
@@ -160,29 +160,11 @@ class EventListModelCategoriesdetailed extends JModel
 		// Lets load the total nr if it doesn't already exist
 		if (empty($this->_total))
 		{
-			$query = $this->_buildQuery();
+			$query = $this->_buildQueryTotal();
 			$this->_total = $this->_getListCount($query);
 		}
 
 		return $this->_total;
-	}
-
-	/**
-	 * Method to get a pagination object for the events
-	 *
-	 * @access public
-	 * @return integer
-	 */
-	function getPagination()
-	{
-		// Lets load the content if it doesn't already exist
-		if (empty($this->_pagination))
-		{
-			jimport('joomla.html.pagination');
-			$this->_pagination = new JPagination( $this->getTotal(), $this->getState('limitstart'), $this->getState('limit') );
-		}
-
-		return $this->_pagination;
 	}
 
 	/**
@@ -200,6 +182,21 @@ class EventListModelCategoriesdetailed extends JModel
 		// Lets load the content
 		$query = $this->_buildDataQuery( $id );
 		$this->_data = $this->_getList( $query, 0, $params->get('detcat_nr') );
+		
+			$k = 0;
+			$count = count($this->_data);
+			for($i = 0; $i < $count; $i++)
+			{
+				$item =& $this->_data[$i];
+				$item->categories = $this->getCategories($item->id);
+				
+				//remove events without categories (users have no access to them)
+				if (empty($item->categories)) {
+					unset($this->_data[$i]);
+				} 
+
+				$k = 1 - $k;
+			}
 
 		return $this->_data;
 	}
@@ -213,32 +210,53 @@ class EventListModelCategoriesdetailed extends JModel
 	function _buildDataQuery( $id )
 	{
 		$user		= & JFactory::getUser();
-		$aid		= (int) $user->get('aid');
+		$gid		= (int) $user->get('aid');
 		$id			= (int) $id;
 		
 		$task 		= JRequest::getWord('task');
 
 		// First thing we need to do is to select only the requested events
 		if ($task == 'archive') {
-			$where = ' WHERE a.published = -1 && a.catsid = '.$id;
+			$where = ' WHERE a.published = -1 && rel.catid = '.$id;
 		} else {
-			$where = ' WHERE a.published = 1 && a.catsid = '.$id;
+			$where = ' WHERE a.published = 1 && rel.catid = '.$id;
 		}
 
-		//Get Events from Category
-		$query = 'SELECT a.*, l.venue, l.city, l.state, l.url, c.catname, c.id AS catid,'
+		// Second is to only select events assigned to category the user has access to
+		$where .= ' AND c.access <= '.$gid;
+		
+		$query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.venue, l.city, l.state, l.url,'
 				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
-				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug,'
-				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as categoryslug'
+				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
 				. ' FROM #__eventlist_events AS a'
 				. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
-				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
+				. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = a.id'
+				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = '.$id
 				. $where
-				. ' AND c.access <= '.$aid
 				. ' ORDER BY a.dates, a.times'
 				;
 
 		return $query;
+	}
+	
+	function getCategories($id)
+	{
+		$user		= & JFactory::getUser();
+		$gid		= (int) $user->get('aid');
+		
+		$query = 'SELECT DISTINCT c.id, c.catname, c.access, c.checked_out AS cchecked_out,'
+				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug'
+				. ' FROM #__eventlist_categories AS c'
+				. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.catid = c.id'
+				. ' WHERE rel.itemid = '.(int)$id
+				. ' AND c.published = 1'
+				. ' AND c.access  <= '.$gid;
+				;
+	
+		$this->_db->setQuery( $query );
+
+		$this->_cats = $this->_db->loadObjectList();
+		return $this->_cats;
 	}
 
 	/**
@@ -249,27 +267,63 @@ class EventListModelCategoriesdetailed extends JModel
 	 */
 	function _buildQuery( )
 	{
-		$user		= & JFactory::getUser();
-		$gid 		= (int) $user->get('aid');
+		$user 		= &JFactory::getUser();
+		$gid		= (int) $user->get('aid');
+		$ordering	= 'c.ordering ASC';
+
+		//build where clause
+		$where = ' WHERE cc.published = 1';
+		$where .= ' AND cc.parent_id = 0';
+		$where .= ' AND cc.access <= '.$gid;
 		
+		//TODO: Make also categories without events visible in list
 		//check archive task and ensure that only categories get selected if they contain a published/archived event
 		$task 	= JRequest::getWord('task');
 		if($task == 'archive') {
-			$eventstate = ' AND a.published = -1';
+			$where .= ' AND i.published = -1';
 		} else {
-			$eventstate = ' AND a.published = 1';
+			$where .= ' AND i.published = 1';
 		}
-
-		//Get Categories
-		$query = 'SELECT c.*, COUNT( a.id ) AS assignedevents,'
-				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as slug'
+		$where .= ' AND c.id = cc.id';
+		
+		$query = 'SELECT c.*,'
+				. ' CASE WHEN CHAR_LENGTH( c.alias ) THEN CONCAT_WS( \':\', c.id, c.alias ) ELSE c.id END AS slug,'
+					. ' ('
+					. ' SELECT COUNT( DISTINCT i.id )'
+					. ' FROM #__eventlist_events AS i'
+					. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = i.id'
+					. ' LEFT JOIN #__eventlist_categories AS cc ON cc.id = rel.catid'
+					. $where
+					. ' GROUP BY cc.id'
+					. ')' 
+					. ' AS assignedevents'
 				. ' FROM #__eventlist_categories AS c'
-				. ' LEFT JOIN #__eventlist_events AS a ON a.catsid = c.id'
 				. ' WHERE c.published = 1'
+				. ' AND c.parent_id = 0'
 				. ' AND c.access <= '.$gid
-				. $eventstate
-				. ' GROUP BY c.id'
-				. ' ORDER BY c.ordering'
+				. ' ORDER BY '.$ordering
+				;
+
+		return $query;
+	}
+	
+	/**
+	 * Method to build the Categories query without subselect
+	 * That's enough to get the total value.
+	 *
+	 * @access private
+	 * @return string
+	 */
+	function _buildQueryTotal()
+	{
+		$user 		= &JFactory::getUser();
+		$gid		= (int) $user->get('aid');
+		
+		$query = 'SELECT c.id'
+				. ' FROM #__eventlist_categories AS c'
+				. ' WHERE c.published = 1'
+				. ' AND c.parent_id = 0'
+				. ' AND c.access <= '.$gid
 				;
 
 		return $query;
