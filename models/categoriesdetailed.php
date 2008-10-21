@@ -276,7 +276,7 @@ class EventListModelCategoriesdetailed extends JModel
 		$where .= ' AND cc.parent_id = 0';
 		$where .= ' AND cc.access <= '.$gid;
 		
-		//TODO: Make also categories without events visible in list
+		//TODO: Make option for categories without events to be invisible in list
 		//check archive task and ensure that only categories get selected if they contain a published/archived event
 		$task 	= JRequest::getWord('task');
 		if($task == 'archive') {

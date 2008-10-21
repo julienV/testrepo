@@ -128,25 +128,6 @@ class EventListModelCategoryevents extends JModel
 				//remove events without categories (users have no access to them)
 				if (empty($item->categories)) {
 					unset($this->_data[$i]);
-				} else {
-					//otherwise loop through the category hirarchy to create the pathinfo
-					foreach ($item->categories as $key => $category) {
-						
-						$category->catname = htmlspecialchars($category->catname, ENT_QUOTES, 'UTF-8');
-						
-						$path = '';
-						$pnr = count($category->parentcats);
-						$pix = 0;
-						
-						foreach ($category->parentcats as $key => $parentcats) {
-						$path .= $parentcats->catname;
-						$pix++;
-						if ($pix != $pnr) :
-							$path .= ' » ';
-						endif;
-						}
-						$category->path = $path;
-					}
 				}
 				
 				$k = 1 - $k;

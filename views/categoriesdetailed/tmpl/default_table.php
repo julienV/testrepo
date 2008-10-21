@@ -156,7 +156,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				if ($this->elsettings->showcat == 1) :
 				
 				?>
-				<td headers="el_category" align="left" valign="top">
+				<td headers="el_category_cat" align="left" valign="top">
 					<?php
 					$nr = count($row->categories);
 					$ix = 0;
