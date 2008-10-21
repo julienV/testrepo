@@ -40,7 +40,7 @@ class EventListViewVenueevents extends JView
 	 */
 	function display( $tpl = null )
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		//initialize variables
 		$document 	= & JFactory::getDocument();
@@ -99,12 +99,12 @@ class EventListViewVenueevents extends JView
 		
 		//create the pathway
 		if ($task == 'archive') {
-			$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$venue->venue, JRoute::_('index.php?option='.$option.'&view=venueevents&task=archive&id='.$venue->slug));
+			$pathway->addItem( JText::_( 'ARCHIVE' ).' - '.$venue->venue, JRoute::_('index.php?option=com_eventlist&view=venueevents&task=archive&id='.$venue->slug));
 			$link = JRoute::_( 'index.php?option=com_eventlist&view=venueevents&id='.$venue->slug.'&task=archive' );
 			$print_link = JRoute::_('index.php?option=com_eventlist&view=venueevents&id='. $venue->slug .'&task=archive&pop=1&tmpl=component');
 			$pagetitle = $venue->venue.' - '.JText::_( 'ARCHIVE' );
 		} else {
-			$pathway->addItem( $venue->venue, JRoute::_('index.php?option='.$option.'&view=venueevents&id='.$venue->slug));
+			$pathway->addItem( $venue->venue, JRoute::_('index.php?option=com_eventlist&view=venueevents&id='.$venue->slug));
 			$link = JRoute::_( 'index.php?option=com_eventlist&view=venueevents&id='.$venue->slug );
 			$print_link = JRoute::_('index.php?option=com_eventlist&view=venueevents&id='. $venue->slug .'&pop=1&tmpl=component');
 			$pagetitle = $venue->venue;

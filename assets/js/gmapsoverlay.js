@@ -292,17 +292,25 @@ var GMapsOverlay = {
 
 				this.map.addOverlay(marker);
 
-				//get data from json
+				/*get data from json
+				* removed cause of sometimes (happens us based addresses) undefined SubAdministrativeArea
+				*
 				var streetAddress = place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.Thoroughfare.ThoroughfareName;
 				var city = place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName;
 				var zip = place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.PostalCode.PostalCodeNumber;
 				var state = place.AddressDetails.Country.AdministrativeArea.AdministrativeAreaName;
 				var country = place.AddressDetails.Country.CountryNameCode;
+				
+				*/
 				//get venue param
 				var venue = decodeURI(this.link.substring(this.link.indexOf('venue=')+6));
 
 				//html window
-				marker.openInfoWindowHtml('<strong>' + venue + '</strong><br />' + streetAddress + '<br />' + country + '-' + zip + ' ' + city + '<br />' + state);
+		//		marker.openInfoWindowHtml('<strong>' + venue + '</strong><br />' + streetAddress + '<br />' + country + '-' + zip + ' ' + city + '<br />' + state);
+				
+				var daddress = place.address;
+				
+				marker.openInfoWindowHtml('<strong>' + venue + '</strong><br />' + daddress);
 
 			}
 

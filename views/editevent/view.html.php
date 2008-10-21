@@ -42,8 +42,8 @@ class EventListViewEditevent extends JView
 	{
 		global $mainframe;
 
-		if($this->getLayout() == 'selectvenue') {
-			$this->_displayselectvenue($tpl);
+		if($this->getLayout() == 'choosevenue') {
+			$this->_displaychoosevenue($tpl);
 			return;
 		}
 
@@ -140,7 +140,7 @@ class EventListViewEditevent extends JView
 	 * @since 0.9
 	 *
 	 */
-	function _displayselectvenue($tpl)
+	function _displaychoosevenue($tpl)
 	{
 		global $mainframe;
 

@@ -40,7 +40,7 @@ class EventListViewCategoryevents extends JView
 	 */
 	function display( $tpl=null )
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		//initialize variables
 		$document 	= & JFactory::getDocument();
@@ -108,7 +108,7 @@ class EventListViewCategoryevents extends JView
 		}
 		
 		if ($task == 'archive') {
-			$pathway->addItem( JText::_( 'ARCHIVE' ), JRoute::_('index.php?option='.$option.'&view=categoryevents&task=archive&id='.$category->slug));
+			$pathway->addItem( JText::_( 'ARCHIVE' ), JRoute::_('index.php?option=com_eventlist&view=categoryevents&task=archive&id='.$category->slug));
 			$link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&task=archive&id='.$category->slug );
 			$print_link = JRoute::_( 'index.php?option=com_eventlist&view=categoryevents&id='. $category->id .'&task=archive&pop=1&tmpl=component');
 		}

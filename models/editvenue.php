@@ -311,8 +311,6 @@ class EventListModelEditvenue extends JModel
 			}
 		}
 
-		$row->venue = trim( JFilterOutput::ampReplace( $row->venue ) );
-
 		//Autopublish
 		//check if the user has the required rank for autopublish
 		$autopublloc = ELUser::validate_user( $elsettings->locpubrec, $elsettings->autopublocate );

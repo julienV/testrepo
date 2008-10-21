@@ -504,9 +504,7 @@ class EventListModelEditevent extends JModel
 			JError::raiseError( 500, $this->_db->stderr() );
 			return false;
 		}
-		
-		
-		
+			
 		//Are we saving from an item edit?
 		if ($row->id) {
 
@@ -627,8 +625,6 @@ class EventListModelEditevent extends JModel
 				$row->datdescription = $row->datdescription.'...';
 			}
 		}
-
-		$row->title = trim( JFilterOutput::ampReplace( $row->title ) );
 
 		//set registration regarding the el settings
 		switch ($elsettings->showfroregistra) {

@@ -222,7 +222,7 @@ defined('_JEXEC') or die('Restricted access');
                   <?php if ( $this->delloclink == 1 && !$this->row->id ) : //show location submission link ?>
               		<button type="button" onclick="submitbutton('addvenue');"><?php echo JText::_( 'DELIVER NEW VENUE' ); ?></button>
                 	<?php endif; ?>
-                  <a class="el_venue_select modal" title="<?php echo JText::_('SELECT'); ?>" href="<?php echo JRoute::_('index.php?view=editevent&layout=selectvenue&tmpl=component'); ?>" rel="{handler: 'iframe', size: {x: 650, y: 375}}">
+                  <a class="el_venue_select modal" title="<?php echo JText::_('SELECT'); ?>" href="<?php echo JRoute::_('index.php?view=editevent&layout=choosevenue&tmpl=component'); ?>" rel="{handler: 'iframe', size: {x: 650, y: 375}}">
                       <span><?php echo JText::_('SELECT')?></span>
                   </a>
                   <input class="inputbox required validate-venue" type="hidden" id="a_id" name="locid" value="<?php echo $this->row->locid; ?>" />
@@ -424,7 +424,7 @@ defined('_JEXEC') or die('Restricted access');
       		<a href="javascript:rechne(document.adminForm);"><?php echo JText::_( 'REFRESH' ); ?></a>
       		<?php endif; ?>
     	</fieldset>
-
+<!--  removed to avoid double posts in ie7
       <div class="el_save_buttons floattext">
           <button type="submit" class="submit" onclick="return submitbutton('saveevent')">
         	    <?php echo JText::_('SAVE') ?>
@@ -433,7 +433,7 @@ defined('_JEXEC') or die('Restricted access');
         	    <?php echo JText::_('CANCEL') ?>
         	</button>
       </div>
-      
+-->    
 		<p class="clear">
     	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
     	<input type="hidden" name="referer" value="<?php echo @$_SERVER['HTTP_REFERER']; ?>" />

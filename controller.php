@@ -274,19 +274,6 @@ class EventListController extends JController
 	}
 
 	/**
-	 * Display the select venue modal popup
-	 *
-	 * @since 0.9
-	 */
-	function selectvenue()
-	{
-		JRequest::setVar('view', 'editevent');
-		JRequest::setVar('layout', 'selectvenue');
-
-		parent::display();
-	}
-
-	/**
 	 * offers the vcal/ical functonality
 	 * 
 	 * @todo Not yet working

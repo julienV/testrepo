@@ -302,7 +302,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
     		<input type="button" class="button el_fright" value="<?php echo JText::_( 'ADD VENUE CITY' ); ?>" onclick="f=document.getElementById('adminForm');f.metakey.value=f.venue.value+', '+f.city.value+f.metakey.value;" />
 
       	</fieldset>
-
+<!--  removed to avoid double posts in ie7
       	<div class="el_save_buttons floattext">
     		<button type="button" onclick="return submitbutton('savevenue')">
     			<?php echo JText::_('SAVE') ?>
@@ -311,7 +311,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
     			<?php echo JText::_('CANCEL') ?>
     		</button>
 		</div>
-		
+-->		
 		<p class="clear">
       	<input type="hidden" name="option" value="com_eventlist" />
       	<input type="hidden" name="id" value="<?php echo $this->row->id; ?>" />
