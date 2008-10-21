@@ -47,7 +47,6 @@ class EventListViewEditcss extends JView {
 		}
 
 		//get vars
-		$option		= JRequest::getVar('option');
 		$filename	= 'eventlist.css';
 		$path		= JPATH_SITE.DS.'components'.DS.'com_eventlist'.DS.'assets'.DS.'css';
 		$css_path	= $path.DS.$filename;
@@ -81,7 +80,7 @@ class EventListViewEditcss extends JView {
 		else
 		{
 			$msg = JText::sprintf('FAILED TO OPEN FILE FOR WRITING', $css_path);
-			$mainframe->redirect('index.php?option='.$option, $msg);
+			$mainframe->redirect('index.php?option=com_eventlist', $msg);
 		}
 
 		//assign data to template

@@ -40,7 +40,7 @@ class EventListViewImagehandler extends JView  {
 	 */
 	function display($tpl = null)
 	{
-		global $mainframe, $option;
+		global $mainframe;
 		
 		$document =& JFactory::getDocument();
 
@@ -51,7 +51,7 @@ class EventListViewImagehandler extends JView  {
 
 		//get vars
 		$task = JRequest::getVar( 'task' );
-		$search 	= $mainframe->getUserStateFromRequest( $option.'.search', 'search', '', 'string' );
+		$search 	= $mainframe->getUserStateFromRequest( 'com_eventlist.search', 'search', '', 'string' );
 		$search 	= trim(JString::strtolower( $search ) );
 
 		//set variables

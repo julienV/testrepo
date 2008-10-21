@@ -34,7 +34,7 @@ class EventListViewGroups extends JView {
 
 	function display($tpl = null)
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		//initialise variables
 		$document	= & JFactory::getDocument();
@@ -42,9 +42,9 @@ class EventListViewGroups extends JView {
 		$user 		= & JFactory::getUser();
 
 		//get vars
-		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.groups.filter_order', 'filter_order', 	'name', 'cmd' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.groups.filter_order_Dir', 'filter_order_Dir', '', 'word' );
-		$search 			= $mainframe->getUserStateFromRequest( $option.'.groups.search', 'search', '', 'string' );
+		$filter_order		= $mainframe->getUserStateFromRequest( 'com_eventlist.groups.filter_order', 'filter_order', 	'name', 'cmd' );
+		$filter_order_Dir	= $mainframe->getUserStateFromRequest( 'com_eventlist.groups.filter_order_Dir', 'filter_order_Dir', '', 'word' );
+		$search 			= $mainframe->getUserStateFromRequest( 'com_eventlist.groups.search', 'search', '', 'string' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 		$template			= $mainframe->getTemplate();
 

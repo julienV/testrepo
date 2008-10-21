@@ -34,7 +34,7 @@ class EventListViewEventelement extends JView {
 
 	function display($tpl = null)
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		//initialise variables
 		$db			= & JFactory::getDBO();
@@ -45,11 +45,11 @@ class EventListViewEventelement extends JView {
 		JHTML::_('behavior.modal');
 
 		//get var
-		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.eventelement.filter_order', 'filter_order', 'a.dates', 'cmd' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.eventelement.filter_order_Dir', 'filter_order_Dir', '', 'word' );
-		$filter 			= $mainframe->getUserStateFromRequest( $option.'.eventelement.filter', 'filter', '', 'int' );
-		$filter_state 		= $mainframe->getUserStateFromRequest( $option.'.eventelement.filter_state', 'filter_state', '*', 'word' );
-		$search 			= $mainframe->getUserStateFromRequest( $option.'.eventelement.search', 'search', '', 'string' );
+		$filter_order		= $mainframe->getUserStateFromRequest( 'com_eventlist.eventelement.filter_order', 'filter_order', 'a.dates', 'cmd' );
+		$filter_order_Dir	= $mainframe->getUserStateFromRequest( 'com_eventlist.eventelement.filter_order_Dir', 'filter_order_Dir', '', 'word' );
+		$filter 			= $mainframe->getUserStateFromRequest( 'com_eventlist.eventelement.filter', 'filter', '', 'int' );
+		$filter_state 		= $mainframe->getUserStateFromRequest( 'com_eventlist.eventelement.filter_state', 'filter_state', '*', 'word' );
+		$search 			= $mainframe->getUserStateFromRequest( 'com_eventlist.eventelement.search', 'search', '', 'string' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 		$template 			= $mainframe->getTemplate();
 

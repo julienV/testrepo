@@ -70,9 +70,7 @@ class EventListControllerGroups extends EventListController
 	 */
 	function add( )
 	{
-		global $option;
-
-		$this->setRedirect( 'index.php?option='. $option .'&view=group' );
+		$this->setRedirect( 'index.php?option=com_eventlist&view=group' );
 	}
 
 	/**

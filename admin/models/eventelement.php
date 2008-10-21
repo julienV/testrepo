@@ -63,10 +63,10 @@ class EventListModelEventelement extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe, $option;
+		global $mainframe;
 
-		$limit		= $mainframe->getUserStateFromRequest( $option.'limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
-		$limitstart = $mainframe->getUserStateFromRequest( $option.'limitstart', 'limitstart', 0, 'int' );
+		$limit		= $mainframe->getUserStateFromRequest( 'com_eventlist.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
+		$limitstart = $mainframe->getUserStateFromRequest( 'com_eventlist.limitstart', 'limitstart', 0, 'int' );
 
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
@@ -157,10 +157,10 @@ class EventListModelEventelement extends JModel
 	 */
 	function _buildContentOrderBy()
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
-		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.eventelement.filter_order', 'filter_order', 'a.dates', 'cmd' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.eventelement.filter_order_Dir', 'filter_order_Dir', '', 'word' );
+		$filter_order		= $mainframe->getUserStateFromRequest( 'com_eventlist.eventelement.filter_order', 'filter_order', 'a.dates', 'cmd' );
+		$filter_order_Dir	= $mainframe->getUserStateFromRequest( 'com_eventlist.eventelement.filter_order_Dir', 'filter_order_Dir', '', 'word' );
 
 		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', a.dates';
 
@@ -175,11 +175,11 @@ class EventListModelEventelement extends JModel
 	 */
 	function _buildContentWhere()
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
-		$filter_state 		= $mainframe->getUserStateFromRequest( $option.'.eventelement.filter_state', 'filter_state', '', 'word' );
-		$filter 			= $mainframe->getUserStateFromRequest( $option.'.eventelement.filter', 'filter', '', 'int' );
-		$search 			= $mainframe->getUserStateFromRequest( $option.'.eventelement.search', 'search', '', 'string' );
+		$filter_state 		= $mainframe->getUserStateFromRequest( 'com_eventlist.eventelement.filter_state', 'filter_state', '', 'word' );
+		$filter 			= $mainframe->getUserStateFromRequest( 'com_eventlist.eventelement.filter', 'filter', '', 'int' );
+		$search 			= $mainframe->getUserStateFromRequest( 'com_eventlist.eventelement.search', 'search', '', 'string' );
 		$search 			= $this->_db->getEscaped( trim(JString::strtolower( $search ) ) );
 
 		$where = array();

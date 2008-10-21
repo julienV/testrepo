@@ -128,8 +128,6 @@ class EventListControllerVenues extends EventListController
 	 */
 	function remove()
 	{
-		global $option;
-
 		$cid = JRequest::getVar( 'cid', array(0), 'post', 'array' );
 
 		if (!is_array( $cid ) || count( $cid ) < 1) {

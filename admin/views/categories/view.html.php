@@ -34,7 +34,7 @@ class EventListViewCategories extends JView {
 
 	function display($tpl = null)
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
 		//initialise variables
 		$user 		= & JFactory::getUser();
@@ -44,10 +44,10 @@ class EventListViewCategories extends JView {
 		JHTML::_('behavior.tooltip');
 
 		//get vars
-		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.categories.filter_order', 		'filter_order', 	'c.ordering', 'cmd' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.categories.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
-		$filter_state 		= $mainframe->getUserStateFromRequest( $option.'.categories.filter_state', 		'filter_state', 	'*', 'word' );
-		$search 			= $mainframe->getUserStateFromRequest( $option.'.categories.search', 			'search', 			'', 'string' );
+		$filter_order		= $mainframe->getUserStateFromRequest( 'com_eventlist.categories.filter_order', 		'filter_order', 	'c.ordering', 'cmd' );
+		$filter_order_Dir	= $mainframe->getUserStateFromRequest( 'com_eventlist.categories.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
+		$filter_state 		= $mainframe->getUserStateFromRequest( 'com_eventlist.categories.filter_state', 		'filter_state', 	'*', 'word' );
+		$search 			= $mainframe->getUserStateFromRequest( 'com_eventlist.categories.search', 			'search', 			'', 'string' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 
 		//add css and submenu to document

@@ -152,9 +152,7 @@ class EventListControllerEvents extends EventListController
 	 */
 	function add( )
 	{
-		global $option;
-
-		$this->setRedirect( 'index.php?option='. $option .'&view=event' );
+		$this->setRedirect( 'index.php?option=com_eventlist&view=event' );
 	}
 
 	/**

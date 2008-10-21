@@ -56,13 +56,11 @@ class EventListControllerSettings extends EventListController
 	 */
 	function cancel()
 	{
-		global $option;
-
 		$model = $this->getModel('settings');
 
 		$model->checkin();
 
-		$this->setRedirect( 'index.php?option='.$option.'&view=eventlist' );
+		$this->setRedirect( 'index.php?option=com_eventlist&view=eventlist' );
 	}
 
 	/**

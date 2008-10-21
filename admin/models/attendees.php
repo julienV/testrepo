@@ -77,10 +77,10 @@ class EventListModelAttendees extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe, $option;
+		global $mainframe;
 
-		$limit		= $mainframe->getUserStateFromRequest( $option.'limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
-		$limitstart = $mainframe->getUserStateFromRequest( $option.'limitstart', 'limitstart', 0, 'int' );
+		$limit		= $mainframe->getUserStateFromRequest( 'com_eventlist.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
+		$limitstart = $mainframe->getUserStateFromRequest( 'com_eventlist.limitstart', 'limitstart', 0, 'int' );
 
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
@@ -199,10 +199,10 @@ class EventListModelAttendees extends JModel
 	 */
 	function _buildContentOrderBy()
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
-		$filter_order		= $mainframe->getUserStateFromRequest( $option.'.attendees.filter_order', 		'filter_order', 	'u.username', 'cmd' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.attendees.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
+		$filter_order		= $mainframe->getUserStateFromRequest( 'com_eventlist.attendees.filter_order', 		'filter_order', 	'u.username', 'cmd' );
+		$filter_order_Dir	= $mainframe->getUserStateFromRequest( 'com_eventlist.attendees.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
 
 		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', u.name';
 
@@ -218,10 +218,10 @@ class EventListModelAttendees extends JModel
 	 */
 	function _buildContentWhere()
 	{
-		global $mainframe, $option;
+		global $mainframe;
 
-		$filter 			= $mainframe->getUserStateFromRequest( $option.'.attendees.filter', 'filter', '', 'int' );
-		$search 			= $mainframe->getUserStateFromRequest( $option.'.attendees.search', 'search', '', 'string' );
+		$filter 			= $mainframe->getUserStateFromRequest( 'com_eventlist.attendees.filter', 'filter', '', 'int' );
+		$search 			= $mainframe->getUserStateFromRequest( 'com_eventlist.attendees.search', 'search', '', 'string' );
 		$search 			= $this->_db->getEscaped( trim(JString::strtolower( $search ) ) );
 
 		$where = array();

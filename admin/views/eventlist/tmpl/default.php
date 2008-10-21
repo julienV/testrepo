@@ -29,54 +29,53 @@ defined('_JEXEC') or die('Restricted access');
 					<td>
 						<div id="cpanel">
 						<?php
-						global $option;
 
-						$link = 'index.php?option='.$option.'&amp;view=events';
+						$link = 'index.php?option=com_eventlist&amp;view=events';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-events.png', JText::_( 'EVENTS' ) );
 
-						$link = 'index.php?option='.$option.'&amp;view=event';
+						$link = 'index.php?option=com_eventlist&amp;view=event';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-eventedit.png', JText::_( 'ADD EVENT' ) );
 
-						$link = 'index.php?option='.$option.'&amp;view=venues';
+						$link = 'index.php?option=com_eventlist&amp;view=venues';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-venues.png', JText::_( 'VENUES' ) );
 
-						$link = 'index.php?option='.$option.'&amp;view=venue';
+						$link = 'index.php?option=com_eventlist&amp;view=venue';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-venuesedit.png', JText::_( 'ADD VENUE' ) );
 
-						$link = 'index.php?option='.$option.'&amp;view=categories';
+						$link = 'index.php?option=com_eventlist&amp;view=categories';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-categories.png', JText::_( 'CATEGORIES' ) );
 
-						$link = 'index.php?option='.$option.'&amp;view=category';
+						$link = 'index.php?option=com_eventlist&amp;view=category';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-categoriesedit.png', JText::_( 'ADD CATEGORY' ) );
 
-						$link = 'index.php?option='.$option.'&amp;view=groups';
+						$link = 'index.php?option=com_eventlist&amp;view=groups';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-groups.png', JText::_( 'GROUPS' ) );
 
-						$link = 'index.php?option='.$option.'&amp;view=group';
+						$link = 'index.php?option=com_eventlist&amp;view=group';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-groupedit.png', JText::_( 'ADD GROUP' ) );
 
-						$link = 'index.php?option='.$option.'&amp;view=archive';
+						$link = 'index.php?option=com_eventlist&amp;view=archive';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-archive.png', JText::_( 'ARCHIVESCREEN' ) );
 
 						//only admins should be able to see this items
 						if ($this->user->get('gid') > 24) {
-							$link = 'index.php?option='.$option.'&amp;controller=settings&amp;task=edit';
+							$link = 'index.php?option=com_eventlist&amp;controller=settings&amp;task=edit';
 							EventListViewEventList::quickiconButton( $link, 'icon-48-settings.png', JText::_( 'SETTINGS' ) );
 
-							$link = 'index.php?option='.$option.'&amp;view=editcss';
+							$link = 'index.php?option=com_eventlist&amp;view=editcss';
 							EventListViewEventList::quickiconButton( $link, 'icon-48-cssedit.png', JText::_( 'EDIT CSS' ) );
 
-							$link = 'index.php?option='.$option.'&amp;view=cleanup';
+							$link = 'index.php?option=com_eventlist&amp;view=cleanup';
 							EventListViewEventList::quickiconButton( $link, 'icon-48-housekeeping.png', JText::_( 'CLEANUP' ) );
 						}
 
-						$link = 'index.php?option='.$option.'&amp;view=help';
+						$link = 'index.php?option=com_eventlist&amp;view=help';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-help.png', JText::_( 'HELP' ) );
 
-						$link = 'index.php?option='.$option.'&amp;view=updatecheck';
+						$link = 'index.php?option=com_eventlist&amp;view=updatecheck';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-update.png', JText::_( 'UPDATE CHECK' ), 1 );
 						
-						$link = 'index.php?option='.$option.'&amp;controller=sampledata&amp;task=load';
+						$link = 'index.php?option=com_eventlist&amp;controller=sampledata&amp;task=load';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-sampledata.png', JText::_( 'LOAD SAMPLE DATA' ) );
 						?>
 						</div>

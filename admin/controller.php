@@ -60,12 +60,11 @@ class EventListController extends JController
 		JRequest::checkToken() or die( 'Invalid Token' );
 
 		// Initialize some variables
-		$option			= JRequest::getVar('option');
 		$filename		= JRequest::getVar('filename', '', 'post', 'cmd');
 		$filecontent	= JRequest::getVar('filecontent', '', '', '', JREQUEST_ALLOWRAW);
 
 		if (!$filecontent) {
-			$mainframe->redirect('index.php?option='.$option, JText::_('OPERATION FAILED').': '.JText::_('CONTENT EMPTY'));
+			$mainframe->redirect('index.php?option=com_eventlist', JText::_('OPERATION FAILED').': '.JText::_('CONTENT EMPTY'));
 		}	
 		
 		// Set FTP credentials, if given
@@ -94,16 +93,16 @@ class EventListController extends JController
 			switch($task)
 			{
 				case 'applycss' :
-					$mainframe->redirect('index.php?option='.$option.'&view=editcss', JText::_('CSS FILE SUCCESSFULLY ALTERED'));
+					$mainframe->redirect('index.php?option=com_eventlist&view=editcss', JText::_('CSS FILE SUCCESSFULLY ALTERED'));
 					break;
 
 				case 'savecss'  :
 				default         :
-					$mainframe->redirect('index.php?option='.$option, JText::_('CSS FILE SUCCESSFULLY ALTERED') );
+					$mainframe->redirect('index.php?option=com_eventlist', JText::_('CSS FILE SUCCESSFULLY ALTERED') );
 					break;
 			}
 		} else {
-			$mainframe->redirect('index.php?option='.$option, JText::_('OPERATION FAILED').': '.JText::sprintf('FAILED TO OPEN FILE FOR WRITING', $file));
+			$mainframe->redirect('index.php?option=com_eventlist', JText::_('OPERATION FAILED').': '.JText::sprintf('FAILED TO OPEN FILE FOR WRITING', $file));
 		}
 	}
 
