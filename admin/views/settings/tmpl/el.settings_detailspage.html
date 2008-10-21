@@ -213,18 +213,16 @@
 						</td>
        					<td valign="top">
        		 				<?php
-							$config			= &JFactory::getConfig();
-							$legacy			= $config->getValue('config.legacy');
 							$checkjcomment 	= file_exists(JPATH_SITE.DS.'components'.DS.'com_jcomments'.DS.'jcomments.php');
 							$checkjomcomment= file_exists(JPATH_SITE.DS.'plugins'.DS.'content'.DS.'jom_comment_bot.php');
 							
-							if ( $legacy && $checkjcomment){
+							if ( $checkjcomment ){
 								echo '<strong>'.JText::_( 'JCOMMENTS' ).': </strong><font color="green">'.JText::_( 'AVAILABLE' ).'</font><br />';
 							} else {
 								echo '<strong>'.JText::_( 'JCOMMENTS' ).': </strong><font color="red">'.JText::_( 'UNAVAILABLE' ).'</font><br />';
 							}
 							
-							if ( $checkjomcomment){
+							if ( $checkjomcomment ){
 								echo '<strong>'.JText::_( 'JOMCOMMENT' ).': </strong><font color="green">'.JText::_( 'AVAILABLE' ).'</font><br />';
 							} else {
 								echo '<strong>'.JText::_( 'JOMCOMMENT' ).': </strong><font color="red">'.JText::_( 'UNAVAILABLE' ).'</font><br />';
@@ -243,7 +241,7 @@
 		   					$commentsystem = array();
 							$commentsystem[] = JHTML::_('select.option', '0', JText::_( 'NO COMMENTS' ) );
 							
-							if ( $legacy && $checkjcomment ){
+							if ( $checkjcomment ){
 								$commentsystem[] = JHTML::_('select.option', '1', JText::_( 'JCOMMENTS' ) );
 							}
 							if ( $checkjomcomment ){
