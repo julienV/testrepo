@@ -53,8 +53,10 @@ class EventListViewEditevent extends JView
 		$elsettings = & ELHelper::config();
 
 		//Get Data from the model
-		$row 			= $this->Get('Event');
-		$categories		= $this->Get('Categories');
+		$row 			= $this->get('Event');
+		
+		//Cause of group limits we can't use class here to build the categories tree
+		$categories		= $this->get('Categories');
 		$selectedcats 	= & $this->get( 'Catsselected' );
 		
 		//build selectlists

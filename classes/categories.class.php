@@ -104,13 +104,19 @@ class eventlist_cats
     *
     * @return array
     */
-	function getCategoriesTree()
+	function getCategoriesTree($published)
 	{
 		$db	=& JFactory::getDBO();
 		
+		if ($published) {
+			$where = ' WHERE published = 1';
+		} else {
+			$where = '';
+		}
+		
 		$query = 'SELECT *, id AS value, catname AS text'
 				.' FROM #__eventlist_categories'
-				.' WHERE published = 1'
+				.$where
 				.' ORDER BY parent_id, ordering'
 				;
 

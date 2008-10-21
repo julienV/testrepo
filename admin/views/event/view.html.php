@@ -99,7 +99,7 @@ class EventListViewEvent extends JView {
 		//get data from model
 		$model		= & $this->getModel();
 		$row     	= & $this->get( 'Data' );
-		$categories = eventlist_cats::getCategoriesTree();
+		$categories = eventlist_cats::getCategoriesTree(1);
 		$selectedcats = & $this->get( 'Catsselected' );
 
 		// fail if checked out not by 'me'

@@ -84,7 +84,7 @@ class EventListViewCategory extends JView {
 		$model		= & $this->getModel();
 		$row     	= & $this->get( 'Data' );
 		$groups 	= & $this->get( 'Groups' );
-		$categories = eventlist_cats::getCategoriesTree();
+		$categories = eventlist_cats::getCategoriesTree(0);
 
 		// fail if checked out not by 'me'
 		if ($row->id) {
