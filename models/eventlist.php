@@ -106,30 +106,6 @@ class EventListModelEventList extends JModel
 					unset($this->_data[$i]);
 				} 
 				
-			/*	else {
-					//otherwise loop through the category hirarchy to create the pathinfo
-					foreach ($item->categories as $key => $category) {
-						
-						$category->catname = htmlspecialchars($category->catname, ENT_QUOTES, 'UTF-8');
-						if (JString::strlen($category->catname) > 20) {
-							$category->catname = JString::substr( $category->catname , 0 , 20).'...';
-						}
-												
-						$path = '';
-						$pnr = count($category->parentcats);
-						$pix = 0;
-						
-						foreach ($category->parentcats as $key => $parentcats) {
-						$path .= $parentcats->catname;
-						$pix++;
-						if ($pix != $pnr) :
-							$path .= ' » ';
-						endif;
-						}
-						$category->path = $path;
-					}
-				}
-			*/	
 				$k = 1 - $k;
 			}
 		}
@@ -248,11 +224,6 @@ class EventListModelEventList extends JModel
 					case 'city' :
 						$where .= ' AND LOWER( l.city ) LIKE '.$filter;
 						break;
-/*						
-					case 'type' :
-						$where .= ' AND LOWER( c.catname ) LIKE '.$filter;
-						break;
-*/
 				}
 			}
 		}
@@ -276,18 +247,7 @@ class EventListModelEventList extends JModel
 		$this->_db->setQuery( $query );
 
 		$this->_cats = $this->_db->loadObjectList();
-	/*	
-		$k = 0;
-		$count = count($this->_cats);
-		for($i = 0; $i < $count; $i++)
-		{
-			$item =& $this->_cats[$i];
-			$cats = new eventlist_cats($item->id);
-			$item->parentcats = $cats->getParentlist();
-				
-			$k = 1 - $k;
-		}
-	*/	
+
 		return $this->_cats;
 	}
 }

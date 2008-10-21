@@ -55,9 +55,18 @@ class EventListViewEventList extends JView
 			$title = $this->escape( $row->title );
 			$title = html_entity_decode( $title );
 
-			// strip html from feed item category
-			$category = $this->escape( $row->catname );
-			$category = html_entity_decode( $category );
+			// strip html from feed item categories			
+			$nr = count($row->categories);
+			$ix = 0;
+			$category = '';
+			foreach ($row->categories as $key => $category) :
+
+				$category .= html_entity_decode($this->escape($category->catname));
+				$ix++;
+				if ($ix != $nr) :
+					$category .= ', ';
+				endif;
+			endforeach;
 
 			//Format date
 			$date = strftime( $elsettings->formatdate, strtotime( $row->dates ));
