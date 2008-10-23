@@ -170,24 +170,36 @@ class EventListModelCategories extends JModel
 	 */
 	function _buildQuery( $parent_id = 0 )
 	{
+		global $mainframe;
+		
 		$user 		= &JFactory::getUser();
 		$gid		= (int) $user->get('aid');
 		$ordering	= 'c.ordering ASC';
 
 		//build where clause
-		$where = ' WHERE cc.published = 1';
-		$where .= ' AND cc.parent_id = 0';
-		$where .= ' AND cc.access <= '.$gid;
+		$where_sub = ' WHERE cc.published = 1';
+		$where_sub .= ' AND cc.parent_id = 0';
+		$where_sub .= ' AND cc.access <= '.$gid;
 		
 		//TODO: Make option for categories without events to be invisible in list
 		//check archive task and ensure that only categories get selected if they contain a published/archived event
 		$task 	= JRequest::getWord('task');
 		if($task == 'archive') {
-			$where .= ' AND i.published = -1';
+			$where_sub .= ' AND i.published = -1';
 		} else {
-			$where .= ' AND i.published = 1';
+			$where_sub .= ' AND i.published = 1';
 		}
-		$where .= ' AND c.id = cc.id';
+		$where_sub .= ' AND c.id = cc.id';
+		
+		// Get the paramaters of the active menu item
+		$params 	= & $mainframe->getParams('com_eventlist');
+
+		// show/hide empty categories
+		$empty 	= null;		
+		if (!$params->get('empty_cat'))
+		{
+			$empty 	= ' HAVING assignedevents > 0';
+		}
 		
 		$query = 'SELECT c.*,'
 				. ' CASE WHEN CHAR_LENGTH( c.alias ) THEN CONCAT_WS( \':\', c.id, c.alias ) ELSE c.id END AS slug,'
@@ -196,7 +208,7 @@ class EventListModelCategories extends JModel
 					. ' FROM #__eventlist_events AS i'
 					. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = i.id'
 					. ' LEFT JOIN #__eventlist_categories AS cc ON cc.id = rel.catid'
-					. $where
+					. $where_sub
 					. ' GROUP BY cc.id'
 					. ')' 
 					. ' AS assignedevents'
@@ -204,6 +216,7 @@ class EventListModelCategories extends JModel
 				. ' WHERE c.published = 1'
 				. ' AND c.parent_id = '.(int)$parent_id
 				. ' AND c.access <= '.$gid
+				. ' GROUP BY c.id '.$empty
 				. ' ORDER BY '.$ordering
 				;
 
@@ -230,57 +243,6 @@ class EventListModelCategories extends JModel
 				;
 
 		return $query;
-	}
-		
-	/**
-	 * Method to build the Categories query
-	 *
-	 * @access private
-	 * @return array
-	 */
-	function _getsubs($id)
-	{
-		$user 		= &JFactory::getUser();
-		$gid		= (int) $user->get('aid');
-		$ordering	= 'c.ordering ASC';
-		
-		//build where clause
-		$where = ' WHERE cc.published = 1';
-		$where .= ' AND cc.parent_id = 0';
-		$where .= ' AND cc.access <= '.$gid;
-		
-		//TODO: Make option for categories without events to be invisible in list
-		//check archive task and ensure that only categories get selected if they contain a published/archived event
-		$task 	= JRequest::getWord('task');
-		if($task == 'archive') {
-			$where .= ' AND i.published = -1';
-		} else {
-			$where .= ' AND i.published = 1';
-		}
-		$where .= ' AND c.id = cc.id';
-
-		$query = 'SELECT c.*,'
-				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as slug,'
-					. ' ('
-					. ' SELECT COUNT( DISTINCT i.id )'
-					. ' FROM #__eventlist_events AS i'
-					. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = i.id'
-					. ' LEFT JOIN #__eventlist_categories AS cc ON cc.id = rel.catid'
-					. $where
-					. ' GROUP BY cc.id'
-					. ')' 
-					. ' AS assignedevents'
-				. ' FROM #__eventlist_categories AS c'
-				. ' WHERE c.published = 1'
-				. ' AND c.parent_id = '. (int)$id
-				. ' AND c.access <= '.$gid
-				. ' ORDER BY '.$ordering
-				;
-
-		$this->_db->setQuery($query);
-		$this->_subs = $this->_db->loadObjectList();
-
-		return $this->_subs;
 	}
 }
 ?>

@@ -11,6 +11,10 @@
 			<option value="50">50</option>
 		</param>
 		<param name="cat_num" type="text" size="2" default="4" label="CAT DISPLAY" description="CAT DISPLAY DESC" />
+		<param name="empty_cat" type="radio" default="0" label="EMPTY CATEGORIES" description="EMPTY CATEGORIES DESC">
+			<option value="0">Hide</option>
+			<option value="1">Show</option>
+		</param>
   		<param name="filter" type="radio" default="1" label="FILTER" description="FILTER DESC">
 			<option value="0">Hide</option>
 			<option value="1">Show</option>

@@ -51,7 +51,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<p>
 			<?php
 			echo JText::_( 'EVENTS' ).': ';
-			echo JHTML::_('link', JRoute::_($row->linktarget), $row->assignedevents);
+			echo JHTML::_('link', JRoute::_($row->linktarget), $row->assignedevents ? $row->assignedevents : '0');
 			?>
 		</p>
 
@@ -61,8 +61,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<div class="catdescription cat<?php echo $row->id; ?>"><?php echo $row->catdescription ; ?>
 	<p>
 		<?php
-			echo JHTML::_('link', JRoute::_($row->linktarget), $row->linktext).'('.$row->assignedevents.')';
+			echo JHTML::_('link', JRoute::_($row->linktarget), $row->linktext);
 		?>
+		(<?php echo $row->assignedevents ? $row->assignedevents : '0';?>)
 	</p>
 	</div>
 

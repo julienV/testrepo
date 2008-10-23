@@ -57,7 +57,7 @@ foreach($this->categories as $category) :
 		<p>
 			<?php
 				echo JText::_( 'EVENTS' ).': ';
-				echo JHTML::_('link', JRoute::_($category->linktarget), $category->assignedevents);
+				echo JHTML::_('link', JRoute::_($category->linktarget), $category->assignedevents ? $category->assignedevents : '0');
 			?>
 		</p>
 	</div>
@@ -66,8 +66,9 @@ foreach($this->categories as $category) :
 	<div class="catdescription"><?php echo $category->catdescription; ?>
 		<p>
 			<?php
-				echo JHTML::_('link', JRoute::_($category->linktarget), $category->linktext).'('.$category->assignedevents.')';
+				echo JHTML::_('link', JRoute::_($category->linktarget), $category->linktext);
 			?>
+			(<?php echo $category->assignedevents ? $category->assignedevents : '0';?>)
 		</p>
 	</div>
 	<br class="clear" />
