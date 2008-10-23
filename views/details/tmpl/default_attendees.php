@@ -26,8 +26,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <div class="register">
 <?php
-//only set style info if users allready have registered
-if ($this->registers) :
+//only set style info if users allready have registered and user is allowed to see it
+if ($this->registers && $this->elsettings->reg_access != -1 && $this->elsettings->reg_access <= $this->user->get('aid')) :
 ?>
 	<ul class="user floattext">
 

@@ -231,6 +231,7 @@ class EventListViewDetails extends JView
 		$this->assignRef('formhandler',				$formhandler);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
+		$this->assignRef('user' , 					$user);
 
 		parent::display($tpl);
 	}
@@ -260,7 +261,7 @@ class EventListViewDetails extends JView
 				$content = strftime( $formatdate ,strtotime( $row->$keyword ) );
 				break;
 			default:
-				$content = $row->$keyword;
+//				$content = $row->$keyword;
 				break;
 		}
 		return $content;

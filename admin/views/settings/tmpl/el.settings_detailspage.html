@@ -197,6 +197,31 @@
         					?>
        	 				</td>
       				</tr>
+      				
+      				
+      				<tr>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'FRONTEND DISPLAY' ); ?>::<?php echo JText::_('FRONTEND DISPLAY TIP'); ?>">
+								<?php echo JText::_( 'FRONTEND DISPLAY' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+       						<?php
+       						echo $this->accessLists['reg_access'];
+							//var_dump($this->reg_access);
+       						/*
+		   					$reg_access = array();
+							$reg_access[] = JHTML::_('select.option', '0', JText::_( 'USERNAME' ) );
+							$reg_access[] = JHTML::_('select.option', '1', JText::_( 'NAME' ) );
+							$show_attendees = JHTML::_('select.genericlist', $reg_access, 'reg_access', 'size="1" class="inputbox"', 'value', 'text', $this->elsettings->reg_access );
+							echo $show_attendees;
+							*/
+        					?>
+       	 				</td>
+      				</tr>
+	  				<tr>
+      				
+      				
 				</tbody>
 			</table>
 		</fieldset>

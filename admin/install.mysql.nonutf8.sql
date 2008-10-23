@@ -176,6 +176,7 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_settings` (
   `statename` varchar(200) NOT NULL,
   `statewidth` varchar(60) NOT NULL,
   `regname` tinyint(4) NOT NULL,
+  `reg_access` tinyint(4) NOT NULL,
   `storeip` tinyint(4) NOT NULL,
   `commentsystem` tinyint(4) NOT NULL,
   `lastupdate` varchar(60) NOT NULL default '',
@@ -184,4 +185,4 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_settings` (
   UNIQUE KEY `id` (`id`)
 ) TYPE = MYISAM;
 
-INSERT INTO `#__eventlist_settings` VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '', '100%', '15%', '25%', '20%', '20%', 'Date', 'Title', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 0, 1, 1, 1, 1, 1, 2, -2, 0, 'example@example.com', 0, '1000', -2, -2, -2, 1, '20%', 'Type', 1, 1, 1, 1, '100', '100', '100', 0, 1, 0, 0, 1, 2, 2, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [catsid], [times]', 'The event titled [title] starts on [dates]!', 0, 'State', 0, '', 1, 0, '1174491851', '', '');
+INSERT INTO `#__eventlist_settings` VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '', '100%', '15%', '25%', '20%', '20%', 'Date', 'Title', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 0, 1, 1, 1, 1, 1, 2, -2, 0, 'example@example.com', 0, '1000', -2, -2, -2, 1, '20%', 'Type', 1, 1, 1, 1, '100', '100', '100', 0, 1, 0, 0, 1, 2, 2, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [catsid], [times]', 'The event titled [title] starts on [dates]!', 0, 'State', 0, '', 0, 1, 0, '1174491851', '', '');

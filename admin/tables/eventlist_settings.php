@@ -174,6 +174,8 @@ class eventlist_settings extends JTable
 	/** @var int */
 	var $regname	 		= null;
 	/** @var int */
+	var $reg_access	 		= null;
+	/** @var int */
 	var $storeip	 		= null;
 	/** @var int */
 	var $commentsystem		= 0;

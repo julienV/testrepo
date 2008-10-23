@@ -45,6 +45,7 @@ class EventListViewSettings extends JView {
 		//get data from model
 		$model		= & $this->getModel();
 		$elsettings = & $this->get( 'Data');
+		$groups 	= & $this->get( 'Groups');
 
 		//only admins have access to this view
 		if ($user->get('gid') < 24) {
@@ -82,9 +83,8 @@ class EventListViewSettings extends JView {
 		JToolBarHelper::cancel();
 		JToolBarHelper::spacer();
 		JToolBarHelper::help( 'el.settings', true );
-
+		
 		$accessLists = array();
-
  	  	//Create custom group levels to include into the public group selectList
  	  	$access   = array();
  	 	$access[] = JHTML::_('select.option', -2, JTEXT::_('ACCESS DISABLED') );
@@ -100,6 +100,11 @@ class EventListViewSettings extends JView {
 		$accessLists['locpub_access']	= JHTML::_('select.genericlist', $access, 'autopublocate', 'class="inputbox" size="4"', 'value', 'text', $elsettings->autopublocate );
 		$accessLists['ev_edit']			= JHTML::_('select.genericlist', $access, 'eventedit', 'class="inputbox" size="4"', 'value', 'text', $elsettings->eventedit );
 		$accessLists['venue_edit']		= JHTML::_('select.genericlist', $access, 'venueedit', 'class="inputbox" size="4"', 'value', 'text', $elsettings->venueedit );
+		//Build grouplist for the registration option
+		$reg_access = array();
+		$reg_access[] = JHTML::_('select.option', -1, JTEXT::_('ACCESS DISABLED') );
+		$reg_access = array_merge( $reg_access, $groups );
+		$accessLists['reg_access'] 		= JHTML::_('select.genericlist',   $reg_access, 'reg_access', 'class="inputbox" size="4"', 'value', 'text', (int) $elsettings->reg_access, '', 1 );
 
 		//Get global parameters
 		$table =& JTable::getInstance('component');

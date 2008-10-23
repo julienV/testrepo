@@ -125,6 +125,23 @@ class EventListModelSettings extends JModel
 			}
 		}
 	}
+	
+	/**
+	 * get user groups form database
+	 *
+	 * @return array
+	 */
+	function &getGroups()
+	{
+		$query = 'SELECT id AS value, name AS text'
+				. ' FROM #__groups'
+				. ' ORDER BY id'
+				;
+		$this->_db->setQuery( $query );
+		$groups = $this->_db->loadObjectList();
+		
+		return $groups;
+	}
 
 	/**
 	 * Saves the settings

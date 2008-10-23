@@ -297,7 +297,7 @@ class EventListModelDetails extends JModel
 
 		//IP
 		$uip 		= $elsettings->storeip ? getenv('REMOTE_ADDR') : 'DISABLED';
-		
+
 		$obj = new stdClass();
 		$obj->event 	= (int)$event;
 		$obj->uid   	= (int)$uid;
@@ -305,6 +305,27 @@ class EventListModelDetails extends JModel
 		$obj->uip   	= $uip;
 		$this->_db->insertObject('#__eventlist_register', $obj);
 
+/*		TODO: extend und modularize logic to allow admin, owner other reigistration etc mails
+		$this->_loadDetails();
+
+		$username 	= $user->get('name');
+		$title	 	= $this->_details->title;
+		$date 	= ELOutput::formatdate($this->_details->enddates, $this->_details->endtimes)
+		$time 	= ELOutput::formattime($this->_details->dates, $this->_details->times)
+
+		$mail = JFactory::getMailer();
+
+		//Get mailinformation:
+		$MailFrom = $mainframe->getCfg('mailfrom');
+		$FromName = $mainframe->getCfg('fromname');
+		$mail->setSubject( JText::sprintf('USER MAIL ATTEND EVENT SUBJECT', $title, $date, $time) );
+
+		$receivers = explode( ',', trim($elsettings->mailinformrec));
+		$mail->addRecipient( $receivers );
+		$mail->setSender( array( $MailFrom, $FromName ) );
+		$mail->setBody( JText::sprintf('USER MAIL ATTEND EVENT BODY', $username, $title, $date, $time) );
+		$mail->send();
+*/
 		return true;
 	}
 	/**
