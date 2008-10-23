@@ -725,7 +725,7 @@ class EventListModelEditevent extends JModel
 			$mail->setSender( array( $MailFrom, $FromName ) );
 			$mail->setBody( $mailbody );
 
-			$sent = $mail->Send();
+			$mail->send();
 
 		}//mail end
 
@@ -754,7 +754,7 @@ class EventListModelEditevent extends JModel
 			$usermail->setSender( array( $MailFrom, $FromName ) );
 			$usermail->setBody( $mailbody );
 
-			$usermail->Send();
+			$usermail->send();
 		}
 
 		return $row->id;

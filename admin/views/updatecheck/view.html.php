@@ -47,7 +47,7 @@ class EventListViewUpdatecheck extends JView {
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 
 		//Get data from the model
-		$updatedata      = & $this->get( 'Updatedata');
+		$updatedata      = & $this->get( 'Update');
 
 		//assign data to template
 		$this->assignRef('template'		, $template);

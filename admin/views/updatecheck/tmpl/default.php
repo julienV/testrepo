@@ -21,15 +21,15 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-if ($this->updatedata->failed == 0) {
+if ($this->updatedata['connect'] == 1) {
 		?>
 		<table cellpadding="4" cellspacing="0" border="0" width="100%" class="adminlist">
 			<tr>
 		  		<td>
 		  		<?php
-		  			if ($this->updatedata->current == 0 ) {
+		  			if ($this->updatedata['current'] == 0 ) {
 		  				echo JHTML::_('image', 'administrator/templates/'. $this->template .'/images/header/icon-48-checkin.png', NULL);
-		  			} elseif( $this->updatedata->current == -1 ) {
+		  			} elseif( $this->updatedata['current'] == -1 ) {
 		  				echo JHTML::_('image', 'administrator/templates/'. $this->template .'/images/header/icon-48-help_header.png', NULL);
 		  			} else {
 		  				echo JHTML::_('image', 'administrator/templates/'. $this->template .'/images/header/icon-48-help_header.png', NULL);
@@ -38,9 +38,9 @@ if ($this->updatedata->failed == 0) {
 		  		</td>
 		  		<td>
 		  		<?php
-		  			if ($this->updatedata->current == 0) {
+		  			if ($this->updatedata['current'] == 0) {
 		  				echo '<b><font color="green">'.JText::_( 'LATEST VERSION' ).'</font></b>';
-		  			} elseif( $this->updatedata->current == -1 ) {
+		  			} elseif( $this->updatedata['current'] == -1 ) {
 		  				echo '<b><font color="red">'.JText::_( 'OLD VERSION' ).'</font></b>';
 		  			} else {
 		  				echo '<b><font color="orange">'.JText::_( 'NEWER VERSION' ).'</font></b>';
@@ -56,14 +56,14 @@ if ($this->updatedata->failed == 0) {
 			<tr>
 		  		<td><b><?php echo JText::_( 'VERSION' ).':'; ?></b></td>
 		  		<td><?php
-					echo $this->updatedata->versiondetail;
+					echo $this->updatedata['versionread'];
 					?>
 		  		</td>
 			</tr>
 			<tr>
 		  		<td><b><?php echo JText::_( 'RELEASE DATE' ).':'; ?></b></td>
 		  		<td><?php
-					echo $this->updatedata->date;
+					echo $this->updatedata['released'];
 					?>
 		  		</td>
 			</tr>
@@ -71,7 +71,7 @@ if ($this->updatedata->failed == 0) {
 		  		<td><b><?php echo JText::_( 'CHANGES' ).':'; ?></b></td>
 		  		<td><ul>
 		  			<?php
-					foreach ($this->updatedata->changes as $change) {
+					foreach ($this->updatedata['changes'] as $change) {
    						echo '<li>'.$change.'</li>';
 					}
 					?>
@@ -81,19 +81,19 @@ if ($this->updatedata->failed == 0) {
 			<tr>
 		  		<td><b><?php echo JText::_( 'INFORMATION' ).':'; ?></b></td>
 		  		<td>
-					<a href="<?php echo $this->updatedata->info; ?>" target="_blank"><?php echo JText::_( 'CLICK FOR INFORMATION' ); ?></a>
+					<a href="<?php echo $this->updatedata['info']; ?>" target="_blank"><?php echo JText::_( 'CLICK FOR INFORMATION' ); ?></a>
 		  		</td>
 			</tr>
 			<tr>
 		  		<td><b><?php echo JText::_( 'FILES' ).':'; ?></b></td>
 		  		<td>
-					<a href="<?php echo $this->updatedata->download; ?>" target="_blank"><?php echo JText::_( 'DOWNLOAD UPGRADEPACK' ); ?></a>
+					<a href="<?php echo $this->updatedata['download']; ?>" target="_blank"><?php echo JText::_( 'DOWNLOAD UPGRADEPACK' ); ?></a>
 		  		</td>
 			</tr>
 			<tr>
 		  		<td><b><?php echo JText::_( 'NOTES' ).':'; ?></b></td>
 		  		<td><?php
-					echo $this->updatedata->notes;
+					echo $this->updatedata['notes'];
 					?>
 		  		</td>
 			</tr>

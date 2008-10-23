@@ -34,11 +34,11 @@ jimport('joomla.application.component.model');
 class EventListModelUpdatecheck extends JModel
 {
 	/**
-	 * Events data in array
+	 * Updatedata in array
 	 *
 	 * @var array
 	 */
-	var $_updatedata = null;
+	var $check = null;
 
 	/**
 	 * Constructor
@@ -51,54 +51,126 @@ class EventListModelUpdatecheck extends JModel
 	}
 
 	/**
-	 * Logic for the Update Check
-	 *
-	 * @access public
-	 * @return object
-	 * @since 0.9
+	 * Fetch the version from the schlu.net server
+	 * TODO: Cleanup
 	 */
-	function getUpdatedata()
-	{
+	 function getUpdate()
+	 {
+	 	$url = 'http://update.schlu.net/eventlist_update.xml';
+		$data = '';
+		$check = array();
+		$check['connect'] = 0;
+		$check['version_current'] = '1.1';
+		$check['versionread_current'] = '1.1';
 
-		$elsettings = ELAdmin::config();
-
-		include_once(JPATH_COMPONENT_ADMINISTRATOR.DS.'classes'.DS.'Snoopy.class.php');
-
-		$snoopy = new Snoopy();
-
-		//set the source file
-		$file = 'http://update.schlu.net/elupdate.php';
-
-		$snoopy->read_timeout 	= 30;
-		$snoopy->agent 			= "Mozilla/5.0 (compatible; Konqueror/3.2; Linux 2.6.2) (KHTML, like Gecko)";
-
-		$snoopy->fetch($file);
-
-		$_updatedata = null;
-
-		if ($snoopy->status != 200 || $snoopy->error) {
-
-			$_updatedata->failed = 1;
-
-		} else {
-
-			$data = explode('|', $snoopy->results);
-
-			$_updatedata->version 		= $data[0];
-			$_updatedata->versiondetail	= $data[1];
-			$_updatedata->date			= strftime( $elsettings->formatdate, strtotime( $data[2] ) );
-			$_updatedata->info 			= $data[3];
-			$_updatedata->download 		= $data[4];
-			$_updatedata->notes			= $data[5];
-			$_updatedata->changes 		= explode(';', $data[6]);
-			$_updatedata->failed 		= 0;
-
-			$_updatedata->current = version_compare( '1.1', $_updatedata->version );
-
+		//try to connect via cURL
+		if(function_exists('curl_init') && function_exists('curl_exec')) {
+			$ch = @curl_init();
+			
+			@curl_setopt($ch, CURLOPT_URL, $url);
+			@curl_setopt($ch, CURLOPT_HEADER, 0);
+			//http code is greater than or equal to 300 ->fail
+			@curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+			@curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			//timeout of 5s just in case
+			@curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+						
+			$data = @curl_exec($ch);
+						
+			@curl_close($ch);
 		}
 
-		return $_updatedata;
-	}
+		//try to connect via fsockopen
+		if(function_exists('fsockopen') && $data == '') {
 
+			$errno = 0;
+			$errstr = '';
+
+			//timeout handling: 5s for the socket and 5s for the stream = 10s
+			$fsock = @fsockopen("update.schlu.net", 80, $errno, $errstr, 5);
+		
+			if ($fsock) {
+				@fputs($fsock, "GET /quickfaq_update.xml HTTP/1.1\r\n");
+				@fputs($fsock, "HOST: update.schlu.net\r\n");
+				@fputs($fsock, "Connection: close\r\n\r\n");
+        
+				//force stream timeout...bah so dirty
+				@stream_set_blocking($fsock, 1);
+				@stream_set_timeout($fsock, 5);
+				 
+				$get_info = false;
+				while (!@feof($fsock))
+				{
+					if ($get_info)
+					{
+						$data .= @fread($fsock, 1024);
+					}
+					else
+					{
+						if (@fgets($fsock, 1024) == "\r\n")
+						{
+							$get_info = true;
+						}
+					}
+				}        	
+				@fclose($fsock);
+				
+				//need to chack data cause http error codes aren't supported here
+				if(!strstr($data, '<?xml version="1.0" encoding="utf-8"?><update>')) {
+					$data = '';
+				}
+			}
+		}
+
+	 	//try to connect via fopen
+		if (function_exists('fopen') && ini_get('allow_url_fopen') && $data == '') {
+		
+			//set socket timeout
+			ini_set('default_socket_timeout', 5);
+			
+			$handle = @fopen ($url, 'r');
+			
+			//set stream timeout
+			@stream_set_blocking($handle, 1);
+			@stream_set_timeout($handle, 5);
+			
+			$data	= @fread($handle, 1000);
+			
+			@fclose($handle);
+		}
+						
+		/* try to connect via file_get_contents..k..a bit stupid
+		if(function_exists('file_get_contents') && ini_get('allow_url_fopen') && $data == '') {
+			$data = @file_get_contents($url);
+		}
+		*/
+		
+		if( $data && strstr($data, '<?xml version="1.0" encoding="utf-8"?><update>') ) {
+			$xml = & JFactory::getXMLparser('Simple');
+			$xml->loadString($data);
+			
+			$version 				= & $xml->document->version[0];
+			$check['version'] 		= & $version->data();
+			$versionread 			= & $xml->document->versionread[0];
+			$check['versionread'] 	= & $versionread->data();
+			$released 				= & $xml->document->released[0];
+			$check['released'] 		= & $released->data();
+			$info 					= & $xml->document->info[0];
+			$check['info'] 			= & $info->data();
+			$download 				= & $xml->document->download[0];
+			$check['download']		= & $download->data();
+			$notes					= & $xml->document->notes[0];
+			$check['notes']			= & $notes->data();
+			$changes				= & $xml->document->changes[0];
+			$check['changes']		= explode(';', $changes->data());
+			
+			$check['connect'] 		= 1;
+		//	$check['enabled'] 		= 1;
+			
+			$check['current'] 		= version_compare( $check['version_current'], $check['version'] );
+		}
+		
+		return $check;
+	 }
 }
 ?>
