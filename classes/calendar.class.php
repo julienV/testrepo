@@ -639,7 +639,7 @@ function mkDay($var)
   	$linkstr="<a href=\"javascript:".$this->javaScriptDay."(".$this->actyear.",".$this->actmonth.",".$var.")\">".$var."</a>";
   }
   else {
-    $dayurl= JRoute::_( 'index.php?view=day&date='.sprintf('%04d%02d%02d',$this->actyear,$this->actmonth,$var ) );
+    $dayurl= JRoute::_( 'index.php?view=day&id='.sprintf('%04d%02d%02d',$this->actyear,$this->actmonth,$var ) );
     $linkstr="<a href=\"".$dayurl."\">".$var."</a>";
   }
 	

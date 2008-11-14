@@ -51,7 +51,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
     $tooltip  = (htmlspecialchars($tooltip));
     $title    = (htmlspecialchars($title));
 
-    $text   = JText::_( $text, true );
+    //$text   = JText::_( $text, true );
 
     if($title) {
       $title = $title.'::';
@@ -128,7 +128,8 @@ foreach ($this->rows as $row)
   if ( isset($row->color) && $row->color ) {  
     $content  .= '<span class="colorpic" style="background-color: '.$row->color.';"></span>';
   }
-  $content .= caltooltip($catname.$eventname.$timehtml.$venue, $eventdate, $this->escape($row->title), $detaillink, 'eventTip');  
+  $content .= caltooltip($catname.$eventname.$timehtml.$venue, $eventdate, $row->title, $detaillink, 'eventTip');
+
   $content .= '</div>';
   
   $cal->setEventContent($year, $month, $day, $content); 
