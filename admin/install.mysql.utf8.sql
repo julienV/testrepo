@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_categories` (
 `meta_keywords` text NOT NULL,
 `meta_description` text NOT NULL,
 `image` varchar(100) NOT NULL default '',
+`color` varchar(20) NOT NULL default '',
 `published` tinyint(1) NOT NULL default '0',
 `checked_out` int(11) NOT NULL default '0',
 `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',

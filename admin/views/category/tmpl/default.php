@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 1.1 $Id$
+ * @version 1.0 $Id$
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2008 Christoph Lukes
@@ -168,6 +168,18 @@ function submitbutton(pressbutton)
 						<br /><br />
 					</td>
 				</tr>
+				<tr>
+          <td>
+            <label for="color">
+              <?php echo JText::_( 'CHOOSE COLOR' ).':'; ?>
+            </label>
+          </td>
+          <td>
+            <input class="inputbox" type="text" style="background: <?php echo ( $this->row->color == '' )?"transparent":$this->row->color; ?>;"
+                   name="color" id="color" size="10" maxlength="20" value="<?php echo $this->row->color; ?>" />                   
+            <input type="button" class="button" value="<?php echo JText::_( 'PICK' ); ?>" onclick="openPicker('color', -200, 20);" /> 
+          </td>
+        </tr>
 			</table>
 			<?php
 			$title = JText::_( 'METADATA INFORMATION' );

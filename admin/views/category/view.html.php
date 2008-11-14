@@ -50,6 +50,9 @@ class EventListViewCategory extends JView {
 
 		//add css to document
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
+		// for color picker
+    $document->addStyleSheet('components/com_eventlist/assets/css/picker.css');
+    $document->addScript( JURI::base().'/components/com_eventlist/assets/js/picker.js' );
 
 		//create the toolbar
 		if ( $cid ) {
