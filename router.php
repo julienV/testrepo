@@ -148,6 +148,19 @@ function EventListParseRoute($segments)
 			}
 
 		} break;
+		
+    case 'calendar':
+    {
+      $id = explode(':', $segments[1]);
+      $vars['id'] = $id[0];
+      $vars['view'] = 'calendar';
+
+      $count = count($segments);
+      if($count > 2) {
+        $vars['task'] = $segments[2];
+      }
+
+    } break;
 
 		case 'venues':
 		{
