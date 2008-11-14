@@ -221,8 +221,9 @@ class EventListModelDay extends JModel
 				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug,'
 				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as categoryslug'
 				. ' FROM #__eventlist_events AS a'
+        . ' INNER JOIN #__eventlist_cats_event_relations AS rel ON a.id = rel.itemid'
+        . ' INNER JOIN #__eventlist_categories AS c ON c.id = rel.catid'
 				. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
-				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = a.catsid'
 				. $where
 				. $orderby
 				;
