@@ -26,24 +26,24 @@ defined('_JEXEC') or die('Restricted access');
 
     	<div id="elconfig-document">
 			<div id="page-basic">
-				<?php require_once(dirname(__FILE__).DS.'el.settings_basic.html'); ?>
+				<?php echo $this->loadTemplate('basic'); ?>
 			</div>
 
 			<div id="page-usercontrol">
-				<?php require_once(dirname(__FILE__).DS.'el.settings_usercontrol.html'); ?>
+				<?php echo $this->loadTemplate('usercontrol'); ?>
 			</div>
 
 			<div id="page-details">
-				<?php require_once(dirname(__FILE__).DS.'el.settings_detailspage.html'); ?>
+				<?php echo $this->loadTemplate('detailspage'); ?>
 			</div>
 
 			<div id="page-layout">
-				<?php require_once(dirname(__FILE__).DS.'el.settings_layout.html'); ?>
+				<?php echo $this->loadTemplate('layout'); ?>
 			</div>
-
-			<div id="page-parameters">
-				<?php require_once(dirname(__FILE__).DS.'el.settings_parameters.html'); ?>
-			</div>
+			
+      <div id="page-parameters">
+        <?php echo $this->loadTemplate('global'); ?>
+      </div>
 		</div>
 		<div class="clr"></div>
 
