@@ -71,6 +71,8 @@ class eventlist_events extends JTable
 	var $recurrence_type	= 0;
 	/** @var date */
 	var $recurrence_counter = null;
+  /** @var int id of first event for recurrence events*/
+  var $recurrence_first_id = 0;
 	/** @var string */
 	var $datimage 			= '';
 	/** @var string */
@@ -95,7 +97,7 @@ class eventlist_events extends JTable
 	}
 
 	// overloaded check function
-	function check($elsettings)
+	function check($elsettings=null)
 	{
 		// Check fields
 		if (empty($this->enddates)) {

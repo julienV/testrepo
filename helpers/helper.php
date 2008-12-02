@@ -79,55 +79,53 @@ class ELHelper {
 
 			$db			= & JFactory::getDBO();
 
+			// get the last event occurence of each recurring published events, with unlimited repeat, or last date not passed.
 			$nulldate = '0000-00-00';
-			$query = 'SELECT * FROM #__eventlist_events WHERE DATE_SUB(NOW(), INTERVAL '.$elsettings->minus.' DAY) > (IF (enddates <> '.$nulldate.', enddates, dates)) AND recurrence_number <> "0" AND recurrence_type <> "0" AND `published` = 1';
+			$query = ' SELECT CASE recurrence_first_id WHEN 0 THEN id ELSE recurrence_first_id END AS first_id, recurrence_number, recurrence_type, recurrence_counter, MAX(dates) as dates, MAX(enddates) as enddates '
+			       . ' FROM #__eventlist_events '
+			       . ' WHERE recurrence_type <> "0" '
+			       . ' AND CASE recurrence_counter WHEN '.$nulldate.' THEN 1 ELSE NOW() < recurrence_counter END '
+			       . ' AND recurrence_number <> "0" '
+			       . ' AND `published` = 1 '
+			       . ' GROUP BY first_id'
+			       . ' ORDER BY dates DESC';
 			$db->SetQuery( $query );
 			$recurrence_array = $db->loadAssocList();
-
-			foreach($recurrence_array as $recurrence_row) {
-				$insert_keys = '';
-				$insert_values = '';
-				$wherequery = '';
-
+			
+			foreach($recurrence_array as $recurrence_row) 
+			{
+				// get the info of first event for the duplicates
+				$first_event = & JTable::getInstance('eventlist_events', '');
+				$first_event->load($recurrence_row['first_id']);
+								
 				// get the recurrence information
 				$recurrence_number = $recurrence_row['recurrence_number'];
 				$recurrence_type = $recurrence_row['recurrence_type'];
-
+				
+				// calculate next occurence date
 				$recurrence_row = ELHelper::calculate_recurrence($recurrence_row);
-				if (($recurrence_row['dates'] <= $recurrence_row['recurrence_counter']) || ($recurrence_row['recurrence_counter'] == "0000-00-00")) {
-
-					// create the INSERT query
-					foreach ($recurrence_row as $key => $result) {
-						if ($key != 'id') {
-							if ($insert_keys != '') {
-								if (ELHelper::where_table_rows($key)) {
-									$wherequery .= ' AND ';
-								}
-								$insert_keys .= ', ';
-								$insert_values .= ', ';
-							}
-							$insert_keys .= $key;
-							if (($key == "enddates" || $key == "times" || $key == "endtimes") && $result == "") {
-								$insert_values .= "NULL";
-								$wherequery .= '`'.$key.'` IS NULL';
-							} else {
-								$insert_values .= "'".$result."'";
-								if (ELHelper::where_table_rows($key)) {
-									$wherequery .= '`'.$key.'` = "'.$result.'"';
-								}
-
-							}
-						}
-					}
-
-					$query = 'SELECT id FROM #__eventlist_events WHERE '.$wherequery.';';
-					$db->SetQuery( $query );
-
-					if (count($db->loadAssocList()) == 0) {
-						$query = 'INSERT INTO #__eventlist_events ('.$insert_keys.') VALUES ('.$insert_values.');';
-						$db->SetQuery( $query );
-						$db->Query();
-					}
+				
+				// add events as long as we are under the interval and under the limit, if specified.				
+				while (($recurrence_row['recurrence_counter'] == $nulldate || $recurrence_row['dates'] <= $recurrence_row['recurrence_counter']) 
+				     && $recurrence_row['dates'] <= strftime("%Y-%m-%d", time() + 86400*30)) 
+				{
+					$new_event = & JTable::getInstance('eventlist_events', '');
+					$new_event->bind($first_event, array('id', 'hits', 'dates', 'enddates'));
+					$new_event->recurrence_first_id = $first_event->id;
+					$new_event->dates = $recurrence_row['dates'];
+          $new_event->enddates = $recurrence_row['enddates'];
+          if ($new_event->store())
+          {
+	          //duplicate categories event relationships
+	          $query = ' INSERT INTO #__eventlist_cats_event_relations (itemid, catid) '
+	                 . ' SELECT ' . $db->Quote($new_event->id) . ', catid FROM #__eventlist_cats_event_relations WHERE itemid = ' . $db->Quote($first_event->id);
+	          $db->setQuery($query);
+	          if (!$db->query()) {
+	          	echo JText::_('Error saving categories for event "' . $first_event->title . '" new recurrences\n');
+	          }
+          }
+          //print_r($new_event);exit;
+          $recurrence_row = ELHelper::calculate_recurrence($recurrence_row);
 				}
 			}
 

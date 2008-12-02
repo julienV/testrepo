@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_events` (
 `datdescription` mediumtext NOT NULL,
 `meta_keywords` varchar(200) NOT NULL default '',
 `meta_description` varchar(255) NOT NULL default '',
+`recurrence_first_id` int(11) unsigned NOT NULL default '0',
 `recurrence_number` int(2) NOT NULL default '0',
 `recurrence_type` int(2) NOT NULL default '0',
 `recurrence_counter` date NOT NULL default '0000-00-00',
