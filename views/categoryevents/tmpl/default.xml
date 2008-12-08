@@ -16,6 +16,10 @@
         <option value="0">No</option>
         <option value="1">Yes</option>
       </param>
+      <param name="show_empty" type="radio" default="0" label="SHOWEMPTYCHILD" description="SHOWEMPTYCHILDDESC">
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </param>
       <param name="only_first" type="radio" default="0" label="DISPLAYFIRSTOCCURENCEONLY" description="DISPLAYFIRSTOCCURENCEONLYDESC">
         <option value="0">No</option>
         <option value="1">Yes</option>
