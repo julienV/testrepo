@@ -311,7 +311,7 @@ class EventListModelCategoryevents extends JModel
 	}
 
 	/**
-	 * Method to get the childs of a category
+	 * Method get the count of direct sub categories events
 	 *
 	 * @access private
 	 * @return array
@@ -319,24 +319,12 @@ class EventListModelCategoryevents extends JModel
 	function getChilds()
 	{
 		$query = $this->_buildChildsquery();
-		$this->_childs = $this->_getList($query, $this->getState('limitstart'), $this->getState('limit'));
-
-		$k = 0;
-		$count = count($this->_childs);
-		for($i = 0; $i < $count; $i++)
-		{
-			$category =& $this->_childs[$i];
-
-			$category->subcats		= $this->_getsubs( $category->id );
-
-			$k = 1 - $k;
-		}
-
+		$this->_childs = $this->_getList($query);
 		return $this->_childs;
 	}
 	
 	/**
-	 * Method get the categories query
+	 * build query for direct child categories event count
 	 *
 	 * @access private
 	 * @return array
@@ -363,7 +351,7 @@ class EventListModelCategoryevents extends JModel
 		$where .= ' AND c.id = cc.id';
 		
 		$query = 'SELECT c.*,'
-				. ' CASE WHEN CHAR_LENGTH( c.alias ) THEN CONCAT_WS( \':\', c.id, c.alias ) ELSE c.id END AS slug,'
+				  . ' CASE WHEN CHAR_LENGTH( c.alias ) THEN CONCAT_WS( \':\', c.id, c.alias ) ELSE c.id END AS slug,'
 					. ' ('
 					. ' SELECT COUNT( DISTINCT i.id )'
 					. ' FROM #__eventlist_events AS i'
@@ -383,34 +371,6 @@ class EventListModelCategoryevents extends JModel
 		return $query;
 	}
 	
-	 /**
-	 * Method to build the Categories query
-	 * todo: see above and merge
-	 *
-	 * @access private
-	 * @return array
-	 */
-	function _getsubs($id)
-	{
-		$user 		= &JFactory::getUser();
-		$gid		= (int) $user->get('aid');
-		$ordering	= 'ordering ASC';
-
-		$query = 'SELECT *,'
-				. ' CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug'
-				. ' FROM #__eventlist_categories'
-				. ' WHERE published = 1'
-				. ' AND parent_id = '. (int)$id
-				. ' AND access <= '.$gid
-				. ' ORDER BY '.$ordering
-				;
-
-		$this->_db->setQuery($query);
-		$this->_subs = $this->_db->loadObjectList();
-		
-		return $this->_subs;
-	}
-
 	/**
 	 * Method to get the Category
 	 *
