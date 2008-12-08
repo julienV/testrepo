@@ -208,9 +208,9 @@ class EventListModelCategoryevents extends JModel
 				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
 				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
 				. ' FROM #__eventlist_events AS a'
-				. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
-				. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = a.id'
-				. ' LEFT JOIN #__eventlist_categories AS c ON c.id = '.$this->_id
+				. ' INNER JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = a.id'
+				. ' INNER JOIN #__eventlist_categories AS c ON c.id = rel.catid'
+        . ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
 				. $where
 				. $orderby
 				;
@@ -254,12 +254,25 @@ class EventListModelCategoryevents extends JModel
 
 		// First thing we need to do is to select only the requested events
 		if ($task == 'archive') {
-			$where = ' WHERE a.published = -1 && rel.catid = '.$this->_id;
+			$where = ' WHERE a.published = -1 ';
 		} else {
-			$where = ' WHERE a.published = 1 && rel.catid = '.$this->_id;
+			$where = ' WHERE a.published = 1 ';
 		}
+		
+		// display event from direct childs ?
+		if (!$params->get('displayChilds', 0)) {
+			$where .= ' AND rel.catid = '.$this->_id;
+		}
+		else {
+      $where .= ' AND (rel.catid = '.$this->_id . ' OR c.parent_id = '.$this->_id . ')';			
+		}
+		
+		// display all event of recurring serie ?
+    if ($params->get('only_first',0)) {
+      $where .= ' AND a.recurrence_first_id = 0 ';
+    }
 
-		// Second is to only select events assigned to category the user has access to
+		// only select events assigned to category the user has access to
 		$where .= ' AND c.access <= '.$gid;
 
 		/*
@@ -336,7 +349,7 @@ class EventListModelCategoryevents extends JModel
 
 		//build where clause
 		$where = ' WHERE cc.published = 1';
-		$where .= ' AND cc.parent_id = 0';
+		$where .= ' AND cc.parent_id = '.(int)$this->_id;
 		$where .= ' AND cc.access <= '.$gid;
 		
 		//TODO: Make option for categories without events to be invisible in list
@@ -354,8 +367,8 @@ class EventListModelCategoryevents extends JModel
 					. ' ('
 					. ' SELECT COUNT( DISTINCT i.id )'
 					. ' FROM #__eventlist_events AS i'
-					. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = i.id'
-					. ' LEFT JOIN #__eventlist_categories AS cc ON cc.id = rel.catid'
+					. ' INNER JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = i.id'
+					. ' INNER JOIN #__eventlist_categories AS cc ON cc.id = rel.catid'
 					. $where
 					. ' GROUP BY cc.id'
 					. ')' 
