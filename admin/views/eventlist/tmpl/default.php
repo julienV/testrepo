@@ -77,6 +77,9 @@ defined('_JEXEC') or die('Restricted access');
 						
 						$link = 'index.php?option=com_eventlist&amp;controller=sampledata&amp;task=load';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-sampledata.png', JText::_( 'LOAD SAMPLE DATA' ) );
+						
+            $link = 'index.php?option=com_eventlist&amp;view=import';
+            EventListViewEventList::quickiconButton( $link, 'icon-48-sampledata.png', JText::_( 'IMPORT DATA' ) );
 						?>
 						</div>
 					</td>
