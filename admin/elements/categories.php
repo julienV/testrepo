@@ -60,7 +60,13 @@ class JElementCategories extends JElement
 			document.getElementById('a_id').value = id;
 			document.getElementById('a_name').value = category;
 			document.getElementById('sbox-window').close();
-		}";
+		}
+		
+		function elCatReset() {
+		  document.getElementById('a_id').value = 0;
+      document.getElementById('a_name').value = '".htmlspecialchars(JText::_('SELECT CATEGORY'))."';
+	  }
+		";
 
 		$link = 'index.php?option=com_eventlist&amp;view=categoryelement&amp;tmpl=component';
 		$doc->addScriptDeclaration($js);
@@ -69,6 +75,7 @@ class JElementCategories extends JElement
 
 		$html = "\n<div style=\"float: left;\"><input style=\"background: #ffffff;\" type=\"text\" id=\"a_name\" value=\"$category->catname\" disabled=\"disabled\" /></div>";
 		$html .= "<div class=\"button2-left\"><div class=\"blank\"><a class=\"modal\" title=\"".JText::_('Select')."\"  href=\"$link\" rel=\"{handler: 'iframe', size: {x: 650, y: 375}}\">".JText::_('Select')."</a></div></div>\n";
+    $html .= "<div class=\"button2-left\"><div class=\"blank\"><a title=\"".JText::_('Reset')."\" onClick=\"elCatReset();return false;\" >".JText::_('Reset')."</a></div></div>\n";
 		$html .= "\n<input type=\"hidden\" id=\"a_id\" name=\"$fieldName\" value=\"$value\" />";
 
 		return $html;
