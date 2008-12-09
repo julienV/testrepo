@@ -14,7 +14,7 @@
         <option value="0">No</option>
         <option value="1">Yes</option>
       </param> 
-      <param name="showemptychilds" type="radio" default="1" label="DISPLAYEMPTYCHILDS" description="DISPLAYEMPTYCHILDSDESC">
+      <param name="showemptychilds" type="radio" default="1" label="SHOWEMPTYCHILD" description="SHOWEMPTYCHILDDESC">
         <option value="0">No</option>
         <option value="1">Yes</option>
       </param>
