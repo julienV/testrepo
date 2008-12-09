@@ -83,11 +83,13 @@ $i = 0;
 ?>
 <div class="subcategorieslist">
 	<?php foreach ($row->subcats as $sub) : ?>
-		<strong><a href="<?php echo JRoute::_( 'index.php?view=categoryevents&cid='. $sub->slug ); ?>"><?php echo $this->escape($sub->catname); ?></a></strong> (<?php echo $sub->assignedevents != null ? $sub->assignedevents : 0; ?>)
-		<?php 
-		$i++;
-		if ($i != $n) :
-			echo ',';
+	  <?php if ($this->params->get('showemptychilds',1) || $sub->assignedevents): ?>
+			<strong><a href="<?php echo JRoute::_( 'index.php?view=categoryevents&cid='. $sub->slug ); ?>"><?php echo $this->escape($sub->catname); ?></a></strong> (<?php echo $sub->assignedevents != null ? $sub->assignedevents : 0; ?>)
+			<?php 
+			$i++;
+			if ($i != $n) :
+				echo ',';
+			endif;
 		endif;
 	endforeach; ?>
 </div>

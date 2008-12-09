@@ -42,6 +42,7 @@ class EventListViewCategories extends JView
 
 		$rows 		= & $this->get('Data');
 		$total 		= & $this->get('Total');
+		$pageNav  = & $this->get('Pagination');
 
 		//add css file
 		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
@@ -72,7 +73,7 @@ class EventListViewCategories extends JView
 
 		//Set Page title
 		$mainframe->setPageTitle( $pagetitle );
-   		$mainframe->addMetaTag( 'title' , $pagetitle );
+   	$mainframe->addMetaTag( 'title' , $pagetitle );
 
 		//get icon settings
 		$params->def( 'icons', $mainframe->getCfg( 'icons' ) );

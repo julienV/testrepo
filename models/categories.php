@@ -34,6 +34,13 @@ jimport('joomla.application.component.model');
 class EventListModelCategories extends JModel
 {
 	/**
+   * Top category id
+   *
+   * @var int
+   */
+  var $_id = 0;
+  
+	/**
 	 * Event data array
 	 *
 	 * @var array
@@ -78,6 +85,9 @@ class EventListModelCategories extends JModel
 		//get the number of events from database
 		$limit			= JRequest::getInt('limit', $params->get('cat_num'));
 		$limitstart		= JRequest::getInt('limitstart');
+		
+		$id = $params->get('catid',0);
+    $this->_id = $id;
 
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
@@ -100,7 +110,8 @@ class EventListModelCategories extends JModel
 		if (empty($this->_categories))
 		{
 			$query = $this->_buildQuery();
-			$this->_categories = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
+      $pagination = $this->getPagination();
+      $this->_categories = $this->_getList( $query, $pagination->limitstart,  $pagination->limit );
 
 			$k = 0;
 			$count = count($this->_categories);
@@ -108,11 +119,17 @@ class EventListModelCategories extends JModel
 			{
 				$category =& $this->_categories[$i];
 				
-				//child categories
-				$query	= $this->_buildQuery( $category->id );
-				$this->_db->setQuery($query);
-				$category->subcats = $this->_db->loadObjectList();
-
+				if ($params->get('usecat',1))
+				{
+					//child categories
+					$query	= $this->_buildQuery( $category->id );
+					$this->_db->setQuery($query);
+					$category->subcats = $this->_db->loadObjectList();
+				}
+				else {
+					$category->subcats = array();
+				}
+				
 				//Generate description
 				if (empty ($category->catdescription)) {
 					$category->catdescription = JText::_( 'NO DESCRIPTION' );
@@ -168,9 +185,16 @@ class EventListModelCategories extends JModel
 	 * @access private
 	 * @return array
 	 */
-	function _buildQuery( $parent_id = 0 )
+	function _buildQuery( $parent_id = null )
 	{
 		global $mainframe;
+		
+    // Get the paramaters of the active menu item
+    $params   = & $mainframe->getParams('com_eventlist');
+    
+		if (is_null($parent_id)) {
+			$parent_id = $this->_id;
+		}
 		
 		$user 		= &JFactory::getUser();
 		$gid		= (int) $user->get('aid');
@@ -178,7 +202,7 @@ class EventListModelCategories extends JModel
 
 		//build where clause
 		$where_sub = ' WHERE cc.published = 1';
-		$where_sub .= ' AND cc.parent_id = 0';
+		$where_sub .= ' AND cc.parent_id = '.(int) $parent_id;
 		$where_sub .= ' AND cc.access <= '.$gid;
 		
 		//check archive task and ensure that only categories get selected if they contain a published/archived event
@@ -190,9 +214,6 @@ class EventListModelCategories extends JModel
 		}
 		$where_sub .= ' AND c.id = cc.id';
 		
-		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getParams('com_eventlist');
-
 		// show/hide empty categories
 		$empty 	= null;		
 		if (!$params->get('empty_cat'))
@@ -222,26 +243,64 @@ class EventListModelCategories extends JModel
 		return $query;
 	}
 	
-	/**
-	 * Method to build the Categories query without subselect
-	 * That's enough to get the total value.
-	 *
-	 * @access private
-	 * @return string
-	 */
-	function _buildQueryTotal()
-	{
-		$user 		= &JFactory::getUser();
-		$gid		= (int) $user->get('aid');
-				
-		$query = 'SELECT c.id'
-				. ' FROM #__eventlist_categories AS c'
-				. ' WHERE c.published = 1'
-				. ' AND c.parent_id = 0'
-				. ' AND c.access <= '.$gid
-				;
+  
+  /**
+   * Method to build the Categories query without subselect
+   * That's enough to get the total value.
+   *
+   * @access private
+   * @return string
+   */
+  function _buildQueryTotal()
+  {
+    global $mainframe;
+    // Get the paramaters of the active menu item
+    $params   = & $mainframe->getParams('com_eventlist');
+    
+    $user     = &JFactory::getUser();
+    $gid    = (int) $user->get('aid');
+    
+    $query = 'SELECT DISTINCT c.id'
+        . ' FROM #__eventlist_categories AS c';
+  
+    if (!$params->get('empty_cat', 1))
+    {
+      $query .= ' INNER JOIN #__eventlist_cats_event_relations AS rel ON rel.catid = c.id '
+              . ' INNER JOIN #__eventlist_events AS e ON e.id = rel.itemid ';
+    }
+    $query .= ' WHERE c.published = 1'
+        . ' AND c.parent_id = ' . (int) $this->_id
+        . ' AND c.access <= '.$gid
+        ;
+    if (!$params->get('empty_cat'))
+    {
+      $task   = JRequest::getWord('task');
+      if($task == 'archive') {
+        $query .= ' AND e.published = -1';
+      } else {
+        $query .= ' AND e.published = 1';
+      }
+    }
 
-		return $query;
-	}
+    return $query;
+  }
+  
+  
+ /**
+   * Method to get a pagination object for the events
+   *
+   * @access public
+   * @return integer
+   */
+  function getPagination()
+  {
+    // Lets load the content if it doesn't already exist
+    if (empty($this->_pagination))
+    {
+      jimport('joomla.html.pagination');
+      $this->_pagination = new JPagination( $this->getTotal(), $this->getState('limitstart'), $this->getState('limit') );
+    }
+    return $this->_pagination;
+  }
 }
 ?>
