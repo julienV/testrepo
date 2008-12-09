@@ -33,6 +33,13 @@ jimport('joomla.application.component.model');
  */
 class EventListModelCategoriesdetailed extends JModel
 {
+	 /**
+   * Top category id
+   *
+   * @var int
+   */
+  var $_id = 0;
+  
 	/**
 	 * Event data array
 	 *
@@ -74,6 +81,9 @@ class EventListModelCategoriesdetailed extends JModel
 
 		// Get the paramaters of the active menu item
 		$params 	= & $mainframe->getParams('com_eventlist');
+		
+    $id = JRequest::getInt('id');
+    $this->_id = $id;
 
 		//get the number of events from database
 		$limit			= JRequest::getInt('limit', $params->get('cat_num'));
@@ -99,8 +109,10 @@ class EventListModelCategoriesdetailed extends JModel
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_categories))
 		{
+			// get top level categories
 			$query = $this->_buildQuery();
-			$this->_categories = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
+			$pagination = $this->getPagination();
+			$this->_categories = $this->_getList( $query, $pagination->limitstart,  $pagination->limit );
 
 			$k = 0;
 			$count = count($this->_categories);
@@ -260,9 +272,13 @@ class EventListModelCategoriesdetailed extends JModel
 	 * @access private
 	 * @return array
 	 */
-	function _buildQuery( $parent_id = 0 )
+	function _buildQuery( $parent_id = null )
 	{
 		global $mainframe;
+		
+		if (is_null($parent_id)) {
+			$parent_id = (int) $this->_id;
+		}
 		
 		$user 		= &JFactory::getUser();
 		$gid		= (int) $user->get('aid');
@@ -270,7 +286,7 @@ class EventListModelCategoriesdetailed extends JModel
 
 		//build where clause
 		$where_sub = ' WHERE cc.published = 1';
-		$where_sub .= ' AND cc.parent_id = 0';
+		$where_sub .= ' AND cc.parent_id = ' . $parent_id;
 		$where_sub .= ' AND cc.access <= '.$gid;
 		
 		//check archive task and ensure that only categories get selected if they contain a published/archived event
@@ -322,17 +338,53 @@ class EventListModelCategoriesdetailed extends JModel
 	 */
 	function _buildQueryTotal()
 	{
+    global $mainframe;
+    // Get the paramaters of the active menu item
+    $params   = & $mainframe->getParams('com_eventlist');
+    
 		$user 		= &JFactory::getUser();
 		$gid		= (int) $user->get('aid');
 		
-		$query = 'SELECT c.id'
-				. ' FROM #__eventlist_categories AS c'
-				. ' WHERE c.published = 1'
-				. ' AND c.parent_id = 0'
+		$query = 'SELECT DISTINCT c.id'
+				. ' FROM #__eventlist_categories AS c';
+	
+    if (!$params->get('empty_cat', 1))
+    {
+      $query .= ' INNER JOIN #__eventlist_cats_event_relations AS rel ON rel.catid = c.id '
+              . ' INNER JOIN #__eventlist_events AS e ON e.id = rel.itemid ';
+    }
+		$query .= ' WHERE c.published = 1'
+				. ' AND c.parent_id = ' . (int) $this->_id
 				. ' AND c.access <= '.$gid
 				;
+	  if (!$params->get('empty_cat'))
+    {
+      $task   = JRequest::getWord('task');
+	    if($task == 'archive') {
+	      $query .= ' AND e.published = -1';
+	    } else {
+	      $query .= ' AND e.published = 1';
+	    }
+    }
 
 		return $query;
 	}
+	
+ /**
+   * Method to get a pagination object for the events
+   *
+   * @access public
+   * @return integer
+   */
+  function getPagination()
+  {
+    // Lets load the content if it doesn't already exist
+    if (empty($this->_pagination))
+    {
+      jimport('joomla.html.pagination');
+      $this->_pagination = new JPagination( $this->getTotal(), $this->getState('limitstart'), $this->getState('limit') );
+    }
+    return $this->_pagination;
+  }
 }
 ?>

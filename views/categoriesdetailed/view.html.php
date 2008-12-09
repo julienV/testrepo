@@ -60,6 +60,8 @@ class EventListViewCategoriesdetailed extends JView
 		//Get data from the model
 		$categories	= & $this->get('Data');
 		$total 		= & $this->get('Total');
+    // Create the pagination object   
+    $pageNav = & $this->get('Pagination');
 
 		//add css file
 		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
@@ -107,8 +109,6 @@ class EventListViewCategoriesdetailed extends JView
 
 		// Create the pagination object
 		jimport('joomla.html.pagination');
-
-		$pageNav = new JPagination($total, $limitstart, $limit);
 
 		$this->assignRef('categories' , 			$categories);
 		$this->assignRef('print_link' , 			$print_link);
