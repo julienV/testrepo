@@ -44,6 +44,9 @@ class EventListViewCategory extends JView {
 		$document	= & JFactory::getDocument();
 		$user 		= & JFactory::getUser();
 		$pane 		= & JPane::getInstance('sliders');
+		
+		// Load the form validation behavior
+		JHTML::_('behavior.formvalidation');
 
 		//get vars
 		$cid 		= JRequest::getVar( 'cid' );
@@ -51,8 +54,8 @@ class EventListViewCategory extends JView {
 		//add css to document
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
 		// for color picker
-    $document->addStyleSheet('components/com_eventlist/assets/css/picker.css');
-    $document->addScript( JURI::base().'/components/com_eventlist/assets/js/picker.js' );
+    	$document->addStyleSheet('components/com_eventlist/assets/css/picker.css');
+    	$document->addScript( JURI::base().'/components/com_eventlist/assets/js/picker.js' );
 
 		//create the toolbar
 		if ( $cid ) {

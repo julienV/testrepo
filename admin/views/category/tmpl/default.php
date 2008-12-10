@@ -23,28 +23,31 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 
 <script language="javascript" type="text/javascript">
-function submitbutton(pressbutton)
-{
-	var form = document.adminForm;
-	var catdescription = <?php echo $this->editor->getContent( 'catdescription' ); ?>
-	
-	if (pressbutton == 'cancel') {
-		submitform( pressbutton );
-		return;
-	}
+	function submitbutton(pressbutton)
+	{
+		var form = document.getElementById('adminForm');
+		var validator = document.formvalidator;
+			
+		if (pressbutton == 'cancel') {
+			submitform( pressbutton );
+			return;
+		}
 
-	// do field validation
-	if (form.catname.value == ""){
-		alert( "<?php echo JText::_( 'ADD NAME CATEGORY' ); ?>" );
-	} else {
-		<?php echo $this->editor->save( 'catdescription' ); ?>
-		submitform( pressbutton );
+		if ( validator.validate(form.catname) === false ) {
+   			alert("<?php echo JText::_( 'ADD NAME CATEGORY', true ); ?>");
+   			validator.handleResponse(false,form.catname);
+   			form.catname.focus();
+   			return false;
+   		} else {
+   			<?php echo $this->editor->save( 'catdescription' ); ?>
+			submitform( pressbutton );
+   		}
+
 	}
-}
 </script>
 
 
-<form action="index.php" method="post" name="adminForm" id="adminForm">
+<form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate">
 
 	<table cellspacing="0" cellpadding="0" border="0" width="100%">
 		<tr>
@@ -57,7 +60,7 @@ function submitbutton(pressbutton)
 							</label>
 						</td>
 						<td>
-							<input name="catname" value="<?php echo $this->row->catname; ?>" size="50" maxlength="100" />
+							<input name="catname" class="inputbox required" id="catname" value="<?php echo $this->row->catname; ?>" size="50" maxlength="100" />
 						</td>
 						<td>
 							<label for="published">

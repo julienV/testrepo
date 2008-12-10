@@ -138,6 +138,11 @@ div.imghead {
 	border: 1px solid #ccc;
 }
 
+/* Form validation */
+.invalid { border-color: #ff0000; }
+label.invalid { color: #ff0000; }
+
+
 /* other */
 .copyright
 { font-size: 0.85em; text-align: center; margin: 1em 0; color: #aaa; }

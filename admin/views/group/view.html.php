@@ -38,6 +38,9 @@ class EventListViewGroup extends JView {
 
 		//Load pane behavior
 		jimport('joomla.html.pane');
+		
+		// Load the form validation behavior
+		JHTML::_('behavior.formvalidation');
 
 		//initialise variables
 		$document	= & JFactory::getDocument();

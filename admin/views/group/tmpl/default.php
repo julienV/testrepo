@@ -25,23 +25,25 @@ defined('_JEXEC') or die('Restricted access');
 <script language="javascript" type="text/javascript">
 	function submitbutton(task)
 	{
-
-		var form = document.adminForm;
-
+		var form = document.getElementById('adminForm');
+		var validator = document.formvalidator;
+			
 		if (task == 'cancel') {
 			submitform( task );
 			return;
 		}
-		else if (form.name.value == ""){
-			alert( "<?php echo JText::_( 'ADD GROUP NAME'); ?>" );
+
+		if ( validator.validate(form.name) === false ) {
+   			alert("<?php echo JText::_( 'ADD GROUP NAME', true ); ?>");
+   			validator.handleResponse(false,form.name);
+   			form.name.focus();
+   			return false;
 		} else {
 			allSelected(document.adminForm['maintainers[]']);
 			submitform( task );
 		}
 	}
-</script>
 
-<script>
 	// moves elements from one select box to another one
 	function moveOptions(from,to) {
 		// Move them over
@@ -72,7 +74,7 @@ defined('_JEXEC') or die('Restricted access');
 	}
 </script>
 
-<form action="index.php" method="post" name="adminForm" id="adminForm">
+<form action="index.php" method="post" name="adminForm" id="adminForm" class="form-validate">
 
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
 	<tr>
@@ -86,7 +88,7 @@ defined('_JEXEC') or die('Restricted access');
 						</label>
 					</td>
 					<td>
-						<input name="name" value="<?php echo $this->row->name; ?>" size="50" maxlength="60" id="name" />
+						<input name="name" class="inputbox required" value="<?php echo $this->row->name; ?>" size="50" maxlength="60" id="name" />
 					</td>
 				</tr>
 			</table>
