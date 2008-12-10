@@ -254,7 +254,7 @@ class ELHelper {
 	 */
 	function where_table_rows($key) {
 		if ($key == 'locid' ||
-			$key == 'catsid' ||
+		//	$key == 'catsid' ||
 			$key == 'dates' ||
 			$key == 'enddates' ||
 			$key == 'times' ||
@@ -265,6 +265,20 @@ class ELHelper {
 		} else {
 			return false;
 		}
+	}
+	
+	function buildtimeselect($max, $name, $selected, $class = 'class="inputbox"')
+	{
+		$timelist 	= array();
+
+		foreach(range(0, $max) as $wert) {
+		    if(strlen($wert) == 2) {
+				$timelist[] = JHTML::_( 'select.option', $wert, $wert);
+    		}else{
+      			$timelist[] = JHTML::_( 'select.option', '0'.$wert, '0'.$wert);
+    		}
+		}
+		return JHTML::_('select.genericlist', $timelist, $name, $class, 'value', 'text', $selected );
 	}
 }
 ?>

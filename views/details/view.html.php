@@ -261,7 +261,7 @@ class EventListViewDetails extends JView
 				$content = strftime( $formatdate ,strtotime( $row->$keyword ) );
 				break;
 			default:
-//				$content = $row->$keyword;
+				$content = $row->$keyword;
 				break;
 		}
 		return $content;

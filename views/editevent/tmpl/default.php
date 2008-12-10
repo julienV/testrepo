@@ -38,6 +38,8 @@ defined('_JEXEC') or die('Restricted access');
 					}
 				}
 			);
+			
+			/*
 			document.formvalidator.setHandler('time',
 				function (value) {
 					if(value=="") {
@@ -51,6 +53,8 @@ defined('_JEXEC') or die('Restricted access');
 					}
 				}
 			);
+			*/
+			
 			document.formvalidator.setHandler('venue',
 				function (value) {
 					timer = new Date();
@@ -109,6 +113,8 @@ defined('_JEXEC') or die('Restricted access');
     			validator.handleResponse(false,form.enddates);
   				form.enddates.focus();
   				return false;
+  				
+  			/*
   			} else if ( validator.validate(form.times) === false ) {
     			alert("<?php echo JText::_( 'TIME WRONG', true ); ?>");
     			validator.handleResponse(false,form.times);
@@ -119,6 +125,8 @@ defined('_JEXEC') or die('Restricted access');
     			validator.handleResponse(false,form.endtimes);
   				form.endtimes.focus();
   				return false;
+  			*/
+  			
 			} else if ( form.cid.selectedIndex == -1 ) {
     			alert("<?php echo JText::_( 'SELECT CATEGORY', true ); ?>");
     			form.cid.focus();
@@ -235,8 +243,6 @@ defined('_JEXEC') or die('Restricted access');
               </label>
           		<?php
           		echo $this->categories;
-                //	$html = JHTML::_('select.genericlist', $this->categories, 'catsid','size="1" class="inputbox required validate-catsid"', 'value', 'text', $this->row->catsid );
-                //	echo $html;
           		?>
           </div>
 
@@ -264,8 +270,12 @@ defined('_JEXEC') or die('Restricted access');
               <label for="el_starttime">
                         <?php echo JText::_( 'TIME' ).':'; ?>
               </label>
-        			<input class="inputbox validate-time" id="el_starttime" name="times" value="<?php echo substr($this->row->times, 0, 5); ?>" size="15" maxlength="8" />
-        			<?php if ( $this->elsettings->showtime == 1 ) : ?>
+        			<?php
+        			/* <input class="inputbox validate-time" id="el_starttime" name="times" value="<?php echo substr($this->row->times, 0, 5); ?>" size="15" maxlength="8" /> */
+					echo ELHelper::buildtimeselect(23, 'starthours', substr( $this->row->times, 0, 2 )).' : ';
+					echo ELHelper::buildtimeselect(59, 'startminutes', substr( $this->row->times, 4, 6 ));
+					?>
+                    <?php if ( $this->elsettings->showtime == 1 ) : ?>
         			<small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('TIME HINT'); ?>">
         			    <?php echo $this->infoimage; ?>
         			</small>
@@ -280,7 +290,11 @@ defined('_JEXEC') or die('Restricted access');
               <label for="el_endtime">
                   <?php echo JText::_( 'ENDTIME' ).':'; ?>
               </label>
-              <input class="inputbox validate-time" id="el_endtime" name="endtimes" value="<?php echo substr($this->row->endtimes, 0, 5); ?>" size="15" maxlength="8" />&nbsp;
+        			<?php
+        			/* <input class="inputbox validate-time" id="el_endtime" name="endtimes" value="<?php echo substr($this->row->endtimes, 0, 5); ?>" size="15" maxlength="8" />&nbsp; */
+					echo ELHelper::buildtimeselect(23, 'endhours', substr( $this->row->endtimes, 0, 2 )).' : ';
+					echo ELHelper::buildtimeselect(59, 'endminutes', substr( $this->row->endtimes, 4, 6 ));
+					?>
         			<small class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('ENDTIME HINT'); ?>">
         			    <?php echo $this->infoimage; ?>
         			</small>

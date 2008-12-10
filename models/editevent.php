@@ -504,6 +504,15 @@ class EventListModelEditevent extends JModel
 			JError::raiseError( 500, $this->_db->stderr() );
 			return false;
 		}
+		
+		//get values from time selectlist and concatenate them accordingly
+		$starthours		= JRequest::getCmd( 'starthours');
+		$startminutes	= JRequest::getCmd( 'startminutes');
+		$endhours		= JRequest::getCmd( 'endhours');
+		$endminutes		= JRequest::getCmd( 'endminutes');
+		
+		$row->times		= $starthours.':'.$startminutes;
+		$row->endtimes	= $endhours.':'.$endminutes;
 			
 		//Are we saving from an item edit?
 		if ($row->id) {
