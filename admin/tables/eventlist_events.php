@@ -37,8 +37,6 @@ class eventlist_events extends JTable
 	var $id 				= null;
 	/** @var int */
 	var $locid 				= null;
-	/** @var int */
-//	var $catsid 			= null;
 	/** @var date */
 	var $dates 				= null;
 	/** @var date */
@@ -104,11 +102,11 @@ class eventlist_events extends JTable
 			$this->enddates = NULL;
 		}
 
-		if (empty($this->times)) {
+		if ($this->times == '00:00') {
 			$this->times = NULL;
 		}
 
-		if (empty($this->endtimes)) {
+		if ($this->endtimes == '00:00') {
 			$this->endtimes = NULL;
 		}
 
@@ -177,13 +175,7 @@ class eventlist_events extends JTable
 			JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
 			return false;
 		}
-/*
-		if($this->catsid == 0) {
-			$this->_error = JText::_( 'CATEGORY EMPTY');
-			JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
-			return false;
-		}
-*/
+
 		return true;
 	}
 }

@@ -243,7 +243,7 @@ class EventListModelEvent extends JModel
 		$user		= & JFactory::getUser();
 
 		$cats 		= JRequest::getVar( 'cid', array(), 'post', 'array');
-
+		
 		$row =& JTable::getInstance('eventlist_events', '');
 
 		// Bind the form fields to the table
@@ -251,7 +251,16 @@ class EventListModelEvent extends JModel
 			$this->setError($this->_db->getErrorMsg());
 			return false;
 		}
-
+		
+		//get values from time selectlist and concatenate them accordingly
+		$starthours		= JRequest::getCmd( 'starthours');
+		$startminutes	= JRequest::getCmd( 'startminutes');
+		$endhours		= JRequest::getCmd( 'endhours');
+		$endminutes		= JRequest::getCmd( 'endminutes');
+		
+		$row->times		= $starthours.':'.$startminutes;
+		$row->endtimes	= $endhours.':'.$endminutes;
+		
 		// Check/sanitize the metatags
 		$row->meta_description = htmlspecialchars(trim(addslashes($row->meta_description)));
 		if (JString::strlen($row->meta_description) > 255) {

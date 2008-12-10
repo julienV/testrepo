@@ -55,6 +55,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 			alert("<?php echo JText::_ ( 'DATE WRONG' ); ?>");
 		} else if (form.enddates.value !="" && !form.enddates.value.match(/[0-9]{4}-[0-1][0-9]-[0-3][0-9]/gi)) {
 			alert("<?php echo JText::_ ( 'ENDDATE WRONG' );	?>");
+		/*
 		} else if (form.times.value == "" && form.endtimes.value != "") {
 			alert("<?php echo JText::_ ( 'ADD TIME' ); ?>");
 			form.times.focus();
@@ -64,6 +65,8 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 		} else if (form.endtimes.value != "" && !form.endtimes.value.match(/[0-2][0-9]:[0-5][0-9]/gi)) {
 			alert("<?php echo JText::_ ( 'TIME WRONG' ); ?>");
 			form.endtimes.focus();
+		*/
+		
 		} else if (form.cid.selectedIndex == -1) {
 			alert( "<?php echo JText::_ ( 'CHOOSE CATEGORY' );?>" );
 		} else if (form.locid.value == ""){
@@ -279,12 +282,10 @@ $infoimage = JHTML::image ( 'components/com_eventlist/assets/images/icon-16-hint
 					</label>
 				</td>
 				<td>
-					<?php
-					if ($this->row->times) {
-						$this->row->times = substr ( $this->row->times, 0, 5 );
-					}
+					<?php					
+					echo ELAdmin::buildtimeselect(23, 'starthours', substr( $this->row->times, 0, 2 )).' : ';
+					echo ELAdmin::buildtimeselect(59, 'startminutes', substr( $this->row->times, 4, 6 ));
 					?>
-						<input class="inputbox" name="times" value="<?php echo $this->row->times;?>" size="15" maxlength="8" id="times" />
 				</td>
 				<td>
 			  		<?php if ($this->elsettings->showtime == 1) { ?>
@@ -305,12 +306,10 @@ $infoimage = JHTML::image ( 'components/com_eventlist/assets/images/icon-16-hint
 					</label>
 				</td>
 				<td>
-					<?php
-					if ($this->row->endtimes) {
-						$this->row->endtimes = substr ( $this->row->endtimes, 0, 5 );
-					}
+					<?php					
+					echo ELAdmin::buildtimeselect(23, 'endhours', substr( $this->row->endtimes, 0, 2 )).' : ';
+					echo ELAdmin::buildtimeselect(59, 'endminutes', substr( $this->row->endtimes, 4, 6 ));
 					?>
-						<input class="inputbox" name="endtimes"	value="<?php echo $this->row->endtimes;	?>" size="15" maxlength="8"	id="endtimes" />
 				</td>
 				<td>
 					<span class="editlinktip hasTip" title="<?php echo JText::_ ( 'NOTES' );?>::<?php echo JText::_ ( 'FORMAT TIME OPTIONAL' );?>">
