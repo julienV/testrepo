@@ -90,6 +90,7 @@ class eventlist_categories extends JTable
 		}
 
 		/** check for existing name */
+		/* in fact, it can happen for subcategories
 		$query = 'SELECT id FROM #__eventlist_categories WHERE catname = '.$this->_db->Quote($this->catname);
 		$this->_db->setQuery($query);
 
@@ -98,6 +99,7 @@ class eventlist_categories extends JTable
 			JError::raiseWarning('SOME_ERROR_CODE', JText::sprintf('CATEGORY NAME ALREADY EXIST', $this->catname));
 			return false;
 		}
+    */  
 
 		return true;
 	}
