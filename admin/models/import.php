@@ -85,7 +85,7 @@ class EventListModelImport extends JModel
     if (!$replace) {
       $ignore[] = 'id';
     }
-    $rec = 0;
+    $rec = array('added' => 0, 'updated' => 0);
     // parse each row
     foreach ($data AS $row) 
     {
@@ -156,7 +156,6 @@ class EventListModelImport extends JModel
           }
         }
       }
-      $rec++;
     }
     
     // force the cleanup to update the imported events status

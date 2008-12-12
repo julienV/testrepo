@@ -50,7 +50,7 @@ defined('_JEXEC') or die('Restricted access');
             </label>
           </td>
           <td>
-			      <input type="file" id="event-file-upload" accept="text/*" name="Filedata" />
+			      <input type="file" id="event-file-upload" accept="text/*" name="Fileevents" />
 			      <input type="submit" id="event-file-upload-submit" value="<?php echo JText::_('Start import'); ?>" onclick="document.getElementsByName('task')[0].value='csveventimport';return true;"/>
 			      <span id="upload-clear"></span>
           </td>
@@ -96,7 +96,7 @@ defined('_JEXEC') or die('Restricted access');
             </label>
           </td>
           <td>
-            <input type="file" id="cat-file-upload" accept="text/*" name="Filedata" />
+            <input type="file" id="cat-file-upload" accept="text/*" name="Filecats" />
             <input type="submit" id="cat-file-upload-submit" value="<?php echo JText::_('Start import'); ?>" onclick="document.getElementsByName('task')[0].value='csvcategoriesimport';return true;"/>
             <span id="upload-clear"></span>
           </td>

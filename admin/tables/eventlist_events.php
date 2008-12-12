@@ -147,23 +147,23 @@ class eventlist_events extends JTable
 
 		if (isset($this->recurrence_counter)) {
 			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $this->recurrence_counter)) {
-	 		     	$this->_error = JText::_( 'DATE WRONG' );
+	 		     	$this->_error = JText::_( 'WRONGRECURRENCEDATEFORMAT' );
 	 		     	JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
 	 		     	return false;
 			}
 		}
 
-		if (isset($this->times)) {
-   			if (!preg_match("/^[0-2][0-9]:[0-5][0-9]$/", $this->times)) {
-      			$this->_error = JText::_( 'TIME WRONG' );
+		if (isset($this->times) && $this->times) {
+   			if (!preg_match("/^[0-2][0-9]:[0-5][0-9](:[0-5][0-9])?$/", $this->times)) {
+      			$this->_error = JText::_( 'WRONGSTARTTIMEFORMAT'.': '.$this->times );
       			JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
       			return false;
 	  		}
 		}
 
-		if (isset($this->endtimes)) {
-   			if (!preg_match("/^[0-2][0-9]:[0-5][0-9]$/", $this->endtimes)) {
-      			$this->_error = JText::_( 'TIME WRONG' );
+		if (isset($this->endtimes) && $this->endtimes) {
+   			if (!preg_match("/^[0-2][0-9]:[0-5][0-9](:[0-5][0-9])?$/", $this->endtimes)) {
+      			$this->_error = JText::_( 'WRONGENDTIMEFORMAT' );
       			JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
       			return false;
 	  		}
