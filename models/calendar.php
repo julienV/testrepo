@@ -222,9 +222,7 @@ class EventListModelCalendar extends JModel
 		$gid		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getParams();
-    $displayall = $params->get('displayAll', 1);
-		
+		$params 	= & $mainframe->getParams();		
 		
 		$task 		= JRequest::getWord('task');
     
@@ -236,7 +234,7 @@ class EventListModelCalendar extends JModel
 		}
 		
 		// filter on categories: selected catagory /selected + child categories
-		if (!($displayall || $this->_id == 0))
+		if ($this->_id)
 		{
 		  if ($params->get('displayChilds')) {
 	      $where .= ' AND c.id IN ('.implode(',',$this->getChilds()).')';
@@ -400,7 +398,7 @@ class EventListModelCalendar extends JModel
   function _getAllChildren( &$children, $catid ) 
   {
     $childs = array();
-    if (count($children[$catid])) 
+    if (isset($children[$catid]) && count($children[$catid])) 
     {
       //$childs = $children[$catid];
       foreach ($children[$catid] AS $child)

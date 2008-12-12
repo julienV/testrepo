@@ -85,6 +85,7 @@ foreach ($this->rows as $row)
   $day = strftime( '%d', strtotime($row->dates));
   
   // for time printing
+  $timehtml = '';
   if ($this->elsettings->showtime == 1)
   {
   	$start = ELOutput::formattime($row->dates, $row->times);
@@ -99,6 +100,7 @@ foreach ($this->rows as $row)
 	    $timehtml .= '</div>';
 	  }
   }
+  
   //Link to details
   $detaillink = JRoute::_( 'index.php?view=details&cid='.$this->category->slug.'&id='. $row->slug );
   $eventname = '<div class="eventName">' . $this->escape($row->title) . '</div>';
@@ -170,3 +172,4 @@ print ($cal->showMonth());
 	}
 	?>
 </div>
+<div class="clr"/>

@@ -171,7 +171,7 @@ class EventListViewCalendar extends JView
 		$filter_type		= JRequest::getString('filter_type');
 
 		$lists['filter'] 		= $filter;
-		$lists['filter_type'] 	= $sortselect;
+		$lists['filter_type'] 	= $filter_type;
 
 		return $lists;
 	}
