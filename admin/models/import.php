@@ -55,7 +55,19 @@ class EventListModelImport extends JModel
 
     return array_keys($tablesfields['#__eventlist_events']);
   }
-  
+   
+  /**
+   * return __eventlist_categories table fields name
+   *
+   * @return array
+   */
+  function getCategoryFields()
+  {
+    $tables = array('#__eventlist_categories');
+    $tablesfields = $this->_db->getTableFields($tables);
+
+    return array_keys($tablesfields['#__eventlist_categories']);
+  }
   
   /**
    * import data corresponding to fieldsname into events table
@@ -63,11 +75,9 @@ class EventListModelImport extends JModel
    * @param array $fieldsname
    * @param array $data the records
    * @param boolean $replace replace if id already exists
-   * @param boolean $usevenuename use venuename instead of locid field
-   * @param boolean $createvenue create venue if name not found
    * @return int number of records inserted
    */
-  function eventsimport($fieldsname, &$data, $replace = true, $usevenuename = false, $createvenue= true)
+  function eventsimport($fieldsname, &$data, $replace = true)
   {
     global $mainframe;
         
@@ -98,9 +108,32 @@ class EventListModelImport extends JModel
       }
   
       // Store it in the db
-      if (!$object->store()) {
-        echo JText::_('Error store: ') .  $this->_db->getErrorMsg()."\n";
-        continue;
+      if ($replace)
+      {
+        // We want to keep id from database so first we try to insert into database. if it fails,
+        // it means the record already exists, we can use store().
+        if (!$object->insertIgnore()) {
+          if (!$object->store()) {
+            echo JText::_('Error store: ') .  $this->_db->getErrorMsg()."\n";
+            continue;
+          }
+          else {
+            $rec['updated']++;
+          }
+        }
+        else {
+          $rec['added']++;
+        }
+      }
+      else 
+      {
+        if (!$object->store()) {
+          echo JText::_('Error store: ') .  $this->_db->getErrorMsg()."\n";
+          continue;
+        }
+        else {          
+          $rec['added']++;
+        }
       }
     
       // print_r($object); exit;
@@ -131,6 +164,77 @@ class EventListModelImport extends JModel
     $settings->load(1);
     $settings->lastupdate = 0;
     $settings->store();    
+    
+    return $rec;
+  }
+  
+ 
+  /**
+   * import data corresponding to fieldsname into events table
+   *
+   * @param array $fieldsname
+   * @param array $data the records
+   * @param boolean $replace replace if id already exists
+   * @return int number of records inserted
+   */
+  function categoriesimport($fieldsname, &$data, $replace = true)
+  {
+    global $mainframe;
+        
+    $ignore = array();
+    if (!$replace) {
+      $ignore[] = 'id';
+    }
+    $rec = array('added' => 0, 'updated' => 0);
+    // parse each row
+    foreach ($data AS $row) 
+    {
+      $values = array();
+      // parse each specified field and retrieve corresponding value for the record
+      foreach ($fieldsname AS $k => $field){
+        $values[$field] = $row[$k];
+      }
+      
+      $object =& JTable::getInstance('eventlist_categories', '');
+      
+      //print_r($values);exit;
+      $object->bind($values, $ignore);     
+
+      if (!$object->check()) {
+        $this->setError($object->getError());
+        echo JText::_('Error check: ') . $object->getError()."\n";
+        continue;
+      }
+      
+      // Store it in the db
+      if ($replace)
+      {
+        // We want to keep id from database so first we try to insert into database. if it fails,
+        // it means the record already exists, we can use store().
+        if (!$object->insertIgnore()) {
+          if (!$object->store()) {
+	          echo JText::_('Error store: ') .  $this->_db->getErrorMsg()."\n";
+	          continue;
+          }
+          else {
+          	$rec['updated']++;
+          }
+        }
+        else {
+          $rec['added']++;
+        }
+      }
+      else 
+      {
+	      if (!$object->store()) {
+	        echo JText::_('Error store: ') .  $this->_db->getErrorMsg()."\n";
+	        continue;
+	      }
+	      else {	      	
+          $rec['added']++;
+	      }
+      }
+    }
     
     return $rec;
   }

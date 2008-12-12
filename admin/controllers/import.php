@@ -42,9 +42,9 @@ class EventListControllerImport extends EventListController
 		parent::__construct();
 	}
 
-	function csvimport()
-	{	
-    $replace = JRequest::getVar('replace', 0, 'post', 'int');
+  function csveventimport()
+  { 
+    $replace = JRequest::getVar('replace_events', 0, 'post', 'int');
     $object = & JTable::getInstance('eventlist_events', '');
     $object_fields = get_object_vars($object);
     // add additional fields
@@ -102,8 +102,81 @@ class EventListControllerImport extends EventListController
       // database update
       if (count($records)) {
         $model = $this->getModel('import');
-        $result = $model->eventsimport($fields, $records, $replace, $uselocname, $createloc);
+        $result = $model->eventsimport($fields, $records, $replace);
         $msg .= "<p>total added records: ".$result."<br /></p>\n";
+      }
+      $this->setRedirect( 'index.php?option=com_eventlist&view=import', $msg ); 
+    }
+    else {
+      parent::display();
+    }
+  }
+  
+
+  function csvcategoriesimport()
+  { 
+    $replace = JRequest::getVar('replace_cats', 0, 'post', 'int');
+    $object = & JTable::getInstance('eventlist_categories', '');
+    $object_fields = get_object_vars($object);
+    
+    $msg = '';
+    if ( $file = JRequest::getVar( 'Filedata', null, 'files', 'array' ) )
+    {
+      $handle = fopen($file['tmp_name'],'r');
+      if(!$handle) {
+      	$msg = JText::_('Cannot open uploaded file.');  
+        $this->setRedirect( 'index.php?option=com_eventlist&view=import', $msg, 'error' );    
+      }
+      // get fields, on first row of the file
+      $fields = array();
+      if ( ($data = fgetcsv($handle, 1000, ",")) !== FALSE ) {
+        $numfields = count($data);
+        for ($c=0; $c < $numfields; $c++) {
+          // here, we make sure that the field match one of the fields of eventlist_venues table or special fields,
+          // otherwise, we don't add it
+          if ( array_key_exists($data[$c], $object_fields) ) {
+            $fields[$c]=$data[$c];
+          }
+        }
+      }
+      // If there is no validated fields, there is a problem...
+      if ( !count($fields) ) {
+        $msg .= "<p>Error parsing column names. Are you sure this is a proper csv export ?<br />try to export first to get an example of formatting</p>\n";
+        $this->setRedirect( 'index.php?option=com_eventlist&view=import', $msg, 'error' );
+        return;
+      }
+      else {
+        $msg .= "<p>".$numfields." fields found in first row</p>\n";
+        $msg .= "<p>".count($fields)." fields were kept</p>\n";
+      }
+      
+      // Now get the records, meaning the rest of the rows.
+      $records = array();
+      $row = 1;
+      while ( ($data = fgetcsv($handle, 1000, ",")) !== FALSE ) {
+        $num = count($data);
+        if ($numfields != $num) {
+          $msg .= "<p>Wrong number of fields ($num) line $row<br /></p>\n";
+        }
+        else {
+          $r = array();
+          // only extract columns with validated header, from previous step.
+          foreach ($fields as $k => $v) {
+            $r[] = $this->_formatcsvfield($v, $data[$k]);
+          }
+          $records[] = $r;
+        }
+        $row++;
+      }
+      fclose($handle);
+      $msg .= "<p>total records found: ".count($records)."<br /></p>\n";
+         
+      // database update
+      if (count($records)) {
+        $model = $this->getModel('import');
+        $result = $model->categoriesimport($fields, $records, $replace);
+        $msg .= "<p>total added records: ".$result['added']."<br /></p>\n";
+        $msg .= "<p>total updated records: ".$result['updated']."<br /></p>\n";
       }
       $this->setRedirect( 'index.php?option=com_eventlist&view=import', $msg ); 
     }

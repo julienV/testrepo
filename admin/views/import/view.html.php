@@ -48,6 +48,7 @@ class EventListViewImport extends JView {
 
 		// Get data from the model    
 		$eventfields = & $this->get( 'EventFields' );
+    $catfields = & $this->get( 'CategoryFields' );
 
 		//add css and submenu to document
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
@@ -66,6 +67,7 @@ class EventListViewImport extends JView {
 
 		//assign vars to the template
     $this->assignRef('eventfields', $eventfields);
+    $this->assignRef('catfields', $catfields);
 
 		parent::display($tpl);
 
