@@ -146,10 +146,10 @@ print ($cal->showMonth());
 </div>
 <div id="jlcalendarlegend">
   <div id="buttonshowall">
-  <?php echo JText::_('Show all'); ?>
+  <?php echo JText::_('SHOWALL'); ?>
   </div>
   <div id="buttonhideall">
-  <?php echo JText::_('Hide all'); ?>
+  <?php echo JText::_('HIDEALL'); ?>
   </div>
 	<?php
 	//print the legend
