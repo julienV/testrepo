@@ -272,7 +272,7 @@ class EventListModelCategories extends JModel
         . ' AND c.parent_id = ' . (int) $this->_id
         . ' AND c.access <= '.$gid
         ;
-    if (!$params->get('empty_cat'))
+    if (!$params->get('empty_cat', 1))
     {
       $task   = JRequest::getWord('task');
       if($task == 'archive') {
