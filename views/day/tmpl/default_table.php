@@ -194,32 +194,30 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 				if ($this->elsettings->showstate == 1) :
 				?>
-
 					<td headers="el_state" align="left" valign="top"><?php echo $row->state ? $this->escape($row->state) : '-'; ?></td>
-
 				<?php
 				endif;
 
-				if ($this->elsettings->showcat == 1) :
-					if ($this->elsettings->catlinklist == 1) :
-					?>
-
-						<td headers="el_category" align="left" valign="top">
-							<a href="<?php echo JRoute::_('index.php?view=categoryevents&id='.$row->categoryslug); ?>">
-								<?php echo $row->catname ? $this->escape($row->catname) : '-' ; ?>
-							</a>
-						</td>
-
-					<?php else : ?>
-
-						<td headers="el_category" align="left" valign="top">
-							<?php echo $row->catname ? $this->escape($row->catname) : '-'; ?>
-						</td>
-
-				<?php
-					endif;
-				endif;
-				?>
+				if ($this->elsettings->showcat == 1) : ?>
+          <td headers="el_category" align="left" valign="top">
+					<?php 
+		        $nr = count($row->categories);
+		        $ix = 0; 
+		        foreach ($row->categories as $key => $category) : ?>
+		          <?php if ($this->elsettings->catlinklist == 1): ?>					    
+                <a href="<?php echo JRoute::_('index.php?view=categoryevents&id='.$category->catslug); ?>">
+                  <?php echo $category->catname; ?>
+                </a>
+              <?php else: ?>
+                <?php echo $category->catname; ?>
+		          <?php endif;           
+			        $ix++;
+			        if ($ix != $nr) :
+			          echo ', ';
+			        endif;			        
+		        endforeach;	?>
+		        </td>
+				<?php	endif; ?>
 
 			</tr>
 

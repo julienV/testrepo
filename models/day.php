@@ -158,8 +158,17 @@ class EventListModelDay extends JModel
 			if ($pop) {
 				$this->_data = $this->_getList( $query );
 			} else {
-				$this->_data = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
+				$pagination = $this->getPagination();
+				$this->_data = $this->_getList( $query, $pagination->limitstart, $pagination->limit );
 			}
+			
+			//get categories for each event
+      $count = count($this->_data);
+      for($i = 0; $i < $count; $i++)
+      {
+        $item =& $this->_data[$i];
+        $item->categories = $this->getCategories($item->id);   
+      }
 		}
 
 		return $this->_data;
@@ -214,7 +223,7 @@ class EventListModelDay extends JModel
 		$orderby	= $this->_buildEventListOrderBy();
 
 		//Get Events from Database
-		$query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.created, a.locid, a.datdescription,'
+		$query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.created, a.locid, a.datdescription,'
 				. ' l.venue, l.city, l.state, l.url,'
 				. ' c.catname, c.id AS catid,'
 				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
@@ -322,5 +331,33 @@ class EventListModelDay extends JModel
 	{
 		return $this->_date;
 	}
+	
+
+  /**
+   * get event categories
+   *
+   * @param int event id
+   * @return array
+   */
+  function getCategories($id)
+  {
+    $user   = & JFactory::getUser();
+    $gid    = (int) $user->get('aid');
+    
+    $query = 'SELECT DISTINCT c.id, c.catname, c.access, c.checked_out AS cchecked_out,'
+        . ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug'
+        . ' FROM #__eventlist_categories AS c'
+        . ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.catid = c.id'
+        . ' WHERE rel.itemid = '.(int)$id
+        . ' AND c.published = 1'
+        . ' AND c.access  <= '.$gid;
+        ;
+  
+    $this->_db->setQuery( $query );
+
+    $this->_cats = $this->_db->loadObjectList();
+    
+    return $this->_cats;
+  }
 }
 ?>

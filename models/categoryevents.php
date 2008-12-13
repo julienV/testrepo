@@ -407,6 +407,12 @@ class EventListModelCategoryevents extends JModel
 		return $this->_category;
 	}
 
+	/**
+	 * get event categories
+	 *
+	 * @param int event id
+	 * @return array
+	 */
 	function getCategories($id)
 	{
 		$user		= & JFactory::getUser();
