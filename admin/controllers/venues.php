@@ -217,6 +217,12 @@ class EventListControllerVenues extends EventListController
 		$post = JRequest::get( 'post' );
 		$post['locdescription'] = JRequest::getVar( 'locdescription', '', 'post', 'string', JREQUEST_ALLOWRAW );
 		$post['locdescription']	= str_replace( '<br>', '<br />', $post['locdescription'] );
+		if (JRequest::getVar( 'latitude', '', 'post', 'string') == '') {
+			$post['latitude'] = null;
+		}
+    if (JRequest::getVar( 'longitude', '', 'post', 'string') == '') {
+      unset($post['longitude']);
+    }
 
 
 		$model = $this->getModel('venue');

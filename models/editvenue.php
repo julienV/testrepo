@@ -125,6 +125,8 @@ class EventListModelEditvenue extends JModel
 			$this->_venue->city				= '';
 			$this->_venue->state			= '';
 			$this->_venue->country			= '';
+      $this->_venue->latitude      = '';
+      $this->_venue->longitude      = '';
 			$this->_venue->map				= $elsettings->showmapserv ? 1 : 0;
 			$this->_venue->created			= '';
 			$this->_venue->created_by		= '';
@@ -199,7 +201,7 @@ class EventListModelEditvenue extends JModel
 		$tzoffset 		= $mainframe->getCfg('offset');
 
 		$row 		= & JTable::getInstance('eventlist_venues', '');
-
+	
 		//bind it to the table
 		if (!$row->bind($data)) {
 			JError::raiseError( 500, $this->_db->stderr() );

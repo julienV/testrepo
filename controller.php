@@ -157,6 +157,12 @@ class EventListController extends JController
 		//Sanitize
 		$post = JRequest::get( 'post' );
 		$post['locdescription'] = JRequest::getVar( 'locdescription', '', 'post', 'string', JREQUEST_ALLOWRAW );
+    if (JRequest::getVar( 'latitude', '', 'post', 'string') == '') {
+      unset($post['latitude']);
+    }
+    if (JRequest::getVar( 'longitude', '', 'post', 'string') == '') {
+      unset($post['longitude']);
+    }
 
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
 

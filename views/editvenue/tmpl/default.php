@@ -235,6 +235,20 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
               	<label for="map1"><?php echo JText::_( 'yes' ); ?></label>
               	<input type="radio" name="map" id="map1" onchange="addrequired();" value="1" <?php echo $this->row->map == 1 ? 'checked="checked"' : ''; ?> class="inputbox" />
             </div>
+            <div class="el_latitude floattext">
+                <label for="latitude"><?php echo JText::_( 'LATITUDE' ).':'; ?></label>
+                <input class="inputbox" name="latitude" id="latitude" type="text" value="<?php echo $this->row->latitude; ?>" size="15" maxlength="25" />&nbsp;
+                <span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('LATITUDE HINT'); ?>">
+                    <?php echo $this->infoimage; ?>
+                </span>
+            </div>
+            <div class="el_longitude floattext">
+                <label for="longitude"><?php echo JText::_( 'LONGITUDE' ).':'; ?></label>
+                <input class="inputbox" name="longitude" id="longitude" type="text" value="<?php echo $this->row->longitude; ?>" size="15" maxlength="25" />&nbsp;
+                <span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('LONGITUDE HINT'); ?>">
+                    <?php echo $this->infoimage; ?>
+                </span>
+            </div>
             <?php endif; ?>
 
         </fieldset>
