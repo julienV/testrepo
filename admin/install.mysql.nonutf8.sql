@@ -40,6 +40,8 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_venues` (
 `city` varchar(150) default NULL,
 `state` varchar(150) default NULL,
 `country` varchar(6) default NULL,
+`latitude` float default NULL,
+`longitude` float default NULL,
 `locdescription` mediumtext NOT NULL,
 `meta_keywords` text NOT NULL,
 `meta_description` text NOT NULL,
