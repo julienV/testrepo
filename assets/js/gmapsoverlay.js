@@ -113,6 +113,8 @@ var GMapsOverlay = {
 	},
 
 	click: function(link){
+	
+    this.linkobject = link;
 
 		return this.show(link.href);
 
@@ -121,7 +123,7 @@ var GMapsOverlay = {
 	show: function(link){
 
 		this.link = link;
-
+		
 		this.position();
 
 		this.setup(true);
@@ -183,8 +185,16 @@ var GMapsOverlay = {
 
 		var addressclean = addressstring.substr(0, ((addressstring.length)-(venuestring.length+1)) )
 
-		this.showAddress(addressclean);
-
+    var latitude = $(this.linkobject).getProperty('latitude');
+    var longitude= $(this.linkobject).getProperty('longitude');
+    
+    if (latitude && longitude) {
+      venuepos = new GLatLng(latitude, longitude);
+      this.showPoint(venuepos, addressclean);
+    }
+    else {
+		  this.showAddress(addressclean);
+		}
 		this.nextEffect();
 
 		return false;
@@ -326,7 +336,47 @@ var GMapsOverlay = {
 
 		}.bind(this));
 
-	}
+	},
+	
+	showPoint: function(target, address){
+    
+      if(target){
+
+        //set center
+        this.map.setCenter(target, 15);
+
+        //scroll == zoom
+        this.map.enableScrollWheelZoom();
+
+        //zoom only when mous in map area
+        GEvent.addDomListener(this.map.getContainer(), "DOMMouseScroll",
+        function(oEvent) { if (oEvent.preventDefault)
+        oEvent.preventDefault(); });
+
+        //set marker
+        var marker = new GMarker(target);
+
+        this.map.addOverlay(marker);
+
+        /*get data from json
+        * removed cause of sometimes (happens us based addresses) undefined SubAdministrativeArea
+        *
+        var streetAddress = place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.Thoroughfare.ThoroughfareName;
+        var city = place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName;
+        var zip = place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.PostalCode.PostalCodeNumber;
+        var state = place.AddressDetails.Country.AdministrativeArea.AdministrativeAreaName;
+        var country = place.AddressDetails.Country.CountryNameCode;
+        
+        */
+        //get venue param
+        var venue = decodeURI(this.link.substring(this.link.indexOf('venue=')+6));
+
+        //html window
+    //    marker.openInfoWindowHtml('<strong>' + venue + '</strong><br />' + streetAddress + '<br />' + country + '-' + zip + ' ' + city + '<br />' + state);
+                
+        marker.openInfoWindowHtml('<strong>' + venue + '</strong><br />' + address);
+      }
+  }
 };
 
 window.addEvent('domready', GMapsOverlay.init.bind(GMapsOverlay));

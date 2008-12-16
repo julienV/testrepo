@@ -308,8 +308,8 @@ class ELOutput {
 					$document->addScript('http://maps.google.com/maps?file=api&amp;v=2.115&amp;key='.trim($settings->gmapkey));
   					$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/gmapsoverlay.css', 'text/css');
 
-					$url		= 'http://maps.google.com/maps?q='.str_replace(" ", "+", $data->street).', '.$data->plz.' '.str_replace(" ", "+", $data->city).', '.$data->country.'&amp;venue='.$data->venue;
-					$attributes = ' rel="gmapsoverlay"';
+					$url		= 'http://maps.google.com/maps?q='.str_replace(" ", " ", $data->street).', '.$data->plz.' '.str_replace(" ", "+", $data->city).', '.$data->country.'&amp;venue='.$data->venue;
+					$attributes = ' rel="gmapsoverlay" latitude="'.$data->latitude.'" longitude="'.$data->longitude.'"';
 				} else {
 					$url		= 'http://maps.google.com/maps?q='.str_replace(" ", "+", $data->street).', '.$data->plz.' '.str_replace(" ", "+", $data->city).', '.$data->country;
 				}
