@@ -106,8 +106,8 @@ class ELHelper {
 				$recurrence_row = ELHelper::calculate_recurrence($recurrence_row);
 				
 				// add events as long as we are under the interval and under the limit, if specified.				
-				while (($recurrence_row['recurrence_counter'] == $nulldate || $recurrence_row['dates'] <= $recurrence_row['recurrence_counter']) 
-				     && $recurrence_row['dates'] <= strftime("%Y-%m-%d", time() + 86400*30)) 
+				while (($recurrence_row['recurrence_counter'] == $nulldate || strtotime($recurrence_row['dates']) <= strtotime($recurrence_row['recurrence_counter'])) 
+				     && strtotime($recurrence_row['dates']) <= time() + 86400*30) 
 				{
 					$new_event = & JTable::getInstance('eventlist_events', '');
 					$new_event->bind($first_event, array('id', 'hits', 'dates', 'enddates'));
