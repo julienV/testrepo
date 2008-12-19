@@ -214,7 +214,7 @@ defined('_JEXEC') or die('Restricted access');
                   <?php echo JText::_( 'TITLE' ).':'; ?>
               </label>
 
-              <input class="inputbox required" type="text" id="title" name="title" value="<?php echo $this->escape($this->row->title); ?>" size="65" maxlength="60" />
+              <input class="inputbox required" type="text" id="title" name="title" value="<?php echo $this->row->title; ?>" size="65" maxlength="60" />
           </div>
 
           <div class="el_venue floattext">

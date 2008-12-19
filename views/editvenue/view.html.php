@@ -98,6 +98,8 @@ class EventListViewEditvenue extends JView
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('params' , 				$params);
+    $this->assignRef('title' ,         $title);
+		
 
 		parent::display($tpl);
 
