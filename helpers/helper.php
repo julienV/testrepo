@@ -138,7 +138,7 @@ class ELHelper {
 
 			//Set state archived of outdated events
 			if ($elsettings->oldevent == 2) {
-				$query = 'UPDATE #__eventlist_events SET published = -1 WHERE DATE_SUB(NOW(), INTERVAL '.$elsettings->minus.' DAY) > (IF (enddates <> '.$nulldate.', enddates, dates))';
+				$query = 'UPDATE #__eventlist_events SET published = -1 WHERE DATE_SUB(NOW(), INTERVAL '.$elsettings->minus.' DAY) > (IF (enddates <> '.$nulldate.', enddates, dates)) AND published = 1';
 				$db->SetQuery( $query );
 				$db->Query();
 			}
