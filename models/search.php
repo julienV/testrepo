@@ -285,7 +285,8 @@ class EventListModelSearch extends JModel
 		       . ' FROM #__eventlist_events AS a'
            . ' INNER JOIN #__eventlist_venues AS l ON l.id = a.locid'
            . ' INNER JOIN #__eventlist_countries as c ON c.iso2 = l.country '
-           . ' WHERE l.country = ' . $this->_db->Quote($country);
+           . ' WHERE l.country = ' . $this->_db->Quote($country)
+           . ' ORDER BY l.city ';           
     $this->_db->setQuery($query);
     return $this->_db->loadObjectList();
 	}
