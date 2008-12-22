@@ -196,6 +196,12 @@ defined('_JEXEC') or die('Restricted access');
     <h1 class="componentheading">
         <?php echo $this->params->get('page_title'); ?>
     </h1>
+    <?php endif; ?>    
+    
+    <?php if ($this->params->get('showintrotext')) : ?>
+      <div class="description no_space floattext">
+        <?php echo $this->params->get('introtext'); ?>
+      </div>
     <?php endif; ?>
 
     <form enctype="multipart/form-data" id="adminForm" action="<?php echo JRoute::_('index.php') ?>" method="post" class="form-validate">
