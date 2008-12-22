@@ -61,6 +61,7 @@ class EventListViewSearch extends JView
 		$filter_country = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_country', 'filter_country', '', 'string');
     $filter_city = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_city', 'filter_city', '', 'string');
     $filter_date = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_date', 'filter_date', '', 'string');
+    $filter_category = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_category', 'filter_category', 0, 'int');
 		$task 		= JRequest::getWord('task');
 		$pop		= JRequest::getBool('pop');
 
@@ -96,7 +97,7 @@ class EventListViewSearch extends JView
 		
 		//Set Page title
 		$mainframe->setPageTitle( $pagetitle );
-   		$mainframe->addMetaTag( 'title' , $pagetitle );
+    $mainframe->addMetaTag( 'title' , $pagetitle );
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
@@ -123,20 +124,28 @@ class EventListViewSearch extends JView
 			$uri->delVar('filter');
 			$uri->delVar('filter_type');
 		}
+		//Cause of group limits we can't use class here to build the categories tree
+    $categories   = $this->get('CategoryTree');
+    $selectedcats = ($filter_category) ? array($filter_category) : array();
+    
+    //build selectlists
+    $lists['categories'] = eventlist_cats::buildcatselect($categories, 'filter_category', $selectedcats, 0, 'size="1" class="inputbox"');
 
 		// Create the pagination object
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 		
+		// date filter
 		$lists['date'] = JHTML::_('calendar', $filter_date, 'filter_date', 'filter_date', '%Y-%m-%d', 'class="inputbox" onchange="this.form.submit();"');
 		
-		// country list
+		// country filter
     $countries = array();
     $countries[] = JHTML::_('select.option', '', JText::_('Select country'));
     $countries = array_merge($countries, $this->get('CountryOptions'));
     $lists['countries'] = JHTML::_('select.genericlist', $countries, 'filter_country', 'class="inputbox" onchange="updateCountry(this);"', 'value', 'text', $filter_country);
     unset($countries);
     
+    // city filter
     if ($filter_country) {
 	    $cities = array();
 	    $cities[] = JHTML::_('select.option', '', JText::_('Select city'));

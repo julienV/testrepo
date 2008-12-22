@@ -71,6 +71,12 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	<div class="floattext">
     <div>
       <?php
+      echo '<label for="category">'.JText::_('Category').'</label>&nbsp;';
+      echo $this->lists['categories'];
+      ?>
+    </div>
+    <div>
+      <?php
       echo '<label for="date">'.JText::_('Date').'</label>&nbsp;';
       echo $this->lists['date'];
       ?>

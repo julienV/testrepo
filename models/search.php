@@ -290,5 +290,84 @@ class EventListModelSearch extends JModel
     $this->_db->setQuery($query);
     return $this->_db->loadObjectList();
 	}
+	
+
+  /**
+   * logic to get the categories
+   *
+   * @access public
+   * @return void
+   */
+  function getCategoryTree( )
+  {
+    $user   = & JFactory::getUser();
+    $elsettings = & ELHelper::config();
+    $userid   = (int) $user->get('id');
+    $gid    = (int) $user->get('aid');
+    $superuser  = ELUser::superuser();
+
+    $where = ' WHERE c.published = 1 AND c.access <= '.$gid;
+
+    //only check for maintainers if we don't have an edit action
+    if(!$this->_id) {
+      //get the ids of the categories the user maintaines
+      $query = 'SELECT g.group_id'
+          . ' FROM #__eventlist_groupmembers AS g'
+          . ' WHERE g.member = '.$userid
+          ;
+      $this->_db->setQuery( $query );
+      $catids = $this->_db->loadResultArray();
+
+      $categories = implode(' OR c.groupid = ', $catids);
+
+      //build ids query
+      if ($categories) {
+        //check if user is allowed to submit events in general, if yes allow to submit into categories
+        //which aren't assigned to a group. Otherwise restrict submission into maintained categories only 
+        if (ELUser::validate_user($elsettings->evdelrec, $elsettings->delivereventsyes)) {
+          $where .= ' AND c.groupid = 0 OR c.groupid = '.$categories;
+        } else {
+          $where .= ' AND c.groupid = '.$categories;
+        }
+      } else {
+        $where .= ' AND c.groupid = 0';
+      }
+
+    }
+
+    //administrators or superadministrators have access to all categories, also maintained ones
+    if($superuser) {
+      $where = ' WHERE c.published = 1';
+    }
+
+    //get the maintained categories and the categories whithout any group
+    //or just get all if somebody have edit rights
+    $query = 'SELECT c.*'
+        . ' FROM #__eventlist_categories AS c'
+        . $where
+        . ' ORDER BY c.ordering'
+        ;
+    $this->_db->setQuery( $query );
+
+  //  $this->_category = array();
+  //  $this->_category[] = JHTML::_('select.option', '0', JText::_( 'SELECT CATEGORY' ) );
+  //  $this->_categories = array_merge( $this->_category, $this->_db->loadObjectList() );
+  
+    $rows = $this->_db->loadObjectList();
+    
+    //set depth limit
+    $levellimit = 10;
+    
+    //get children
+      $children = array();    
+      foreach ($rows as $child) {
+          $parent = $child->parent_id;
+          $list = @$children[$parent] ? $children[$parent] : array();
+          array_push($list, $child);
+          $children[$parent] = $list;
+      }
+      //get list of the items
+     return eventlist_cats::treerecurse(0, '', array(), $children, true, max(0, $levellimit-1));
+  }
 }
 ?>
