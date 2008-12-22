@@ -131,12 +131,8 @@ class EventListModelEditevent extends JModel
 			$maintainer = ELUser::ismaintainer();
 			$genaccess 	= ELUser::validate_user( $elsettings->evdelrec, $elsettings->delivereventsyes );
 
-			if ($maintainer || $genaccess ) $dellink = 1;
-
-			if ($dellink == 0) {
-
+			if ( !($maintainer || $genaccess )) {
 				JError::raiseError( 403, JText::_( 'NO ACCESS' ) );
-
 			}
 
 			//prepare output
@@ -551,9 +547,7 @@ class EventListModelEditevent extends JModel
 			$maintainer = ELUser::ismaintainer();
 			$genaccess 	= ELUser::validate_user( $elsettings->evdelrec, $elsettings->delivereventsyes );
 
-			if ($maintainer || $genaccess ) $dellink = 1;
-
-			if ($dellink == 0){
+			if ( !($maintainer || $genaccess) ){
 				JError::raiseError( 403, JText::_( 'NO ACCESS' ) );
 			}
 
