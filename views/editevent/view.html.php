@@ -44,7 +44,7 @@ class EventListViewEditevent extends JView
 		
 		$user   = & JFactory::getUser();
     if (!$user->id) {
-      $mainframe->redirect(JRoute::_($_SERVER["HTTP_REFERER"]), JText::_('Please login to be able to submit events') );
+      $mainframe->redirect(JRoute::_($_SERVER["HTTP_REFERER"]), JText::_('Please login to be able to submit events'), 'error' );
     }
 
 		if($this->getLayout() == 'choosevenue') {
