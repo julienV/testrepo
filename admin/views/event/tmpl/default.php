@@ -71,7 +71,10 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 			alert( "<?php echo JText::_ ( 'CHOOSE CATEGORY' );?>" );
 		} else if (form.locid.value == ""){
 			alert( "<?php echo JText::_ ( 'CHOOSE VENUE' );	?>" );
-		} else {
+		} else if (form.contact_phone.value == "" && (form.contact_email_hide.checked || form.contact_email.value == '')){
+        alert( "<?php echo JText::_ ( 'Phone number is mandatory if email is not public or empty.' ); ?>" );
+    }
+     else {
 			<?php
 			echo $this->editor->save ( 'datdescription' );
 			?>
@@ -320,8 +323,76 @@ $infoimage = JHTML::image ( 'components/com_eventlist/assets/images/icon-16-hint
 		</table>
 		
 		<?php
-		$title = JText::_ ( 'REGISTRATION' );
 		echo $this->pane->endPanel ();
+    echo $this->pane->startPanel(JText::_('Contact'), 'contact');
+    ?>
+    <table>
+      <tr>
+        <td>
+          <label for="Organization">
+              <?php
+              echo JText::_ ( 'Organization' ) . ':';
+              ?>
+          </label>
+        </td>
+        <td>
+          <input type="text" id="organization" name="organization" size="20" class="inputbox" value="<?php echo $this->row->organization; ?>"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Contact">
+              <?php
+              echo JText::_ ( 'Contact' ) . ':';
+              ?>
+          </label>
+        </td>
+        <td>
+          <input type="text" id="contact" name="contact" size="20" class="inputbox" value="<?php echo $this->row->contact; ?>"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Contact-email">
+              <?php
+              echo JText::_ ( 'Email' ) . ':';
+              ?>
+          </label>
+        </td>
+        <td>
+          <input type="text" id="contact_email" name="contact_email" size="20" class="inputbox" value="<?php echo $this->row->contact_email; ?>"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Contact-email_hide">
+              <?php
+              echo JText::_ ( 'Hide email ?' ) . ':';
+              ?>
+          </label>
+        </td>
+        <td>
+          <input type="checkbox" id="contact_email_hide" name="contact_email_hide" class="inputbox"<?php echo ($this->row->contact_email_hide) ? ' checked="checked"':''; ?>" value="1"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="Contact-phone">
+              <?php
+              echo JText::_ ( 'Phone' ) . ':';
+              ?>
+          </label>
+        </td>
+        <td>
+          <input type="text" id="contact_phone" name="contact_phone" size="20" class="inputbox" value="<?php echo $this->row->contact_phone; ?>"/>
+        </td>
+      </tr>
+    </table>
+    
+    <?php
+    echo $this->pane->endPanel ();
+		
+		$title = JText::_ ( 'REGISTRATION' );
 		echo $this->pane->startPanel ( $title, 'registra' );
 		?>
 		<table>
@@ -347,11 +418,11 @@ $infoimage = JHTML::image ( 'components/com_eventlist/assets/images/icon-16-hint
 					?>
 				</td>
 			</tr>
-		</table>
-		
+		</table>		
 		<?php
-		$title = JText::_ ( 'IMAGE' );
 		echo $this->pane->endPanel ();
+		
+    $title = JText::_ ( 'IMAGE' );
 		echo $this->pane->startPanel ( $title, 'image' );
 		?>
 		<table>

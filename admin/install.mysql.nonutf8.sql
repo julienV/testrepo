@@ -27,6 +27,11 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_events` (
 `unregistra` tinyint(1) NOT NULL default '0',
 `hits` int(11) unsigned NOT NULL default '0',
 `published` tinyint(1) NOT NULL default '0',
+`organization` varchar(30) NOT NULL,
+`contact` varchar(30) NOT NULL,
+`contact_email` varchar(255) NOT NULL,
+`contact_email_hide` tinyint(1) NOT NULL default '0',
+`contact_phone` varchar(20) NOT NULL,
 PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 

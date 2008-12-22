@@ -89,6 +89,14 @@ class eventlist_events extends JTable
 	var $checked_out 		= null;
 	/** @var date */
 	var $checked_out_time 	= 0;
+	
+	/** for astronomers **/
+	var $organization  = null;
+	var $contact       = null;
+  var $contact_email = null;
+  var $contact_email_hide = 0;
+  var $contact_phone = null;
+	
 
 	function eventlist_events(& $db) {
 		parent::__construct('#__eventlist_events', 'id', $db);
