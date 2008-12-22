@@ -239,8 +239,8 @@ class EventListModelSearch extends JModel
     }
     // filter date
     if ($filter_date) {
-    	if (strtotime($date)) {
-    		$where .= ' AND (\''.$date.'\' BETWEEN (a.dates) AND (a.enddates) OR \''.$date.'\' = a.dates)';
+    	if (strtotime($filter_date)) {
+    		$where .= ' AND (\''.$filter_date.'\' BETWEEN (a.dates) AND (a.enddates) OR \''.$filter_date.'\' = a.dates)';
     	}
     }
     // filter country
