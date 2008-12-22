@@ -26,12 +26,24 @@ window.addEvent('domready', function(){
   });
     */
     
-  $('filter_country').addEvent('change', function() {
+  $('filter_continent').addEvent('change', function() {
+    if (country = $('filter_country')) {
+      country.selectedIndex = 0;
+    }
     if (city = $('filter_city')) {
       city.selectedIndex = 0;
     }
     this.form.submit();
   });
+  
+  if (country = $('filter_country')) {  
+    country.addEvent('change', function() {
+	    if (city = $('filter_city')) {
+	      city.selectedIndex = 0;
+	    }
+	    this.form.submit();
+	  });
+  }
   
   if (city = $('filter_city')) {  
 	  city.addEvent('change', function() {

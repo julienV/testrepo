@@ -161,6 +161,7 @@ class EventListModelSearch extends JModel
 					. ' FROM #__eventlist_events AS a'
 	        . ' INNER JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = a.id '
 					. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
+          . ' LEFT JOIN #__eventlist_countries AS c ON c.iso2 = l.country'
 					. $where
 					. $orderby
 					;
@@ -208,6 +209,7 @@ class EventListModelSearch extends JModel
 
 		$filter 		= JRequest::getString('filter', '', 'request');
 		$filter_type 	= JRequest::getWord('filter_type', '', 'request');
+    $filter_continent = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_continent', 'filter_continent', '', 'string');
     $filter_country = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_country', 'filter_country', '', 'string');
     $filter_city = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_city', 'filter_city', '', 'string');
     $filter_date = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_date', 'filter_date', '', 'string');
@@ -240,6 +242,10 @@ class EventListModelSearch extends JModel
     	if (strtotime($date)) {
     		$where .= ' AND (\''.$date.'\' BETWEEN (a.dates) AND (a.enddates) OR \''.$date.'\' = a.dates)';
     	}
+    }
+    // filter country
+    if ($filter_continent) {
+      $where .= ' AND c.continent = ' . $this->_db->Quote($filter_continent);
     }
     // filter country
     if ($filter_country) {
@@ -291,11 +297,18 @@ class EventListModelSearch extends JModel
   
   function getCountryOptions()
   {
+    global $mainframe;
+  	$filter_continent = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_continent', 'filter_continent', '', 'string');
+  	
     $query = ' SELECT DISTINCT c.iso2 as value, c.name as text '
            . ' FROM #__eventlist_events AS a'
            . ' INNER JOIN #__eventlist_venues AS l ON l.id = a.locid'
            . ' INNER JOIN #__eventlist_countries as c ON c.iso2 = l.country '
-           . ' ORDER BY c.name ';
+           ;
+    if ($filter_continent) {
+      $query .= ' WHERE c.continent = ' . $this->_db->Quote($filter_continent);
+    }
+    $query .= ' ORDER BY c.name ';
     $this->_db->setQuery($query);
     return $this->_db->loadObjectList();
   }

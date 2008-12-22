@@ -69,13 +69,23 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
       </tr>
       <tr>
         <td>
+          <?php echo '<label for="continent">'.JText::_('Continent').'</label>&nbsp;'; ?>
+        </td>
+        <td>
+          <?php echo $this->lists['continents'];?>
+        </td>
+      </tr>
+      <?php if ($this->filter_continent): ?>
+      <tr>
+        <td>
           <?php echo '<label for="country">'.JText::_('Country').'</label>&nbsp;'; ?>
         </td>
         <td>
           <?php echo $this->lists['countries'];?>
         </td>
       </tr>
-      <?php if ($this->filter_country): ?>
+      <?php endif; ?>
+      <?php if ($this->filter_continent && $this->filter_country): ?>
       <tr>
         <td>
           <?php echo '<label for="city">'.JText::_('City').'</label>&nbsp;';?>

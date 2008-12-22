@@ -61,6 +61,7 @@ class EventListViewSearch extends JView
 		// get variables
 		$limitstart	= JRequest::getVar('limitstart', 0, '', 'int');
 		$limit		= $mainframe->getUserStateFromRequest('com_eventlist.search.limit', 'limit', $params->def('display_num', 0), 'int');
+    $filter_continent = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_continent', 'filter_continent', '', 'string');
 		$filter_country = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_country', 'filter_country', '', 'string');
     $filter_city = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_city', 'filter_city', '', 'string');
     $filter_date = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_date', 'filter_date', '', 'string');
@@ -142,7 +143,20 @@ class EventListViewSearch extends JView
 		
 		// date filter
 		$lists['date'] = JHTML::_('calendar', $filter_date, 'filter_date', 'filter_date', '%Y-%m-%d', 'class="inputbox" onChange="this.form.submit();"');
-		
+
+		// country filter
+    $continents = array();
+    $continents[] = JHTML::_('select.option', '', JText::_('Select continent'));
+    $continents[] = JHTML::_('select.option', 'AF', JText::_('Africa'));
+    $continents[] = JHTML::_('select.option', 'AS', JText::_('Asia'));
+    $continents[] = JHTML::_('select.option', 'EU', JText::_('Europe'));
+    $continents[] = JHTML::_('select.option', 'NA', JText::_('North America'));
+    $continents[] = JHTML::_('select.option', 'SA', JText::_('South America'));
+    $continents[] = JHTML::_('select.option', 'OC', JText::_('Oceania'));
+    $continents[] = JHTML::_('select.option', 'AN', JText::_('Antartica'));    
+    $lists['continents'] = JHTML::_('select.genericlist', $continents, 'filter_continent', 'class="inputbox"', 'value', 'text', $filter_continent);
+    unset($continents);
+    
 		// country filter
     $countries = array();
     $countries[] = JHTML::_('select.option', '', JText::_('Select country'));
@@ -172,6 +186,7 @@ class EventListViewSearch extends JView
 		$this->assignRef('pageNav' , 				$pageNav);
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('pagetitle' , 				$pagetitle);
+    $this->assignRef('filter_continent' ,        $filter_continent);
     $this->assignRef('filter_country' ,        $filter_country);
 
 		parent::display($tpl);
