@@ -149,6 +149,7 @@ class EventListModelSearch extends JModel
 				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
 				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
 				. ' FROM #__eventlist_events AS a'
+        . ' INNER JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = a.id '
 				. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
 				. $where
 				. $orderby
@@ -240,6 +241,11 @@ class EventListModelSearch extends JModel
       if ($filter_country && $filter_city = JRequest::getString('filter_city', '', 'request')) {
         $where .= ' AND l.city = ' . $this->_db->Quote($filter_city);
       }
+      // filter category
+      if ($filter_category = JRequest::getString('filter_category', 0, 'request', 'int')) {      	
+      	$cats = eventlist_cats::getChilds((int) $filter_category);
+        $where .= ' AND rel.catid IN (' . implode(', ', $cats) .')';
+      }
 		}
 		return $where;
 	}
@@ -308,38 +314,6 @@ class EventListModelSearch extends JModel
 
     $where = ' WHERE c.published = 1 AND c.access <= '.$gid;
 
-    //only check for maintainers if we don't have an edit action
-    if(!$this->_id) {
-      //get the ids of the categories the user maintaines
-      $query = 'SELECT g.group_id'
-          . ' FROM #__eventlist_groupmembers AS g'
-          . ' WHERE g.member = '.$userid
-          ;
-      $this->_db->setQuery( $query );
-      $catids = $this->_db->loadResultArray();
-
-      $categories = implode(' OR c.groupid = ', $catids);
-
-      //build ids query
-      if ($categories) {
-        //check if user is allowed to submit events in general, if yes allow to submit into categories
-        //which aren't assigned to a group. Otherwise restrict submission into maintained categories only 
-        if (ELUser::validate_user($elsettings->evdelrec, $elsettings->delivereventsyes)) {
-          $where .= ' AND c.groupid = 0 OR c.groupid = '.$categories;
-        } else {
-          $where .= ' AND c.groupid = '.$categories;
-        }
-      } else {
-        $where .= ' AND c.groupid = 0';
-      }
-
-    }
-
-    //administrators or superadministrators have access to all categories, also maintained ones
-    if($superuser) {
-      $where = ' WHERE c.published = 1';
-    }
-
     //get the maintained categories and the categories whithout any group
     //or just get all if somebody have edit rights
     $query = 'SELECT c.*'
@@ -347,27 +321,22 @@ class EventListModelSearch extends JModel
         . $where
         . ' ORDER BY c.ordering'
         ;
-    $this->_db->setQuery( $query );
-
-  //  $this->_category = array();
-  //  $this->_category[] = JHTML::_('select.option', '0', JText::_( 'SELECT CATEGORY' ) );
-  //  $this->_categories = array_merge( $this->_category, $this->_db->loadObjectList() );
-  
+    $this->_db->setQuery( $query );  
     $rows = $this->_db->loadObjectList();
     
     //set depth limit
     $levellimit = 10;
     
     //get children
-      $children = array();    
-      foreach ($rows as $child) {
-          $parent = $child->parent_id;
-          $list = @$children[$parent] ? $children[$parent] : array();
-          array_push($list, $child);
-          $children[$parent] = $list;
-      }
-      //get list of the items
-     return eventlist_cats::treerecurse(0, '', array(), $children, true, max(0, $levellimit-1));
+    $children = array();
+    foreach ($rows as $child) {
+    	$parent = $child->parent_id;
+    	$list = @$children[$parent] ? $children[$parent] : array();
+    	array_push($list, $child);
+    	$children[$parent] = $list;
+    }
+    //get list of the items
+    return eventlist_cats::treerecurse(0, '', array(), $children, true, max(0, $levellimit-1));
   }
 }
 ?>

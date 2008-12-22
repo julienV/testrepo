@@ -54,6 +54,9 @@ class EventListViewSearch extends JView
 		//add css file
 		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
 		$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');
+    // add javascript
+    JHTML::_('behavior.mootools');
+    $document->addScript( $this->baseurl.'/components/com_eventlist/assets/js/search.js' );
 
 		// get variables
 		$limitstart	= JRequest::getVar('limitstart', 0, '', 'int');
@@ -126,23 +129,26 @@ class EventListViewSearch extends JView
 		}
 		//Cause of group limits we can't use class here to build the categories tree
     $categories   = $this->get('CategoryTree');
+    $catoptions = array();
+    $catoptions[] = JHTML::_('select.option', '0', JText::_('Select category'));
+    $catoptions = array_merge($catoptions, eventlist_cats::getcatselectoptions($categories));
     $selectedcats = ($filter_category) ? array($filter_category) : array();
     
     //build selectlists
-    $lists['categories'] = eventlist_cats::buildcatselect($categories, 'filter_category', $selectedcats, 0, 'size="1" class="inputbox"');
+    $lists['categories'] =  JHTML::_('select.genericlist', $catoptions, 'filter_category', 'size="1" class="inputbox"', 'value', 'text', $selectedcats);
 
 		// Create the pagination object
 		jimport('joomla.html.pagination');
 		$pageNav = new JPagination($total, $limitstart, $limit);
 		
 		// date filter
-		$lists['date'] = JHTML::_('calendar', $filter_date, 'filter_date', 'filter_date', '%Y-%m-%d', 'class="inputbox" onchange="this.form.submit();"');
+		$lists['date'] = JHTML::_('calendar', $filter_date, 'filter_date', 'filter_date', '%Y-%m-%d', 'class="inputbox" onChange="this.form.submit();"');
 		
 		// country filter
     $countries = array();
     $countries[] = JHTML::_('select.option', '', JText::_('Select country'));
     $countries = array_merge($countries, $this->get('CountryOptions'));
-    $lists['countries'] = JHTML::_('select.genericlist', $countries, 'filter_country', 'class="inputbox" onchange="updateCountry(this);"', 'value', 'text', $filter_country);
+    $lists['countries'] = JHTML::_('select.genericlist', $countries, 'filter_country', 'class="inputbox"', 'value', 'text', $filter_country);
     unset($countries);
     
     // city filter
@@ -150,7 +156,7 @@ class EventListViewSearch extends JView
 	    $cities = array();
 	    $cities[] = JHTML::_('select.option', '', JText::_('Select city'));
 	    $cities = array_merge($cities, $this->get('CityOptions'));
-	    $lists['cities'] = JHTML::_('select.genericlist', $cities, 'filter_city', 'class="inputbox" onchange="this.form.submit();"', 'value', 'text', $filter_city);
+	    $lists['cities'] = JHTML::_('select.genericlist', $cities, 'filter_city', 'class="inputbox"', 'value', 'text', $filter_city);
 	    unset($cities);    	
     }
 

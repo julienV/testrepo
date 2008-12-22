@@ -32,70 +32,68 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		form.filter_order_Dir.value	= dir;
 		form.submit( view );
 	}
-	
-	function updateCountry(element)
-	{
-	  if (city = $('filter_city')) {
-      city.selectedIndex = 0;
-    }
-	  element.form.submit();
-	}
 </script>
 
 <form action="<?php echo $this->action; ?>" method="post" id="adminForm">
 
 <?php if ($this->params->get('filter') || $this->params->get('display')) : ?>
-<div id="el_filter">
-
-  <div class="floattext">
-		<?php if ($this->params->get('filter')) : ?>
-		<div class="el_fleft">
-			<?php
-			echo '<label for="filter_type">'.JText::_('FILTER').'</label>&nbsp;';
-			echo $this->lists['filter_types'].'&nbsp;';
-			?>
-			<input type="text" name="filter" id="filter" value="<?php echo $this->lists['filter'];?>" class="inputbox" onchange="document.getElementById('adminForm').submit();" />
-			<button onclick="document.getElementById('adminForm').submit();"><?php echo JText::_( 'GO' ); ?></button>
-			<button onclick="document.getElementById('filter').value='';document.getElementById('adminForm').submit();"><?php echo JText::_( 'RESET' ); ?></button>
-		</div>
-		<?php endif; ?>
-		<?php if ($this->params->get('display')) : ?>
-		<div class="el_fright">
-			<?php
-			echo '<label for="limit">'.JText::_('DISPLAY NUM').'</label>&nbsp;';
-			echo $this->pageNav->getLimitBox();
-			?>
-		</div>
-		<?php endif; ?>
+<div id="el_filter" class="floattext">
+  <div class="el_fleft">
+		<table>
+		  <tr>
+		    <td>
+			    <label for="filter_type"><?php echo JText::_('FILTER');  ?></label>
+			  </td>
+			  <td>			
+				<?php echo  $this->lists['filter_types']; ?>
+	      <input type="text" name="filter" id="filter" value="<?php echo $this->lists['filter'];?>" class="inputbox" onchange="document.getElementById('adminForm').submit();" />
+	      <button onclick="document.getElementById('adminForm').submit();"><?php echo JText::_( 'GO' ); ?></button>
+	      <button onclick="document.getElementById('filter').value='';document.getElementById('adminForm').submit();"><?php echo JText::_( 'RESET' ); ?></button>
+				</td>
+			</tr>
+			<tr>
+        <td>
+	        <?php echo '<label for="category">'.JText::_('Category').'</label>&nbsp;'; ?>
+	      </td>
+	      <td>
+	        <?php echo $this->lists['categories']; ?>
+	      </td>
+	    </tr>
+      <tr>
+        <td>
+          <?php echo '<label for="date">'.JText::_('Date').'</label>&nbsp;'; ?>
+        </td>
+        <td>
+          <?php echo $this->lists['date'];?>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <?php echo '<label for="country">'.JText::_('Country').'</label>&nbsp;'; ?>
+        </td>
+        <td>
+          <?php echo $this->lists['countries'];?>
+        </td>
+      </tr>
+      <?php if ($this->filter_country): ?>
+      <tr>
+        <td>
+          <?php echo '<label for="city">'.JText::_('City').'</label>&nbsp;';?>
+        </td>
+        <td>
+          <?php echo $this->lists['cities'];?>
+        </td>
+      </tr>
+    <?php endif; ?>
+    </table>	
+  </div>
+  <?php if ($this->params->get('display')) : ?>
+	<div class="el_fright">
+	<?php	echo '<label for="limit">'.JText::_('DISPLAY NUM').'</label>&nbsp;';
+	echo $this->pageNav->getLimitBox();
+	?>
 	</div>
-	<div class="floattext">
-    <div>
-      <?php
-      echo '<label for="category">'.JText::_('Category').'</label>&nbsp;';
-      echo $this->lists['categories'];
-      ?>
-    </div>
-    <div>
-      <?php
-      echo '<label for="date">'.JText::_('Date').'</label>&nbsp;';
-      echo $this->lists['date'];
-      ?>
-    </div>
-    <div>
-      <?php
-      echo '<label for="country">'.JText::_('Country').'</label>&nbsp;';
-      echo $this->lists['countries'];
-      ?>
-    </div>
-    <?php if ($this->filter_country): ?>
-    <div>
-      <?php
-      echo '<label for="city">'.JText::_('City').'</label>&nbsp;';
-      echo $this->lists['cities'];
-      ?>
-    </div>
-    <?php endif; ?>	
-  </div>	
+  <?php endif; ?>
 </div>
 <?php endif; ?>
 
