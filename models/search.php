@@ -214,6 +214,11 @@ class EventListModelSearch extends JModel
     $filter_city = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_city', 'filter_city', '', 'string');
     $filter_date = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_date', 'filter_date', '', 'string');
     $filter_category = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_category', 'filter_category', 0, 'int');
+    
+    // no result if no filter:
+    if ( !($filter || $filter_continent || $filter_country || $filter_city || $filter_date || $filter_category) ) {
+    	return ' WHERE 0 ';
+    }
 
     if ($filter)
     {
