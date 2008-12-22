@@ -316,7 +316,7 @@ border: 1px solid #ddd;
 
 /** venue select buttons */
 div.el_editevent div.el_buttons {
-float: left;  width: 45%;
+float: left;  padding-left:5px;
 }
 
     div.el_editevent div.el_buttons button {
@@ -324,22 +324,27 @@ float: left;  width: 45%;
     margin: 0 0 0 5px;
     }
 
-    div.el_editevent div.el_buttons a.el_venue_select,
-    div.el_editevent div.el_buttons a.el_venue_select:hover,
-    div.el_editevent div.el_buttons a.el_venue_select:active,
-    div.el_editevent div.el_buttons a.el_venue_select:focus {
-    background: #fff url(../images/venue_select_btn_left.png) 0 0 no-repeat;
+    div.el_editevent div.el_buttons a {
     background-color: #fff;
     margin: 0 5px 0 5px; padding: 0 0 0 28px;
     font-size: 0.9em; line-height: 22px;
     float: right;
     color: #000;
     }
-
-    div.el_editevent div.el_buttons a.el_venue_select span,
-    div.el_editevent div.el_buttons a.el_venue_select:hover span,
-    div.el_editevent div.el_buttons a.el_venue_select:active span,
-    div.el_editevent div.el_buttons a.el_venue_select:focus span {
+    
+    div.el_editevent div.el_buttons a.el_venue_select {
+    background: #fff url(../images/venue_select_btn_left.png) 0 0 no-repeat;
+    } 
+    
+    div.el_editevent div.el_buttons a.el_venue_reset {
+    background: #fff url(../images/venue_reset_btn_left.png) 0 0 no-repeat;
+    } 
+    
+    div.el_editevent div.el_buttons a.el_venue_add {
+    background: #fff url(../images/venue_add_btn_left.png) 0 0 no-repeat;
+    }
+    
+    div.el_editevent div.el_buttons span {
     background: transparent url(../images/venue_select_btn_right.png) 100% 0 no-repeat;
     background-color: transparent;
     display: block;
@@ -348,6 +353,11 @@ float: left;  width: 45%;
     color: #000;
     }
 
+div#eventlist a.el_venue_select.modal {
+float:right;
+margin:0;
+position:relative;
+}
 
 /** save buttons */
 div.el_save_buttons {
