@@ -31,7 +31,7 @@ class eventlist_cats
 	var $id = null;
 	
 	/**
-	 * Parent Categories (name, slug), with top category first
+	 * Parent Categories
 	 *
 	 * @var array
 	 */
@@ -47,7 +47,8 @@ class eventlist_cats
 	/**
 	 * Constructor
 	 *
-	 * @param int category id
+	 * @param int $cid
+	 * @return eventlist_categories
 	 */
 	function eventlist_cats($cid)
 	{
@@ -55,11 +56,7 @@ class eventlist_cats
 		$this->buildParentCats($this->id);
 		$this->getParentCats();
 	}
-
-	/**
-	 * sets array of parent categories, with top category first
-	 *
-	 */
+    
 	function getParentCats()
 	{
 		$db	=& JFactory::getDBO();
@@ -80,11 +77,6 @@ class eventlist_cats
 		}
 	}
 	
-	/**
-	 * set the array (parentcats) of ascending parents categories, with initial category first.
-	 *
-	 * @param int category ids
-	 */
 	function buildParentCats($cid)
 	{
 		$db = JFactory::getDBO();
@@ -102,11 +94,6 @@ class eventlist_cats
 		}
 	}
 	
-	/**
-	 * returns parent Categories (name, slug), with top category first
-	 *
-	 * @return array
-	 */
 	function getParentlist()
 	{
 		return $this->category;
@@ -141,15 +128,15 @@ class eventlist_cats
 		$levellimit = 10;
 		
 		//get children
-		$children = array();
-		foreach ($rows as $child) {
-			$parent = $child->parent_id;
-			$list = @$children[$parent] ? $children[$parent] : array();
-			array_push($list, $child);
-			$children[$parent] = $list;
-		}
-		//get list of the items
-		$list = eventlist_cats::treerecurse(0, '', array(), $children, true, max(0, $levellimit-1));
+    	$children = array();  	
+    	foreach ($rows as $child) {
+        	$parent = $child->parent_id;
+       		$list = @$children[$parent] ? $children[$parent] : array();
+        	array_push($list, $child);
+        	$children[$parent] = $list;
+    	}
+    	//get list of the items
+    	$list = eventlist_cats::treerecurse(0, '', array(), $children, true, max(0, $levellimit-1));
     	
 		return $list;
 	}
@@ -217,76 +204,10 @@ class eventlist_cats
 			$catlist[] 	= JHTML::_( 'select.option', '0', JText::_( 'TOPLEVEL' ) );
 		}
 		
-		$catlist = array_merge($catlist, eventlist_cats::getcatselectoptions($list));
-		
-		return JHTML::_('select.genericlist', $catlist, $name, $class, 'value', 'text', $selected );
-	}
-	
- /**
-   * Build Categories select list
-   *
-   * @param array $list
-   * @param string $name
-   * @param array $selected
-   * @param bool $top
-   * @param string $class
-   * @return void
-   */
-  function getcatselectoptions($list)
-  {
-    $catlist  = array();    
-    foreach ($list as $item) {
-      $catlist[] = JHTML::_( 'select.option', $item->id, $item->treename);
-    }
-    return $catlist;
-  }
-	
-	/**
-	 * returns all descendants of a category
-	 *
-	 * @param int category id
-	 * @return array int categories id
-	 */
-	function getChilds($id)
-	{
-    $db =& JFactory::getDBO();
-    
-		$query = ' SELECT id, parent_id '
-        . ' FROM #__eventlist_categories '
-        . ' WHERE published = 1 '
-        ;
-        
-	  $db->setQuery($query);
-
-    $rows = $db->loadObjectList();
-        
-    //get array children
-    $children = array();
-    foreach ($rows as $child) {
-      $parent = $child->parent_id;
-      $list = @$children[$parent] ? $children[$parent] : array();
-      array_push($list, $child);
-      $children[$parent] = $list;
-    }
-    return eventlist_cats::_getChildsRecurse($id, $children);    
-	}
-	
-	/**
-	 * recursive function to build the familly tree
-	 *
-	 * @param int category id
-	 * @param array children indexed by parent id
-	 * @return array of category descendants
-	 */
-	function _getChildsRecurse($id, $childs)
-	{
-		$result = array($id);
-		if (@$childs[$id]) {
-			foreach ($childs[$id] AS $c) {
-				$result = array_merge($result, eventlist_cats::_getChildsRecurse($c->id, $childs));
-			}
+		foreach ($list as $item) {
+			$catlist[] = JHTML::_( 'select.option', $item->id, $item->treename);
 		}
-    return $result;
+		return JHTML::_('select.genericlist', $catlist, $name, $class, 'value', 'text', $selected );
 	}
 }
 ?>

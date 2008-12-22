@@ -41,12 +41,7 @@ class EventListViewEditvenue extends JView
 	 */
 	function display( $tpl=null )
 	{
-		global $mainframe;    
-		
-    $user   = & JFactory::getUser();
-    if (!$user->id) {
-      $mainframe->redirect(JRoute::_($_SERVER["HTTP_REFERER"]), JText::_('Please login to be able to submit venues') );
-    }
+		global $mainframe;
 
 		$editor 	= & JFactory::getEditor();
 		$doc 		= & JFactory::getDocument();
@@ -103,8 +98,6 @@ class EventListViewEditvenue extends JView
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('params' , 				$params);
-    $this->assignRef('title' ,         $title);
-		
 
 		parent::display($tpl);
 

@@ -112,7 +112,7 @@ class EventListViewVenueevents extends JView
 		
 		//set Page title
 		$mainframe->setPageTitle( $pagetitle );
-   	$mainframe->addMetaTag( 'title' , $pagetitle );
+   		$mainframe->addMetaTag( 'title' , $pagetitle );
 		$document->setMetadata('keywords', $venue->meta_keywords );
 		$document->setDescription( strip_tags($venue->meta_description) );
 
@@ -141,8 +141,7 @@ class EventListViewVenueevents extends JView
 			$results = $mainframe->triggerEvent( 'onPrepareContent', array( &$venue, &$params, 0 ));
 			$venuedescription = $venue->text;
 		}
-    $allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $venue->created, $elsettings->venueeditrec, $elsettings->venueedit);
-    
+
 		//build the url
         if(!empty($venue->url) && strtolower(substr($venue->url, 0, 7)) != "http://") {
         	$venue->url = 'http://'.$venue->url;
@@ -182,7 +181,6 @@ class EventListViewVenueevents extends JView
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('pagetitle' , 				$pagetitle);
 		$this->assignRef('task' , 					$task);
-    $this->assignRef('allowedtoeditvenue' ,           $allowedtoeditvenue);
 
 		parent::display($tpl);
 	}

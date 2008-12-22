@@ -197,7 +197,7 @@ class ELUser {
 			return null;
 		}
 
-		$categories = implode(' OR groupid = ', $catids);
+		$categories = implode(' OR c.groupid = ', $catids);
 
 		//count the maintained categories
 		$query = 'SELECT COUNT(id)'

@@ -120,6 +120,12 @@ class EventListViewVenue extends JView {
 		$imageselect .= "<div class=\"button2-left\"><div class=\"blank\"><a class=\"modal\" title=\"".JText::_('SELECTIMAGE')."\" href=\"$link2\" rel=\"{handler: 'iframe', size: {x: 650, y: 375}}\">".JText::_('SELECTIMAGE')."</a></div></div>\n";
 		$imageselect .= "\n&nbsp;<input class=\"inputbox\" type=\"button\" onclick=\"elSelectImage('', '".JText::_('SELECTIMAGE')."' );\" value=\"".JText::_('Reset')."\" />";
 		$imageselect .= "\n<input type=\"hidden\" id=\"a_image\" name=\"locimage\" value=\"$row->locimage\" />";
+		
+		$countries = array();
+		$countries[] = JHTML::_('select.option', '', JText::_('Select country'));
+		$countries = array_merge($countries, ELHelper::getCountryOptions());
+		$lists['countries'] = JHTML::_('select.genericlist', $countries, 'country', 'class="inputbox"', 'value', 'text', $row->country );
+		unset($countries);
 
 		//assign data to template
 		$this->assignRef('row'      	, $row);
@@ -128,6 +134,7 @@ class EventListViewVenue extends JView {
 		$this->assignRef('settings'     , $settings);
 		$this->assignRef('nullDate'		, $nullDate);
 		$this->assignRef('imageselect' 	, $imageselect);
+    $this->assignRef('lists'  , $lists);
 
 		parent::display($tpl);
 	}

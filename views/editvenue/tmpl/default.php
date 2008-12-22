@@ -158,7 +158,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
     <?php if ($this->params->def( 'show_page_title', 1 )) : ?>
     <h1 class="componentheading">
-        <?php echo $this->title; ?>
+        <?php echo $this->params->get('page_title'); ?>
     </h1>
     <?php endif; ?>
 
@@ -181,27 +181,27 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
             <div class="el_venue floattext">
                 <label for="venue"><?php echo JText::_( 'VENUE' ).':'; ?></label>
-                <input class="inputbox required" type="text" name="venue" id="venue" value="<?php echo $this->row->venue; ?>" size="55" maxlength="50" />
+                <input class="inputbox required" type="text" name="venue" id="venue" value="<?php echo $this->escape($this->row->venue); ?>" size="55" maxlength="50" />
             </div>
 
             <div class="el_street floattext">
                 <label for="street"><?php echo JText::_( 'STREET' ).':'; ?></label>
-                <input class="inputbox" type="text" name="street" id="street" value="<?php echo $this->row->street; ?>" size="55" maxlength="50" />
+                <input class="inputbox" type="text" name="street" id="street" value="<?php echo $this->escape($this->row->street); ?>" size="55" maxlength="50" />
             </div>
 
             <div class="el_plz floattext">
                 <label for="plz"><?php echo JText::_( 'ZIP' ).':'; ?></label>
-                <input class="inputbox" type="text" name="plz" id="plz" value="<?php echo $this->row->plz; ?>" size="15" maxlength="10" />
+                <input class="inputbox" type="text" name="plz" id="plz" value="<?php echo $this->escape($this->row->plz); ?>" size="15" maxlength="10" />
             </div>
 
             <div class="el_city floattext">
                 <label for="city"><?php echo JText::_( 'CITY' ).':'; ?></label>
-                <input class="inputbox" type="text" name="city" id="city" value="<?php echo $this->row->city; ?>" size="55" maxlength="50" />
+                <input class="inputbox" type="text" name="city" id="city" value="<?php echo $this->escape($this->row->city); ?>" size="55" maxlength="50" />
             </div>
 
             <div class="el_state floattext">
                 <label for="state"><?php echo JText::_( 'STATE' ).':'; ?></label>
-                <input class="inputbox" type="text" name="state" id="state" value="<?php echo $this->row->state; ?>" size="55" maxlength="50" />
+                <input class="inputbox" type="text" name="state" id="state" value="<?php echo $this->escape($this->row->state); ?>" size="55" maxlength="50" />
             </div>
 
             <div class="el_country floattext">
@@ -214,7 +214,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
             <div class="el_url floattext">
                 <label for="url"><?php echo JText::_( 'WEBSITE' ).':'; ?></label>
-                <input class="inputbox" name="url" id="url" type="text" value="<?php echo $this->row->url; ?>" size="55" maxlength="199" />&nbsp;
+                <input class="inputbox" name="url" id="url" type="text" value="<?php echo $this->escape($this->row->url); ?>" size="55" maxlength="199" />&nbsp;
                 <span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('WEBSITE HINT'); ?>">
                 		<?php echo $this->infoimage; ?>
                 </span>

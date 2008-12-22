@@ -106,8 +106,8 @@ class ELHelper {
 				$recurrence_row = ELHelper::calculate_recurrence($recurrence_row);
 				
 				// add events as long as we are under the interval and under the limit, if specified.				
-				while (($recurrence_row['recurrence_counter'] == $nulldate || strtotime($recurrence_row['dates']) <= strtotime($recurrence_row['recurrence_counter'])) 
-				     && strtotime($recurrence_row['dates']) <= time() + 86400*30) 
+				while (($recurrence_row['recurrence_counter'] == $nulldate || $recurrence_row['dates'] <= $recurrence_row['recurrence_counter']) 
+				     && $recurrence_row['dates'] <= strftime("%Y-%m-%d", time() + 86400*30)) 
 				{
 					$new_event = & JTable::getInstance('eventlist_events', '');
 					$new_event->bind($first_event, array('id', 'hits', 'dates', 'enddates'));
@@ -138,7 +138,7 @@ class ELHelper {
 
 			//Set state archived of outdated events
 			if ($elsettings->oldevent == 2) {
-				$query = 'UPDATE #__eventlist_events SET published = -1 WHERE DATE_SUB(NOW(), INTERVAL '.$elsettings->minus.' DAY) > (IF (enddates <> '.$nulldate.', enddates, dates)) AND published = 1';
+				$query = 'UPDATE #__eventlist_events SET published = -1 WHERE DATE_SUB(NOW(), INTERVAL '.$elsettings->minus.' DAY) > (IF (enddates <> '.$nulldate.', enddates, dates))';
 				$db->SetQuery( $query );
 				$db->Query();
 			}
@@ -280,5 +280,18 @@ class ELHelper {
 		}
 		return JHTML::_('select.genericlist', $timelist, $name, $class, 'value', 'text', $selected );
 	}
+ 
+	/**
+	 * return country options from the database
+	 *
+	 * @return unknown
+	 */
+  function getCountryOptions()
+  {
+    $db   = & JFactory::getDBO();
+    $sql  = 'SELECT iso2 AS value, name AS text FROM #__eventlist_countries ORDER BY name';
+    $db->setQuery($sql);
+    return $db->loadObjectList();
+  }
 }
 ?>

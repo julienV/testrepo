@@ -221,7 +221,7 @@ defined('_JEXEC') or die('Restricted access');
 				</label>
 			</td>
 			<td>
-				<input class="inputbox" name="country" id="country" value="<?php echo $this->row->country; ?>" size="3" maxlength="2" />&nbsp;
+				<?php echo $this->lists['countries']; ?>
 
 				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('COUNTRY HINT'); ?>">
 					<?php echo $infoimage; ?>
@@ -267,7 +267,7 @@ defined('_JEXEC') or die('Restricted access');
       </td>
       <td>
         <input class="inputbox" name="latitude" id="latitude" value="<?php echo $this->row->latitude; ?>" size="14" maxlength="25" />
-              <span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('LATITUDE HINT'); ?>">
+              <span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('LATITUDE NOTICE'); ?>">
           <?php echo $infoimage; ?>
         </span>
       </td>
@@ -280,7 +280,7 @@ defined('_JEXEC') or die('Restricted access');
       </td>
       <td>
         <input class="inputbox" name="longitude" id="longitude" value="<?php echo $this->row->longitude; ?>" size="14" maxlength="25" />
-              <span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('LONGITUDE HINT'); ?>">
+              <span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('LONGITUDE NOTICE'); ?>">
           <?php echo $infoimage; ?>
         </span>
       </td>

@@ -214,7 +214,7 @@ defined('_JEXEC') or die('Restricted access');
                   <?php echo JText::_( 'TITLE' ).':'; ?>
               </label>
 
-              <input class="inputbox required" type="text" id="title" name="title" value="<?php echo $this->row->title; ?>" size="65" maxlength="60" />
+              <input class="inputbox required" type="text" id="title" name="title" value="<?php echo $this->escape($this->row->title); ?>" size="65" maxlength="60" />
           </div>
 
           <div class="el_venue floattext">
@@ -225,13 +225,10 @@ defined('_JEXEC') or die('Restricted access');
               <input type="text" id="a_name" value="<?php echo $this->row->venue; ?>" disabled="disabled" />
 
               <div class='el_buttons floattext'>
-                  <a class="el_venue_reset" title="<?php echo JText::_('NO VENUE'); ?>" onclick="elSelectVenue(0,'<?php echo JText::_('NO VENUE'); ?>');return false;" href="#">
-                      <span><?php  echo JText::_('NO VENUE'); ?></span>
-                  </a>
+
+                	<button type="button" onclick="elSelectVenue(0,'<?php echo JText::_('NO VENUE'); ?>');"><?php  echo JText::_('NO VENUE'); ?></button>
                   <?php if ( $this->delloclink == 1 && !$this->row->id ) : //show location submission link ?>
-                  <a class="el_venue_add" title="<?php echo JText::_('DELIVER NEW VENUE'); ?>" onclick="submitbutton('addvenue');return false;" href="#">
-                      <span><?php  echo JText::_('DELIVER NEW VENUE'); ?></span>
-                  </a>
+              		<button type="button" onclick="submitbutton('addvenue');"><?php echo JText::_( 'DELIVER NEW VENUE' ); ?></button>
                 	<?php endif; ?>
                   <a class="el_venue_select modal" title="<?php echo JText::_('SELECT'); ?>" href="<?php echo JRoute::_('index.php?view=editevent&layout=choosevenue&tmpl=component'); ?>" rel="{handler: 'iframe', size: {x: 650, y: 375}}">
                       <span><?php echo JText::_('SELECT')?></span>

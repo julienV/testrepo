@@ -23,42 +23,42 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 <form action="index.php" method="post" name="adminForm" enctype="multipart/form-data">
   <fieldset>
-    <legend><?php echo JText::_('IMPORT EVENTS'); ?></legend>
-	    <?php echo JText::_( 'IMPORT INSTRUCTIONS' ) ?>
+    <legend><?php echo JText::_('Import events'); ?></legend>
+	    <?php echo JText::_( 'Instructions: ' ) ?>
 			<ul>
 			<li>
-			<?php echo JText::_( "IMPORT COLUMNNAMESEVENTS" ); ?>
+			<?php echo JText::_( "The column names must match a subset of the fields name for events table, plus 'categories' field." ); ?>
 			</li>
 			<li>
-			<?php echo JText::_( "IMPORT FIRSTROW" ); ?>
+			<?php echo JText::_( "The first row of the file must contain the column names." ); ?>
 			</li>
 			<li>
-			<?php echo JText::_( "IMPORT CSVFORMAT" ); ?>
+			<?php echo JText::_( "Fields must be terminated by ' , ', enclosed by ' \" '." ); ?>
 			</li>
       <li>
-      <?php echo JText::_( "IMPORT CATEGORIES DESC" ); ?>
+      <?php echo JText::_( "categories field must contain list of category ids separated by comma." ); ?>
       </li>
 			<li>
-			<?php echo JText::_( "IMPORT POSSIBLECOLUMNS" ) . 'categories, ' . implode(", ",$this->eventfields); ?>
+			<?php echo JText::_( "Possible column names are: categories, " ).implode(", ",$this->eventfields); ?>
 			</li>
 			</ul>
       <table>
         <tr>
           <td>    
             <label for="file">
-                <?php echo JText::_( 'IMPORT SELECTCSV' ).':'; ?>
+                <?php echo JText::_( 'Select csv file' ).':'; ?>
             </label>
           </td>
           <td>
 			      <input type="file" id="event-file-upload" accept="text/*" name="Fileevents" />
-			      <input type="submit" id="event-file-upload-submit" value="<?php echo JText::_('IMPORT START'); ?>" onclick="document.getElementsByName('task')[0].value='csveventimport';return true;"/>
+			      <input type="submit" id="event-file-upload-submit" value="<?php echo JText::_('Start import'); ?>" onclick="document.getElementsByName('task')[0].value='csveventimport';return true;"/>
 			      <span id="upload-clear"></span>
           </td>
         </tr>
         <tr>
           <td>    
             <label for="replace_events">
-                <?php echo JText::_( 'IMPORT REPLACEIFEXISTS' ).':'; ?>
+                <?php echo JText::_( 'Replace existing events (if Id already exits) ?' ).':'; ?>
             </label>
           </td>
           <td>
@@ -72,39 +72,39 @@ defined('_JEXEC') or die('Restricted access');
   </fieldset>
   
   <fieldset>
-    <legend><?php echo JText::_('IMPORT CATEGORIES'); ?></legend>
-      <?php echo JText::_( 'IMPORT INSTRUCTIONS' ) ?>
+    <legend><?php echo JText::_('Import Categories'); ?></legend>
+      <?php echo JText::_( 'Instructions: ' ) ?>
       <ul>
       <li>
-      <?php echo JText::_( "IMPORT COLUMNNAMESCATEGORIES" ); ?>
+      <?php echo JText::_( "The column names must match a subset of the fields name of categories table." ); ?>
       </li>
       <li>
-      <?php echo JText::_( "IMPORT FIRSTROW" ); ?>
+      <?php echo JText::_( "The first row of the file must contain the column names." ); ?>
       </li>
       <li>
-      <?php echo JText::_( "IMPORT CSVFORMAT" ); ?>
+      <?php echo JText::_( "Fields must be terminated by ' , ', enclosed by ' \" '." ); ?>
       </li>
       <li>
-      <?php echo JText::_( "IMPORT POSSIBLECOLUMNS" ).implode(", ",$this->catfields); ?>
+      <?php echo JText::_( "Possible column names are: " ).implode(", ",$this->catfields); ?>
       </li>
       </ul>
       <table>
         <tr>
           <td>    
             <label for="file">
-                <?php echo JText::_( 'IMPORT SELECTCSV' ).':'; ?>
+                <?php echo JText::_( 'Select csv file' ).':'; ?>
             </label>
           </td>
           <td>
             <input type="file" id="cat-file-upload" accept="text/*" name="Filecats" />
-            <input type="submit" id="cat-file-upload-submit" value="<?php echo JText::_('IMPORT START'); ?>" onclick="document.getElementsByName('task')[0].value='csvcategoriesimport';return true;"/>
+            <input type="submit" id="cat-file-upload-submit" value="<?php echo JText::_('Start import'); ?>" onclick="document.getElementsByName('task')[0].value='csvcategoriesimport';return true;"/>
             <span id="upload-clear"></span>
           </td>
         </tr>
         <tr>
           <td>    
             <label for="replace_cats">
-                <?php echo JText::_( 'IMPORT REPLACEIFEXISTS' ).':'; ?>
+                <?php echo JText::_( 'Replace existing events (if Id already exits) ?' ).':'; ?>
             </label>
           </td>
           <td>

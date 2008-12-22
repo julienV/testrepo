@@ -137,7 +137,7 @@ class EventListModelDetails extends JModel
 			$where	= $this->_buildDetailsWhere();
 
 			$query = 'SELECT DISTINCT a.id AS did, a. published, a.dates, a.enddates, a.title, a.times, a.endtimes, a.datdescription, a.meta_keywords, a.meta_description, a.datimage, a.registra, a.unregistra, a.locid, a.created_by,'
-					. ' l.id AS locid, l.venue, l.city, l.state, l.url, l.locdescription, l.locimage, l.city, l.plz, l.street, l.country, l.map, l.created_by AS venueowner, l.latitude, l.longitude,'
+					. ' l.id AS locid, l.venue, l.city, l.state, l.url, l.locdescription, l.locimage, l.city, l.plz, l.street, l.country, l.map, l.created_by AS venueowner,'
 					. ' c.access AS cataccess, c.id AS catid, c.published AS catpublished,'
 					. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
 					. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
