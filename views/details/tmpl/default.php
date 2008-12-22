@@ -126,6 +126,31 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
   	<?php endif; ?>
 
+<!-- Contact -->
+  <h2 class="eventlist">
+    <?php echo JText::_( 'Contact' ); ?>
+  </h2>
+  <dl class="event_details floattext">
+    <?php if ($this->row->organization) : ?>
+      <dt class="title"><?php echo JText::_( 'Organization' ).':'; ?></dt>
+      <dd class="title"><?php echo $this->escape($this->row->organization); ?></dd>
+    <?php endif; ?>
+    
+    <?php if ($this->row->contact) : ?>
+      <dt class="title"><?php echo JText::_( 'Contact' ).':'; ?></dt>
+      <dd class="title"><?php echo $this->escape($this->row->contact); ?></dd>
+    <?php endif; ?>
+    
+    <?php if (!$this->row->contact_email_hide && $this->row->contact_email) : ?>
+      <dt class="title"><?php echo JText::_( 'Email' ).':'; ?></dt>
+      <dd class="title"><a href="mailto:<?php echo $this->escape($this->row->contact_email); ?>"/><?php echo $this->escape($this->row->contact_email); ?></a></dd>
+    <?php endif; ?>
+    
+    <?php if ($this->row->contact_phone) : ?>
+      <dt class="title"><?php echo JText::_( 'Phone' ).':'; ?></dt>
+      <dd class="title"><?php echo $this->escape($this->row->contact_phone); ?></dd>
+    <?php endif; ?>
+  </dl>
 <!--  	Venue  -->
 
 	<?php if ($this->row->locid != 0) : ?>

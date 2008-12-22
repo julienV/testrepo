@@ -142,7 +142,6 @@ class EventListModelEditevent extends JModel
 			//prepare output
 			$this->_event->id				= 0;
 			$this->_event->locid			= '';
-			$this->_event->catsid			= 0;
 			$this->_event->dates			= '';
 			$this->_event->enddates			= null;
 			$this->_event->title			= '';
@@ -162,6 +161,11 @@ class EventListModelEditevent extends JModel
 			$this->_event->datimage			= '';
 			$this->_event->hits					= 0;
 			$this->_event->version					= 0;
+      $this->_event->organization  = null;
+      $this->_event->contact       = null;
+      $this->_event->contact_email = null;
+      $this->_event->contact_email_hide = 0;
+      $this->_event->contact_phone = null;
 			$this->_event->venue			= JText::_('SELECTVENUE');
 
 		}
