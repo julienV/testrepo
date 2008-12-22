@@ -314,7 +314,7 @@ class ELOutput {
 					$url		= 'http://maps.google.com/maps?q='.str_replace(" ", "+", $data->street).', '.$data->plz.' '.str_replace(" ", "+", $data->city).', '.$data->country;
 				}
 
-				$output		= '<a class="map" title="'.JText::_( 'MAP' ).'" href="'.$url.'"'.$attributes.'>'.$mapimage.'</a>';
+				$output		= '<a class="map" target="_blank" title="'.JText::_( 'MAP' ).'" href="'.$url.'"'.$attributes.'>'.$mapimage.'</a>';
 
 			} break;
 		}
