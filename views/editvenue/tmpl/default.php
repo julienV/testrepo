@@ -92,12 +92,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
    			validator.handleResponse(false,form.street);
    			form.street.focus();
    			return false;
-		} else if ( validator.validate(form.plz) === false) {
-   			alert("<?php echo JText::_( 'ERROR ADD ZIP', true ); ?>");
-   			validator.handleResponse(false,form.plz);
-   			form.plz.focus();
-   			return false;
-  		} else if ( validator.validate(form.city) === false) {
+		} else if ( validator.validate(form.city) === false) {
   			alert("<?php echo JText::_( 'ERROR ADD CITY', true ); ?>");
   			validator.handleResponse(false,form.city);
   			form.city.focus();

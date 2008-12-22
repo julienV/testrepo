@@ -39,9 +39,6 @@ defined('_JEXEC') or die('Restricted access');
 		} else if (form.street.value == "" && form.map.value == "1"){
 			alert( "<?php echo JText::_( 'ADD STREET' ); ?>" );
 			form.street.focus();
-		} else if (form.plz.value == "" && form.map.value == "1"){
-			alert( "<?php echo JText::_( 'ADD ZIP' ); ?>" );
-			form.plz.focus();
 		} else if (form.country.value == "" && form.map.value == "1"){
 			alert( "<?php echo JText::_( 'ADD COUNTRY' ); ?>" );
 			form.country.focus();
