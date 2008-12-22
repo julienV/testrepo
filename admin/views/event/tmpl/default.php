@@ -71,7 +71,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 			alert( "<?php echo JText::_ ( 'CHOOSE CATEGORY' );?>" );
 		} else if (form.locid.value == ""){
 			alert( "<?php echo JText::_ ( 'CHOOSE VENUE' );	?>" );
-		} else if (form.contact_phone.value == "" && (form.contact_email_hide.checked || form.contact_email.value == '')){
+		} else if (form.contact.value != "" form.contact_phone.value == "" && (form.contact_email_hide.checked || form.contact_email.value == '')){
         alert( "<?php echo JText::_ ( 'Phone number is mandatory if email is not public or empty.' ); ?>" );
     }
      else {

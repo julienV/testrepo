@@ -126,7 +126,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
   	<?php endif; ?>
 
-<!-- Contact -->
+  <!-- Contact -->
+  <?php if ($this->row->organization || $this->row->contact || (!$this->row->contact_email_hide && $this->row->contact_email) || $this->row->contact_phone): ?>
   <h2 class="eventlist">
     <?php echo JText::_( 'Contact' ); ?>
   </h2>
@@ -151,6 +152,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
       <dd class="title"><?php echo $this->escape($this->row->contact_phone); ?></dd>
     <?php endif; ?>
   </dl>
+  <?php endif; ?>
+  
 <!--  	Venue  -->
 
 	<?php if ($this->row->locid != 0) : ?>

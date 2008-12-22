@@ -102,7 +102,7 @@ defined('_JEXEC') or die('Restricted access');
    				validator.handleResponse(false,form.dates);
    				form.dates.focus();
    				return false;
-  			} else if (form.contact_phone.value == "" && (form.contact_email_hide.checked || form.contact_email.value == '')) {
+  			} else if (form.contact.value != "" && form.contact_phone.value == "" && (form.contact_email_hide.checked || form.contact_email.value == '')) {
           alert("<?php echo JText::_( 'Phone number is mandatory if email is not public or empty.', true ); ?>");
           validator.handleResponse(false,form.contact_phone);
           form.contact_phone.focus();
