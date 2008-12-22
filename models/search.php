@@ -264,6 +264,17 @@ class EventListModelSearch extends JModel
 
 		return $this->_cats;
 	}
+  
+  function getCountryOptions()
+  {
+    $query = ' SELECT DISTINCT c.iso2 as value, c.name as text '
+           . ' FROM #__eventlist_events AS a'
+           . ' INNER JOIN #__eventlist_venues AS l ON l.id = a.locid'
+           . ' INNER JOIN #__eventlist_countries as c ON c.iso2 = l.country '
+           . ' ORDER BY c.name ';
+    $this->_db->setQuery($query);
+    return $this->_db->loadObjectList();
+  }
 	
 	function getCityOptions()
 	{

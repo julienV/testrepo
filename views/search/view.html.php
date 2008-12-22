@@ -133,7 +133,7 @@ class EventListViewSearch extends JView
 		// country list
     $countries = array();
     $countries[] = JHTML::_('select.option', '', JText::_('Select country'));
-    $countries = array_merge($countries, ELHelper::getCountryOptions());
+    $countries = array_merge($countries, $this->get('CountryOptions'));
     $lists['countries'] = JHTML::_('select.genericlist', $countries, 'filter_country', 'class="inputbox" onchange="updateCountry(this);"', 'value', 'text', $filter_country);
     unset($countries);
     

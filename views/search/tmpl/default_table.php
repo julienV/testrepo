@@ -35,7 +35,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 	
 	function updateCountry(element)
 	{
-    $('filter_city').selectedIndex = 0;
+	  if (city = $('filter_city')) {
+      city.selectedIndex = 0;
+    }
 	  element.form.submit();
 	}
 </script>
