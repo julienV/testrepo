@@ -40,12 +40,19 @@ class EventListModelSearch extends JModel
 	 */
 	var $_data = null;
 
+	var $_total = null;
+	
 	/**
 	 * Pagination object
 	 *
 	 * @var object
 	 */
 	var $_pagination = null;
+	
+	/**
+	 * the query
+	 */
+	var $_query = null;
 
 	/**
 	 * Constructor
@@ -91,7 +98,8 @@ class EventListModelSearch extends JModel
 			if ($pop) {
 				$this->_data = $this->_getList( $query );
 			} else {
-				$this->_data = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
+				$pagination = $this->getPagination();
+				$this->_data = $this->_getList( $query, $pagination->limitstart, $pagination->limit );
 			}
 
 			$k = 0;
@@ -139,23 +147,25 @@ class EventListModelSearch extends JModel
 	 */
 	function _buildQuery()
 	{
-		// Get the WHERE and ORDER BY clauses for the query
-		$where		= $this->_buildEventListWhere();
-		$orderby	= $this->_buildEventListOrderBy();
-
-		//Get Events from Database
-		$query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.created, a.locid, a.datdescription,'
-				. ' l.venue, l.city, l.state, l.url,'
-				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
-				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
-				. ' FROM #__eventlist_events AS a'
-        . ' INNER JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = a.id '
-				. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
-				. $where
-				. $orderby
-				;
-
-		return $query;
+		if (empty($this->_query))
+		{
+			// Get the WHERE and ORDER BY clauses for the query
+			$where		= $this->_buildEventListWhere();
+			$orderby	= $this->_buildEventListOrderBy();
+	
+			//Get Events from Database
+			$this->_query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.created, a.locid, a.datdescription,'
+					. ' l.venue, l.city, l.state, l.url,'
+					. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
+					. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
+					. ' FROM #__eventlist_events AS a'
+	        . ' INNER JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = a.id '
+					. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
+					. $where
+					. $orderby
+					;
+		}
+		return $this->_query;
 	}
 
 	/**
@@ -196,58 +206,66 @@ class EventListModelSearch extends JModel
 			$where = ' WHERE a.published = 1';
 		}
 
-		/*
-		 * If we have a filter, and this is enabled... lets tack the AND clause
-		 * for the filter onto the WHERE clause of the item query.
-		 */
-		if ($params->get('filter'))
-		{
-			$filter 		= JRequest::getString('filter', '', 'request');
-			$filter_type 	= JRequest::getWord('filter_type', '', 'request');
+		$filter 		= JRequest::getString('filter', '', 'request');
+		$filter_type 	= JRequest::getWord('filter_type', '', 'request');
+    $filter_country = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_country', 'filter_country', '', 'string');
+    $filter_city = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_city', 'filter_city', '', 'string');
+    $filter_date = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_date', 'filter_date', '', 'string');
+    $filter_category = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_category', 'filter_category', 0, 'int');
 
-			if ($filter)
-			{
-				// clean filter variables
-				$filter 		= JString::strtolower($filter);
-				$filter			= $this->_db->Quote( '%'.$this->_db->getEscaped( $filter, true ).'%', false );
-				$filter_type 	= JString::strtolower($filter_type);
+    if ($filter)
+    {
+    	// clean filter variables
+    	$filter 		= JString::strtolower($filter);
+    	$filter			= $this->_db->Quote( '%'.$this->_db->getEscaped( $filter, true ).'%', false );
+    	$filter_type 	= JString::strtolower($filter_type);
 
-				switch ($filter_type)
-				{
-					case 'title' :
-						$where .= ' AND LOWER( a.title ) LIKE '.$filter;
-						break;
+    	switch ($filter_type)
+    	{
+    		case 'title' :
+    			$where .= ' AND LOWER( a.title ) LIKE '.$filter;
+    			break;
 
-					case 'venue' :
-						$where .= ' AND LOWER( l.venue ) LIKE '.$filter;
-						break;
+    		case 'venue' :
+    			$where .= ' AND LOWER( l.venue ) LIKE '.$filter;
+    			break;
 
-					case 'city' :
-						$where .= ' AND LOWER( l.city ) LIKE '.$filter;
-						break;
-				}
-			}
-			// filter date
-			if ($date = JRequest::getString('filter_date', '', 'request')) {
-				if (strtotime($date)) {
-				  $where .= ' AND (\''.$date.'\' BETWEEN (a.dates) AND (a.enddates) OR \''.$date.'\' = a.dates)';
-				}
-			}
-      // filter country
-      if ($filter_country = JRequest::getString('filter_country', '', 'request')) {
-        $where .= ' AND l.country = ' . $this->_db->Quote($filter_country);
-      }
-      // filter city
-      if ($filter_country && $filter_city = JRequest::getString('filter_city', '', 'request')) {
-        $where .= ' AND l.city = ' . $this->_db->Quote($filter_city);
-      }
-      // filter category
-      if ($filter_category = JRequest::getString('filter_category', 0, 'request', 'int')) {      	
-      	$cats = eventlist_cats::getChilds((int) $filter_category);
-        $where .= ' AND rel.catid IN (' . implode(', ', $cats) .')';
-      }
-		}
+    		case 'city' :
+    			$where .= ' AND LOWER( l.city ) LIKE '.$filter;
+    			break;
+    	}
+    }
+    // filter date
+    if ($filter_date) {
+    	if (strtotime($date)) {
+    		$where .= ' AND (\''.$date.'\' BETWEEN (a.dates) AND (a.enddates) OR \''.$date.'\' = a.dates)';
+    	}
+    }
+    // filter country
+    if ($filter_country) {
+    	$where .= ' AND l.country = ' . $this->_db->Quote($filter_country);
+    }
+    // filter city
+    if ($filter_country && $filter_city) {
+    	$where .= ' AND l.city = ' . $this->_db->Quote($filter_city);
+    }
+    // filter category
+    if ($filter_category) {
+    	$cats = eventlist_cats::getChilds((int) $filter_category);
+    	$where .= ' AND rel.catid IN (' . implode(', ', $cats) .')';
+    }
 		return $where;
+	}
+	
+	function getTotal()
+	{
+		// Lets load the total nr if it doesn't already exist
+    if (empty($this->_total))
+    {
+      $query = $this->_buildQuery();
+      $this->_total = $this->_getListCount($query);
+    }
+    return $this->_total;
 	}
 	
 	function getCategories($id)
