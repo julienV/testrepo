@@ -35,6 +35,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <?php if ($this->params->def('show_page_title', 1)) : ?>
 	<h1 class='componentheading'>
 		<?php echo $this->escape($this->pagetitle); ?>
+    <?php echo ELOutput::editbutton($this->item->id, $this->venue->id, $this->params, $this->allowedtoeditvenue, 'editvenue' ); ?>
 	</h1>
 <?php endif; ?>
 
