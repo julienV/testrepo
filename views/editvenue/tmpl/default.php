@@ -206,10 +206,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
             <div class="el_country floattext">
                 <label for="country"><?php echo JText::_( 'COUNTRY' ).':'; ?></label>
-                <input class="inputbox" type="text" name="country" id="country" value="<?php echo $this->row->country; ?>" size="3" maxlength="2" />
-                <span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('COUNTRY HINT'); ?>">
-                		<?php echo $this->infoimage; ?>
-                </span>
+                <?php echo $this->lists['countries']; ?>
             </div>
 
             <div class="el_url floattext">

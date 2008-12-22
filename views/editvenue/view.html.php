@@ -89,6 +89,13 @@ class EventListViewEditvenue extends JView
 
 		//Set the info image
 		$infoimage = JHTML::_('image', 'components/com_eventlist/assets/images/icon-16-hint.png', JText::_( 'NOTES' ) );
+		
+		// country list
+		$countries = array();
+    $countries[] = JHTML::_('select.option', '', JText::_('Select country'));
+    $countries = array_merge($countries, ELHelper::getCountryOptions());
+    $lists['countries'] = JHTML::_('select.genericlist', $countries, 'country', 'class="inputbox"', 'value', 'text', $row->country );
+    unset($countries);
 
 		$this->assignRef('row' , 					$row);
 		$this->assignRef('editor' , 				$editor);
@@ -98,6 +105,7 @@ class EventListViewEditvenue extends JView
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('params' , 				$params);
+    $this->assignRef('lists' ,         $lists);
 
 		parent::display($tpl);
 
