@@ -126,6 +126,11 @@ function EventListParseRoute($segments)
 			}
 
 		} break;
+				
+    case 'search':
+    {
+      $vars['view'] = 'search';
+    } break;
 
 		case 'categoriesdetailed':
 		{
