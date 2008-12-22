@@ -41,6 +41,11 @@ class EventListViewEditevent extends JView
 	function display( $tpl=null )
 	{
 		global $mainframe;
+		
+		$user   = & JFactory::getUser();
+    if (!$user->id) {
+      $mainframe->redirect(JRoute::_($_SERVER["HTTP_REFERER"]), JText::_('Please login to be able to submit events') );
+    }
 
 		if($this->getLayout() == 'choosevenue') {
 			$this->_displaychoosevenue($tpl);
