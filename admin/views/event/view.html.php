@@ -156,7 +156,16 @@ class EventListViewEvent extends JView {
 
 		$imageselect .= "\n&nbsp;<input class=\"inputbox\" type=\"button\" onclick=\"elSelectImage('', '".JText::_('SELECTIMAGE')."' );\" value=\"".JText::_('Reset')."\" />";
 		$imageselect .= "\n<input type=\"hidden\" id=\"a_image\" name=\"datimage\" value=\"$row->datimage\" />";
-
+		
+		// recurrence type
+		$rec_type = array();
+		$rec_type[] = JHTML::_('select.option', 0, JText::_ ( 'NOTHING' ));
+    $rec_type[] = JHTML::_('select.option', 1, JText::_ ( 'DAYLY' ));
+    $rec_type[] = JHTML::_('select.option', 2, JText::_ ( 'WEEKLY' ));
+    $rec_type[] = JHTML::_('select.option', 3, JText::_ ( 'MONTHLY' ));
+    $rec_type[] = JHTML::_('select.option', 4, JText::_ ( 'WEEKDAY' ));
+    $Lists['recurrence_type'] = JHTML::_('select.genericlist', $rec_type, 'recurrence_type', '', 'value', 'text', $row->recurrence_type);
+		
 		//assign vars to the template
 		$this->assignRef('Lists'      	, $Lists);
 		$this->assignRef('row'      	, $row);

@@ -404,27 +404,21 @@ defined('_JEXEC') or die('Restricted access');
 
           <div class="recurrence_select floattext">
               <label for="recurrence_select"><?php echo JText::_( 'RECURRENCE' ); ?>:</label>
-            	<select id="recurrence_select" name="recurrence_select" size="1">
-            	  <option value="0"><?php echo JText::_( 'NOTHING' ); ?></option>
-            		<option value="1"><?php echo JText::_( 'DAYLY' ); ?></option>
-            		<option value="2"><?php echo JText::_( 'WEEKLY' ); ?></option>
-            		<option value="3"><?php echo JText::_( 'MONTHLY' ); ?></option>
-            		<option value="4"><?php echo JText::_( 'WEEKDAY' ); ?></option>
-            	</select>
+              <?php echo $this->lists['recurrence_type']; ?>
           </div>
 
           <div class="recurrence_output floattext">
             	<label id="recurrence_output">&nbsp;</label>
               <div id="counter_row" style="display:none;">
-                  <label for="recurrence_counter"><?php echo JText::_( 'RECURRENCE COUNTER' ); ?>:</label>
-                  <div class="el_date>"><?php echo JHTML::_('calendar', ($this->row->recurrence_counter <> 0000-00-00) ? $this->row->recurrence_counter : JText::_( 'UNLIMITED' ), "recurrence_counter", "recurrence_counter"); ?>
+                  <label for="recurrence_limit_date"><?php echo JText::_( 'RECURRENCE COUNTER' ); ?>:</label>
+                  <div class="el_date>"><?php echo JHTML::_('calendar', ($this->row->recurrence_limit_date <> 0000-00-00) ? $this->row->recurrence_limit_date : JText::_( 'UNLIMITED' ), "recurrence_limit_date", "recurrence_limit_date"); ?>
               	    <a href="#" onclick="include_unlimited('<?php echo JText::_( 'UNLIMITED' ); ?>'); return false;"><img src="components/com_eventlist/assets/images/unlimited.png" width="16" height="16" alt="<?php echo JText::_( 'UNLIMITED' ); ?>" /></a>
               	</div>
               </div>
           </div>
-
-        	<input type="hidden" name="recurrence_number" id="recurrence_number" value="<?php echo $this->row->recurrence_number; ?>" />
-        	<input type="hidden" name="recurrence_type" id="recurrence_type" value="<?php echo $this->row->recurrence_type; ?>" />
+          
+			    <input type="hidden" name="recurrence_number" id="recurrence_number" value="<?php echo $this->row->recurrence_number;?>" />
+			    <input type="hidden" name="recurrence_byday" id="recurrence_byday" value="<?php echo $this->row->recurrence_byday;?>" />
 
           <script type="text/javascript">
         	<!--
@@ -435,20 +429,19 @@ defined('_JEXEC') or die('Restricted access');
         		$select_output[4] = "<?php echo JText::_( 'OUTPUT WEEKDAY' ); ?>";
 
         		var $weekday = new Array();
-        		$weekday[0] = "<?php echo JText::_( 'MONDAY' ); ?>";
-        		$weekday[1] = "<?php echo JText::_( 'TUESDAY' ); ?>";
-        		$weekday[2] = "<?php echo JText::_( 'WEDNESDAY' ); ?>";
-        		$weekday[3] = "<?php echo JText::_( 'THURSDAY' ); ?>";
-        		$weekday[4] = "<?php echo JText::_( 'FRIDAY' ); ?>";
-        		$weekday[5] = "<?php echo JText::_( 'SATURDAY' ); ?>";
-        		$weekday[6] = "<?php echo JText::_( 'SUNDAY' ); ?>";
+		        $weekday[0] = new Array("MO", "<?php  echo JText::_ ( 'MONDAY' ); ?>");
+		        $weekday[1] = new Array("TU", "<?php  echo JText::_ ( 'TUESDAY' ); ?>");
+		        $weekday[2] = new Array("WE", "<?php  echo JText::_ ( 'WEDNESDAY' ); ?>");
+		        $weekday[3] = new Array("TH", "<?php  echo JText::_ ( 'THURSDAY' ); ?>");
+		        $weekday[4] = new Array("FR", "<?php  echo JText::_ ( 'FRIDAY' ); ?>");
+		        $weekday[5] = new Array("SA", "<?php  echo JText::_ ( 'SATURDAY' ); ?>");
+		        $weekday[6] = new Array("SU", "<?php  echo JText::_ ( 'SUNDAY' ); ?>");
 
         		var $before_last = "<?php echo JText::_( 'BEFORE LAST' ); ?>";
         		var $last = "<?php echo JText::_( 'LAST' ); ?>";
 
-        		start_recurrencescript();
         	-->
-            </script>
+          </script>
 
     	</fieldset>
 

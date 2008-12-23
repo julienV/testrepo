@@ -125,6 +125,17 @@ class EventListViewEditevent extends JView
 		$doc->addScript($url.'components/com_eventlist/assets/js/recurrence.js');
 		// include the unlimited script
 		$doc->addScript($url.'components/com_eventlist/assets/js/unlimited.js');
+		
+		$lists = array();
+		
+		// recurrence type
+    $rec_type = array();
+    $rec_type[] = JHTML::_('select.option', 0, JText::_ ( 'NOTHING' ));
+    $rec_type[] = JHTML::_('select.option', 1, JText::_ ( 'DAYLY' ));
+    $rec_type[] = JHTML::_('select.option', 2, JText::_ ( 'WEEKLY' ));
+    $rec_type[] = JHTML::_('select.option', 3, JText::_ ( 'MONTHLY' ));
+    $rec_type[] = JHTML::_('select.option', 4, JText::_ ( 'WEEKDAY' ));
+    $lists['recurrence_type'] = JHTML::_('select.genericlist', $rec_type, 'recurrence_type', '', 'value', 'text', $row->recurrence_type);
 
 		$this->assignRef('row' , 					$row);
 		$this->assignRef('categories' , 			$categories);
@@ -136,6 +147,7 @@ class EventListViewEditevent extends JView
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('params' , 				$params);
+    $this->assignRef('lists' ,         $lists);
 		
 		parent::display($tpl);
 

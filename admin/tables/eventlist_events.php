@@ -63,12 +63,42 @@ class eventlist_events extends JTable
 	var $meta_description 	= null;
 	/** @var string */
 	var $meta_keywords		= null;
-	/** @var int */
+	/**
+	 * repetition intervall
+	 *
+	 * @var int
+	 */
 	var $recurrence_number	= 0;
-	/** @var int */
+	/**
+	 * type of recurrence (daily, weekly, monthly)
+	 *
+	 * @var int
+	 */
 	var $recurrence_type	= 0;
-	/** @var date */
+	/**
+	 * occurence counter
+	 *
+	 * @var int
+	 */
 	var $recurrence_counter = null;
+  /**
+   * limit counter for repetition
+   *
+   * @var string
+   */
+  var $recurrence_limit = null;
+  /**
+   * limit date for repetition
+   *
+   * @var string
+   */
+  var $recurrence_limit_date = null;
+  /**
+   * list of day the event occurs on (2 letters, separated by comma)
+   *
+   * @var string
+   */
+  var $recurrence_byday = '';
   /** @var int id of first event for recurrence events*/
   var $recurrence_first_id = 0;
 	/** @var string */
@@ -153,8 +183,8 @@ class eventlist_events extends JTable
 			}
 		}
 
-		if (isset($this->recurrence_counter)) {
-			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $this->recurrence_counter)) {
+		if (isset($this->recurrence_limit_date)) {
+			if (!preg_match("/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/", $this->recurrence_limit_date)) {
 	 		     	$this->_error = JText::_( 'WRONGRECURRENCEDATEFORMAT' );
 	 		     	JError::raiseWarning('SOME_ERROR_CODE', $this->_error );
 	 		     	return false;

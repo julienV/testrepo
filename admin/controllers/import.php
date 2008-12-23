@@ -205,7 +205,7 @@ class EventListControllerImport extends EventListController
     {
       case 'dates':
       case 'enddates':
-      case 'recurrence_counter':
+      case 'recurrence_limit_date':
         if ($value != '') {
           //strtotime does a good job in converting various date formats...
           $date = strtotime($value);

@@ -5,14 +5,14 @@ function unlimited_starter() {
 }
 
 function include_unlimited($unlimited_name) {
-	$("recurrence_counter").value=$unlimited_name;	// write the word "unlimited" in the textbox
+	$("recurrence_limit_date").value=$unlimited_name;	// write the word "unlimited" in the textbox
 	return false;
 }
 
 function submit_unlimited() {
-	var $value = $("recurrence_counter").value;
+	var $value = $("recurrence_limit_date").value;
 	var $date_array = $value.split("-");
 	if ($date_array.length < 3) {
-		$("recurrence_counter").value = "0000-00-00";
+		$("recurrence_limit_date").value = "0000-00-00";
 	}
 }

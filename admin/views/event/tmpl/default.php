@@ -71,7 +71,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 			alert( "<?php echo JText::_ ( 'CHOOSE CATEGORY' );?>" );
 		} else if (form.locid.value == ""){
 			alert( "<?php echo JText::_ ( 'CHOOSE VENUE' );	?>" );
-		} else if (form.contact.value != "" form.contact_phone.value == "" && (form.contact_email_hide.checked || form.contact_email.value == '')){
+		} else if (form.contact.value != "" && form.contact_phone.value == "" && (form.contact_email_hide.checked || form.contact_email.value == '')){
         alert( "<?php echo JText::_ ( 'Phone number is mandatory if email is not public or empty.' ); ?>" );
     }
      else {
@@ -455,19 +455,13 @@ $infoimage = JHTML::image ( 'components/com_eventlist/assets/images/icon-16-hint
 		echo $this->pane->endPanel ();
 		echo $this->pane->startPanel ( $title, 'recurrence' );
 		?>
-		<table width="100%">
+		<table width="100%" height="200px">
 			<tr>
 				<td width="40%">
 					<?php echo JText::_ ( 'RECURRENCE' ); ?>:
 				</td>
 				<td width="60%">
-					<select id="recurrence_select" name="recurrence_select" size="1">
-						<option value="0"><?php	echo JText::_ ( 'NOTHING' );?></option>
-						<option value="1"><?php	echo JText::_ ( 'DAYLY' );?></option>
-						<option value="2"><?php echo JText::_ ( 'WEEKLY' );?></option>
-						<option value="3"><?php	echo JText::_ ( 'MONTHLY' );?></option>
-						<option value="4"><?php	echo JText::_ ( 'WEEKDAY' );?></option>
-					</select>
+					<?php echo $this->Lists['recurrence_type']; ?>
 				</td>
 			</tr>
 			<tr>
@@ -478,7 +472,7 @@ $infoimage = JHTML::image ( 'components/com_eventlist/assets/images/icon-16-hint
 					<?php echo JText::_ ( 'RECURRENCE COUNTER' );?>:
 				</td>
 				<td>
-					<?php echo JHTML::_ ( 'calendar', ($this->row->recurrence_counter != 0000 - 00 - 00) ? $this->row->recurrence_counter : JText::_ ( 'UNLIMITED' ), "recurrence_counter", "recurrence_counter" );?>
+					<?php echo JHTML::_ ( 'calendar', ($this->row->recurrence_limit_date != '0000-00-00') ? $this->row->recurrence_limit_date : JText::_ ( 'UNLIMITED' ), "recurrence_limit_date", "recurrence_limit_date" );?>
 					<a href="#" onclick="include_unlimited('<?php echo JText::_ ( 'UNLIMITED' );?>'); return false;">
 						<img src="../components/com_eventlist/assets/images/unlimited.png" width="16" height="16" alt="<?php echo JText::_ ( 'UNLIMITED' );	?>" />
 					</a>
@@ -491,13 +485,13 @@ $infoimage = JHTML::image ( 'components/com_eventlist/assets/images/icon-16-hint
 		
 		<br />
 		
-		<input type="hidden" name="recurrence_number" id="recurrence_number" value="<?php echo $this->row->recurrence_number;?>" /> 
-		<input type="hidden" name="recurrence_type" id="recurrence_type" value="<?php echo $this->row->recurrence_type;?>" />
+		<input type="hidden" name="recurrence_number" id="recurrence_number" value="<?php echo $this->row->recurrence_number;?>" />
+    <input type="hidden" name="recurrence_byday" id="recurrence_byday" value="<?php echo $this->row->recurrence_byday;?>" />
 		<script
 			type="text/javascript">
 			<!--
 				var $select_output = new Array();
-				$select_output[1] = "<?php
+        $select_output[1] = "<?php
 				echo JText::_ ( 'OUTPUT DAY' );
 				?>";
 				$select_output[2] = "<?php
@@ -511,27 +505,13 @@ $infoimage = JHTML::image ( 'components/com_eventlist/assets/images/icon-16-hint
 				?>";
 
 				var $weekday = new Array();
-				$weekday[0] = "<?php
-				echo JText::_ ( 'MONDAY' );
-				?>";
-				$weekday[1] = "<?php
-				echo JText::_ ( 'TUESDAY' );
-				?>";
-				$weekday[2] = "<?php
-				echo JText::_ ( 'WEDNESDAY' );
-				?>";
-				$weekday[3] = "<?php
-				echo JText::_ ( 'THURSDAY' );
-				?>";
-				$weekday[4] = "<?php
-				echo JText::_ ( 'FRIDAY' );
-				?>";
-				$weekday[5] = "<?php
-				echo JText::_ ( 'SATURDAY' );
-				?>";
-				$weekday[6] = "<?php
-				echo JText::_ ( 'SUNDAY' );
-				?>";
+				$weekday[0] = new Array("MO", "<?php	echo JText::_ ( 'MONDAY' );	?>");
+        $weekday[1] = new Array("TU", "<?php  echo JText::_ ( 'TUESDAY' ); ?>");
+        $weekday[2] = new Array("WE", "<?php  echo JText::_ ( 'WEDNESDAY' ); ?>");
+        $weekday[3] = new Array("TH", "<?php  echo JText::_ ( 'THURSDAY' ); ?>");
+        $weekday[4] = new Array("FR", "<?php  echo JText::_ ( 'FRIDAY' ); ?>");
+        $weekday[5] = new Array("SA", "<?php  echo JText::_ ( 'SATURDAY' ); ?>");
+        $weekday[6] = new Array("SU", "<?php  echo JText::_ ( 'SUNDAY' ); ?>");
 
 				var $before_last = "<?php
 				echo JText::_ ( 'BEFORE LAST' );
@@ -539,8 +519,6 @@ $infoimage = JHTML::image ( 'components/com_eventlist/assets/images/icon-16-hint
 				var $last = "<?php
 				echo JText::_ ( 'LAST' );
 				?>";
-
-				start_recurrencescript();
 			-->
 			</script>
 			

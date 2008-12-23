@@ -19,27 +19,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 **/
 
-var $content;		// the content object
+var $content;   // the content object
 var $select_value;
 
-/**
- * start function for the javascript (onload isn't possible)
- *
- * @access public
-**/
-function start_recurrencescript() {
-	$content = $("recurrence_output"); // get the object (position) of the output
-	var $type = parseInt($("recurrence_type").value);
-	if (!isNaN($type)) {	// is the value of the type an integer?
-		if ($type > 3) {	// get the type
-			$("recurrence_select").value = 4;
-		} else {
-			$("recurrence_select").value = $type;
-		}
-		output_recurrencescript(); // start the output
-	}
-	$("recurrence_select").onchange = output_recurrencescript; // additional event handler
-}
+window.addEvent('domready', function() {
+  $content = $("recurrence_output"); // get the object (position) of the output
+  output_recurrencescript(); // start the output
+  $("recurrence_type").addEvent('change', output_recurrencescript); // additional event handler
+});
 
 /**
  * the output of the script (a part of them is included in
@@ -48,7 +35,7 @@ function start_recurrencescript() {
  * @access public
 **/
 function output_recurrencescript() {
-	var $select_value = $("recurrence_select").value;	// the value of the select list
+	var $select_value = $("recurrence_type").value;	// the value of the select list
 	if ($select_value != 0) {	// want the user a recurrence
 								// create an element by the generate_output function
 								// ** $select_output is an array of all sentences of each type **
@@ -62,13 +49,11 @@ function output_recurrencescript() {
 		}
 	} else {
 		$("recurrence_number").value = 0;	// set the parameter
-		$("recurrence_type").value = 0;
 		$nothing = document.createElement("span");	// create a new "empty" element
 		$nothing.appendChild(document.createTextNode(""));
 		$content.replaceChild($nothing, $content.firstChild);	// replace the old element by the new one
 		$("counter_row").style.display = "none"; // hide the counter
 	}
-
 }
 
 /**
@@ -114,7 +99,6 @@ function generate_selectlist($select_value) {
 	var $selectlist = document.createElement("select");	// new select element
 	$selectlist.name = "recurrence_selectlist";	// add attributes
 	$selectlist.id = "recurrence_selectlist";
-	$selectlist.onchange = set_parameter;
 	switch($select_value) {
 		case "1":
 			$limit = 14;	// days
@@ -151,7 +135,8 @@ function generate_selectlist($select_value) {
 			$option.value = $j + 1;
 		}
 		$selectlist.appendChild($option);	// include the option - element into the select - element
-	}
+	}	
+  $selectlist.addEvent('change', set_parameter); 
 	return $selectlist;
 }
 
@@ -165,16 +150,35 @@ function generate_selectlist_weekday() {
 	var $selectlist = document.createElement("select");	// the new selectlist
 	$selectlist.name = "recurrence_selectlist_weekday";	// add attributes
 	$selectlist.id = "recurrence_selectlist_weekday";
-	$selectlist.onchange = set_parameter;
+  $selectlist.multiple = true;
+  $selectlist.size = 7;
+  var selected = $("recurrence_byday").value.split(','); // array of selected values
 	for ($j = 0; $j < 7; $j++) {						// the 7 days
 		var $option = document.createElement("option");	// create the option - elements
-		if ($j == (parseInt($("recurrence_type").value) - 4)) {	// the selected - attribute
+		$option.value = $j+1;	// add the value
+		$option.appendChild(document.createTextNode($weekday[$j][1])); // + 1 day because their is no recuring each "0" day
+		if (selected.contains($option.value)) {	// the selected - attribute
 			$option.selected = true;
 		}
-		$option.value = $j;	// add the value
-		$option.appendChild(document.createTextNode($weekday[$j])); // + 1 day because their is no recuring each "0" day
 		$selectlist.appendChild($option);	// include the option - element into the select - element
 	}
+	$selectlist.addEvent('change', function() {
+	  var result = '';
+	  var isempty = true;    
+	  for (i=0;i<this.length;i++)
+    {
+      if (this.options[i].selected) {
+        if (isempty) {
+          isempty = false;
+        }
+        else {
+          result += ',';
+        }
+        result += this.options[i].value
+      }
+    }
+    $('recurrence_byday').value = result;
+	});
 	return $selectlist;
 }
 
@@ -184,11 +188,6 @@ function generate_selectlist_weekday() {
  * @access public
 **/
 function set_parameter() {
-	if ($("recurrence_select").value != 4) {	// include the value into the recurrence_type input tag
-		$("recurrence_type").value = $("recurrence_select").value;
-	} else {
-		$("recurrence_type").value = parseInt($("recurrence_select").value) + parseInt($("recurrence_selectlist_weekday").value);
-	}
 	// include the value into the recurrence_number input tag
 	$("recurrence_number").value = $("recurrence_selectlist").value;
 }
