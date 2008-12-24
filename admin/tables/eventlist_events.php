@@ -119,8 +119,7 @@ class eventlist_events extends JTable
 	var $checked_out 		= null;
 	/** @var date */
 	var $checked_out_time 	= 0;
-	
-	/** for astronomers **/
+	/* contact fields */
 	var $organization  = null;
 	var $contact       = null;
   var $contact_email = null;
