@@ -36,4 +36,11 @@
 			<option value="1">Show</option>
 		</param>
  	</params>
+ 	<params group="recurrence">
+    <param name="weekdaystart" type="radio" default="1" label="SELECTFIRSTWEEKDAY" description="SELECTFIRSTWEEKDAYDESC">
+      <option value="0">Sunday</option>
+      <option value="1">Monday</option>
+    </param>
+    <param name="recurrence_anticipation" type="text" default="60" label="RECURRENCEANTICIPATION" description="RECURRENCEANTICIPATIONDESC" />
+ 	</params>
 </config>

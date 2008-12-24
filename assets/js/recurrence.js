@@ -155,7 +155,7 @@ function generate_selectlist_weekday() {
   var selected = $("recurrence_byday").value.split(','); // array of selected values
 	for ($j = 0; $j < 7; $j++) {						// the 7 days
 		var $option = document.createElement("option");	// create the option - elements
-		$option.value = $j+1;	// add the value
+		$option.value = $weekday[$j][0];	// add the value
 		$option.appendChild(document.createTextNode($weekday[$j][1])); // + 1 day because their is no recuring each "0" day
 		if (selected.contains($option.value)) {	// the selected - attribute
 			$option.selected = true;

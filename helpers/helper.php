@@ -62,6 +62,9 @@ class ELHelper {
 	function cleanup()
 	{
 		$elsettings = & ELHelper::config();
+    $params = &JComponentHelper::getParams('com_eventlist');   
+    $weekstart = $params->get('weekdaystart',0);
+    $anticipation = $params->get('recurrence_anticipation', 30);
 
 		$now 		= time();
 		$lastupdate = $elsettings->lastupdate;
@@ -104,12 +107,15 @@ class ELHelper {
 				$recurrence_number = $recurrence_row['recurrence_number'];
 				$recurrence_type = $recurrence_row['recurrence_type'];
 				
+				// the first day of the week is used for certain rules
+				$recurrence_row['weekstart'] = $weekstart;
+				
 				// calculate next occurence date
 				$recurrence_row = ELHelper::calculate_recurrence($recurrence_row);
 				
 				// add events as long as we are under the interval and under the limit, if specified.				
 				while (($recurrence_row['recurrence_limit_date'] == $nulldate || strtotime($recurrence_row['dates']) <= strtotime($recurrence_row['recurrence_limit_date'])) 
-				     && strtotime($recurrence_row['dates']) <= time() + 86400*30*2) 
+				     && strtotime($recurrence_row['dates']) <= time() + 86400*$anticipation) 
 				{
 					$new_event = & JTable::getInstance('eventlist_events', '');
 					$new_event->bind($ref_event, array('id', 'hits', 'dates', 'enddates'));
@@ -183,15 +189,23 @@ class ELHelper {
 				$start_day = mktime(1,0,0,($date_array["month"] + $recurrence_number),$date_array["day"],$date_array["year"]);;
 				break;
 			case "4":
-        $selected = explode(',', $recurrence_row['recurrence_byday']);  // the selected weekdays
-        if (count($selected) == 0) {        	
-          JError::raiseError(500, JText::_( 'Empty weekday recurrence' ) );
+        $selected = ELHelper::convert2CharsDaysToInt(explode(',', $recurrence_row['recurrence_byday']), $recurrence_row['weekstart']);  // the selected weekdays
+        $current_weekday = (int) $date_array["weekday"];
+        if ($recurrence_row['weekstart'] == 1)
+        {
+        	// O for monday, not sunday
+        	$current_weekday = ($current_weekday + 6) % 7;
+        }
+        
+        if (count($selected) == 0) 
+        {
+        	// this shouldn't happen, but if it does, to prevent problem use the current weekday for the repetition.
+          JError::raiseWarning(500, JText::_( 'Empty weekday recurrence' ) );
+          $selected = array($current_weekday);
         }
         sort($selected);
-        $current_weekday = (int) $date_array["weekday"];
-
 				if ($recurrence_number < 5)
-				{	// 1. - 4. week in a month					
+				{	// 1. - 4. week in a month
 					// look for the position of current start date in 'selected' days.
 					if ($current_weekday >= max($selected))
 					{
@@ -282,6 +296,80 @@ class ELHelper {
 		}
 		return $date_array;
 	}
+	
+	/**
+	 * return day number of the week starting with 0 for first weekday
+	 *
+	 * @param array of 2 letters day
+	 * @return array of int
+	 */
+	function convert2CharsDaysToInt($days, $firstday = 0)
+	{
+		$result = array();
+		foreach ($days as $day)
+		{
+			if ($firstday == 0) // sunday
+			{
+				switch (strtoupper($day))
+				{
+					case 'SU':
+						$result[] = 0;
+						break;
+		      case 'MO':
+	          $result[] = 1;
+	          break;
+		      case 'TU':
+	          $result[] = 2;
+	          break;
+		      case 'WE':
+	          $result[] = 3;
+	          break;
+		      case 'TH':
+	          $result[] = 4;
+	          break;
+		      case 'FR':
+	          $result[] = 5;
+	          break;
+		      case 'SA':
+	          $result[] = 6;
+	          break;
+		      default:
+		        JError::raiseWarning(500, JText::_( 'Wrong ical day string' ) );
+				}
+			}
+			else //monday
+			{
+        switch (strtoupper($day))
+        {
+          case 'MO':
+            $result[] = 0;
+            break;
+          case 'TU':
+            $result[] = 1;
+            break;
+          case 'WE':
+            $result[] = 2;
+            break;
+          case 'TH':
+            $result[] = 3;
+            break;
+          case 'FR':
+            $result[] = 4;
+            break;
+          case 'SA':
+            $result[] = 5;
+            break;
+          case 'SU':
+            $result[] = 6;
+            break;
+          default:
+            JError::raiseWarning(500, JText::_( 'Wrong ical day string' ) );
+        }
+      }
+		}
+		return $result;
+	}
+	
 	/**
 	 * transforms <br /> and <br> back to \r\n
 	 *
