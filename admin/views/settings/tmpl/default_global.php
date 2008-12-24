@@ -23,39 +23,30 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 <table class="noshow">
-  <tr>
-      <td width="50%" valign="top">
-      <table class="noshow">
-            <tr>
-              <td width="50%" valign="top">
-            <fieldset class="adminform">
-              <legend><?php echo JText::_( 'GLOBAL PARAMETERS' ); ?></legend>
-              <?php echo $this->globalparams->render('globalparams'); ?>
-            </fieldset>
-          </td>
-
-          <td width="50%" valign="top">
-            <table class="noshow">
-                  <tr>
-                    <td width="50%" valign="top">
-                  <fieldset class="adminform">
-                    <legend><?php echo JText::_( 'ATTENTION' ); ?></legend>
-                    <table class="admintable" cellspacing="1">
-                      <tbody>
-                        <tr>
-                                <td>
-                            <?php echo JText::_( 'GLOBAL PARAM DESC' ); ?>
-                              </td>
-                            </tr>
-                      </tbody>
-                    </table>
-                  </fieldset>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
+	<tr>
+		<td>
+		<fieldset class="adminform"><legend><?php echo JText::_( 'ATTENTION' ); ?></legend>
+		<table class="admintable" cellspacing="1">
+			<tbody>
+				<tr>
+					<td><?php echo JText::_( 'GLOBAL PARAM DESC' ); ?></td>
+				</tr>
+			</tbody>
+		</table>
+		</fieldset>
     </td>
   </tr>
+  <tr>
+    <td>		
+		<fieldset class="adminform"><legend><?php echo JText::_( 'GLOBAL PARAMETERS' ); ?></legend>
+		<?php echo $this->globalparams->render('globalparams'); ?></fieldset>
+		
+		<?php foreach ($this->globalparams->getGroups() as $key => $groups): ?>
+			<?php if (strtolower($key) != '_default'): ?>
+				<fieldset class="adminform"><legend><?php echo JText::_( strtoupper($key) ); ?></legend>
+				<?php echo $this->globalparams->render('globalparams', $key); ?></fieldset>
+			<?php endif; ?>
+		<?php endforeach; ?>
+		</td>
+	</tr>
 </table>

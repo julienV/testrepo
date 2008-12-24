@@ -156,3 +156,7 @@ div.clear
     margin-bottom: 0px;
     padding: 0px;
 }
+
+div#page-parameters fieldset.adminform {
+  float:left;
+}
