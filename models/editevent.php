@@ -159,11 +159,6 @@ class EventListModelEditevent extends JModel
 			$this->_event->datimage			= '';
 			$this->_event->hits					= 0;
 			$this->_event->version					= 0;
-      $this->_event->organization  = null;
-      $this->_event->contact       = null;
-      $this->_event->contact_email = null;
-      $this->_event->contact_email_hide = 0;
-      $this->_event->contact_phone = null;
 			$this->_event->venue			= JText::_('SELECTVENUE');
 
 		}

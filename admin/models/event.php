@@ -158,11 +158,6 @@ class EventListModelEvent extends JModel
 			$event->venue				= JText::_('SELECTVENUE');
 			$event->hits				= 0;
 			$event->version				= 0;
-      $event->organization  = null;
-      $event->contact       = null;
-      $event->contact_email = null;
-      $event->contact_email_hide = 0;
-      $event->contact_phone = null;
 			$event->modified			= $this->_db->getNullDate();
 			$this->_data				= $event;
 			return (boolean) $this->_data;

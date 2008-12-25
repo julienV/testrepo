@@ -102,12 +102,7 @@ defined('_JEXEC') or die('Restricted access');
    				validator.handleResponse(false,form.dates);
    				form.dates.focus();
    				return false;
-  			} else if (form.contact.value != "" && form.contact_phone.value == "" && (form.contact_email_hide.checked || form.contact_email.value == '')) {
-          alert("<?php echo JText::_( 'Phone number is mandatory if email is not public or empty.', true ); ?>");
-          validator.handleResponse(false,form.contact_phone);
-          form.contact_phone.focus();
-          return false;
-        } else if ( validator.validate(form.dates) === false ) {
+  			} else if ( validator.validate(form.dates) === false ) {
    				alert("<?php echo JText::_( 'DATE WRONG', true ); ?>");
    				validator.handleResponse(false,form.dates);
    				form.dates.focus();
@@ -316,42 +311,6 @@ defined('_JEXEC') or die('Restricted access');
 
         </fieldset>
 
-        <fieldset class="el_fldst_contact">
-
-          <legend><?php echo JText::_('Contact'); ?></legend>
-
-          <div class="el_organization floattext">
-              <label for="organization">
-                  <?php echo JText::_( 'Organization' ).':'; ?>
-              </label>
-              <input class="inputbox" type="text" id="organization" name="organization" value="<?php echo $this->row->organization; ?>" size="20" maxlength="30" />                  
-          </div>          
-          
-          <div class="el_contact floattext">
-              <label for="contact">
-                  <?php echo JText::_( 'Contact' ).':'; ?>
-              </label>
-              <input class="inputbox" type="text" id="contact" name="contact" value="<?php echo $this->row->contact; ?>" size="20" maxlength="30" />                  
-          </div>
-          <div class="el_contact_email floattext">
-              <label for="contact">
-                  <?php echo JText::_( 'Contact Email' ).':'; ?>
-              </label>
-              <input class="inputbox" type="text" id="contact_email" name="contact_email" value="<?php echo $this->row->contact_email; ?>" size="40" maxlength="255" />                  
-          </div>
-          <div class="el_contact_email_hide floattext">
-              <label for="contact">
-                  <?php echo JText::_( 'Hide email' ).':'; ?>
-              </label>
-              <input class="inputbox" type="checkbox" id="contact_email_hide" name="contact_email_hide"<?php echo ($this->row->contact_email_hide) ? ' checked="checked"':''; ?>" value="1"/>
-          </div>
-          <div class="el_contact_phone floattext">
-              <label for="contact">
-                  <?php echo JText::_( 'Contact phone' ).':'; ?>
-              </label>
-              <input class="inputbox" type="text" id="contact_phone" name="contact_phone" value="<?php echo $this->row->contact_phone; ?>" size="20" maxlength="30" />                  
-          </div>
-      </fieldset>
 
     	<?php if ( $this->elsettings->showfroregistra == 2 ) : ?>
     	<fieldset class="el_fldst_registration">
