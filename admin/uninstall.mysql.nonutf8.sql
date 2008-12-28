@@ -6,4 +6,5 @@ DROP TABLE IF EXISTS
 `#__eventlist_groups`,
 `#__eventlist_groupmembers`,
 `#__eventlist_register`,
-`#__eventlist_settings`;
+`#__eventlist_settings`,
+`#__eventlist_countries`;

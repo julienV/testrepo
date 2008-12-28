@@ -16,13 +16,14 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_events` (
 `datdescription` mediumtext NOT NULL,
 `meta_keywords` varchar(200) NOT NULL default '',
 `meta_description` varchar(255) NOT NULL default '',
-`recurrence_first_id` int(11) unsigned NOT NULL default '0',
+`recurrence_first_id` int(11) NOT NULL default '0',
 `recurrence_number` int(2) NOT NULL default '0',
 `recurrence_type` int(2) NOT NULL default '0',
-`recurrence_counter` int NOT NULL '0',
-`recurrence_limit` int NOT NULL default '0',
+`recurrence_counter` int(11) NOT NULL default '0',
+`recurrence_limit` int(11) NOT NULL default '0',
 `recurrence_limit_date` date NOT NULL default '0000-00-00',
 `recurrence_byday` varchar(20) NOT NULL default '',
+`recurrence_rrule` varchar(200) NOT NULL default '',
 `datimage` varchar(100) NOT NULL default '',
 `checked_out` int(11) NOT NULL default '0',
 `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -205,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_countries` (
   KEY `iso2` (`iso2`)
 ) TYPE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-INSERT INTO `#__eventlist_countries` (`id`, `continent`, `iso2`, `iso3`, `un`, `name`) VALUES
+INSERT IGNORE INTO `#__eventlist_countries` (`id`, `continent`, `iso2`, `iso3`, `un`, `name`) VALUES
 (1, 'AS', 'AF', 'AFG', 4, 'Afghanistan, Islamic Republic '),
 (2, 'EU', 'AX', 'ALA', 248, 'Åland Islands'),
 (3, 'EU', 'AL', 'ALB', 8, 'Albania, Republic of'),
