@@ -204,13 +204,13 @@ class EventListModelCategoryevents extends JModel
 		$orderby	= $this->_buildCategoryOrderBy();
 
 		//Get Events from Database
-		$query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.venue, l.city, l.state, l.url,'
+		$query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.id, l.venue, l.city, l.state, l.url,'
 				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
 				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
 				. ' FROM #__eventlist_events AS a'
 				. ' INNER JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = a.id'
 				. ' INNER JOIN #__eventlist_categories AS c ON c.id = rel.catid'
-        . ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
+        		. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
 				. $where
 				. $orderby
 				;
@@ -262,15 +262,14 @@ class EventListModelCategoryevents extends JModel
 		// display event from direct childs ?
 		if (!$params->get('displayChilds', 0)) {
 			$where .= ' AND rel.catid = '.$this->_id;
-		}
-		else {
-      $where .= ' AND (rel.catid = '.$this->_id . ' OR c.parent_id = '.$this->_id . ')';			
+		} else {
+      		$where .= ' AND (rel.catid = '.$this->_id . ' OR c.parent_id = '.$this->_id . ')';			
 		}
 		
 		// display all event of recurring serie ?
-    if ($params->get('only_first',0)) {
-      $where .= ' AND a.recurrence_first_id = 0 ';
-    }
+    	if ($params->get('only_first',0)) {
+     		$where .= ' AND a.recurrence_first_id = 0 ';
+    	}
 
 		// only select events assigned to category the user has access to
 		$where .= ' AND c.access <= '.$gid;
@@ -350,20 +349,20 @@ class EventListModelCategoryevents extends JModel
 		}
 		
 		$query = 'SELECT c.*,'
-				  . ' CASE WHEN CHAR_LENGTH( c.alias ) THEN CONCAT_WS( \':\', c.id, c.alias ) ELSE c.id END AS slug,'
-					. ' ec.assignedevents'
-				  . ' FROM #__eventlist_categories AS c'
-				  . ' INNER JOIN ('
-	          . ' SELECT COUNT( DISTINCT i.id ) AS assignedevents, cc.id'
-	          . ' FROM #__eventlist_events AS i'
-	          . ' INNER JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = i.id'
-	          . ' INNER JOIN #__eventlist_categories AS cc ON cc.id = rel.catid'
-	          . $where
-	          . ' GROUP BY cc.id'
-	          . ')' 
-          . ' AS ec ON ec.id = c.id'
-				  . ' ORDER BY '.$ordering
-				  ;
+				. ' CASE WHEN CHAR_LENGTH( c.alias ) THEN CONCAT_WS( \':\', c.id, c.alias ) ELSE c.id END AS slug,'
+				. ' ec.assignedevents'
+				. ' FROM #__eventlist_categories AS c'
+				. ' INNER JOIN ('
+	          	. ' SELECT COUNT( DISTINCT i.id ) AS assignedevents, cc.id'
+	         	. ' FROM #__eventlist_events AS i'
+	          	. ' INNER JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = i.id'
+	          	. ' INNER JOIN #__eventlist_categories AS cc ON cc.id = rel.catid'
+	          	. $where
+	          	. ' GROUP BY cc.id'
+	          	. ')' 
+          		. ' AS ec ON ec.id = c.id'
+				. ' ORDER BY '.$ordering
+			 	;
 
 		return $query;
 	}

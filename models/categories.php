@@ -110,8 +110,8 @@ class EventListModelCategories extends JModel
 		if (empty($this->_categories))
 		{
 			$query = $this->_buildQuery();
-      $pagination = $this->getPagination();
-      $this->_categories = $this->_getList( $query, $pagination->limitstart,  $pagination->limit );
+      		$pagination = $this->getPagination();
+      		$this->_categories = $this->_getList( $query, $pagination->limitstart,  $pagination->limit );
 
 			$k = 0;
 			$count = count($this->_categories);
@@ -189,8 +189,8 @@ class EventListModelCategories extends JModel
 	{
 		global $mainframe;
 		
-    // Get the paramaters of the active menu item
-    $params   = & $mainframe->getParams('com_eventlist');
+    	// Get the paramaters of the active menu item
+    	$params   = & $mainframe->getParams('com_eventlist');
     
 		if (is_null($parent_id)) {
 			$parent_id = $this->_id;

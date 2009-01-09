@@ -155,13 +155,13 @@ class EventListModelSearch extends JModel
 	
 			//Get Events from Database
 			$this->_query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.created, a.locid, a.datdescription,'
-					. ' l.venue, l.city, l.state, l.url,'
+					. ' l.id, l.venue, l.city, l.state, l.url,'
 					. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
 					. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
 					. ' FROM #__eventlist_events AS a'
-	        . ' INNER JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = a.id '
+	        		. ' INNER JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = a.id '
 					. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
-          . ' LEFT JOIN #__eventlist_countries AS c ON c.iso2 = l.country'
+          			. ' LEFT JOIN #__eventlist_countries AS c ON c.iso2 = l.country'
 					. $where
 					. $orderby
 					;
@@ -209,74 +209,76 @@ class EventListModelSearch extends JModel
 
 		$filter 		= JRequest::getString('filter', '', 'request');
 		$filter_type 	= JRequest::getWord('filter_type', '', 'request');
-    $filter_continent = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_continent', 'filter_continent', '', 'string');
-    $filter_country = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_country', 'filter_country', '', 'string');
-    $filter_city = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_city', 'filter_city', '', 'string');
-    $filter_date = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_date', 'filter_date', '', 'string');
-    $filter_category = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_category', 'filter_category', 0, 'int');
+    	$filter_continent = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_continent', 'filter_continent', '', 'string');
+    	$filter_country = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_country', 'filter_country', '', 'string');
+   		$filter_city = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_city', 'filter_city', '', 'string');
+    	$filter_date = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_date', 'filter_date', '', 'string');
+    	$filter_category = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_category', 'filter_category', 0, 'int');
     
-    // no result if no filter:
-    if ( !($filter || $filter_continent || $filter_country || $filter_city || $filter_date || $filter_category) ) {
-    	return ' WHERE 0 ';
-    }
+    	// no result if no filter:
+    	if ( !($filter || $filter_continent || $filter_country || $filter_city || $filter_date || $filter_category) ) {
+    		return ' WHERE 0 ';
+    	}
 
-    if ($filter)
-    {
-    	// clean filter variables
-    	$filter 		= JString::strtolower($filter);
-    	$filter			= $this->_db->Quote( '%'.$this->_db->getEscaped( $filter, true ).'%', false );
-    	$filter_type 	= JString::strtolower($filter_type);
-
-    	switch ($filter_type)
+    	if ($filter)
     	{
-    		case 'title' :
-    			$where .= ' AND LOWER( a.title ) LIKE '.$filter;
-    			break;
+    		// clean filter variables
+    		$filter 		= JString::strtolower($filter);
+    		$filter			= $this->_db->Quote( '%'.$this->_db->getEscaped( $filter, true ).'%', false );
+    		$filter_type 	= JString::strtolower($filter_type);
 
-    		case 'venue' :
-    			$where .= ' AND LOWER( l.venue ) LIKE '.$filter;
-    			break;
+    		switch ($filter_type)
+    		{
+    			case 'title' :
+    				$where .= ' AND LOWER( a.title ) LIKE '.$filter;
+    				break;
 
-    		case 'city' :
-    			$where .= ' AND LOWER( l.city ) LIKE '.$filter;
-    			break;
+    			case 'venue' :
+    				$where .= ' AND LOWER( l.venue ) LIKE '.$filter;
+    				break;
+
+    			case 'city' :
+    				$where .= ' AND LOWER( l.city ) LIKE '.$filter;
+    				break;
+    		}
     	}
-    }
-    // filter date
-    if ($filter_date) {
-    	if (strtotime($filter_date)) {
-    		$where .= ' AND (\''.$filter_date.'\' BETWEEN (a.dates) AND (a.enddates) OR \''.$filter_date.'\' = a.dates)';
+		
+   		// filter date
+    	if ($filter_date) {
+    		if (strtotime($filter_date)) {
+    			$where .= ' AND (\''.$filter_date.'\' BETWEEN (a.dates) AND (a.enddates) OR \''.$filter_date.'\' = a.dates)';
+    		}
     	}
-    }
-    // filter country
-    if ($filter_continent) {
-      $where .= ' AND c.continent = ' . $this->_db->Quote($filter_continent);
-    }
-    // filter country
-    if ($filter_country) {
-    	$where .= ' AND l.country = ' . $this->_db->Quote($filter_country);
-    }
-    // filter city
-    if ($filter_country && $filter_city) {
-    	$where .= ' AND l.city = ' . $this->_db->Quote($filter_city);
-    }
-    // filter category
-    if ($filter_category) {
-    	$cats = eventlist_cats::getChilds((int) $filter_category);
-    	$where .= ' AND rel.catid IN (' . implode(', ', $cats) .')';
-    }
+    	// filter country
+	    if ($filter_continent) {
+      		$where .= ' AND c.continent = ' . $this->_db->Quote($filter_continent);
+    	}
+    	// filter country
+    	if ($filter_country) {
+	    	$where .= ' AND l.country = ' . $this->_db->Quote($filter_country);
+    	}
+    	// filter city
+    	if ($filter_country && $filter_city) {
+    		$where .= ' AND l.city = ' . $this->_db->Quote($filter_city);
+    	}
+    	// filter category
+    	if ($filter_category) {
+    		$cats = eventlist_cats::getChilds((int) $filter_category);
+    		$where .= ' AND rel.catid IN (' . implode(', ', $cats) .')';
+    	}
+			
 		return $where;
 	}
 	
 	function getTotal()
 	{
 		// Lets load the total nr if it doesn't already exist
-    if (empty($this->_total))
-    {
-      $query = $this->_buildQuery();
-      $this->_total = $this->_getListCount($query);
-    }
-    return $this->_total;
+    	if (empty($this->_total))
+    	{
+      		$query = $this->_buildQuery();
+      		$this->_total = $this->_getListCount($query);
+    	}
+    	return $this->_total;
 	}
 	
 	function getCategories($id)
@@ -300,23 +302,25 @@ class EventListModelSearch extends JModel
 		return $this->_cats;
 	}
   
-  function getCountryOptions()
-  {
-    global $mainframe;
-  	$filter_continent = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_continent', 'filter_continent', '', 'string');
+  	function getCountryOptions()
+  	{
+    	global $mainframe;
+  		$filter_continent = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_continent', 'filter_continent', '', 'string');
   	
-    $query = ' SELECT DISTINCT c.iso2 as value, c.name as text '
-           . ' FROM #__eventlist_events AS a'
-           . ' INNER JOIN #__eventlist_venues AS l ON l.id = a.locid'
-           . ' INNER JOIN #__eventlist_countries as c ON c.iso2 = l.country '
-           ;
-    if ($filter_continent) {
-      $query .= ' WHERE c.continent = ' . $this->_db->Quote($filter_continent);
-    }
-    $query .= ' ORDER BY c.name ';
-    $this->_db->setQuery($query);
-    return $this->_db->loadObjectList();
-  }
+		$query = ' SELECT DISTINCT c.iso2 as value, c.name as text '
+         		  . ' FROM #__eventlist_events AS a'
+         		  . ' INNER JOIN #__eventlist_venues AS l ON l.id = a.locid'
+         		  . ' INNER JOIN #__eventlist_countries as c ON c.iso2 = l.country '
+          		 ;
+				 
+    	if ($filter_continent) {
+      		$query .= ' WHERE c.continent = ' . $this->_db->Quote($filter_continent);
+    	}
+    	$query .= ' ORDER BY c.name ';
+    	$this->_db->setQuery($query);
+		
+    	return $this->_db->loadObjectList();
+  	}
 	
 	function getCityOptions()
 	{
@@ -329,50 +333,52 @@ class EventListModelSearch extends JModel
            . ' INNER JOIN #__eventlist_countries as c ON c.iso2 = l.country '
            . ' WHERE l.country = ' . $this->_db->Quote($country)
            . ' ORDER BY l.city ';           
-    $this->_db->setQuery($query);
-    return $this->_db->loadObjectList();
+    		
+			$this->_db->setQuery($query);
+    		return $this->_db->loadObjectList();
 	}
 	
 
-  /**
-   * logic to get the categories
-   *
-   * @access public
-   * @return void
-   */
-  function getCategoryTree( )
-  {
-    $user   = & JFactory::getUser();
-    $elsettings = & ELHelper::config();
-    $userid   = (int) $user->get('id');
-    $gid    = (int) $user->get('aid');
-    $superuser  = ELUser::superuser();
+  	/**
+  	 * logic to get the categories
+  	 *
+ 	  * @access public
+ 	  * @return void
+ 	  */
+  	function getCategoryTree( )
+  	{
+   		$user   = & JFactory::getUser();
+    	$elsettings = & ELHelper::config();
+    	$userid   = (int) $user->get('id');
+    	$gid    = (int) $user->get('aid');
+    	$superuser  = ELUser::superuser();
 
-    $where = ' WHERE c.published = 1 AND c.access <= '.$gid;
+	    $where = ' WHERE c.published = 1 AND c.access <= '.$gid;
 
-    //get the maintained categories and the categories whithout any group
-    //or just get all if somebody have edit rights
-    $query = 'SELECT c.*'
-        . ' FROM #__eventlist_categories AS c'
-        . $where
-        . ' ORDER BY c.ordering'
-        ;
-    $this->_db->setQuery( $query );  
-    $rows = $this->_db->loadObjectList();
+    	//get the maintained categories and the categories whithout any group
+    	//or just get all if somebody have edit rights
+    	$query = 'SELECT c.*'
+    	    . ' FROM #__eventlist_categories AS c'
+    	    . $where
+        	. ' ORDER BY c.ordering'
+        	;
+    	$this->_db->setQuery( $query );  
+    	$rows = $this->_db->loadObjectList();
     
-    //set depth limit
-    $levellimit = 10;
+    	//set depth limit
+    	$levellimit = 10;
     
-    //get children
-    $children = array();
-    foreach ($rows as $child) {
-    	$parent = $child->parent_id;
-    	$list = @$children[$parent] ? $children[$parent] : array();
-    	array_push($list, $child);
-    	$children[$parent] = $list;
-    }
-    //get list of the items
-    return eventlist_cats::treerecurse(0, '', array(), $children, true, max(0, $levellimit-1));
-  }
+    	//get children
+    	$children = array();
+    	foreach ($rows as $child) {
+    		$parent = $child->parent_id;
+    		$list = @$children[$parent] ? $children[$parent] : array();
+    		array_push($list, $child);
+    		$children[$parent] = $list;
+    	}	
+    
+		//get list of the items
+    	return eventlist_cats::treerecurse(0, '', array(), $children, true, max(0, $levellimit-1));
+  	}
 }
 ?>
