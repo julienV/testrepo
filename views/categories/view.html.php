@@ -3,7 +3,7 @@
  * @version 1.1 $Id: view.html.php 422 2007-10-02 12:37:35Z schlu $
  * @package Joomla
  * @subpackage EventList
- * @copyright (C) 2005 - 2008 Christoph Lukes
+ * @copyright (C) 2005 - 2009 Christoph Lukes
  * @license GNU/GPL, see LICENSE.php
  * EventList is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License 2
