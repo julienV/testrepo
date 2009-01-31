@@ -84,7 +84,9 @@ Select one of the three options. 'Delete old Events' will delete
 all Events after the number of days typed in in the box below. If
 you select 'Archive old Events' the Events will moved after the
 typed in days in the Archive. You only have access to the archive
-if you have choosen this option.
+if you have choosen this option.<br />Note that EventList triggers this cleanup action once a 
+day after midnight server time and only if an EventList view got a visit. If you want to make sure 
+that the cleanup happens, create a cronjob pointing to an EventList component view.
 </p>
 
 <br />

@@ -57,7 +57,9 @@
 
 <h3>Veranstaltungs Verhalten </h3>
 <p><strong>Alte Veranstaltungen :</strong></p>
-<p>Wählen Sie eine der drei Optionen. "Alte Veranstaltungen löschen" entfernt alle Veranstaltungen welche älter sind, als im Feld unten definiert wurde. Falls Sie "Alte Veranstaltungen archivieren" wählen, werden alle Veranstaltungen - die älter als der definierte Zeitraum sind - in das Archiv verschoben. Nur wenn diese Funktion aktiv ist, ist ein Zugriff vom Frontend auf das Archiv möglich. </p>
+<p>Wählen Sie eine der drei Optionen. "Alte Veranstaltungen löschen" entfernt alle Veranstaltungen welche älter sind, als im Feld unten definiert wurde. Falls Sie "Alte Veranstaltungen archivieren" wählen, werden alle Veranstaltungen - die älter als der definierte Zeitraum sind - in das Archiv verschoben. Nur wenn diese Funktion aktiv ist, ist ein Zugriff vom Frontend auf das Archiv möglich.
+<br />Beachten sie dass EventList exakt einmal am Tag, mit dem ersten Besucher nach Mitternacht Serverzeit diese Aktionen ausführt. 
+Um die Aktualisierung zu erzwingen wird die Einrichtung eines Cronjobs empfohlen. Dieser sollte eine der EventList Ansichten aufrufen.</p>
 
 
 <h3>E-Mail Benachrichtigungen </h3>
