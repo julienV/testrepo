@@ -212,7 +212,7 @@ defined('_JEXEC') or die('Restricted access');
 							</span>
 						</td>
        					<td valign="top">
-         					<input type="text" name="imagehight" value="<?php echo $this->elsettings->imagehight; ?>" size="10" maxlength="10" />
+         					<input type="text" name="imageheight" value="<?php echo $this->elsettings->imageheight; ?>" size="10" maxlength="10" />
        	 				</td>
       				</tr>
 					<tr>

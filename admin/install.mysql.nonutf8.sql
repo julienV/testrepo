@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_settings` (
   `locdelrec` tinyint(4) NOT NULL,
   `locpubrec` tinyint(4) NOT NULL,
   `sizelimit` varchar(60) NOT NULL,
-  `imagehight` varchar(60) NOT NULL,
+  `imageheight` varchar(60) NOT NULL,
   `imagewidth` varchar(60) NOT NULL,
   `gddisabled` tinyint(4) NOT NULL,
   `imageenabled` tinyint(4) NOT NULL,

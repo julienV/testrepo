@@ -212,7 +212,7 @@ class ELImage {
 				$filepath 	= JPATH_SITE.'/images/eventlist/'.$folder.'/'.$image;
 				$save 		= JPATH_SITE.'/images/eventlist/'.$folder.'/small/'.$image;
 
-				ELImage::thumb($filepath, $save, $settings->imagewidth, $settings->imagehight);
+				ELImage::thumb($filepath, $save, $settings->imagewidth, $settings->imageheight);
 			}
 
 			//set paths
@@ -223,10 +223,10 @@ class ELImage {
 			$iminfo = @getimagesize('images/eventlist/'.$folder.'/'.$image);
 
 			//if the width or height is too large this formula will resize them accordingly
-			if (($iminfo[0] > $settings->imagewidth) || ($iminfo[1] > $settings->imagehight)) {
+			if (($iminfo[0] > $settings->imagewidth) || ($iminfo[1] > $settings->imageheight)) {
 
 				$iRatioW = $settings->imagewidth / $iminfo[0];
-				$iRatioH = $settings->imagehight / $iminfo[1];
+				$iRatioH = $settings->imageheight / $iminfo[1];
 
 				if ($iRatioW < $iRatioH) {
 					$dimage['width'] 	= round($iminfo[0] * $iRatioW);
