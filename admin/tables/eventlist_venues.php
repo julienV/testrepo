@@ -51,10 +51,10 @@ class eventlist_venues extends JTable
 	var $state				= null;
 	/** @var string */
 	var $country			= null;
-  /** @var float */
-  var $latitude      = null;
-  /** @var float */
-  var $longitude     = null;
+  	/** @var float */
+  	var $latitude      		= null;
+  	/** @var float */
+  	var $longitude     		= null;
 	/** @var string */
 	var $locdescription 	= null;
 	/** @var string */
@@ -80,9 +80,9 @@ class eventlist_venues extends JTable
 	/** @var int */
 	var $published	 		= null;
 	/** @var int */
-	var $checked_out 		= null;
+	var $checked_out 		= 0;
 	/** @var date */
-	var $checked_out_time 	= null;
+	var $checked_out_time 	= 0;
 	/** @var int */
 	var $ordering 			= null;
 

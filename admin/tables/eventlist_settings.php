@@ -182,9 +182,9 @@ class eventlist_settings extends JTable
 	/** @var string */
 	var $lastupdate 		= null;
 	/** @var int */
-	var $checked_out 		= null;
+	var $checked_out 		= 0;
 	/** @var date */
-	var $checked_out_time 	= null;
+	var $checked_out_time 	= 0;
 
 	function eventlist_settings(& $db) {
 		parent::__construct('#__eventlist_settings', 'id', $db);

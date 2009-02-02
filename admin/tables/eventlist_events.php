@@ -81,26 +81,26 @@ class eventlist_events extends JTable
 	 * @var int
 	 */
 	var $recurrence_counter = null;
-  /**
-   * limit counter for repetition
-   *
-   * @var string
-   */
-  var $recurrence_limit = null;
-  /**
-   * limit date for repetition
-   *
-   * @var string
-   */
-  var $recurrence_limit_date = null;
-  /**
-   * list of day the event occurs on (2 letters, separated by comma)
-   *
-   * @var string
-   */
-  var $recurrence_byday = '';
-  /** @var int id of first event for recurrence events*/
-  var $recurrence_first_id = 0;
+  	/**
+   	* limit counter for repetition
+   	*
+   	* @var string
+   	*/
+  	var $recurrence_limit = null;
+  	/**
+   	* limit date for repetition
+	*
+   	* @var string
+   	*/
+  	var $recurrence_limit_date = null;
+  	/**
+   	* list of day the event occurs on (2 letters, separated by comma)
+   	*
+   	* @var string
+   	*/
+  	var $recurrence_byday = '';
+  	/** @var int id of first event for recurrence events*/
+	var $recurrence_first_id = 0;
 	/** @var string */
 	var $datimage 			= '';
 	/** @var string */
@@ -116,7 +116,7 @@ class eventlist_events extends JTable
 	/** @var int */
 	var $hits				= 0;
 	/** @var int */
-	var $checked_out 		= null;
+	var $checked_out 		= 0;
 	/** @var date */
 	var $checked_out_time 	= 0;
 
