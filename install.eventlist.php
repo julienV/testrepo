@@ -3,7 +3,7 @@
  * @version 1.1 $Id$
  * @package Joomla
  * @subpackage EventList
- * @copyright (C) 2008 - 2009 Christoph Lukes
+ * @copyright (C) 2005 - 2009 Christoph Lukes
  * @license GNU/GPL, see LICENSE.php
  * EventList is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License 2
@@ -89,14 +89,14 @@ function com_install() {
 			<?php
 			if (($direxists) || ($makedir)) {
 			?>
-				<font color="green"><b>Joomla! EventList 0.9 ALPHA Installed Successfully!</b></font><br />
+				<font color="green"><b>Joomla! EventList Installed Successfully!</b></font><br />
 				Ensure that EventList has write access to the directories shown above! Have Fun.
 				</code>
 			<?php
 			} else {
 			?>
 				<font color="red">
-				<b>Joomla! EventList 0.9 ALPHA could NOT be installed successfully!</b>
+				<b>Joomla! EventList could NOT be installed successfully!</b>
 				</font>
 				<br /><br />
 				Please check following directories:<br />

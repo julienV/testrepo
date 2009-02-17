@@ -3,7 +3,7 @@
  * @version 1.1 $Id$
  * @package Joomla
  * @subpackage EventList
- * @copyright (C) 2008 - 2009 Christoph Lukes
+ * @copyright (C) 2005 - 2009 Christoph Lukes
  * @license GNU/GPL, see LICENSE.php
  * EventList is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License 2
@@ -27,6 +27,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
  * @since 0.1
  */
 function com_uninstall() {
-echo "<strong>Joomla! EventList 0.9 Alpha uninstalled</strong>";
+echo "<strong>Joomla! EventList uninstalled</strong>";
 }
 ?>
