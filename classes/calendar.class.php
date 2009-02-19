@@ -50,6 +50,8 @@
  * The layout of can be configured using css, as the class generates various html classes
  * Please read the readme.html first and check the examples included in this package
  */
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
 class ELCalendar{
 /*
 ----------------------
