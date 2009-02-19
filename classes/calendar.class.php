@@ -632,19 +632,22 @@ PRIVATE mkDay() -> creates each td tag of the month body
 */
 function mkDay($var)
 {
-  $eventContent = $this->mkEventContent($var);
-  $linkstr      = $this->mkUrl($this->actyear,$this->actmonth,$var);
-	
-  if ($this->javaScriptDay) {
-  	$linkstr="<a href=\"javascript:".$this->javaScriptDay."(".$this->actyear.",".$this->actmonth.",".$var.")\">".$var."</a>";
-  }
-  else {
-    $dayurl= JRoute::_( 'index.php?view=day&id='.sprintf('%04d%02d%02d',$this->actyear,$this->actmonth,$var ) );
-    $linkstr="<a href=\"".$dayurl."\">".$var."</a>";
-  }
+	$eventContent = $this->mkEventContent($var);
+	$linkstr      = $this->mkUrl($this->actyear,$this->actmonth,$var);
+
+	if ($eventContent) {
+		if ($this->javaScriptDay) {
+  			$linkstr="<a href=\"javascript:".$this->javaScriptDay."(".$this->actyear.",".$this->actmonth.",".$var.")\">".$var."</a>";
+  		} else {
+    		$dayurl= JRoute::_( 'index.php?view=day&id='.sprintf('%04d%02d%02d',$this->actyear,$this->actmonth,$var ) );
+    		$linkstr="<a href=\"".$dayurl."\">".$var."</a>";
+  		}
+	} else {
+		$linkstr= $var;
+	}
 	
   if ($this->isEvent($var))
-  {
+  {	
 		if ($this->eventUrl)
 		{
 			$out="<td class=\"".$this->eventID."\"><div class=\"daynum\"><a href=\"".$this->eventUrl."\">".$var."</div></a>".$eventContent."</td>";
