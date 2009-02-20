@@ -125,8 +125,8 @@ class EventListModelEditvenue extends JModel
 			$this->_venue->city				= '';
 			$this->_venue->state			= '';
 			$this->_venue->country			= '';
-      $this->_venue->latitude      = '';
-      $this->_venue->longitude      = '';
+      		$this->_venue->latitude      	= '';
+      		$this->_venue->longitude      	= '';
 			$this->_venue->map				= $elsettings->showmapserv ? 1 : 0;
 			$this->_venue->created			= '';
 			$this->_venue->created_by		= '';

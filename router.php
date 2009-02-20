@@ -127,10 +127,10 @@ function EventListParseRoute($segments)
 
 		} break;
 				
-    case 'search':
-    {
-      $vars['view'] = 'search';
-    } break;
+    	case 'search':
+    	{
+      		$vars['view'] = 'search';
+    	} break;
 
 		case 'categoriesdetailed':
 		{
@@ -154,18 +154,18 @@ function EventListParseRoute($segments)
 
 		} break;
 		
-    case 'calendar':
-    {
-      $id = explode(':', $segments[1]);
-      $vars['id'] = $id[0];
-      $vars['view'] = 'calendar';
+    	case 'calendar':
+    	{
+      		$id = explode(':', $segments[1]);
+      		$vars['id'] = $id[0];
+      		$vars['view'] = 'calendar';
 
-      $count = count($segments);
-      if($count > 2) {
-        $vars['task'] = $segments[2];
-      }
+      		$count = count($segments);
+      		if($count > 2) {
+        		$vars['task'] = $segments[2];
+      		}
 
-    } break;
+    	} break;
 
 		case 'venues':
 		{
@@ -189,10 +189,10 @@ function EventListParseRoute($segments)
 
 		} break;
 
-    default:
-    {
-      $vars['view'] = $segments[0];
-    } break;
+    	default:
+    	{
+      		$vars['view'] = $segments[0];
+    	} break;
 	}
 
 	return $vars;

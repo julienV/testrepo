@@ -163,6 +163,10 @@ class EventListViewDetails extends JView
 			$results = $dispatcher->trigger('onPrepareContent', array (& $row, & $params, 0));
 			$row->locdescription = $row->text;
 		}
+		
+		//execute EventList plugins
+		JPluginHelper::importPlugin( 'eventlist' );
+		$dispatcher =& JDispatcher::getInstance();
 
 		// generate Metatags
 		$meta_keywords_content = "";

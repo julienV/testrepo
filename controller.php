@@ -157,13 +157,16 @@ class EventListController extends JController
 		//Sanitize
 		$post = JRequest::get( 'post' );
 		$post['locdescription'] = JRequest::getVar( 'locdescription', '', 'post', 'string', JREQUEST_ALLOWRAW );
-    if (JRequest::getVar( 'latitude', '', 'post', 'string') == '') {
-      unset($post['latitude']);
-    }
-    if (JRequest::getVar( 'longitude', '', 'post', 'string') == '') {
-      unset($post['longitude']);
-    }
+    	
+		if (JRequest::getVar( 'latitude', '', 'post', 'string') == '') {
+      		unset($post['latitude']);
+    	}
+    	if (JRequest::getVar( 'longitude', '', 'post', 'string') == '') {
+	      	unset($post['longitude']);
+    	}
 
+		$isNew = ($post['id']) ? false : true;
+		
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
 
 		$model = $this->getModel('editvenue');
@@ -172,6 +175,10 @@ class EventListController extends JController
 
 			$msg 	= JText::_( 'VENUE SAVED' );
 			$link 	= JRoute::_('index.php?view=venueevents&id='.$returnid, false) ;
+
+			JPluginHelper::importPlugin( 'eventlist' );
+      		$dispatcher =& JDispatcher::getInstance();
+      		$res = $dispatcher->trigger( 'onVenueEdited', array( $returnid, $isNew ) );
 
 			$cache = &JFactory::getCache('com_eventlist');
 			$cache->clean();
@@ -204,6 +211,8 @@ class EventListController extends JController
 		//get image
 		$file 		= JRequest::getVar( 'userfile', '', 'files', 'array' );
 		$post 		= JRequest::get( 'post' );
+
+		$isNew = ($post['id']) ? false : true;
 
 		$model = $this->getModel('editevent');
 
@@ -245,6 +254,10 @@ class EventListController extends JController
 
 		$model->setId($id);
 		$model->userregister();
+		
+		JPluginHelper::importPlugin( 'eventlist' );
+    	$dispatcher =& JDispatcher::getInstance();
+   		$res = $dispatcher->trigger( 'onEventUserRegistered', array( $id ) );
 
 		$cache = &JFactory::getCache('com_eventlist');
 		$cache->clean();
@@ -271,6 +284,10 @@ class EventListController extends JController
 
 		$model->setId($id);
 		$model->delreguser();
+		
+		JPluginHelper::importPlugin( 'eventlist' );
+    	$dispatcher =& JDispatcher::getInstance();
+    	$res = $dispatcher->trigger( 'onEventUserUnregistered', array( $id ) ); 
 
 		$cache = &JFactory::getCache('com_eventlist');
 		$cache->clean();
