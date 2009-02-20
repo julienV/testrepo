@@ -57,6 +57,9 @@ defined('_JEXEC') or die('Restricted access');
 						$link = 'index.php?option=com_eventlist&amp;view=archive';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-archive.png', JText::_( 'ARCHIVESCREEN' ) );
 
+						$link = 'index.php?option=com_eventlist&amp;controller=plugins&amp;task=plugins';
+						EventListViewEventList::quickiconButton( $link, 'icon-48-plugins.png', JText::_( 'MANAGE PLUGINS' ) );
+
 						//only admins should be able to see this items
 						if ($this->user->get('gid') > 24) {
 							$link = 'index.php?option=com_eventlist&amp;controller=settings&amp;task=edit';
@@ -78,8 +81,8 @@ defined('_JEXEC') or die('Restricted access');
 						$link = 'index.php?option=com_eventlist&amp;controller=sampledata&amp;task=load';
 						EventListViewEventList::quickiconButton( $link, 'icon-48-sampledata.png', JText::_( 'LOAD SAMPLE DATA' ) );
 						
-            $link = 'index.php?option=com_eventlist&amp;view=import';
-            EventListViewEventList::quickiconButton( $link, 'icon-48-sampledata.png', JText::_( 'IMPORT DATA' ) );
+						$link = 'index.php?option=com_eventlist&amp;view=import';
+						EventListViewEventList::quickiconButton( $link, 'icon-48-sampledata.png', JText::_( 'IMPORT DATA' ) );
 						?>
 						</div>
 					</td>
