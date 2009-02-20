@@ -322,12 +322,12 @@ defined('_JEXEC') or die('Restricted access');
               <p><strong><?php echo JText::_( 'SUBMIT REGISTER' ).':'; ?></strong></p>
 
               <label for="registra0"><?php echo JText::_( 'NO' ); ?></label>
-        			<input type="radio" name="registra" id="registra0" value="0" checked="checked" />
+        			<input type="radio" name="registra" id="registra0" value="0" <?php echo (!$this->row->registra) ? 'checked="checked"': ''; ?> />
 
         			<br class="clear" />
 
               <label for="registra1"><?php echo JText::_( 'YES' ); ?></label>
-            	<input type="radio" name="registra" id="registra1" value="1" />
+            	<input type="radio" name="registra" id="registra1" value="1" <?php echo ($this->row->registra) ? 'checked="checked"': ''; ?> />
           </div>
       		<?php
       		//register end
@@ -339,12 +339,12 @@ defined('_JEXEC') or die('Restricted access');
         			<p><strong><?php echo JText::_( 'SUBMIT UNREGISTER' ).':'; ?></strong></p>
 
             	<label for="unregistra0"><?php echo JText::_( 'NO' ); ?></label>
-        			<input type="radio" name="unregistra" id="unregistra0" value="0" checked="checked" />
+        			<input type="radio" name="unregistra" id="unregistra0" value="0" <?php echo (!$this->row->unregistra) ? 'checked="checked"': ''; ?> />
 
         			<br class="clear" />
 
             	<label for="unregistra1"><?php echo JText::_( 'YES' ); ?></label>
-            	<input type="radio" name="unregistra" id="unregistra1" value="1" />
+            	<input type="radio" name="unregistra" id="unregistra1" value="1" <?php echo ($this->row->unregistra) ? 'checked="checked"': ''; ?> />
       		</div>
       		<?php
       		//unregister end
