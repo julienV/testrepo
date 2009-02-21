@@ -40,16 +40,16 @@ class EventListViewCategoryevents extends JView
 	 */
 	function display( $tpl=null )
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		//initialize variables
 		$document 	= & JFactory::getDocument();
 		$menu		= & JSite::getMenu();
 		$elsettings = & ELHelper::config();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getParams();
+		$params 	= & $app->getParams();
 		$uri 		= & JFactory::getURI();
-		$pathway 	= & $mainframe->getPathWay();
+		$pathway 	= & $app->getPathWay();
 
 		//add css file
 		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
@@ -57,7 +57,7 @@ class EventListViewCategoryevents extends JView
 
 		// Request variables
 	//	$limitstart		= JRequest::getInt('limitstart');
-	//	$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0), 'int');
+	//	$limit       	= $app->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0), 'int');
 		$task 			= JRequest::getWord('task');
 		$pop			= JRequest::getBool('pop');
 
@@ -85,8 +85,8 @@ class EventListViewCategoryevents extends JView
     	$document->setDescription( strip_tags($category->meta_description) );
 
     	//Print function
-		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
-		$params->def( 'icons', $mainframe->getCfg( 'icons' ) );
+		$params->def( 'print', !$app->getCfg( 'hidePrint' ) );
+		$params->def( 'icons', $app->getCfg( 'icons' ) );
 
 		if ( $pop ) {
 			$params->set( 'popup', 1 );
@@ -130,7 +130,7 @@ class EventListViewCategoryevents extends JView
 			$category->text	= $category->catdescription;
 			$category->title 	= $category->catname;
 			JPluginHelper::importPlugin('content');
-			$results = $mainframe->triggerEvent( 'onPrepareContent', array( &$category, &$params, 0 ));
+			$results = $app->triggerEvent( 'onPrepareContent', array( &$category, &$params, 0 ));
 			$catdescription = $category->text;
 		}
 
@@ -156,18 +156,19 @@ class EventListViewCategoryevents extends JView
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('categories' , 			$categories);
 
-	  if($this->getLayout() == 'calendar') 
-	  {	  	
-	    //add css for calendar
-	    $document->addStyleSheet('components/com_eventlist/assets/css/eventlistcalendar.css');
+	  	if($this->getLayout() == 'calendar') 
+	  	{	  	
+	    	//add css for calendar
+	    	$document->addStyleSheet('components/com_eventlist/assets/css/eventlistcalendar.css');
 	    
-	  	$year  = intval( JRequest::getVar('yearID', strftime( "%Y" ) ));
-      $month = intval( JRequest::getVar('monthID', strftime( "%m" ) ));
-      $day   = intval( JRequest::getVar('dayID', strftime( "%d" ) ));
-      $this->assignRef('year' ,           $year);
-      $this->assignRef('month' ,           $month);
-      $this->assignRef('day' ,           $day);
-    }
+	  		$year  = intval( JRequest::getVar('yearID', strftime( "%Y" ) ));
+      		$month = intval( JRequest::getVar('monthID', strftime( "%m" ) ));
+      		$day   = intval( JRequest::getVar('dayID', strftime( "%d" ) ));
+      		$this->assignRef('year' ,		$year);
+      		$this->assignRef('month' ,		$month);
+      		$this->assignRef('day' ,		$day);
+    	}
+		
 		parent::display($tpl);
 	}
 

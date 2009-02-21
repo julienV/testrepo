@@ -81,7 +81,7 @@ class EventListModelEditevent extends JModel
 	 */
 	function &getEvent(  )
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		// Initialize variables
 		$user		= & JFactory::getUser();
@@ -103,7 +103,7 @@ class EventListModelEditevent extends JModel
 			* Error if allready checked out otherwise check event out
 			*/
 			if ($this->isCheckedOut( $user->get('id') )) {
-				$mainframe->redirect( 'index.php?view='.$view, JText::_( 'THE EVENT' ).': '.$this->_event->title.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ) );
+				$app->redirect( 'index.php?view='.$view, JText::_( 'THE EVENT' ).': '.$this->_event->title.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ) );
 			} else {
 				$this->checkout( $user->get('id') );
 			}
@@ -294,14 +294,14 @@ class EventListModelEditevent extends JModel
 	 */
 	function getVenues( )
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 		
-		$params 	= & $mainframe->getParams();
+		$params 	= & $app->getParams();
 		
 		$where		= $this->_buildVenuesWhere(  );
 		$orderby	= $this->_buildVenuesOrderBy(  );
 
-		$limit			= $mainframe->getUserStateFromRequest('com_eventlist.selectvenue.limit', 'limit', $params->def('display_num', 0), 'int');
+		$limit			= $app->getUserStateFromRequest('com_eventlist.selectvenue.limit', 'limit', $params->def('display_num', 0), 'int');
 		$limitstart		= JRequest::getInt('limitstart');
 
 		$query = 'SELECT l.id, l.venue, l.city, l.country, l.published'
@@ -468,15 +468,15 @@ class EventListModelEditevent extends JModel
 	 */
 	function store($data, $file)
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$user 		= & JFactory::getUser();
 		$elsettings = & ELHelper::config();
 	
 		//Get mailinformation
-		$SiteName 		= $mainframe->getCfg('sitename');
-		$MailFrom	 	= $mainframe->getCfg('mailfrom');
-		$FromName 		= $mainframe->getCfg('fromname');
+		$SiteName 		= $app->getCfg('sitename');
+		$MailFrom	 	= $app->getCfg('mailfrom');
+		$FromName 		= $app->getCfg('fromname');
 
 		$cats 		= JRequest::getVar( 'cid', array(), 'post', 'array');
 		$row 		= & JTable::getInstance('eventlist_events', '');
@@ -590,7 +590,7 @@ class EventListModelEditevent extends JModel
 			$check = ELImage::check($file, $elsettings);
 
 			if ($check === false) {
-				$mainframe->redirect($_SERVER['HTTP_REFERER']);
+				$app->redirect($_SERVER['HTTP_REFERER']);
 			}
 
 			//sanitize the image filename

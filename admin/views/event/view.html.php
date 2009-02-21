@@ -34,7 +34,7 @@ class EventListViewEvent extends JView {
 
 	function display($tpl = null)
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		if($this->getLayout() == 'addvenue') {
 			$this->_displayaddvenue($tpl);
@@ -58,7 +58,7 @@ class EventListViewEvent extends JView {
 		//get vars
 		$cid		= JRequest::getVar( 'cid' );
 		$task		= JRequest::getVar('task');
-		$url 		= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
+		$url 		= $app->isAdmin() ? $app->getSiteURL() : JURI::base();
 
 		//add the custom stylesheet and the javascript
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');
@@ -106,7 +106,7 @@ class EventListViewEvent extends JView {
 		if ($row->id) {
 			if ($model->isCheckedOut( $user->get('id') )) {
 				JError::raiseWarning( 'SOME_ERROR_CODE', $row->titel.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ));
-				$mainframe->redirect( 'index.php?option=com_eventlist&view=events' );
+				$app->redirect( 'index.php?option=com_eventlist&view=events' );
 			}
 		}
 
@@ -188,8 +188,6 @@ class EventListViewEvent extends JView {
 	 */
 	function _displayaddvenue($tpl)
 	{
-		global $mainframe;
-
 		//initialise variables
 		$editor 	= & JFactory::getEditor();
 		$document	= & JFactory::getDocument();

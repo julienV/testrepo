@@ -34,7 +34,7 @@ class EventListViewSettings extends JView {
 
 	function display($tpl = null) {
 
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		//initialise variables
 		$document 	= & JFactory::getDocument();
@@ -50,13 +50,13 @@ class EventListViewSettings extends JView {
 		//only admins have access to this view
 		if ($user->get('gid') < 24) {
 			JError::raiseWarning( 'SOME_ERROR_CODE', JText::_( 'ALERTNOTAUTH'));
-			$mainframe->redirect( 'index.php?option=com_eventlist&view=eventlist' );
+			$app->redirect( 'index.php?option=com_eventlist&view=eventlist' );
 		}
 
 		// fail if checked out not by 'me'
 		if ($model->isCheckedOut( $user->get('id') )) {
 			JError::raiseWarning( 'SOME_ERROR_CODE', JText::_( 'EDITED BY ANOTHER ADMIN' ));
-			$mainframe->redirect( 'index.php?option=com_eventlist&view=eventlist' );
+			$app->redirect( 'index.php?option=com_eventlist&view=eventlist' );
 		}
 
 		JHTML::_('behavior.tooltip');
@@ -124,9 +124,9 @@ class EventListViewSettings extends JView {
 
 	function WarningIcon()
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
-		$url = $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
+		$url = $app->isAdmin() ? $app->getSiteURL() : JURI::base();
 		$tip = '<img src="'.$url.'includes/js/ThemeOffice/warning.png" border="0"  alt="" />';
 
 		return $tip;

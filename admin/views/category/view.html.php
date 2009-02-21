@@ -34,8 +34,6 @@ class EventListViewCategory extends JView {
 
 	function display($tpl = null)
 	{
-		global $mainframe;
-
 		//Load pane behavior
 		jimport('joomla.html.pane');
 
@@ -43,6 +41,7 @@ class EventListViewCategory extends JView {
 		$editor 	= & JFactory::getEditor();
 		$document	= & JFactory::getDocument();
 		$user 		= & JFactory::getUser();
+		$app 		= & JFactory::getApplication();
 		$pane 		= & JPane::getInstance('sliders');
 		
 		// Load the form validation behavior
@@ -96,7 +95,7 @@ class EventListViewCategory extends JView {
 		if ($row->id) {
 			if ($model->isCheckedOut( $user->get('id') )) {
 				JError::raiseWarning( 'SOME_ERROR_CODE', $row->catname.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ));
-				$mainframe->redirect( 'index.php?option=com_eventlist&view=categories' );
+				$app->redirect( 'index.php?option=com_eventlist&view=categories' );
 			}
 		}
 

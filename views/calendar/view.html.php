@@ -28,48 +28,48 @@ require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'categories.class.php');
 require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'calendar.class.php');
 
 /**
- * HTML View class for the Categoryevents View
+ * HTML View class for the Calendar View
  *
  * @package Joomla
  * @subpackage EventList
- * @since 0.9
+ * @since 1.1
  */
 class EventListViewCalendar extends JView
 {
 	/**
-	 * Creates the Categoryevents View
+	 * Creates the Calendar View
 	 *
-	 * @since 0.9
+	 * @since 1.1
 	 */
 	function display( $tpl=null )
 	{
-		global $mainframe, $option;
+		$app = & JFactory::getApplication();
 
-    // Load tooltips behavior
-    JHTML::_('behavior.tooltip');
+    	// Load tooltips behavior
+    	JHTML::_('behavior.tooltip');
         
 		//initialize variables
 		$document 	= & JFactory::getDocument();
 		$menu		= & JSite::getMenu();
 		$elsettings = & ELHelper::config();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getParams();
+		$params 	= & $app->getParams();
 		$uri 		= & JFactory::getURI();
-		$pathway 	= & $mainframe->getPathWay();
+		$pathway 	= & $app->getPathWay();
 		
 		//add css file
 		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
-    $document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');
-    $document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlistcalendar.css');
-    // add javascript
-    $document->addScript( $this->baseurl.'/components/com_eventlist/assets/js/calendar.js' );
+    	$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');
+    	$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlistcalendar.css');
+    	// add javascript
+    	$document->addScript( $this->baseurl.'/components/com_eventlist/assets/js/calendar.js' );
 
 		
 		$task 			= JRequest::getWord('task');
 		
-    $year  = intval( JRequest::getVar('yearID', strftime( "%Y" ) ));
-    $month = intval( JRequest::getVar('monthID', strftime( "%m" ) ));
-    $day   = intval( JRequest::getVar('dayID', strftime( "%d" ) ));
+    	$year  = intval( JRequest::getVar('yearID', strftime( "%Y" ) ));
+    	$month = intval( JRequest::getVar('monthID', strftime( "%m" ) ));
+    	$day   = intval( JRequest::getVar('dayID', strftime( "%d" ) ));
 
 		//get data from model
 		$model = & $this->getModel();
@@ -102,13 +102,13 @@ class EventListViewCalendar extends JView
 		//Set Meta data
 		$document->setTitle( $item->name.' - '.$category->catname );
           
-    $document->setMetadata( 'keywords', $category->meta_keywords );
-    $document->setDescription( strip_tags($category->meta_description) );
+    	$document->setMetadata( 'keywords', $category->meta_keywords );
+    	$document->setDescription( strip_tags($category->meta_description) );
     
-    //Set Page title    
-    $pagetitle = $params->def( 'page_title', $item->name);
-    $mainframe->setPageTitle( $pagetitle );
-    $mainframe->addMetaTag( 'title' , $pagetitle );
+    	//Set Page title    
+    	$pagetitle = $params->def( 'page_title', $item->name);
+    	$app->setPageTitle( $pagetitle );
+    	$app->addMetaTag( 'title' , $pagetitle );
 
 		//create the pathway
 		$cats		= new eventlist_cats($category->id);
@@ -120,22 +120,23 @@ class EventListViewCalendar extends JView
 
 		//create select lists
 		$lists	= $this->_buildFilterLists($elsettings);
-		$this->assign('lists', 						$lists);
-		$this->assign('action', 					$uri->toString());
+		
+		$this->assign('lists', 				$lists);
+		$this->assign('action', 			$uri->toString());
 
-		$this->assignRef('rows' , 				$rows);
+		$this->assignRef('rows' , 			$rows);
 		$this->assignRef('noevents' , 		$noevents);
 		$this->assignRef('category' , 		$category);
-		$this->assignRef('params' , 			$params);
-    $this->assignRef('pagetitle' ,    $pagetitle);
-		$this->assignRef('task' , 				$task);
+		$this->assignRef('params' , 		$params);
+    	$this->assignRef('pagetitle' ,    	$pagetitle);
+		$this->assignRef('task' , 			$task);
 		$this->assignRef('elsettings' , 	$elsettings);
-		$this->assignRef('item' , 				$item);
+		$this->assignRef('item' , 			$item);
 		$this->assignRef('categories' , 	$categories);
 
-    $this->assignRef('year' ,           $year);
-    $this->assignRef('month' ,           $month);
-    $this->assignRef('day' ,           $day);
+    	$this->assignRef('year' ,           $year);
+    	$this->assignRef('month' ,          $month);
+    	$this->assignRef('day' ,           	$day);
 
 		parent::display($tpl);
 	}

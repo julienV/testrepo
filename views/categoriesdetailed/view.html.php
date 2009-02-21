@@ -40,7 +40,7 @@ class EventListViewCategoriesdetailed extends JView
 	 */
 	function display( $tpl = null )
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		//initialise variables
 		$document 	= & JFactory::getDocument();
@@ -48,20 +48,21 @@ class EventListViewCategoriesdetailed extends JView
 		$model 		= $this->getModel();
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getParams();
+		$params 	= & $app->getParams();
 
 		//get vars
 		$limitstart		= JRequest::getInt('limitstart');
 		$limit			= JRequest::getInt('limit', $params->get('cat_num'));
-		$pathway 		= & $mainframe->getPathWay();
+		$pathway 		= & $app->getPathWay();
 		$pop			= JRequest::getBool('pop');
 		$task 			= JRequest::getWord('task');
 
 		//Get data from the model
 		$categories	= & $this->get('Data');
 		$total 		= & $this->get('Total');
-    // Create the pagination object   
-    $pageNav = & $this->get('Pagination');
+    	
+		// Create the pagination object   
+    	$pageNav = & $this->get('Pagination');
 
 		//add css file
 		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
@@ -81,13 +82,13 @@ class EventListViewCategoriesdetailed extends JView
 			$pagetitle = $params->get('page_title');
 		}
 		//set Page title
-		$mainframe->setPageTitle( $pagetitle );
-		$mainframe->addMetaTag( 'title' , $pagetitle );
+		$app->setPageTitle( $pagetitle );
+		$app->addMetaTag( 'title' , $pagetitle );
 		$document->setMetadata( 'keywords' , $pagetitle );
 
 		//Print
-		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
-		$params->def( 'icons', $mainframe->getCfg( 'icons' ) );
+		$params->def( 'print', !$app->getCfg( 'hidePrint' ) );
+		$params->def( 'icons', $app->getCfg( 'icons' ) );
 
 		if ( $pop ) {
 			$params->set( 'popup', 1 );

@@ -41,12 +41,12 @@ class EventListViewEditvenue extends JView
 	 */
 	function display( $tpl=null )
 	{
-		global $mainframe;    
+		$app = & JFactory::getApplication();;    
 		
-    $user   = & JFactory::getUser();
-    if (!$user->id) {
-      $mainframe->redirect(JRoute::_($_SERVER["HTTP_REFERER"]), JText::_('Please login to be able to submit venues'), 'error' );
-    }
+    	$user   = & JFactory::getUser();
+    	if (!$user->id) {
+      		$app->redirect(JRoute::_($_SERVER["HTTP_REFERER"]), JText::_('Please login to be able to submit venues'), 'error' );
+    	}
 
 		$editor 	= & JFactory::getEditor();
 		$doc 		= & JFactory::getDocument();
@@ -69,12 +69,12 @@ class EventListViewEditvenue extends JView
 		// Get the menu object of the active menu item
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getParams('com_eventlist');
+		$params 	= & $app->getParams('com_eventlist');
 
 		$id ? $title = JText::_( 'EDIT VENUE' ) : $title = JText::_( 'ADD VENUE' );
 
 		//pathway
-		$pathway 	= & $mainframe->getPathWay();
+		$pathway 	= & $app->getPathWay();
 		$pathway->setItemName(1, $item->name);
 		$pathway->addItem($title, '');
 
@@ -97,10 +97,10 @@ class EventListViewEditvenue extends JView
 		
 		// country list
 		$countries = array();
-    $countries[] = JHTML::_('select.option', '', JText::_('Select country'));
-    $countries = array_merge($countries, ELHelper::getCountryOptions());
-    $lists['countries'] = JHTML::_('select.genericlist', $countries, 'country', 'class="inputbox"', 'value', 'text', $row->country );
-    unset($countries);
+    	$countries[] = JHTML::_('select.option', '', JText::_('Select country'));
+    	$countries = array_merge($countries, ELHelper::getCountryOptions());
+    	$lists['countries'] = JHTML::_('select.genericlist', $countries, 'country', 'class="inputbox"', 'value', 'text', $row->country );
+    	unset($countries);
 
 		$this->assignRef('row' , 					$row);
 		$this->assignRef('editor' , 				$editor);
@@ -110,8 +110,8 @@ class EventListViewEditvenue extends JView
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('params' , 				$params);
-    $this->assignRef('lists' ,         $lists);
-    $this->assignRef('title' ,         $title);
+    	$this->assignRef('lists' ,         			$lists);
+    	$this->assignRef('title' ,         			$title);
 
 		parent::display($tpl);
 

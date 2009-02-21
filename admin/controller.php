@@ -55,7 +55,7 @@ class EventListController extends JController
 	 */
 	function savecss()
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 		
 		JRequest::checkToken() or die( 'Invalid Token' );
 
@@ -64,7 +64,7 @@ class EventListController extends JController
 		$filecontent	= JRequest::getVar('filecontent', '', '', '', JREQUEST_ALLOWRAW);
 
 		if (!$filecontent) {
-			$mainframe->redirect('index.php?option=com_eventlist', JText::_('OPERATION FAILED').': '.JText::_('CONTENT EMPTY'));
+			$app->redirect('index.php?option=com_eventlist', JText::_('OPERATION FAILED').': '.JText::_('CONTENT EMPTY'));
 		}	
 		
 		// Set FTP credentials, if given
@@ -93,16 +93,16 @@ class EventListController extends JController
 			switch($task)
 			{
 				case 'applycss' :
-					$mainframe->redirect('index.php?option=com_eventlist&view=editcss', JText::_('CSS FILE SUCCESSFULLY ALTERED'));
+					$app->redirect('index.php?option=com_eventlist&view=editcss', JText::_('CSS FILE SUCCESSFULLY ALTERED'));
 					break;
 
 				case 'savecss'  :
 				default         :
-					$mainframe->redirect('index.php?option=com_eventlist', JText::_('CSS FILE SUCCESSFULLY ALTERED') );
+					$app->redirect('index.php?option=com_eventlist', JText::_('CSS FILE SUCCESSFULLY ALTERED') );
 					break;
 			}
 		} else {
-			$mainframe->redirect('index.php?option=com_eventlist', JText::_('OPERATION FAILED').': '.JText::sprintf('FAILED TO OPEN FILE FOR WRITING', $file));
+			$app->redirect('index.php?option=com_eventlist', JText::_('OPERATION FAILED').': '.JText::sprintf('FAILED TO OPEN FILE FOR WRITING', $file));
 		}
 	}
 

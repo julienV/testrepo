@@ -40,14 +40,14 @@ class EventListViewVenueevents extends JView
 	 */
 	function display( $tpl = null )
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		//initialize variables
 		$document 	= & JFactory::getDocument();
 		$menu		= & JSite::getMenu();
 		$elsettings = & ELHelper::config();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getParams('com_eventlist');
+		$params 	= & $app->getParams('com_eventlist');
 		$uri 		= & JFactory::getURI();
 
 		//add css file
@@ -56,7 +56,7 @@ class EventListViewVenueevents extends JView
 
 		// Request variables
 		$limitstart		= JRequest::getInt('limitstart');
-		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.venueevents.limit', 'limit', $params->def('display_num', 0), 'int');
+		$limit       	= $app->getUserStateFromRequest('com_eventlist.venueevents.limit', 'limit', $params->def('display_num', 0), 'int');
 		$pop			= JRequest::getBool('pop');
 		$task 			= JRequest::getWord('task');
 
@@ -94,7 +94,7 @@ class EventListViewVenueevents extends JView
 		$document->addHeadLink(JRoute::_($link.'&type=atom'), 'alternate', 'rel', $attribs);
 
 		//pathway
-		$pathway 	= & $mainframe->getPathWay();
+		$pathway 	= & $app->getPathWay();
 		$pathway->setItemName(1, $item->name);
 		
 		//create the pathway
@@ -111,14 +111,14 @@ class EventListViewVenueevents extends JView
 		}
 		
 		//set Page title
-		$mainframe->setPageTitle( $pagetitle );
-   	$mainframe->addMetaTag( 'title' , $pagetitle );
+		$app->setPageTitle( $pagetitle );
+   		$app->addMetaTag( 'title' , $pagetitle );
 		$document->setMetadata('keywords', $venue->meta_keywords );
 		$document->setDescription( strip_tags($venue->meta_description) );
 
 		//Printfunction
-		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
-		$params->def( 'icons', $mainframe->getCfg( 'icons' ) );
+		$params->def( 'print', !$app->getCfg( 'hidePrint' ) );
+		$params->def( 'icons', $app->getCfg( 'icons' ) );
 
 		if ( $pop ) {
 			$params->set( 'popup', 1 );
@@ -138,10 +138,10 @@ class EventListViewVenueevents extends JView
 			$venue->text	= $venue->locdescription;
 			$venue->title 	= $venue->venue;
 			JPluginHelper::importPlugin('content');
-			$results = $mainframe->triggerEvent( 'onPrepareContent', array( &$venue, &$params, 0 ));
+			$results = $app->triggerEvent( 'onPrepareContent', array( &$venue, &$params, 0 ));
 			$venuedescription = $venue->text;
 		}
-    $allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $venue->created, $elsettings->venueeditrec, $elsettings->venueedit);
+    	$allowedtoeditvenue = ELUser::editaccess($elsettings->venueowner, $venue->created, $elsettings->venueeditrec, $elsettings->venueedit);
     
 		//build the url
         if(!empty($venue->url) && strtolower(substr($venue->url, 0, 7)) != "http://") {
@@ -182,7 +182,7 @@ class EventListViewVenueevents extends JView
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('pagetitle' , 				$pagetitle);
 		$this->assignRef('task' , 					$task);
-    $this->assignRef('allowedtoeditvenue' ,           $allowedtoeditvenue);
+    	$this->assignRef('allowedtoeditvenue' ,     $allowedtoeditvenue);
 
 		parent::display($tpl);
 	}

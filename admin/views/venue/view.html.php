@@ -34,7 +34,7 @@ class EventListViewVenue extends JView {
 
 	function display($tpl = null)
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		// Load pane behavior
 		jimport('joomla.html.pane');
@@ -66,7 +66,7 @@ class EventListViewVenue extends JView {
 		if ($row->id) {
 			if ($model->isCheckedOut( $user->get('id') )) {
 				JError::raiseWarning( 'SOME_ERROR_CODE', $row->venue.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ));
-				$mainframe->redirect( 'index.php?option=com_eventlist&view=venues' );
+				$app->redirect( 'index.php?option=com_eventlist&view=venues' );
 			}
 		}
 

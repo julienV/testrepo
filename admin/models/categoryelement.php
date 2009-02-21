@@ -80,7 +80,7 @@ class EventListModelCategoryelement extends JModel
 	 */
 	function getData()
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 		
 		static $items;
 
@@ -88,12 +88,12 @@ class EventListModelCategoryelement extends JModel
 			return $items;
 		}
 		
-		$limit				= $mainframe->getUserStateFromRequest( 'com_eventlist.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
-		$limitstart 		= $mainframe->getUserStateFromRequest( 'com_eventlist.limitstart', 'limitstart', 0, 'int' );
-		$filter_order		= $mainframe->getUserStateFromRequest( 'com_eventlist.categoryelement.filter_order', 		'filter_order', 	'c.ordering', 'cmd' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( 'com_eventlist.categoryelement.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
-		$filter_state 		= $mainframe->getUserStateFromRequest( 'com_eventlist.categoryelement.filter_state', 'filter_state', '', 'word' );
-		$search 			= $mainframe->getUserStateFromRequest( 'com_eventlist.categoryelement.search', 'search', '', 'string' );
+		$limit				= $app->getUserStateFromRequest( 'com_eventlist.limit', 'limit', $app->getCfg('list_limit'), 'int');
+		$limitstart 		= $app->getUserStateFromRequest( 'com_eventlist.limitstart', 'limitstart', 0, 'int' );
+		$filter_order		= $app->getUserStateFromRequest( 'com_eventlist.categoryelement.filter_order', 		'filter_order', 	'c.ordering', 'cmd' );
+		$filter_order_Dir	= $app->getUserStateFromRequest( 'com_eventlist.categoryelement.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
+		$filter_state 		= $app->getUserStateFromRequest( 'com_eventlist.categoryelement.filter_state', 'filter_state', '', 'word' );
+		$search 			= $app->getUserStateFromRequest( 'com_eventlist.categoryelement.search', 'search', '', 'string' );
 		$search 			= $this->_db->getEscaped( trim(JString::strtolower( $search ) ) );
 		
 		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', c.ordering';

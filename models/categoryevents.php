@@ -77,16 +77,16 @@ class EventListModelCategoryevents extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$id = JRequest::getInt('id');
 		$this->setId((int)$id);
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getParams();
+		$params 	= & $app->getParams();
 
 		//get the number of events from database
-		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0), 'int');
+		$limit       	= $app->getUserStateFromRequest('com_eventlist.categoryevents.limit', 'limit', $params->def('display_num', 0), 'int');
 		$limitstart		= JRequest::getInt('limitstart');
 
 		$this->setState('limit', $limit);
@@ -242,13 +242,13 @@ class EventListModelCategoryevents extends JModel
 	 */
 	function _buildCategoryWhere( )
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$user		= & JFactory::getUser();
 		$gid		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getParams();
+		$params 	= & $app->getParams();
 
 		$task 		= JRequest::getWord('task');
 

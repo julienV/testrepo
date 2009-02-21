@@ -90,7 +90,7 @@ class EventListModelCalendar extends JModel
     {
         parent::__construct();
 
-        global $mainframe;
+        $app = & JFactory::getApplication();
 
         $id = JRequest::getInt('id');
         $this->setId((int)$id);
@@ -98,7 +98,7 @@ class EventListModelCalendar extends JModel
         $this->setdate(time());
 
         // Get the paramaters of the active menu item
-        $params = & $mainframe->getParams();
+        $params = & $app->getParams();
     }
 
     function setdate($date)
@@ -216,13 +216,13 @@ class EventListModelCalendar extends JModel
      */
     function _buildCategoryWhere()
     {
-        global $mainframe;
+        $app = & JFactory::getApplication();
 
         $user = & JFactory::getUser();
         $gid = (int)$user->get('aid');
 
         // Get the paramaters of the active menu item
-        $params = & $mainframe->getParams();
+        $params = & $app->getParams();
 
         $task = JRequest::getWord('task');
 

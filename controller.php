@@ -306,11 +306,11 @@ class EventListController extends JController
 	 */
 	function vcal()
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$task 			= JRequest::getWord( 'task' );
 		$id 			= JRequest::getInt( 'id' );
-		$user_offset 	= $mainframe->getCfg( 'offset_user' );
+		$user_offset 	= $app->getCfg( 'offset_user' );
 
 		//get Data from model
 		$model = & $this->getModel('Details', 'EventListModel');

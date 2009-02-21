@@ -34,7 +34,7 @@ class EventListViewEditcss extends JView {
 
 	function display($tpl = null) {
 
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		//initialise variables
 		$document	= & JFactory::getDocument();
@@ -43,7 +43,7 @@ class EventListViewEditcss extends JView {
 		//only admins have access to this view
 		if ($user->get('gid') < 24) {
 			JError::raiseWarning( 'SOME_ERROR_CODE', JText::_( 'ALERTNOTAUTH'));
-			$mainframe->redirect( 'index.php?option=com_eventlist&view=eventlist' );
+			$app->redirect( 'index.php?option=com_eventlist&view=eventlist' );
 		}
 
 		//get vars
@@ -80,7 +80,7 @@ class EventListViewEditcss extends JView {
 		else
 		{
 			$msg = JText::sprintf('FAILED TO OPEN FILE FOR WRITING', $css_path);
-			$mainframe->redirect('index.php?option=com_eventlist', $msg);
+			$app->redirect('index.php?option=com_eventlist', $msg);
 		}
 
 		//assign data to template

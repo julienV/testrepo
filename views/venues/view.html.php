@@ -40,7 +40,7 @@ class EventListViewVenues extends JView
 	 */
 	function display( $tpl = null )
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$document 	= & JFactory::getDocument();
 		$elsettings = & ELHelper::config();
@@ -48,7 +48,7 @@ class EventListViewVenues extends JView
 		//get menu information
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getParams();
+		$params 	= & $app->getParams();
 
 		//add css file
 		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
@@ -76,7 +76,7 @@ class EventListViewVenues extends JView
 		$document->addHeadLink(JRoute::_($link.'&type=atom'), 'alternate', 'rel', $attribs);
 
 		//pathway
-		$pathway 	= & $mainframe->getPathWay();
+		$pathway 	= & $app->getPathWay();
 		$pathway->setItemName(1, $item->name);
 		
 		if ( $task == 'archive' ) {
@@ -89,14 +89,14 @@ class EventListViewVenues extends JView
 		}
 		
 		//Set Page title
-		$mainframe->setPageTitle( $pagetitle );
-   		$mainframe->addMetaTag( 'title' , $pagetitle );
+		$app->setPageTitle( $pagetitle );
+   		$app->addMetaTag( 'title' , $pagetitle );
    		$document->setMetadata('keywords', $pagetitle );
 
 
 		//Printfunction
-		$params->def( 'print', !$mainframe->getCfg( 'hidePrint' ) );
-		$params->def( 'icons', $mainframe->getCfg( 'icons' ) );
+		$params->def( 'print', !$app->getCfg( 'hidePrint' ) );
+		$params->def( 'icons', $app->getCfg( 'icons' ) );
 
 		if ( $pop ) {
 			$params->set( 'popup', 1 );

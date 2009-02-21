@@ -280,11 +280,11 @@ class EventListModelDetails extends JModel
 	 */
 	function userregister()
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$user 		= & JFactory::getUser();
 		$elsettings = & ELHelper::config();
-		$tzoffset	= $mainframe->getCfg('offset');
+		$tzoffset	= $app->getCfg('offset');
 
 		$event 		= (int) $this->_id;
 		$uid 		= (int) $user->get('id');

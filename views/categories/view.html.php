@@ -35,7 +35,7 @@ class EventListViewCategories extends JView
 {
 	function display( $tpl=null )
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$document 	= & JFactory::getDocument();
 		$elsettings = & ELHelper::config();
@@ -51,7 +51,7 @@ class EventListViewCategories extends JView
 		//get menu information
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getParams('com_eventlist');
+		$params 	= & $app->getParams('com_eventlist');
 
 		// Request variables
 		$limitstart		= JRequest::getInt('limitstart');
@@ -61,7 +61,7 @@ class EventListViewCategories extends JView
 		$params->def( 'page_title', $item->name);
 
 		//pathway
-		$pathway 	= & $mainframe->getPathWay();
+		$pathway 	= & $app->getPathWay();
 		$pathway->setItemName(1, $item->name);
 
 		if ( $task == 'archive' ) {
@@ -72,11 +72,11 @@ class EventListViewCategories extends JView
 		}
 
 		//Set Page title
-		$mainframe->setPageTitle( $pagetitle );
-   	$mainframe->addMetaTag( 'title' , $pagetitle );
+		$app->setPageTitle( $pagetitle );
+   		$app->addMetaTag( 'title' , $pagetitle );
 
 		//get icon settings
-		$params->def( 'icons', $mainframe->getCfg( 'icons' ) );
+		$params->def( 'icons', $app->getCfg( 'icons' ) );
 
 		//add alternate feed link
 		$link    = 'index.php?option=com_eventlist&view=eventlist&format=feed';

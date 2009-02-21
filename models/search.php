@@ -63,13 +63,13 @@ class EventListModelSearch extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getParams('com_eventlist');
+		$params 	= & $app->getParams('com_eventlist');
 
 		//get the number of events from database
-		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.search.limit', 'limit', $params->def('display_num', 0), 'int');
+		$limit       	= $app->getUserStateFromRequest('com_eventlist.search.limit', 'limit', $params->def('display_num', 0), 'int');
 		$limitstart		= JRequest::getVar('limitstart', 0, '', 'int');
 			
 		$this->setState('limit', $limit);
@@ -193,10 +193,10 @@ class EventListModelSearch extends JModel
 	 */
 	function _buildEventListWhere()
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getParams();
+		$params 	= & $app->getParams();
 
 		$task 		= JRequest::getWord('task');
 		
@@ -207,13 +207,13 @@ class EventListModelSearch extends JModel
 			$where = ' WHERE a.published = 1';
 		}
 
-		$filter 		= JRequest::getString('filter', '', 'request');
-		$filter_type 	= JRequest::getWord('filter_type', '', 'request');
-    	$filter_continent = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_continent', 'filter_continent', '', 'string');
-    	$filter_country = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_country', 'filter_country', '', 'string');
-   		$filter_city = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_city', 'filter_city', '', 'string');
-    	$filter_date = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_date', 'filter_date', '', 'string');
-    	$filter_category = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_category', 'filter_category', 0, 'int');
+		$filter 			= JRequest::getString('filter', '', 'request');
+		$filter_type 		= JRequest::getWord('filter_type', '', 'request');
+    	$filter_continent 	= $app->getUserStateFromRequest('com_eventlist.search.filter_continent', 'filter_continent', '', 'string');
+    	$filter_country 	= $app->getUserStateFromRequest('com_eventlist.search.filter_country', 'filter_country', '', 'string');
+   		$filter_city 		= $app->getUserStateFromRequest('com_eventlist.search.filter_city', 'filter_city', '', 'string');
+    	$filter_date 		= $app->getUserStateFromRequest('com_eventlist.search.filter_date', 'filter_date', '', 'string');
+    	$filter_category 	= $app->getUserStateFromRequest('com_eventlist.search.filter_category', 'filter_category', 0, 'int');
     
     	// no result if no filter:
     	if ( !($filter || $filter_continent || $filter_country || $filter_city || $filter_date || $filter_category) ) {
@@ -304,8 +304,9 @@ class EventListModelSearch extends JModel
   
   	function getCountryOptions()
   	{
-    	global $mainframe;
-  		$filter_continent = $mainframe->getUserStateFromRequest('com_eventlist.search.filter_continent', 'filter_continent', '', 'string');
+    	$app = & JFactory::getApplication();
+		
+  		$filter_continent = $app->getUserStateFromRequest('com_eventlist.search.filter_continent', 'filter_continent', '', 'string');
   	
 		$query = ' SELECT DISTINCT c.iso2 as value, c.name as text '
          		  . ' FROM #__eventlist_events AS a'

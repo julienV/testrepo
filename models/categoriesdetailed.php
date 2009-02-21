@@ -75,10 +75,10 @@ class EventListModelCategoriesdetailed extends JModel
     {
         parent::__construct();
 
-        global $mainframe;
+        $app = & JFactory::getApplication();
 
         // Get the paramaters of the active menu item
-        $params = & $mainframe->getParams('com_eventlist');
+        $params = & $app->getParams('com_eventlist');
 
         $id = JRequest::getInt('id');
         $this->_id = $id;
@@ -99,9 +99,8 @@ class EventListModelCategoriesdetailed extends JModel
      */
     function & getData()
     {
-        global $mainframe;
-
-        $params = & $mainframe->getParams();
+        $app 		= & JFactory::getApplication();
+        $params 	= & $app->getParams();
         $elsettings = & ELHelper::config();
 
         // Lets load the content if it doesn't already exist
@@ -133,7 +132,7 @@ class EventListModelCategoriesdetailed extends JModel
                     $category->text = $category->catdescription;
                     $category->title = $category->catname;
                     JPluginHelper::importPlugin('content');
-                    $results = $mainframe->triggerEvent('onPrepareContent', array ( & $category, & $params, 0));
+                    $results = $app->triggerEvent('onPrepareContent', array ( & $category, & $params, 0));
                     $category->catdescription = $category->text;
                 }
 
@@ -185,9 +184,9 @@ class EventListModelCategoriesdetailed extends JModel
          */
         function & getEventdata($id)
         {
-            global $mainframe;
+            $app = & JFactory::getApplication();
 
-            $params = & $mainframe->getParams('com_eventlist');
+            $params = & $app->getParams('com_eventlist');
 
             // Lets load the content
             $query = $this->_buildDataQuery($id);
@@ -280,7 +279,7 @@ class EventListModelCategoriesdetailed extends JModel
          */
         function _buildQuery($parent_id = null)
         {
-            global $mainframe;
+            $app = & JFactory::getApplication();
 
             if (is_null($parent_id))
             {
@@ -308,7 +307,7 @@ class EventListModelCategoriesdetailed extends JModel
             $where_sub .= ' AND c.id = cc.id';
 
             // Get the paramaters of the active menu item
-            $params = & $mainframe->getParams('com_eventlist');
+            $params = & $app->getParams('com_eventlist');
 
             // show/hide empty categories
             $empty = null;
@@ -347,9 +346,10 @@ class EventListModelCategoriesdetailed extends JModel
          */
         function _buildQueryTotal()
         {
-            global $mainframe;
+            $app = & JFactory::getApplication();
+			
             // Get the paramaters of the active menu item
-            $params = & $mainframe->getParams('com_eventlist');
+            $params = & $app->getParams('com_eventlist');
 
             $user = & JFactory::getUser();
             $gid = (int)$user->get('aid');

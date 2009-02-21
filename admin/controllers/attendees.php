@@ -75,7 +75,7 @@ class EventListControllerAttendees extends EventListController
 
 	function export()
 	{
-		global $mainframe;
+		$app			=& JFactory::getApplication();;
 
 		$model = $this->getModel('attendees');
 
@@ -117,7 +117,7 @@ class EventListControllerAttendees extends EventListController
 
 		echo $export;
 
-		$mainframe->close();
+		$app->close();
 	}
 }
 ?>

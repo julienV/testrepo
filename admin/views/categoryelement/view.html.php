@@ -34,22 +34,21 @@ class EventListViewCategoryelement extends JView {
 
 	function display($tpl = null)
 	{
-		global $mainframe;
-
 		//initialise variables
 		$document	= & JFactory::getDocument();
 		$db			= & JFactory::getDBO();
+		$app 		= & JFactory::getApplication();
 		
 		JHTML::_('behavior.tooltip');
 		JHTML::_('behavior.modal');
 
 		//get vars
-		$filter_order		= $mainframe->getUserStateFromRequest( 'com_eventlist.categoryelement.filter_order', 'filter_order', 'c.ordering', 'cmd' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( 'com_eventlist.categoryelement.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
-		$filter_state 		= $mainframe->getUserStateFromRequest( 'com_eventlist.categoryelement.filter_state', 'filter_state', '*', 'word' );
-		$search 			= $mainframe->getUserStateFromRequest( 'com_eventlist.categoryelement.search', 'search', '', 'string' );
+		$filter_order		= $app->getUserStateFromRequest( 'com_eventlist.categoryelement.filter_order', 'filter_order', 'c.ordering', 'cmd' );
+		$filter_order_Dir	= $app->getUserStateFromRequest( 'com_eventlist.categoryelement.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
+		$filter_state 		= $app->getUserStateFromRequest( 'com_eventlist.categoryelement.filter_state', 'filter_state', '*', 'word' );
+		$search 			= $app->getUserStateFromRequest( 'com_eventlist.categoryelement.search', 'search', '', 'string' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
-		$template 			= $mainframe->getTemplate();
+		$template 			= $app->getTemplate();
 
 		//prepare document
 		$document->setTitle(JText::_( 'SELECT CATEGORY'));;

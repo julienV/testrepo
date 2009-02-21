@@ -34,7 +34,7 @@ class EventListViewGroup extends JView {
 
 	function display($tpl = null)
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		//Load pane behavior
 		jimport('joomla.html.pane');
@@ -48,7 +48,7 @@ class EventListViewGroup extends JView {
 		$user 		= & JFactory::getUser();
 
 		//get vars
-		$template		= $mainframe->getTemplate();
+		$template		= $app->getTemplate();
 		$cid 			= JRequest::getInt( 'cid' );
 
 		//add css
@@ -64,7 +64,7 @@ class EventListViewGroup extends JView {
 		if ($row->id) {
 			if ($model->isCheckedOut( $user->get('id') )) {
 				JError::raiseWarning( 'SOME_ERROR_CODE', $row->name.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ));
-				$mainframe->redirect( 'index.php?option=com_eventlist&view=groups' );
+				$app->redirect( 'index.php?option=com_eventlist&view=groups' );
 			}
 		}
 

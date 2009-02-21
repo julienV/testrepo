@@ -34,7 +34,7 @@ class EventListViewArchive extends JView {
 
 	function display($tpl = null)
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		//initialise variables
 		$document	= & JFactory::getDocument();
@@ -43,13 +43,13 @@ class EventListViewArchive extends JView {
 		$elsettings = ELAdmin::config();
 
 		//get vars
-		$filter_order		= $mainframe->getUserStateFromRequest( 'com_eventlist.archive.filter_order', 'filter_order', 'a.dates', 'cmd' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( 'com_eventlist.archive.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
-		$filter 			= $mainframe->getUserStateFromRequest( 'com_eventlist.archive.filter', 'filter', '', 'int' );
+		$filter_order		= $app->getUserStateFromRequest( 'com_eventlist.archive.filter_order', 'filter_order', 'a.dates', 'cmd' );
+		$filter_order_Dir	= $app->getUserStateFromRequest( 'com_eventlist.archive.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
+		$filter 			= $app->getUserStateFromRequest( 'com_eventlist.archive.filter', 'filter', '', 'int' );
 		$filter 			= intval( $filter );
-		$search 			= $mainframe->getUserStateFromRequest( 'com_eventlist.archive.search', 'search', '', 'string' );
+		$search 			= $app->getUserStateFromRequest( 'com_eventlist.archive.search', 'search', '', 'string' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
-		$template			= $mainframe->getTemplate();
+		$template			= $app->getTemplate();
 
 		//add css and submenu to document
 		$document->addStyleSheet('components/com_eventlist/assets/css/eventlistbackend.css');

@@ -34,7 +34,7 @@ class EventListViewVenueelement extends JView {
 
 	function display($tpl = null)
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		//initialise variables
 		$db			= & JFactory::getDBO();
@@ -44,13 +44,13 @@ class EventListViewVenueelement extends JView {
 		JHTML::_('behavior.modal');
 
 		//get vars
-		$filter_order		= $mainframe->getUserStateFromRequest( 'com_eventlist.venueelement.filter_order', 'filter_order', 'l.ordering', 'cmd' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( 'com_eventlist.venueelement.filter_order_Dir', 'filter_order_Dir', '', 'word' );
-		$filter 			= $mainframe->getUserStateFromRequest( 'com_eventlist.venueelement.filter', 'filter', '', 'int' );
-		$filter_state 		= $mainframe->getUserStateFromRequest( 'com_eventlist.venueelement.filter_state', 'filter_state', '*', 'word' );
-		$search 			= $mainframe->getUserStateFromRequest( 'com_eventlist.venueelement.search', 'search', '', 'string' );
+		$filter_order		= $app->getUserStateFromRequest( 'com_eventlist.venueelement.filter_order', 'filter_order', 'l.ordering', 'cmd' );
+		$filter_order_Dir	= $app->getUserStateFromRequest( 'com_eventlist.venueelement.filter_order_Dir', 'filter_order_Dir', '', 'word' );
+		$filter 			= $app->getUserStateFromRequest( 'com_eventlist.venueelement.filter', 'filter', '', 'int' );
+		$filter_state 		= $app->getUserStateFromRequest( 'com_eventlist.venueelement.filter_state', 'filter_state', '*', 'word' );
+		$search 			= $app->getUserStateFromRequest( 'com_eventlist.venueelement.search', 'search', '', 'string' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
-		$template 			= $mainframe->getTemplate();
+		$template 			= $app->getTemplate();
 
 		//prepare document
 		$document->setTitle(JText::_( 'SELECTVENUE' ));

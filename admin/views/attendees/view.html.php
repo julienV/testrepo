@@ -34,7 +34,7 @@ class EventListViewAttendees extends JView {
 
 	function display($tpl = null)
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		if($this->getLayout() == 'print') {
 			$this->_displayprint($tpl);
@@ -48,10 +48,10 @@ class EventListViewAttendees extends JView {
 		$user		= & JFactory::getUser();
 
 		//get vars
-		$filter_order		= $mainframe->getUserStateFromRequest( 'com_eventlist.attendees.filter_order', 'filter_order', 'u.username', 'cmd' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( 'com_eventlist.attendees.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
-		$filter 			= $mainframe->getUserStateFromRequest( 'com_eventlist.attendees.filter', 'filter', '', 'int' );
-		$search 			= $mainframe->getUserStateFromRequest( 'com_eventlist.attendees.search', 'search', '', 'string' );
+		$filter_order		= $app->getUserStateFromRequest( 'com_eventlist.attendees.filter_order', 'filter_order', 'u.username', 'cmd' );
+		$filter_order_Dir	= $app->getUserStateFromRequest( 'com_eventlist.attendees.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
+		$filter 			= $app->getUserStateFromRequest( 'com_eventlist.attendees.filter', 'filter', '', 'int' );
+		$search 			= $app->getUserStateFromRequest( 'com_eventlist.attendees.search', 'search', '', 'string' );
 		$search 			= $db->getEscaped( trim(JString::strtolower( $search ) ) );
 
 		//add css and submenu to document

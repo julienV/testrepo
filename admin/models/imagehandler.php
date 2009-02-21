@@ -51,12 +51,12 @@ class EventListModelImagehandler extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$task 		= JRequest::getVar( 'task' );
-		$limit		= $mainframe->getUserStateFromRequest( 'com_eventlist.imageselect'.$task.'limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
-		$limitstart = $mainframe->getUserStateFromRequest( 'com_eventlist.imageselect'.$task.'limitstart', 'limitstart', 0, 'int' );
-		$search 	= $mainframe->getUserStateFromRequest( 'com_eventlist.search', 'search', '', 'string' );
+		$limit		= $app->getUserStateFromRequest( 'com_eventlist.imageselect'.$task.'limit', 'limit', $app->getCfg('list_limit'), 'int');
+		$limitstart = $app->getUserStateFromRequest( 'com_eventlist.imageselect'.$task.'limitstart', 'limitstart', 0, 'int' );
+		$search 	= $app->getUserStateFromRequest( 'com_eventlist.search', 'search', '', 'string' );
 		$search 	= trim(JString::strtolower( $search ) );
 		
 		$this->setState('limit', $limit);

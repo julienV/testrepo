@@ -34,7 +34,7 @@ class EventListViewCleanup extends JView {
 
 	function display($tpl = null) {
 
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		//initialise variables
 		$document		= & JFactory::getDocument();
@@ -43,7 +43,7 @@ class EventListViewCleanup extends JView {
 		//only admins have access to this view
 		if ($user->get('gid') < 24) {
 			JError::raiseWarning( 'SOME_ERROR_CODE', JText::_( 'ALERTNOTAUTH'));
-			$mainframe->redirect( 'index.php?option=com_eventlist&view=eventlist' );
+			$app->redirect( 'index.php?option=com_eventlist&view=eventlist' );
 		}
 
 		//add css and submenu to document

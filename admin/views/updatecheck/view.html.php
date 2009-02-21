@@ -34,13 +34,13 @@ class EventListViewUpdatecheck extends JView {
 
 	function display($tpl = null) {
 
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		//initialise variables
 		$document	= & JFactory::getDocument();
 
 		//get vars
-		$template	= $mainframe->getTemplate();
+		$template	= $app->getTemplate();
 
 		//add css
 		$document->addStyleSheet('templates/'.$template.'/css/general.css');

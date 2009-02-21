@@ -40,7 +40,7 @@ class EventListViewDetails extends JView
 	 */
 	function display($tpl = null)
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$document 	= & JFactory::getDocument();
 		$user		= & JFactory::getUser();
@@ -55,7 +55,7 @@ class EventListViewDetails extends JView
 		//get menu information
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getParams('com_eventlist');
+		$params 	= & $app->getParams('com_eventlist');
 
 		//Check if the id exists
 		if ($row->did == 0)
@@ -88,7 +88,7 @@ class EventListViewDetails extends JView
 		//pathway
 		$cats		= new eventlist_cats($cid);
         $parents	= $cats->getParentlist();
-		$pathway 	= & $mainframe->getPathWay();
+		$pathway 	= & $app->getPathWay();
 		$pathway->setItemName( 1, $item->name );
 		foreach($parents as $parent) {
 			$pathway->addItem( $this->escape($parent->catname), JRoute::_('index.php?view=categoryevents&id='.$parent->categoryslug));

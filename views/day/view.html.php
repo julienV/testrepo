@@ -40,14 +40,14 @@ class EventListViewDay extends JView
 	 */
 	function display( $tpl = null )
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		//initialize variables
 		$document 	= & JFactory::getDocument();
 		$elsettings = & ELHelper::config();
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getParams();
+		$params 	= & $app->getParams();
 
 		//add css file
 		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
@@ -58,12 +58,12 @@ class EventListViewDay extends JView
 		$limit		= JRequest::getVar('limit', $params->get('display_num'), '', 'int');
 
 		$pop			= JRequest::getBool('pop');
-		$pathway 		= & $mainframe->getPathWay();
+		$pathway 		= & $app->getPathWay();
 
 		//get data from model
 		$rows 		= & $this->get('Data');
 		$total 		= & $this->get('Total');
-		$day	= & $this->get('Day');
+		$day		= & $this->get('Day');
 		
 		$daydate = strftime( $elsettings->formatdate, strtotime( $day ));
 

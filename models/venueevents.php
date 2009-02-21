@@ -70,16 +70,16 @@ class EventListModelVenueevents extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$id = JRequest::getInt('id');
 		$this->setId((int)$id);
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getParams('com_eventlist');
+		$params 	= & $app->getParams('com_eventlist');
 
 		//get the number of events from database
-		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.venueevents.limit', 'limit', $params->def('display_num', 0), 'int');
+		$limit       	= $app->getUserStateFromRequest('com_eventlist.venueevents.limit', 'limit', $params->def('display_num', 0), 'int');
 		$limitstart		= JRequest::getInt('limitstart');
 
 		$this->setState('limit', $limit);
@@ -230,13 +230,13 @@ class EventListModelVenueevents extends JModel
 	 */
 	function _buildVenueWhere( )
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$user		=& JFactory::getUser();
 		$gid		= (int) $user->get('aid');
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getParams('com_eventlist');
+		$params 	= & $app->getParams('com_eventlist');
 		
 		$task 		= JRequest::getWord('task');
 

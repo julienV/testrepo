@@ -40,12 +40,12 @@ class EventListViewEditevent extends JView
 	 */
 	function display( $tpl=null )
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 		
 		$user   = & JFactory::getUser();
-    if (!$user->id) {
-      $mainframe->redirect(JRoute::_($_SERVER["HTTP_REFERER"]), JText::_('Please login to be able to submit events'), 'error' );
-    }
+    	if (!$user->id) {
+      		$app->redirect(JRoute::_($_SERVER["HTTP_REFERER"]), JText::_('Please login to be able to submit events'), 'error' );
+    	}
 
 		if($this->getLayout() == 'choosevenue') {
 			$this->_displaychoosevenue($tpl);
@@ -88,10 +88,10 @@ class EventListViewEditevent extends JView
 		// Get the menu object of the active menu item
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getParams('com_eventlist');
+		$params 	= & $app->getParams('com_eventlist');
 
 		//pathway
-		$pathway 	= & $mainframe->getPathWay();
+		$pathway 	= & $app->getPathWay();
 		$pathway->setItemName(1, $item->name);
 		$pathway->addItem($title, '');
 
@@ -111,7 +111,7 @@ class EventListViewEditevent extends JView
 		$infoimage = JHTML::_('image', 'components/com_eventlist/assets/images/icon-16-hint.png', JText::_( 'NOTES' ) );
 
 		//Create the stuff required for the venueselect functionality
-		$url	= $mainframe->isAdmin() ? $mainframe->getSiteURL() : JURI::base();
+		$url	= $app->isAdmin() ? $app->getSiteURL() : JURI::base();
 
 		$js = "
 		function elSelectVenue(id, venue) {
@@ -129,13 +129,13 @@ class EventListViewEditevent extends JView
 		$lists = array();
 		
 		// recurrence type
-    $rec_type = array();
-    $rec_type[] = JHTML::_('select.option', 0, JText::_ ( 'NOTHING' ));
-    $rec_type[] = JHTML::_('select.option', 1, JText::_ ( 'DAYLY' ));
-    $rec_type[] = JHTML::_('select.option', 2, JText::_ ( 'WEEKLY' ));
-    $rec_type[] = JHTML::_('select.option', 3, JText::_ ( 'MONTHLY' ));
-    $rec_type[] = JHTML::_('select.option', 4, JText::_ ( 'WEEKDAY' ));
-    $lists['recurrence_type'] = JHTML::_('select.genericlist', $rec_type, 'recurrence_type', '', 'value', 'text', $row->recurrence_type);
+    	$rec_type = array();
+    	$rec_type[] = JHTML::_('select.option', 0, JText::_ ( 'NOTHING' ));
+    	$rec_type[] = JHTML::_('select.option', 1, JText::_ ( 'DAYLY' ));
+    	$rec_type[] = JHTML::_('select.option', 2, JText::_ ( 'WEEKLY' ));
+    	$rec_type[] = JHTML::_('select.option', 3, JText::_ ( 'MONTHLY' ));
+    	$rec_type[] = JHTML::_('select.option', 4, JText::_ ( 'WEEKDAY' ));
+    	$lists['recurrence_type'] = JHTML::_('select.genericlist', $rec_type, 'recurrence_type', '', 'value', 'text', $row->recurrence_type);
 
 		$this->assignRef('row' , 					$row);
 		$this->assignRef('categories' , 			$categories);
@@ -147,7 +147,7 @@ class EventListViewEditevent extends JView
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('params' , 				$params);
-    $this->assignRef('lists' ,         $lists);
+    	$this->assignRef('lists' ,         $lists);
 		
 		parent::display($tpl);
 
@@ -161,13 +161,13 @@ class EventListViewEditevent extends JView
 	 */
 	function _displaychoosevenue($tpl)
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$document	= & JFactory::getDocument();
-		$params 	= & $mainframe->getParams();
+		$params 	= & $app->getParams();
 
 		$limitstart			= JRequest::getVar('limitstart', 0, '', 'int');
-		$limit				= $mainframe->getUserStateFromRequest('com_eventlist.selectvenue.limit', 'limit', $params->def('display_num', 0), 'int');
+		$limit				= $app->getUserStateFromRequest('com_eventlist.selectvenue.limit', 'limit', $params->def('display_num', 0), 'int');
 		$filter_order		= JRequest::getCmd('filter_order', 'l.venue');
 		$filter_order_Dir	= JRequest::getWord('filter_order_Dir', 'ASC');;
 		$filter				= JRequest::getString('filter');

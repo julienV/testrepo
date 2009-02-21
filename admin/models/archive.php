@@ -70,10 +70,10 @@ class EventListModelArchive extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
-		$limit		= $mainframe->getUserStateFromRequest( 'com_eventlist.limit', 'limit', $mainframe->getCfg('list_limit'), 'int');
-		$limitstart = $mainframe->getUserStateFromRequest( 'com_eventlist.limitstart', 'limitstart', 0, 'int' );
+		$limit		= $app->getUserStateFromRequest( 'com_eventlist.limit', 'limit', $app->getCfg('list_limit'), 'int');
+		$limitstart = $app->getUserStateFromRequest( 'com_eventlist.limitstart', 'limitstart', 0, 'int' );
 
 		$this->setState('limit', $limit);
 		$this->setState('limitstart', $limitstart);
@@ -192,10 +192,10 @@ class EventListModelArchive extends JModel
 	 */
 	function _buildContentOrderBy()
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
-		$filter_order		= $mainframe->getUserStateFromRequest( 'com_eventlist.archive.filter_order', 		'filter_order', 	'a.dates', 'cmd' );
-		$filter_order_Dir	= $mainframe->getUserStateFromRequest( 'com_eventlist.archive.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
+		$filter_order		= $app->getUserStateFromRequest( 'com_eventlist.archive.filter_order', 		'filter_order', 	'a.dates', 'cmd' );
+		$filter_order_Dir	= $app->getUserStateFromRequest( 'com_eventlist.archive.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
 
 		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', a.dates';
 
@@ -210,10 +210,10 @@ class EventListModelArchive extends JModel
 	 */
 	function _buildContentWhere()
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
-		$filter 			= $mainframe->getUserStateFromRequest( 'com_eventlist.archive.filter', 'filter', '', 'int' );
-		$search 			= $mainframe->getUserStateFromRequest( 'com_eventlist.archive.search', 'search', '', 'string' );
+		$filter 			= $app->getUserStateFromRequest( 'com_eventlist.archive.filter', 'filter', '', 'int' );
+		$search 			= $app->getUserStateFromRequest( 'com_eventlist.archive.search', 'search', '', 'string' );
 		$search 			= $this->_db->getEscaped( trim(JString::strtolower( $search ) ) );
 
 		$where = array('a.published 	= -1',);

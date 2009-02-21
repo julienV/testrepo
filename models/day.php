@@ -70,13 +70,13 @@ class EventListModelDay extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getParams('com_eventlist');
+		$params 	= & $app->getParams('com_eventlist');
 
 		//get the number of events from database
-		$limit       	= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0), 'int');
+		$limit       	= $app->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0), 'int');
 		$limitstart		= JRequest::getInt('limitstart');
 
 		$this->setState('limit', $limit);
@@ -98,10 +98,10 @@ class EventListModelDay extends JModel
 	 */
 	function setDate($date)
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getParams('com_eventlist');
+		$params 	= & $app->getParams('com_eventlist');
 		
 		//0 means we have a direct request from a menuitem and without any parameters (eg: calendar module)
 		if ($date == 0) {
@@ -264,14 +264,14 @@ class EventListModelDay extends JModel
 	 */
 	function _buildEventListWhere()
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$user		= & JFactory::getUser();
 		$gid		= (int) $user->get('aid');
 		$nulldate 	= '0000-00-00';
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getParams();
+		$params 	= & $app->getParams();
 
 		// First thing we need to do is to select only published events
 		$where = ' WHERE a.published = 1';

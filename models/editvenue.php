@@ -72,7 +72,7 @@ class EventListModelEditvenue extends JModel
 	 */
 	function &getVenue(  )
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		// Initialize variables
 		$user		= & JFactory::getUser();
@@ -89,7 +89,7 @@ class EventListModelEditvenue extends JModel
 			* Error if allready checked out
 			*/
 			if ($this->_venue->isCheckedOut( $user->get('id') )) {
-				$mainframe->redirect( 'index.php?option=&view='.$view, JText::_( 'THE VENUE' ).' '.$this->_venue->venue.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ) );
+				$app->redirect( 'index.php?option=&view='.$view, JText::_( 'THE VENUE' ).' '.$this->_venue->venue.' '.JText::_( 'EDITED BY ANOTHER ADMIN' ) );
 			} else {
 				$this->_venue->checkout( $user->get('id') );
 			}
@@ -189,16 +189,16 @@ class EventListModelEditvenue extends JModel
 	 */
 	function store($data, $file)
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$user 		= & JFactory::getUser();
 		$elsettings = & ELHelper::config();
 
 		//Get mailinformation
-		$SiteName 		= $mainframe->getCfg('sitename');
-		$MailFrom	 	= $mainframe->getCfg('mailfrom');
-		$FromName 		= $mainframe->getCfg('fromname');
-		$tzoffset 		= $mainframe->getCfg('offset');
+		$SiteName 		= $app->getCfg('sitename');
+		$MailFrom	 	= $app->getCfg('mailfrom');
+		$FromName 		= $app->getCfg('fromname');
+		$tzoffset 		= $app->getCfg('offset');
 
 		$row 		= & JTable::getInstance('eventlist_venues', '');
 	
@@ -216,7 +216,7 @@ class EventListModelEditvenue extends JModel
 
 			if ($allowedtoeditvenue == 0) {
 				$row->checkin();
-				$mainframe->enqueueMessage( JText::_( 'NO ACCESS' ) );
+				$app->enqueueMessage( JText::_( 'NO ACCESS' ) );
 				return false;
 			}
 
@@ -239,7 +239,7 @@ class EventListModelEditvenue extends JModel
 			$delloclink = ELUser::validate_user( $elsettings->locdelrec, $elsettings->deliverlocsyes );
 
 			if ($delloclink == 0){
-				$mainframe->enqueueMessage( JText::_( 'NO ACCESS' ) );
+				$app->enqueueMessage( JText::_( 'NO ACCESS' ) );
 				return false;
 			}
 
@@ -271,7 +271,7 @@ class EventListModelEditvenue extends JModel
 			$check = ELImage::check($file, $elsettings);
 
 			if ($check === false) {
-				$mainframe->redirect($_SERVER['HTTP_REFERER']);
+				$app->redirect($_SERVER['HTTP_REFERER']);
 			}
 
 			//sanitize the image filename

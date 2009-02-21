@@ -40,16 +40,16 @@ class EventListViewEventList extends JView
 	 */
 	function display( $tpl = null )
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		//initialize variables
 		$document 	= & JFactory::getDocument();
 		$elsettings = & ELHelper::config();
 		$menu		= & JSite::getMenu();
 		$item    	= $menu->getActive();
-		$params 	= & $mainframe->getParams();
+		$params 	= & $app->getParams();
 		$uri 		= & JFactory::getURI();
-		$pathway 	= & $mainframe->getPathWay();
+		$pathway 	= & $app->getPathWay();
 
 		//add css file
 		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
@@ -57,7 +57,7 @@ class EventListViewEventList extends JView
 
 		// get variables
 		$limitstart	= JRequest::getVar('limitstart', 0, '', 'int');
-		$limit		= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0), 'int');
+		$limit		= $app->getUserStateFromRequest('com_eventlist.eventlist.limit', 'limit', $params->def('display_num', 0), 'int');
 		$task 		= JRequest::getWord('task');
 		$pop		= JRequest::getBool('pop');
 
@@ -92,8 +92,8 @@ class EventListViewEventList extends JView
 		}
 		
 		//Set Page title
-		$mainframe->setPageTitle( $pagetitle );
-   		$mainframe->addMetaTag( 'title' , $pagetitle );
+		$app->setPageTitle( $pagetitle );
+   		$app->addMetaTag( 'title' , $pagetitle );
 
 		//Check if the user has access to the form
 		$maintainer = ELUser::ismaintainer();
@@ -113,7 +113,7 @@ class EventListViewEventList extends JView
 		
 		if ($lists['filter']) {
 			//$uri->setVar('filter', JRequest::getString('filter'));
-			//$filter		= $mainframe->getUserStateFromRequest('com_eventlist.eventlist.filter', 'filter', '', 'string');
+			//$filter		= $app->getUserStateFromRequest('com_eventlist.eventlist.filter', 'filter', '', 'string');
 			$uri->setVar('filter', $lists['filter']);
 			$uri->setVar('filter_type', JRequest::getString('filter_type'));
 		} else {

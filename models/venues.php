@@ -63,10 +63,10 @@ class EventListModelVenues extends JModel
 	{
 		parent::__construct();
 
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		// Get the paramaters of the active menu item
-		$params 	= & $mainframe->getParams('com_eventlist');
+		$params 	= & $app->getParams('com_eventlist');
 
 		//get the number of events from database
 		$limit			= JRequest::getInt('limit', $params->get('display_venues_num'));
@@ -84,7 +84,7 @@ class EventListModelVenues extends JModel
 	 */
 	function &getData( )
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$menu		=& JSite::getMenu();
 		$item    	= $menu->getActive();
@@ -114,7 +114,7 @@ class EventListModelVenues extends JModel
 					$venue->text	= $venue->locdescription;
 					$venue->title 	= $venue->venue;
 					JPluginHelper::importPlugin('content');
-					$results = $mainframe->triggerEvent( 'onPrepareContent', array( &$venue, &$params, 0 ));
+					$results = $app->triggerEvent( 'onPrepareContent', array( &$venue, &$params, 0 ));
 					$venue->locdescription = $venue->text;
 				}
 

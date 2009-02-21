@@ -46,6 +46,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
    */
   function caltooltip($tooltip, $title='', $text='', $href='', $class='editlinktip hasTip')
   {
+  	$app = & JFactory::getApplication();  	
+	
 //    $tooltip  = addslashes(htmlspecialchars($tooltip));
 //    $title    = addslashes(htmlspecialchars($title));
     $tooltip  = (htmlspecialchars($tooltip));
@@ -70,7 +72,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
   
 require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'calendar.class.php');
 
-$cal = new ELCalendar($this->year, $this->month, 0, $mainframe->getCfg('offset'));
+$cal = new ELCalendar($this->year, $this->month, 0, $app->getCfg('offset'));
 $cal->enableMonthNav('index.php?view=calendar&id='. $this->category->slug);
 $cal->setFirstWeekDay($this->params->get('firstweekday', 1));
 $cal->enableDayLinks( false );

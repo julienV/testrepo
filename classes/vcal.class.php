@@ -129,7 +129,7 @@ class vCal {
 	*/
 	function generateHTMLvCal() {
 
-		global $mainframe;
+		$app = & JFactory::getApplication();
 		// header info for page
 //		header( 'Content-Type: text/x-vCalendar');
 		header( 'Content-Type: text/calendar');
@@ -149,7 +149,7 @@ LOCATION;ENCODING=QUOTED-PRINTABLE:<?php echo $this->properties['LOCATION']."\n"
 END:VEVENT
 END:VCALENDAR
 <?php
-		$mainframe->close();
+		$app->close();
 	}
 
 	/**
@@ -160,7 +160,7 @@ END:VCALENDAR
 	*/
 	function generateHTMLiCal() {
 
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		// header info for page
 		header( 'Content-Type: text/calendar');
@@ -184,7 +184,7 @@ DTEND:<?php echo $this->properties['ENDDATE']."\n" ?>
 END:VEVENT
 END:VCALENDAR
 <?php
-		$mainframe->close();
+		$app->close();
 	}
 }
 ?>

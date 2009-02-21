@@ -240,7 +240,7 @@ class EventListModelEvent extends JModel
 	 */
 	function store($data)
 	{
-		global $mainframe;
+		//$app = & JFactory::getApplication();
 
 		$elsettings = ELAdmin::config();
 		$user		= & JFactory::getUser();

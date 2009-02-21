@@ -40,13 +40,13 @@ class EventListViewCategoryevents extends JView
 	 */
 	function display( )
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		$doc 		= & JFactory::getDocument();
 		$elsettings = & ELHelper::config();
 
 		// Get some data from the model
-		JRequest::setVar('limit', $mainframe->getCfg('feed_limit'));
+		JRequest::setVar('limit', $app->getCfg('feed_limit'));
 		$rows = & $this->get('Data');
 
 		foreach ( $rows as $row )

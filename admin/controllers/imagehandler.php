@@ -56,7 +56,7 @@ class EventListControllerImagehandler extends EventListController
 	 */
 	function uploadimage()
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 		
 		// Check for request forgeries
 		JRequest::checkToken() or die( 'Invalid Token' );
@@ -81,14 +81,14 @@ class EventListControllerImagehandler extends EventListController
 		//do we have an upload?
 		if (empty($file['name'])) {
 			echo "<script> alert('".JText::_( 'IMAGE EMPTY' )."'); window.history.go(-1); </script>\n";
-			$mainframe->close();
+			$app->close();
 		}
 
 		//check the image
 		$check = ELImage::check($file, $elsettings);
 
 		if ($check === false) {
-			$mainframe->redirect($_SERVER['HTTP_REFERER']);
+			$app->redirect($_SERVER['HTTP_REFERER']);
 		}
 
 		//sanitize the image filename
@@ -98,11 +98,11 @@ class EventListControllerImagehandler extends EventListController
 		//upload the image
 		if (!JFile::upload($file['tmp_name'], $filepath)) {
 			echo "<script> alert('".JText::_( 'UPLOAD FAILED' )."'); window.history.go(-1); </script>\n";
-			$mainframe->close();
+			$app->close();
 
 		} else {
 			echo "<script> alert('".JText::_( 'UPLOAD COMPLETE' )."'); window.history.go(-1); window.parent.elSelectImage('$filename', '$filename'); </script>\n";
-			$mainframe->close();
+			$app->close();
 		}
 
 	}
@@ -116,7 +116,7 @@ class EventListControllerImagehandler extends EventListController
 	 */
 	function delete()
 	{
-		global $mainframe;
+		$app = & JFactory::getApplication();
 
 		// Set FTP credentials, if given
 		jimport('joomla.client.helper');
@@ -151,7 +151,7 @@ class EventListControllerImagehandler extends EventListController
 			$task = 'selectvenueimg';
 		}
 
-		$mainframe->redirect('index.php?option=com_eventlist&view=imagehandler&task='.$task.'&tmpl=component');
+		$app->redirect('index.php?option=com_eventlist&view=imagehandler&task='.$task.'&tmpl=component');
 	}
 
 }
