@@ -165,7 +165,7 @@ class EventListModelCategory extends JModel
 			$category->meta_keywords		= null;
 			$category->published			= 1;
 			$category->image				= JText::_('SELECTIMAGE');
-      $category->color        = '';
+      		$category->color        		= '';
 			$category->access				= 0;
 			$this->_data					= $category;
 			return (boolean) $this->_data;

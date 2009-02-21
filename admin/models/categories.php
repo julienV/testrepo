@@ -330,7 +330,6 @@ class EventListModelCategories extends JModel
 
 	/**
 	 * Method to remove a category
-	 * TODO: Cancel delete action if subs exist
 	 * 
 	 * @access	public
 	 * @return	string $msg

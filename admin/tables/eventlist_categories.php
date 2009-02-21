@@ -50,7 +50,7 @@ class eventlist_categories extends JTable
 	/** @var string */
 	var $image 				= '';
 	/** @var string */
-	var $color = '';
+	var $color 				= '';
 	/** @var int */
 	var $published			= null;
 	/** @var int */
@@ -73,7 +73,13 @@ class eventlist_categories extends JTable
 		parent::__construct('#__eventlist_categories', 'id', $db);
 	}
 
-	// overloaded check function
+	/**
+	 * Overloaded check function
+	 *
+	 * @access public
+	 * @return boolean
+	 * @since 1.0
+	 */
 	function check()
 	{
 		// Not typed in a category name?
@@ -129,7 +135,7 @@ class eventlist_categories extends JTable
 	/**
 	 * Inserts a row into a table based on an objects properties, ignore if already exists
 	 *
-	 * @access	public
+	 * @access	protected
 	 * @param	string	The name of the table
 	 * @param	object	An object whose properties match table fields
 	 * @param	string	The name of the primary key. If provided the object property is updated.
