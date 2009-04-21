@@ -151,9 +151,9 @@ class EventListModelEvent extends JModel
 			$event->recurrence_number	= 0;
 			$event->recurrence_type		= 0;
 			$event->recurrence_limit_date	= '0000-00-00';
-      $event->recurrence_limit = 0;
-      $event->recurrence_counter = 0;
-      $event->recurrence_byday = '';
+      		$event->recurrence_limit 	= 0;
+      		$event->recurrence_counter 	= 0;
+      		$event->recurrence_byday 	= '';
 			$event->datimage			= JText::_('SELECTIMAGE');
 			$event->venue				= JText::_('SELECTVENUE');
 			$event->hits				= 0;

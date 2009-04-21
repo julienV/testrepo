@@ -50,6 +50,8 @@ class eventlist_events extends JTable
 	/** @var string */
 	var $alias	 			= '';
 	/** @var int */
+	var $created			= 0;
+	/** @var int */
 	var $created_by			= null;
 	/** @var int */
 	var $modified 			= 0;

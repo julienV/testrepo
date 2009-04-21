@@ -160,11 +160,11 @@ class EventListViewEvent extends JView {
 		// recurrence type
 		$rec_type = array();
 		$rec_type[] = JHTML::_('select.option', 0, JText::_ ( 'NOTHING' ));
-    $rec_type[] = JHTML::_('select.option', 1, JText::_ ( 'DAYLY' ));
-    $rec_type[] = JHTML::_('select.option', 2, JText::_ ( 'WEEKLY' ));
-    $rec_type[] = JHTML::_('select.option', 3, JText::_ ( 'MONTHLY' ));
-    $rec_type[] = JHTML::_('select.option', 4, JText::_ ( 'WEEKDAY' ));
-    $Lists['recurrence_type'] = JHTML::_('select.genericlist', $rec_type, 'recurrence_type', '', 'value', 'text', $row->recurrence_type);
+    	$rec_type[] = JHTML::_('select.option', 1, JText::_ ( 'DAYLY' ));
+    	$rec_type[] = JHTML::_('select.option', 2, JText::_ ( 'WEEKLY' ));
+    	$rec_type[] = JHTML::_('select.option', 3, JText::_ ( 'MONTHLY' ));
+	    $rec_type[] = JHTML::_('select.option', 4, JText::_ ( 'WEEKDAY' ));
+    	$Lists['recurrence_type'] = JHTML::_('select.genericlist', $rec_type, 'recurrence_type', '', 'value', 'text', $row->recurrence_type);
 		
 		//assign vars to the template
 		$this->assignRef('Lists'      	, $Lists);
