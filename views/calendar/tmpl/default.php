@@ -46,31 +46,32 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
    */
   function caltooltip($tooltip, $title='', $text='', $href='', $class='editlinktip hasTip')
   {
-  	$app = & JFactory::getApplication();  	
 	
-//    $tooltip  = addslashes(htmlspecialchars($tooltip));
-//    $title    = addslashes(htmlspecialchars($title));
-    $tooltip  = (htmlspecialchars($tooltip));
-    $title    = (htmlspecialchars($title));
+//    	$tooltip  = addslashes(htmlspecialchars($tooltip));
+//    	$title    = addslashes(htmlspecialchars($title));
+    	$tooltip  = (htmlspecialchars($tooltip));
+    	$title    = (htmlspecialchars($title));
 
-    //$text   = JText::_( $text, true );
+    	//$text   = JText::_( $text, true );
 
-    if($title) {
-      $title = $title.'::';
-    }
+    	if($title) {
+      		$title = $title.'::';
+    	}
 
-    if ( $href ) {
-      $href = JRoute::_( $href );
-      $style = '';
-      $tip = '<span class="'.$class.'" title="'.$title.$tooltip.'"><a href="'. $href .'">'. $text .'</a></span>';
-    } else {
-      $tip = '<span class="'.$class.'" title="'.$title.$tooltip.'">'. $text .'</span>';
-    }
+    	if ( $href ) {
+      		$href = JRoute::_( $href );
+      		$style = '';
+      		$tip = '<span class="'.$class.'" title="'.$title.$tooltip.'"><a href="'. $href .'">'. $text .'</a></span>';
+    	} else {
+      		$tip = '<span class="'.$class.'" title="'.$title.$tooltip.'">'. $text .'</span>';
+    	}
 
-    return $tip;
-  }
+    	return $tip;
+  	}
   
 require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'calendar.class.php');
+
+$app = & JFactory::getApplication();  	
 
 $cal = new ELCalendar($this->year, $this->month, 0, $app->getCfg('offset'));
 $cal->enableMonthNav('index.php?view=calendar&id='. $this->category->slug);
