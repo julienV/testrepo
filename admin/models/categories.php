@@ -97,6 +97,9 @@ class EventListModelCategories extends JModel
 		$search 			= $app->getUserStateFromRequest( 'com_eventlist.categories.search', 'search', '', 'string' );
 		$search 			= $this->_db->getEscaped( trim(JString::strtolower( $search ) ) );
 		
+		$filter_order		= JFilterInput::clean($filter_order, 'cmd');
+		$filter_order_dir	= JFilterInput::clean($filter_order_dir, 'word');
+		
 		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', c.ordering';
 		
 		$where = array();

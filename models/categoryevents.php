@@ -94,7 +94,7 @@ class EventListModelCategoryevents extends JModel
 
 		// Get the filter request variables
 		$this->setState('filter_order', JRequest::getCmd('filter_order', 'a.dates'));
-		$this->setState('filter_order_dir', JRequest::getCmd('filter_order_Dir', 'ASC'));
+		$this->setState('filter_order_dir', JRequest::getWord('filter_order_Dir', 'ASC'));
 	}
 
 	/**
@@ -228,6 +228,9 @@ class EventListModelCategoryevents extends JModel
 	{
 		$filter_order		= $this->getState('filter_order');
 		$filter_order_dir	= $this->getState('filter_order_dir');
+		
+		$filter_order		= JFilterInput::clean($filter_order, 'cmd');
+		$filter_order_dir	= JFilterInput::clean($filter_order_dir, 'word');
 
 		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_dir.', a.dates, a.times';
 

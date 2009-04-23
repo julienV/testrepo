@@ -203,6 +203,9 @@ class EventListModelAttendees extends JModel
 
 		$filter_order		= $app->getUserStateFromRequest( 'com_eventlist.attendees.filter_order', 		'filter_order', 	'u.username', 'cmd' );
 		$filter_order_Dir	= $app->getUserStateFromRequest( 'com_eventlist.attendees.filter_order_Dir',	'filter_order_Dir',	'', 'word' );
+		
+		$filter_order		= JFilterInput::clean($filter_order, 'cmd');
+		$filter_order_dir	= JFilterInput::clean($filter_order_dir, 'word');
 
 		$orderby 	= ' ORDER BY '.$filter_order.' '.$filter_order_Dir.', u.name';
 
