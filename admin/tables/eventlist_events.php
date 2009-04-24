@@ -49,8 +49,8 @@ class eventlist_events extends JTable
 	var $title 				= '';
 	/** @var string */
 	var $alias	 			= '';
-	/** @var int */
-	var $created			= 0;
+	/** @var date */
+	var $created	 		= null;
 	/** @var int */
 	var $created_by			= null;
 	/** @var int */
@@ -107,8 +107,6 @@ class eventlist_events extends JTable
 	var $datimage 			= '';
 	/** @var string */
 	var $author_ip 			= null;
-	/** @var date */
-	var $created	 		= null;
 	/** @var int */
 	var $published 			= null;
 	/** @var int */
