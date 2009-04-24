@@ -124,27 +124,27 @@ defined('_JEXEC') or die ('Restricted access');
             }
                 $venue .= '</div>';
 				
-         } else {
-		 
-		 	$venue = '';
-    
-            $content = '<div class="cat'.$row->catid.'">';
-			//TODO: add color field to categories table
-			if ( isset ($row->color) && $row->color) {
-            	$content .= '<span class="colorpic" style="background-color: '.$row->color.';"></span>';
-            }
-            $content .= caltooltip($catname.$eventname.$timehtml.$venue, $eventdate, $row->title, $detaillink, 'eventTip');
-    
-            $content .= '</div>';
-    
-            $cal->setEventContent($year, $month, $day, $content);
-                
-			if (!array_key_exists($row->catid, $countcatevents)) {
-            	$countcatevents[$row->catid] = 1;
-            } else {
-                $countcatevents[$row->catid]++;
-            }
+        } else {
+			$venue = '';
 		}
+        
+		$content = '<div class="cat'.$row->catid.'">';
+		//TODO: add color field to categories table
+		if ( isset ($row->color) && $row->color) {
+          	$content .= '<span class="colorpic" style="background-color: '.$row->color.';"></span>';
+        }
+        
+		$content .= caltooltip($catname.$eventname.$timehtml.$venue, $eventdate, $row->title, $detaillink, 'eventTip');
+    
+        $content .= '</div>';
+    
+        $cal->setEventContent($year, $month, $day, $content);
+                
+		if (!array_key_exists($row->catid, $countcatevents)) {
+			$countcatevents[$row->catid] = 1;
+        } else {
+            $countcatevents[$row->catid]++;
+        }
 	}
     // print the calendar
     print ($cal->showMonth());
