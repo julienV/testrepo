@@ -8,21 +8,19 @@
  * EventList is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License 2
  * as published by the Free Software Foundation.
-
  * EventList is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
-
  * You should have received a copy of the GNU General Public License
  * along with EventList; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined('_JEXEC') or die ('Restricted access');
 
-jimport( 'joomla.application.component.view');
+jimport('joomla.application.component.view');
 
 require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'categories.class.php');
 require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'calendar.class.php');
@@ -36,145 +34,149 @@ require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'calendar.class.php');
  */
 class EventListViewCalendar extends JView
 {
-	/**
-	 * Creates the Calendar View
-	 *
-	 * @since 1.1
-	 */
-	function display( $tpl=null )
-	{
-		$app = & JFactory::getApplication();
+    /**
+     * Creates the Calendar View
+     *
+     * @since 1.1
+     */
+    function display($tpl = null)
+    {
+        $app = & JFactory::getApplication();
 
-    	// Load tooltips behavior
-    	JHTML::_('behavior.tooltip');
-        
-		//initialize variables
-		$document 	= & JFactory::getDocument();
-		$menu		= & JSite::getMenu();
-		$elsettings = & ELHelper::config();
-		$item    	= $menu->getActive();
-		$params 	= & $app->getParams();
-		$uri 		= & JFactory::getURI();
-		$pathway 	= & $app->getPathWay();
-		
-		//add css file
-		$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
-    	$document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');
-    	$document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlistcalendar.css');
-    	// add javascript
-    	$document->addScript( $this->baseurl.'/components/com_eventlist/assets/js/calendar.js' );
+        // Load tooltips behavior
+        JHTML::_('behavior.tooltip');
 
-		
-		$task 			= JRequest::getWord('task');
-		
-    	$year  = intval( JRequest::getVar('yearID', strftime( "%Y" ) ));
-    	$month = intval( JRequest::getVar('monthID', strftime( "%m" ) ));
-    	$day   = intval( JRequest::getVar('dayID', strftime( "%d" ) ));
+        //initialize variables
+        $document = & JFactory::getDocument();
+        $menu = & JSite::getMenu();
+        $elsettings = & ELHelper::config();
+        $item = $menu->getActive();
+        $params = & $app->getParams();
+        $uri = & JFactory::getURI();
+        $pathway = & $app->getPathWay();
 
-		//get data from model
-		$model = & $this->getModel();
-		$model->setDate( mktime( 0, 0, 1, $month, $day, $year) );
-		
-		$rows 		= & $this->get('Data');
-		$category 	= & $this->get('Category');
-		$categories	= & $this->get('Categories');
+        //add css file
+        $document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
+        $document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');
+        $document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlistcalendar.css');
+        // add javascript
+        $document->addScript($this->baseurl.'/components/com_eventlist/assets/js/calendar.js');
 
-		//are events available?
-		if (!$rows) {
-			$noevents = 1;
-		} else {
-			$noevents = 0;
-		}
 
-		//does the category exist
-		
-		if (!$category) // display all
-		{
-			//return JError::raiseError( 404, JText::sprintf( 'Category #%d not found', $category->id ) );
-			$category = new stdclass();
-			$category->id = 0;
-			$category->catname = JText::_('All categories');
-			$category->meta_keywords = '';
-			$category->meta_description = '';
-			$category->slug = '0';
-		}
+        $task = JRequest::getWord('task');
 
-		//Set Meta data
-		$document->setTitle( $item->name.' - '.$category->catname );
-          
-    	$document->setMetadata( 'keywords', $category->meta_keywords );
-    	$document->setDescription( strip_tags($category->meta_description) );
-    
-    	//Set Page title    
-    	$pagetitle = $params->def( 'page_title', $item->name);
-    	$app->setPageTitle( $pagetitle );
-    	$app->addMetaTag( 'title' , $pagetitle );
+        $year = intval(JRequest::getVar('yearID', strftime("%Y")));
+        $month = intval(JRequest::getVar('monthID', strftime("%m")));
+        $day = intval(JRequest::getVar('dayID', strftime("%d")));
 
-		//create the pathway
-		$cats		= new eventlist_cats($category->id);
-		$parents	= $cats->getParentlist();
+        //get data from model
+        $model = & $this->getModel();
+        $model->setDate(mktime(0, 0, 1, $month, $day, $year));
 
-		foreach($parents as $parent) {
-			$pathway->addItem( $this->escape($parent->catname), JRoute::_('index.php?view=calendar&id='.$parent->categoryslug));
-		}
+        $rows = & $this->get('Data');
+        $category = & $this->get('Category');
+        $categories = & $this->get('Categories');
 
-		//create select lists
-		$lists	= $this->_buildFilterLists($elsettings);
-		
-		$this->assign('lists', 				$lists);
-		$this->assign('action', 			$uri->toString());
+        //are events available?
+        if (!$rows)
+        {
+            $noevents = 1;
+        } else
+        {
+            $noevents = 0;
+        }
 
-		$this->assignRef('rows' , 			$rows);
-		$this->assignRef('noevents' , 		$noevents);
-		$this->assignRef('category' , 		$category);
-		$this->assignRef('params' , 		$params);
-    	$this->assignRef('pagetitle' ,    	$pagetitle);
-		$this->assignRef('task' , 			$task);
-		$this->assignRef('elsettings' , 	$elsettings);
-		$this->assignRef('item' , 			$item);
-		$this->assignRef('categories' , 	$categories);
+        //does the category exist
 
-    	$this->assignRef('year' ,           $year);
-    	$this->assignRef('month' ,          $month);
-    	$this->assignRef('day' ,           	$day);
+        if (!$category) // display all
+        {
+            //return JError::raiseError( 404, JText::sprintf( 'Category #%d not found', $category->id ) );
+            $category = new stdclass();
+            $category->id = 0;
+            $category->catname = JText::_('All categories');
+            $category->meta_keywords = '';
+            $category->meta_description = '';
+            $category->slug = '0';
+        }
 
-		parent::display($tpl);
-	}
+        //Set Meta data
+        $document->setTitle($item->name.' - '.$category->catname);
 
-	/**
-	 * Manipulate Data
-	 *
-	 * @since 0.9
-	 */
-	function &getRows()
-	{
-		$count = count($this->rows);
+        $document->setMetadata('keywords', $category->meta_keywords);
+        $document->setDescription(strip_tags($category->meta_description));
 
-		if (!$count) {
-			return;
-		}
-		
-		$k = 0;
-		foreach($this->rows as $key => $row)
-		{
-			$row->odd   = $k;
-			
-			$this->rows[$key] = $row;
-			$k = 1 - $k;
-		}
+        //Set Page title
+        $pagetitle = $params->def('page_title', $item->name);
+        $app->setPageTitle($pagetitle);
+        $app->addMetaTag('title', $pagetitle);
 
-		return $this->rows;
-	}
+        //create the pathway
+        $cats = new eventlist_cats($category->id);
+        $parents = $cats->getParentlist();
 
-	function _buildFilterLists($elsettings)
-	{
-		$filter				= JRequest::getString('filter');
-		$filter_type		= JRequest::getString('filter_type');
+        foreach ($parents as $parent)
+        {
+            $pathway->addItem($this->escape($parent->catname), JRoute::_('index.php?view=calendar&id='.$parent->categoryslug));
+        }
 
-		$lists['filter'] 		= $filter;
-		$lists['filter_type'] 	= $filter_type;
+        //create select lists
+        $lists = $this->_buildFilterLists($elsettings);
 
-		return $lists;
-	}
+        $this->assign('lists', $lists);
+        $this->assign('action', $uri->toString());
+
+        $this->assignRef('rows', $rows);
+        $this->assignRef('noevents', $noevents);
+        $this->assignRef('category', $category);
+        $this->assignRef('params', $params);
+        $this->assignRef('pagetitle', $pagetitle);
+        $this->assignRef('task', $task);
+        $this->assignRef('elsettings', $elsettings);
+        $this->assignRef('item', $item);
+        $this->assignRef('categories', $categories);
+
+        $this->assignRef('year', $year);
+        $this->assignRef('month', $month);
+        $this->assignRef('day', $day);
+
+        parent::display($tpl);
+    }
+
+    /**
+     * Manipulate Data
+     *
+     * @since 0.9
+     */
+    function & getRows()
+    {
+        $count = count($this->rows);
+
+        if (!$count)
+        {
+            return;
+        }
+
+        $k = 0;
+        foreach ($this->rows as $key=>$row)
+        {
+            $row->odd = $k;
+
+            $this->rows[$key] = $row;
+            $k = 1-$k;
+        }
+
+        return $this->rows;
+    }
+
+    function _buildFilterLists($elsettings)
+    {
+        $filter = JRequest::getString('filter');
+        $filter_type = JRequest::getString('filter_type');
+
+        $lists['filter'] = $filter;
+        $lists['filter_type'] = $filter_type;
+
+        return $lists;
+    }
 }
 ?>
