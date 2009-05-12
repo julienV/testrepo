@@ -28,6 +28,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
  */
 function com_install() {
 
+	//load libraries
+	$db = & JFactory::getDBO();
 	jimport( 'joomla.filesystem.folder' )
 ?>
 
@@ -46,164 +48,223 @@ function com_install() {
 	</tr>
 	<tr>
 		<td colspan="2">
-			<code>Installation Status:<br />
+			
 			<?php
-			// Check for existing /images/eventlist directory
-			if ($direxists = JFolder::exists( JPATH_SITE.'/images/eventlist' )) {
-				echo "<font color='green'>FINISHED:</font> Directory /images/eventlist exists. Skipping creation.<br />";
-			} else {
-				echo "<font color='orange'>Note:</font> The Directory /images/eventlist does NOT exist. EventList will try to create them.<br />";
-
-				//Image folder creation
-				if ($makedir = JFolder::create( JPATH_SITE.'/images/eventlist')) {
-					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist created.<br />";
-				} else {
-					echo "<font color='red'>ERROR:</font> Directory /images/eventlist NOT created.<br />";
-				}
-
-				if (JFolder::create(JPATH_SITE.'/images/eventlist/events')) {
-					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/events created.<br />";
-				} else {
-					echo "<font color='red'>ERROR:</font> Directory /images/eventlist/events NOT created.<br />";
-				}
-				if (JFolder::create( JPATH_SITE.'/images/eventlist/events/small')) {
-					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/events/small created.<br />";
-				} else {
-					echo "<font color='red'>ERROR:</font> Directory /images/eventlist/events/small NOT created.<br />";
-				}
-				if (JFolder::create( JPATH_SITE.'/images/eventlist/venues')) {
-					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/venues created.<br />";
-				} else {
-					echo "<font color='red'>ERROR:</font> Directory /images/eventlist/venues NOT created.<br />";
-				}
-				if (JFolder::create( JPATH_SITE.'/images/eventlist/venues/small')) {
-					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/venues/small created.<br />";
-				} else {
-					echo "<font color='red'>ERROR:</font> Directory /images/eventlist/venues/small NOT created.<br />";
-				}
-			}
-        	?>
-			<code>Database Update Status:<br />
-			<?php
-			//load libraries
-			$db = & JFactory::getDBO();
+			//intitialize some vars
+			$direxists 	= 0;
+			$makedir 	= 0;
 			
-			//check if default values are available -> means update
-			//TODO: none settings means fresh install so clean up with the version check for 1.0 catsid field (skip version checks)
-			$query = 'SELECT * FROM #__eventlist_settings WHERE id = 1';
-			$db->setQuery($query);
-			$settingsresult = $db->loadResult();
-						
-			if (!$settingsresult) {
-				//Set the default setting values -> fresh install
-				$query = "INSERT INTO #__eventlist_settings VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '', '100%', '15%', '25%', '20%', '20%', 'Date', 'Title', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 0, 1, 1, 1, 1, 1, 2, -2, 0, 'example@example.com', 0, '1000', -2, -2, -2, 1, '20%', 'Type', 1, 1, 1, 1, '100', '100', '100', 0, 1, 0, 0, 1, 2, 2, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [catsid], [times]', 'The event titled [title] starts on [dates]!', 0, 'State', 0, '', 0, 1, 0, '1174491851', '', '')";
-				$db->setQuery($query);
-				$db->Query();
-			}
-			
-			#############################################################################
-			#																			#
-			#		Database Update Logic for EventList 1.0 to EventList 1.1 Beta		#
-			#																			#
-			#############################################################################
-			
+			//check if update or fresh install
 			//detect if catsid field is available in events table. If yes, 1.0 was installed
 			$query = 'DESCRIBE #__eventlist_events catsid';
 			$db->setQuery($query);
-			$result = $db->loadResult();
+			$doupdate11 = $db->loadResult();
 			
-			if ($result) {
-				echo 'Currently installed Version: 1.0 Database outdated! Try to update...';
-				
-				//update current settings
-				$query = 'ALTER TABLE #__eventlist_settings' 
-							.' CHANGE imagehight imageheight VARCHAR( 20 ) NOT NULL,'
-							.' ADD reg_access tinyint(4) NOT NULL AFTER regname'
-							;
-				$db->setQuery($query);
-				$db->Query();
-				
-				//update events table
-				
-				//add new fields
-				$query = 'ALTER TABLE #__eventlist_events'
-							.' ADD recurrence_limit INT NOT NULL AFTER recurrence_counter,'
-							.' ADD recurrence_limit_date DATE NOT NULL AFTER recurrence_limit,'
-							.' ADD recurrence_first_id int(11) NOT NULL default \'0\' AFTER meta_description,'
-							.' ADD recurrence_byday VARCHAR( 20 ) NOT NULL AFTER recurrence_limit_date,'
-							.' ADD version int(11) unsigned NOT NULL default \'0\' AFTER modified_by,'
-							.' ADD hits int(11) unsigned NOT NULL default \'0\' AFTER unregistra'
-							;
-				$db->setQuery($query);
-				$db->Query();
-				
-				//converting fields to new schema
-				$query = 'UPDATE #__eventlist_events'
-							.' SET recurrence_limit_date = recurrence_counter'
-							;
-				$db->setQuery($query);
-				$db->Query();
-				
-				$query = 'ALTER TABLE #__eventlist_events' 
-							.' CHANGE recurrence_counter recurrence_counter INT NOT NULL DEFAULT \'0\''
-							;
-				$db->setQuery($query);
-				$db->Query();
-				
-				//convert category structure
-				$query = 'SELECT id, catsid FROM #__eventlist_events';
-				$db->setQuery($query);
-				$categories = $db->loadObjectList();
-				
-				foreach ($categories AS $category) {
-					$query = 'INSERT INTO #__eventlist_cats_event_relations VALUES ('.$category->catsid.', '.$category->id.', \'\')';
-					$db->setQuery($query);
-					$db->Query();
+			if (!$doupdate11) {
+				echo '<code><strong>Installation Status:</strong><br />';
+			
+				// Check for existing /images/eventlist directory
+				if ($direxists = JFolder::exists( JPATH_SITE.'/images/eventlist' )) {
+					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist exists. Skipping creation.</font><br />";
+				} else {
+					echo "<font color='orange'>Note:</font> The Directory /images/eventlist does NOT exist. EventList will try to create them.</font><br />";
 				}
 				
-				//remove catsid field from events table
-				$query = 'ALTER TABLE #__eventlist_events DROP catsid';
-				$db->setQuery($query);
-				$db->Query();
+				//Image folder creation
+				if ($makedir = JFolder::create( JPATH_SITE.'/images/eventlist')) {
+					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist created.</font><br />";
+				} else {
+					echo "<font color='red'>ERROR:</font> Directory /images/eventlist NOT created.</font><br />";
+				}
+
+				if (JFolder::create(JPATH_SITE.'/images/eventlist/events')) {
+					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/events created.</font><br />";
+				} else {
+					echo "<font color='red'>ERROR:</font> Directory /images/eventlist/events NOT created.</font><br />";
+				}
+				if (JFolder::create( JPATH_SITE.'/images/eventlist/events/small')) {
+					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/events/small created.</font><br />";
+				} else {
+					echo "<font color='red'>ERROR:</font> Directory /images/eventlist/events/small NOT created.</font><br />";
+				}
+				if (JFolder::create( JPATH_SITE.'/images/eventlist/venues')) {
+					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/venues created.</font><br />";
+				} else {
+					echo "<font color='red'>ERROR:</font> Directory /images/eventlist/venues NOT created.</font><br />";
+				}
+				if (JFolder::create( JPATH_SITE.'/images/eventlist/venues/small')) {
+					echo "<font color='green'>FINISHED:</font> Directory /images/eventlist/venues/small created.</font><br />";
+				} else {
+					echo "<font color='red'>ERROR:</font> Directory /images/eventlist/venues/small NOT created.</font><br />";
+				}
 				
-				//update venues table
-				$query = 'ALTER TABLE #__eventlist_venues'
-							.' ADD latitude float default NULL,'
-							.' ADD longitude float default NULL,'
-							.' ADD version int(11) unsigned NOT NULL default \'0\''
-							;
+				//check if default values are available -> means update
+				//TODO: none settings means fresh install so clean up with the version check for 1.0 catsid field (skip version checks)
+				$query = 'SELECT * FROM #__eventlist_settings WHERE id = 1';
 				$db->setQuery($query);
-				$db->Query();
-				
-				//update categories table
-				$query = 'ALTER TABLE #__eventlist_categories'
-							.' ADD color varchar(20) NOT NULL default \'\''
-							;
-				
-				$db->setQuery($query);
-				$db->Query();
+				$settingsresult = $db->loadResult();
+						
+				if (!$settingsresult) {
+					//Set the default setting values -> fresh install
+					$query = "INSERT INTO #__eventlist_settings VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '', '100%', '15%', '25%', '20%', '20%', 'Date', 'Title', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 0, 1, 1, 1, 1, 1, 2, -2, 0, 'example@example.com', 0, '1000', -2, -2, -2, 1, '20%', 'Type', 1, 1, 1, 1, '100', '100', '100', 0, 1, 0, 0, 1, 2, 2, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [catsid], [times]', 'The event titled [title] starts on [dates]!', 0, 'State', 0, '', 0, 1, 0, '1174491851', '', '')";
+					$db->setQuery($query);
+					if (!$db->query()) {
+						echo "<font color='red'>Error loading default setting values. Please apply changes manually!</font><br />";
+					} else {
+	          			echo "<font color='green'>Successfully loaded default setting values.</font><br />";
+					}
+			}
 				
 				
 			} else {
-				echo 'No Database updates needed.';
-			}
+        		?>
+				<br /><strong>Update Status:</strong><br />
+				<?php
 			
-			?>
+			
+				#############################################################################
+				#																			#
+				#		Database Update Logic for EventList 1.0 to EventList 1.1 Beta		#
+				#																			#
+				#############################################################################
+						
+			/*detect if catsid field is available in events table. If yes, 1.0 was installed
+			$query = 'DESCRIBE #__eventlist_events catsid';
+			$db->setQuery($query);
+			$doupdate11 = $db->loadResult();
+			*/
+			
+			//	if ($doupdate11) {
+					echo '<br /><strong>Currently installed Version: 1.0! Database outdated! Try to update to Version 1.1...</strong><br />';
 				
+					//update current settings
+					$query = 'ALTER TABLE #__eventlist_settings' 
+								.' CHANGE imagehight imageheight VARCHAR( 20 ) NOT NULL,'
+								.' ADD reg_access tinyint(4) NOT NULL AFTER regname'
+								;
+					$db->setQuery($query);
+					if (!$db->query()) {
+						echo "<font color='red'>Error updating settings table. Please apply changes manually!</font><br />";
+					} else {
+	       		   		echo "<font color='green'>Successfully updated settings table.</font><br />";
+					}
+				
+					//update events table
+				
+					//add new fields
+					$query = 'ALTER TABLE #__eventlist_events'
+								.' ADD recurrence_limit INT NOT NULL AFTER recurrence_counter,'
+								.' ADD recurrence_limit_date DATE NOT NULL AFTER recurrence_limit,'
+								.' ADD recurrence_first_id int(11) NOT NULL default \'0\' AFTER meta_description,'
+								.' ADD recurrence_byday VARCHAR( 20 ) NOT NULL AFTER recurrence_limit_date,'
+								.' ADD version int(11) unsigned NOT NULL default \'0\' AFTER modified_by,'
+								.' ADD hits int(11) unsigned NOT NULL default \'0\' AFTER unregistra'
+								;
+					$db->setQuery($query);
+					if (!$db->query()) {
+						echo "<font color='red'>Error adding new fields to events table. Please apply changes manually!</font><br />";
+					} else {
+	    	      		echo "<font color='green'>Successfully added new fields to events table.</font><br />";
+					}
+				
+					//converting fields to new schema
+					$query = 'UPDATE #__eventlist_events'
+								.' SET recurrence_limit_date = recurrence_counter'
+								;
+					$db->setQuery($query);
+					if (!$db->query()) {
+						echo "<font color='red'>Error converting recurrence: Step 1. Please apply changes manually!</font><br />";
+					} else {
+	        	  		echo "<font color='green'>Successfully converted recurrence: Step 1.</font><br />";
+					}
+				
+					$query = 'ALTER TABLE #__eventlist_events' 
+								.' CHANGE recurrence_counter recurrence_counter INT NOT NULL DEFAULT \'0\''
+								;
+					$db->setQuery($query);
+					if (!$db->query()) {
+						echo "<font color='red'>Error converting recurrence: Step 2. Please apply changes manually!</font><br />";
+					} else {
+		          		echo "<font color='green'>Successfully converted recurrence: Step 2.</font><br />";
+					}
+					
+					//convert category structure
+					$query = 'SELECT id, catsid FROM #__eventlist_events';
+					$db->setQuery($query);
+					$categories = $db->loadObjectList();
+				
+					$err = 0;
+					foreach ($categories AS $category) {
+						$query = 'INSERT INTO #__eventlist_cats_event_relations VALUES ('.$category->catsid.', '.$category->id.', \'\')';
+						$db->setQuery($query);
+						if (!$db->query()) {
+							$err++;
+						}
+					}
+				
+					if ($err) {
+						echo "<font color='red'>Error converting to new category structure. Please apply changes manually!</font><br />";
+					} else {
+		          		echo "<font color='green'>Successfully converted to new category structure.</font><br />";
+					}
+				
+				
+					//remove catsid field from events table
+					$query = 'ALTER TABLE #__eventlist_events DROP catsid';
+					$db->setQuery($query);
+					if (!$db->query()) {
+						echo "<font color='red'>Error removing outdated fields from events table. Please apply changes manually!</font><br />";
+					} else {
+	        	  		echo "<font color='green'>Successfully removed unneeded fields from events table.</font><br />";
+					}
+				
+					//update venues table
+					$query = 'ALTER TABLE #__eventlist_venues'
+								.' ADD latitude float default NULL,'
+								.' ADD longitude float default NULL,'
+								.' ADD version int(11) unsigned NOT NULL default \'0\''
+								;
+					$db->setQuery($query);
+					if (!$db->query()) {
+						echo "<font color='red'>Error adding new fields to venuess table. Please apply changes manually!</font><br />";
+					} else {
+	          			echo "<font color='green'>Successfully added new fields to venues table.</font><br />";
+					}
+				
+					//update categories table
+					$query = 'ALTER TABLE #__eventlist_categories'
+								.' ADD color varchar(20) NOT NULL default \'\''
+								;
+				
+					$db->setQuery($query);
+					if (!$db->query()) {
+						echo "<font color='red'>Error adding new fields to categories table. Please apply changes manually!</font><br />";
+					} else {
+	          			echo "<font color='green'>Successfully added new fields to categories table.</font><br />";
+					}
+				
+				
+			//	} else {
+			//		echo '<br />No Database updates needed.<br />';
+			//	}
+			}
+			?>
 
 			<br />
 
 			<?php
-			if (($direxists) || ($makedir)) {
+			//Installation report
+			if (!$doupdate11) {
+				if ($direxists || $makedir) {
 			?>
-				<font color="green"><b>Joomla! EventList Installed Successfully!</b></font><br />
+				<font color="green"><strong>Joomla! EventList Installed Successfully!</strong></font><br />
 				Ensure that EventList has write access to the directories shown above! Have Fun.
 				</code>
-			<?php
-			} else {
-			?>
+				<?php
+				} else {
+				?>
 				<font color="red">
-				<b>Joomla! EventList could NOT be installed successfully!</b>
+				<strong>Joomla! EventList could NOT be installed successfully!</strong>
 				</font>
 				<br /><br />
 				Please check following directories:<br />
@@ -222,7 +283,10 @@ function com_install() {
 					If you don't so, you prevent EventList from functioning correctly. (You can't upload images).
 				</code>
 			<?php
+				}
 			}
+			//TODO:Update report
+			
 			?>
 		</td>
 	</tr>
