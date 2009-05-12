@@ -82,13 +82,13 @@ class eventlist_events extends JTable
 	 *
 	 * @var int
 	 */
-	var $recurrence_counter = null;
+	var $recurrence_counter = 0;
   	/**
    	* limit counter for repetition
    	*
    	* @var string
    	*/
-  	var $recurrence_limit = null;
+  	var $recurrence_limit = 0;
   	/**
    	* limit date for repetition
 	*
