@@ -23,7 +23,6 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_events` (
 `recurrence_limit` int(11) NOT NULL default '0',
 `recurrence_limit_date` date NOT NULL default '0000-00-00',
 `recurrence_byday` varchar(20) NOT NULL default '',
-`recurrence_rrule` varchar(200) NOT NULL default '',
 `datimage` text NOT NULL default '',
 `checked_out` int(11) NOT NULL default '0',
 `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',

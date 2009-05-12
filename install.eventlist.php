@@ -83,6 +83,113 @@ function com_install() {
 				}
 			}
         	?>
+			<code>Database Update Status:<br />
+			<?php
+			//load libraries
+			$db = & JFactory::getDBO();
+			
+			//check if default values are available -> means update
+			//TODO: none settings means fresh install so clean up with the version check for 1.0 catsid field (skip version checks)
+			$query = 'SELECT * FROM #__eventlist_settings WHERE id = 1';
+			$db->setQuery($query);
+			$settingsresult = $db->loadResult();
+						
+			if (!$settingsresult) {
+				//Set the default setting values -> fresh install
+				$query = "INSERT INTO #__eventlist_settings VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '', '100%', '15%', '25%', '20%', '20%', 'Date', 'Title', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 0, 1, 1, 1, 1, 1, 2, -2, 0, 'example@example.com', 0, '1000', -2, -2, -2, 1, '20%', 'Type', 1, 1, 1, 1, '100', '100', '100', 0, 1, 0, 0, 1, 2, 2, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [catsid], [times]', 'The event titled [title] starts on [dates]!', 0, 'State', 0, '', 0, 1, 0, '1174491851', '', '')";
+				$db->setQuery($query);
+				$db->Query();
+			}
+			
+			#############################################################################
+			#																			#
+			#		Database Update Logic for EventList 1.0 to EventList 1.1 Beta		#
+			#																			#
+			#############################################################################
+			
+			//detect if catsid field is available in events table. If yes, 1.0 was installed
+			$query = 'DESCRIBE #__eventlist_events catsid';
+			$db->setQuery($query);
+			$result = $db->loadResult();
+			
+			if ($result) {
+				echo 'Currently installed Version: 1.0 Database outdated! Try to update...';
+				
+				//update current settings
+				$query = 'ALTER TABLE #__eventlist_settings' 
+							.' CHANGE imagehight imageheight VARCHAR( 20 ) NOT NULL,'
+							.' ADD reg_access tinyint(4) NOT NULL AFTER regname'
+							;
+				$db->setQuery($query);
+				$db->Query();
+				
+				//update events table
+				
+				//add new fields
+				$query = 'ALTER TABLE #__eventlist_events'
+							.' ADD recurrence_limit INT NOT NULL AFTER recurrence_counter,'
+							.' ADD recurrence_limit_date DATE NOT NULL AFTER recurrence_limit,'
+							.' ADD recurrence_first_id int(11) NOT NULL default \'0\' AFTER meta_description,'
+							.' ADD recurrence_byday VARCHAR( 20 ) NOT NULL AFTER recurrence_limit_date,'
+							.' ADD version int(11) unsigned NOT NULL default \'0\' AFTER modified_by,'
+							.' ADD hits int(11) unsigned NOT NULL default \'0\' AFTER unregistra'
+							;
+				$db->setQuery($query);
+				$db->Query();
+				
+				//converting fields to new schema
+				$query = 'UPDATE #__eventlist_events'
+							.' SET recurrence_limit_date = recurrence_counter'
+							;
+				$db->setQuery($query);
+				$db->Query();
+				
+				$query = 'ALTER TABLE #__eventlist_events' 
+							.' CHANGE recurrence_counter recurrence_counter INT NOT NULL DEFAULT \'0\''
+							;
+				$db->setQuery($query);
+				$db->Query();
+				
+				//convert category structure
+				$query = 'SELECT id, catsid FROM #__eventlist_events';
+				$db->setQuery($query);
+				$categories = $db->loadObjectList();
+				
+				foreach ($categories AS $category) {
+					$query = 'INSERT INTO #__eventlist_cats_event_relations VALUES ('.$category->catsid.', '.$category->id.', \'\')';
+					$db->setQuery($query);
+					$db->Query();
+				}
+				
+				//remove catsid field from events table
+				$query = 'ALTER TABLE #__eventlist_events DROP catsid';
+				$db->setQuery($query);
+				$db->Query();
+				
+				//update venues table
+				$query = 'ALTER TABLE #__eventlist_venues'
+							.' ADD latitude float default NULL,'
+							.' ADD longitude float default NULL,'
+							.' ADD version int(11) unsigned NOT NULL default \'0\''
+							;
+				$db->setQuery($query);
+				$db->Query();
+				
+				//update categories table
+				$query = 'ALTER TABLE #__eventlist_categories'
+							.' ADD color varchar(20) NOT NULL default \'\''
+							;
+				
+				$db->setQuery($query);
+				$db->Query();
+				
+				
+			} else {
+				echo 'No Database updates needed.';
+			}
+			
+			?>
+				
 
 			<br />
 

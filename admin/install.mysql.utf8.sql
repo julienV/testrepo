@@ -23,7 +23,6 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_events` (
 `recurrence_limit` int(11) NOT NULL default '0',
 `recurrence_limit_date` date NOT NULL default '0000-00-00',
 `recurrence_byday` varchar(20) NOT NULL default '',
-`recurrence_rrule` varchar(200) NOT NULL default '',
 `datimage` varchar(100) NOT NULL default '',
 `checked_out` int(11) NOT NULL default '0',
 `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -192,8 +191,6 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_settings` (
   `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',
   UNIQUE KEY `id` (`id`)
 ) TYPE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-INSERT INTO `#__eventlist_settings` VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '', '100%', '15%', '25%', '20%', '20%', 'Date', 'Title', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 0, 1, 1, 1, 1, 1, 2, -2, 0, 'example@example.com', 0, '1000', -2, -2, -2, 1, '20%', 'Type', 1, 1, 1, 1, '100', '100', '100', 0, 1, 0, 0, 1, 2, 2, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [catsid], [times]', 'The event titled [title] starts on [dates]!', 0, 'State', 0, '', 0, 1, 0, '1174491851', '', '');
 
 CREATE TABLE IF NOT EXISTS `#__eventlist_countries` (
   `id` int(11) NOT NULL auto_increment,
