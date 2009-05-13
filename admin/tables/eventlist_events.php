@@ -62,9 +62,9 @@ class eventlist_events extends JTable
 	/** @var string */
 	var $datdescription 	= null;
 	/** @var string */
-	var $meta_description 	= null;
+	var $meta_description 	= '';
 	/** @var string */
-	var $meta_keywords		= null;
+	var $meta_keywords		= '';
 	/**
 	 * repetition intervall
 	 *

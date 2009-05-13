@@ -221,6 +221,10 @@ class EventListViewDetails extends JView
         if ($row->country) {
         	$row->countryimg = ELOutput::getFlag( $row->country );
         }
+		
+		// load dispatcher for plugins    
+		JPluginHelper::importPlugin( 'eventlist' );
+		$dispatcher =& JDispatcher::getInstance();  
 
 		//assign vars to jview
 		$this->assignRef('row', 					$row);
@@ -236,6 +240,7 @@ class EventListViewDetails extends JView
 		$this->assignRef('elsettings' , 			$elsettings);
 		$this->assignRef('item' , 					$item);
 		$this->assignRef('user' , 					$user);
+		$this->assignRef('dispatcher' ,     		$dispatcher);
 
 		parent::display($tpl);
 	}

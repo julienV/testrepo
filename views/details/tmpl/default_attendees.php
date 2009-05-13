@@ -38,7 +38,7 @@ foreach ($this->registers as $register) :
 	$text = '';
 	// is a plugin catching this ?
 	//TODO: remove markup..the plugin should handle this to improve flexibility
-	if ($res = $dispatcher->trigger( 'onAttendeeDisplay', array( $register->uid, &$text ))) :
+	if ($res = $this->dispatcher->trigger( 'onAttendeeDisplay', array( $register->uid, &$text ))) :
 	
 		echo '<li>'.$text.'</li>';
   	endif;
