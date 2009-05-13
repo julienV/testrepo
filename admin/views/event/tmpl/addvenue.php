@@ -86,6 +86,91 @@ $infoimage = JHTML::image('components/com_eventlist/assets/images/icon-16-hint.p
 <br />
 
 <fieldset>
+	<legend><?php echo JText::_('ADDRESS'); ?></legend>
+	<table class="adminform" width="100%">
+		<tr>
+  			<td><?php echo JText::_( 'STREET' ).':'; ?></td>
+			<td><input name="street" value="" size="55" maxlength="50" /></td>
+	 	</tr>
+  		<tr>
+  		  	<td><?php echo JText::_( 'ZIP' ).':'; ?></td>
+  		  	<td><input name="plz" value="" size="15" maxlength="10" /></td>
+	  	</tr>
+  		<tr>
+  			<td><?php echo JText::_( 'CITY' ).':'; ?></td>
+  			<td><input name="city" value="" size="55" maxlength="50" />
+			</td>
+  		</tr>
+  		<tr>
+  			<td><?php echo JText::_( 'STATE' ).':'; ?></td>
+  			<td><input name="state" value="" size="55" maxlength="50" />
+			</td>
+  		</tr>
+  		<tr>
+  		  	<td><?php echo JText::_( 'COUNTRY' ).':'; ?></td>
+  		  	<td>
+				<?php echo $this->lists['countries']; ?>
+			</td>
+		</tr>
+  		<tr>
+    		<td><?php echo JText::_( 'WEBSITE' ).':'; ?></td>
+    		<td>
+    			<input name="url" value="" size="55" maxlength="50" />&nbsp;
+    			<span class="editlinktip hasTip" title="<?php echo JText::_('NOTES'); ?>::<?php echo JText::_( 'WEBSITE HINT' ); ?>">
+					<?php echo $infoimage; ?>
+				</span>
+    		</td>
+  		</tr>
+  		<?php if ( $this->elsettings->showmapserv != 0 ) { ?>
+		<tr>
+			<td>
+				<label for="map">
+					<?php echo JText::_( 'ENABLE MAP' ).':'; ?>
+				</label>
+			</td>
+			<td>
+				<?php
+          			echo JHTML::_('select.booleanlist', 'map', 'class="inputbox"', 0 );
+          		?>
+          		&nbsp;
+          		<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('ADDRESS NOTICE'); ?>">
+					<?php echo $infoimage; ?>
+				</span>
+			</td>
+		</tr>
+		    <tr>
+      <td>
+        <label for="latitude">
+          <?php echo JText::_( 'LATITUDE' ).':'; ?>
+        </label>
+      </td>
+      <td>
+        <input class="inputbox" name="latitude" id="latitude" value="" size="14" maxlength="25" />
+              <span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('LATITUDE HINT'); ?>">
+          <?php echo $infoimage; ?>
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="longitude">
+          <?php echo JText::_( 'LONGITUDE' ).':'; ?>
+        </label>
+      </td>
+      <td>
+        <input class="inputbox" name="longitude" id="longitude" value="" size="14" maxlength="25" />
+              <span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('LONGITUDE HINT'); ?>">
+          <?php echo $infoimage; ?>
+        </span>
+      </td>
+    </tr>
+		<?php } ?>
+	</table>
+</fieldset>
+
+<br />
+
+<fieldset>
 <legend><?php echo JText::_('VARIOUS'); ?></legend>
 <table>
 	<tr>
@@ -123,72 +208,14 @@ $infoimage = JHTML::image('components/com_eventlist/assets/images/icon-16-hint.p
 					document.getElementById('imagelib').src= jsimg;
 				}
 				</script>
-			<br />
-			<br />
+				<br />
+				<br />
 		</td>
 	</tr>
 </table>
 </fieldset>
 
-<fieldset>
-	<legend><?php echo JText::_('ADDRESS'); ?></legend>
-	<table class="adminform" width="100%">
-		<tr>
-  			<td><?php echo JText::_( 'STREET' ).':'; ?></td>
-			<td><input name="street" value="" size="55" maxlength="50" /></td>
-	 	</tr>
-  		<tr>
-  		  	<td><?php echo JText::_( 'ZIP' ).':'; ?></td>
-  		  	<td><input name="plz" value="" size="15" maxlength="10" /></td>
-	  	</tr>
-  		<tr>
-  			<td><?php echo JText::_( 'CITY' ).':'; ?></td>
-  			<td><input name="city" value="" size="55" maxlength="50" />
-			</td>
-  		</tr>
-  		<tr>
-  			<td><?php echo JText::_( 'STATE' ).':'; ?></td>
-  			<td><input name="state" value="" size="55" maxlength="50" />
-			</td>
-  		</tr>
-  		<tr>
-  		  	<td><?php echo JText::_( 'COUNTRY' ).':'; ?></td>
-  		  	<td>
-				<input name="country" value="" size="4" maxlength="3" />&nbsp;
-				<span class="editlinktip hasTip" title="<?php echo JText::_('NOTES'); ?>::<?php echo JText::_( 'COUNTRY HINT' ); ?>">
-					<?php echo $infoimage; ?>
-				</span>
-			</td>
-		</tr>
-  		<tr>
-    		<td><?php echo JText::_( 'WEBSITE' ).':'; ?></td>
-    		<td>
-    			<input name="url" value="" size="55" maxlength="50" />&nbsp;
-    			<span class="editlinktip hasTip" title="<?php echo JText::_('NOTES'); ?>::<?php echo JText::_( 'WEBSITE HINT' ); ?>">
-					<?php echo $infoimage; ?>
-				</span>
-    		</td>
-  		</tr>
-  		<?php if ( $this->elsettings->showmapserv != 0 ) { ?>
-		<tr>
-			<td>
-				<label for="map">
-					<?php echo JText::_( 'ENABLE MAP' ).':'; ?>
-				</label>
-			</td>
-			<td>
-				<?php
-          			echo JHTML::_('select.booleanlist', 'map', 'class="inputbox"', 0 );
-          		?>
-          		&nbsp;
-          		<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('ADDRESS NOTICE'); ?>">
-					<?php echo $infoimage; ?>
-				</span>
-			</td>
-		</tr>
-		<?php } ?>
-	</table>
-</fieldset>
+<br />
 
 <fieldset>
 	<legend><?php echo JText::_('DESCRIPTION'); ?></legend>

@@ -230,7 +230,7 @@ class eventlist_events extends JTable
       return false;
     }
     return true;
-  } 
+  }
 
   /**
    * Inserts a row into a table based on an objects properties, ignore if already exists

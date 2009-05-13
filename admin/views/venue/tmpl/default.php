@@ -219,10 +219,6 @@ defined('_JEXEC') or die('Restricted access');
 			</td>
 			<td>
 				<?php echo $this->lists['countries']; ?>
-
-				<span class="editlinktip hasTip" title="<?php echo JText::_( 'NOTES' ); ?>::<?php echo JText::_('COUNTRY HINT'); ?>">
-					<?php echo $infoimage; ?>
-				</span>
 			</td>
 		</tr>
 		<tr>

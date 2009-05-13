@@ -134,7 +134,7 @@ class EventListViewVenue extends JView {
 		$this->assignRef('settings'     , $settings);
 		$this->assignRef('nullDate'		, $nullDate);
 		$this->assignRef('imageselect' 	, $imageselect);
-    $this->assignRef('lists'  , $lists);
+    	$this->assignRef('lists'  		, $lists);
 
 		parent::display($tpl);
 	}
