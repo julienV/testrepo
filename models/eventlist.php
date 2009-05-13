@@ -86,12 +86,13 @@ class EventListModelEventList extends JModel
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_data))
 		{
-			$query = $this->_buildQuery();
+			$query 		= $this->_buildQuery();
+			$pagination = $this->getPagination();
 
 			if ($pop) {
 				$this->_data = $this->_getList( $query );
 			} else {
-				$this->_data = $this->_getList( $query, $this->getState('limitstart'), $this->getState('limit') );
+				$this->_data = $this->_getList( $query, $pagination->limitstart, $pagination->limit );
 			}
 
 			$k = 0;

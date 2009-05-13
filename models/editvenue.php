@@ -343,9 +343,14 @@ class EventListModelEditvenue extends JModel
 			return false;
 		}
 
+		// manage mailing
 		jimport('joomla.utilities.mail');
 
-		$link 	= JURI::base().JRoute::_('index.php?view=details&id='.$row->id, false);
+		// link for venue
+		$link   = JRoute::_(JURI::base().'index.php?view=details&id='.$row->id, false);
+		
+		// strip description from tags / scripts, etc...
+		$text_description = JFilterOutput::cleanText($row->locdescription);
 
 		//create mail
 		if (($elsettings->mailinform == 2) || ($elsettings->mailinform == 3)) {
@@ -358,13 +363,13 @@ class EventListModelEditvenue extends JModel
 
 				$modified_ip 	= getenv('REMOTE_ADDR');
 				$edited 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
-				$mailbody 		= JText::sprintf('MAIL EDIT VENUE', $user->name, $user->username, $user->email, $modified_ip, $edited, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $row->locdescription, $state);
+				$mailbody 		= JText::sprintf('MAIL EDIT VENUE', $user->name, $user->username, $user->email, $modified_ip, $edited, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $text_description, $state);
 				$mail->setSubject( $SiteName.JText::_( 'EDIT VENUE MAIL' ) );
 
 			} else {
 
 				$created 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
-				$mailbody 		= JText::sprintf('MAIL NEW VENUE', $user->name, $user->username, $user->email, $row->author_ip, $created, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $row->locdescription, $state);
+				$mailbody 		= JText::sprintf('MAIL NEW VENUE', $user->name, $user->username, $user->email, $row->author_ip, $created, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $text_description, $state);
 				$mail->setSubject( $SiteName.JText::_( 'NEW VENUE MAIL' ) );
 
 			}
@@ -388,13 +393,13 @@ class EventListModelEditvenue extends JModel
 			If ($edited) {
 
 				$edited 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
-				$mailbody 		= JText::sprintf('USER MAIL EDIT VENUE', $user->name, $user->username, $edited, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $row->locdescription, $state);
+				$mailbody 		= JText::sprintf('USER MAIL EDIT VENUE', $user->name, $user->username, $edited, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $text_description, $state);
 				$usermail->setSubject( $SiteName.JText::_( 'EDIT USER VENUE MAIL' ) );
 
 			} else {
 
 				$created 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
-				$mailbody 		= JText::sprintf('USER MAIL NEW VENUE', $user->name, $user->username, $created, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $row->locdescription, $state);
+				$mailbody 		= JText::sprintf('USER MAIL NEW VENUE', $user->name, $user->username, $created, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $text_description, $state);
 				$usermail->setSubject( $SiteName.JText::_( 'NEW USER VENUE MAIL' ) );
 
 			}

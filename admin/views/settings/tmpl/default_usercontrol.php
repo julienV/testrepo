@@ -286,7 +286,7 @@ defined('_JEXEC') or die('Restricted access');
 						</td>
        					<td valign="top">
 							<?php
-							$html = JHTML::_('select.booleanlist', 'venueeditrec', 'class="inputbox"', $this->elsettings->eventeditrec );
+							$html = JHTML::_('select.booleanlist', 'venueeditrec', 'class="inputbox"', $this->elsettings->venueeditrec );
 							echo $html;
 							?>
        	 				</td>
@@ -299,7 +299,7 @@ defined('_JEXEC') or die('Restricted access');
 						</td>
        					<td valign="top">
 							<?php
-							$html = JHTML::_('select.booleanlist', 'venueowner', 'class="inputbox"', $this->elsettings->eventowner );
+							$html = JHTML::_('select.booleanlist', 'venueowner', 'class="inputbox"', $this->elsettings->venueowner );
 							echo $html;
 							?>
        	 				</td>

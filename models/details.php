@@ -139,6 +139,7 @@ class EventListModelDetails extends JModel
 			$query = 'SELECT DISTINCT a.id AS did, a. published, a.dates, a.enddates, a.title, a.times, a.endtimes, a.datdescription, a.meta_keywords, a.meta_description, a.datimage, a.registra, a.unregistra, a.locid, a.created_by,'
 					. ' l.id AS locid, l.venue, l.city, l.state, l.url, l.locdescription, l.locimage, l.city, l.plz, l.street, l.country, l.map, l.created_by AS venueowner, l.latitude, l.longitude,'
 					. ' c.access AS cataccess, c.id AS catid, c.published AS catpublished,'
+					. ' u.name AS creator_name, u.username AS creator_username,'
 					. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
 					. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
 //					. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as categoryslug'
@@ -146,6 +147,7 @@ class EventListModelDetails extends JModel
 					. ' LEFT JOIN #__eventlist_venues AS l ON a.locid = l.id'
 					. ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = a.id'
 					. ' LEFT JOIN #__eventlist_categories AS c ON c.id = rel.catid'
+					. ' LEFT JOIN #__users AS u ON u.id = a.created_by'
 					. $where
 					;
     		$this->_db->setQuery($query);

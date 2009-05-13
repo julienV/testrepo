@@ -113,7 +113,6 @@ class EventListController extends JController
 	 */
 	function addvenue( )
 	{
-		//TODO: Implement Access check
 		JRequest::setVar( 'view', 'event' );
 		JRequest::setVar( 'layout', 'addvenue'  );
 

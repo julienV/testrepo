@@ -122,8 +122,7 @@ class EventListViewEventList extends JView
 		}
 
 		// Create the pagination object
-		jimport('joomla.html.pagination');
-		$pageNav = new JPagination($total, $limitstart, $limit);
+		$pageNav = & $this->get('Pagination');
 
 		$this->assign('lists' , 					$lists);
 		$this->assign('total',						$total);
@@ -188,9 +187,16 @@ class EventListViewEventList extends JView
 		$filter_type		= JRequest::getString('filter_type');
 
 		$sortselects = array();
-		$sortselects[]	= JHTML::_('select.option', 'title', $elsettings->titlename );
-		$sortselects[] 	= JHTML::_('select.option', 'venue', $elsettings->locationname );
-		$sortselects[] 	= JHTML::_('select.option', 'city', $elsettings->cityname );
+		
+		if ($elsettings->showtitle == 1) {
+			$sortselects[]	= JHTML::_('select.option', 'title', $elsettings->titlename );
+		}
+		if ($elsettings->showlocate == 1) {
+			$sortselects[] 	= JHTML::_('select.option', 'venue', $elsettings->locationname );
+		}
+		if ($elsettings->showcity == 1) {
+			$sortselects[] 	= JHTML::_('select.option', 'city', $elsettings->cityname );
+		}
 		if ($elsettings->showcat) {
 			$sortselects[] 	= JHTML::_('select.option', 'type', $elsettings->catfroname );
 		}

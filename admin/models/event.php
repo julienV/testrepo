@@ -264,13 +264,11 @@ class EventListModelEvent extends JModel
 		$row->times		= $starthours.':'.$startminutes;
 		$row->endtimes	= $endhours.':'.$endminutes;
 		
-		// Check/sanitize the metatags
-		$row->meta_description = htmlspecialchars(trim(addslashes($row->meta_description)));
+		// Check the metatags
 		if (JString::strlen($row->meta_description) > 255) {
 			$row->meta_description = JString::substr($row->meta_description, 0, 254);
 		}
 
-		$row->meta_keywords = htmlspecialchars(trim(addslashes($row->meta_keywords)));
 		if (JString::strlen($row->meta_keywords) > 200) {
 			$row->meta_keywords = JString::substr($row->meta_keywords, 0, 199);
 		}

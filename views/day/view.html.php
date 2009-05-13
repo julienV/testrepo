@@ -99,7 +99,7 @@ class EventListViewDay extends JView
 		if ($maintainer || $genaccess ) $dellink = 1;
 
 		//add alternate feed link
-		$link    = 'index.php?option=com_eventlist&view=eventlist&format=feed';
+		$link    = 'index.php?option=com_eventlist&view=day&format=feed&id=' . date('Ymd', strtotime($this->get('Day')));
 		$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
 		$document->addHeadLink(JRoute::_($link.'&type=rss'), 'alternate', 'rel', $attribs);
 		$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
