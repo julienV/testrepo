@@ -36,21 +36,21 @@ class eventlist_venues extends JTable
 	 */
 	var $id 				= null;
 	/** @var string */
-	var $venue 				= null;
+	var $venue 				= '';
 	/** @var string */
-	var $alias	 			= null;
+	var $alias	 			= '';
 	/** @var string */
-	var $url 				= null;
+	var $url 				= '';
 	/** @var string */
-	var $street 			= null;
+	var $street 			= '';
 	/** @var string */
-	var $plz 				= null;
+	var $plz 				= '';
 	/** @var string */
-	var $city 				= null;
+	var $city 				= '';
 	/** @var string */
-	var $state				= null;
+	var $state				= '';
 	/** @var string */
-	var $country			= null;
+	var $country			= '';
   	/** @var float */
   	var $latitude      		= null;
   	/** @var float */
@@ -58,11 +58,11 @@ class eventlist_venues extends JTable
 	/** @var string */
 	var $locdescription 	= null;
 	/** @var string */
-	var $meta_description 	= null;
+	var $meta_description 	= '';
 	/** @var string */
-	var $meta_keywords		= null;
+	var $meta_keywords		= '';
 	/** @var string */
-	var $locimage 			= null;
+	var $locimage 			= '';
 	/** @var int */
 	var $map		 		= null;
 	/** @var int */
@@ -72,7 +72,7 @@ class eventlist_venues extends JTable
 	/** @var date */
 	var $created		 	= null;
 	/** @var date */
-	var $modified 			= null;
+	var $modified 			= 0;
 	/** @var int */
 	var $modified_by 		= null;
 	/** @var int */

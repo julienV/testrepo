@@ -38,7 +38,7 @@ class eventlist_groups extends JTable
 	/** @var int */
 	var $name				= '';
 	/** @var string */
-	var $description 		= null;
+	var $description 		= '';
 	/** @var int */
 	var $checked_out 		= 0;
 	/** @var date */

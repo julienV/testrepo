@@ -44,9 +44,9 @@ class eventlist_categories extends JTable
 	/** @var string */
 	var $catdescription 	= null;
 	/** @var string */
-	var $meta_description 	= null;
+	var $meta_description 	= '';
 	/** @var string */
-	var $meta_keywords		= null;
+	var $meta_keywords		= '';
 	/** @var string */
 	var $image 				= '';
 	/** @var string */
