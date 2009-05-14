@@ -163,20 +163,22 @@ defined('_JEXEC') or die ('Restricted access');
 	
     <?php
     //print the legend
-    foreach ($this->categories as $cat)
-    {
-        if (array_key_exists($cat->id, $countcatevents)):
-    	?>
-    		<div class="eventCat" catid="<?php echo $cat->id; ?>">
-        		<?php
-        		if ( isset ($cat->color) && $cat->color) {
-            		echo '<span class="colorpic" style="background-color: '.$cat->color.';"></span>';
-        		}
-        		echo $cat->catname.' ('.$countcatevents[$cat->id].')';
-        		?>
-    		</div>
-    	<?php endif;
-    }
+	if($this->params->get('displayLegend')) :
+    	foreach ($this->categories as $cat) :
+        	if (array_key_exists($cat->id, $countcatevents)):
+    		?>
+    			<div class="eventCat" catid="<?php echo $cat->id; ?>">
+        			<?php
+        			if ( isset ($cat->color) && $cat->color) {
+            			echo '<span class="colorpic" style="background-color: '.$cat->color.';"></span>';
+        			}
+        			echo $cat->catname.' ('.$countcatevents[$cat->id].')';
+        			?>
+    			</div>
+    		<?php 
+			endif;
+    	endforeach;
+	endif;
     ?>
 </div>
 

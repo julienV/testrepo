@@ -192,6 +192,7 @@ class EventListModelCalendar extends JModel
     {
         // Get the WHERE and ORDER BY clauses for the query
         $where = $this->_buildCategoryWhere();
+		$orderby = $this->_buildCategoryOrderby();
 
         //Get Events from Database
         $query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.id, l.venue, l.city, l.state, l.url, c.catname, c.id AS catid, c.color, '
@@ -203,6 +204,7 @@ class EventListModelCalendar extends JModel
         .' INNER JOIN #__eventlist_categories AS c ON c.id = rel.catid'
         .' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
         .$where
+		.$orderby
         ;
 
         return $query;
@@ -291,6 +293,13 @@ class EventListModelCalendar extends JModel
         }
         return $where;
     }
+	
+	function _buildCategoryOrderby()
+	{
+		$orderby 	= ' ORDER BY a.dates, a.times';
+		
+		return $orderby;
+	}
 
     /**
      * Method to get the Category

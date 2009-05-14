@@ -13,6 +13,10 @@
         <option value="0">No</option>
         <option value="1">Yes</option>
       </param>
+	  <param name="displayLegend" type="radio" default="0" label="DISPLAY LEGEND" description="DISPLAY LEGEND DESC">
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </param>
       <param name="firstweekday" type="radio" default="1" label="SELECTFIRSTWEEKDAY" description="SELECTFIRSTWEEKDAYDESC">
         <option value="0">Sunday</option>
         <option value="1">Monday</option>
