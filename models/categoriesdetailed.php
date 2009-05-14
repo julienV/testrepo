@@ -237,7 +237,7 @@ class EventListModelCategoriesdetailed extends JModel
             // Second is to only select events assigned to category the user has access to
             $where .= ' AND c.access <= '.$gid;
 
-            $query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.id, l.venue, l.city, l.state, l.url,'
+            $query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.venue, l.city, l.state, l.url,'
             .' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
             .' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
             .' FROM #__eventlist_events AS a'

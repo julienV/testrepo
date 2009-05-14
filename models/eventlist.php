@@ -113,6 +113,24 @@ class EventListModelEventList extends JModel
 
 		return $this->_data;
 	}
+	
+	/**
+	 * Total nr of events
+	 *
+	 * @access public
+	 * @return integer
+	 */
+	function getTotal()
+	{
+		// Lets load the total nr if it doesn't already exist
+		if (empty($this->_total))
+		{
+			$query = $this->_buildQuery();
+			$this->_total = $this->_getListCount($query);
+		}
+
+		return $this->_total;
+	}
 
 	/**
 	 * Method to get a pagination object for the events
@@ -146,7 +164,7 @@ class EventListModelEventList extends JModel
 
 		//Get Events from Database
 		$query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.created, a.locid, a.datdescription,'
-				. ' l.id, l.venue, l.city, l.state, l.url,'
+				. ' l.venue, l.city, l.state, l.url,'
 				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
 				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
 				. ' FROM #__eventlist_events AS a'
