@@ -60,15 +60,19 @@ class EventListViewMy extends JView
         $pop 		= JRequest::getBool('pop');
 
         //get data from model
-        $events 	= & $this->get('Events');
-        $venues 	= & $this->get('Venues');
-       	$attending 	= & $this->get('Attending');
-
-        //paginations
-        $events_pageNav 	= & $this->get('EventsPagination');
-        $venues_pageNav 	= & $this->get('VenuesPagination');
-        $attending_pageNav 	= & $this->get('AttendingPagination');
-
+		if($params->get('showmyevents')) {
+        	$events 	= & $this->get('Events');
+			$events_pageNav 	= & $this->get('EventsPagination');
+		}
+		if($params->get('showmyvenues')) {
+       		$venues 	= & $this->get('Venues');
+			$venues_pageNav 	= & $this->get('VenuesPagination');
+		}
+		if($params->get('showmyregistrations')) {
+       		$attending 	= & $this->get('Attending');
+        	$attending_pageNav 	= & $this->get('AttendingPagination');
+		}
+		
         //params
         $params->def('page_title', $item->name);
 

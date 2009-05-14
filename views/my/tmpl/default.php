@@ -33,11 +33,23 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 <!--table-->
 
-<?php echo $this->loadTemplate('events'); ?>
+<?php 
+if($this->params->get('showmyevents')) :
+	echo $this->loadTemplate('events'); 
+endif;	
+?>
 
-<?php echo $this->loadTemplate('venues'); ?>
+<?php 
+if($this->params->get('showmyvenues')) :
+	echo $this->loadTemplate('venues'); 
+endif;	
+?>
 
-<?php echo $this->loadTemplate('attending'); ?>
+<?php
+if($this->params->get('showmyregistrations')) :
+	echo $this->loadTemplate('attending'); 
+endif;	
+?>
 <!--footer-->
 
 <p class="copyright">

@@ -493,7 +493,7 @@ class EventListModelMy extends JModel
         $app = & JFactory::getApplication();
 
         $user = & JFactory::getUser();
-        $gid = (int)$user->get('aid');
+		$nulldate = '0000-00-00';
 
         // Get the paramaters of the active menu item
         $params = & $app->getParams();
@@ -508,12 +508,14 @@ class EventListModelMy extends JModel
         {
             $where = ' WHERE a.published = 1';
         }
-
+		
+		//limit output so only future events the user attends will be shown
+		if ($params->get('filtermyregs')) {
+			$where .= ' AND DATE_SUB(NOW(), INTERVAL '.(int)$params->get('myregspast').' DAY) < (IF (a.enddates <> '.$nulldate.', a.enddates, a.dates))';
+		}
+		
         // then if the user is attending the event
         $where .= ' AND r.uid = '.$this->_db->Quote($user->id);
-
-        // Second is to only select events assigned to category the user has access to
-      //  $where .= ' AND c.access <= '.$gid;
 
         return $where;
     }
