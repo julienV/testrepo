@@ -178,5 +178,42 @@ class EventListViewCalendar extends JView
 
         return $lists;
     }
+	
+	/**
+     * Creates a tooltip
+     *
+     * @access  public
+     * @param string  $tooltip The tip string
+     * @param string  $title The title of the tooltip
+     * @param string  $text The text for the tip
+     * @param string  $href An URL that will be used to create the link
+     * @param string  $class the class to use for tip.
+     * @return  string
+     * @since 1.5
+     */
+    function caltooltip($tooltip, $title = '', $text = '', $href = '', $class = 'editlinktip hasTip')
+    {
+    
+        //$tooltip  = addslashes(htmlspecialchars($tooltip));
+        //$title    = addslashes(htmlspecialchars($title));
+        $tooltip = (htmlspecialchars($tooltip));
+        $title = (htmlspecialchars($title));
+    
+        //$text   = JText::_( $text, true );
+    
+        if ($title) {
+            $title = $title.'::';
+        }
+    
+        if ($href) {
+            $href = JRoute::_($href);
+            $style = '';
+            $tip = '<span class="'.$class.'" title="'.$title.$tooltip.'"><a href="'.$href.'">'.$text.'</a></span>';
+        } else {
+            $tip = '<span class="'.$class.'" title="'.$title.$tooltip.'">'.$text.'</span>';
+        }
+    
+        return $tip;
+    }
 }
 ?>
