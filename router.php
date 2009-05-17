@@ -188,6 +188,11 @@ function EventListParseRoute($segments)
 			}
 
 		} break;
+		
+		case 'my':
+    	{
+      		$vars['view'] = 'my';
+    	} break;
 
     	default:
     	{
