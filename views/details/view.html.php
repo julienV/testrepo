@@ -141,9 +141,7 @@ class EventListViewDetails extends JView
 		}
 
 		//Generate Eventdescription
-		if (($row->datdescription == '') || ($row->datdescription == '<br />')) {
-			$row->datdescription = JText::_( 'NO DESCRIPTION' ) ;
-		} else {
+		if ((!$row->datdescription == '') || (!$row->datdescription == '<br />')) {
 			//Execute Plugins
 			$row->text	= $row->datdescription;
 
@@ -153,9 +151,7 @@ class EventListViewDetails extends JView
 		}
 
 		//Generate Venuedescription
-		if (($row->locdescription == '') || ($row->locdescription == '<br />')) {
-			$row->locdescription = JText::_( 'NO DESCRIPTION' );
-		} else {
+		if ((!$row->locdescription == '') || (!$row->locdescription == '<br />')) {
 			//execute plugins
 			$row->text	=	$row->locdescription;
 

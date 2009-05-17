@@ -117,7 +117,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			</dd>
 	</dl>
 
-  	<?php if ($this->elsettings->showevdescription == 1) : ?>
+  	<?php if ($this->elsettings->showevdescription == 1 && $this->row->datdescription != '' && $this->row->datdescription != '<br />') : ?>
 
   	    <h2 class="description"><?php echo JText::_( 'DESCRIPTION' ); ?></h2>
   		<div class="description event_desc">
@@ -196,7 +196,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 			?>
 		</dl>
 
-		<?php if ($this->elsettings->showlocdescription == 1) :	?>
+		<?php if ($this->elsettings->showlocdescription == 1 && $this->row->locdescription != '' && $this->row->locdescription != '<br />') :	?>
 
 			<h2 class="location_desc"><?php echo JText::_( 'DESCRIPTION' ); ?></h2>
   			<div class="description location_desc">
