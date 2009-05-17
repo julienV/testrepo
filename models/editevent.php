@@ -473,11 +473,6 @@ class EventListModelEditevent extends JModel
 		$user 		= & JFactory::getUser();
 		$elsettings = & ELHelper::config();
 	
-		//Get mailinformation
-		$SiteName 		= $app->getCfg('sitename');
-		$MailFrom	 	= $app->getCfg('mailfrom');
-		$FromName 		= $app->getCfg('fromname');
-
 		$cats 		= JRequest::getVar( 'cid', array(), 'post', 'array');
 		$row 		= & JTable::getInstance('eventlist_events', '');
 
@@ -668,10 +663,6 @@ class EventListModelEditevent extends JModel
 			$this->setError($row->getError());
 			return false;
 		}
-
-		//is this an edited event or not?
-		//after store we allways have an id
-		$edited = $row->id ? $row->id : false;
 		
 		$row->version++;
 
@@ -691,78 +682,6 @@ class EventListModelEditevent extends JModel
 			$query = 'INSERT INTO #__eventlist_cats_event_relations (`catid`, `itemid`) VALUES(' . $cat . ',' . $row->id . ')';
 			$this->_db->setQuery($query);
 			$this->_db->query();
-		}
-
-		$this->_db->setQuery('SELECT * FROM #__eventlist_venues WHERE id = '.(int)$row->locid);
-		$rowloc = $this->_db->loadObject();
-
-		// manage mailing
-		jimport('joomla.utilities.mail');
-
-		// link for event
-		$link   = JRoute::_(JURI::base().'index.php?view=details&id='.$row->id, false);
-		
-		// strip description from tags / scripts, etc...
-		$text_description = JFilterOutput::cleanText($row->datdescription);
-
-		//create the mail for the site owner
-		if (($elsettings->mailinform == 1) || ($elsettings->mailinform == 3)) {
-
-			$mail = JFactory::getMailer();
-
-			$state 	= $row->published ? JText::sprintf('MAIL EVENT PUBLISHED', $link) : JText::_('MAIL EVENT UNPUBLISHED');
-
-			if ($edited) {
-
-				$modified_ip 	= getenv('REMOTE_ADDR');
-				$edited 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
-				$mailbody 		= JText::sprintf('MAIL EDIT EVENT', $user->name, $user->username, $user->email, $modified_ip, $edited, $row->title, $row->dates, $row->times, $rowloc->venue, $rowloc->city, $text_description, $state);
-				$mail->setSubject( $SiteName.JText::_( 'EDIT EVENT MAIL' ) );
-
-			} else {
-
-				$created 	= JHTML::Date( $row->created, JText::_( 'DATE_FORMAT_LC2' ) );
-				$mailbody 	= JText::sprintf('MAIL NEW EVENT', $user->name, $user->username, $user->email, $row->author_ip, $created, $row->title, $row->dates, $row->times, $rowloc->venue, $rowloc->city, $text_description, $state);
-				$mail->setSubject( $SiteName.JText::_( 'NEW EVENT MAIL' ) );
-
-			}
-
-			$receivers = explode( ',', trim($elsettings->mailinformrec));
-
-			$mail->addRecipient( $receivers );
-			$mail->setSender( array( $MailFrom, $FromName ) );
-			$mail->setBody( $mailbody );
-
-			$mail->send();
-
-		}//mail end
-
-		//create the mail for the user
-		if (($elsettings->mailinformuser == 1) || ($elsettings->mailinformuser == 3)) {
-
-			$usermail = JFactory::getMailer();
-
-			$state 	= $row->published ? JText::sprintf('USER MAIL EVENT PUBLISHED', $link) : JText::_('USER MAIL EVENT UNPUBLISHED');
-
-			if ($edited) {
-
-				$edited 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
-				$mailbody 		= JText::sprintf('USER MAIL EDIT EVENT', $user->name, $user->username, $edited, $row->title, $row->dates, $row->times, $rowloc->venue, $rowloc->city, $text_description, $state);
-				$usermail->setSubject( $SiteName.JText::_( 'EDIT USER EVENT MAIL' ) );
-
-			} else {
-
-				$created 	= JHTML::Date( $row->created, JText::_( 'DATE_FORMAT_LC2' ) );
-				$mailbody 	= JText::sprintf('USER MAIL NEW EVENT', $user->name, $user->username, $created, $row->title, $row->dates, $row->times, $rowloc->venue, $rowloc->city, $text_description, $state);
-				$usermail->setSubject( $SiteName.JText::_( 'NEW USER EVENT MAIL' ) );
-
-			}
-
-			$usermail->addRecipient( $user->email );
-			$usermail->setSender( array( $MailFrom, $FromName ) );
-			$usermail->setBody( $mailbody );
-
-			$usermail->send();
 		}
 
 		return $row->id;

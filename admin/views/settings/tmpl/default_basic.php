@@ -134,60 +134,6 @@ defined('_JEXEC') or die('Restricted access');
 				</table>
 		  </fieldset>
 
-		  <fieldset class="adminform">
-			<legend><?php echo JText::_( 'MAIL HANDLING' ); ?></legend>
-				<table class="admintable" cellspacing="1">
-				<tbody>
-	  				<tr>
-	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'MAIL NEW SUBMISSION' ); ?>::<?php echo JText::_('MAIL NEW SUBMISSION TIP'); ?>">
-								<?php echo JText::_( 'MAIL NEW SUBMISSION' ); ?>
-							</span>
-						</td>
-       					<td valign="top">
-							<?php
-							$mode = 0;
-							if ($this->elsettings->mailinform >= 1) {
-							$mode = 1;
-							} // if
-							?>
-							<select name="mailinform" size="1" class="inputbox" onChange="changemailMode()">
-  								<option value="0"<?php if ($this->elsettings->mailinform == 0) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'DISABLED' ); ?></option>
-  								<option value="1"<?php if ($this->elsettings->mailinform == 1) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'ONLY NEW EVENT' ); ?></option>
-  								<option value="2"<?php if ($this->elsettings->mailinform == 2) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'ONLY NEW VENUE' ); ?></option>
-		  						<option value="3"<?php if ($this->elsettings->mailinform == 3) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'BOTH' ); ?></option>
-							</select>
-       	 				</td>
-      				</tr>
-					<tr id="mail1"<?php if (!$mode) echo ' style="display:none"'; ?>>
-	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'MAIL RECIPIENT' ); ?>::<?php echo JText::_('MAIL RECIPIENT TIP'); ?>">
-								<?php echo JText::_( 'MAIL RECIPIENT' ); ?>
-							</span>
-						</td>
-       					<td valign="top">
-							<input type="text" name="mailinformrec" value="<?php echo $this->elsettings->mailinformrec; ?>" size="40" maxlength="220" />
-       	 				</td>
-      				</tr>
-      				<tr>
-	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'MAIL NEW USER SUBMISSION' ); ?>::<?php echo JText::_('MAIL NEW USER SUBMISSION TIP'); ?>">
-								<?php echo JText::_( 'MAIL NEW USER SUBMISSION' ); ?>
-							</span>
-						</td>
-       					<td valign="top">
-							<select name="mailinformuser" size="1" class="inputbox">
-  								<option value="0"<?php if ($this->elsettings->mailinformuser == 0) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'DISABLED' ); ?></option>
-  								<option value="1"<?php if ($this->elsettings->mailinformuser == 1) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'ONLY NEW EVENT' ); ?></option>
-  								<option value="2"<?php if ($this->elsettings->mailinformuser == 2) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'ONLY NEW VENUE' ); ?></option>
-		  						<option value="3"<?php if ($this->elsettings->mailinformuser == 3) { ?> selected="selected"<?php } ?>><?php echo JText::_( 'BOTH' ); ?></option>
-							</select>
-       	 				</td>
-      				</tr>
-				</tbody>
-			</table>
-		</fieldset>
-
 		</td>
         <td width="50%" valign="top">
 

@@ -220,6 +220,10 @@ class EventListController extends JController
 
 			$msg 	= JText::_( 'EVENT SAVED' );
 			$link 	= JRoute::_('index.php?view=details&id='.$returnid, false) ;
+			
+			JPluginHelper::importPlugin( 'eventlist' );
+			$dispatcher =& JDispatcher::getInstance();
+			$res = $dispatcher->trigger( 'onEventEdited', array( $returnid, $isNew ) );			
 
 			$cache = &JFactory::getCache('com_eventlist');
 			$cache->clean();

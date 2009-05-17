@@ -84,4 +84,27 @@
 	</languages>
 
 </administration>
+
+<plugins>
+	
+	<plugin plugin="mailer" group="eventlist">
+		<files folder="plugins/plg_eventlist_mailer">
+			<file>mailer.php</file>
+			<file>mailer.xml</file>
+		</files>
+
+		<languages folder="plugins/plg_eventlist_mailer/languages">
+			<language tag="en-GB">en-GB.plg_eventlist_mailer.ini</language>
+		</languages>
+		
+		<media />
+	</plugin>
+	
+</plugins>
+
+<check>
+	<directory>/plugins/eventlist</directory>
+	<extension name="mailer" type="plugins" field="published" value="1">element='mailer'</extension>
+</check>
+
 </install>

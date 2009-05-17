@@ -100,12 +100,6 @@ class eventlist_settings extends JTable
 	/** @var int */
 	var $delivereventsyes 	= "-2";
 	/** @var int */
-	var $mailinform 		= "0";
-	/** @var string */
-	var $mailinformrec 		= null;
-	/** @var string */
-	var $mailinformuser 	= "0";
-	/** @var int */
 	var $datdesclimit 		= "1000";
 	/** @var int */
 	var $autopubl 			= "-2";

@@ -32,20 +32,6 @@ function changeoldMode()
 	} // if
 }
 
-function changemailMode()
-{
-	if(document.getElementById) {
-		mode = window.document.adminForm.mailinform.selectedIndex;
-		switch (mode) {
-			case 0:
-				document.getElementById('mail1').style.display = 'none';
-			break;
-			default:
-				document.getElementById('mail1').style.display = '';
-		} // switch
-	} // if
-}
-
 function changeintegrateMode()
 {
 	if(document.getElementById) {

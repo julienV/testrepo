@@ -194,10 +194,6 @@ class EventListModelEditvenue extends JModel
 		$user 		= & JFactory::getUser();
 		$elsettings = & ELHelper::config();
 
-		//Get mailinformation
-		$SiteName 		= $app->getCfg('sitename');
-		$MailFrom	 	= $app->getCfg('mailfrom');
-		$FromName 		= $app->getCfg('fromname');
 		$tzoffset 		= $app->getCfg('offset');
 
 		$row 		= & JTable::getInstance('eventlist_venues', '');
@@ -333,82 +329,10 @@ class EventListModelEditvenue extends JModel
 			return false;
 		}
 
-		//is this an edited venue or not?
-		//after store we allways have an id
-		$edited = $row->id ? $row->id : false;
-
 		//store it in the db
 		if (!$row->store()) {
 			$this->setError($this->_db->getErrorMsg());
 			return false;
-		}
-
-		// manage mailing
-		jimport('joomla.utilities.mail');
-
-		// link for venue
-		$link   = JRoute::_(JURI::base().'index.php?view=details&id='.$row->id, false);
-		
-		// strip description from tags / scripts, etc...
-		$text_description = JFilterOutput::cleanText($row->locdescription);
-
-		//create mail
-		if (($elsettings->mailinform == 2) || ($elsettings->mailinform == 3)) {
-
-			$mail = JFactory::getMailer();
-
-			$state 	= $row->published ? JText::sprintf('MAIL VENUE PUBLISHED', $link) : JText::_('MAIL VENUE UNPUBLISHED');
-
-			If ($edited) {
-
-				$modified_ip 	= getenv('REMOTE_ADDR');
-				$edited 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
-				$mailbody 		= JText::sprintf('MAIL EDIT VENUE', $user->name, $user->username, $user->email, $modified_ip, $edited, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $text_description, $state);
-				$mail->setSubject( $SiteName.JText::_( 'EDIT VENUE MAIL' ) );
-
-			} else {
-
-				$created 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
-				$mailbody 		= JText::sprintf('MAIL NEW VENUE', $user->name, $user->username, $user->email, $row->author_ip, $created, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $text_description, $state);
-				$mail->setSubject( $SiteName.JText::_( 'NEW VENUE MAIL' ) );
-
-			}
-
-			$receivers = explode( ',', trim($elsettings->mailinformrec));
-
-			$mail->addRecipient( $receivers );
-			$mail->setSender( array( $MailFrom, $FromName ) );
-			$mail->setBody( $mailbody );
-
-			$sent = $mail->Send();
-		}
-
-		//create the mail for the user
-		if (($elsettings->mailinformuser == 2) || ($elsettings->mailinformuser == 3)) {
-
-			$usermail = JFactory::getMailer();
-
-			$state 	= $row->published ? JText::sprintf('USER MAIL VENUE PUBLISHED', $link) : JText::_('USER MAIL VENUE UNPUBLISHED');
-
-			If ($edited) {
-
-				$edited 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
-				$mailbody 		= JText::sprintf('USER MAIL EDIT VENUE', $user->name, $user->username, $edited, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $text_description, $state);
-				$usermail->setSubject( $SiteName.JText::_( 'EDIT USER VENUE MAIL' ) );
-
-			} else {
-
-				$created 		= JHTML::Date( $row->modified, JText::_( 'DATE_FORMAT_LC2' ) );
-				$mailbody 		= JText::sprintf('USER MAIL NEW VENUE', $user->name, $user->username, $created, $row->venue, $row->url, $row->street, $row->plz, $row->city, $row->country, $text_description, $state);
-				$usermail->setSubject( $SiteName.JText::_( 'NEW USER VENUE MAIL' ) );
-
-			}
-
-			$usermail->addRecipient( $user->email );
-			$usermail->setSender( array( $MailFrom, $FromName ) );
-			$usermail->setBody( $mailbody );
-
-			$sent = $usermail->Send();
 		}
 
 		//update item order
