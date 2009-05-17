@@ -36,6 +36,8 @@ class plgEventlistMailer extends JPlugin {
 	
 	private $_FromName = '';
 	
+	private $_receivers = array();
+	
 	/**
 	 * Constructor
 	 *
@@ -48,10 +50,31 @@ class plgEventlistMailer extends JPlugin {
 		parent::__construct($subject, $config);
 		
 		$app = & JFactory::getApplication();
+		$db = & JFactory::getDBO();
 		
 		$this->_SiteName 	= $app->getCfg('sitename');
 		$this->_MailFrom	= $app->getCfg('mailfrom');
 		$this->_FromName 	= $app->getCfg('fromname');
+		
+		if( $this->params->get('fetch_admin_mails', '0') ) {
+			//get list of admins who receive system mails
+			$query = 'SELECT id, email, name' .
+					' FROM #__users' .
+					' WHERE sendEmail = 1';
+			$db->setQuery($query);
+			
+			if (!$db->query()) {
+				JError::raiseError( 500, $db->stderr(true));
+				return;
+			}
+			
+			$admin_mails 		= $db->loadResultArray(1);
+			$additional_mails 	= explode( ',', trim($this->params->get('receivers')));
+			$this->_receivers	= array_merge($admin_mails, $additional_mails);
+			
+		} else {
+			$this->_receivers	= explode( ',', trim($this->params->get('receivers')));
+		}
 	}
 	
 	/**
@@ -102,12 +125,10 @@ class plgEventlistMailer extends JPlugin {
 		//handle adminmail
 		if ($this->params->get('reg_mail_admin', '0') && $this->params->get('receivers')) {
 			
-			$receivers = explode( ',', trim($this->params->get('receivers')));
-			
 			$data 				= new stdClass();
 			$data->subject 		= JText::sprintf('MAIL ADMIN REG SUBJECT', $this->_SiteName);
 			$data->body			= JText::sprintf('MAIL ADMIN REG BODY', $user->name, $user->username, $event->title, $link, $SiteName);
-			$data->receivers 	= $receivers;
+			$data->receivers 	= $this->_receivers;
 			
 			$this->_mailer($data);
 		}
@@ -163,12 +184,10 @@ class plgEventlistMailer extends JPlugin {
 		//handle adminmail
 		if ($this->params->get('unreg_mail_admin', '0') && $this->params->get('receivers')) {
 			
-			$receivers = explode( ',', trim($this->params->get('receivers')));
-			
 			$data 				= new stdClass();
 			$data->subject 		= JText::sprintf('MAIL ADMIN UNREG SUBJECT', $this->_SiteName);
 			$data->body			= JText::sprintf('MAIL ADMIN UNREG BODY', $user->name, $user->username, $event->title, $link, $SiteName);
-			$data->receivers 	= $receivers;
+			$data->receivers 	= $this->_receivers;
 			
 			$this->_mailer($data);
 		}
@@ -216,8 +235,6 @@ class plgEventlistMailer extends JPlugin {
 		
 		//strip description from tags / scripts, etc...
 		$text_description = JFilterOutput::cleanText($event->datdescription);
-
-		$receivers = explode( ',', trim($this->params->get('receivers')));
 		
 		$modified_ip 	= getenv('REMOTE_ADDR');
 		$edited 		= JHTML::Date( $event->modified, JText::_( 'DATE_FORMAT_LC2' ) );
@@ -232,7 +249,7 @@ class plgEventlistMailer extends JPlugin {
 				$edited 			= JHTML::Date( $event->modified, JText::_( 'DATE_FORMAT_LC2' ) );
 				$data->subject 		= JText::sprintf('EDIT EVENT MAIL', $this->_SiteName);
 				$data->body			= JText::sprintf('MAIL EDIT EVENT', $user->name, $user->username, $user->email, $modified_ip, $edited, $event->title, $event->dates, $event->times, $event>venue, $event->city, $text_description, $state);
-				$data->receivers 	= $receivers;
+				$data->receivers 	= $this->_receivers;
 			
 				$this->_mailer($data);
 			}
@@ -245,7 +262,7 @@ class plgEventlistMailer extends JPlugin {
 				$created 			= JHTML::Date( $event->created, JText::_( 'DATE_FORMAT_LC2' ) );
 				$data->subject		= JText::sprintf('NEW EVENT MAIL', $this->_SiteName);
 				$data->body 		= JText::sprintf('MAIL NEW EVENT', $user->name, $user->username, $user->email, $event->author_ip, $created, $event->title, $event->dates, $event->times, $event->venue, $event->city, $text_description, $state);
-				$data->receivers 	= $receivers;
+				$data->receivers 	= $this->_receivers;
 			
 				$this->_mailer($data);
 			}
@@ -320,8 +337,6 @@ class plgEventlistMailer extends JPlugin {
 		
 		//strip description from tags / scripts, etc...
 		$text_description = JFilterOutput::cleanText($venue->locdescription);
-
-		$receivers = explode( ',', trim($this->params->get('receivers')));
 		
 		$modified_ip 	= getenv('REMOTE_ADDR');
 		$edited 		= JHTML::Date( $venue->modified, JText::_( 'DATE_FORMAT_LC2' ) );
@@ -336,7 +351,7 @@ class plgEventlistMailer extends JPlugin {
 				$edited 			= JHTML::Date( $venue->modified, JText::_( 'DATE_FORMAT_LC2' ) );
 				$data->subject 		= JText::sprintf('EDIT VENUE MAIL', $this->_SiteName);
 				$data->body			= JText::sprintf('MAIL EDIT VENUE', $user->name, $user->username, $user->email, $modified_ip, $edited, $venue->venue, $venue->url, $venue->street, $venue->plz, $venue->city, $venue->country, $text_description, $state);
-				$data->receivers 	= $receivers;
+				$data->receivers 	= $this->_receivers;
 			
 				$this->_mailer($data);
 			}
@@ -349,7 +364,7 @@ class plgEventlistMailer extends JPlugin {
 				$created 			= JHTML::Date( $venue->created, JText::_( 'DATE_FORMAT_LC2' ) );
 				$data->subject		= JText::sprintf('NEW VENUE MAIL', $this->_SiteName);
 				$data->body 		= JText::sprintf('MAIL NEW VENUE', $user->name, $user->username, $user->email, $venue->author_ip, $created, $venue->venue, $venue->url, $venue->street, $venue->plz, $venue->city, $venue->country, $text_description, $state);
-				$data->receivers 	= $receivers;
+				$data->receivers 	= $this->_receivers;
 			
 				$this->_mailer($data);
 			}
@@ -395,7 +410,7 @@ class plgEventlistMailer extends JPlugin {
 	 * @since 1.0
 	 */
 	private function _mailer($data)
-	{		
+	{			
 		$mail = JFactory::getMailer();
 		
 		$mail->addRecipient( $data->receivers );

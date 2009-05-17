@@ -71,7 +71,12 @@
 		<option value="1">Yes</option>
     </param>
 	
-	<param type="text" name="receivers" label="ADMIN MAIL RECEIVERS" default="" description="ADMIN MAIL RECEIVERS DESC" />
+	<param type="radio" name="fetch_admin_mails" label="MAIL ALL ADMINS" default="0" description="MAIL ALL ADMINS DESC">
+		<option value="0">No</option>
+		<option value="1">Yes</option>
+    </param>
+	
+	<param type="text" name="receivers" label="ADDITIONAL MAIL RECEIVERS" default="" description="ADDITIONAL MAIL RECEIVERS DESC" />
 	</params>
 
 </install>
