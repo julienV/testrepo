@@ -341,7 +341,7 @@ class EventListModelCalendar extends JModel
         .' CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug'
         .' FROM #__eventlist_categories'
         .' WHERE id IN ('.implode(',', $categories).')'
-        .'ORDER BY ordering ASC';
+        .' ORDER BY ordering ASC';
 
         $this->_db->setQuery($query);
 

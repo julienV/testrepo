@@ -182,7 +182,6 @@ CREATE TABLE IF NOT EXISTS `#__eventlist_settings` (
   `regname` tinyint(4) NOT NULL,
   `reg_access` tinyint(4) NOT NULL,
   `storeip` tinyint(4) NOT NULL,
-  `commentsystem` tinyint(4) NOT NULL,
   `lastupdate` varchar(60) NOT NULL default '',
   `checked_out` int(11) NOT NULL default '0',
   `checked_out_time` datetime NOT NULL default '0000-00-00 00:00:00',

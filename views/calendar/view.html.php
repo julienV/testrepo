@@ -76,7 +76,7 @@ class EventListViewCalendar extends JView
         $rows = & $this->get('Data');
         $category = & $this->get('Category');
         $categories = & $this->get('Categories');
-
+		
         //are events available?
         if (!$rows)
         {
@@ -193,13 +193,8 @@ class EventListViewCalendar extends JView
      */
     function caltooltip($tooltip, $title = '', $text = '', $href = '', $class = 'editlinktip hasTip')
     {
-    
-        //$tooltip  = addslashes(htmlspecialchars($tooltip));
-        //$title    = addslashes(htmlspecialchars($title));
         $tooltip = (htmlspecialchars($tooltip));
         $title = (htmlspecialchars($title));
-    
-        //$text   = JText::_( $text, true );
     
         if ($title) {
             $title = $title.'::';

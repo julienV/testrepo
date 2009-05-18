@@ -100,11 +100,25 @@
 		<media />
 	</plugin>
 	
+	<plugin plugin="comments" group="eventlist">
+		<files folder="plugins/plg_eventlist_comments">
+			<file>comments.php</file>
+			<file>comments.xml</file>
+		</files>
+
+		<languages folder="plugins/plg_eventlist_comments/languages">
+			<language tag="en-GB">en-GB.plg_eventlist_comments.ini</language>
+		</languages>
+		
+		<media />
+	</plugin>
+	
 </plugins>
 
 <check>
 	<directory>/plugins/eventlist</directory>
 	<extension name="mailer" type="plugins" field="published" value="1">element='mailer'</extension>
+	<extension name="comments" type="plugins" field="published" value="0">element='comments'</extension>
 </check>
 
 </install>

@@ -32,6 +32,7 @@ $status = new JObject();
 $status->modules = array ();
 $status->plugins = array ();
 $status->updates = array ();
+$status->install = array ();
 
 /***********************************************************************************************
  * ---------------------------------------------------------------------------------------------
@@ -337,7 +338,11 @@ if ($update11)
     //update current settings
     $query = 'ALTER TABLE #__eventlist_settings'
     .' CHANGE imagehight imageheight VARCHAR( 20 ) NOT NULL,'
-    .' ADD reg_access tinyint(4) NOT NULL AFTER regname'
+    .' ADD reg_access tinyint(4) NOT NULL AFTER regname,'
+	.' DROP mailinform,'
+	.' DROP mailinformrec,'
+	.' DROP mailinformuser,'
+	.' DROP commentsystem'
     ;
     $db->setQuery($query);
     if (!$db->query())
@@ -472,9 +477,7 @@ if ($update11)
  * ---------------------------------------------------------------------------------------------
  ***********************************************************************************************/
 if ( empty($status->updates))
-{
-	$status->install = array ();
-	
+{	
     // Check for existing /images/eventlist directory
     if (!$direxists = JFolder::exists(JPATH_SITE.'/images/eventlist'))
     {
@@ -524,7 +527,7 @@ if ( empty($status->updates))
     if (!$settingsresult)
     {
         //Set the default setting values -> fresh install
-        $query = "INSERT INTO #__eventlist_settings VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '', '100%', '15%', '25%', '20%', '20%', 'Date', 'Title', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 0, 1, 1, 1, 1, 1, 2, -2, '1000', -2, -2, -2, 1, '20%', 'Type', 1, 1, 1, 1, '100', '100', '100', 0, 1, 0, 0, 1, 2, 2, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [catsid], [times]', 'The event titled [title] starts on [dates]!', 0, 'State', 0, '', 0, 1, 0, '1174491851', '', '')";
+        $query = "INSERT INTO #__eventlist_settings VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '', '100%', '15%', '25%', '20%', '20%', 'Date', 'Title', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 0, 1, 1, 1, 1, 1, 2, -2, '1000', -2, -2, -2, 1, '20%', 'Type', 1, 1, 1, 1, '100', '100', '100', 0, 1, 0, 0, 1, 2, 2, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [catsid], [times]', 'The event titled [title] starts on [dates]!', 0, 'State', 0, '', 0, 1, '1174491851', '', '')";
         $db->setQuery($query);
         if (!$db->query())
         {

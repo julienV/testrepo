@@ -60,6 +60,7 @@ foreach ($this->rows as $row)
   // categories
   if ($this->elsettings->showcat == 1) 
   {
+  	$categories = '';
   	foreach ($row->categories as $key => $category)
   	{
   		$categories .= $category->id;

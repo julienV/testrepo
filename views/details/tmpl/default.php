@@ -216,13 +216,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<?php echo $this->loadTemplate('attendees'); ?>
 
 	<?php endif; ?>
-	
-	<?php if ($this->elsettings->commentsystem != 0) :	?>
-	
-		<!-- Comments -->
-		<?php echo $this->loadTemplate('comments'); ?>
-		
-  	<?php endif; ?>
+
+	<?php echo $this->row->pluginevent->onEventDetailsEnd; ?>
+
 
 <p class="copyright">
 	<?php echo ELOutput::footer( ); ?>

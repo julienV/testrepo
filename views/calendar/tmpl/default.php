@@ -66,7 +66,8 @@ defined('_JEXEC') or die ('Restricted access');
         }
     
         //Link to details
-        $detaillink = JRoute::_('index.php?view=details&cid='.$this->category->slug.'&id='.$row->slug);
+       // $detaillink = JRoute::_('index.php?view=details&cid='.$this->category->slug.'&id='.$row->slug);
+	   	$detaillink = JRoute::_('index.php?view=details&cid='.$row->categoryslug.'&id='.$row->slug);
         $eventname = '<div class="eventName">'.$this->escape($row->title).'</div>';
         
 		if ($row->color) {
