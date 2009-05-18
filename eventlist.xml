@@ -87,6 +87,7 @@
 
 <plugins>
 	
+	<!-- Mailer plugin for EventList -->
 	<plugin plugin="mailer" group="eventlist">
 		<files folder="plugins/plg_eventlist_mailer">
 			<file>mailer.php</file>
@@ -100,6 +101,7 @@
 		<media />
 	</plugin>
 	
+	<!-- Comments plugin for EventList -->
 	<plugin plugin="comments" group="eventlist">
 		<files folder="plugins/plg_eventlist_comments">
 			<file>comments.php</file>
@@ -113,12 +115,30 @@
 		<media />
 	</plugin>
 	
+	<!-- Search plugin from EventList for com_search -->
+	<plugin plugin="eventlist" group="search">
+		<files folder="plugins/plg_search_eventlist">
+			<file>ceventlist.php</file>
+			<file>eventlist.xml</file>
+		</files>
+
+		<languages folder="plugins/plg_search_eventlist/languages">
+			<language tag="en-GB">en-GB.plg_search_eventlist.ini</language>
+			<language tag="de-DE">de-DE.plg_search_eventlist.ini</language>
+			<language tag="fr-FR">fr-FR.plg_search_eventlist.ini</language>
+		</languages>
+		
+		<media />
+	</plugin>
+	
 </plugins>
 
 <check>
 	<directory>/plugins/eventlist</directory>
+	<directory>/plugins/search</directory>
 	<extension name="mailer" type="plugins" field="published" value="1">element='mailer'</extension>
 	<extension name="comments" type="plugins" field="published" value="0">element='comments'</extension>
+	<extension name="eventlist" type="plugins" field="published" value="1">element='eventlist'</extension>
 </check>
 
 </install>
