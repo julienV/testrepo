@@ -118,7 +118,7 @@
 	<!-- Search plugin from EventList for com_search -->
 	<plugin plugin="eventlist" group="search">
 		<files folder="plugins/plg_search_eventlist">
-			<file>ceventlist.php</file>
+			<file>eventlist.php</file>
 			<file>eventlist.xml</file>
 		</files>
 
