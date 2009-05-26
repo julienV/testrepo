@@ -347,10 +347,23 @@ if ($update11)
     $db->setQuery($query);
     if (!$db->query())
     {
-        $status->updates[$i][] = array ('message'=>'Updating settings table', 'result'=>'failed');
+        $status->updates[$i][] = array ('message'=>'Updating settings table: Step 1', 'result'=>'failed');
     } else
     {
-        $status->updates[$i][] = array ('message'=>'Updating settings table', 'result'=>'success');
+        $status->updates[$i][] = array ('message'=>'Updating settings table: Step 1', 'result'=>'success');
+    }
+
+	$query = 'UPDATE #__eventlist_settings'
+    .' SET meta_keywords = REPLACE(meta_keywords, "[catsid]","[categories]"),'
+	.' meta_description = REPLACE(meta_description, "[catsid]","[categories]")'
+    ;
+    $db->setQuery($query);
+    if (!$db->query())
+    {
+        $status->updates[$i][] = array ('message'=>'Updating settings table: Step 2', 'result'=>'failed');
+    } else
+    {
+        $status->updates[$i][] = array ('message'=>'Updating settings table: Step 2', 'result'=>'success');
     }
 
     //update events table
@@ -374,7 +387,9 @@ if ($update11)
 
     //converting fields to new schema
     $query = 'UPDATE #__eventlist_events'
-    .' SET recurrence_limit_date = recurrence_counter'
+    .' SET recurrence_limit_date = recurrence_counter,'
+	.' meta_keywords = REPLACE(meta_keywords, "[catsid]","[categories]"),'
+	.' meta_description = REPLACE(meta_description, "[catsid]","[categories]")'
     ;
     $db->setQuery($query);
     if (!$db->query())
@@ -527,7 +542,7 @@ if ( empty($status->updates))
     if (!$settingsresult)
     {
         //Set the default setting values -> fresh install
-        $query = "INSERT INTO #__eventlist_settings VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '', '100%', '15%', '25%', '20%', '20%', 'Date', 'Title', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 0, 1, 1, 1, 1, 1, 2, -2, '1000', -2, -2, -2, 1, '20%', 'Type', 1, 1, 1, 1, '100', '100', '100', 0, 1, 0, 0, 1, 2, 2, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [catsid], [times]', 'The event titled [title] starts on [dates]!', 0, 'State', 0, '', 0, 1, '1174491851', '', '')";
+        $query = "INSERT INTO #__eventlist_settings VALUES (1, 0, 1, 0, 1, 1, 1, 0, '', '', '100%', '15%', '25%', '20%', '20%', 'Date', 'Title', 'Venue', 'City', '%d.%m.%Y', '%H.%M', 'h', 1, 0, 1, 1, 1, 1, 1, 2, -2, '1000', -2, -2, -2, 1, '20%', 'Type', 1, 1, 1, 1, '100', '100', '100', 0, 1, 0, 0, 1, 2, 2, -2, 1, 0, -2, 1, 0, 0, '[title], [a_name], [categories], [times]', 'The event titled [title] starts on [dates]!', 0, 'State', 0, '', 0, 1, '1174491851', '', '')";
         $db->setQuery($query);
         if (!$db->query())
         {

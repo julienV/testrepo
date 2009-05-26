@@ -163,18 +163,18 @@ class EventListViewDetails extends JView
 		// generate Metatags
 		$meta_keywords_content = "";
 		if (!empty($row->meta_keywords)) {
-			$keywords = explode(",",$row->meta_keywords);
+			$keywords = explode(",", $row->meta_keywords);
 			foreach($keywords as $keyword) {
 				if ($meta_keywords_content != "") {
 					$meta_keywords_content .= ", ";
 				}
 				if (ereg("[/[/]",$keyword)) {
-					$keyword = trim(str_replace("[","",str_replace("]","",$keyword)));
-					$buffer = $this->keyword_switcher($keyword, $row, $elsettings->formattime, $elsettings->formatdate);
+					$keyword = trim(str_replace("[", "", str_replace("]", "", $keyword)));
+					$buffer = $this->keyword_switcher($keyword, $row, $categories, $elsettings->formattime, $elsettings->formatdate);
 					if ($buffer != "") {
 						$meta_keywords_content .= $buffer;
 					} else {
-						$meta_keywords_content = substr($meta_keywords_content,0,strlen($meta_keywords_content) - 2);	// remove the comma and the white space
+						$meta_keywords_content = substr($meta_keywords_content, 0, strlen($meta_keywords_content) - 2);	// remove the comma and the white space
 					}
 				} else {
 					$meta_keywords_content .= $keyword;
@@ -188,7 +188,7 @@ class EventListViewDetails extends JView
 			foreach($description as $desc) {
 					$keyword = substr($desc, 0, strpos($desc,"]",0));
 					if ($keyword != "") {
-						$description_content .= $this->keyword_switcher($keyword, $row, $elsettings->formattime, $elsettings->formatdate);
+						$description_content .= $this->keyword_switcher($keyword, $row, $categories, $elsettings->formattime, $elsettings->formatdate);
 						$description_content .= substr($desc, strpos($desc,"]",0)+1);
 					} else {
 						$description_content .= $desc;
@@ -244,11 +244,20 @@ class EventListViewDetails extends JView
 	 *
  	 * @since 0.9
 	 */
-	function keyword_switcher($keyword, $row, $formattime, $formatdate) {
+	function keyword_switcher($keyword, $row, $categories, $formattime, $formatdate) {
 		switch ($keyword) {
-//			case "catsid":
-//				$content = $row->catname;
-//				break;
+			case "categories":
+				$i = 0;
+				$content = '';
+				$n = count($categories);
+    			foreach ($categories as $category) {
+					$content .= $this->escape($category->catname);
+					$i++;
+					if ($i != $n) {
+						$content .= ', ';
+					}
+				}
+				break;
 			case "a_name":
 				$content = $row->venue;
 				break;

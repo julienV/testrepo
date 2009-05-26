@@ -260,8 +260,8 @@ defined('_JEXEC') or die('Restricted access');
 								<?php echo JText::_( 'VENUE' ); ?></option>
 								<!-- <option value="[locid]" <?php if(in_array("[locid]",$meta_key)) { echo "selected=\"selected\""; } ?>>
 								<?php echo JText::_( 'CITY' ); ?></option> -->
-								<option value="[catsid]" <?php if(in_array("[catsid]",$meta_key)) { echo "selected=\"selected\""; } ?>>
-								<?php echo JText::_( 'CATEGORY' ); ?></option>
+								<option value="[categories]" <?php if(in_array("[categories]",$meta_key)) { echo "selected=\"selected\""; } ?>>
+								<?php echo JText::_( 'CATEGORIES' ); ?></option>
 								<option value="[dates]" <?php if(in_array("[dates]",$meta_key)) { echo "selected=\"selected\""; } ?>>
 								<?php echo JText::_( 'DATE' ); ?></option>
 								<option value="[times]" <?php if(in_array("[times]",$meta_key)) { echo "selected=\"selected\""; } ?>>
@@ -296,7 +296,7 @@ defined('_JEXEC') or die('Restricted access');
 
 							<input class="inputbox" type="button" onclick="insert_keyword('[title]')" value="<?php echo JText::_( 'EVENT TITLE' ); ?>" />
 							<input class="inputbox" type="button" onclick="insert_keyword('[a_name]')" value="<?php echo JText::_( 'VENUE' ); ?>" />
-							<input class="inputbox" type="button" onclick="insert_keyword('[catsid]')" value="<?php echo JText::_( 'CATEGORY' ); ?>" />
+							<input class="inputbox" type="button" onclick="insert_keyword('[categories]')" value="<?php echo JText::_( 'CATEGORIES' ); ?>" />
 							<input class="inputbox" type="button" onclick="insert_keyword('[dates]')" value="<?php echo JText::_( 'DATE' ); ?>" />
 							<p>
 								<input class="inputbox" type="button" onclick="insert_keyword('[times]')" value="<?php echo JText::_( 'EVENT TIME' ); ?>" />

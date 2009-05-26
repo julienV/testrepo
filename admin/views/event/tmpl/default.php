@@ -420,7 +420,7 @@ $infoimage = JHTML::image ( 'components/com_eventlist/assets/images/icon-16-hint
 			type="text/javascript">
 			<!--
 				var $select_output = new Array();
-        $select_output[1] = "<?php
+				$select_output[1] = "<?php
 				echo JText::_ ( 'OUTPUT DAY' );
 				?>";
 				$select_output[2] = "<?php
@@ -435,12 +435,12 @@ $infoimage = JHTML::image ( 'components/com_eventlist/assets/images/icon-16-hint
 
 				var $weekday = new Array();
 				$weekday[0] = new Array("MO", "<?php	echo JText::_ ( 'MONDAY' );	?>");
-        $weekday[1] = new Array("TU", "<?php  echo JText::_ ( 'TUESDAY' ); ?>");
-        $weekday[2] = new Array("WE", "<?php  echo JText::_ ( 'WEDNESDAY' ); ?>");
-        $weekday[3] = new Array("TH", "<?php  echo JText::_ ( 'THURSDAY' ); ?>");
-        $weekday[4] = new Array("FR", "<?php  echo JText::_ ( 'FRIDAY' ); ?>");
-        $weekday[5] = new Array("SA", "<?php  echo JText::_ ( 'SATURDAY' ); ?>");
-        $weekday[6] = new Array("SU", "<?php  echo JText::_ ( 'SUNDAY' ); ?>");
+				$weekday[1] = new Array("TU", "<?php  echo JText::_ ( 'TUESDAY' ); ?>");
+				$weekday[2] = new Array("WE", "<?php  echo JText::_ ( 'WEDNESDAY' ); ?>");
+				$weekday[3] = new Array("TH", "<?php  echo JText::_ ( 'THURSDAY' ); ?>");
+				$weekday[4] = new Array("FR", "<?php  echo JText::_ ( 'FRIDAY' ); ?>");
+				$weekday[5] = new Array("SA", "<?php  echo JText::_ ( 'SATURDAY' ); ?>");
+				$weekday[6] = new Array("SU", "<?php  echo JText::_ ( 'SUNDAY' ); ?>");
 
 				var $before_last = "<?php
 				echo JText::_ ( 'BEFORE LAST' );
@@ -461,7 +461,7 @@ $infoimage = JHTML::image ( 'components/com_eventlist/assets/images/icon-16-hint
 				<td>
 					<input class="inputbox" type="button" onclick="insert_keyword('[title]')" value="<?php echo JText::_ ( 'EVENT TITLE' );	?>" />
 					<input class="inputbox" type="button" onclick="insert_keyword('[a_name]')" value="<?php	echo JText::_ ( 'VENUE' );?>" />
-					<input class="inputbox" type="button" onclick="insert_keyword('[catsid]')" value="<?php	echo JText::_ ( 'CATEGORY' );?>" />
+					<input class="inputbox" type="button" onclick="insert_keyword('[categories]')" value="<?php	echo JText::_ ( 'CATEGORIES' );?>" />
 					<input class="inputbox" type="button" onclick="insert_keyword('[dates]')" value="<?php echo JText::_ ( 'DATE' );?>" />
 				
 					<p>
