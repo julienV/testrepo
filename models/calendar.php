@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 1.0 $Id: categoryevents.php 662 2008-05-09 22:28:53Z schlu $
+ * @version 1.0 $Id$
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2009 Christoph Lukes
