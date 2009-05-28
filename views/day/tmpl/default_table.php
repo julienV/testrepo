@@ -210,7 +210,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
                 </a>
               <?php else: ?>
                 <?php echo $category->catname; ?>
-		          <?php endif;           
+		        <?php endif;           
 			        $ix++;
 			        if ($ix != $nr) :
 			          echo ', ';

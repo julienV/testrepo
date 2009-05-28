@@ -356,12 +356,12 @@ class EventListModelCategoryevents extends JModel
 				. ' ec.assignedevents'
 				. ' FROM #__eventlist_categories AS c'
 				. ' INNER JOIN ('
-	          	. ' SELECT COUNT( DISTINCT i.id ) AS assignedevents, cc.id'
-	         	. ' FROM #__eventlist_events AS i'
-	          	. ' INNER JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = i.id'
-	          	. ' INNER JOIN #__eventlist_categories AS cc ON cc.id = rel.catid'
-	          	. $where
-	          	. ' GROUP BY cc.id'
+	          			. ' SELECT COUNT( DISTINCT i.id ) AS assignedevents, cc.id'
+	         			. ' FROM #__eventlist_events AS i'
+	          			. ' INNER JOIN #__eventlist_cats_event_relations AS rel ON rel.itemid = i.id'
+	          			. ' INNER JOIN #__eventlist_categories AS cc ON cc.id = rel.catid'
+	          			. $where
+	          			. ' GROUP BY cc.id'
 	          	. ')' 
           		. ' AS ec ON ec.id = c.id'
 				. ' ORDER BY '.$ordering

@@ -39,21 +39,6 @@ class EventListModelCalendar extends JModel
     var $_data = null;
 
     /**
-     * category data array
-     *
-     * @var array
-     */
-    var $_category = null;
-
-    /**
-     * Tree categories data array
-     *
-     * @var array
-     */
-    var $_categories_ids = null;
-
-
-    /**
      * Tree categories data array
      *
      * @var array
@@ -127,20 +112,27 @@ class EventListModelCalendar extends JModel
      */
     function & getData()
     {
-        $pop = JRequest::getBool('pop');
 
         // Lets load the content if it doesn't already exist
         if ( empty($this->_data))
         {
             $query = $this->_buildQuery();
+            $this->_data = $this->_getList( $query );
 
-            if ($pop)
-            {
-                $this->_data = $this->_getList($query);
-            } else
-            {
-                $this->_data = $this->_getList($query);
-            }
+        	$k = 0;
+			$count = count($this->_data);
+			for($i = 0; $i < $count; $i++)
+			{
+				$item =& $this->_data[$i];
+				$item->categories = $this->getCategories($item->id);
+			
+				//remove events without categories (users have no access to them)
+				if (empty($item->categories)) {
+					unset($this->_data[$i]);
+				}
+				
+				$k = 1 - $k;
+			}
         }
 
         return $this->_data;
@@ -195,13 +187,10 @@ class EventListModelCalendar extends JModel
 		$orderby = $this->_buildCategoryOrderby();
 
         //Get Events from Database
-        $query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.id, l.venue, l.city, l.state, l.url, c.catname, c.id AS catid, c.color, '
+        $query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.venue, l.city, l.state, l.url,'
         .' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
-        .' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug,'
-        .' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as categoryslug'
+        .' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
         .' FROM #__eventlist_events AS a'
-        .' INNER JOIN #__eventlist_cats_event_relations AS rel ON a.id = rel.itemid'
-        .' INNER JOIN #__eventlist_categories AS c ON c.id = rel.catid'
         .' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
         .$where
 		.$orderby
@@ -220,9 +209,6 @@ class EventListModelCalendar extends JModel
     {
         $app = & JFactory::getApplication();
 
-        $user = & JFactory::getUser();
-        $gid = (int)$user->get('aid');
-
         // Get the paramaters of the active menu item
         $params = & $app->getParams();
 
@@ -236,22 +222,6 @@ class EventListModelCalendar extends JModel
         {
             $where = ' WHERE a.published = 1 ';
         }
-
-        // filter on categories: selected catagory /selected + child categories
-        if ($this->_id)
-        {
-            if ($params->get('displayChilds'))
-            {
-                $where .= ' AND c.id IN ('.implode(',', $this->getChilds()).')';
-            }
-            else
-            {
-                $where .= ' AND c.id = '.$this->_id;
-            }
-        }
-
-        // only select events assigned to category the user has access to
-        $where .= ' AND c.access <= '.$gid;
 
         // only select events within specified dates.
         $monthstart = mktime(0, 0, 1, strftime('%m', $this->_date), 1, strftime('%Y', $this->_date));
@@ -302,129 +272,31 @@ class EventListModelCalendar extends JModel
 	}
 
     /**
-     * Method to get the Category
-     *
-     * @access public
-     * @return integer
-     */
-    function getCategory()
-    {
-        $query = 'SELECT *,'
-        .' CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug'
-        .' FROM #__eventlist_categories'
-        .' WHERE id = '.$this->_id;
-
-        $this->_db->setQuery($query);
-
-        $_category = $this->_db->loadObject();
-
-        return $_category;
-    }
-
-
-    /**
      * Method to get the Categories
      *
      * @access public
      * @return integer
      */
-    function getCategories()
+    function getCategories($id)
     {
-        if ($this->_categories)
-        {
-            return $this->_categories;
-        }
+    	$user = & JFactory::getUser();
+        $gid = (int)$user->get('aid');
 
-        $categories = $this->getChilds();
-
-        $query = 'SELECT id, catname, color, '
-        .' CASE WHEN CHAR_LENGTH(alias) THEN CONCAT_WS(\':\', id, alias) ELSE id END as slug'
-        .' FROM #__eventlist_categories'
-        .' WHERE id IN ('.implode(',', $categories).')'
-        .' ORDER BY ordering ASC';
+        
+        $query = 'SELECT c.id, c.catname, c.access, c.color, c. published, c.checked_out AS cchecked_out,'
+        . ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug'
+        . ' FROM #__eventlist_categories AS c'
+        . ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.catid = c.id'
+        . ' WHERE rel.itemid = '.(int)$id
+		. ' AND c.published = 1'
+        . ' AND c.access  <= '.$gid;
+        ;
 
         $this->_db->setQuery($query);
 
         $this->_categories = $this->_db->loadObjectList();
-
+        
         return $this->_categories;
-    }
-
-    /**
-     * return childs of this category
-     *
-     * @return unknown
-     */
-    function getChilds()
-    {
-        if ($this->_categories_ids)
-        {
-            return $this->_categories_ids;
-        }
-
-        $query = ' SELECT id, parent_id '
-        .' FROM #__eventlist_categories '
-        .' WHERE published = 1 ';
-
-        $this->_db->setQuery($query);
-        $rows = $this->_db->loadObjectList();
-
-        $catsintree = array ();
-        if (!$this->_id)
-        {
-            // if no category selected, select them all
-            foreach ($rows AS $r)
-            {
-                $catsintree[] = $r->id;
-            }
-        }
-        else
-        {
-            // filter categories if a top category was specified
-            // establish the hierarchy of the categories
-            $children = array ();
-
-            //print_r($rows);exit;
-            // first pass - collect direct children of each category
-            foreach ($rows as $v)
-            {
-                $pt = $v->parent_id;
-                $list = @$children[$pt]?$children[$pt]: array ();
-                array_push($list, $v);
-                $children[$pt] = $list;
-            }
-            $list = $this->_getAllChildren($children, $this->_id);
-
-            foreach ($list AS $r)
-            {
-                $catsintree[] = $r->id;
-            }
-            $catsintree[] = $this->_id;
-        }
-        $this->_categories_ids = $catsintree;
-        return $catsintree;
-    }
-
-    /**
-     * Recursive function to get all categories belonging to subtree of a category.
-     *
-     * @param array $children
-     * @param int $catid
-     * @return array
-     */
-    function _getAllChildren( & $children, $catid)
-    {
-        $childs = array ();
-        if ( isset ($children[$catid]) && count($children[$catid]))
-        {
-            //$childs = $children[$catid];
-            foreach ($children[$catid]AS $child)
-            {
-                $childs[] = $child;
-                $childs = array_merge($childs, $this->_getAllChildren($children, $child->id));
-            }
-        }
-        return $childs;
     }
 }
 ?>

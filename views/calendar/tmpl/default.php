@@ -34,14 +34,14 @@ defined('_JEXEC') or die ('Restricted access');
     $app = & JFactory::getApplication();
     
     $cal = new ELCalendar($this->year, $this->month, 0, $app->getCfg('offset'));
-    $cal->enableMonthNav('index.php?view=calendar&id='.$this->category->slug);
+    $cal->enableMonthNav('index.php?view=calendar');
     $cal->setFirstWeekDay($this->params->get('firstweekday', 1));
     $cal->enableDayLinks(false);
     
     $countcatevents = array ();
     
-    foreach ($this->rows as $row)
-    {
+    foreach ($this->rows as $row) :
+    
         // get event date
         $year = strftime('%Y', strtotime($row->dates));
         $month = strftime('%m', strtotime($row->dates));
@@ -50,66 +50,82 @@ defined('_JEXEC') or die ('Restricted access');
         // for time printing
         $timehtml = '';
         
-		if ($this->elsettings->showtime == 1)
-        {
+		if ($this->elsettings->showtime == 1) :
+
             $start = ELOutput::formattime($row->dates, $row->times);
             $end = ELOutput::formattime($row->dates, $row->endtimes);
             
-			if ($start != '') {
+			if ($start != '') :
                 $timehtml = '<div class="time"><span class="label">'.JTEXT::_('Time').': </span>';
                 $timehtml .= $start;
-                if ($end != '') {
+                if ($end != '') :
                     $timehtml .= ' - '.$end;
-                }
+                endif;
                 $timehtml .= '</div>';
-            }
-        }
+            endif;
+        endif;
     
-        //Link to details
-       // $detaillink = JRoute::_('index.php?view=details&cid='.$this->category->slug.'&id='.$row->slug);
-	   	$detaillink = JRoute::_('index.php?view=details&cid='.$row->categoryslug.'&id='.$row->slug);
         $eventname = '<div class="eventName">'.$this->escape($row->title).'</div>';
-        
-		if ($row->color) {
-            $catname = '<div class="catname"><span class="colorpic" style="background-color: '.$row->color.';"></span>'.$row->catname.'</div>';
-        } else {
-            $catname = '<div class="catname">'.$row->catname.'</div>';
-        }
+
+        $multicatname = '';
+        $nr = count($row->categories);
+		$ix = 0; 
+        foreach($row->categories AS $category) :
+        	//TODO: currently only one id possible...so simply just pick one up...
+        	$detaillink 	= JRoute::_('index.php?view=details&cid='.$category->catslug.'&id='.$row->slug);
+        	$catid			= $category->id;
+        	
+        	$catcolor 		= $category->color;
+        	if ($catcolor):
+        		$multicatname .= '<span class="colorpic" style="background-color: '.$catcolor.';"></span>'.$category->catname;
+        	else:
+				$multicatname 	.= $category->catname;
+			endif;
+			$ix++;
+			if ($ix != $nr) :
+				$multicatname .= ', ';
+			endif;			
+       	endforeach;
+       	
+       	$catname = '<div class="catname">'.$multicatname.'</div>';
+       	
         $eventdate = ELOutput::formatdate($row->dates, $row->times);
     
         // venue
-        if ($this->elsettings->showlocate == 1) {
+        if ($this->elsettings->showlocate == 1) :
             $venue = '<div class="location"><span class="label">'.JTEXT::_('Venue').': </span>';
             
-			if ($this->elsettings->showlinkvenue == 1 && 0) {
+			if ($this->elsettings->showlinkvenue == 1 && 0) :
                 $venue .= $row->locid != 0 ? "<a href='".JRoute::_('index.php?view=venueevents&id='.$row->venueslug)."'>".$this->escape($row->venue)."</a>" : '-';
-            } else {
+           	else :
              	$venue .= $row->locid ? $this->escape($row->venue) : '-';
-            }
+            endif;
                 $venue .= '</div>';
-				
-        } else {
+        else:
 			$venue = '';
-		}
+		endif;
         
-		$content = '<div class="cat'.$row->catid.'">';
+		$content = '<div class="cat'.$catid.'">';
 		//TODO: add color field to categories table
-		if ( isset ($row->color) && $row->color) {
+		/*
+		if ( isset ($row->color) && $row->color) :
           	$content .= '<span class="colorpic" style="background-color: '.$row->color.';"></span>';
-        }
-        
+        endif;
+        */
+		
 		$content .= $this->caltooltip($catname.$eventname.$timehtml.$venue, $eventdate, $row->title, $detaillink, 'eventTip');
     
         $content .= '</div>';
     
         $cal->setEventContent($year, $month, $day, $content);
-                
-		if (!array_key_exists($row->catid, $countcatevents)) {
-			$countcatevents[$row->catid] = 1;
-        } else {
-            $countcatevents[$row->catid]++;
-        }
-	}
+         
+        //TODO: Cuurently flawed cause of above foreach, does count only one from multiple categories
+		if (!array_key_exists($row->id, $countcatevents)) :
+			$countcatevents[$row->id] = 1;
+        else :
+            $countcatevents[$row->id]++;
+        endif;
+	endforeach;
     // print the calendar
     print ($cal->showMonth());
 ?>
@@ -128,22 +144,25 @@ defined('_JEXEC') or die ('Restricted access');
     <?php
     //print the legend
 	if($this->params->get('displayLegend')) :
-    	foreach ($this->categories as $cat) :
+	foreach ($this->rows as $row):
+    
+    	foreach ($row->categories as $cat) :
         	if (array_key_exists($cat->id, $countcatevents)):
     		?>
-    			<div class="eventCat" catid="<?php echo $cat->id; ?>">
+    			<div class="eventCat" id="<?php echo $cat->id; ?>">
         			<?php
-        			if ( isset ($cat->color) && $cat->color) {
+        			if ( isset ($cat->color) && $cat->color) :
             			echo '<span class="colorpic" style="background-color: '.$cat->color.';"></span>';
-        			}
+        			endif;
         			echo $cat->catname.' ('.$countcatevents[$cat->id].')';
         			?>
     			</div>
     		<?php 
 			endif;
     	endforeach;
+    endforeach;
 	endif;
     ?>
 </div>
 
-<div class="clr"/>
+<div class="clr"/></div>

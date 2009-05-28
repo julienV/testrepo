@@ -8,11 +8,7 @@
 	<state>
 		<name>CALENDAR LAYOUT</name>
 		<description>CALENDAR LAYOUT DESC</description>
-    <params>     
-      <param name="displayChilds" type="radio" default="0" label="DISPLAYCHILDS" description="DISPLAYCHILDSDESC">
-        <option value="0">No</option>
-        <option value="1">Yes</option>
-      </param>
+    <params>
 	  <param name="displayLegend" type="radio" default="1" label="DISPLAY LEGEND" description="DISPLAY LEGEND DESC">
         <option value="0">No</option>
         <option value="1">Yes</option>
