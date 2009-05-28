@@ -74,52 +74,15 @@ class EventListViewCalendar extends JView
         $model->setDate(mktime(0, 0, 1, $month, $day, $year));
 
         $rows = & $this->get('Data');
-        //$category = & $this->get('Category');
-       // $categories = & $this->get('Categories');
-		
-        //are events available?
-        if (!$rows)
-        {
-            $noevents = 1;
-        } else
-        {
-            $noevents = 0;
-        }
-
-        //does the category exist
-/*
-        if (!$category) // display all
-        {
-            //return JError::raiseError( 404, JText::sprintf( 'Category #%d not found', $category->id ) );
-            $category = new stdclass();
-            $category->id = 0;
-            $category->catname = JText::_('All categories');
-            $category->meta_keywords = '';
-            $category->meta_description = '';
-            $category->slug = '0';
-        }
 
         //Set Meta data
-        $document->setTitle($item->name.' - '.$category->catname);
+        $document->setTitle($item->name);
 
-        $document->setMetadata('keywords', $category->meta_keywords);
-        $document->setDescription(strip_tags($category->meta_description));
-*/
-        
         //Set Page title
         $pagetitle = $params->def('page_title', $item->name);
         $app->setPageTitle($pagetitle);
         $app->addMetaTag('title', $pagetitle);
-/*
-        //create the pathway
-        $cats = new eventlist_cats($category->id);
-        $parents = $cats->getParentlist();
 
-        foreach ($parents as $parent)
-        {
-            $pathway->addItem($this->escape($parent->catname), JRoute::_('index.php?view=calendar&id='.$parent->categoryslug));
-        }
-*/
         //create select lists
         $lists = $this->_buildFilterLists($elsettings);
 
@@ -127,14 +90,11 @@ class EventListViewCalendar extends JView
         $this->assign('action', $uri->toString());
 
         $this->assignRef('rows', $rows);
-        $this->assignRef('noevents', $noevents);
-    //    $this->assignRef('category', $category);
         $this->assignRef('params', $params);
         $this->assignRef('pagetitle', $pagetitle);
         $this->assignRef('task', $task);
         $this->assignRef('elsettings', $elsettings);
         $this->assignRef('item', $item);
-     //   $this->assignRef('categories', $categories);
 
         $this->assignRef('year', $year);
         $this->assignRef('month', $month);
