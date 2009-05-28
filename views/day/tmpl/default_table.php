@@ -107,7 +107,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				endif;
 				if ($this->elsettings->showcat == 1) :
 				?>
-				<th id="el_category" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->escape($this->elsettings->catfroname), 'c.catname', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th id="el_category" class="sectiontableheader" align="left"><?php echo $this->escape($this->elsettings->catfroname); ?></th>
 				<?php
 				endif;
 				?>

@@ -162,13 +162,20 @@ class EventListModelDay extends JModel
 				$this->_data = $this->_getList( $query, $pagination->limitstart, $pagination->limit );
 			}
 			
-			//get categories for each event
-      		$count = count($this->_data);
-      		for($i = 0; $i < $count; $i++)
-      		{
-        		$item =& $this->_data[$i];
-        		$item->categories = $this->getCategories($item->id);   
-      		}
+			$k = 0;
+			$count = count($this->_data);
+			for($i = 0; $i < $count; $i++)
+			{
+				$item =& $this->_data[$i];
+				$item->categories = $this->getCategories($item->id);
+				
+				//remove events without categories (users have no access to them)
+				if (empty($item->categories)) {
+					unset($this->_data[$i]);
+				} 
+				
+				$k = 1 - $k;
+			}
 		}
 
 		return $this->_data;
@@ -225,13 +232,9 @@ class EventListModelDay extends JModel
 		//Get Events from Database
 		$query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.created, a.locid, a.datdescription,'
 				. ' l.venue, l.city, l.state, l.url,'
-				. ' c.catname, c.id AS catid,'
 				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
-				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug,'
-				. ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as categoryslug'
+				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
 				. ' FROM #__eventlist_events AS a'
-        		. ' INNER JOIN #__eventlist_cats_event_relations AS rel ON a.id = rel.itemid'
-        		. ' INNER JOIN #__eventlist_categories AS c ON c.id = rel.catid'
 				. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
 				. $where
 				. $orderby
@@ -278,11 +281,8 @@ class EventListModelDay extends JModel
 
 		// First thing we need to do is to select only published events
 		$where = ' WHERE a.published = 1';
-
-		// Second is to only select events assigned to category the user has access to
-		$where .= ' AND c.access <= '.$gid;
 		
-		// Third is to only select events of the specified day
+		// Second is to only select events of the specified day
 		$where .= ' AND (\''.$this->_date.'\' BETWEEN (a.dates) AND (IF (a.enddates >= a.dates, a.enddates, a.dates)) OR \''.$this->_date.'\' = a.dates)';
 
 		/*
@@ -313,10 +313,6 @@ class EventListModelDay extends JModel
 
 					case 'city' :
 						$where .= ' AND LOWER( l.city ) LIKE '.$filter;
-						break;
-						
-					case 'type' :
-						$where .= ' AND LOWER( c.catname ) LIKE '.$filter;
 						break;
 				}
 			}
