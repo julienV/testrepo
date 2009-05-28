@@ -735,8 +735,8 @@ function mkUrl( $year, $month=false, $day=false )
 	else {
 		$glueNav="&amp;";
 	}
-  $yearNavLink = "<a href=\"".JROUTE::_($this->urlNav.$glueNav.$this->yearID."=".$year)."\">";
-  $monthNavLink = "<a href=\"".JROUTE::_($this->urlNav.$glueNav.$this->yearID."=".$year."&amp;".$this->monthID."=".$month)."\">";
+  $yearNavLink = "<a href=\"".JROUTE::_($this->urlNav.$glueNav.$this->yearID."=".$year)."\" rel=\"noindex, nofollow\">";
+  $monthNavLink = "<a href=\"".JROUTE::_($this->urlNav.$glueNav.$this->yearID."=".$year."&amp;".$this->monthID."=".$month)."\" rel=\"noindex, nofollow\">";
   $dayLink = "<a href=\"".JROUTE::_($this->url.$glue.$this->yearID."=".$year."&amp;".$this->monthID."=".$month."&amp;".$this->dayID."=".$day)."\">".$day."</a>";
 	if ($year && $month && $day) return $dayLink;
 	if ($year && !$month && !$day) return $yearNavLink;
