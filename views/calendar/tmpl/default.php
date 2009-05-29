@@ -146,7 +146,7 @@ defined('_JEXEC') or die ('Restricted access');
     <?php
     //print the legend
 	if($this->params->get('displayLegend')) :
-	var_dump($countcatevents);
+
 	foreach ($this->rows as $row):
     	//TODO: ugly see above comment when reworking
 		$catsreversed = array_reverse($row->categories);
