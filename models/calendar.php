@@ -283,7 +283,7 @@ class EventListModelCalendar extends JModel
         $gid = (int)$user->get('aid');
 
         
-        $query = 'SELECT c.id, c.catname, c.access, c.color, c. published, c.checked_out AS cchecked_out,'
+        $query = 'SELECT c.id, c.catname, c.access, c.color, c.published, c.checked_out AS cchecked_out,'
         . ' CASE WHEN CHAR_LENGTH(c.alias) THEN CONCAT_WS(\':\', c.id, c.alias) ELSE c.id END as catslug'
         . ' FROM #__eventlist_categories AS c'
         . ' LEFT JOIN #__eventlist_cats_event_relations AS rel ON rel.catid = c.id'

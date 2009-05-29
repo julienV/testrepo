@@ -84,8 +84,16 @@ defined('_JEXEC') or die ('Restricted access');
 			$ix++;
 			if ($ix != $nr) :
 				$multicatname .= ', ';
-			endif;			
+			endif;
+
        	endforeach;
+       	
+       	//TODO improve: assign catid, only one id for multiassign events
+       	if (!array_key_exists($catid, $countcatevents)) :
+			$countcatevents[$catid] = 1;
+        else :
+            $countcatevents[$catid]++;
+        endif;
        	
        	$catname = '<div class="catname">'.$multicatname.'</div>';
        	
@@ -93,7 +101,7 @@ defined('_JEXEC') or die ('Restricted access');
     
         // venue
         if ($this->elsettings->showlocate == 1) :
-            $venue = '<div class="location"><span class="label">'.JTEXT::_('Venue').': </span>';
+            $venue = '<div class="location"><span class="label">'.JText::_('VENUE').': </span>';
             
 			if ($this->elsettings->showlinkvenue == 1 && 0) :
                 $venue .= $row->locid != 0 ? "<a href='".JRoute::_('index.php?view=venueevents&id='.$row->venueslug)."'>".$this->escape($row->venue)."</a>" : '-';
@@ -106,26 +114,20 @@ defined('_JEXEC') or die ('Restricted access');
 		endif;
         
 		$content = '<div class="cat'.$catid.'">';
-		//TODO: add color field to categories table
-		/*
-		if ( isset ($row->color) && $row->color) :
-          	$content .= '<span class="colorpic" style="background-color: '.$row->color.';"></span>';
+
+		if ( isset ($category->color) && $category->color && $nr == 1) :
+          	$content .= '<span class="colorpic" style="background-color: '.$category->color.';"></span>';
         endif;
-        */
+        
 		
 		$content .= $this->caltooltip($catname.$eventname.$timehtml.$venue, $eventdate, $row->title, $detaillink, 'eventTip');
     
         $content .= '</div>';
     
         $cal->setEventContent($year, $month, $day, $content);
-         
-        //TODO: Cuurently flawed cause of above foreach, does count only one from multiple categories
-		if (!array_key_exists($row->id, $countcatevents)) :
-			$countcatevents[$row->id] = 1;
-        else :
-            $countcatevents[$row->id]++;
-        endif;
+        
 	endforeach;
+		
     // print the calendar
     print ($cal->showMonth());
 ?>
@@ -144,12 +146,16 @@ defined('_JEXEC') or die ('Restricted access');
     <?php
     //print the legend
 	if($this->params->get('displayLegend')) :
+	var_dump($countcatevents);
 	foreach ($this->rows as $row):
-    
-    	foreach ($row->categories as $cat) :
+    	//TODO: ugly see above comment when reworking
+		$catsreversed = array_reverse($row->categories);
+
+    	foreach ($catsreversed as $cat) :
+    		
         	if (array_key_exists($cat->id, $countcatevents)):
     		?>
-    			<div class="eventCat" id="<?php echo $cat->id; ?>">
+    			<div class="eventCat" catid="<?php echo $cat->id; ?>">
         			<?php
         			if ( isset ($cat->color) && $cat->color) :
             			echo '<span class="colorpic" style="background-color: '.$cat->color.';"></span>';
@@ -157,9 +163,14 @@ defined('_JEXEC') or die ('Restricted access');
         			echo $cat->catname.' ('.$countcatevents[$cat->id].')';
         			?>
     			</div>
-    		<?php 
+    		<?php
+    		//stop after first match, can't support multiassign cats currently
+    		break;
+    		
 			endif;
+			
     	endforeach;
+    	
     endforeach;
 	endif;
     ?>
