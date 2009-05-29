@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 1.1 $Id: default.php 668 2008-05-12 14:32:13Z schlu $
+ * @version 1.1 $Id$
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2009 Christoph Lukes
@@ -146,15 +146,16 @@ defined('_JEXEC') or die ('Restricted access');
     <?php
     //print the legend
 	if($this->params->get('displayLegend')) :
-	
+
 	foreach ($this->rows as $row):
     	//TODO: ugly see above comment when reworking
 		$catsreversed = array_reverse($row->categories);
-
+		
     	foreach ($catsreversed as $cat) :
 
         	if (array_key_exists($cat->id, $countcatevents)):
     		?>
+    			
     			<div class="eventCat" catid="<?php echo $cat->id; ?>">
         			<?php
         			if ( isset ($cat->color) && $cat->color) :
@@ -163,12 +164,9 @@ defined('_JEXEC') or die ('Restricted access');
         			echo $cat->catname.' ('.$countcatevents[$cat->id].')';
         			?>
     			</div>
-    		<?php    		
+    		<?php
 			endif;
-			
-			//stop after first match, can't support multiassign cats currently
-    		break;
-			
+						
     	endforeach;
     	
     endforeach;

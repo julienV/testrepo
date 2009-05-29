@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 1.1 $Id: view.html.php 700 2008-06-23 10:25:10Z julienv $
+ * @version 1.1 $Id$
  * @package Joomla
  * @subpackage EventList
  * @copyright (C) 2005 - 2009 Christoph Lukes
