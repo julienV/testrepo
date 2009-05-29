@@ -77,9 +77,6 @@ class EventListModelCalendar extends JModel
 
         $app = & JFactory::getApplication();
 
-        $id = JRequest::getInt('id');
-        $this->setId((int)$id);
-
         $this->setdate(time());
 
         // Get the paramaters of the active menu item
@@ -89,19 +86,6 @@ class EventListModelCalendar extends JModel
     function setdate($date)
     {
         $this->_date = $date;
-    }
-
-    /**
-     * Method to set the category id
-     *
-     * @access	public
-     * @param	int	category ID number
-     */
-    function setId($id)
-    {
-        // Set new category ID and wipe data
-        $this->_id = $id;
-        $this->_data = null;
     }
 
     /**
@@ -119,21 +103,50 @@ class EventListModelCalendar extends JModel
             $query = $this->_buildQuery();
             $this->_data = $this->_getList( $query );
 
-        	$k = 0;
-			$count = count($this->_data);
-			for($i = 0; $i < $count; $i++)
+            $multi = array();
+
+			foreach($this->_data as $item)
 			{
-				$item =& $this->_data[$i];
+				
 				$item->categories = $this->getCategories($item->id);
-			
+				
+				if(!is_null($item->enddates) ) {
+					if( $item->enddates != $item->dates) {
+					
+						$day = $item->start_day;
+
+						for ($counter = 0; $counter <= $item->datediff-1; $counter++)
+						{
+							$day++;
+						
+							//next day:
+							$nextday = mktime(0, 0, 0, $item->start_month, $day, $item->start_year);
+							//echo strftime('%Y-%m-%d', $nextday).' - ';
+							
+							//ensure we only generate days of current month
+							if (strftime('%m', $this->_date) == strftime('%m', $nextday)) {
+								$multi[$counter] = clone $item;
+								$multi[$counter]->dates = strftime('%Y-%m-%d', $nextday);
+								
+								//add generated days to data
+								$this->_data = array_merge($this->_data, $multi);
+							}
+							//unset temp array holding generated days before working on the next multiday event
+							unset($multi);
+						}
+						//$this->_data = array_merge($this->_data, $multi);
+					}
+				}
+
 				//remove events without categories (users have no access to them)
 				if (empty($item->categories)) {
-					unset($this->_data[$i]);
+					unset($item);
 				}
-				
-				$k = 1 - $k;
 			}
-        }
+			
+			//$this->_data = array_merge($this->_data, $multi);
+
+		}
 
         return $this->_data;
     }
@@ -187,7 +200,8 @@ class EventListModelCalendar extends JModel
 		$orderby = $this->_buildCategoryOrderby();
 
         //Get Events from Database
-        $query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.venue, l.city, l.state, l.url,'
+        $query = 'SELECT DATEDIFF(a.enddates, a.dates) AS datediff, a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.locid, a.datdescription, a.created, l.venue, l.city, l.state, l.url,'
+        .' DAYOFMONTH(a.dates) AS start_day, YEAR(a.dates) AS start_year, MONTH(a.dates) AS start_month,'
         .' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
         .' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
         .' FROM #__eventlist_events AS a'
@@ -223,11 +237,15 @@ class EventListModelCalendar extends JModel
             $where = ' WHERE a.published = 1 ';
         }
 
-        // only select events within specified dates.
+        // only select events within specified dates. (chosen month)
         $monthstart = mktime(0, 0, 1, strftime('%m', $this->_date), 1, strftime('%Y', $this->_date));
         $monthend = mktime(0, 0, -1, strftime('%m', $this->_date)+1, 1, strftime('%Y', $this->_date));
-        $where .= ' AND a.dates >= "'.strftime('%Y-%m-%d', $monthstart).'"';
-        $where .= ' AND a.dates <= "'.strftime('%Y-%m-%d', $monthend).'"';
+        
+        //$where .= ' AND a.dates >= "'.strftime('%Y-%m-%d', $monthstart).'"';
+        //$where .= ' AND a.dates <= "'.strftime('%Y-%m-%d', $monthend).'"';
+        
+        $where .= ' AND (a.dates BETWEEN (\''.strftime('%Y-%m-%d', $monthstart).'\') AND (\''.strftime('%Y-%m-%d', $monthend).'\'))';
+        $where .= ' OR (a.enddates BETWEEN (\''.strftime('%Y-%m-%d', $monthstart).'\') AND (\''.strftime('%Y-%m-%d', $monthend).'\'))';
 
         /*
          * If we have a filter, and this is enabled... lets tack the AND clause
