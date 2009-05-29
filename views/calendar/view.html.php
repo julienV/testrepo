@@ -22,7 +22,6 @@ defined('_JEXEC') or die ('Restricted access');
 
 jimport('joomla.application.component.view');
 
-require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'categories.class.php');
 require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'calendar.class.php');
 
 /**
