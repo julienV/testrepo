@@ -68,8 +68,10 @@ defined('_JEXEC') or die ('Restricted access');
         $eventname = '<div class="eventName">'.$this->escape($row->title).'</div>';
 
         $multicatname = '';
+        $colorpic = '';
         $nr = count($row->categories);
-		$ix = 0; 
+		$ix = 0;
+		
         foreach($row->categories AS $category) :
         	//TODO: currently only one id possible...so simply just pick one up...
         	$detaillink 	= JRoute::_('index.php?view=details&cid='.$category->catslug.'&id='.$row->slug);
@@ -85,6 +87,10 @@ defined('_JEXEC') or die ('Restricted access');
 			if ($ix != $nr) :
 				$multicatname .= ', ';
 			endif;
+			
+			if ( isset ($category->color) && $category->color) :
+          		$colorpic .= '<span class="colorpic" style="background-color: '.$category->color.';"></span>';
+        	endif;
 
        	endforeach;
        	
@@ -114,14 +120,8 @@ defined('_JEXEC') or die ('Restricted access');
 		endif;
         
 		$content = '<div class="cat'.$catid.'">';
-
-		if ( isset ($category->color) && $category->color && $nr == 1) :
-          	$content .= '<span class="colorpic" style="background-color: '.$category->color.';"></span>';
-        endif;
-        
-		
+		$content .= $colorpic;       
 		$content .= $this->caltooltip($catname.$eventname.$timehtml.$venue, $eventdate, $row->title, $detaillink, 'eventTip');
-    
         $content .= '</div>';
     
         $cal->setEventContent($year, $month, $day, $content);
@@ -146,13 +146,13 @@ defined('_JEXEC') or die ('Restricted access');
     <?php
     //print the legend
 	if($this->params->get('displayLegend')) :
-
+	
 	foreach ($this->rows as $row):
     	//TODO: ugly see above comment when reworking
 		$catsreversed = array_reverse($row->categories);
 
     	foreach ($catsreversed as $cat) :
-    		
+
         	if (array_key_exists($cat->id, $countcatevents)):
     		?>
     			<div class="eventCat" catid="<?php echo $cat->id; ?>">
@@ -163,11 +163,11 @@ defined('_JEXEC') or die ('Restricted access');
         			echo $cat->catname.' ('.$countcatevents[$cat->id].')';
         			?>
     			</div>
-    		<?php
-    		//stop after first match, can't support multiassign cats currently
-    		break;
-    		
+    		<?php    		
 			endif;
+			
+			//stop after first match, can't support multiassign cats currently
+    		break;
 			
     	endforeach;
     	

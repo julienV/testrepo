@@ -94,7 +94,7 @@ class EventListModelCalendar extends JModel
      * @access public
      * @return array
      */
-    function & getData()
+    function &getData()
     {
 
         // Lets load the content if it doesn't already exist
@@ -121,7 +121,6 @@ class EventListModelCalendar extends JModel
 						
 							//next day:
 							$nextday = mktime(0, 0, 0, $item->start_month, $day, $item->start_year);
-							//echo strftime('%Y-%m-%d', $nextday).' - ';
 							
 							//ensure we only generate days of current month
 							if (strftime('%m', $this->_date) == strftime('%m', $nextday)) {
@@ -134,7 +133,6 @@ class EventListModelCalendar extends JModel
 							//unset temp array holding generated days before working on the next multiday event
 							unset($multi);
 						}
-						//$this->_data = array_merge($this->_data, $multi);
 					}
 				}
 
@@ -143,9 +141,6 @@ class EventListModelCalendar extends JModel
 					unset($item);
 				}
 			}
-			
-			//$this->_data = array_merge($this->_data, $multi);
-
 		}
 
         return $this->_data;
