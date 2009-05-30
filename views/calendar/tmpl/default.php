@@ -136,26 +136,38 @@ defined('_JEXEC') or die ('Restricted access');
     <?php
     //print the legend
 	if($this->params->get('displayLegend')) :
+	
+	$array = array();
 
 	foreach ($this->rows as $row):
-    	//TODO: ugly see above comment when reworking
+    	//TODO: ugly see above comment when reworking multiassign
 		$catsreversed = array_reverse($row->categories);
 		
     	foreach ($catsreversed as $cat) :
-
-        	if (array_key_exists($cat->id, $countcatevents)):
-    		?>
+    	
+    		//sort out dupes
+    		if(!in_array($cat->id, $array)):
+    	
+    			$array[] = $cat->id;
+    		
+        		if (array_key_exists($cat->id, $countcatevents)):
+    			?>
     			
-    			<div class="eventCat" catid="<?php echo $cat->id; ?>">
-        			<?php
-        			if ( isset ($cat->color) && $cat->color) :
-            			echo '<span class="colorpic" style="background-color: '.$cat->color.';"></span>';
-        			endif;
-        			echo $cat->catname.' ('.$countcatevents[$cat->id].')';
-        			?>
-    			</div>
-    		<?php
+    				<div class="eventCat" catid="<?php echo $cat->id; ?>">
+        				<?php
+        				if ( isset ($cat->color) && $cat->color) :
+            				echo '<span class="colorpic" style="background-color: '.$cat->color.';"></span>';
+        				endif;
+        				echo $cat->catname.' ('.$countcatevents[$cat->id].')';
+        				?>
+    				</div>
+    			<?php
+				endif;
+			
 			endif;
+			
+			//stop after first categories and don't list multicats
+			break;
 						
     	endforeach;
     	
