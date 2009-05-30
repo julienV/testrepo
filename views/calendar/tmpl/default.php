@@ -148,8 +148,6 @@ defined('_JEXEC') or die ('Restricted access');
 	
 	$counter = array();
 	
-	var_dump($this->rows);
-	
 	//walk through events
 	foreach ($this->rows as $row):
 		
