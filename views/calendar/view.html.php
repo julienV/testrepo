@@ -46,29 +46,27 @@ class EventListViewCalendar extends JView
         JHTML::_('behavior.tooltip');
 
         //initialize variables
-        $document = & JFactory::getDocument();
-        $menu = & JSite::getMenu();
+        $document 	= & JFactory::getDocument();
+        $menu 		= & JSite::getMenu();
         $elsettings = & ELHelper::config();
-        $item = $menu->getActive();
-        $params = & $app->getParams();
-        $uri = & JFactory::getURI();
-        $pathway = & $app->getPathWay();
+        $item 		= $menu->getActive();
+        $params 	= & $app->getParams();
+        $uri 		= & JFactory::getURI();
+        $pathway 	= & $app->getPathWay();
 
         //add css file
         $document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlist.css');
         $document->addCustomTag('<!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->');
         $document->addStyleSheet($this->baseurl.'/components/com_eventlist/assets/css/eventlistcalendar.css');
+        
         // add javascript
         $document->addScript($this->baseurl.'/components/com_eventlist/assets/js/calendar.js');
 
+        $year 	= intval(JRequest::getVar('yearID', strftime("%Y")));
+        $month 	= intval(JRequest::getVar('monthID', strftime("%m")));
+        $day 	= intval(JRequest::getVar('dayID', strftime("%d")));
 
-        $task = JRequest::getWord('task');
-
-        $year = intval(JRequest::getVar('yearID', strftime("%Y")));
-        $month = intval(JRequest::getVar('monthID', strftime("%m")));
-        $day = intval(JRequest::getVar('dayID', strftime("%d")));
-
-        //get data from model
+        //get data from model and set the month
         $model = & $this->getModel();
         $model->setDate(mktime(0, 0, 1, $month, $day, $year));
 
@@ -82,66 +80,21 @@ class EventListViewCalendar extends JView
         $app->setPageTitle($pagetitle);
         $app->addMetaTag('title', $pagetitle);
 
-        //create select lists
-        $lists = $this->_buildFilterLists($elsettings);
-
         //init calendar
 		$cal = new ELCalendar($year, $month, 0, $app->getCfg('offset'));
 		$cal->enableMonthNav('index.php?view=calendar');
 		$cal->setFirstWeekDay($params->get('firstweekday', 1));
 		$cal->enableDayLinks(false);
 
-        $this->assign('lists', 			$lists);
-        $this->assign('action', 		$uri->toString());
-
         $this->assignRef('rows', 		$rows);
         $this->assignRef('params', 		$params);
         $this->assignRef('pagetitle', 	$pagetitle);
-        $this->assignRef('task', 		$task);
         $this->assignRef('elsettings', 	$elsettings);
-        $this->assignRef('item', 		$item);
         $this->assignRef('cal', 		$cal);
 
         parent::display($tpl);
     }
 
-    /**
-     * Manipulate Data
-     *
-     * @since 0.9
-     */
-    function & getRows()
-    {
-        $count = count($this->rows);
-
-        if (!$count)
-        {
-            return;
-        }
-
-        $k = 0;
-        foreach ($this->rows as $key=>$row)
-        {
-            $row->odd = $k;
-
-            $this->rows[$key] = $row;
-            $k = 1-$k;
-        }
-
-        return $this->rows;
-    }
-
-    function _buildFilterLists($elsettings)
-    {
-        $filter = JRequest::getString('filter');
-        $filter_type = JRequest::getString('filter_type');
-
-        $lists['filter'] = $filter;
-        $lists['filter_type'] = $filter_type;
-
-        return $lists;
-    }
-	
 	/**
      * Creates a tooltip
      *

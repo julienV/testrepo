@@ -32,12 +32,12 @@ defined('_JEXEC') or die ('Restricted access');
     
     foreach ($this->rows as $row) :
     
-        // get event date
+        //get event date
         $year = strftime('%Y', strtotime($row->dates));
         $month = strftime('%m', strtotime($row->dates));
         $day = strftime('%d', strtotime($row->dates));
     
-        // for time printing
+        //for time printing
         $timehtml = '';
         
 		if ($this->elsettings->showtime == 1) :
@@ -57,19 +57,27 @@ defined('_JEXEC') or die ('Restricted access');
     
         $eventname = '<div class="eventName">'.$this->escape($row->title).'</div>';
 
+        //initialize variables
         $multicatname = '';
         $colorpic = '';
         $nr = count($row->categories);
 		$ix = 0;
+		$content = '';
+		$contentend = '';
 		
+		//walk through categories assigned to an event
         foreach($row->categories AS $category) :
-        	//TODO: currently only one id possible...so simply just pick one up...
+        
+        	//Currently only one id possible...so simply just pick one up...
         	$detaillink 	= JRoute::_('index.php?view=details&cid='.$category->catslug.'&id='.$row->slug);
-        	$catid			= $category->id;
+			
+        	//wrap a div for each category around the event for show hide toggler
+        	$content 		.= '<div class="cat'.$category->id.'">';
+        	$contentend		.= '</div>';
         	
-        	$catcolor 		= $category->color;
-        	if ($catcolor):
-        		$multicatname .= '<span class="colorpic" style="background-color: '.$catcolor.';"></span>'.$category->catname;
+        	//attach category color if any in front of the catname
+        	if ($category->color):
+        		$multicatname .= '<span class="colorpic" style="background-color: '.$category->color.';"></span>'.$category->catname;
         	else:
 				$multicatname 	.= $category->catname;
 			endif;
@@ -78,24 +86,25 @@ defined('_JEXEC') or die ('Restricted access');
 				$multicatname .= ', ';
 			endif;
 			
+			//attach category color if any in front of the event title in the calendar overview
 			if ( isset ($category->color) && $category->color) :
           		$colorpic .= '<span class="colorpic" style="background-color: '.$category->color.';"></span>';
         	endif;
+			
+        	//count occurence of the category
+       		if (!array_key_exists($category->id, $countcatevents)) :
+				$countcatevents[$category->id] = 1;
+        	else :
+            	$countcatevents[$category->id]++;
+        	endif;
 
        	endforeach;
-       	
-       	//TODO improve: assign catid, only one id for multiassign events
-       	if (!array_key_exists($catid, $countcatevents)) :
-			$countcatevents[$catid] = 1;
-        else :
-            $countcatevents[$catid]++;
-        endif;
        	
        	$catname = '<div class="catname">'.$multicatname.'</div>';
        	
         $eventdate = ELOutput::formatdate($row->dates, $row->times);
     
-        // venue
+        //venue
         if ($this->elsettings->showlocate == 1) :
             $venue = '<div class="location"><span class="label">'.JText::_('VENUE').': </span>';
             
@@ -109,10 +118,10 @@ defined('_JEXEC') or die ('Restricted access');
 			$venue = '';
 		endif;
         
-		$content = '<div class="cat'.$catid.'">';
+		//generate the output
 		$content .= $colorpic;       
 		$content .= $this->caltooltip($catname.$eventname.$timehtml.$venue, $eventdate, $row->title, $detaillink, 'eventTip');
-        $content .= '</div>';
+       	$content	.= $contentend;
     
         $this->cal->setEventContent($year, $month, $day, $content);
         
@@ -137,19 +146,23 @@ defined('_JEXEC') or die ('Restricted access');
     //print the legend
 	if($this->params->get('displayLegend')) :
 	
-	$array = array();
-
+	$counter = array();
+	
+	var_dump($this->rows);
+	
+	//walk through events
 	foreach ($this->rows as $row):
-    	//TODO: ugly see above comment when reworking multiassign
-		$catsreversed = array_reverse($row->categories);
 		
-    	foreach ($catsreversed as $cat) :
+		//walk through the event categories
+    	foreach ($row->categories as $cat) :
     	
     		//sort out dupes
-    		if(!in_array($cat->id, $array)):
+    		if(!in_array($cat->id, $counter)):
     	
-    			$array[] = $cat->id;
+    			//add cat id to cat counter
+    			$counter[] = $cat->id;
     		
+    			//build legend
         		if (array_key_exists($cat->id, $countcatevents)):
     			?>
     			
@@ -165,9 +178,6 @@ defined('_JEXEC') or die ('Restricted access');
 				endif;
 			
 			endif;
-			
-			//stop after first categories and don't list multicats
-			break;
 						
     	endforeach;
     	
