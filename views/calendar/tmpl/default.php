@@ -28,16 +28,6 @@ defined('_JEXEC') or die ('Restricted access');
     <?php endif; ?>
 	
 <?php
-    //TODO: move to a helper    
-    require_once (JPATH_COMPONENT_SITE.DS.'classes'.DS.'calendar.class.php');
-    
-    $app = & JFactory::getApplication();
-    
-    $cal = new ELCalendar($this->year, $this->month, 0, $app->getCfg('offset'));
-    $cal->enableMonthNav('index.php?view=calendar');
-    $cal->setFirstWeekDay($this->params->get('firstweekday', 1));
-    $cal->enableDayLinks(false);
-    
     $countcatevents = array ();
     
     foreach ($this->rows as $row) :
@@ -124,12 +114,12 @@ defined('_JEXEC') or die ('Restricted access');
 		$content .= $this->caltooltip($catname.$eventname.$timehtml.$venue, $eventdate, $row->title, $detaillink, 'eventTip');
         $content .= '</div>';
     
-        $cal->setEventContent($year, $month, $day, $content);
+        $this->cal->setEventContent($year, $month, $day, $content);
         
 	endforeach;
-		
+	
     // print the calendar
-    print ($cal->showMonth());
+    print ($this->cal->showMonth());
 ?>
 </div>
 

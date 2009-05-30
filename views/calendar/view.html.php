@@ -85,19 +85,22 @@ class EventListViewCalendar extends JView
         //create select lists
         $lists = $this->_buildFilterLists($elsettings);
 
-        $this->assign('lists', $lists);
-        $this->assign('action', $uri->toString());
+        //init calendar
+		$cal = new ELCalendar($year, $month, 0, $app->getCfg('offset'));
+		$cal->enableMonthNav('index.php?view=calendar');
+		$cal->setFirstWeekDay($params->get('firstweekday', 1));
+		$cal->enableDayLinks(false);
 
-        $this->assignRef('rows', $rows);
-        $this->assignRef('params', $params);
-        $this->assignRef('pagetitle', $pagetitle);
-        $this->assignRef('task', $task);
-        $this->assignRef('elsettings', $elsettings);
-        $this->assignRef('item', $item);
+        $this->assign('lists', 			$lists);
+        $this->assign('action', 		$uri->toString());
 
-        $this->assignRef('year', $year);
-        $this->assignRef('month', $month);
-        $this->assignRef('day', $day);
+        $this->assignRef('rows', 		$rows);
+        $this->assignRef('params', 		$params);
+        $this->assignRef('pagetitle', 	$pagetitle);
+        $this->assignRef('task', 		$task);
+        $this->assignRef('elsettings', 	$elsettings);
+        $this->assignRef('item', 		$item);
+        $this->assignRef('cal', 		$cal);
 
         parent::display($tpl);
     }
