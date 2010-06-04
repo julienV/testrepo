@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<install type="language" version="1.5.4" client="both" method="upgrade">
+	<name>EventList Danish</name>
+	<tag>da-DK</tag>
+	<creationDate>2008-07-10</creationDate>
+	<author>Burnbow</author>
+	<authorEmail>example@example.net</authorEmail>
+    	<authorUrl>www.example.net</authorUrl>
+	<copyright>(C) 2005 - 2008 Christoph Lukes</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<description>Danish language pack for EventList</description>
+
+	<administration>
+		<files folder="admin">
+			<filename>da-DK.com_eventlist.ini</filename>
+		</files>
+	</administration>
+  
+	<site>
+		<files folder="site">
+			<filename>da-DK.com_eventlist.ini</filename>
+  		</files>
+	</site>
+</install>

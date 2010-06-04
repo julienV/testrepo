@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<install method="upgrade" version="1.5" client="site" type="language">
+    <name>EventList Romanian</name>
+    <version>0.9.2</version>
+    <creationDate>2008-04-24</creationDate>
+    <author>Arthur</author>
+    <authorEmail>info@fcupoli.com</authorEmail>
+    <authorUrl>cauta.net</authorUrl>
+    <copyright>(C) 2005 - 2008 Christoph Lukes</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <description>Romanian language pack for EventList - site application</description>
+    <tag>ro-RO</tag>
+    <files>
+        <filename>ro-RO.com_eventlist.ini</filename>
+    </files>
+</install>

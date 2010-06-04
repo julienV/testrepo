@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<install type="language" version="1.5.4" client="both" method="upgrade">
+	<name>EventList Catalan</name>
+	<tag>ca-AD</tag>
+	<creationDate>2008-07-10</creationDate>
+	<author>Marc Antonijoan</author>
+	<authorEmail>example@example.net</authorEmail>
+	<authorUrl>www.example.com</authorUrl>
+	<copyright>(C) 2005 - 2008 Christoph Lukes</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<description>Catalan language pack for EventList</description>
+
+	<administration>
+		<files folder="admin">
+			<filename>ca-AD.com_eventlist.ini</filename>
+		</files>
+	</administration>
+  
+	<site>
+		<files folder="site">
+			<filename>ca-AD.com_eventlist.ini</filename>
+  		</files>
+	</site>
+</install>

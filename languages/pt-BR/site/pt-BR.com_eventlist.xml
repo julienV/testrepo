@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<install method="upgrade" version="1.5" client="site" type="language">
+    <name>EventList Português-Brasil</name>
+    <version>0.9.2</version>
+    <creationDate>2008-04-15</creationDate>
+    <author>Tacio Philip</author>
+    <authorEmail>use@meu.site.com</authorEmail>
+    <authorUrl>www.tacio.com.br</authorUrl>
+    <copyright>(C) 2008 Tacio Philip</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <description>Brazilian portugueses language pack for EventList - site application</description>
+    <tag>pt-BR</tag>
+    <files>
+        <filename>pt-BR.com_eventlist.ini</filename>
+    </files>
+</install>

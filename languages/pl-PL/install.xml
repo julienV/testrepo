@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<install type="language" version="1.5.4" client="both" method="upgrade">
+	<name>EventList Polish</name>
+	<tag>pl-PL</tag>
+	<creationDate>2008-07-22</creationDate>
+	<author>izqa</author>
+	<authorEmail>example@example.net</authorEmail>
+	<authorUrl>www.example.net</authorUrl>
+	<copyright>(C) 2005 - 2008 Christoph Lukes</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<description>Polish language pack for EventList</description>
+
+	<administration>
+		<files folder="admin">
+			<filename>pl-PL.com_eventlist.ini</filename>
+		</files>
+	</administration>
+  
+	<site>
+		<files folder="site">
+			<filename>pl-PL.com_eventlist.ini</filename>
+  		</files>
+	</site>
+</install>

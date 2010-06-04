@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<install type="language" version="1.5.4" client="both" method="upgrade">
+	<name>EventList French</name>
+	<tag>fr-FR</tag>
+	<creationDate>2008-07-10</creationDate>
+	<author>Stephan Neubauer</author>
+	<authorEmail>example@example.net</authorEmail>
+	<authorUrl>www.example.net</authorUrl>
+	<copyright>(C) 2005 - 2008 Christoph Lukes</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<description>French language Pack</description>
+
+	<administration>
+		<files folder="admin">
+			<filename>fr-FR.com_eventlist.ini</filename>
+		</files>
+	</administration>
+  
+	<site>
+		<files folder="site">
+			<filename>fr-FR.com_eventlist.ini</filename>
+  		</files>
+	</site>
+</install>

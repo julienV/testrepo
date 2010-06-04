@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<install type="language" version="1.5.4" client="both" method="upgrade">
+	<name>EventList Dutch</name>
+	<tag>nl-NL</tag>
+	<creationDate>2008-07-23</creationDate>
+	<author>Marijke Stuivenberg</author>
+	<authorEmail>taal@dutchjoomla.org</authorEmail>
+	<authorUrl>www.dutchjoomla.org</authorUrl>
+	<copyright>(C) 2005 - 2008 Christoph Lukes</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<description>Dutch language pack for EventList</description>
+
+	<administration>
+		<files folder="admin">
+			<filename>nl-NL.com_eventlist.ini</filename>
+		</files>
+	</administration>
+  
+	<site>
+		<files folder="site">
+			<filename>nl-NL.com_eventlist.ini</filename>
+  		</files>
+	</site>
+</install>

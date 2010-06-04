@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<install type="language" version="1.5.9" client="both" method="upgrade">
+	<name>EventList Finnish</name>
+	<tag>fi-FI</tag>
+	<creationDate>2009-02-07</creationDate>
+	<author>Sami Haaranen</author>
+	<authorEmail>mortti@joomlaportal.fi</authorEmail>
+	<authorUrl>www.joomlaportal.fi</authorUrl>
+	<copyright>(C) 2005 - 2009 Christoph Lukes</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<description>Suomenkielinen käännös EventList lisäosaan</description>
+
+	<administration>
+		<files folder="admin">
+			<filename>fi-FI.com_eventlist.ini</filename>
+		</files>
+	</administration>
+  
+	<site>
+		<files folder="site">
+			<filename>fi-FI.com_eventlist.ini</filename>
+  		</files>
+	</site>
+</install>
