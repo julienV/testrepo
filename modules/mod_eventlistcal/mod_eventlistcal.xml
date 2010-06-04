@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0">
+	<name>EventList-Calendarmodule</name>
+	<creationDate>December 2007</creationDate>
+	<author>Christoph Lukes/Keith Devens/Dany Gielow</author>
+	<copyright>GNU General Public License 2</copyright>	 
+	<authorEmail>schlu@schlu.net</authorEmail>
+	<authorUrl>http://www.schlu.net</authorUrl>
+	<version>0.9</version>
+	<description>EventList Calendar Modul</description>
+	<files>
+		<filename module="mod_eventlistcal">mod_eventlistcal.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<params>
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="A suffix to be applied to the css class of the module (table.moduletable), this allows individual module styling" />
+        <param name="day_name_length" type="list" default="2" label="Length of the Dayname" description="Select if you want to display the full dayname or a short version">
+			<option value="0">Don't display days</option>
+			<option value="1">One letter</option>
+			<option value="2">Two letters</option>
+			<option value="3">Three letters</option>
+			<option value="4">Full name</option>
+		</param>
+		<param name="first_day" type="list" default="1" label="Start week" description="Start the week at sunday or monday">
+			<option value="0">Sunday</option>
+			<option value="1">Monday</option>
+		</param>
+		<param name="Year_length" type="radio" default="1" label="Year Length" description="Select to show 2 or 4 letters">
+			<option value="0">Two</option>
+			<option value="1">Four</option>
+		</param>
+		<param name="Month_length" type="radio" default="0" label="Short month name?" description="Select if you wish to display the full month name or not.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="todayback" type="text" default="#CCCCCC" label="Todays Background" description="Background for todays date eg. #CCCCCC" />
+		<param name="todayfontcolor" type="text" default="#000000" label="Todays Font Color" description="Font Color for todays date eg. #000000" />
+	</params>
+</install>
