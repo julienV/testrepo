@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="Calendar Layout">
+		<message>
+			<![CDATA[CALENDAR LAYOUT DESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>CALENDAR LAYOUT</name>
+		<description>CALENDAR LAYOUT DESC</description>
+		<params addpath="/administrator/components/com_eventlist/elements">
+	  	<param name="displayLegend" type="radio" default="1" label="DISPLAY LEGEND" description="DISPLAY LEGEND DESC">
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </param>
+	  	<param name="show_only_start" type="radio" default="1" label="SHOW ONLY START DAY" description="SHOW ONLY START DAY DESC">
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </param>
+      <param name="firstweekday" type="radio" default="1" label="SELECTFIRSTWEEKDAY" description="SELECTFIRSTWEEKDAYDESC">
+        <option value="0">Sunday</option>
+        <option value="1">Monday</option>
+      </param>
+			<param name="top_category" type="categories" default="0" label="SELECT TOP CATEGORY" description="SELECT TOP CATEGORY DESC" />
+			<param name="daylimit" type="text" default="10" label="MAX EVENTS PER DAY" description="MAX EVENTS PER DAY DESC" />
+    </params>
+	</state>
+</metadata>

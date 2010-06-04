@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="MY LAYOUT">
+		<message>
+			<![CDATA[MY LAYOUT DESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>MY LAYOUT</name>
+		<description>MY LAYOUT DESC</description>
+		<params>
+			<param name="showmyevents" type="radio" default="1" label="DISPLAY MYEVENTS" description="DISPLAY MYEVENTS TIP">
+				<option value="0">Hide</option>
+				<option value="1">Show</option>
+			</param>
+			<param name="showmyvenues" type="radio" default="1" label="DISPLAY MYVENUES" description="DISPLAY MYVENUES TIP">
+				<option value="0">Hide</option>
+				<option value="1">Show</option>
+			</param>
+			<param name="showmyregistrations" type="radio" default="1" label="DISPLAY MYREGISTRATIONS" description="DISPLAY MYREGISTRATIONS TIP">
+				<option value="0">Hide</option>
+				<option value="1">Show</option>
+			</param>
+			<param name="filtermyregs" type="radio" default="1" label="FILTER MYREGISTRATIONS" description="FILTER MYREGISTRATIONS TIP">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</param>
+			<param name="myregspast" type="text" size="4" default="1" label="MY REGS PAST" description="MY REGS PAST DESC" />
+		</params>
+	</state>
+</metadata>
