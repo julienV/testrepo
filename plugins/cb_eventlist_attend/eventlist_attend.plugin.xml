@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.00" type="plugin" group="user">
+	<name>EventList Attendees</name>
+	<author>Christoph Lukes</author>
+	<creationDate>November 2007</creationDate>
+	<copyright>(C) 2007 Christoph Lukes</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>info@schlu.net</authorEmail>
+	<authorUrl>http://www.schlu.net</authorUrl>
+	<version>1.1</version>
+	<description>An EventList 0.9 Community Builder intergration to display the events a user is registered for</description>
+	<files>
+		<filename plugin="eventlist_attend.plugin">eventlist_attend.plugin.php</filename>
+		<filename>index.html</filename>
+	</files>
+
+    <tabs>
+		<tab name="My Events" description="Shows the Events of the EventList Component the user is registered for" class="getEventsTab" fields="0" position="cb_tabmain" displaytype="tab">
+			<params>
+	    		<param name="limit" type="text" default="5" label="Nr. of results" description="Nr. of results to display" />
+	    		<param name="dateformat" type="text" default="%d.%m.%Y" label="Date format" description="To format the date use for example this code: %d.%m.%Y." />
+	    		<param name="formattime" type="text" default="%H.%M" label="Time format" description="To format the time use for example this code: %H.%M." />
+   			 </params>
+
+			<fields>
+			</fields>
+		</tab>
+	</tabs>
+</cbinstall>
