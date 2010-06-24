@@ -138,8 +138,10 @@ defined('_JEXEC') or die('Restricted access');
     			return false;
   			} else {
   			<?php
-			// JavaScript for extracting editor text
-				echo $this->editor->save( 'datdescription' );
+  			if ($this->editoruser) {
+					// JavaScript for extracting editor text
+					echo $this->editor->save( 'datdescription' );
+  			}
 			?>
 				submit_unlimited();
 				elsubmitform(pressbutton);
