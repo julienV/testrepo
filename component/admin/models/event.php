@@ -127,41 +127,41 @@ class EventListModelEvent extends JModel
 		// Lets load the content if it doesn't already exist
 		if (empty($this->_data))
 		{
-			$createdate = & JFactory::getDate();
-			$user = & JFactory::getUser();
-			
-			$event = new stdClass();
-			$event->id					= 0;
-			$event->locid				= 0;
-			//$event->categories			= '';
-			$event->dates				= null;
-			$event->enddates			= null;
-			$event->times				= null;
-			$event->endtimes			= null;
-			$event->title				= '';
-			$event->alias				= '';
-			$event->created				= $createdate->toUnix();
-			$event->author_ip			= '';
-			$event->created_by			= $user->get('id');
-			$event->published			= 1;
-			$event->registra			= 0;
-			$event->unregistra			= 0;
-			$event->datdescription		= '';
-			$event->meta_keywords		= '';
-			$event->meta_description	= '';
-			$event->recurrence_number	= 0;
-			$event->recurrence_type		= 0;
-			$event->recurrence_limit_date	= '0000-00-00';
-      		$event->recurrence_limit 	= 0;
-      		$event->recurrence_counter 	= 0;
-      		$event->recurrence_byday 	= '';
-			$event->datimage			= JText::_('SELECTIMAGE');
-			$event->venue				= JText::_('SELECTVENUE');
-			$event->hits				= 0;
-			$event->version				= 0;
-			$event->modified			= $this->_db->getNullDate();
-			$this->_data				= $event;
-			return (boolean) $this->_data;
+            $createdate = & JFactory::getDate();
+            $user = & JFactory::getUser();
+
+            $event = new stdClass();
+            $event->id					= 0;
+            $event->locid				= 0;
+            //$event->categories			= '';
+            $event->dates				= null;
+            $event->enddates			= null;
+            $event->times				= null;
+            $event->endtimes			= null;
+            $event->title				= '';
+            $event->alias				= '';
+            $event->created				= $createdate->toUnix();
+            $event->author_ip			= '';
+            $event->created_by			= $user->get('id');
+            $event->published			= 1;
+            $event->registra			= 0;
+            $event->unregistra			= 0;
+            $event->datdescription		= '';
+            $event->meta_keywords		= '';
+            $event->meta_description	= '';
+            $event->recurrence_number	= 0;
+            $event->recurrence_type		= 0;
+            $event->recurrence_limit_date	= '0000-00-00';
+            $event->recurrence_limit 	= 0;
+            $event->recurrence_counter 	= 0;
+            $event->recurrence_byday 	= '';
+            $event->datimage			= JText::_('SELECTIMAGE');
+            $event->venue				= JText::_('SELECTVENUE');
+            $event->hits				= 0;
+            $event->version				= 0;
+            $event->modified			= $this->_db->getNullDate();
+            $this->_data				= $event;
+            return (boolean) $this->_data;
 		}
 		return true;
 	}
