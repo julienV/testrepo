@@ -162,16 +162,32 @@ class EventListModelEventList extends JModel
 		$where		= $this->_buildEventListWhere();
 		$orderby	= $this->_buildEventListOrderBy();
 
-		//Get Events from Database
-		$query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.created, a.locid, a.datdescription,'
-				. ' l.venue, l.city, l.state, l.url,'
-				. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
-				. ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
-				. ' FROM #__eventlist_events AS a'
-				. ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
-				. $where
-				. $orderby
-				;
+        // Get Events from Database ...
+        if (ELHelper::config()->showatte == 1){
+            // with number of participants
+            $query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.created, a.locid, a.datdescription,'
+                . ' l.venue, l.city, l.state, l.url, COUNT(r.id) AS attendees,'
+                . ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
+                . ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
+                . ' FROM #__eventlist_events AS a'
+                . ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
+                . ' LEFT OUTER JOIN #__eventlist_register AS r ON r.event = a.id'                
+                . $where
+                . ' GROUP BY a.id'
+                . $orderby
+                ;
+        } else {
+            // not required by settings - go with a quicker query
+            $query = 'SELECT DISTINCT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.created, a.locid, a.datdescription,'
+                . ' l.venue, l.city, l.state, l.url,'
+                . ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug,'
+                . ' CASE WHEN CHAR_LENGTH(l.alias) THEN CONCAT_WS(\':\', a.locid, l.alias) ELSE a.locid END as venueslug'
+                . ' FROM #__eventlist_events AS a'
+                . ' LEFT JOIN #__eventlist_venues AS l ON l.id = a.locid'
+                . $where
+                . $orderby
+                ;
+        }
 
 		return $query;
 	}
