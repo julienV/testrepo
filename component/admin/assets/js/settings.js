@@ -167,6 +167,22 @@ function changecatMode(mode)
 	} // if
 }
 
+function changeatteMode(mode)
+{
+	if(document.getElementById) {
+		switch (mode) {
+			case 0:
+				document.getElementById('atte1').style.display = 'none';
+				document.adminForm.attewidth.value='';
+				document.getElementById('atte2').style.display = 'none';				
+				break;
+			default:
+				document.getElementById('atte1').style.display = '';
+				document.getElementById('atte2').style.display = '';				
+		} // switch
+	} // if
+}
+
 function changeregMode()
 {
 	if(document.getElementById) {
