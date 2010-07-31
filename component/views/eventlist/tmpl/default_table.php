@@ -79,6 +79,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<?php if ($this->elsettings->showcat == 1) :	?>
 			<col width="<?php echo $this->elsettings->catfrowidth; ?>" class="el_col_category" />
 		<?php endif; ?>
+		<?php if ($this->elsettings->showatte == 1) :	?>
+			<col width="<?php echo $this->elsettings->attewidth; ?>" class="el_col_atte" />
+		<?php endif; ?>
 	</colgroup>
 
 	<thead>
@@ -108,6 +111,12 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				if ($this->elsettings->showcat == 1) :
 				?>
 				<th id="el_category" class="sectiontableheader" align="left"><?php echo $this->escape($this->elsettings->catfroname); ?></th>
+				<?php
+				endif;
+
+				if ($this->elsettings->showatte == 1) :
+				?>
+				<th id="el_atte" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->escape($this->elsettings->attename), 'a.attendees', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<?php
 				endif;
 				?>
@@ -235,6 +244,12 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 					endforeach;
 					?>
 				</td>
+				<?php
+				endif;
+
+				if ($this->elsettings->showatte== 1) :
+				?>
+					<td headers="el_atte" align="left" valign="top"><?php echo $row->attendees; ?></td>
 				<?php
 				endif;
 				?>
