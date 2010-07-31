@@ -48,6 +48,8 @@ class eventlist_settings extends JTable
 	/** @var int */
 	var $showcity 			= "1";
 	/** @var int */
+	var $showatte 			= "1";
+	/** @var int */
 	var $showmapserv 		= "0";
 	/** @var string */
 	var $map24id 			= null;
@@ -66,6 +68,8 @@ class eventlist_settings extends JTable
 	/** @var string */
 	var $citywidth 			= null;
 	/** @var string */
+	var $attewidth 			= null;
+	/** @var string */
 	var $datename 			= null;
 	/** @var string */
 	var $titlename 			= null;
@@ -75,6 +79,8 @@ class eventlist_settings extends JTable
 	var $locationname 		= null;
 	/** @var string */
 	var $cityname 			= null;
+	/** @var string */
+	var $attename 			= null;
 	/** @var string */
 	var $formatdate 		= null;
 	/** @var string */
