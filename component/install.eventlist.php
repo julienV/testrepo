@@ -343,6 +343,9 @@ if ($update11)
     //update current settings
     $query = 'ALTER TABLE #__eventlist_settings'
     .' CHANGE imagehight imageheight VARCHAR( 20 ) NOT NULL,'
+    .' ADD showatte tinyint(4) NOT NULL AFTER showcity,'
+    .' ADD attewidth varchar(20) NOT NULL AFTER citywidth,'
+    .' ADD attename varchar(100) NOT NULL AFTER cityname,'
     .' ADD reg_access tinyint(4) NOT NULL AFTER regname,'
     .' ADD ownedvenuesonly tinyint(4) NOT NULL AFTER locpubrec,'
 	.' DROP mailinform,'
