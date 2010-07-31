@@ -43,8 +43,8 @@ defined('_JEXEC') or die('Restricted access');
       				</tr>
 					<tr>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'FRONT TABLE WIDTH' ); ?>::<?php echo JText::_('FRONT TABLE WIDTH TIP'); ?>">
-								<?php echo JText::_( 'FRONT TABLE WIDTH' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_FRONT_TABLE_WIDTH' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_FRONT_TABLE_WIDTH_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_FRONT_TABLE_WIDTH' ); ?>
 							</span>
 						</td>
        					<td valign="top">
@@ -60,8 +60,8 @@ defined('_JEXEC') or die('Restricted access');
 				<tbody>
 					<tr>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'WIDTH DATE COLUMN' ); ?>::<?php echo JText::_('WIDTH DATE COLUMN TIP'); ?>">
-								<?php echo JText::_( 'WIDTH DATE COLUMN' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_WIDTH' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_COLUMN_WIDTH_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_WIDTH' ); ?>
 							</span>
 						</td>
        					<td valign="top">
@@ -70,8 +70,8 @@ defined('_JEXEC') or die('Restricted access');
       				</tr>
 					<tr>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COLUMN NAME' ); ?>::<?php echo JText::_('COLUMN NAME TIP'); ?>">
-								<?php echo JText::_( 'COLUMN NAME' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_NAME' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_COLUMN_NAME_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_NAME' ); ?>
 							</span>
 						</td>
        					<td valign="top">
@@ -105,8 +105,8 @@ defined('_JEXEC') or die('Restricted access');
       				</tr>
 					<tr id="city1"<?php if (!$mode) echo ' style="display:none"'; ?>>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'WIDTH CITY COLUMN' ); ?>::<?php echo JText::_('WIDTH CITY COLUMN TIP'); ?>">
-								<?php echo JText::_( 'WIDTH CITY COLUMN' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_WIDTH' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_COLUMN_WIDTH_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_WIDTH' ); ?>
 							</span>
 						</td>
        					<td valign="top">
@@ -115,8 +115,8 @@ defined('_JEXEC') or die('Restricted access');
       				</tr>
 					<tr id="city2"<?php if (!$mode) echo ' style="display:none"'; ?>>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COLUMN NAME' ); ?>::<?php echo JText::_('COLUMN NAME TIP'); ?>">
-								<?php echo JText::_( 'COLUMN NAME' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_NAME' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_COLUMN_NAME_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_NAME' ); ?>
 							</span>
 						</td>
        					<td valign="top">
@@ -150,8 +150,8 @@ defined('_JEXEC') or die('Restricted access');
       				</tr>
 					<tr id="title1"<?php if (!$mode) echo ' style="display:none"'; ?>>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'WIDTH TITLE COLUMN' ); ?>::<?php echo JText::_('WIDTH TITLE COLUMN TIP'); ?>">
-								<?php echo JText::_( 'WIDTH TITLE COLUMN' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_WIDTH' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_COLUMN_WIDTH_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_WIDTH' ); ?>
 							</span>
 						</td>
        					<td valign="top">
@@ -160,8 +160,8 @@ defined('_JEXEC') or die('Restricted access');
       				</tr>
 					<tr id="title2"<?php if (!$mode) echo ' style="display:none"'; ?>>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COLUMN NAME' ); ?>::<?php echo JText::_('COLUMN NAME TIP'); ?>">
-								<?php echo JText::_( 'COLUMN NAME' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_NAME' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_COLUMN_NAME_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_NAME' ); ?>
 							</span>
 						</td>
        					<td valign="top">
@@ -198,8 +198,8 @@ defined('_JEXEC') or die('Restricted access');
       				</tr>
 					<tr id="locate1"<?php if (!$mode) echo ' style="display:none"'; ?>>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'WIDTH VENUE COLUMN' ); ?>::<?php echo JText::_('WIDTH VENUE COLUMN TIP'); ?>">
-								<?php echo JText::_( 'WIDTH VENUE COLUMN' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_WIDTH' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_COLUMN_WIDTH_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_WIDTH' ); ?>
 							</span>
 						</td>
        					<td valign="top">
@@ -208,8 +208,8 @@ defined('_JEXEC') or die('Restricted access');
       				</tr>
 					<tr id="locate2"<?php if (!$mode) echo ' style="display:none"'; ?>>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COLUMN NAME' ); ?>::<?php echo JText::_('COLUMN NAME TIP'); ?>">
-								<?php echo JText::_( 'COLUMN NAME' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_NAME' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_COLUMN_NAME_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_NAME' ); ?>
 							</span>
 						</td>
        					<td valign="top">
@@ -255,8 +255,8 @@ defined('_JEXEC') or die('Restricted access');
       				</tr>
 					<tr id="state1"<?php if (!$mode) echo ' style="display:none"'; ?>>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'WIDTH STATE COLUMN' ); ?>::<?php echo JText::_('WIDTH STATE COLUMN TIP'); ?>">
-								<?php echo JText::_( 'WIDTH STATE COLUMN' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_WIDTH' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_COLUMN_WIDTH_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_WIDTH' ); ?>
 							</span>
 						</td>
        					<td valign="top">
@@ -265,8 +265,8 @@ defined('_JEXEC') or die('Restricted access');
       				</tr>
 					<tr id="state2"<?php if (!$mode) echo ' style="display:none"'; ?>>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COLUMN NAME' ); ?>::<?php echo JText::_('COLUMN NAME TIP'); ?>">
-								<?php echo JText::_( 'COLUMN NAME' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_NAME' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_COLUMN_NAME_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_NAME' ); ?>
 							</span>
 						</td>
        					<td valign="top">
@@ -278,13 +278,13 @@ defined('_JEXEC') or die('Restricted access');
 			</fieldset>
 
 			<fieldset class="adminform">
-			<legend><?php echo JText::_( 'CATEGORY COLUMN'); ?></legend>
+			<legend><?php echo JText::_( 'COM_EVENTLIST_SETTINGS_CATEGORY_COLUMN'); ?></legend>
 				<table class="admintable" cellspacing="1">
 				<tbody>
 	  				<tr>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'DISPLAY CATEGORY FRONT' ); ?>::<?php echo JText::_('DISPLAY CATEGORY FRONT TIP'); ?>">
-								<?php echo JText::_( 'DISPLAY CATEGORY FRONT' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_CATEGORY_DISPLAY_FRONT' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_CATEGORY_DISPLAY_FRONT_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_CATEGORY_DISPLAY_FRONT' ); ?>
 							</span>
 						</td>
        					<td valign="top">
@@ -300,8 +300,8 @@ defined('_JEXEC') or die('Restricted access');
       				</tr>
 					<tr id="cat1"<?php if (!$mode) echo ' style="display:none"'; ?>>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'WIDTH CATEGORY COLUMN' ); ?>::<?php echo JText::_('WIDTH CATEGORY COLUMN TIP'); ?>">
-								<?php echo JText::_( 'WIDTH CATEGORY COLUMN' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_WIDTH' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_COLUMN_WIDTH_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_WIDTH' ); ?>
 							</span>
 						</td>
        					<td valign="top">
@@ -310,8 +310,8 @@ defined('_JEXEC') or die('Restricted access');
       				</tr>
 					<tr id="cat2"<?php if (!$mode) echo ' style="display:none"'; ?>>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COLUMN NAME' ); ?>::<?php echo JText::_('COLUMN NAME TIP'); ?>">
-								<?php echo JText::_( 'COLUMN NAME' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_NAME' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_COLUMN_NAME_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_NAME' ); ?>
 							</span>
 						</td>
        					<td valign="top">
@@ -320,8 +320,8 @@ defined('_JEXEC') or die('Restricted access');
       				</tr>
 					<tr id="cat3"<?php if (!$mode) echo ' style="display:none"'; ?>>
 	          			<td width="300" class="key">
-							<span class="editlinktip hasTip" title="<?php echo JText::_( 'DISPLAY LINK TO CATEGORY VIEW' ); ?>::<?php echo JText::_('DISPLAY LINK TO CATEGORY VIEW TIP'); ?>">
-								<?php echo JText::_( 'DISPLAY LINK TO CATEGORY VIEW' ); ?>
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_CATEGORY_DISPLAY_LINK' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_CATEGORY_DISPLAY_LINK_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_CATEGORY_DISPLAY_LINK' ); ?>
 							</span>
 						</td>
        					<td valign="top">
@@ -333,6 +333,50 @@ defined('_JEXEC') or die('Restricted access');
 				</tbody>
 				</table>
 			  </fieldset>
+			<fieldset class="adminform">
+			<legend><?php echo JText::_( 'COM_EVENTLIST_SETTINGS_ATTENDEES_COLUMN' ); ?></legend>
+				<table class="admintable" cellspacing="1">
+				<tbody>
+					<tr>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_ATTENDEES_DISPLAY_FRONT' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_ATTENDEES_DISPLAY_FRONT_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_ATTENDEES_DISPLAY_FRONT' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+          					<?php
+							$mode = 0;
+							if ($this->elsettings->showatte == 1) {
+							$mode = 1;
+							} // if
+							?>
+							<input type="radio" id="showatte0" name="showatte" value="0" onclick="changeatteMode(0)"<?php if (!$mode) echo ' checked="checked"'; ?>/><?php echo JText::_( 'NO' ); ?>
+							<input type="radio" id="showatte1" name="showatte" value="1" onclick="changeatteMode(1)"<?php if ($mode) echo ' checked="checked"'; ?>/><?php echo JText::_( 'YES' ); ?>
+       	 				</td>
+      				</tr>
+					<tr id="atte1"<?php if (!$mode) echo ' style="display:none"'; ?>>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_ATTENDEES_COLUMN_WIDTH' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_ATTENDEES_COLUMN_WIDTH_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_ATTENDEES_COLUMN_WIDTH' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+							<input type="text" name="attewidth" value="<?php echo $this->elsettings->attewidth; ?>" size="5" maxlength="4" />
+       	 				</td>
+      				</tr>
+					<tr id="atte2"<?php if (!$mode) echo ' style="display:none"'; ?>>
+	          			<td width="300" class="key">
+							<span class="editlinktip hasTip" title="<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_NAME' ); ?>::<?php echo JText::_('COM_EVENTLIST_SETTINGS_COLUMN_NAME_TIP'); ?>">
+								<?php echo JText::_( 'COM_EVENTLIST_SETTINGS_COLUMN_NAME' ); ?>
+							</span>
+						</td>
+       					<td valign="top">
+							<input type="text" name="attename" value="<?php echo $this->elsettings->attename; ?>" size="30" maxlength="25" />
+       	 				</td>
+      				</tr>
+				</tbody>
+				</table>
+			</fieldset>
 		</td>
       </tr>
     </table>
