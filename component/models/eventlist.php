@@ -163,7 +163,7 @@ class EventListModelEventList extends JModel
 		$orderby	= $this->_buildEventListOrderBy();
 
         // Get Events from Database ...
-        if (ELHelper::config()->showatte == 1){
+        if (ELHelper::config()->params->get('showatte') == 1){
             // with number of participants
             $query = 'SELECT a.id, a.dates, a.enddates, a.times, a.endtimes, a.title, a.created, a.locid, a.datdescription,'
                 . ' l.venue, l.city, l.state, l.url, COUNT(r.id) AS attendees,'

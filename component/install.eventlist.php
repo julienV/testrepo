@@ -343,9 +343,6 @@ if ($update11)
     //update current settings
     $query = 'ALTER TABLE #__eventlist_settings'
     .' CHANGE imagehight imageheight VARCHAR( 20 ) NOT NULL,'
-    .' ADD showatte tinyint(4) NOT NULL AFTER showcity,'
-    .' ADD attewidth varchar(20) NOT NULL AFTER citywidth,'
-    .' ADD attename varchar(100) NOT NULL AFTER cityname,'
     .' ADD reg_access tinyint(4) NOT NULL AFTER regname,'
     .' ADD ownedvenuesonly tinyint(4) NOT NULL AFTER locpubrec,'
 	.' DROP mailinform,'
@@ -523,6 +520,51 @@ if ($update11)
     #																			#
     #############################################################################
 }
+
+#############################################################################
+#																			#
+#	BEGIN: Database Update Logic for EventList 1.1 Beta to Current EventList development version
+#																			#
+#############################################################################
+$updateDev = true;
+if ($updateDev)
+{	
+  $status->updates[] = array ('oldversion'=>'1.1 Beta', 'newversion'=>'1.1 Beta development');
+    
+	// first get tables to be checked for update
+	$tables = array( '#__eventlist_settings', 
+               );
+	$tables = $db->getTableFields($tables, false);
+	
+	// this is just an example !
+	$cols = $tables['#__eventlist_settings'];
+	
+	if (!array_key_exists('showatte', $cols) && 0) // remove the '&& 0'...
+	{
+    //update table
+    $query = 'ALTER TABLE #__eventlist_settings'
+           .' ADD showatte .... '
+           ;
+
+    $db->setQuery($query);
+    if (!$db->query())
+    {
+        $status->updates[$i][] = array ('message'=>'Adding new fields to settings table', 'result'=>'failed');
+    } else
+    {
+        $status->updates[$i][] = array ('message'=>'Adding new fields to settings table', 'result'=>'success');
+    }
+	}
+	
+	
+	//increase counter
+	$i++;
+}
+#############################################################################
+#																			#
+#	END: Database Update Logic for EventList 1.1 Beta to Current EventList development version
+#																			#
+#############################################################################
 
 /***********************************************************************************************
  * ---------------------------------------------------------------------------------------------

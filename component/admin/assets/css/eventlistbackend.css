@@ -158,6 +158,7 @@ div.clear
     padding: 0px;
 }
 
-div#page-parameters fieldset.adminform {
-  float:left;
+div#page-parameters fieldset.adminform .el-spacer {
+  background-color:lightgrey;
+  padding:5px 0px;
 }

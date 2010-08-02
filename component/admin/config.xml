@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-	<params>
+	<params addpath="/administrator/components/com_eventlist/elements">
 		<param name="display_num" type="list" default="15" label="EVENT NUMBER" description="EVENT NUMBER TIP">
 			<option value="5">5</option>
 			<option value="10">10</option>
@@ -35,6 +35,85 @@
 			<option value="0">Hide</option>
 			<option value="1">Show</option>
 		</param>
+		
+		<!-- START Event table columns -->
+		<param type="elspacer" default="COM_EVENTLIST_SETTINGS_EVENT_TABLE_SPACER"/>
+		
+		<param name="showtime" type="radio" default="1" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_WIDTH_DISPLAY_TIME" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_WIDTH_DISPLAY_TIME_TIP">
+			<option value="0">Hide</option>
+			<option value="1">Show</option>
+		</param>
+		<param name="tablewidth" type="text" size="4" default="100%" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_WIDTH" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_WIDTH_TIP" />
+		
+		<param type="spacer"/>
+		
+		<param name="datewidth" type="text" size="4" default="10%" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_DATE_COL_WIDTH" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_DATE_COL_WIDTH_TIP" />
+		<param name="datename" type="text" size="20" default="Date" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_DATE_COL_LABEL" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_DATE_COL_LABEL_TIP" />
+		
+		<param type="spacer"/>
+		
+		<param name="showcity" type="radio" default="1" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_CITY" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_CITY_TIP" >
+			<option value="0">Hide</option>
+			<option value="1">Show</option>
+		</param>		
+		<param name="citywidth" type="text" size="4" default="10%" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_CITY_COL_WIDTH" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_CITY_COL_WIDTH_TIP" />		
+		<param name="cityname" type="text" size="20" default="City" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_CITY_COL_LABEL" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_CITY_COL_LABEL_TIP" />
+		
+		<param type="spacer"/>
+		
+		<param name="showtitle" type="radio" default="1" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_TITLE" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_TITLE_TIP" >
+			<option value="0">Hide</option>
+			<option value="1">Show</option>
+		</param>		
+		<param name="titlewidth" type="text" size="4" default="10%" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_TITLE_COL_WIDTH" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_TITLE_COL_WIDTH_TIP" />		
+		<param name="titlename" type="text" size="20" default="Title" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_TITLE_COL_LABEL" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_TITLE_COL_LABEL_TIP" />
+		
+		<param type="spacer"/>
+		
+		<param name="showlocate" type="radio" default="1" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_VENUE" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_VENUE_TIP" >
+			<option value="0">Hide</option>
+			<option value="1">Show</option>
+		</param>		
+		<param name="locationwidth" type="text" size="4" default="10%" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_VENUE_COL_WIDTH" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_VENUE_COL_WIDTH_TIP" />		
+		<param name="locationname" type="text" size="20" default="Venue" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_VENUE_COL_LABEL" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_VENUE_COL_LABEL_TIP" />
+		<param name="showlinkvenue" type="radio" default="1" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_VENUE_LINK" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_VENUE_LINK_TIP" >
+			<option value="0">Hide</option>
+			<option value="1">Show</option>
+		</param>		
+		
+		<param type="spacer"/>
+		
+		<param name="showstate" type="radio" default="1" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_STATE" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_STATE_TIP" >
+			<option value="0">Hide</option>
+			<option value="1">Show</option>
+		</param>		
+		<param name="statewidth" type="text" size="4" default="10%" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_STATE_COL_WIDTH" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_STATE_COL_WIDTH_TIP" />		
+		<param name="statename" type="text" size="20" default="State" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_STATE_COL_LABEL" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_STATE_COL_LABEL_TIP" />
+		
+		<param type="spacer"/>
+		
+		<param name="showcat" type="radio" default="1" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_CATEGORY" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_CATEGORY_TIP" >
+			<option value="0">Hide</option>
+			<option value="1">Show</option>
+		</param>		
+		<param name="catfrowidth" type="text" size="4" default="10%" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_CATEGORY_COL_WIDTH" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_CATEGORY_COL_WIDTH_TIP" />		
+		<param name="catfroname" type="text" size="20" default="Category" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_CATEGORY_COL_LABEL" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_CATEGORY_COL_LABEL_TIP" />
+		<param name="catlinklist" type="radio" default="1" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_CATEGORY_LINK" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_CATEGORY_LINK_TIP" >
+			<option value="0">Hide</option>
+			<option value="1">Show</option>
+		</param>		
+		
+		<param type="spacer"/>
+		
+		<param name="showatte" type="radio" default="1" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_ATTENDEES" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_SHOW_ATTENDEES_TIP" >
+			<option value="0">Hide</option>
+			<option value="1">Show</option>
+		</param>		
+		<param name="attewidth" type="text" size="4" default="10%" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_ATTENDEES_COL_WIDTH" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_ATTENDEES_COL_WIDTH_TIP" />		
+		<param name="attename" type="text" size="20" default="Attendees" label="COM_EVENTLIST_SETTINGS_FRONT_TABLE_ATTENDEES_COL_LABEL" description="COM_EVENTLIST_SETTINGS_FRONT_TABLE_ATTENDEES_COL_LABEL_TIP" />
+		
+		<!-- END Event table columns -->
+		
  	</params>
  	<params group="recurrence">
     <param name="weekdaystart" type="radio" default="1" label="SELECTFIRSTWEEKDAY" description="SELECTFIRSTWEEKDAYDESC">

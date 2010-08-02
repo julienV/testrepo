@@ -79,14 +79,14 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		<?php if ($this->elsettings->showcat == 1) :	?>
 			<col width="<?php echo $this->elsettings->catfrowidth; ?>" class="el_col_category" />
 		<?php endif; ?>
-		<?php if ($this->elsettings->showatte == 1) :	?>
-			<col width="<?php echo $this->elsettings->attewidth; ?>" class="el_col_atte" />
+		<?php if ($this->elsettings->params->get('showatte') == 1) :	?>
+			<col width="<?php echo $this->elsettings->params->get('attewidth'); ?>" class="el_col_atte" />
 		<?php endif; ?>
 	</colgroup>
 
 	<thead>
 			<tr>
-				<th id="el_date" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->escape($this->elsettings->datename), 'a.dates', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th id="el_date" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->escape($this->elsettings->params->get('datename')), 'a.dates', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<?php
 				if ($this->elsettings->showtitle == 1) :
 				?>
@@ -114,9 +114,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				<?php
 				endif;
 
-				if ($this->elsettings->showatte == 1) :
+				if ($this->elsettings->params->get('showatte') == 1) :
 				?>
-				<th id="el_atte" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->escape($this->elsettings->attename), 'a.attendees', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
+				<th id="el_atte" class="sectiontableheader" align="left"><?php echo JHTML::_('grid.sort', $this->escape($this->elsettings->params->get('attename')), 'attendees', $this->lists['order_Dir'], $this->lists['order'] ); ?></th>
 				<?php
 				endif;
 				?>
@@ -247,7 +247,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 				<?php
 				endif;
 
-				if ($this->elsettings->showatte== 1) :
+				if ($this->elsettings->params->get('showatte')== 1) :
 				?>
 					<td headers="el_atte" align="left" valign="top"><?php echo $row->attendees; ?></td>
 				<?php

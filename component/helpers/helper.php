@@ -46,6 +46,10 @@ class ELHelper {
 			$sql 	= 'SELECT * FROM #__eventlist_settings WHERE id = 1';
 			$db->setQuery($sql);
 			$config = $db->loadObject();
+			
+			$app = &JFactory::getApplication();
+			$params = $app->getParams('com_eventlist');
+			$config->params = $params;
 		}
 
 		return $config;
