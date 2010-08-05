@@ -47,9 +47,7 @@ class ELHelper {
 			$db->setQuery($sql);
 			$config = $db->loadObject();
 			
-			$app = &JFactory::getApplication();
-			$params = $app->getParams('com_eventlist');
-			$config->params = $params;
+			$config->params = JComponentHelper::getParams('com_eventlist');
 		}
 
 		return $config;
