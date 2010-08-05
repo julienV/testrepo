@@ -112,10 +112,11 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
    			form.country.focus();
    			return false;
   		} else {
-  			<?php
-			// JavaScript for extracting editor text
-			echo $this->editor->save( 'locdescription' );
-			?>
+  			<?php if ($this->editoruser):
+								// JavaScript for extracting editor text
+								echo $this->editor->save( 'locdescription' );
+							endif; 
+				?>
 			elsubmitform(pressbutton);
 
 			return true;
