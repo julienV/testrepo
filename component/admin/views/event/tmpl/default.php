@@ -40,9 +40,6 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 	{
 
 		var form = document.adminForm;
-		var datdescription = <?php
-		echo $this->editor->getContent ( 'datdescription' );
-		?>
 
 		if (task == 'cancel') {
 			submitform( task );
@@ -60,9 +57,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 		} else if (form.locid.value == ""){
 			alert( "<?php echo JText::_ ( 'CHOOSE VENUE' );	?>" );
 		} else {
-			<?php
-			echo $this->editor->save ( 'datdescription' );
-			?>
+			<?php	echo $this->editor->save ( 'datdescription' ); ?>
 			$("meta_keywords").value = $keywords;
 			$("meta_description").value = $description;
 			submit_unlimited();
