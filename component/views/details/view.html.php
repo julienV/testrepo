@@ -168,7 +168,7 @@ class EventListViewDetails extends JView
 				if ($meta_keywords_content != "") {
 					$meta_keywords_content .= ", ";
 				}
-				if (ereg("[/[/]",$keyword)) {
+				if (preg_match("/[\/[\/]/",$keyword)) {
 					$keyword = trim(str_replace("[", "", str_replace("]", "", $keyword)));
 					$buffer = $this->keyword_switcher($keyword, $row, $categories, $elsettings->formattime, $elsettings->formatdate);
 					if ($buffer != "") {
