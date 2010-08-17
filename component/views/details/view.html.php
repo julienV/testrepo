@@ -200,19 +200,19 @@ class EventListViewDetails extends JView
 		}
 
 		//set page title and meta stuff
-		$document->setTitle( $item->name.' - '.$row->title );
-        $document->setMetadata('keywords', $meta_keywords_content );
-        $document->setDescription( strip_tags($description_content) );
+		$document->setTitle( $row->title );
+    $document->setMetadata('keywords', $meta_keywords_content );
+    $document->setDescription( strip_tags($description_content) );
 
-        //build the url
-        if(!empty($row->url) && strtolower(substr($row->url, 0, 7)) != "http://") {
-        	$row->url = 'http://'.$row->url;
-        }
+    //build the url
+    if(!empty($row->url) && strtolower(substr($row->url, 0, 7)) != "http://") {
+    	$row->url = 'http://'.$row->url;
+    }
 
-        //create flag
-        if ($row->country) {
-        	$row->countryimg = ELOutput::getFlag( $row->country );
-        }
+    //create flag
+    if ($row->country) {
+    	$row->countryimg = ELOutput::getFlag( $row->country );
+    }
 		
 		// load dispatcher for plugins    
 		JPluginHelper::importPlugin( 'eventlist' );
