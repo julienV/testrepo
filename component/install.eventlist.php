@@ -526,8 +526,12 @@ if ($update11)
 #	BEGIN: Database Update Logic for EventList 1.1 Beta to Current EventList development version
 #																			#
 #############################################################################
+//is this a fresh install ? in that case, there should be no settings yet
+$query = 'SELECT id FROM #__eventlist_settings WHERE id = 1';
+$db->setQuery($query);
+$freshinstall = !$db->loadResult();
 
-if (!empty($status->updates)) // update only if not fresh install
+if (!$freshinstall) // update only if not fresh install
 {	
   $status->updates[] = array ('oldversion'=>'1.1 Beta', 'newversion'=>'1.1 Beta development');
     
@@ -554,8 +558,7 @@ if (!empty($status->updates)) // update only if not fresh install
     {
         $status->updates[$i][] = array ('message'=>'Adding new fields to settings table', 'result'=>'success');
     }
-	}
-	
+	}	
 	
 	//increase counter
 	$i++;
@@ -572,7 +575,7 @@ if (!empty($status->updates)) // update only if not fresh install
  * ---------------------------------------------------------------------------------------------
  ***********************************************************************************************/
 
-if (empty($status->updates))
+if ($freshinstall)
 {	
     // Check for existing /images/eventlist directory
     if (!$direxists = JFolder::exists(JPATH_SITE.'/images/eventlist'))
