@@ -526,8 +526,8 @@ if ($update11)
 #	BEGIN: Database Update Logic for EventList 1.1 Beta to Current EventList development version
 #																			#
 #############################################################################
-$updateDev = true;
-if ($updateDev)
+
+if (!empty($status->updates)) // update only if not fresh install
 {	
   $status->updates[] = array ('oldversion'=>'1.1 Beta', 'newversion'=>'1.1 Beta development');
     
@@ -571,7 +571,8 @@ if ($updateDev)
  * EVENTLIST FRESH INSTALL
  * ---------------------------------------------------------------------------------------------
  ***********************************************************************************************/
-if ( empty($status->updates))
+
+if (empty($status->updates))
 {	
     // Check for existing /images/eventlist directory
     if (!$direxists = JFolder::exists(JPATH_SITE.'/images/eventlist'))
@@ -618,7 +619,7 @@ if ( empty($status->updates))
     $query = 'SELECT * FROM #__eventlist_settings WHERE id = 1';
     $db->setQuery($query);
     $settingsresult = $db->loadResult();
-
+    
     if (!$settingsresult)
     {
         //Set the default setting values -> fresh install
