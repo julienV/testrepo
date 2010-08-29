@@ -38,45 +38,6 @@ defined('_JEXEC') or die('Restricted access');
 					}
 				}
 			);
-			
-			/*
-			document.formvalidator.setHandler('time',
-				function (value) {
-					if(value=="") {
-						return true;
-					} else {
-						timer = new Date();
-						time = timer.getTime();
-						regexp = new Array();
-						regexp[time] = new RegExp('[0-2]{1}[0-9]{1}:[0-5]{1}[0-9]{1}','gi');
-						return regexp[time].test(value);
-					}
-				}
-			);
-			*/
-			
-			document.formvalidator.setHandler('venue',
-				function (value) {
-					timer = new Date();
-					time = timer.getTime();
-					regexp = new Array();
-					regexp[time] = new RegExp('^[0-9]{1}[0-9]{0,}$');
-					return regexp[time].test(value);
-				}
-			);
-			document.formvalidator.setHandler('cid',
-				function (value) {
-					if(value == -1) {
-						return true;
-					} else {
-						timer = new Date();
-						time = timer.getTime();
-						regexp = new Array();
-						regexp[time] = new RegExp('^[1-9]{1}[0-9]{0,}$');
-						return regexp[time].test(value);
-					}
-				}
-			);
 		});
 
 		function submitbutton( pressbutton ) {
@@ -95,47 +56,27 @@ defined('_JEXEC') or die('Restricted access');
 			if ( title.length==0 ) {
    				alert("<?php echo JText::_( 'ADD TITLE', true ); ?>");
    				validator.handleResponse(false,form.title);
-   				form.title.focus();
    				return false;
+  			} else if ( validator.validate(form.locid) === false ) {
+    			alert("<?php echo JText::_( 'SELECT VENUE', true ); ?>");
+    			validator.handleResponse(false,form.locid);
+    			return false;
+				} else if ( form.cid.selectedIndex == -1 ) {
+    			alert("<?php echo JText::_( 'SELECT CATEGORY', true ); ?>");
+    			validator.handleResponse(false,form.cid);
+    			return false;
   			} else if ( form.dates.value=="" ) {
    				alert("<?php echo JText::_( 'ADD DATE', true ); ?>");
    				validator.handleResponse(false,form.dates);
-   				form.dates.focus();
    				return false;
   			} else if ( validator.validate(form.dates) === false ) {
    				alert("<?php echo JText::_( 'DATE WRONG', true ); ?>");
    				validator.handleResponse(false,form.dates);
-   				form.dates.focus();
    				return false;
   			} else if ( validator.validate(form.enddates) === false ) {
-  				//alert(validator.validate(form.enddates));
   				alert("<?php echo JText::_( 'DATE WRONG', true ); ?>");
     			validator.handleResponse(false,form.enddates);
-  				form.enddates.focus();
-  				return false;
-  				
-  			/*
-  			} else if ( validator.validate(form.times) === false ) {
-    			alert("<?php echo JText::_( 'TIME WRONG', true ); ?>");
-    			validator.handleResponse(false,form.times);
-    			form.times.focus();
-    			return false;
-			} else if ( validator.validate(form.endtimes) === false ) {
-  				alert("<?php echo JText::_( 'ENDTIME WRONG', true ); ?>");
-    			validator.handleResponse(false,form.endtimes);
-  				form.endtimes.focus();
-  				return false;
-  			*/
-  			
-			} else if ( form.cid.selectedIndex == -1 ) {
-    			alert("<?php echo JText::_( 'SELECT CATEGORY', true ); ?>");
-    			form.cid.focus();
-    			return false;
-  			} else if ( validator.validate(form.locid) === false ) {
-    			alert("<?php echo JText::_( 'SELECT VENUE', true ); ?>");
-    			validator.handleResponse(false,form.locid);
-    			form.locid.focus();
-    			return false;
+  				return false;  			
   			} else {
   			<?php
   			if ($this->editoruser) {
@@ -226,7 +167,7 @@ defined('_JEXEC') or die('Restricted access');
           </div>
 
           <div class="el_venue floattext">
-              <label for="a_name">
+              <label for="a_id">
                   <?php echo JText::_( 'VENUE' ).':'; ?>
               </label>
 				
@@ -255,7 +196,7 @@ defined('_JEXEC') or die('Restricted access');
                       <span><?php echo JText::_('SELECT')?></span>
                   </a>
                   
-                  <input class="inputbox required validate-venue" type="hidden" id="a_id" name="locid" value="<?php echo $this->row->locid; ?>" />
+                  <input class="inputbox required" type="hidden" id="a_id" name="locid" value="<?php echo $this->row->locid; ?>" />
              
                 <?php if ( $this->delloclink == 1 && !$this->row->id ) : //show location submission link ?>
                   <a class="el_venue_add modal" title="<?php echo JText::_('DELIVER NEW VENUE'); ?>" href="<?php echo JRoute::_('index.php?view=editvenue&mode=ajax&tmpl=component'); ?>" rel="{handler: 'iframe', size: {x: 800, y: 500}}">
