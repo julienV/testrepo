@@ -95,49 +95,49 @@ function generate_output($select_output, $select_value) {
  * @return object the generated selectlist
  * @access public
 **/
-function generate_selectlist($select_value) {
-	var $selectlist = document.createElement("select");	// new select element
-	$selectlist.name = "recurrence_selectlist";	// add attributes
-	$selectlist.id = "recurrence_selectlist";
-	switch($select_value) {
+function generate_selectlist(select_value) {
+	var selectlist = new Element("select");	// new select element
+	selectlist.name = "recurrence_selectlist";	// add attributes
+	selectlist.id = "recurrence_selectlist";
+	switch(select_value) {
 		case "1":
-			$limit = 14;	// days
+			limit = 14;	// days
 			break;
 		case "2":
-			$limit = 8;		// weeks
+			limit = 8;		// weeks
 			break;
 		case "3":
-			$limit = 12;	// months
+			limit = 12;	// months
 			break;
 		default:
-			$limit = 6;		// weekdays
+			limit = 6;		// weekdays
 			break;
 	}
-	for ($j = 0; $j < $limit; $j++) {
-		var $option = document.createElement("option");	// create option element
+	for ($j = 0; $j < limit; $j++) {
+		var option = new Element('option');	// create option element
 		if ($j == (parseInt($("recurrence_number").value) - 1)) {	// the selected - attribute
-			$option.selected = true;
+			option.selected = true;
 		}
-		if (($j >= 4) && ($select_value == 4)) {	// get the word for "last" and "before last" in the weekday section
-			var $name_value = "";
+		if (($j >= 4) && (select_value == 4)) {	// get the word for "last" and "before last" in the weekday section
+			var name_value = "";
 			switch($j) {
 				case 4:
-					$name_value = $last;
+					name_value = $last;
 					break;
 				case 5:
-					$name_value = $before_last;
+					name_value = $before_last;
 					break;
 			}
-			$option.appendChild(document.createTextNode($name_value)); 	// insert the name
-			$option.value = $j+1;										// and the value
+			option.setText(name_value); 	// insert the name
+			option.value = $j+1;										// and the value
 		} else {
-			$option.appendChild(document.createTextNode($j + 1)); // + 1 day because their is no recuring each "0" day
-			$option.value = $j + 1;
+			option.setText($j + 1); // + 1 day because their is no recuring each "0" day
+			option.value = $j + 1;
 		}
-		$selectlist.appendChild($option);	// include the option - element into the select - element
+		option.injectInside(selectlist);	// include the option - element into the select - element
 	}	
-  $selectlist.addEvent('change', set_parameter); 
-	return $selectlist;
+    selectlist.addEvent('change', set_parameter); 
+	return selectlist;
 }
 
 /**
