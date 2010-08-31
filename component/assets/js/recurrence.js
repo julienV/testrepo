@@ -162,7 +162,7 @@ function generate_selectlist_weekday() {
 		}
 		$selectlist.appendChild($option);	// include the option - element into the select - element
 	}
-	$selectlist.addEvent('change', function() {
+	$($selectlist).addEvent('change', function() {
 	  var result = '';
 	  var isempty = true;    
 	  for (i=0;i<this.length;i++)
