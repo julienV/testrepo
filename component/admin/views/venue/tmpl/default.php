@@ -25,9 +25,9 @@ defined('_JEXEC') or die('Restricted access');
 <script language="javascript" type="text/javascript">
 	Window.onDomReady(function(){
 		var form = document.getElementById('adminForm');
-		var map = form.getElementById('map1');
-		
-		if(map.checked) {
+		var map = $('map1');
+
+		if(map && map.checked) {
 			addrequired();
 		}	
 	});
@@ -63,14 +63,14 @@ defined('_JEXEC') or die('Restricted access');
 			return;
 		}
 
-		var map = form.getElementById('map1');
+		var map = $('map1');
 		var streetcheck = $(form.street).hasClass('required');
 		var lat = form.getElementById('latitude');
 		var lon = form.getElementById('longitude');
 
 		//workaround cause validate strict doesn't allow and operator
 		//and ie doesn't understand CDATA properly
-		if (map.checked) {
+		if (map && map.checked) {
 			if(lat.value == '') {  
 				if(lon.value == '') {
 					if(!streetcheck) {  
@@ -83,7 +83,7 @@ defined('_JEXEC') or die('Restricted access');
 			}
 		}
 
-		if (!map.checked) {
+		if (map && !map.checked) {
 			if(streetcheck) {
 				removerequired();
 			}
