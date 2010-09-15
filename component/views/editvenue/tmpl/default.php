@@ -67,12 +67,12 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		
 		var map = $('map1');
 		var streetcheck = $(form.street).hasClass('required');
-		var lat = form.getElementById('latitude');
-		var lon = form.getElementById('longitude');
 	
 		//workaround cause validate strict doesn't allow and operator
 		//and ie doesn't understand CDATA properly
 		if (map && map.checked) {
+			var lat = $('latitude');
+			var lon = $('longitude');
 			if(lat.value == '') {  
 				if(lon.value == '') {
 					if(!streetcheck) {  
