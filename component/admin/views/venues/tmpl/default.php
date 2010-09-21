@@ -29,8 +29,8 @@ defined('_JEXEC') or die('Restricted access');
 		<td width="100%">
 			 <?php echo JText::_( 'SEARCH' ).' '.$this->lists['filter']; ?>
 			<input type="text" name="search" id="search" value="<?php echo $this->lists['search']; ?>" class="text_area" onChange="document.adminForm.submit();" />
-			<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
-			<button onclick="this.form.getElementById('search').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
+			<button onclick="document.adminForm.submit();"><?php echo JText::_( 'Go' ); ?></button>
+			<button onclick="$('search').value='';document.adminForm.submit();;"><?php echo JText::_( 'Reset' ); ?></button>
 		</td>
 		<td nowrap="nowrap"><?php echo $this->lists['state']; ?></td>
 	</tr>
